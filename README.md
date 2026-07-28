@@ -1,4 +1,4 @@
-# DSGeorref — Software Architecture Repository v2.9
+# DSGeorref — Software Architecture Repository v3.0
 
 Baseline consolidada após as Fases A–E. O repositório contém arquitetura, requisitos, DDD, 57 ADRs definitivas, contratos, especificações executáveis, roadmap, histórias e TaskEnvelopes para Codex.
 
