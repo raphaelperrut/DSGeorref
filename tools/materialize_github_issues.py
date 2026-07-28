@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Materialize DSGeorref SAR issues on GitHub in safe, resumable batches.
+"""Materialize DSGeorref SAR issues on GitHub in safe, resumable batches (v3.0.5).
 
 The script is dry-run by default. It reads the canonical repository files,
 creates Epic issues before Story issues, sets parent/sub-issue relationships,
@@ -429,10 +429,119 @@ def load_dependency_edges(
     return sorted(set(edges))
 
 
+TRANSIENT_GITHUB_ERROR_MARKERS = (
+    "dial tcp",
+    "connectex",
+    "connection attempt failed",
+    "connection reset",
+    "connection refused",
+    "timeout",
+    "timed out",
+    "tls handshake timeout",
+    "temporary failure",
+    "502 bad gateway",
+    "503 service unavailable",
+    "504 gateway timeout",
+    "secondary rate limit",
+)
+
+
+def is_transient_github_error(result: subprocess.CompletedProcess[str]) -> bool:
+    text = f"{result.stderr or ''}\n{result.stdout or ''}".lower()
+    return any(marker in text for marker in TRANSIENT_GITHUB_ERROR_MARKERS)
+
+
+def run_github_with_retry(
+    command: list[str],
+    *,
+    attempts: int = 5,
+    base_delay: float = 2.0,
+) -> subprocess.CompletedProcess[str]:
+    last: subprocess.CompletedProcess[str] | None = None
+    for attempt in range(1, attempts + 1):
+        last = run_command(command, check=False)
+        if last.returncode == 0:
+            return last
+        if not is_transient_github_error(last) or attempt == attempts:
+            return last
+        delay = base_delay * (2 ** (attempt - 1))
+        print(
+            f"RETRY {attempt}/{attempts - 1}: falha transitória do GitHub; "
+            f"nova tentativa em {delay:.1f}s",
+            file=sys.stderr,
+        )
+        time.sleep(delay)
+    assert last is not None
+    return last
+
+
+def parse_repo_slug(repo: str) -> tuple[str, str]:
+    parts = repo.strip().strip("/").split("/")
+    if len(parts) != 2 or not all(parts):
+        raise MaterializationError(
+            f"Repositório inválido: {repo!r}. Use o formato OWNER/REPO."
+        )
+    return parts[0], parts[1]
+
+
+def remote_blockers(*, repo: str, blocked_number: int) -> set[int]:
+    """Return GitHub issue numbers that block ``blocked_number``.
+
+    Uses the official REST dependency endpoint instead of ``gh issue view
+    --json blockedBy``. Some GitHub CLI builds currently fail to normalize the
+    blockedBy payload and report ``expected an object but got: array``.
+    """
+    owner, repository = parse_repo_slug(repo)
+    endpoint = (
+        f"repos/{owner}/{repository}/issues/{blocked_number}/"
+        "dependencies/blocked_by?per_page=100"
+    )
+    result = run_github_with_retry(
+        [
+            "gh",
+            "api",
+            "--method",
+            "GET",
+            "--header",
+            "Accept: application/vnd.github+json",
+            "--header",
+            "X-GitHub-Api-Version: 2026-03-10",
+            endpoint,
+        ]
+    )
+    if result.returncode != 0:
+        raise MaterializationError(
+            f"Falha ao consultar dependências de #{blocked_number}:\n"
+            f"{result.stderr or result.stdout}"
+        )
+
+    try:
+        payload = json.loads(result.stdout or "[]")
+    except json.JSONDecodeError as exc:
+        raise MaterializationError(
+            f"Resposta inválida ao consultar dependências de #{blocked_number}: {exc}"
+        ) from exc
+    if not isinstance(payload, list):
+        raise MaterializationError(
+            f"Resposta inesperada ao consultar dependências de #{blocked_number}: "
+            f"esperado array, recebido {type(payload).__name__}."
+        )
+
+    values: set[int] = set()
+    for item in payload:
+        if not isinstance(item, dict):
+            continue
+        number = item.get("number")
+        if isinstance(number, int):
+            values.add(number)
+    return values
+
+
 def link_dependencies(
     *,
     repo: str,
     state: dict[str, Any],
+    state_path: Path,
     edges: list[tuple[str, str]],
     apply: bool,
     sleep_seconds: float,
@@ -454,7 +563,18 @@ def link_dependencies(
             f"{blocker_id} (#{blocker_number})"
         )
         if apply:
-            result = run_command(
+            # Recupera execuções parciais: se o vínculo já existe no GitHub,
+            # apenas registra o checkpoint local e segue adiante.
+            if blocker_number in remote_blockers(
+                repo=repo, blocked_number=blocked_number
+            ):
+                print(f"JÁ EXISTE: {edge_key}; checkpoint recuperado")
+                linked.add(edge_key)
+                state["dependency_edges"] = sorted(linked)
+                save_state(state_path, state)
+                continue
+
+            result = run_github_with_retry(
                 [
                     "gh",
                     "issue",
@@ -464,8 +584,7 @@ def link_dependencies(
                     repo,
                     "--add-blocked-by",
                     str(blocker_number),
-                ],
-                check=False,
+                ]
             )
             if result.returncode != 0:
                 raise MaterializationError(
@@ -473,6 +592,8 @@ def link_dependencies(
                 )
             linked.add(edge_key)
             state["dependency_edges"] = sorted(linked)
+            # Checkpoint por vínculo: uma falha de rede não perde progresso.
+            save_state(state_path, state)
             created += 1
             time.sleep(sleep_seconds)
     return created, unavailable
@@ -612,6 +733,7 @@ def main() -> int:
             dependency_created, dependency_unavailable = link_dependencies(
                 repo=args.repo,
                 state=state,
+                state_path=state_path,
                 edges=edges,
                 apply=args.apply,
                 sleep_seconds=args.sleep,
