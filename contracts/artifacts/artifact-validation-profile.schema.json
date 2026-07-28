@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/artifacts/artifact-validation-profile/1.0.0",
+  "title": "ArtifactValidationProfile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "profile_id",
+    "profile_version",
+    "artifact_kind",
+    "validators"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "profile_id": {
+      "type": "string"
+    },
+    "profile_version": {
+      "type": "string"
+    },
+    "artifact_kind": {
+      "type": "string"
+    },
+    "validators": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "validator_id",
+          "severity",
+          "parameters"
+        ],
+        "properties": {
+          "validator_id": {
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          "parameters": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/artifacts/artifact-set-manifest/2.0.0",
+  "title": "ArtifactSetManifestV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_set_id",
+    "artifact_set_version",
+    "project_id",
+    "producer",
+    "created_at",
+    "inputs",
+    "artifacts",
+    "lineage",
+    "publication",
+    "root_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "2.0.0"
+    },
+    "artifact_set_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "artifact_set_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "project_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "attempt_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "producer": {
+      "type": "object",
+      "required": [
+        "component",
+        "version"
+      ],
+      "properties": {
+        "component": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "execution_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "artifact_id",
+          "sha256"
+        ],
+        "properties": {
+          "artifact_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://dsgeorref.local/contracts/artifacts/artifact-descriptor/2.0.0",
+        "title": "ArtifactDescriptor",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "artifact_id",
+          "artifact_kind",
+          "logical_name",
+          "relative_path",
+          "media_type",
+          "size_bytes",
+          "sha256",
+          "role",
+          "validation_profile_id",
+          "created_at"
+        ],
+        "properties": {
+          "artifact_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "artifact_kind": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]{2,80}$"
+          },
+          "logical_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "relative_path": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+          },
+          "media_type": {
+            "type": "string",
+            "minLength": 3
+          },
+          "size_bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "role": {
+            "enum": [
+              "PRIMARY",
+              "SUPPORTING",
+              "EVIDENCE",
+              "PREVIEW",
+              "DIAGNOSTIC",
+              "MANIFEST"
+            ]
+          },
+          "validation_profile_id": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "geospatial": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "crs": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "bbox": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 4,
+                "maxItems": 6
+              },
+              "shape": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "minItems": 2,
+                "maxItems": 3
+              },
+              "resolution": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "nodata": {},
+              "pixel_is_area": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "bands": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "lineage_inputs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "lineage": {
+      "type": "object",
+      "required": [
+        "processing_plan_id",
+        "software_bill"
+      ],
+      "properties": {
+        "processing_plan_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "software_bill": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "parent_artifact_set_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    },
+    "publication": {
+      "type": "object",
+      "required": [
+        "status",
+        "staging_id",
+        "published_at"
+      ],
+      "properties": {
+        "status": {
+          "const": "PUBLISHED"
+        },
+        "staging_id": {
+          "type": "string"
+        },
+        "published_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "publication_record_id": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "root_digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

@@ -1,0 +1,195 @@
+schema_version: 1.0.0
+registry_version: 1.0.0
+kinds:
+- kind: COG_RASTER
+  media_types:
+  - image/tiff; application=geotiff; profile=cloud-optimized
+  extensions:
+  - .tif
+  geospatial_required: true
+  default_profile: AVP-COG-1
+- kind: GEOTIFF_INTERMEDIATE
+  media_types:
+  - image/tiff; application=geotiff
+  extensions:
+  - .tif
+  geospatial_required: true
+  default_profile: AVP-GEOTIFF-1
+- kind: ANALYSIS_MASK
+  media_types:
+  - image/tiff; application=geotiff
+  - image/png
+  extensions:
+  - .tif
+  - .png
+  geospatial_required: true
+  default_profile: AVP-MASK-1
+- kind: VALIDITY_MASK
+  media_types:
+  - image/tiff; application=geotiff
+  extensions:
+  - .tif
+  geospatial_required: true
+  default_profile: AVP-MASK-1
+- kind: VECTOR_GPKG
+  media_types:
+  - application/geopackage+sqlite3
+  extensions:
+  - .gpkg
+  geospatial_required: true
+  default_profile: AVP-GPKG-1
+- kind: VECTOR_GEOJSON_PREVIEW
+  media_types:
+  - application/geo+json
+  extensions:
+  - .geojson
+  geospatial_required: true
+  default_profile: AVP-GEOJSON-PREVIEW-1
+- kind: GCP_VECTOR
+  media_types:
+  - application/geopackage+sqlite3
+  - application/geo+json
+  extensions:
+  - .gpkg
+  - .geojson
+  geospatial_required: true
+  default_profile: AVP-GCP-1
+- kind: FOOTPRINT_VECTOR
+  media_types:
+  - application/geopackage+sqlite3
+  - application/geo+json
+  extensions:
+  - .gpkg
+  - .geojson
+  geospatial_required: true
+  default_profile: AVP-FOOTPRINT-1
+- kind: QUALITY_REPORT
+  media_types:
+  - application/json
+  - text/html
+  - application/pdf
+  extensions:
+  - .json
+  - .html
+  - .pdf
+  geospatial_required: false
+  default_profile: AVP-REPORT-1
+- kind: DEFORMATION_REPORT
+  media_types:
+  - application/json
+  - text/html
+  - application/pdf
+  extensions:
+  - .json
+  - .html
+  - .pdf
+  geospatial_required: false
+  default_profile: AVP-REPORT-1
+- kind: SGV_REPORT
+  media_types:
+  - application/json
+  extensions:
+  - .json
+  geospatial_required: false
+  default_profile: AVP-JSON-1
+- kind: AUDIT_REPORT
+  media_types:
+  - application/json
+  - text/csv
+  - application/pdf
+  extensions:
+  - .json
+  - .csv
+  - .pdf
+  geospatial_required: false
+  default_profile: AVP-AUDIT-1
+- kind: VALIDATION_REPORT
+  media_types:
+  - application/json
+  extensions:
+  - .json
+  geospatial_required: false
+  default_profile: AVP-JSON-1
+- kind: PROVENANCE_MANIFEST
+  media_types:
+  - application/json
+  extensions:
+  - .json
+  geospatial_required: false
+  default_profile: AVP-MANIFEST-1
+- kind: PROCESSING_PLAN_SNAPSHOT
+  media_types:
+  - application/json
+  extensions:
+  - .json
+  geospatial_required: false
+  default_profile: AVP-JSON-1
+- kind: RESULT_SNAPSHOT_RECORD
+  media_types:
+  - application/json
+  extensions:
+  - .json
+  geospatial_required: false
+  default_profile: AVP-JSON-1
+- kind: EDIT_BUNDLE
+  media_types:
+  - application/json
+  extensions:
+  - .json
+  geospatial_required: false
+  default_profile: AVP-EDIT-1
+- kind: REVIEW_DECISION
+  media_types:
+  - application/json
+  extensions:
+  - .json
+  geospatial_required: false
+  default_profile: AVP-JSON-1
+- kind: APPLICATION_RECEIPT
+  media_types:
+  - application/json
+  extensions:
+  - .json
+  geospatial_required: false
+  default_profile: AVP-JSON-1
+- kind: AI_EXECUTION_REPORT
+  media_types:
+  - application/json
+  extensions:
+  - .json
+  geospatial_required: false
+  default_profile: AVP-AI-1
+- kind: THUMBNAIL
+  media_types:
+  - image/png
+  - image/jpeg
+  extensions:
+  - .png
+  - .jpg
+  geospatial_required: false
+  default_profile: AVP-THUMB-1
+- kind: MAP_PREVIEW
+  media_types:
+  - image/png
+  - image/webp
+  extensions:
+  - .png
+  - .webp
+  geospatial_required: false
+  default_profile: AVP-PREVIEW-1
+- kind: DIFF_PREVIEW
+  media_types:
+  - image/png
+  - image/webp
+  extensions:
+  - .png
+  - .webp
+  geospatial_required: false
+  default_profile: AVP-PREVIEW-1
+- kind: MASK_PREVIEW
+  media_types:
+  - image/png
+  extensions:
+  - .png
+  geospatial_required: false
+  default_profile: AVP-PREVIEW-1

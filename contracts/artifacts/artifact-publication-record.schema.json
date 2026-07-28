@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/artifacts/artifact-publication-record/1.0.0",
+  "title": "ArtifactPublicationRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "publication_record_id",
+    "artifact_set_id",
+    "staging_locator",
+    "final_locator",
+    "manifest_sha256",
+    "started_at",
+    "completed_at",
+    "status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "publication_record_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "artifact_set_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "staging_locator": {
+      "type": "string"
+    },
+    "final_locator": {
+      "type": "string"
+    },
+    "manifest_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "enum": [
+        "PUBLISHED",
+        "FAILED",
+        "RECONCILED"
+      ]
+    },
+    "fsync_evidence": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}
