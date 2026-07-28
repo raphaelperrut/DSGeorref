@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/ai/ai-backend-manifest/1.0.0",
+  "title": "AIBackendManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "backend_id",
+    "backend_version",
+    "protocol_version",
+    "capabilities",
+    "model_pack_constraints",
+    "determinism",
+    "resource_classes",
+    "offline_capable"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "backend_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]+$"
+    },
+    "backend_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "protocol_version": {
+      "const": "1.0.0"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "model_pack_constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "determinism": {
+      "enum": [
+        "DETERMINISTIC",
+        "SEEDED",
+        "BOUNDED_NONDETERMINISTIC"
+      ]
+    },
+    "resource_classes": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "CPU",
+          "GPU"
+        ]
+      },
+      "minItems": 1
+    },
+    "offline_capable": {
+      "type": "boolean"
+    }
+  }
+}

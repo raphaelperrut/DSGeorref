@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/schemas/asset.schema/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "title": "Asset",
+  "required": [
+    "id",
+    "project_id",
+    "source_identity",
+    "sha256",
+    "state"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "project_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "source_identity": {
+      "type": "string"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "state": {
+      "enum": [
+        "catalogued",
+        "validated",
+        "rejected"
+      ]
+    }
+  }
+}

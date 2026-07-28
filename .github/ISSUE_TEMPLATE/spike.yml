@@ -1,0 +1,11 @@
+name: Research spike
+description: Time-bounded evidence gathering that cannot directly ship product code
+body:
+  - type: textarea
+    id: question
+    attributes: {label: Decision question}
+    validations: {required: true}
+  - type: textarea
+    id: evidence
+    attributes: {label: Required evidence and stop condition}
+    validations: {required: true}

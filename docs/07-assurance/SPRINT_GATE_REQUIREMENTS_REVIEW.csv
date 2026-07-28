@@ -1,0 +1,85 @@
+sprint_id,gate,criterion_id,criterion_text,adr_ids,conflict,redundancy,missing_requirement,impossible,cycle,status
+SPRINT-001,ENTRY,AC-SPRINT-001-ENTRY-01,Todas as issues selecionadas satisfazem a Definition of Ready.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-001,ENTRY,AC-SPRINT-001-ENTRY-02,Contratos e migrations compartilhados são serializados.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-001,ENTRY,AC-SPRINT-001-ENTRY-03,Lanes paralelas possuem file scopes disjuntos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-001,EXIT,AC-SPRINT-001-EXIT-01,Critérios de aceitação passam para as issues concluídas.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-001,EXIT,AC-SPRINT-001-EXIT-02,Evidências de QA e Reviewer referenciam os mesmos commits candidatos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-001,EXIT,AC-SPRINT-001-EXIT-03,Trabalho incompleto retorna ao backlog sem carryover oculto.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-001,EXIT,AC-SPRINT-001-EXIT-04,"O SprintEvidenceSet registra decisões, testes, defects e riscos não resolvidos.",ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-002,ENTRY,AC-SPRINT-002-ENTRY-01,Todas as issues selecionadas satisfazem a Definition of Ready.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-002,ENTRY,AC-SPRINT-002-ENTRY-02,Contratos e migrations compartilhados são serializados.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-002,ENTRY,AC-SPRINT-002-ENTRY-03,Lanes paralelas possuem file scopes disjuntos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-002,EXIT,AC-SPRINT-002-EXIT-01,Critérios de aceitação passam para as issues concluídas.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-002,EXIT,AC-SPRINT-002-EXIT-02,Evidências de QA e Reviewer referenciam os mesmos commits candidatos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-002,EXIT,AC-SPRINT-002-EXIT-03,Trabalho incompleto retorna ao backlog sem carryover oculto.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-002,EXIT,AC-SPRINT-002-EXIT-04,"O SprintEvidenceSet registra decisões, testes, defects e riscos não resolvidos.",ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-003,ENTRY,AC-SPRINT-003-ENTRY-01,Todas as issues selecionadas satisfazem a Definition of Ready.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-003,ENTRY,AC-SPRINT-003-ENTRY-02,Contratos e migrations compartilhados são serializados.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-003,ENTRY,AC-SPRINT-003-ENTRY-03,Lanes paralelas possuem file scopes disjuntos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-003,EXIT,AC-SPRINT-003-EXIT-01,Critérios de aceitação passam para as issues concluídas.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-003,EXIT,AC-SPRINT-003-EXIT-02,Evidências de QA e Reviewer referenciam os mesmos commits candidatos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-003,EXIT,AC-SPRINT-003-EXIT-03,Trabalho incompleto retorna ao backlog sem carryover oculto.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-003,EXIT,AC-SPRINT-003-EXIT-04,"O SprintEvidenceSet registra decisões, testes, defects e riscos não resolvidos.",ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-004,ENTRY,AC-SPRINT-004-ENTRY-01,Todas as issues selecionadas satisfazem a Definition of Ready.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-004,ENTRY,AC-SPRINT-004-ENTRY-02,Contratos e migrations compartilhados são serializados.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-004,ENTRY,AC-SPRINT-004-ENTRY-03,Lanes paralelas possuem file scopes disjuntos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-004,EXIT,AC-SPRINT-004-EXIT-01,Critérios de aceitação passam para as issues concluídas.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-004,EXIT,AC-SPRINT-004-EXIT-02,Evidências de QA e Reviewer referenciam os mesmos commits candidatos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-004,EXIT,AC-SPRINT-004-EXIT-03,Trabalho incompleto retorna ao backlog sem carryover oculto.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-004,EXIT,AC-SPRINT-004-EXIT-04,"O SprintEvidenceSet registra decisões, testes, defects e riscos não resolvidos.",ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-005,ENTRY,AC-SPRINT-005-ENTRY-01,Todas as issues selecionadas satisfazem a Definition of Ready.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-005,ENTRY,AC-SPRINT-005-ENTRY-02,Contratos e migrations compartilhados são serializados.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-005,ENTRY,AC-SPRINT-005-ENTRY-03,Lanes paralelas possuem file scopes disjuntos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-005,EXIT,AC-SPRINT-005-EXIT-01,Critérios de aceitação passam para as issues concluídas.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-005,EXIT,AC-SPRINT-005-EXIT-02,Evidências de QA e Reviewer referenciam os mesmos commits candidatos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-005,EXIT,AC-SPRINT-005-EXIT-03,Trabalho incompleto retorna ao backlog sem carryover oculto.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-005,EXIT,AC-SPRINT-005-EXIT-04,"O SprintEvidenceSet registra decisões, testes, defects e riscos não resolvidos.",ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-006,ENTRY,AC-SPRINT-006-ENTRY-01,Todas as issues selecionadas satisfazem a Definition of Ready.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-006,ENTRY,AC-SPRINT-006-ENTRY-02,Contratos e migrations compartilhados são serializados.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-006,ENTRY,AC-SPRINT-006-ENTRY-03,Lanes paralelas possuem file scopes disjuntos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-006,EXIT,AC-SPRINT-006-EXIT-01,Critérios de aceitação passam para as issues concluídas.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-006,EXIT,AC-SPRINT-006-EXIT-02,Evidências de QA e Reviewer referenciam os mesmos commits candidatos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-006,EXIT,AC-SPRINT-006-EXIT-03,Trabalho incompleto retorna ao backlog sem carryover oculto.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-006,EXIT,AC-SPRINT-006-EXIT-04,"O SprintEvidenceSet registra decisões, testes, defects e riscos não resolvidos.",ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-007,ENTRY,AC-SPRINT-007-ENTRY-01,Todas as issues selecionadas satisfazem a Definition of Ready.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-007,ENTRY,AC-SPRINT-007-ENTRY-02,Contratos e migrations compartilhados são serializados.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-007,ENTRY,AC-SPRINT-007-ENTRY-03,Lanes paralelas possuem file scopes disjuntos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-007,EXIT,AC-SPRINT-007-EXIT-01,Critérios de aceitação passam para as issues concluídas.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-007,EXIT,AC-SPRINT-007-EXIT-02,Evidências de QA e Reviewer referenciam os mesmos commits candidatos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-007,EXIT,AC-SPRINT-007-EXIT-03,Trabalho incompleto retorna ao backlog sem carryover oculto.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-007,EXIT,AC-SPRINT-007-EXIT-04,"O SprintEvidenceSet registra decisões, testes, defects e riscos não resolvidos.",ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-008,ENTRY,AC-SPRINT-008-ENTRY-01,Todas as issues selecionadas satisfazem a Definition of Ready.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-008,ENTRY,AC-SPRINT-008-ENTRY-02,Contratos e migrations compartilhados são serializados.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-008,ENTRY,AC-SPRINT-008-ENTRY-03,Lanes paralelas possuem file scopes disjuntos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-008,EXIT,AC-SPRINT-008-EXIT-01,Critérios de aceitação passam para as issues concluídas.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-008,EXIT,AC-SPRINT-008-EXIT-02,Evidências de QA e Reviewer referenciam os mesmos commits candidatos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-008,EXIT,AC-SPRINT-008-EXIT-03,Trabalho incompleto retorna ao backlog sem carryover oculto.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-008,EXIT,AC-SPRINT-008-EXIT-04,"O SprintEvidenceSet registra decisões, testes, defects e riscos não resolvidos.",ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-009,ENTRY,AC-SPRINT-009-ENTRY-01,Todas as issues selecionadas satisfazem a Definition of Ready.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-009,ENTRY,AC-SPRINT-009-ENTRY-02,Contratos e migrations compartilhados são serializados.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-009,ENTRY,AC-SPRINT-009-ENTRY-03,Lanes paralelas possuem file scopes disjuntos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-009,EXIT,AC-SPRINT-009-EXIT-01,Critérios de aceitação passam para as issues concluídas.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-009,EXIT,AC-SPRINT-009-EXIT-02,Evidências de QA e Reviewer referenciam os mesmos commits candidatos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-009,EXIT,AC-SPRINT-009-EXIT-03,Trabalho incompleto retorna ao backlog sem carryover oculto.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-009,EXIT,AC-SPRINT-009-EXIT-04,"O SprintEvidenceSet registra decisões, testes, defects e riscos não resolvidos.",ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-010,ENTRY,AC-SPRINT-010-ENTRY-01,Todas as issues selecionadas satisfazem a Definition of Ready.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-010,ENTRY,AC-SPRINT-010-ENTRY-02,Contratos e migrations compartilhados são serializados.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-010,ENTRY,AC-SPRINT-010-ENTRY-03,Lanes paralelas possuem file scopes disjuntos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-010,EXIT,AC-SPRINT-010-EXIT-01,Critérios de aceitação passam para as issues concluídas.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-010,EXIT,AC-SPRINT-010-EXIT-02,Evidências de QA e Reviewer referenciam os mesmos commits candidatos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-010,EXIT,AC-SPRINT-010-EXIT-03,Trabalho incompleto retorna ao backlog sem carryover oculto.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-010,EXIT,AC-SPRINT-010-EXIT-04,"O SprintEvidenceSet registra decisões, testes, defects e riscos não resolvidos.",ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-011,ENTRY,AC-SPRINT-011-ENTRY-01,Todas as issues selecionadas satisfazem a Definition of Ready.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-011,ENTRY,AC-SPRINT-011-ENTRY-02,Contratos e migrations compartilhados são serializados.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-011,ENTRY,AC-SPRINT-011-ENTRY-03,Lanes paralelas possuem file scopes disjuntos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-011,EXIT,AC-SPRINT-011-EXIT-01,Critérios de aceitação passam para as issues concluídas.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-011,EXIT,AC-SPRINT-011-EXIT-02,Evidências de QA e Reviewer referenciam os mesmos commits candidatos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-011,EXIT,AC-SPRINT-011-EXIT-03,Trabalho incompleto retorna ao backlog sem carryover oculto.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-011,EXIT,AC-SPRINT-011-EXIT-04,"O SprintEvidenceSet registra decisões, testes, defects e riscos não resolvidos.",ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-012,ENTRY,AC-SPRINT-012-ENTRY-01,Todas as issues selecionadas satisfazem a Definition of Ready.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-012,ENTRY,AC-SPRINT-012-ENTRY-02,Contratos e migrations compartilhados são serializados.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-012,ENTRY,AC-SPRINT-012-ENTRY-03,Lanes paralelas possuem file scopes disjuntos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-012,EXIT,AC-SPRINT-012-EXIT-01,Critérios de aceitação passam para as issues concluídas.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-012,EXIT,AC-SPRINT-012-EXIT-02,Evidências de QA e Reviewer referenciam os mesmos commits candidatos.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-012,EXIT,AC-SPRINT-012-EXIT-03,Trabalho incompleto retorna ao backlog sem carryover oculto.,ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS
+SPRINT-012,EXIT,AC-SPRINT-012-EXIT-04,"O SprintEvidenceSet registra decisões, testes, defects e riscos não resolvidos.",ADR-007/ADR-008/ADR-010/ADR-009,NONE,NONE,NO,NO,NO,PASS

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/model-pack-manifest/1.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "title": "ModelPackManifest",
+  "required": [
+    "id",
+    "version",
+    "sha256",
+    "signature",
+    "license",
+    "capabilities"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "signature": {
+      "type": "string"
+    },
+    "license": {
+      "type": "string"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ai_backend_protocol_version": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "compatible_backend_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "determinism_level": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "DETERMINISTIC",
+        "SEEDED",
+        "BOUNDED_NONDETERMINISTIC",
+        null
+      ]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+specification_id,title,owner_context,governing_adrs,status,primary_contract
+SPEC-001,Prompt Bundle Contract,BC-001,ADR-006/ADR-007/ADR-008/ADR-057,FROZEN,contracts/prompts/prompt-bundle.schema.json
+SPEC-002,Edit Case Registry Contract,BC-011,ADR-024/ADR-048/ADR-025,FROZEN,contracts/edit-cases/edit-case.schema.json
+SPEC-003,AIBackend Protocol Contract,BC-009,ADR-051/ADR-052/ADR-053,FROZEN,contracts/ai/ai-backend-protocol.yaml
+SPEC-004,Template Contract,BC-001,ADR-006/ADR-008/ADR-010,FROZEN,contracts/templates/template.schema.json
+SPEC-005,Artifact Contract,BC-013,ADR-021/ADR-022/ADR-023/ADR-024/ADR-025/ADR-043,FROZEN,contracts/artifacts/artifact-set-manifest.schema.json

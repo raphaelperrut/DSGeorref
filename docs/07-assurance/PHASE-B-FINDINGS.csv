@@ -1,0 +1,10 @@
+finding_id,severity,category,finding,status,resolution
+RR-001,HIGH,MISSING_REQUIREMENT,"14 requisitos descreviam apenas o nome do teste, sem comportamento implementável.",RESOLVED,Os 14 requisitos receberam statements normativos distintos e verificáveis.
+RR-002,MEDIUM,CONFLICT,12 sprints e dois índices ainda declaravam ADR-051–018 após a adoção de ADR-007–022.,RESOLVED,Todas as referências de baseline foram reconciliadas para ADR-051–022.
+RR-003,MEDIUM,AMBIGUITY,"12 histórias JOB/DevOps prometiam implementar retry/recovery, mas o write scope permitia apenas testes, tools e workflow.",RESOLVED,As histórias foram renomeadas para automação de testes de resiliência e seus outcomes foram alinhados ao write scope.
+RR-004,MEDIUM,TRACEABILITY,Critérios de aceite não possuíam IDs nem vínculo explícito com requisitos e ADRs.,RESOLVED,Foi criada rastreabilidade completa por critério e campos estruturados nos 758 TaskEnvelopes.
+RR-005,LOW,HISTORICAL_IDENTIFIER,80 evidências canônicas usavam nomes test_dpNNN_decision_N sem significado no projeto final.,RESOLVED,Os nomes foram substituídos por IDs estáveis test_req_<requirement_id>.
+RR-006,LOW,REDUNDANCY,REQ-AI-017 e REQ-EPIC-088 tinham statements quase idênticos.,RESOLVED,Os requisitos foram diferenciados: bloqueio de publicação por capability versus laboratório desabilitado por profile.
+RR-007,INFO,DEPENDENCY_CYCLE,"Auditoria de ciclos em histórias, épicos e ordem de sprints.",RESOLVED,Zero ciclos e zero dependências que retrocedem entre sprints.
+RR-008,HIGH,CONSISTENCY,"PRD, status, coverage e PARALLELIZATION_WAVES ainda refletiam 687 histórias, 797 issues, 52 ondas e scopes antigos por épico.",RESOLVED,Contagens atualizadas para 758/868/88 e ondas regeneradas a partir do DAG e dos TaskEnvelopes atuais.
+RR-009,HIGH,MISSING_REQUIREMENT,"Quatro requisitos normativos eram sintaticamente válidos, porém curtos demais para orientar implementação sem inferência: checksum canônico, gates Ruff/mypy, calibração Argon2id e persistência de geometrias/CRS.",RESOLVED,"Os quatro statements foram expandidos com comportamento, limites, condições de bloqueio e autoridade normativa verificáveis."

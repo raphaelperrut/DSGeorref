@@ -1,0 +1,37 @@
+schema_version: 1.0.0
+baseline: SAR-v3.0-PHASE-G
+status: FROZEN
+classes:
+- class: metadata-authoritative
+  contents:
+  - PostgreSQL
+  - audit ledger
+  - outbox
+  - manifests
+  rpo_minutes: 15
+  rto_minutes: 240
+  method: base backup plus WAL/archive equivalent
+- class: irreplaceable-binaries
+  contents:
+  - original inputs
+  - manual edit bundles
+  - signed model packs
+  rpo_minutes: 1440
+  rto_minutes: 720
+  method: versioned backup with checksum
+- class: recomputable-artifacts
+  contents:
+  - derived rasters
+  - previews
+  - reports reproducible from immutable inputs
+  rpo_minutes: 1440
+  rto_minutes: 1440
+  method: backup by policy or deterministic recomputation
+restore_drill:
+  frequency: before production then quarterly
+  isolated_environment: true
+  manifest_checksum_required: true
+  evidence_required: true
+single_instance_tradeoff:
+  automatic_failover: false
+  claim: recovery-oriented, not high-availability

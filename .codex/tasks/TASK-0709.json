@@ -1,0 +1,292 @@
+{
+  "task_id": "TASK-0709",
+  "issue_id": "ISSUE-0819",
+  "story_id": "STORY-0709",
+  "epic_id": "EPIC-005",
+  "sprint_id": "SPRINT-001",
+  "role": "Tech Lead",
+  "outcome": "Entregar Slice 2/4 — Materializar a fundação executável: migrations, CI, secret/dependency scan e telemetria mínima [REQ-BEX, REQ-EPIC, REQ-FRZ, REQ-FS1] com testes e evidência verificável.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-003-tech-lead.md",
+    "docs/06-delivery/stories/STORY-0709-ISSUE-0819-slice-2-4-materializar-a-fundacao-executavel-migrations-ci-secret-dependency-scan-e-te.md",
+    "docs/06-delivery/epics/EPIC-005-migrations-ci-secret-dependency-scan-e-telemetria-minima.md",
+    "docs/01-product/requirements/REQ-BEX-007-permitir-cancelamento-e-pausa-cooperativos-e-escopados.md",
+    "docs/01-product/requirements/REQ-BEX-008-governar-concorrencia-por-recursos-leases-e-backpressure.md",
+    "docs/01-product/requirements/REQ-BEX-009-calcular-progresso-por-work-units-e-eta-com-confianca.md",
+    "docs/01-product/requirements/REQ-BEX-010-promover-lote-por-escada-de-escala-fault-injection-e-invariantes-multidi.md",
+    "docs/01-product/requirements/REQ-EPIC-041-arquivos-externos-sao-tratados-como-hostis-com-limites-e-scanner-real-ou.md",
+    "docs/01-product/requirements/REQ-FRZ-002-a-aprovacao-final-deve-autorizar-somente-a-sprint-001-e-manter-a-impleme.md",
+    "docs/01-product/requirements/REQ-FS1-002-usar-alvo-e-referencia-locais-autorizados-em-roots-registrados.md",
+    "docs/01-product/requirements/REQ-FS1-003-preservar-originals-e-executar-ingestao-fail-closed-com-hashes-e-metadad.md",
+    "docs/01-product/requirements/REQ-FS1-005-usar-pipeline-classico-deterministico-substituivel-e-auditar-corresponde.md",
+    "docs/01-product/requirements/REQ-FS1-007-aplicar-perfil-sgv-inicial-obrigatorio-com-resultado-tri-state.md",
+    "docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md",
+    "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
+    "docs/02-architecture/ddd/bounded-contexts/BC-001-engineering-governance.md",
+    "docs/02-architecture/ddd/DDD-040-CONTEXT-MAP.md",
+    "docs/02-architecture/adrs/ADR-002-topologia-do-produto-monolito-modular-e-instancia-unica.md",
+    "docs/02-architecture/adrs/ADR-003-bounded-contexts-subdominios-e-linguagem-ubiqua.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
+    "docs/02-architecture/adrs/ADR-037-workers-duraveis-leases-e-fencing.md",
+    "docs/02-architecture/adrs/ADR-038-retry-quarantine-checkpoints-cancelamento-e-drain.md",
+    "docs/02-architecture/adrs/ADR-039-scheduler-fairness-backpressure-e-resource-governor.md",
+    "docs/02-architecture/adrs/ADR-040-progresso-event-ledger-replay-e-eta.md",
+    "docs/02-architecture/adrs/ADR-044-pipeline-classico-matching-coarse-to-fine.md",
+    "docs/02-architecture/adrs/ADR-046-sgv-quality-profiles-e-aceitacao-fail-closed.md",
+    "docs/02-architecture/adrs/ADR-055-audit-ledger-privacidade-redaction-e-support-bundles.md",
+    "docs/02-architecture/adrs/ADR-057-release-train-publicacao-e-gates-de-distribuicao.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "docs/02-architecture/adrs/ADR-018-postgresql-postgis-como-system-of-record.md",
+    "docs/02-architecture/adrs/ADR-023-artifactset-manifest-e-bundles-imutaveis.md",
+    "docs/02-architecture/adrs/ADR-024-publicacao-atomica-checksums-e-content-addressing.md",
+    "docs/02-architecture/adrs/ADR-026-schema-registry-migrations-e-compatibilidade.md",
+    "contracts/operations/slo-sli-catalog.yaml",
+    "docs/05-operations/CAPACITY_AND_SCALING.md",
+    "contracts/operations/lock-and-queue-policy.yaml",
+    "contracts/operations/external-dependency-register.csv",
+    "contracts/operations/vendor-exit-matrix.csv",
+    "contracts/operations/cost-model.yaml",
+    "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+    "contracts/operations/recovery-objectives.yaml",
+    "docs/05-operations/BACKUP_RESTORE.md",
+    "contracts/operations/version-and-rollback-matrix.yaml",
+    "docs/03-engineering/DATABASE_MIGRATIONS.md",
+    "docs/05-operations/OBSERVABILITY.md",
+    "docs/04-quality/THREAT_MODEL.md",
+    "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+    "contracts/privacy/lgpd-control-matrix.csv",
+    "docs/04-quality/LGPD_CONTROL_MODEL.md",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
+    "docs/05-operations/PRODUCTION_READINESS_GATES.md"
+  ],
+  "allow_paths": [
+    "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/bex-epic-frz-parte-2/**",
+    "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/bex-epic-frz-parte-2/**"
+  ],
+  "deny_paths": [
+    "src/**/epic-*",
+    "src/**/issue-*"
+  ],
+  "acceptance_criteria": [
+    "Cada requisito do slice possui evidência explícita: REQ-BEX-007, REQ-BEX-008, REQ-BEX-009, REQ-BEX-010, REQ-EPIC-041, REQ-FRZ-002, REQ-FS1-002, REQ-FS1-003, REQ-FS1-005, REQ-FS1-007.",
+    "O write scope é estável, disjunto e não usa identificador de ticket em código de produção.",
+    "Estados de falha aplicáveis são testados sem fallback silencioso.",
+    "O handoff registra impacto em contratos, riscos e rollback."
+  ],
+  "tests": [
+    "test_batch_execution_decision_07",
+    "test_batch_execution_decision_08",
+    "test_batch_execution_decision_09",
+    "test_batch_execution_decision_10",
+    "malicious_file_suite",
+    "test_sprint_zero_authorization_and_functional_foundation_gate_blocking",
+    "test_first_functional_slice_decision_02",
+    "test_first_functional_slice_decision_03",
+    "test_first_functional_slice_decision_05",
+    "test_first_functional_slice_decision_07"
+  ],
+  "evidence": [
+    "evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/bex-epic-frz-parte-2/",
+    "commit candidato e relatório de testes"
+  ],
+  "dependencies": [
+    "STORY-0021"
+  ],
+  "stop_conditions": [
+    "Decisão material não resolvida.",
+    "Contrato obrigatório ausente ou contraditório.",
+    "Write scope sobrepõe lane ativa.",
+    "Aceitação não pode ser demonstrada por teste ou evidência."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0819-01",
+    "AC-ISSUE-0819-02",
+    "AC-ISSUE-0819-03",
+    "AC-ISSUE-0819-04"
+  ],
+  "governing_adrs": [
+    "ADR-002",
+    "ADR-003",
+    "ADR-006",
+    "ADR-007",
+    "ADR-008",
+    "ADR-018",
+    "ADR-023",
+    "ADR-024",
+    "ADR-026",
+    "ADR-037",
+    "ADR-038",
+    "ADR-039",
+    "ADR-040",
+    "ADR-044",
+    "ADR-046",
+    "ADR-055",
+    "ADR-057"
+  ],
+  "requirement_basis": "MIXED",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-001",
+  "context_map_dependencies": [],
+  "domain_model_impact": "LOCAL_MODEL",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 1,
+      "items": [
+        "STORY-0021"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/bex-epic-frz-parte-2/**",
+        "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/bex-epic-frz-parte-2/**"
+      ],
+      "deny_paths": [
+        "src/**/epic-*",
+        "src/**/issue-*"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-018",
+        "ADR-023",
+        "ADR-024",
+        "ADR-026"
+      ],
+      "migration_required": true,
+      "rollback_required": true
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-044",
+        "ADR-046"
+      ]
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "test_batch_execution_decision_07",
+        "test_batch_execution_decision_08",
+        "test_batch_execution_decision_09",
+        "test_batch_execution_decision_10",
+        "malicious_file_suite",
+        "test_sprint_zero_authorization_and_functional_foundation_gate_blocking",
+        "test_first_functional_slice_decision_02",
+        "test_first_functional_slice_decision_03",
+        "test_first_functional_slice_decision_05",
+        "test_first_functional_slice_decision_07"
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "PASS",
+      "kinds": [],
+      "evidence": [
+        "evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/bex-epic-frz-parte-2/",
+        "commit candidato e relatório de testes"
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 4,
+      "ids": [
+        "AC-ISSUE-0819-01",
+        "AC-ISSUE-0819-02",
+        "AC-ISSUE-0819-03",
+        "AC-ISSUE-0819-04"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "Arquiteto",
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "CRITICAL",
+    "applicable_controls": [
+      "CTO-001",
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-005",
+      "CTO-006",
+      "CTO-008",
+      "CTO-009",
+      "CTO-010",
+      "CTO-011",
+      "CTO-012",
+      "CTO-013",
+      "CTO-014",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-007"
+    ],
+    "required_evidence": [
+      "contracts/operations/slo-sli-catalog.yaml",
+      "docs/05-operations/CAPACITY_AND_SCALING.md",
+      "contracts/operations/lock-and-queue-policy.yaml",
+      "contracts/operations/external-dependency-register.csv",
+      "contracts/operations/vendor-exit-matrix.csv",
+      "contracts/operations/cost-model.yaml",
+      "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+      "contracts/operations/recovery-objectives.yaml",
+      "docs/05-operations/BACKUP_RESTORE.md",
+      "contracts/operations/version-and-rollback-matrix.yaml",
+      "docs/03-engineering/DATABASE_MIGRATIONS.md",
+      "docs/05-operations/OBSERVABILITY.md",
+      "docs/04-quality/THREAT_MODEL.md",
+      "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+      "contracts/privacy/lgpd-control-matrix.csv",
+      "docs/04-quality/LGPD_CONTROL_MODEL.md"
+    ],
+    "production_gate": "SECURITY_AND_PRIVACY_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

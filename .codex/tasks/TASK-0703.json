@@ -1,0 +1,306 @@
+{
+  "task_id": "TASK-0703",
+  "issue_id": "ISSUE-0813",
+  "story_id": "STORY-0703",
+  "epic_id": "EPIC-004",
+  "sprint_id": "SPRINT-001",
+  "role": "Tech Lead",
+  "outcome": "Entregar Slice 1/3 — Materializar a fundação executável: OpenAPI, cliente TypeScript e contratos CLI/jobs/eventos/artefatos/ProcessingPlan/QualityReport/FailureDiagnostic versionados [REQ-ARTLAYOUT, REQ-DBSCHEMA, REQ-FS1] com testes e evidência verificável.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-003-tech-lead.md",
+    "docs/06-delivery/stories/STORY-0703-ISSUE-0813-slice-1-3-materializar-a-fundacao-executavel-openapi-cliente-typescript-e-contratos-cl.md",
+    "docs/06-delivery/epics/EPIC-004-openapi-cliente-typescript-e-contratos-cli-jobs-eventos-artefatos-proc.md",
+    "docs/01-product/requirements/REQ-ARTLAYOUT-010-serving-ocorre-somente-apos-autorizacao-e-resolucao-segura.md",
+    "docs/01-product/requirements/REQ-DBSCHEMA-002-identificadores-sao-estaveis-e-ordenaveis-quando-necessario.md",
+    "docs/01-product/requirements/REQ-DBSCHEMA-004-timestamps-locking-e-concorrencia-sao-explicitos.md",
+    "docs/01-product/requirements/REQ-FS1-002-usar-alvo-e-referencia-locais-autorizados-em-roots-registrados.md",
+    "docs/01-product/requirements/REQ-FS1-003-preservar-originals-e-executar-ingestao-fail-closed-com-hashes-e-metadad.md",
+    "docs/01-product/requirements/REQ-FS1-005-usar-pipeline-classico-deterministico-substituivel-e-auditar-corresponde.md",
+    "docs/01-product/requirements/REQ-FS1-007-aplicar-perfil-sgv-inicial-obrigatorio-com-resultado-tri-state.md",
+    "docs/01-product/requirements/REQ-FS1-008-produzir-artifactset-imutavel-com-cog-manifest-provenance-e-relatorio.md",
+    "docs/01-product/requirements/REQ-FS1-009-exercitar-core-compartilhado-rest-cli-runner-direto-e-celery.md",
+    "docs/01-product/requirements/REQ-FS1-010-promover-a-fatia-somente-por-corpus-inicial-estratificado-e-gate-multidi.md",
+    "docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md",
+    "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
+    "docs/02-architecture/ddd/bounded-contexts/BC-001-engineering-governance.md",
+    "docs/02-architecture/ddd/DDD-040-CONTEXT-MAP.md",
+    "docs/02-architecture/adrs/ADR-003-bounded-contexts-subdominios-e-linguagem-ubiqua.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
+    "docs/02-architecture/adrs/ADR-010-api-first-versionamento-e-contract-freeze.md",
+    "docs/02-architecture/adrs/ADR-011-boundary-http-fastapi-pydantic-e-openapi.md",
+    "docs/02-architecture/adrs/ADR-015-cli-direct-runner-e-nucleo-compartilhado.md",
+    "docs/02-architecture/adrs/ADR-019-schemas-fisicos-uuidv7-escopo-e-concorrencia.md",
+    "docs/02-architecture/adrs/ADR-023-artifactset-manifest-e-bundles-imutaveis.md",
+    "docs/02-architecture/adrs/ADR-040-progresso-event-ledger-replay-e-eta.md",
+    "docs/02-architecture/adrs/ADR-044-pipeline-classico-matching-coarse-to-fine.md",
+    "docs/02-architecture/adrs/ADR-046-sgv-quality-profiles-e-aceitacao-fail-closed.md",
+    "docs/02-architecture/adrs/ADR-055-audit-ledger-privacidade-redaction-e-support-bundles.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-005-ARTIFACT-CONTRACT.md",
+    "docs/02-architecture/adrs/ADR-005-layout-context-first-e-direcao-de-dependencias.md",
+    "docs/02-architecture/adrs/ADR-013-cliente-typescript-gerado-e-diff-gate-openapi.md",
+    "docs/02-architecture/adrs/ADR-014-frontend-react-vite-openlayers-e-workspace-cartografico.md",
+    "docs/02-architecture/adrs/ADR-021-filesystem-gerenciado-roots-e-resolucao-segura.md",
+    "contracts/http/openapi.yaml",
+    "contracts/http/OPERATION_CATALOG.json",
+    "contracts/http/API_CONTRACT_INDEX.csv",
+    "contracts/operations/slo-sli-catalog.yaml",
+    "docs/05-operations/CAPACITY_AND_SCALING.md",
+    "contracts/operations/external-dependency-register.csv",
+    "contracts/operations/vendor-exit-matrix.csv",
+    "contracts/operations/cost-model.yaml",
+    "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+    "contracts/operations/lock-and-queue-policy.yaml",
+    "contracts/operations/recovery-objectives.yaml",
+    "docs/05-operations/BACKUP_RESTORE.md",
+    "contracts/operations/version-and-rollback-matrix.yaml",
+    "docs/03-engineering/DATABASE_MIGRATIONS.md",
+    "docs/05-operations/OBSERVABILITY.md",
+    "docs/04-quality/THREAT_MODEL.md",
+    "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+    "contracts/privacy/lgpd-control-matrix.csv",
+    "docs/04-quality/LGPD_CONTROL_MODEL.md",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
+    "docs/05-operations/PRODUCTION_READINESS_GATES.md"
+  ],
+  "allow_paths": [
+    "tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/**",
+    "docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/**"
+  ],
+  "deny_paths": [
+    "src/**/epic-*",
+    "src/**/issue-*"
+  ],
+  "acceptance_criteria": [
+    "Cada requisito do slice possui evidência explícita: REQ-ARTLAYOUT-010, REQ-DBSCHEMA-002, REQ-DBSCHEMA-004, REQ-FS1-002, REQ-FS1-003, REQ-FS1-005, REQ-FS1-007, REQ-FS1-008, REQ-FS1-009, REQ-FS1-010.",
+    "O write scope é estável, disjunto e não usa identificador de ticket em código de produção.",
+    "Estados de falha aplicáveis são testados sem fallback silencioso.",
+    "O handoff registra impacto em contratos, riscos e rollback."
+  ],
+  "tests": [
+    "test_req_artlayout_0010",
+    "test_req_dbschema_002",
+    "test_req_dbschema_004",
+    "test_first_functional_slice_decision_02",
+    "test_first_functional_slice_decision_03",
+    "test_first_functional_slice_decision_05",
+    "test_first_functional_slice_decision_07",
+    "test_first_functional_slice_decision_08",
+    "test_first_functional_slice_decision_09",
+    "test_first_functional_slice_decision_10"
+  ],
+  "evidence": [
+    "evidence/implementation/openapi-cliente-typescript-e-contratos-cli-jobs-ev/artlayout-dbschema-fs1-parte-1/",
+    "commit candidato e relatório de testes"
+  ],
+  "dependencies": [
+    "STORY-0016"
+  ],
+  "stop_conditions": [
+    "Decisão material não resolvida.",
+    "Contrato obrigatório ausente ou contraditório.",
+    "Write scope sobrepõe lane ativa.",
+    "Aceitação não pode ser demonstrada por teste ou evidência."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0813-01",
+    "AC-ISSUE-0813-02",
+    "AC-ISSUE-0813-03",
+    "AC-ISSUE-0813-04"
+  ],
+  "governing_adrs": [
+    "ADR-003",
+    "ADR-005",
+    "ADR-006",
+    "ADR-007",
+    "ADR-008",
+    "ADR-010",
+    "ADR-011",
+    "ADR-013",
+    "ADR-014",
+    "ADR-015",
+    "ADR-019",
+    "ADR-021",
+    "ADR-023",
+    "ADR-040",
+    "ADR-044",
+    "ADR-046",
+    "ADR-055"
+  ],
+  "requirement_basis": "MIXED",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-001",
+  "context_map_dependencies": [],
+  "domain_model_impact": "CROSS_CONTEXT_INTEGRATION",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004",
+    "SPEC-005"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 1,
+      "items": [
+        "STORY-0016"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/**",
+        "docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/**"
+      ],
+      "deny_paths": [
+        "src/**/epic-*",
+        "src/**/issue-*"
+      ]
+    },
+    "api": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": [
+        "contracts/http/openapi.yaml",
+        "contracts/http/OPERATION_CATALOG.json"
+      ]
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-019",
+        "ADR-021",
+        "ADR-023"
+      ],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-010",
+        "ADR-011",
+        "ADR-013",
+        "ADR-014"
+      ]
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-044",
+        "ADR-046"
+      ]
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "test_req_artlayout_0010",
+        "test_req_dbschema_002",
+        "test_req_dbschema_004",
+        "test_first_functional_slice_decision_02",
+        "test_first_functional_slice_decision_03",
+        "test_first_functional_slice_decision_05",
+        "test_first_functional_slice_decision_07",
+        "test_first_functional_slice_decision_08",
+        "test_first_functional_slice_decision_09",
+        "test_first_functional_slice_decision_10"
+      ]
+    },
+    "artifacts": {
+      "applicability": "PRODUCT_AND_EVIDENCE",
+      "status": "PASS",
+      "kinds": [
+        "Report"
+      ],
+      "evidence": [
+        "evidence/implementation/openapi-cliente-typescript-e-contratos-cli-jobs-ev/artlayout-dbschema-fs1-parte-1/",
+        "commit candidato e relatório de testes"
+      ],
+      "contract": "SPEC-005"
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 4,
+      "ids": [
+        "AC-ISSUE-0813-01",
+        "AC-ISSUE-0813-02",
+        "AC-ISSUE-0813-03",
+        "AC-ISSUE-0813-04"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "Arquiteto",
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "CRITICAL",
+    "applicable_controls": [
+      "CTO-001",
+      "CTO-003",
+      "CTO-004",
+      "CTO-005",
+      "CTO-006",
+      "CTO-008",
+      "CTO-009",
+      "CTO-010",
+      "CTO-011",
+      "CTO-012",
+      "CTO-013",
+      "CTO-014",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-002",
+      "CTO-007"
+    ],
+    "required_evidence": [
+      "contracts/operations/slo-sli-catalog.yaml",
+      "docs/05-operations/CAPACITY_AND_SCALING.md",
+      "contracts/operations/external-dependency-register.csv",
+      "contracts/operations/vendor-exit-matrix.csv",
+      "contracts/operations/cost-model.yaml",
+      "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+      "contracts/operations/lock-and-queue-policy.yaml",
+      "contracts/operations/recovery-objectives.yaml",
+      "docs/05-operations/BACKUP_RESTORE.md",
+      "contracts/operations/version-and-rollback-matrix.yaml",
+      "docs/03-engineering/DATABASE_MIGRATIONS.md",
+      "docs/05-operations/OBSERVABILITY.md",
+      "docs/04-quality/THREAT_MODEL.md",
+      "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+      "contracts/privacy/lgpd-control-matrix.csv",
+      "docs/04-quality/LGPD_CONTROL_MODEL.md"
+    ],
+    "production_gate": "SECURITY_AND_PRIVACY_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

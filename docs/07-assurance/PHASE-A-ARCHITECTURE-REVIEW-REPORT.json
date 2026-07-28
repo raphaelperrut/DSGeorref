@@ -1,0 +1,92 @@
+{
+  "schema_version": "2.0.0",
+  "baseline_version": "2.6.0",
+  "generated_at_utc": "2026-07-27T17:07:22+00:00",
+  "phase": "A — Architecture Review",
+  "architecture_approved": true,
+  "architecture_approved_label": "SIM",
+  "implementation_readiness": "READY_FOR_PHASE_B",
+  "phase_b_entry_approved": true,
+  "runtime": {
+    "primary": "CPython 3.12.13",
+    "project_constraint": ">=3.12,<3.13",
+    "future_lanes": [
+      "3.13",
+      "3.14"
+    ]
+  },
+  "technology_decisions_open": 0,
+  "architecture_decisions_open": 0,
+  "open_actions": [],
+  "closed_actions": [
+    {
+      "id": "AR-ACT-001",
+      "resolution": "ADR-007 + stable write scopes",
+      "affected_before": 263,
+      "affected_after": 0
+    },
+    {
+      "id": "AR-ACT-002",
+      "resolution": "ADR-008 + story slicing",
+      "stories_over_10_after": 0
+    },
+    {
+      "id": "AR-ACT-003",
+      "resolution": "ADR-010 + operation-specific contract freeze",
+      "generic_requests_after": 0,
+      "generic_responses_after": 0
+    },
+    {
+      "id": "AR-ACT-004",
+      "resolution": "ADR-009 + CPython 3.12.13 source lock",
+      "decision_status": "CLOSED",
+      "build_evidence": "SPRINT-001"
+    }
+  ],
+  "coverage": {
+    "requirements": 376,
+    "adrs": 22,
+    "modules": 18,
+    "sprints": 12,
+    "epics": 110,
+    "stories": 758,
+    "issues": 868,
+    "task_envelopes": 758,
+    "story_graph_edges": 1165,
+    "topological_waves": 88,
+    "http_operations": 56,
+    "contracts_frozen": 56
+  },
+  "phase_a_completion_checks": {
+    "all_requirements_architecturally_supported": "PASS",
+    "blocking_decisions_in_adrs": "PASS",
+    "foundation_issues_updated": "PASS",
+    "roadmap_updated": "PASS",
+    "contracts_complete": "PASS",
+    "dependencies_acyclic": "PASS",
+    "story_granularity": "PASS",
+    "write_scopes_stable": "PASS",
+    "runtime_decision_closed": "PASS",
+    "phase_b_entry": "PASS",
+    "contract_audit": "PASS",
+    "phase_b_architectural_entry": "PASS",
+    "phase_b_execution": "COMPLETED"
+  },
+  "residual_non_blocking_risks": [
+    "Python 3.12 support horizon requires scheduled upgrade gate.",
+    "Native image digest is execution evidence produced in SPRINT-001.",
+    "Scientific thresholds remain evidence-bound to Benchmark Profiles.",
+    "External implementation authorization remains required before coding."
+  ],
+  "missing_before_phase_b": [],
+  "phase_b_execution_ready": true,
+  "phase_b_execution_state": "COMPLETED_REQUIREMENTS_REVIEW",
+  "resolved_after_phase_a": [
+    {
+      "id": "PHASE-B-CHARTER",
+      "classification": "PROCEDURAL_NON_ARCHITECTURAL",
+      "status": "RESOLVED",
+      "resolution": "Charter recebido em docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md; Requirements Review concluída na baseline 2.6.0."
+    }
+  ]
+}

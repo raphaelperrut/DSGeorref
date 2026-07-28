@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/templates/template/1.0.0",
+  "title": "TemplateContract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "template_id",
+    "template_version",
+    "template_kind",
+    "media_type",
+    "engine",
+    "source",
+    "variables",
+    "output_validation",
+    "integrity"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "template_id": {
+      "type": "string",
+      "pattern": "^TPL-[A-Z0-9][A-Z0-9_-]{2,63}$"
+    },
+    "template_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "template_kind": {
+      "enum": [
+        "TEXT",
+        "MARKDOWN",
+        "JSON",
+        "YAML"
+      ]
+    },
+    "media_type": {
+      "type": "string"
+    },
+    "engine": {
+      "enum": [
+        "LITERAL",
+        "MUSTACHE_SAFE",
+        "STRUCTURED"
+      ]
+    },
+    "source": {},
+    "variables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "value_type",
+          "required"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$"
+          },
+          "value_type": {
+            "enum": [
+              "STRING",
+              "INTEGER",
+              "NUMBER",
+              "BOOLEAN",
+              "OBJECT",
+              "ARRAY"
+            ]
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "default": {},
+          "sensitive": {
+            "type": "boolean",
+            "default": false
+          },
+          "max_length": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "allowed_values": {
+            "type": "array",
+            "items": {}
+          }
+        }
+      },
+      "maxItems": 128
+    },
+    "partials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "template_id",
+          "version_constraint"
+        ],
+        "properties": {
+          "template_id": {
+            "type": "string"
+          },
+          "version_constraint": {
+            "type": "string"
+          }
+        }
+      },
+      "maxItems": 32
+    },
+    "output_validation": {
+      "type": "object",
+      "required": [
+        "maximum_bytes"
+      ],
+      "properties": {
+        "schema": {
+          "type": "object"
+        },
+        "maximum_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "required_sections": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "required": [
+        "sha256"
+      ],
+      "properties": {
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    }
+  }
+}

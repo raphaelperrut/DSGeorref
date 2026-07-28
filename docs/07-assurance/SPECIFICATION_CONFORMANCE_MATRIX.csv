@@ -1,0 +1,6 @@
+specification_id,status,primary_contract,schema_validation,examples,negative_vectors,compatibility,blocking_findings
+SPEC-001,FROZEN,contracts/prompts/prompt-bundle.schema.json,PASS,PASS,PASS,PASS,0
+SPEC-002,FROZEN,contracts/edit-cases/edit-case.schema.json,PASS,PASS,PASS,PASS,0
+SPEC-003,FROZEN,contracts/ai/ai-backend-protocol.yaml,PASS,PASS,PASS,PASS,0
+SPEC-004,FROZEN,contracts/templates/template.schema.json,PASS,PASS,PASS,PASS,0
+SPEC-005,FROZEN,contracts/artifacts/artifact-set-manifest.schema.json,PASS,PASS,PASS,PASS,0

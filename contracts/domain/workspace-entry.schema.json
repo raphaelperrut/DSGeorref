@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/schemas/workspace-entry.schema/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "title": "WorkspaceEntry",
+  "required": [
+    "id",
+    "name",
+    "kind"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "directory",
+        "file"
+      ]
+    },
+    "selectable": {
+      "type": "boolean"
+    }
+  }
+}

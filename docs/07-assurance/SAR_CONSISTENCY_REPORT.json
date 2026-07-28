@@ -1,0 +1,79 @@
+{
+  "schema_version": "2.0.0",
+  "baseline_version": "2.6.0",
+  "generated_at_utc": "2026-07-27T17:07:22+00:00",
+  "status": "PASS",
+  "runtime_primary": "CPython 3.12.13",
+  "architecture_approved": true,
+  "phase_a_completed": true,
+  "phase_b_architectural_entry_approved": true,
+  "phase_b_execution_ready": true,
+  "phase_b_execution_blocker": null,
+  "counts": {
+    "adrs": 22,
+    "modules": 18,
+    "components": 18,
+    "requirements": 376,
+    "sprints": 12,
+    "epics": 110,
+    "parent_issues": 110,
+    "stories": 758,
+    "issues": 868,
+    "codex_tasks": 758,
+    "http_operations": 56,
+    "contract_files": 94,
+    "hard_dependency_edges": 1165,
+    "topological_waves": 88
+  },
+  "consistency_checks": {
+    "requirements_to_stories": "PASS",
+    "adrs_complete": "PASS",
+    "roadmap_reconciled": "PASS",
+    "foundation_issues_reconciled": "PASS",
+    "contracts_specific_and_frozen": "PASS",
+    "dependencies_acyclic": "PASS",
+    "no_reverse_sprint_dependency": "PASS",
+    "write_scopes_stable": "PASS",
+    "stories_max_10_requirements": "PASS",
+    "runtime_exact_pin": "PASS",
+    "placeholders_or_truncation": "PASS",
+    "phase_b_requirements_review": "PASS"
+  },
+  "closed_phase_a_actions": [
+    {
+      "id": "AR-ACT-001",
+      "resolution": "ADR-007 + stable write scopes",
+      "affected_before": 263,
+      "affected_after": 0
+    },
+    {
+      "id": "AR-ACT-002",
+      "resolution": "ADR-008 + story slicing",
+      "stories_over_10_after": 0
+    },
+    {
+      "id": "AR-ACT-003",
+      "resolution": "ADR-010 + operation-specific contract freeze",
+      "generic_requests_after": 0,
+      "generic_responses_after": 0
+    },
+    {
+      "id": "AR-ACT-004",
+      "resolution": "ADR-009 + CPython 3.12.13 source lock",
+      "decision_status": "CLOSED",
+      "build_evidence": "SPRINT-001"
+    }
+  ],
+  "procedural_inputs_pending": [],
+  "contract_audit": "docs/07-assurance/CONTRACT_AUDIT_REPORT.json",
+  "dependency_audit": "docs/07-assurance/DEPENDENCY_AUDIT.json",
+  "phase_b_execution_state": "COMPLETED_REQUIREMENTS_REVIEW",
+  "resolved_procedural_inputs": [
+    {
+      "id": "PHASE-B-CHARTER",
+      "status": "RESOLVED",
+      "evidence": "docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md"
+    }
+  ],
+  "phase_b_requirements_review": "docs/07-assurance/PHASE-B-REQUIREMENTS-REVIEW-REPORT.json"
+}

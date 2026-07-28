@@ -1,0 +1,88 @@
+adr_id,title,bounded_context,relation
+ADR-001,"Topologia do repositório, monorepo e workspaces",BC-001,GOVERNS
+ADR-002,Topologia do produto: monólito modular e instância única,BC-001,GOVERNS
+ADR-003,"Bounded Contexts, subdomínios e linguagem ubíqua",BC-001,GOVERNS
+ADR-004,Integração entre contexts e modelos publicados,BC-001,GOVERNS
+ADR-005,Layout context-first e direção de dependências,BC-001,GOVERNS
+ADR-006,"Prompts permanentes, TaskEnvelope e precedência de instruções",BC-001,GOVERNS
+ADR-007,"Write scopes, lanes paralelas e isolamento de mudança",BC-001,GOVERNS
+ADR-008,Granularidade de histórias e limites anti-monólito,BC-001,GOVERNS
+ADR-009,"Runtime Python 3.12, toolchain e stack nativa reproduzível",BC-001,GOVERNS
+ADR-009,"Runtime Python 3.12, toolchain e stack nativa reproduzível",BC-015,GOVERNS
+ADR-010,"API-first, versionamento e contract freeze",BC-001,GOVERNS
+ADR-011,"Boundary HTTP com FastAPI, Pydantic e OpenAPI",BC-016,GOVERNS
+ADR-012,"Modelo de interação REST, SSE e polling",BC-016,GOVERNS
+ADR-012,"Modelo de interação REST, SSE e polling",BC-010,GOVERNS
+ADR-013,Cliente TypeScript gerado e diff gate OpenAPI,BC-016,GOVERNS
+ADR-014,"Frontend React, Vite, OpenLayers e workspace cartográfico",BC-016,GOVERNS
+ADR-015,"CLI, Direct Runner e núcleo compartilhado",BC-016,GOVERNS
+ADR-016,"Application services, Unit of Work, erros e idempotência",BC-004,GOVERNS
+ADR-017,Feature flags e registro de capabilities,BC-001,GOVERNS
+ADR-017,Feature flags e registro de capabilities,BC-009,GOVERNS
+ADR-018,PostgreSQL/PostGIS como system of record,BC-013,GOVERNS
+ADR-019,"Schemas físicos, UUIDv7, escopo e concorrência",BC-003,GOVERNS
+ADR-019,"Schemas físicos, UUIDv7, escopo e concorrência",BC-013,GOVERNS
+ADR-020,Transactional outbox e consumidores idempotentes,BC-010,GOVERNS
+ADR-021,"Filesystem gerenciado, roots e resolução segura",BC-013,GOVERNS
+ADR-022,"Object Model: aggregates, identidade e state machines",BC-003,GOVERNS
+ADR-022,"Object Model: aggregates, identidade e state machines",BC-004,GOVERNS
+ADR-022,"Object Model: aggregates, identidade e state machines",BC-012,GOVERNS
+ADR-022,"Object Model: aggregates, identidade e state machines",BC-013,GOVERNS
+ADR-023,"ArtifactSet, manifest e bundles imutáveis",BC-013,GOVERNS
+ADR-024,"Publicação atômica, checksums e content addressing",BC-013,GOVERNS
+ADR-025,"Result snapshots, lineage e visão corrente",BC-012,GOVERNS
+ADR-025,"Result snapshots, lineage e visão corrente",BC-013,GOVERNS
+ADR-026,"Schema registry, migrations e compatibilidade",BC-013,GOVERNS
+ADR-026,"Schema registry, migrations e compatibilidade",BC-015,GOVERNS
+ADR-027,"Backup, restore, retenção e GC reference-aware",BC-013,GOVERNS
+ADR-027,"Backup, restore, retenção e GC reference-aware",BC-014,GOVERNS
+ADR-028,"Contas locais, sessões server-side e Argon2id",BC-002,GOVERNS
+ADR-029,Federação OIDC e vínculo de identidade,BC-002,GOVERNS
+ADR-030,"PATs, autorização central e scopes",BC-002,GOVERNS
+ADR-031,"CSRF, CORS, security headers e proteção Web",BC-002,GOVERNS
+ADR-031,"CSRF, CORS, security headers e proteção Web",BC-016,GOVERNS
+ADR-032,"Secrets, TLS e ingress único",BC-014,GOVERNS
+ADR-032,"Secrets, TLS e ingress único",BC-015,GOVERNS
+ADR-033,"Supply chain, SBOM, assinaturas e dependências",BC-015,GOVERNS
+ADR-034,"OCI/Compose, instalação, bootstrap e readiness",BC-015,GOVERNS
+ADR-034,"OCI/Compose, instalação, bootstrap e readiness",BC-014,GOVERNS
+ADR-035,"Upgrade Controller, mixed versions e rollback",BC-015,GOVERNS
+ADR-036,"Celery, RabbitMQ e TaskEnvelope mínimo",BC-010,GOVERNS
+ADR-037,"Workers duráveis, leases e fencing",BC-010,GOVERNS
+ADR-038,"Retry, quarantine, checkpoints, cancelamento e drain",BC-010,GOVERNS
+ADR-039,"Scheduler, fairness, backpressure e Resource Governor",BC-010,GOVERNS
+ADR-040,"Progresso, event ledger, replay e ETA",BC-010,GOVERNS
+ADR-040,"Progresso, event ledger, replay e ETA",BC-014,GOVERNS
+ADR-041,"CRS, espaços de coordenadas e axis order",BC-006,GOVERNS
+ADR-041,"CRS, espaços de coordenadas e axis order",BC-007,GOVERNS
+ADR-041,"CRS, espaços de coordenadas e axis order",BC-008,GOVERNS
+ADR-042,"Raster validity, output grid, resampling e COG",BC-006,GOVERNS
+ADR-042,"Raster validity, output grid, resampling e COG",BC-013,GOVERNS
+ADR-043,"Stack geoespacial nativa, ABI e isolamento",BC-006,GOVERNS
+ADR-043,"Stack geoespacial nativa, ABI e isolamento",BC-007,GOVERNS
+ADR-044,Pipeline clássico de matching coarse-to-fine,BC-006,GOVERNS
+ADR-045,"Estimação geométrica, homografia e seleção de GCPs",BC-006,GOVERNS
+ADR-045,"Estimação geométrica, homografia e seleção de GCPs",BC-007,GOVERNS
+ADR-046,"SGV, Quality Profiles e aceitação fail-closed",BC-007,GOVERNS
+ADR-046,"SGV, Quality Profiles e aceitação fail-closed",BC-012,GOVERNS
+ADR-047,"Referências, providers, aquisição e cache governado",BC-005,GOVERNS
+ADR-048,"Edit Bundles: CorrectionSet, AnchorSet e revisão humana",BC-011,GOVERNS
+ADR-048,"Edit Bundles: CorrectionSet, AnchorSet e revisão humana",BC-012,GOVERNS
+ADR-049,"Mosaico relativo: grafo, otimização e ancoragem",BC-008,GOVERNS
+ADR-050,"Mosaico relativo: verificador, reporting e materialização",BC-008,GOVERNS
+ADR-050,"Mosaico relativo: verificador, reporting e materialização",BC-012,GOVERNS
+ADR-050,"Mosaico relativo: verificador, reporting e materialização",BC-013,GOVERNS
+ADR-051,"AI Router, planner e escalonamento classic-first",BC-009,GOVERNS
+ADR-051,"AI Router, planner e escalonamento classic-first",BC-007,GOVERNS
+ADR-052,"Inference Engine, ModelRunner, ModelPack e offline",BC-009,GOVERNS
+ADR-052,"Inference Engine, ModelRunner, ModelPack e offline",BC-013,GOVERNS
+ADR-052,"Inference Engine, ModelRunner, ModelPack e offline",BC-015,GOVERNS
+ADR-053,"Reprodutibilidade científica, benchmarks, promoção e rollback",BC-006,GOVERNS
+ADR-053,"Reprodutibilidade científica, benchmarks, promoção e rollback",BC-007,GOVERNS
+ADR-053,"Reprodutibilidade científica, benchmarks, promoção e rollback",BC-008,GOVERNS
+ADR-053,"Reprodutibilidade científica, benchmarks, promoção e rollback",BC-009,GOVERNS
+ADR-054,"Observabilidade, telemetria e diagnósticos operacionais",BC-014,GOVERNS
+ADR-055,"Audit ledger, privacidade, redaction e support bundles",BC-014,GOVERNS
+ADR-056,"Licenciamento, contribuições, provider attribution e citação",BC-015,GOVERNS
+ADR-057,"Release train, publicação e gates de distribuição",BC-015,GOVERNS
+ADR-057,"Release train, publicação e gates de distribuição",BC-001,GOVERNS

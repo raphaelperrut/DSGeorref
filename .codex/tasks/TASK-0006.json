@@ -1,0 +1,223 @@
+{
+  "task_id": "TASK-0006",
+  "issue_id": "ISSUE-0116",
+  "story_id": "STORY-0006",
+  "epic_id": "EPIC-002",
+  "sprint_id": "SPRINT-001",
+  "role": "Arquiteto",
+  "outcome": "Consolidar slices e liberar integração: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-002-arquiteto.md",
+    "docs/06-delivery/stories/STORY-0006-ISSUE-0116-definir-escopo-contratos-e-invariantes-repositorio-privado-project-central.md",
+    "docs/06-delivery/epics/EPIC-002-repositorio-privado-project-central-views-campos-labels-issue-forms-te.md",
+    "docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md",
+    "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
+    "docs/02-architecture/ddd/bounded-contexts/BC-001-engineering-governance.md",
+    "docs/02-architecture/ddd/DDD-040-CONTEXT-MAP.md",
+    "docs/02-architecture/adrs/ADR-003-bounded-contexts-subdominios-e-linguagem-ubiqua.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "docs/02-architecture/adrs/ADR-004-integracao-entre-contexts-e-modelos-publicados.md",
+    "docs/02-architecture/adrs/ADR-005-layout-context-first-e-direcao-de-dependencias.md",
+    "contracts/operations/external-dependency-register.csv",
+    "contracts/operations/vendor-exit-matrix.csv",
+    "contracts/operations/cost-model.yaml",
+    "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+    "contracts/operations/version-and-rollback-matrix.yaml",
+    "docs/03-engineering/DATABASE_MIGRATIONS.md",
+    "contracts/operations/slo-sli-catalog.yaml",
+    "docs/05-operations/OBSERVABILITY.md",
+    "docs/04-quality/THREAT_MODEL.md",
+    "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
+    "docs/05-operations/PRODUCTION_READINESS_GATES.md"
+  ],
+  "allow_paths": [
+    "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/consolidacao/**",
+    "docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/consolidacao/**"
+  ],
+  "deny_paths": [
+    "src/**/epic-*",
+    "src/**/issue-*"
+  ],
+  "acceptance_criteria": [
+    "Todos os slices vinculados estão concluídos no mesmo baseline candidato.",
+    "Cobertura requisito→história permanece integral e sem duplicação normativa.",
+    "Contratos e outputs dos slices integram sem colisão ou implementação redundante.",
+    "Reviewer registra riscos residuais e libera dependentes."
+  ],
+  "tests": [
+    "test_story_0006_slice_consolidation"
+  ],
+  "evidence": [
+    "evidence/implementation/epic-002/story-0006/",
+    "commit candidato e relatório de testes"
+  ],
+  "dependencies": [
+    "STORY-0690",
+    "STORY-0691"
+  ],
+  "stop_conditions": [
+    "Decisão material de produto ou arquitetura não resolvida.",
+    "Contrato obrigatório ausente ou contraditório.",
+    "Write scope sobrepõe lane ativa.",
+    "Aceitação não pode ser demonstrada por teste ou evidência."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0116-01",
+    "AC-ISSUE-0116-02",
+    "AC-ISSUE-0116-03",
+    "AC-ISSUE-0116-04"
+  ],
+  "governing_adrs": [
+    "ADR-003",
+    "ADR-004",
+    "ADR-005",
+    "ADR-006",
+    "ADR-007",
+    "ADR-008"
+  ],
+  "requirement_basis": "DERIVED_CONTROL",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-001",
+  "context_map_dependencies": [],
+  "domain_model_impact": "PUBLIC_CONTRACT",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 2,
+      "items": [
+        "STORY-0690",
+        "STORY-0691"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/consolidacao/**",
+        "docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/consolidacao/**"
+      ],
+      "deny_paths": [
+        "src/**/epic-*",
+        "src/**/issue-*"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "test_story_0006_slice_consolidation"
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "PASS",
+      "kinds": [],
+      "evidence": [
+        "evidence/implementation/epic-002/story-0006/",
+        "commit candidato e relatório de testes"
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 4,
+      "ids": [
+        "AC-ISSUE-0116-01",
+        "AC-ISSUE-0116-02",
+        "AC-ISSUE-0116-03",
+        "AC-ISSUE-0116-04"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "Arquiteto",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "MEDIUM",
+    "applicable_controls": [
+      "CTO-003",
+      "CTO-004",
+      "CTO-006",
+      "CTO-011",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-002",
+      "CTO-005",
+      "CTO-007",
+      "CTO-008",
+      "CTO-009",
+      "CTO-010",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "contracts/operations/external-dependency-register.csv",
+      "contracts/operations/vendor-exit-matrix.csv",
+      "contracts/operations/cost-model.yaml",
+      "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+      "contracts/operations/version-and-rollback-matrix.yaml",
+      "docs/03-engineering/DATABASE_MIGRATIONS.md",
+      "contracts/operations/slo-sli-catalog.yaml",
+      "docs/05-operations/OBSERVABILITY.md",
+      "docs/04-quality/THREAT_MODEL.md",
+      "docs/04-quality/SECURITY_PRIVACY_LGPD.md"
+    ],
+    "production_gate": "IMPLEMENTATION_AUTHORIZATION"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

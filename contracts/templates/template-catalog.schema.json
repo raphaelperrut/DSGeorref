@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/templates/template-catalog/1.0.0",
+  "title": "TemplateCatalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "catalog_version",
+    "templates"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "catalog_version": {
+      "type": "string"
+    },
+    "templates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "template_id",
+          "template_version",
+          "sha256",
+          "status"
+        ],
+        "properties": {
+          "template_id": {
+            "type": "string"
+          },
+          "template_version": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "status": {
+            "enum": [
+              "ACTIVE",
+              "DEPRECATED",
+              "RETIRED"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,273 @@
+{
+  "task_id": "TASK-0752",
+  "issue_id": "ISSUE-0862",
+  "story_id": "STORY-0752",
+  "epic_id": "EPIC-086",
+  "sprint_id": "SPRINT-001",
+  "role": "Tech Lead",
+  "outcome": "Entregar Slice 1/2 — Materializar a fundação executável: walking skeleton frontend→API→PostgreSQL→RabbitMQ/Celery→worker→artefato diagnóstico, executável e testado ponta a ponta [REQ-DEL, REQ-ISM, REQ-SPRINT-001] com testes e evidência verificável.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-003-tech-lead.md",
+    "docs/06-delivery/stories/STORY-0752-ISSUE-0862-slice-1-2-materializar-a-fundacao-executavel-walking-skeleton-frontendapipostgresqlrab.md",
+    "docs/06-delivery/epics/EPIC-086-walking-skeleton-frontendapipostgresqlrabbitmq-celeryworkerartefato-di.md",
+    "docs/01-product/requirements/REQ-DEL-001-o-walking-skeleton-deve-executar-ponta-a-ponta-frontend-ou-cli-api-postgresql-rabbitmq-celer.md",
+    "docs/01-product/requirements/REQ-DEL-002-a-primeira-baseline-operacional-privada-deve-instalar-de-forma-limpa-operar-em-cpu-executar.md",
+    "docs/01-product/requirements/REQ-ISM-003-decompor-outcomes-em-fatias-verticais-finas-e-integraveis.md",
+    "docs/01-product/requirements/REQ-SPRINT-001-001-limitar-a-sprint-001-ao-conjunto-minimo-necessario-ao-executable-foundat.md",
+    "docs/01-product/requirements/REQ-SPRINT-001-002-derivar-a-selecao-de-issues-pelo-grafo-de-gates-dependencias-requisitos.md",
+    "docs/01-product/requirements/REQ-SPRINT-001-003-executar-ondas-verticais-pequenas-integraveis-e-orientadas-a-evidencias.md",
+    "docs/01-product/requirements/REQ-SPRINT-001-005-versionar-e-exercitar-somente-os-contracts-essenciais-do-walking-skeleto.md",
+    "docs/01-product/requirements/REQ-SPRINT-001-006-implementar-job-diagnostico-sintetico-ponta-a-ponta-sem-georreferenciame.md",
+    "docs/01-product/requirements/REQ-SPRINT-001-007-aplicar-gate-progressivo-de-ci-proporcional-as-capacidades-presentes.md",
+    "docs/01-product/requirements/REQ-SPRINT-001-008-produzir-sprintevidenceset-imutavel-machine-readable-e-resumido-para-hum.md",
+    "docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md",
+    "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
+    "docs/02-architecture/ddd/bounded-contexts/BC-001-engineering-governance.md",
+    "docs/02-architecture/ddd/DDD-040-CONTEXT-MAP.md",
+    "docs/02-architecture/adrs/ADR-003-bounded-contexts-subdominios-e-linguagem-ubiqua.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
+    "docs/02-architecture/adrs/ADR-010-api-first-versionamento-e-contract-freeze.md",
+    "docs/02-architecture/adrs/ADR-011-boundary-http-fastapi-pydantic-e-openapi.md",
+    "docs/02-architecture/adrs/ADR-012-modelo-de-interacao-rest-sse-e-polling.md",
+    "docs/02-architecture/adrs/ADR-014-frontend-react-vite-openlayers-e-workspace-cartografico.md",
+    "docs/02-architecture/adrs/ADR-057-release-train-publicacao-e-gates-de-distribuicao.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "contracts/operations/slo-sli-catalog.yaml",
+    "docs/05-operations/CAPACITY_AND_SCALING.md",
+    "contracts/operations/lock-and-queue-policy.yaml",
+    "contracts/operations/external-dependency-register.csv",
+    "contracts/operations/vendor-exit-matrix.csv",
+    "contracts/operations/cost-model.yaml",
+    "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+    "contracts/operations/recovery-objectives.yaml",
+    "docs/05-operations/BACKUP_RESTORE.md",
+    "contracts/operations/version-and-rollback-matrix.yaml",
+    "docs/03-engineering/DATABASE_MIGRATIONS.md",
+    "docs/05-operations/OBSERVABILITY.md",
+    "docs/04-quality/THREAT_MODEL.md",
+    "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+    "contracts/privacy/lgpd-control-matrix.csv",
+    "docs/04-quality/LGPD_CONTROL_MODEL.md",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
+    "docs/05-operations/PRODUCTION_READINESS_GATES.md"
+  ],
+  "allow_paths": [
+    "tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/**",
+    "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/**"
+  ],
+  "deny_paths": [
+    "src/**/epic-*",
+    "src/**/issue-*"
+  ],
+  "acceptance_criteria": [
+    "Cada requisito do slice possui evidência explícita: REQ-DEL-001, REQ-DEL-002, REQ-ISM-003, REQ-SPRINT-001-001, REQ-SPRINT-001-002, REQ-SPRINT-001-003, REQ-SPRINT-001-005, REQ-SPRINT-001-006, REQ-SPRINT-001-007, REQ-SPRINT-001-008.",
+    "O write scope é estável, disjunto e não usa identificador de ticket em código de produção.",
+    "Estados de falha aplicáveis são testados sem fallback silencioso.",
+    "O handoff registra impacto em contratos, riscos e rollback."
+  ],
+  "tests": [
+    "test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done",
+    "test_private_operational_baseline_scope_cpu_only_clean_install",
+    "test_thin_vertical_integrable_slices_and_pr_sequence",
+    "test_sprint_zero_baseline_decision_01",
+    "test_sprint_zero_baseline_decision_02",
+    "test_sprint_zero_baseline_decision_03",
+    "test_sprint_zero_baseline_decision_05",
+    "test_sprint_zero_baseline_decision_06",
+    "test_sprint_zero_baseline_decision_07",
+    "test_sprint_zero_baseline_decision_08"
+  ],
+  "evidence": [
+    "evidence/implementation/walking-skeleton-frontendapipostgresqlrabbitmq-cel/del-ism-sprint-001-parte-1/",
+    "commit candidato e relatório de testes"
+  ],
+  "dependencies": [
+    "STORY-0534"
+  ],
+  "stop_conditions": [
+    "Decisão material não resolvida.",
+    "Contrato obrigatório ausente ou contraditório.",
+    "Write scope sobrepõe lane ativa.",
+    "Aceitação não pode ser demonstrada por teste ou evidência."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0862-01",
+    "AC-ISSUE-0862-02",
+    "AC-ISSUE-0862-03",
+    "AC-ISSUE-0862-04"
+  ],
+  "governing_adrs": [
+    "ADR-003",
+    "ADR-006",
+    "ADR-007",
+    "ADR-008",
+    "ADR-010",
+    "ADR-011",
+    "ADR-012",
+    "ADR-014",
+    "ADR-057"
+  ],
+  "requirement_basis": "MIXED",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-001",
+  "context_map_dependencies": [],
+  "domain_model_impact": "CROSS_CONTEXT_INTEGRATION",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 1,
+      "items": [
+        "STORY-0534"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/**",
+        "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/**"
+      ],
+      "deny_paths": [
+        "src/**/epic-*",
+        "src/**/issue-*"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": true,
+      "rollback_required": true
+    },
+    "frontend": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-010",
+        "ADR-011",
+        "ADR-012",
+        "ADR-014"
+      ]
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done",
+        "test_private_operational_baseline_scope_cpu_only_clean_install",
+        "test_thin_vertical_integrable_slices_and_pr_sequence",
+        "test_sprint_zero_baseline_decision_01",
+        "test_sprint_zero_baseline_decision_02",
+        "test_sprint_zero_baseline_decision_03",
+        "test_sprint_zero_baseline_decision_05",
+        "test_sprint_zero_baseline_decision_06",
+        "test_sprint_zero_baseline_decision_07",
+        "test_sprint_zero_baseline_decision_08"
+      ]
+    },
+    "artifacts": {
+      "applicability": "PRODUCT_AND_EVIDENCE",
+      "status": "PASS",
+      "kinds": [],
+      "evidence": [
+        "evidence/implementation/walking-skeleton-frontendapipostgresqlrabbitmq-cel/del-ism-sprint-001-parte-1/",
+        "commit candidato e relatório de testes"
+      ],
+      "contract": "SPEC-005"
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 4,
+      "ids": [
+        "AC-ISSUE-0862-01",
+        "AC-ISSUE-0862-02",
+        "AC-ISSUE-0862-03",
+        "AC-ISSUE-0862-04"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "Arquiteto",
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "CRITICAL",
+    "applicable_controls": [
+      "CTO-001",
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-005",
+      "CTO-006",
+      "CTO-008",
+      "CTO-010",
+      "CTO-011",
+      "CTO-012",
+      "CTO-013",
+      "CTO-014",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-007",
+      "CTO-009"
+    ],
+    "required_evidence": [
+      "contracts/operations/slo-sli-catalog.yaml",
+      "docs/05-operations/CAPACITY_AND_SCALING.md",
+      "contracts/operations/lock-and-queue-policy.yaml",
+      "contracts/operations/external-dependency-register.csv",
+      "contracts/operations/vendor-exit-matrix.csv",
+      "contracts/operations/cost-model.yaml",
+      "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+      "contracts/operations/recovery-objectives.yaml",
+      "docs/05-operations/BACKUP_RESTORE.md",
+      "contracts/operations/version-and-rollback-matrix.yaml",
+      "docs/03-engineering/DATABASE_MIGRATIONS.md",
+      "docs/05-operations/OBSERVABILITY.md",
+      "docs/04-quality/THREAT_MODEL.md",
+      "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+      "contracts/privacy/lgpd-control-matrix.csv",
+      "docs/04-quality/LGPD_CONTROL_MODEL.md"
+    ],
+    "production_gate": "SECURITY_AND_PRIVACY_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

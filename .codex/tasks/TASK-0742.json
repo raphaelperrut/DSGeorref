@@ -1,0 +1,285 @@
+{
+  "task_id": "TASK-0742",
+  "issue_id": "ISSUE-0852",
+  "story_id": "STORY-0742",
+  "epic_id": "EPIC-034",
+  "sprint_id": "SPRINT-009",
+  "role": "Frontend",
+  "outcome": "Entregar Slice 2/2 — Integrar contratos e cliente tipado: painel de qualidade do lote, busca server-side, filtros salvos, triagem, deformação e retry/revisão de subconjuntos [REQ-EPIC, REQ-QUAL, REQ-SCL, REQ-SMO] com testes e evidência verificável.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-005-frontend.md",
+    "docs/06-delivery/stories/STORY-0742-ISSUE-0852-slice-2-2-integrar-contratos-e-cliente-tipado-painel-de-qualidade-do-lote-busca-server.md",
+    "docs/06-delivery/epics/EPIC-034-painel-de-qualidade-do-lote-busca-server-side-filtros-salvos-triagem-d.md",
+    "docs/01-product/requirements/REQ-EPIC-035-revisao-humana-altera-apenas-gates-revisaveis-o-veredito-automatico-e-ha.md",
+    "docs/01-product/requirements/REQ-EPIC-070-cada-ciclo-de-processamento-remediacao-gera-snapshot-imutavel-e-a-visao.md",
+    "docs/01-product/requirements/REQ-QUAL-005-relatorios-de-deformacao-oferecem-metricas-obrigatorias-heatmap-amostrad.md",
+    "docs/01-product/requirements/REQ-SCL-002-consulta-e-exportacao-de-lotes-usam-paginacao-filtros-e-streaming-server.md",
+    "docs/01-product/requirements/REQ-SMO-002-progresso-e-estimativas-devem-usar-unidades-por-estagio-throughput-obser.md",
+    "docs/01-product/requirements/REQ-SMO-004-dashboard-role-based-deve-explicar-bloqueios-prioridade-efetiva-e-acoes.md",
+    "docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md",
+    "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
+    "docs/02-architecture/ddd/bounded-contexts/BC-016-operator-experience.md",
+    "docs/02-architecture/ddd/DDD-040-CONTEXT-MAP.md",
+    "docs/02-architecture/adrs/ADR-002-topologia-do-produto-monolito-modular-e-instancia-unica.md",
+    "docs/02-architecture/adrs/ADR-003-bounded-contexts-subdominios-e-linguagem-ubiqua.md",
+    "docs/02-architecture/adrs/ADR-004-integracao-entre-contexts-e-modelos-publicados.md",
+    "docs/02-architecture/adrs/ADR-005-layout-context-first-e-direcao-de-dependencias.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
+    "docs/02-architecture/adrs/ADR-014-frontend-react-vite-openlayers-e-workspace-cartografico.md",
+    "docs/02-architecture/adrs/ADR-030-pats-autorizacao-central-e-scopes.md",
+    "docs/02-architecture/adrs/ADR-040-progresso-event-ledger-replay-e-eta.md",
+    "docs/02-architecture/adrs/ADR-046-sgv-quality-profiles-e-aceitacao-fail-closed.md",
+    "docs/02-architecture/adrs/ADR-053-reprodutibilidade-cientifica-benchmarks-promocao-e-rollback.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-003-AI-BACKEND-PROTOCOL-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "docs/02-architecture/adrs/ADR-010-api-first-versionamento-e-contract-freeze.md",
+    "docs/02-architecture/adrs/ADR-011-boundary-http-fastapi-pydantic-e-openapi.md",
+    "docs/02-architecture/adrs/ADR-012-modelo-de-interacao-rest-sse-e-polling.md",
+    "contracts/http/openapi.yaml",
+    "contracts/http/OPERATION_CATALOG.json",
+    "contracts/http/API_CONTRACT_INDEX.csv",
+    "contracts/operations/slo-sli-catalog.yaml",
+    "docs/05-operations/CAPACITY_AND_SCALING.md",
+    "contracts/operations/external-dependency-register.csv",
+    "contracts/operations/vendor-exit-matrix.csv",
+    "contracts/operations/cost-model.yaml",
+    "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+    "contracts/operations/lock-and-queue-policy.yaml",
+    "contracts/operations/version-and-rollback-matrix.yaml",
+    "docs/03-engineering/DATABASE_MIGRATIONS.md",
+    "docs/05-operations/OBSERVABILITY.md",
+    "docs/04-quality/THREAT_MODEL.md",
+    "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+    "contracts/privacy/lgpd-control-matrix.csv",
+    "docs/04-quality/LGPD_CONTROL_MODEL.md",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
+    "docs/05-operations/PRODUCTION_READINESS_GATES.md"
+  ],
+  "allow_paths": [
+    "src/frontend/src/contexts/operator_experience/features/painel-de-qualidade-do-lote-busca-server-side-filtros/requirements-epic-qual-scl-parte-2/**"
+  ],
+  "deny_paths": [
+    "src/**/epic-*",
+    "src/**/issue-*"
+  ],
+  "acceptance_criteria": [
+    "Cada requisito do slice possui evidência explícita: REQ-EPIC-035, REQ-EPIC-070, REQ-QUAL-005, REQ-SCL-002, REQ-SMO-002, REQ-SMO-004.",
+    "O write scope é estável, disjunto e não usa identificador de ticket em código de produção.",
+    "Estados de falha aplicáveis são testados sem fallback silencioso.",
+    "O handoff registra impacto em contratos, riscos e rollback."
+  ],
+  "tests": [
+    "test_reviewable_gate_and_hard_gate_non_override",
+    "test_immutable_snapshots_current_view_historical_metrics",
+    "test_deformation_summary_heatmap_dense_consistency",
+    "test_server_pagination_filter_stream_export",
+    "test_stage_work_units_progress_eta_range_confidence_replanning_and_unknown_state",
+    "test_role_based_scheduler_diagnostics_safe_controls_and_append_only_audit"
+  ],
+  "evidence": [
+    "evidence/implementation/painel-de-qualidade-do-lote-busca-server-side-filt/requirements-epic-qual-scl-parte-2/",
+    "commit candidato e relatório de testes"
+  ],
+  "dependencies": [
+    "STORY-0203"
+  ],
+  "stop_conditions": [
+    "Decisão material não resolvida.",
+    "Contrato obrigatório ausente ou contraditório.",
+    "Write scope sobrepõe lane ativa.",
+    "Aceitação não pode ser demonstrada por teste ou evidência."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0852-01",
+    "AC-ISSUE-0852-02",
+    "AC-ISSUE-0852-03",
+    "AC-ISSUE-0852-04"
+  ],
+  "governing_adrs": [
+    "ADR-002",
+    "ADR-003",
+    "ADR-004",
+    "ADR-005",
+    "ADR-006",
+    "ADR-007",
+    "ADR-008",
+    "ADR-010",
+    "ADR-011",
+    "ADR-012",
+    "ADR-014",
+    "ADR-030",
+    "ADR-040",
+    "ADR-046",
+    "ADR-053"
+  ],
+  "requirement_basis": "MIXED",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-016",
+  "context_map_dependencies": [
+    "BC-002",
+    "BC-003",
+    "BC-012",
+    "BC-013",
+    "BC-014"
+  ],
+  "domain_model_impact": "CROSS_CONTEXT_INTEGRATION",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-003",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 1,
+      "items": [
+        "STORY-0203"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "src/frontend/src/contexts/operator_experience/features/painel-de-qualidade-do-lote-busca-server-side-filtros/requirements-epic-qual-scl-parte-2/**"
+      ],
+      "deny_paths": [
+        "src/**/epic-*",
+        "src/**/issue-*"
+      ]
+    },
+    "api": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": [
+        "contracts/http/openapi.yaml",
+        "contracts/http/OPERATION_CATALOG.json"
+      ]
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-010",
+        "ADR-011",
+        "ADR-012",
+        "ADR-014"
+      ]
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-046"
+      ]
+    },
+    "ai": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-053"
+      ],
+      "protocol_required": true
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "test_reviewable_gate_and_hard_gate_non_override",
+        "test_immutable_snapshots_current_view_historical_metrics",
+        "test_deformation_summary_heatmap_dense_consistency",
+        "test_server_pagination_filter_stream_export",
+        "test_stage_work_units_progress_eta_range_confidence_replanning_and_unknown_state",
+        "test_role_based_scheduler_diagnostics_safe_controls_and_append_only_audit"
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "PASS",
+      "kinds": [],
+      "evidence": [
+        "evidence/implementation/painel-de-qualidade-do-lote-busca-server-side-filt/requirements-epic-qual-scl-parte-2/",
+        "commit candidato e relatório de testes"
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 4,
+      "ids": [
+        "AC-ISSUE-0852-01",
+        "AC-ISSUE-0852-02",
+        "AC-ISSUE-0852-03",
+        "AC-ISSUE-0852-04"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "Arquiteto",
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "CRITICAL",
+    "applicable_controls": [
+      "CTO-001",
+      "CTO-003",
+      "CTO-004",
+      "CTO-005",
+      "CTO-006",
+      "CTO-007",
+      "CTO-008",
+      "CTO-009",
+      "CTO-011",
+      "CTO-012",
+      "CTO-013",
+      "CTO-014",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-002",
+      "CTO-010"
+    ],
+    "required_evidence": [
+      "contracts/operations/slo-sli-catalog.yaml",
+      "docs/05-operations/CAPACITY_AND_SCALING.md",
+      "contracts/operations/external-dependency-register.csv",
+      "contracts/operations/vendor-exit-matrix.csv",
+      "contracts/operations/cost-model.yaml",
+      "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+      "contracts/operations/lock-and-queue-policy.yaml",
+      "contracts/operations/version-and-rollback-matrix.yaml",
+      "docs/03-engineering/DATABASE_MIGRATIONS.md",
+      "docs/05-operations/OBSERVABILITY.md",
+      "docs/04-quality/THREAT_MODEL.md",
+      "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+      "contracts/privacy/lgpd-control-matrix.csv",
+      "docs/04-quality/LGPD_CONTROL_MODEL.md"
+    ],
+    "production_gate": "SECURITY_AND_PRIVACY_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

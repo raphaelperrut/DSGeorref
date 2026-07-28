@@ -1,0 +1,405 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/prompts/prompt-bundle/1.0.0",
+  "title": "PromptBundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "bundle_id",
+    "bundle_version",
+    "purpose",
+    "role",
+    "locale",
+    "compatibility",
+    "inheritance",
+    "fragments",
+    "composition_order",
+    "input_contract",
+    "output_contract",
+    "runtime_policy",
+    "integrity",
+    "signatures"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "bundle_id": {
+      "type": "string",
+      "pattern": "^PB-[A-Z0-9][A-Z0-9_-]{2,63}$"
+    },
+    "bundle_version": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 500
+    },
+    "role": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 80
+    },
+    "locale": {
+      "type": "string",
+      "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$"
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minimum_engine_version",
+        "supported_schema_majors",
+        "backward_read_window"
+      ],
+      "properties": {
+        "minimum_engine_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "supported_schema_majors": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "backward_read_window": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        }
+      }
+    },
+    "inheritance": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "bundle_id",
+          "version_constraint",
+          "merge_strategy"
+        ],
+        "properties": {
+          "bundle_id": {
+            "type": "string",
+            "pattern": "^PB-"
+          },
+          "version_constraint": {
+            "type": "string",
+            "minLength": 1
+          },
+          "alias": {
+            "type": "string"
+          },
+          "merge_strategy": {
+            "enum": [
+              "APPEND",
+              "PREPEND",
+              "REPLACE_BY_FRAGMENT_ID",
+              "ERROR_ON_CONFLICT"
+            ]
+          }
+        }
+      }
+    },
+    "fragments": {
+      "type": "array",
+      "items": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://dsgeorref.local/contracts/prompts/prompt-fragment/1.0.0",
+        "title": "PromptFragment",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "fragment_id",
+          "kind",
+          "template_format",
+          "content",
+          "variables",
+          "priority"
+        ],
+        "properties": {
+          "fragment_id": {
+            "type": "string",
+            "pattern": "^PF-[A-Z0-9][A-Z0-9_-]{2,63}$"
+          },
+          "kind": {
+            "enum": [
+              "SYSTEM_POLICY",
+              "ROLE",
+              "DOMAIN_CONTEXT",
+              "TASK",
+              "CONSTRAINT",
+              "OUTPUT_CONTRACT",
+              "EXAMPLE"
+            ]
+          },
+          "template_format": {
+            "enum": [
+              "LITERAL",
+              "MUSTACHE_SAFE"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64000
+          },
+          "variables": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "name",
+                "value_type",
+                "required"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9_]{0,63}$"
+                },
+                "value_type": {
+                  "enum": [
+                    "STRING",
+                    "INTEGER",
+                    "NUMBER",
+                    "BOOLEAN",
+                    "OBJECT",
+                    "ARRAY"
+                  ]
+                },
+                "required": {
+                  "type": "boolean"
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "default": {},
+                "sensitive": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "max_length": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "allowed_values": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            },
+            "maxItems": 128
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "enabled_when": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": true
+          },
+          "source": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^(repo|inline|generated):"
+          },
+          "content_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      },
+      "minItems": 1,
+      "maxItems": 128
+    },
+    "composition_order": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^PF-"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "input_contract": {
+      "type": "object",
+      "required": [
+        "schema"
+      ],
+      "properties": {
+        "schema": {
+          "type": "object"
+        },
+        "redaction_paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "maximum_serialized_bytes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "output_contract": {
+      "type": "object",
+      "required": [
+        "mode",
+        "schema"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "TEXT",
+            "JSON",
+            "YAML"
+          ]
+        },
+        "schema": {
+          "type": "object"
+        },
+        "maximum_serialized_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "repair_attempts": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        }
+      }
+    },
+    "runtime_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network_access",
+        "tool_access",
+        "max_input_tokens",
+        "max_output_tokens",
+        "nondeterminism"
+      ],
+      "properties": {
+        "network_access": {
+          "enum": [
+            "DENY",
+            "ALLOWLIST"
+          ]
+        },
+        "allowed_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tool_access": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "max_input_tokens": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_output_tokens": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "nondeterminism": {
+          "enum": [
+            "FORBIDDEN",
+            "DECLARED",
+            "BOUNDED"
+          ]
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonicalization",
+        "hash_algorithm",
+        "payload_sha256",
+        "lock_digest_sha256"
+      ],
+      "properties": {
+        "canonicalization": {
+          "const": "JCS-RFC8785-PROFILE-1"
+        },
+        "hash_algorithm": {
+          "const": "SHA-256"
+        },
+        "payload_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "lock_digest_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "signatures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "key_id",
+          "algorithm",
+          "signed_at",
+          "payload_sha256",
+          "lock_digest_sha256",
+          "signature"
+        ],
+        "properties": {
+          "key_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "algorithm": {
+            "const": "Ed25519"
+          },
+          "signed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "payload_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "lock_digest_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "signature": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{80,100}$"
+          }
+        }
+      },
+      "minItems": 1
+    }
+  }
+}

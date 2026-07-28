@@ -1,0 +1,84 @@
+# Context Map
+
+A direção é `upstream → downstream`. Toda integração atravessa contrato publicado, port ou evento; dependência de código não substitui a relação de domínio.
+
+| Upstream | Downstream | Padrão | Linguagem publicada |
+|---|---|---|---|
+| `BC-001` | `BC-002` | Policy/Conformance | Normas de engenharia; sem dependência runtime |
+| `BC-001` | `BC-003` | Policy/Conformance | Normas de engenharia; sem dependência runtime |
+| `BC-001` | `BC-004` | Policy/Conformance | Normas de engenharia; sem dependência runtime |
+| `BC-001` | `BC-005` | Policy/Conformance | Normas de engenharia; sem dependência runtime |
+| `BC-001` | `BC-006` | Policy/Conformance | Normas de engenharia; sem dependência runtime |
+| `BC-001` | `BC-007` | Policy/Conformance | Normas de engenharia; sem dependência runtime |
+| `BC-001` | `BC-008` | Policy/Conformance | Normas de engenharia; sem dependência runtime |
+| `BC-001` | `BC-009` | Policy/Conformance | Normas de engenharia; sem dependência runtime |
+| `BC-001` | `BC-010` | Policy/Conformance | Normas de engenharia; sem dependência runtime |
+| `BC-001` | `BC-011` | Policy/Conformance | Normas de engenharia; sem dependência runtime |
+| `BC-001` | `BC-012` | Policy/Conformance | Normas de engenharia; sem dependência runtime |
+| `BC-001` | `BC-013` | Policy/Conformance | Normas de engenharia; sem dependência runtime |
+| `BC-001` | `BC-014` | Policy/Conformance | Normas de engenharia; sem dependência runtime |
+| `BC-001` | `BC-015` | Policy/Conformance | Normas de engenharia; sem dependência runtime |
+| `BC-001` | `BC-016` | Policy/Conformance | Normas de engenharia; sem dependência runtime |
+| `BC-002` | `BC-003` | Open Host Service + Published Language | IdentityClaims e AuthorizationDecision |
+| `BC-002` | `BC-004` | Open Host Service + Published Language | IdentityClaims e AuthorizationDecision |
+| `BC-002` | `BC-010` | Open Host Service + Published Language | ActorIdentity e AuthorizationDecision |
+| `BC-002` | `BC-011` | Open Host Service + Published Language | ActorIdentity e AuthorizationDecision |
+| `BC-002` | `BC-012` | Open Host Service + Published Language | ActorIdentity e AuthorizationDecision |
+| `BC-002` | `BC-013` | Open Host Service + Published Language | ActorIdentity e AuthorizationDecision |
+| `BC-002` | `BC-014` | Open Host Service + Published Language | ActorIdentity e AuthorizationDecision |
+| `BC-002` | `BC-016` | Open Host Service + Published Language | SessionView e PermissionSet |
+| `BC-003` | `BC-004` | Customer/Supplier | ProjectRef, AssetRef e InputSelectionSnapshot |
+| `BC-003` | `BC-005` | Customer/Supplier | AssetRef e spatial hints |
+| `BC-003` | `BC-010` | Published Language | ProjectRef e JobSubjectRef |
+| `BC-003` | `BC-011` | Published Language | ProjectRef e AssetRef |
+| `BC-003` | `BC-012` | Published Language | ProjectRef e AssetRef |
+| `BC-003` | `BC-013` | Published Language | AssetRef e managed locator |
+| `BC-003` | `BC-016` | Open Host Service | ProjectView, AssetView e WorkspaceEntryView |
+| `BC-004` | `BC-005` | Customer/Supplier | ReferenceSearchPolicy |
+| `BC-004` | `BC-006` | Customer/Supplier | GeoreferencingStageSpec |
+| `BC-004` | `BC-009` | Customer/Supplier | AIEligibility e capability budget |
+| `BC-004` | `BC-010` | Open Host Service + Published Language | ExecutionPlanSnapshot |
+| `BC-004` | `BC-011` | Published Language | RetryPlan e CorrectionApplication |
+| `BC-004` | `BC-012` | Published Language | PlanIdentity e result expectations |
+| `BC-005` | `BC-006` | Customer/Supplier + Anti-Corruption Layer | ReferenceCandidateSet traduzido para ReferenceInput |
+| `BC-005` | `BC-013` | Published Language | AcquiredAsset e license record |
+| `BC-006` | `BC-007` | Customer/Supplier + Published Language | GeometricCandidate |
+| `BC-006` | `BC-008` | Published Language | AcceptedImageGeometry somente após veredito |
+| `BC-006` | `BC-012` | Domain Events | AttemptOutcome e candidate diagnostics |
+| `BC-006` | `BC-013` | Published Language | ArtifactPublicationRequest e lineage inputs |
+| `BC-009` | `BC-007` | Customer/Supplier + Anti-Corruption Layer | NeuralCandidate convertido para GeometricCandidate; sem privilégio |
+| `BC-009` | `BC-013` | Published Language | ModelPack manifest e inference artifacts |
+| `BC-007` | `BC-008` | Published Language | VerifiedImageGeometry e QualitySummary |
+| `BC-007` | `BC-011` | Domain Events | ReviewableVerdict |
+| `BC-007` | `BC-012` | Domain Events | SGVVerdictIssued e QualityReport |
+| `BC-007` | `BC-013` | Published Language | Quality artifact publication |
+| `BC-010` | `BC-005` | Process Manager + Ports | Executa work units sem importar modelo interno |
+| `BC-010` | `BC-006` | Process Manager + Ports | Executa work units sem importar modelo interno |
+| `BC-010` | `BC-007` | Process Manager + Ports | Executa avaliação sem possuir veredito |
+| `BC-010` | `BC-008` | Process Manager + Ports | Executa DAG sem possuir mosaico |
+| `BC-010` | `BC-009` | Process Manager + Ports | Executa ModelRunner por contrato |
+| `BC-010` | `BC-012` | Domain Events | JobProgressed e JobTerminalState |
+| `BC-010` | `BC-014` | Published Language | Scheduler signals e execution ledger |
+| `BC-011` | `BC-004` | Customer/Supplier | RetryRequested e CorrectionSetRef |
+| `BC-011` | `BC-006` | Published Language | CorrectionSet e ManualGCPSet |
+| `BC-011` | `BC-008` | Published Language | AnchorSet e correction impact |
+| `BC-011` | `BC-012` | Domain Events | ReviewDecision e current result request |
+| `BC-011` | `BC-013` | Published Language | Immutable correction artifacts |
+| `BC-008` | `BC-012` | Domain Events | RelativeMosaicOutcome e report snapshot |
+| `BC-008` | `BC-013` | Published Language | Mosaic materialization request e lineage |
+| `BC-013` | `BC-012` | Open Host Service + Published Language | ArtifactRef, ManifestRef e ExportMaterial |
+| `BC-013` | `BC-014` | Domain Events | Lifecycle, backup e GC events |
+| `BC-013` | `BC-015` | Published Language | SchemaCompatibility e release artifacts |
+| `BC-013` | `BC-016` | Open Host Service | Authorized artifact views e downloads |
+| `BC-012` | `BC-016` | Open Host Service + Published Language | ResultView, QualityView, DiagnosticView |
+| `BC-012` | `BC-014` | Domain Events | Result and export operational signals |
+| `BC-014` | `BC-016` | Open Host Service | Health, readiness e admin views |
+| `BC-015` | `BC-009` | Published Language | Verified ModelPack distribution |
+
+## Regras anti-ciclo
+
+- comandos síncronos seguem a direção do context map;
+- callbacks são eventos ou respostas de contrato, não imports reversos;
+- processos longos usam process manager em `BC-010` ou saga explícita em `BC-004`;
+- nenhum contexto consulta tabela de outro contexto;
+- ciclos de negócio detectados bloqueiam a história até redesign.

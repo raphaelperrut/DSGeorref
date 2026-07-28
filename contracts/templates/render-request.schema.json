@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/templates/render-request/1.0.0",
+  "title": "RenderRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "render_id",
+    "template_id",
+    "template_version",
+    "variables",
+    "locale"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "render_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "template_id": {
+      "type": "string"
+    },
+    "template_version": {
+      "type": "string"
+    },
+    "variables": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "locale": {
+      "type": "string"
+    },
+    "idempotency_key": {
+      "type": "string"
+    }
+  }
+}

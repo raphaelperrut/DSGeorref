@@ -1,0 +1,1108 @@
+{
+  "schema_version": "1.0.0",
+  "baseline": "SAR-v2.9",
+  "nodes": [
+    {
+      "id": "ADR-001",
+      "title": "Topologia do repositório, monorepo e workspaces",
+      "contexts": [
+        "BC-001"
+      ]
+    },
+    {
+      "id": "ADR-002",
+      "title": "Topologia do produto: monólito modular e instância única",
+      "contexts": [
+        "BC-001"
+      ]
+    },
+    {
+      "id": "ADR-003",
+      "title": "Bounded Contexts, subdomínios e linguagem ubíqua",
+      "contexts": [
+        "BC-001"
+      ]
+    },
+    {
+      "id": "ADR-004",
+      "title": "Integração entre contexts e modelos publicados",
+      "contexts": [
+        "BC-001"
+      ]
+    },
+    {
+      "id": "ADR-005",
+      "title": "Layout context-first e direção de dependências",
+      "contexts": [
+        "BC-001"
+      ]
+    },
+    {
+      "id": "ADR-006",
+      "title": "Prompts permanentes, TaskEnvelope e precedência de instruções",
+      "contexts": [
+        "BC-001"
+      ]
+    },
+    {
+      "id": "ADR-007",
+      "title": "Write scopes, lanes paralelas e isolamento de mudança",
+      "contexts": [
+        "BC-001"
+      ]
+    },
+    {
+      "id": "ADR-008",
+      "title": "Granularidade de histórias e limites anti-monólito",
+      "contexts": [
+        "BC-001"
+      ]
+    },
+    {
+      "id": "ADR-009",
+      "title": "Runtime Python 3.12, toolchain e stack nativa reproduzível",
+      "contexts": [
+        "BC-001",
+        "BC-015"
+      ]
+    },
+    {
+      "id": "ADR-010",
+      "title": "API-first, versionamento e contract freeze",
+      "contexts": [
+        "BC-001"
+      ]
+    },
+    {
+      "id": "ADR-011",
+      "title": "Boundary HTTP com FastAPI, Pydantic e OpenAPI",
+      "contexts": [
+        "BC-016"
+      ]
+    },
+    {
+      "id": "ADR-012",
+      "title": "Modelo de interação REST, SSE e polling",
+      "contexts": [
+        "BC-016",
+        "BC-010"
+      ]
+    },
+    {
+      "id": "ADR-013",
+      "title": "Cliente TypeScript gerado e diff gate OpenAPI",
+      "contexts": [
+        "BC-016"
+      ]
+    },
+    {
+      "id": "ADR-014",
+      "title": "Frontend React, Vite, OpenLayers e workspace cartográfico",
+      "contexts": [
+        "BC-016"
+      ]
+    },
+    {
+      "id": "ADR-015",
+      "title": "CLI, Direct Runner e núcleo compartilhado",
+      "contexts": [
+        "BC-016"
+      ]
+    },
+    {
+      "id": "ADR-016",
+      "title": "Application services, Unit of Work, erros e idempotência",
+      "contexts": [
+        "BC-004"
+      ]
+    },
+    {
+      "id": "ADR-017",
+      "title": "Feature flags e registro de capabilities",
+      "contexts": [
+        "BC-001",
+        "BC-009"
+      ]
+    },
+    {
+      "id": "ADR-018",
+      "title": "PostgreSQL/PostGIS como system of record",
+      "contexts": [
+        "BC-013"
+      ]
+    },
+    {
+      "id": "ADR-019",
+      "title": "Schemas físicos, UUIDv7, escopo e concorrência",
+      "contexts": [
+        "BC-003",
+        "BC-013"
+      ]
+    },
+    {
+      "id": "ADR-020",
+      "title": "Transactional outbox e consumidores idempotentes",
+      "contexts": [
+        "BC-010"
+      ]
+    },
+    {
+      "id": "ADR-021",
+      "title": "Filesystem gerenciado, roots e resolução segura",
+      "contexts": [
+        "BC-013"
+      ]
+    },
+    {
+      "id": "ADR-022",
+      "title": "Object Model: aggregates, identidade e state machines",
+      "contexts": [
+        "BC-003",
+        "BC-004",
+        "BC-012",
+        "BC-013"
+      ]
+    },
+    {
+      "id": "ADR-023",
+      "title": "ArtifactSet, manifest e bundles imutáveis",
+      "contexts": [
+        "BC-013"
+      ]
+    },
+    {
+      "id": "ADR-024",
+      "title": "Publicação atômica, checksums e content addressing",
+      "contexts": [
+        "BC-013"
+      ]
+    },
+    {
+      "id": "ADR-025",
+      "title": "Result snapshots, lineage e visão corrente",
+      "contexts": [
+        "BC-012",
+        "BC-013"
+      ]
+    },
+    {
+      "id": "ADR-026",
+      "title": "Schema registry, migrations e compatibilidade",
+      "contexts": [
+        "BC-013",
+        "BC-015"
+      ]
+    },
+    {
+      "id": "ADR-027",
+      "title": "Backup, restore, retenção e GC reference-aware",
+      "contexts": [
+        "BC-013",
+        "BC-014"
+      ]
+    },
+    {
+      "id": "ADR-028",
+      "title": "Contas locais, sessões server-side e Argon2id",
+      "contexts": [
+        "BC-002"
+      ]
+    },
+    {
+      "id": "ADR-029",
+      "title": "Federação OIDC e vínculo de identidade",
+      "contexts": [
+        "BC-002"
+      ]
+    },
+    {
+      "id": "ADR-030",
+      "title": "PATs, autorização central e scopes",
+      "contexts": [
+        "BC-002"
+      ]
+    },
+    {
+      "id": "ADR-031",
+      "title": "CSRF, CORS, security headers e proteção Web",
+      "contexts": [
+        "BC-002",
+        "BC-016"
+      ]
+    },
+    {
+      "id": "ADR-032",
+      "title": "Secrets, TLS e ingress único",
+      "contexts": [
+        "BC-014",
+        "BC-015"
+      ]
+    },
+    {
+      "id": "ADR-033",
+      "title": "Supply chain, SBOM, assinaturas e dependências",
+      "contexts": [
+        "BC-015"
+      ]
+    },
+    {
+      "id": "ADR-034",
+      "title": "OCI/Compose, instalação, bootstrap e readiness",
+      "contexts": [
+        "BC-015",
+        "BC-014"
+      ]
+    },
+    {
+      "id": "ADR-035",
+      "title": "Upgrade Controller, mixed versions e rollback",
+      "contexts": [
+        "BC-015"
+      ]
+    },
+    {
+      "id": "ADR-036",
+      "title": "Celery, RabbitMQ e TaskEnvelope mínimo",
+      "contexts": [
+        "BC-010"
+      ]
+    },
+    {
+      "id": "ADR-037",
+      "title": "Workers duráveis, leases e fencing",
+      "contexts": [
+        "BC-010"
+      ]
+    },
+    {
+      "id": "ADR-038",
+      "title": "Retry, quarantine, checkpoints, cancelamento e drain",
+      "contexts": [
+        "BC-010"
+      ]
+    },
+    {
+      "id": "ADR-039",
+      "title": "Scheduler, fairness, backpressure e Resource Governor",
+      "contexts": [
+        "BC-010"
+      ]
+    },
+    {
+      "id": "ADR-040",
+      "title": "Progresso, event ledger, replay e ETA",
+      "contexts": [
+        "BC-010",
+        "BC-014"
+      ]
+    },
+    {
+      "id": "ADR-041",
+      "title": "CRS, espaços de coordenadas e axis order",
+      "contexts": [
+        "BC-006",
+        "BC-007",
+        "BC-008"
+      ]
+    },
+    {
+      "id": "ADR-042",
+      "title": "Raster validity, output grid, resampling e COG",
+      "contexts": [
+        "BC-006",
+        "BC-013"
+      ]
+    },
+    {
+      "id": "ADR-043",
+      "title": "Stack geoespacial nativa, ABI e isolamento",
+      "contexts": [
+        "BC-006",
+        "BC-007"
+      ]
+    },
+    {
+      "id": "ADR-044",
+      "title": "Pipeline clássico de matching coarse-to-fine",
+      "contexts": [
+        "BC-006"
+      ]
+    },
+    {
+      "id": "ADR-045",
+      "title": "Estimação geométrica, homografia e seleção de GCPs",
+      "contexts": [
+        "BC-006",
+        "BC-007"
+      ]
+    },
+    {
+      "id": "ADR-046",
+      "title": "SGV, Quality Profiles e aceitação fail-closed",
+      "contexts": [
+        "BC-007",
+        "BC-012"
+      ]
+    },
+    {
+      "id": "ADR-047",
+      "title": "Referências, providers, aquisição e cache governado",
+      "contexts": [
+        "BC-005"
+      ]
+    },
+    {
+      "id": "ADR-048",
+      "title": "Edit Bundles: CorrectionSet, AnchorSet e revisão humana",
+      "contexts": [
+        "BC-011",
+        "BC-012"
+      ]
+    },
+    {
+      "id": "ADR-049",
+      "title": "Mosaico relativo: grafo, otimização e ancoragem",
+      "contexts": [
+        "BC-008"
+      ]
+    },
+    {
+      "id": "ADR-050",
+      "title": "Mosaico relativo: verificador, reporting e materialização",
+      "contexts": [
+        "BC-008",
+        "BC-012",
+        "BC-013"
+      ]
+    },
+    {
+      "id": "ADR-051",
+      "title": "AI Router, planner e escalonamento classic-first",
+      "contexts": [
+        "BC-009",
+        "BC-007"
+      ]
+    },
+    {
+      "id": "ADR-052",
+      "title": "Inference Engine, ModelRunner, ModelPack e offline",
+      "contexts": [
+        "BC-009",
+        "BC-013",
+        "BC-015"
+      ]
+    },
+    {
+      "id": "ADR-053",
+      "title": "Reprodutibilidade científica, benchmarks, promoção e rollback",
+      "contexts": [
+        "BC-006",
+        "BC-007",
+        "BC-008",
+        "BC-009"
+      ]
+    },
+    {
+      "id": "ADR-054",
+      "title": "Observabilidade, telemetria e diagnósticos operacionais",
+      "contexts": [
+        "BC-014"
+      ]
+    },
+    {
+      "id": "ADR-055",
+      "title": "Audit ledger, privacidade, redaction e support bundles",
+      "contexts": [
+        "BC-014"
+      ]
+    },
+    {
+      "id": "ADR-056",
+      "title": "Licenciamento, contribuições, provider attribution e citação",
+      "contexts": [
+        "BC-015"
+      ]
+    },
+    {
+      "id": "ADR-057",
+      "title": "Release train, publicação e gates de distribuição",
+      "contexts": [
+        "BC-015",
+        "BC-001"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "ADR-001",
+      "to": "ADR-002",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-002",
+      "to": "ADR-003",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-003",
+      "to": "ADR-004",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-003",
+      "to": "ADR-005",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-004",
+      "to": "ADR-005",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-001",
+      "to": "ADR-006",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-003",
+      "to": "ADR-006",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-005",
+      "to": "ADR-007",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-006",
+      "to": "ADR-007",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-006",
+      "to": "ADR-008",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-007",
+      "to": "ADR-008",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-001",
+      "to": "ADR-009",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-003",
+      "to": "ADR-010",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-004",
+      "to": "ADR-010",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-002",
+      "to": "ADR-011",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-010",
+      "to": "ADR-011",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-011",
+      "to": "ADR-012",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-010",
+      "to": "ADR-013",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-011",
+      "to": "ADR-013",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-010",
+      "to": "ADR-014",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-013",
+      "to": "ADR-014",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-002",
+      "to": "ADR-015",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-005",
+      "to": "ADR-015",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-016",
+      "to": "ADR-015",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-005",
+      "to": "ADR-016",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-018",
+      "to": "ADR-016",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-020",
+      "to": "ADR-016",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-003",
+      "to": "ADR-017",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-004",
+      "to": "ADR-017",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-002",
+      "to": "ADR-018",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-003",
+      "to": "ADR-018",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-018",
+      "to": "ADR-019",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-018",
+      "to": "ADR-020",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-019",
+      "to": "ADR-020",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-002",
+      "to": "ADR-021",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-003",
+      "to": "ADR-021",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-003",
+      "to": "ADR-022",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-018",
+      "to": "ADR-022",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-021",
+      "to": "ADR-023",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-022",
+      "to": "ADR-023",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-021",
+      "to": "ADR-024",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-023",
+      "to": "ADR-024",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-018",
+      "to": "ADR-025",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-023",
+      "to": "ADR-025",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-018",
+      "to": "ADR-026",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-020",
+      "to": "ADR-026",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-023",
+      "to": "ADR-026",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-018",
+      "to": "ADR-027",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-021",
+      "to": "ADR-027",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-023",
+      "to": "ADR-027",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-025",
+      "to": "ADR-027",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-018",
+      "to": "ADR-028",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-028",
+      "to": "ADR-029",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-028",
+      "to": "ADR-030",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-029",
+      "to": "ADR-030",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-028",
+      "to": "ADR-031",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-030",
+      "to": "ADR-031",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-031",
+      "to": "ADR-032",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-009",
+      "to": "ADR-033",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-032",
+      "to": "ADR-033",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-002",
+      "to": "ADR-034",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-009",
+      "to": "ADR-034",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-032",
+      "to": "ADR-034",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-033",
+      "to": "ADR-034",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-026",
+      "to": "ADR-035",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-027",
+      "to": "ADR-035",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-034",
+      "to": "ADR-035",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-018",
+      "to": "ADR-036",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-020",
+      "to": "ADR-036",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-034",
+      "to": "ADR-036",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-018",
+      "to": "ADR-037",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-036",
+      "to": "ADR-037",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-036",
+      "to": "ADR-038",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-037",
+      "to": "ADR-038",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-018",
+      "to": "ADR-039",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-036",
+      "to": "ADR-039",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-037",
+      "to": "ADR-039",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-036",
+      "to": "ADR-040",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-039",
+      "to": "ADR-040",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-018",
+      "to": "ADR-041",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-021",
+      "to": "ADR-042",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-023",
+      "to": "ADR-042",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-041",
+      "to": "ADR-042",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-009",
+      "to": "ADR-043",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-042",
+      "to": "ADR-043",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-041",
+      "to": "ADR-044",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-042",
+      "to": "ADR-044",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-043",
+      "to": "ADR-044",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-044",
+      "to": "ADR-045",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-041",
+      "to": "ADR-046",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-044",
+      "to": "ADR-046",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-045",
+      "to": "ADR-046",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-021",
+      "to": "ADR-047",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-041",
+      "to": "ADR-047",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-023",
+      "to": "ADR-048",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-025",
+      "to": "ADR-048",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-045",
+      "to": "ADR-048",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-046",
+      "to": "ADR-048",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-041",
+      "to": "ADR-049",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-044",
+      "to": "ADR-049",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-046",
+      "to": "ADR-049",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-047",
+      "to": "ADR-049",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-023",
+      "to": "ADR-050",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-025",
+      "to": "ADR-050",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-049",
+      "to": "ADR-050",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-017",
+      "to": "ADR-051",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-046",
+      "to": "ADR-051",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-047",
+      "to": "ADR-051",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-009",
+      "to": "ADR-052",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-023",
+      "to": "ADR-052",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-032",
+      "to": "ADR-052",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-051",
+      "to": "ADR-052",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-009",
+      "to": "ADR-053",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-042",
+      "to": "ADR-053",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-044",
+      "to": "ADR-053",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-046",
+      "to": "ADR-053",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-049",
+      "to": "ADR-053",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-051",
+      "to": "ADR-053",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-052",
+      "to": "ADR-053",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-002",
+      "to": "ADR-054",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-018",
+      "to": "ADR-054",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-036",
+      "to": "ADR-054",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-018",
+      "to": "ADR-055",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-021",
+      "to": "ADR-055",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-028",
+      "to": "ADR-055",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-054",
+      "to": "ADR-055",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-023",
+      "to": "ADR-056",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-047",
+      "to": "ADR-056",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-055",
+      "to": "ADR-056",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-026",
+      "to": "ADR-057",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-033",
+      "to": "ADR-057",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-034",
+      "to": "ADR-057",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-035",
+      "to": "ADR-057",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-056",
+      "to": "ADR-057",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    }
+  ],
+  "cycles": 0
+}

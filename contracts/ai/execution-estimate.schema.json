@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/ai/execution-estimate/1.0.0",
+  "title": "ExecutionEstimate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "request_id",
+    "backend_id",
+    "estimate_id",
+    "resource_budget",
+    "duration_range_ms",
+    "artifact_budget_bytes",
+    "confidence"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "request_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "backend_id": {
+      "type": "string"
+    },
+    "estimate_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "resource_budget": {
+      "type": "object",
+      "required": [
+        "cpu_seconds",
+        "memory_peak_bytes",
+        "gpu_seconds",
+        "vram_peak_bytes"
+      ],
+      "properties": {
+        "cpu_seconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "memory_peak_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "gpu_seconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "vram_peak_bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "duration_range_ms": {
+      "type": "object",
+      "required": [
+        "minimum",
+        "mode",
+        "maximum"
+      ],
+      "properties": {
+        "minimum": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mode": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "maximum": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "artifact_budget_bytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

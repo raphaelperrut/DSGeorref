@@ -1,0 +1,293 @@
+{
+  "task_id": "TASK-0238",
+  "issue_id": "ISSUE-0348",
+  "story_id": "STORY-0238",
+  "epic_id": "EPIC-040",
+  "sprint_id": "SPRINT-011",
+  "role": "DevOps",
+  "outcome": "Definir SLO, runbook e controles operacionais para benchmark, limites e orçamento de recursos com testes e evidência verificável.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-009-devops.md",
+    "docs/06-delivery/stories/STORY-0238-ISSUE-0348-definir-slo-runbook-e-controles-operacionais-benchmark-limites-e-orcamento.md",
+    "docs/06-delivery/epics/EPIC-040-benchmark-limites-e-orcamento-de-recursos.md",
+    "docs/01-product/requirements/REQ-OUT-001-o-outputprofile-e-versionado-e-preserva-ao-maximo-a-resolucao-efetiva-da.md",
+    "docs/01-product/requirements/REQ-SCH-004-politicas-versionadas-devem-impor-quotas-reservas-circuit-breakers-e-con.md",
+    "contracts/README.md",
+    "contracts/http/openapi.yaml",
+    "docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md",
+    "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
+    "docs/02-architecture/ddd/bounded-contexts/BC-014-operations-audit.md",
+    "docs/02-architecture/ddd/DDD-040-CONTEXT-MAP.md",
+    "docs/02-architecture/adrs/ADR-003-bounded-contexts-subdominios-e-linguagem-ubiqua.md",
+    "docs/02-architecture/adrs/ADR-004-integracao-entre-contexts-e-modelos-publicados.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
+    "docs/02-architecture/adrs/ADR-009-runtime-python-3-12-toolchain-e-stack-nativa-reproduzivel.md",
+    "docs/02-architecture/adrs/ADR-010-api-first-versionamento-e-contract-freeze.md",
+    "docs/02-architecture/adrs/ADR-011-boundary-http-fastapi-pydantic-e-openapi.md",
+    "docs/02-architecture/adrs/ADR-033-supply-chain-sbom-assinaturas-e-dependencias.md",
+    "docs/02-architecture/adrs/ADR-034-oci-compose-instalacao-bootstrap-e-readiness.md",
+    "docs/02-architecture/adrs/ADR-039-scheduler-fairness-backpressure-e-resource-governor.md",
+    "docs/02-architecture/adrs/ADR-042-raster-validity-output-grid-resampling-e-cog.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "docs/02-architecture/adrs/ADR-005-layout-context-first-e-direcao-de-dependencias.md",
+    "docs/02-architecture/adrs/ADR-012-modelo-de-interacao-rest-sse-e-polling.md",
+    "contracts/http/OPERATION_CATALOG.json",
+    "contracts/http/API_CONTRACT_INDEX.csv",
+    "contracts/operations/slo-sli-catalog.yaml",
+    "docs/05-operations/CAPACITY_AND_SCALING.md",
+    "contracts/operations/lock-and-queue-policy.yaml",
+    "contracts/operations/external-dependency-register.csv",
+    "contracts/operations/vendor-exit-matrix.csv",
+    "contracts/operations/cost-model.yaml",
+    "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+    "contracts/operations/recovery-objectives.yaml",
+    "docs/05-operations/BACKUP_RESTORE.md",
+    "contracts/operations/version-and-rollback-matrix.yaml",
+    "docs/03-engineering/DATABASE_MIGRATIONS.md",
+    "docs/05-operations/OBSERVABILITY.md",
+    "docs/04-quality/THREAT_MODEL.md",
+    "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+    "contracts/privacy/lgpd-control-matrix.csv",
+    "docs/04-quality/LGPD_CONTROL_MODEL.md",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
+    "docs/05-operations/PRODUCTION_READINESS_GATES.md"
+  ],
+  "allow_paths": [
+    "tests/ops/contexts/operations_audit/benchmark-limites-e-orcamento-de-recursos/**",
+    "tools/quality/contexts/operations_audit/benchmark-limites-e-orcamento-de-recursos/**",
+    ".github/workflows/benchmark-limites-e-orcamento-de-recursos.yaml"
+  ],
+  "deny_paths": [
+    "src/geo/**",
+    "src/ai/**",
+    "src/**/epic-*",
+    "src/**/issue-*"
+  ],
+  "acceptance_criteria": [
+    "O resultado de “benchmark, limites e orçamento de recursos” é observável por contrato, interface, artifact ou evidência executável.",
+    "Os requisitos REQ-OUT-001, REQ-SCH-004 possuem evidência explícita no commit candidato.",
+    "Estados de erro e caminhos fail-closed aplicáveis são testados, sem fallback silencioso.",
+    "Schemas, estados, compatibilidade e autoridade de dados estão versionados e revisados pelo Arquiteto."
+  ],
+  "tests": [
+    "test_native_resolution_policy_resampling_ratio",
+    "test_policy_quotas_reservations_circuit_breakers_containment_and_effective_priority_audit",
+    "test_epic_040_contrato"
+  ],
+  "evidence": [
+    "evidence/operations/epic-040/story-0238/",
+    "commit candidato e relatório de testes"
+  ],
+  "dependencies": [
+    "STORY-0142",
+    "STORY-0237",
+    "STORY-0431",
+    "STORY-0438"
+  ],
+  "stop_conditions": [
+    "Decisão material de produto ou arquitetura não resolvida.",
+    "Contrato obrigatório ausente ou contraditório.",
+    "Write scope sobrepõe lane ativa.",
+    "Aceitação não pode ser demonstrada por teste ou evidência."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0348-01",
+    "AC-ISSUE-0348-02",
+    "AC-ISSUE-0348-03",
+    "AC-ISSUE-0348-04"
+  ],
+  "governing_adrs": [
+    "ADR-003",
+    "ADR-004",
+    "ADR-005",
+    "ADR-006",
+    "ADR-007",
+    "ADR-008",
+    "ADR-009",
+    "ADR-010",
+    "ADR-011",
+    "ADR-012",
+    "ADR-033",
+    "ADR-034",
+    "ADR-039",
+    "ADR-042"
+  ],
+  "requirement_basis": "MIXED",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-014",
+  "context_map_dependencies": [
+    "BC-002",
+    "BC-010",
+    "BC-012",
+    "BC-013"
+  ],
+  "domain_model_impact": "NONE",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 4,
+      "items": [
+        "STORY-0142",
+        "STORY-0237",
+        "STORY-0431",
+        "STORY-0438"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "tests/ops/contexts/operations_audit/benchmark-limites-e-orcamento-de-recursos/**",
+        "tools/quality/contexts/operations_audit/benchmark-limites-e-orcamento-de-recursos/**",
+        ".github/workflows/benchmark-limites-e-orcamento-de-recursos.yaml"
+      ],
+      "deny_paths": [
+        "src/geo/**",
+        "src/ai/**",
+        "src/**/epic-*",
+        "src/**/issue-*"
+      ]
+    },
+    "api": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "contracts": [
+        "get_admin_health",
+        "get_admin_readiness",
+        "get_admin_resources",
+        "post_admin_drain",
+        "get_admin_audit",
+        "post_admin_support_bundles"
+      ],
+      "contract_sources": [
+        "contracts/http/openapi.yaml",
+        "contracts/http/OPERATION_CATALOG.json"
+      ]
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-010",
+        "ADR-011",
+        "ADR-012"
+      ]
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-042"
+      ]
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "test_native_resolution_policy_resampling_ratio",
+        "test_policy_quotas_reservations_circuit_breakers_containment_and_effective_priority_audit",
+        "test_epic_040_contrato"
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "PASS",
+      "kinds": [],
+      "evidence": [
+        "evidence/operations/epic-040/story-0238/",
+        "commit candidato e relatório de testes"
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 4,
+      "ids": [
+        "AC-ISSUE-0348-01",
+        "AC-ISSUE-0348-02",
+        "AC-ISSUE-0348-03",
+        "AC-ISSUE-0348-04"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "Arquiteto",
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "CRITICAL",
+    "applicable_controls": [
+      "CTO-001",
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-005",
+      "CTO-006",
+      "CTO-008",
+      "CTO-009",
+      "CTO-010",
+      "CTO-011",
+      "CTO-012",
+      "CTO-013",
+      "CTO-014",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-007"
+    ],
+    "required_evidence": [
+      "contracts/operations/slo-sli-catalog.yaml",
+      "docs/05-operations/CAPACITY_AND_SCALING.md",
+      "contracts/operations/lock-and-queue-policy.yaml",
+      "contracts/operations/external-dependency-register.csv",
+      "contracts/operations/vendor-exit-matrix.csv",
+      "contracts/operations/cost-model.yaml",
+      "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+      "contracts/operations/recovery-objectives.yaml",
+      "docs/05-operations/BACKUP_RESTORE.md",
+      "contracts/operations/version-and-rollback-matrix.yaml",
+      "docs/03-engineering/DATABASE_MIGRATIONS.md",
+      "docs/05-operations/OBSERVABILITY.md",
+      "docs/04-quality/THREAT_MODEL.md",
+      "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+      "contracts/privacy/lgpd-control-matrix.csv",
+      "docs/04-quality/LGPD_CONTROL_MODEL.md"
+    ],
+    "production_gate": "SECURITY_AND_PRIVACY_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

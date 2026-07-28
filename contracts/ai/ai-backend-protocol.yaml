@@ -1,0 +1,72 @@
+schema_version: 1.0.0
+protocol_id: dsgeorref.ai-backend
+method_order:
+- supports
+- estimate
+- execute
+- validate
+- publish
+methods:
+- name: supports
+  purity: PURE
+  input: capability-request.schema.json
+  output: support-decision.schema.json
+  preconditions:
+  - request schema valid
+  postconditions:
+  - no model load
+  - no artifact publication
+  - stable reason code
+- name: estimate
+  purity: READ_ONLY
+  input: capability-request.schema.json
+  output: execution-estimate.schema.json
+  preconditions:
+  - supports.supported is true
+  postconditions:
+  - minimum <= mode <= maximum
+  - budget bounded
+  - assumptions explicit
+- name: execute
+  purity: SIDE_EFFECT_STAGING
+  input: execution-request.schema.json
+  output: raw-ai-result.schema.json
+  preconditions:
+  - estimate accepted
+  - model pack verified
+  - lease active
+  postconditions:
+  - only staging artifacts
+  - idempotent execution id
+  - runtime record persisted
+- name: validate
+  purity: READ_ONLY_STAGING
+  input: raw-ai-result.schema.json
+  output: backend-validation-result.schema.json
+  preconditions:
+  - execute succeeded
+  postconditions:
+  - schema and backend invariants checked
+  - does not replace independent SGV
+- name: publish
+  purity: SIDE_EFFECT_ATOMIC
+  input: backend-validation-result.schema.json
+  output: publication-result.schema.json
+  preconditions:
+  - backend validation PASS
+  - publication lease active
+  postconditions:
+  - candidate artifacts only
+  - atomic manifest publication
+  - independent SGV still required
+error_model:
+  retryable:
+  - RESOURCE_TEMPORARY
+  - DEVICE_LOST
+  - DEADLINE_RETRYABLE
+  terminal:
+  - CAPABILITY_UNSUPPORTED
+  - MODEL_PACK_INVALID
+  - POLICY_DENIED
+  - INPUT_INVALID
+  - VALIDATION_FAILED

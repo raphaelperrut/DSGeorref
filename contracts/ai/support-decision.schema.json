@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/ai/support-decision/1.0.0",
+  "title": "SupportDecision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "request_id",
+    "backend_id",
+    "supported",
+    "reason_code",
+    "constraints"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "request_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "backend_id": {
+      "type": "string"
+    },
+    "supported": {
+      "type": "boolean"
+    },
+    "reason_code": {
+      "enum": [
+        "SUPPORTED",
+        "CAPABILITY_UNSUPPORTED",
+        "INPUT_UNSUPPORTED",
+        "RESOURCE_UNAVAILABLE",
+        "MODEL_PACK_MISSING",
+        "POLICY_DENIED",
+        "VERSION_UNSUPPORTED"
+      ]
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_model_pack": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

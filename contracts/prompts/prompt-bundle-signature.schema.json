@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/prompts/prompt-bundle-signature/1.0.0",
+  "title": "PromptBundleSignature",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "key_id",
+    "algorithm",
+    "public_key",
+    "message_profile",
+    "signature"
+  ],
+  "properties": {
+    "key_id": {
+      "type": "string"
+    },
+    "algorithm": {
+      "const": "Ed25519"
+    },
+    "public_key": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{40,50}$"
+    },
+    "message_profile": {
+      "const": "DSGEOREF-PROMPT-BUNDLE-V1"
+    },
+    "signature": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{80,100}$"
+    }
+  }
+}

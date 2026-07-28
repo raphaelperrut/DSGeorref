@@ -1,0 +1,9 @@
+{
+  "lock_version": "1.0.0",
+  "bundle_id": "PB-BACKEND-STORY",
+  "bundle_version": "1.0.0",
+  "resolved_at": "2026-07-27T00:00:00Z",
+  "root_payload_sha256": "83bdb38d99be51cba7973031dae6afc94e1c597e5d13fd3fe6bb19b9bf83a0c3",
+  "resolved_dependencies": [],
+  "lock_digest_sha256": "0e8fddc50d507d0a077504964eb60a760729b9fed29b7c23c3e02f221fe52e58"
+}

@@ -1,0 +1,217 @@
+schema_version: 1.0.0
+baseline_version: 2.6.0
+generated_at_utc: '2026-07-27T15:47:20+00:00'
+status: APPROVED_FOR_IMPLEMENTATION
+pinning_policy:
+  architecture_level: major/minor family is normative
+  build_level: exact patch, transitive graph and OCI image are locked and signed
+  upgrade: compatibility matrix + tests + SBOM + rollback; no floating latest tags
+decisions:
+- area: language-backend
+  technology: CPython
+  version_family: 3.12.13
+  decision: primary and only required runtime for initial implementation
+  exact_pin: .python-version=3.12.13 + uv.lock + signed OCI digest
+  compatibility_contract: ==3.12.13 in build/runtime; project metadata >=3.12,<3.13
+  support_note: security-fix line through 2028-10; upgrade gate is mandatory before
+    that date
+- area: language-backend-compat-313
+  technology: CPython
+  version_family: 3.13.x
+  decision: future non-blocking compatibility lane; activation only after native-stack
+    and test gate
+  exact_pin: separate CI matrix and lock experiment
+  promotion_rule: may replace 3.12 only after full compatibility, performance, SBOM
+    and rollback evidence
+- area: language-backend-compat-314
+  technology: CPython
+  version_family: 3.14.x
+  decision: deferred integration target; not part of initial CI or runtime support
+  exact_pin: separate experimental matrix after 3.13 lane is stable
+  promotion_rule: cannot become primary directly; must pass through the same staged
+    upgrade process
+- area: dependency-management
+  technology: uv
+  version_family: stable pinned
+  decision: single Python workspace and lock
+  exact_pin: tool bootstrap digest
+- area: http-api
+  technology: FastAPI
+  version_family: 0.140.x
+  decision: REST/OpenAPI adapter
+  exact_pin: uv.lock
+  reference_release: 0.140.2 observed 2026-07-27
+- area: validation
+  technology: Pydantic
+  version_family: 2.13.x
+  decision: transport/settings/schema validation
+  exact_pin: uv.lock
+  reference_release: 2.13.4 observed 2026-07-27
+- area: persistence
+  technology: SQLAlchemy
+  version_family: 2.0.x
+  decision: explicit repositories and UoW
+  exact_pin: uv.lock
+- area: migrations
+  technology: Alembic
+  version_family: 1.x
+  decision: expand-migrate-contract migrations
+  exact_pin: uv.lock
+- area: database
+  technology: PostgreSQL
+  version_family: 18.x
+  decision: system of record
+  exact_pin: OCI image digest
+  reference_release: 18.4 observed 2026-05-14
+- area: spatial-database
+  technology: PostGIS
+  version_family: 3.6.x
+  decision: spatial extension
+  exact_pin: OCI image digest
+  reference_release: 3.6.4 observed 2026-06-08
+- area: broker
+  technology: RabbitMQ
+  version_family: 4.3.x
+  decision: durable transport only
+  exact_pin: OCI image digest
+  reference_release: 4.3.4 observed 2026-07-27
+- area: workers
+  technology: Celery
+  version_family: 5.6.x
+  decision: worker adapter over TaskEnvelope
+  exact_pin: uv.lock
+  reference_release: 5.6.3 observed 2026-07-27
+- area: frontend-runtime
+  technology: Node.js
+  version_family: 24.x LTS
+  decision: frontend toolchain runtime
+  exact_pin: .tool-versions and CI image digest
+  reference_release: 24.18.0 LTS observed 2026-07-27
+- area: frontend-package-manager
+  technology: pnpm
+  version_family: 10.x
+  decision: single JS workspace and frozen lock
+  exact_pin: packageManager field and corepack digest
+- area: frontend-ui
+  technology: React
+  version_family: 19.2.x
+  decision: SPA component model; no React Server Components; react/react-dom same
+    exact patch
+  exact_pin: pnpm-lock.yaml
+  minimum_safe_patch: 19.2.4
+  security_rule: RSC packages prohibited in baseline SPA; if later introduced, security
+    review and latest patched line are mandatory
+  reference_release: 19.2 family; minimum security patch 19.2.4
+- area: frontend-build
+  technology: Vite
+  version_family: 8.1.x
+  decision: SPA build/dev server
+  exact_pin: pnpm-lock.yaml
+  reference_release: 8.1 supported line observed 2026-07-27
+- area: frontend-types
+  technology: TypeScript
+  version_family: 6.0.x
+  decision: primary strict type checker and generated OpenAPI client; conservative
+    bridge release
+  exact_pin: pnpm-lock.yaml
+  reference_release: 6.0 stable observed 2026-03-23
+- area: frontend-types-compat
+  technology: TypeScript
+  version_family: 7.0.x
+  decision: mandatory compatibility lane; promotion only after Vite, Vitest, Playwright,
+    generated-client and editor-tooling gate
+  exact_pin: separate CI matrix and pnpm lock experiment
+  reference_release: 7.0 stable observed 2026-07; not primary because of recent compiler
+    rewrite and ecosystem stabilization risk
+- area: cartography
+  technology: OpenLayers
+  version_family: 10.9.x
+  decision: browser map engine
+  exact_pin: pnpm-lock.yaml
+  reference_release: 10.9.0 observed 2026-07-27
+- area: native-raster
+  technology: GDAL
+  version_family: 3.13.x
+  decision: raster I/O and COG creation
+  exact_pin: native OCI stack digest
+  reference_release: 3.13.2 observed 2026-07-22
+- area: crs
+  technology: PROJ
+  version_family: 9.8.x
+  decision: CRS transforms and grids
+  exact_pin: native OCI stack digest
+  reference_release: 9.8.1 observed 2026-04-10
+- area: geometry
+  technology: GEOS
+  version_family: 3.14.x stable
+  decision: geometry predicates/operations
+  exact_pin: native OCI stack digest
+  reference_release: 3.14.x stable line
+- area: computer-vision
+  technology: OpenCV
+  version_family: 4.x stable
+  decision: RootSIFT/FLANN/USAC_MAGSAC adapters
+  exact_pin: native OCI stack digest
+- area: raster-python
+  technology: Rasterio
+  version_family: compatible with pinned GDAL
+  decision: primary typed raster adapter
+  exact_pin: uv.lock + ABI gate
+- area: geometry-python
+  technology: Shapely
+  version_family: 2.x
+  decision: domain geometry adapter
+  exact_pin: uv.lock + GEOS ABI gate
+- area: crs-python
+  technology: pyproj
+  version_family: 3.x
+  decision: typed CRS adapter
+  exact_pin: uv.lock + PROJ ABI gate
+- area: deployment
+  technology: OCI images + Compose
+  version_family: Compose Specification
+  decision: official single-instance deployment
+  exact_pin: signed image digests
+- area: observability
+  technology: OpenTelemetry
+  version_family: stable APIs/SDKs
+  decision: vendor-neutral telemetry
+  exact_pin: lockfiles and collector image digest
+- area: api-contract
+  technology: OpenAPI
+  version_family: 3.1.0
+  decision: normative HTTP contract
+  exact_pin: repository file digest
+- area: schema-contract
+  technology: JSON Schema
+  version_family: 2020-12
+  decision: normative data/event/artifact schemas
+  exact_pin: repository file digest
+- area: geometric-model
+  technology: projective homography + USAC_MAGSAC
+  version_family: profile-versioned
+  decision: canonical final model/robust estimator
+  exact_pin: ClassicalMatchingProfile digest
+- area: quality-authority
+  technology: Strong Geometric Verifier
+  version_family: SGVProfile-versioned
+  decision: fail-closed acceptance authority
+  exact_pin: SGVProfile digest
+evidence_bound_not_open:
+- Argon2id cost, throttling and session timeouts (BP-003)
+- matching thresholds, tiles, keypoint quotas and FLANN parameters (BP-001)
+- SGV thresholds and false-accept budget (BP-002)
+- worker prefetch, concurrency, lease, recycle and queue capacity (BP-004)
+- CPU/RAM/GPU/disk quotas by supported hardware class
+execution_authorization: BLOCKED_EXTERNAL
+verification_date: '2026-07-27'
+official_verification:
+  path: docs/03-engineering/TECHNOLOGY_VERIFICATION.md
+  rule: official project sources only; Python 3.12 is primary, and 3.13/3.14 are staged
+    future targets
+runtime_source_lock: infra/images/native-stack.lock.yaml
+runtime_resolved_lock: infra/images/native-stack.resolved.yaml (generated by reproducible
+  build)
+sar_version: 3.0.0
+cto_review: PROCEED_STAGED
+production_gates: G-CTO-01..G-CTO-09

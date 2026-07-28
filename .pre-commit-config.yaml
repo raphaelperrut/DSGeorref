@@ -1,0 +1,28 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.0
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: local
+    hooks:
+      - id: sar-validation
+        name: SAR validation
+        entry: python tools/validate_repository.py
+        language: system
+        pass_filenames: false
+      - id: python-architecture-fitness
+        name: Python architecture fitness
+        entry: python tools/check_python_architecture.py
+        language: system
+        pass_filenames: false

@@ -1,0 +1,7 @@
+{
+  "key_id": "test-key-phase-e",
+  "algorithm": "Ed25519",
+  "public_key": "ebVWLo_mVPlAeLES6KmLp5AfhTrmlb7X4OORC60ElmQ",
+  "message_profile": "DSGEOREF-PROMPT-BUNDLE-V1",
+  "signature": "G4gBxfJy5k8Hb4eaDP-Nd63cVDnBoPiaXWxczH7NJ6NwcYBfX44bxOWQUs2-zISkuukBww2Pfgr7cXKKOSEMCA"
+}

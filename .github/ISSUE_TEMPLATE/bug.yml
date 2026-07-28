@@ -1,0 +1,15 @@
+name: Defect
+description: Reproducible product, contract, security or scientific defect
+body:
+  - type: textarea
+    id: observed
+    attributes: {label: Observed behavior}
+    validations: {required: true}
+  - type: textarea
+    id: expected
+    attributes: {label: Expected behavior}
+    validations: {required: true}
+  - type: textarea
+    id: reproduce
+    attributes: {label: Reproduction and evidence}
+    validations: {required: true}

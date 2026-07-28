@@ -1,0 +1,301 @@
+{
+  "task_id": "TASK-0750",
+  "issue_id": "ISSUE-0860",
+  "story_id": "STORY-0750",
+  "epic_id": "EPIC-050",
+  "sprint_id": "SPRINT-006",
+  "role": "Geoprocessamento",
+  "outcome": "Entregar Slice 1/2 — Preparar corpus, fixtures e representação tipada: registry de matchers clássicos/IA, escalonamento explicável, licenças, manifests e benchmark [REQ-AI, REQ-AIE] com testes e evidência verificável.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-007-geoprocessamento.md",
+    "docs/06-delivery/stories/STORY-0750-ISSUE-0860-slice-1-2-preparar-corpus-fixtures-e-representacao-tipada-registry-de-matchers-classic.md",
+    "docs/06-delivery/epics/EPIC-050-registry-de-matchers-classicos-ia-escalonamento-explicavel-licencas-ma.md",
+    "docs/01-product/requirements/REQ-AI-008-cada-capability-de-ia-possui-contrato-versionado-que-declara-estagio-pre-condicoes-orcamento.md",
+    "docs/01-product/requirements/REQ-AI-009-jobs-operacionais-usam-somente-inferencia-com-modelpacks-pre-treinados-assinados-e-pinados-t.md",
+    "docs/01-product/requirements/REQ-AI-012-a-promocao-de-modelpack-exige-corpus-estratificado-benchmark-reproduzivel-verificacao-de-det.md",
+    "docs/01-product/requirements/REQ-AI-013-cada-capability-de-ia-possui-lifecycle-versionamento-promocao-desativacao-e-rollback-indepen.md",
+    "docs/01-product/requirements/REQ-AI-015-o-runtime-de-inferencia-monta-pesos-em-modo-somente-leitura-valida-assinatura-e-hash-antes-d.md",
+    "docs/01-product/requirements/REQ-AI-017-capabilities-experimentais-mesmo-quando-habilitadas-em-laboratorio-isolado-nao-podem-publica.md",
+    "docs/01-product/requirements/REQ-AIE-002-iniciar-ia-somente-apos-baseline-classica-checkpoint-e-trigger-controlad.md",
+    "docs/01-product/requirements/REQ-AIE-004-limitar-a-escada-neural-por-tentativas-tempo-memoria-device-e-prioridade.md",
+    "docs/01-product/requirements/REQ-AIE-006-manter-ia-opcional-cpu-classic-baseline-funcional-e-indisponibilidade-ex.md",
+    "docs/01-product/requirements/REQ-AIE-008-usar-modelpacks-assinados-pinados-licenciados-opt-in-e-importaveis-offli.md",
+    "docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md",
+    "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
+    "docs/02-architecture/ddd/bounded-contexts/BC-009-ai-recovery.md",
+    "docs/02-architecture/ddd/DDD-040-CONTEXT-MAP.md",
+    "docs/02-architecture/adrs/ADR-003-bounded-contexts-subdominios-e-linguagem-ubiqua.md",
+    "docs/02-architecture/adrs/ADR-004-integracao-entre-contexts-e-modelos-publicados.md",
+    "docs/02-architecture/adrs/ADR-005-layout-context-first-e-direcao-de-dependencias.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
+    "docs/02-architecture/adrs/ADR-009-runtime-python-3-12-toolchain-e-stack-nativa-reproduzivel.md",
+    "docs/02-architecture/adrs/ADR-033-supply-chain-sbom-assinaturas-e-dependencias.md",
+    "docs/02-architecture/adrs/ADR-038-retry-quarantine-checkpoints-cancelamento-e-drain.md",
+    "docs/02-architecture/adrs/ADR-041-crs-espacos-de-coordenadas-e-axis-order.md",
+    "docs/02-architecture/adrs/ADR-042-raster-validity-output-grid-resampling-e-cog.md",
+    "docs/02-architecture/adrs/ADR-043-stack-geoespacial-nativa-abi-e-isolamento.md",
+    "docs/02-architecture/adrs/ADR-051-ai-router-planner-e-escalonamento-classic-first.md",
+    "docs/02-architecture/adrs/ADR-052-inference-engine-modelrunner-modelpack-e-offline.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-003-AI-BACKEND-PROTOCOL-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-005-ARTIFACT-CONTRACT.md",
+    "docs/02-architecture/adrs/ADR-017-feature-flags-e-registro-de-capabilities.md",
+    "docs/02-architecture/adrs/ADR-046-sgv-quality-profiles-e-aceitacao-fail-closed.md",
+    "docs/02-architecture/adrs/ADR-053-reprodutibilidade-cientifica-benchmarks-promocao-e-rollback.md",
+    "docs/02-architecture/adrs/ADR-055-audit-ledger-privacidade-redaction-e-support-bundles.md",
+    "contracts/operations/slo-sli-catalog.yaml",
+    "docs/05-operations/CAPACITY_AND_SCALING.md",
+    "contracts/operations/external-dependency-register.csv",
+    "contracts/operations/vendor-exit-matrix.csv",
+    "contracts/operations/cost-model.yaml",
+    "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+    "contracts/operations/lock-and-queue-policy.yaml",
+    "contracts/operations/recovery-objectives.yaml",
+    "docs/05-operations/BACKUP_RESTORE.md",
+    "docs/05-operations/OBSERVABILITY.md",
+    "docs/04-quality/THREAT_MODEL.md",
+    "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+    "contracts/privacy/lgpd-control-matrix.csv",
+    "docs/04-quality/LGPD_CONTROL_MODEL.md",
+    "contracts/operations/version-and-rollback-matrix.yaml",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
+    "docs/05-operations/PRODUCTION_READINESS_GATES.md"
+  ],
+  "allow_paths": [
+    "src/geo/dsgeorref_geo/contexts/ai_recovery/registry-de-matchers-classicos-ia-escalonamento-explic/ai-aie-parte-1/**"
+  ],
+  "deny_paths": [
+    "src/**/epic-*",
+    "src/**/issue-*"
+  ],
+  "acceptance_criteria": [
+    "Cada requisito do slice possui evidência explícita: REQ-AI-008, REQ-AI-009, REQ-AI-012, REQ-AI-013, REQ-AI-015, REQ-AI-017, REQ-AIE-002, REQ-AIE-004, REQ-AIE-006, REQ-AIE-008.",
+    "O write scope é estável, disjunto e não usa identificador de ticket em código de produção.",
+    "Estados de falha aplicáveis são testados sem fallback silencioso.",
+    "O handoff registra impacto em contratos, riscos e rollback."
+  ],
+  "tests": [
+    "test_stage_capability_contract_preconditions_budget_reason",
+    "test_inference_first_no_training_or_weight_mutation_in_jobs",
+    "test_modelpack_stratified_promotion_and_reproducibility_gate",
+    "test_independent_ai_capability_lifecycle_and_promotion",
+    "test_inference_only_runtime_no_training_or_weight_mutation",
+    "test_experimental_capability_cannot_publish_accepted_artifactset",
+    "test_ai_escalation_decision_02",
+    "test_ai_escalation_decision_04",
+    "test_ai_escalation_decision_06",
+    "test_ai_escalation_decision_08"
+  ],
+  "evidence": [
+    "evidence/implementation/registry-de-matchers-classicos-ia-escalonamento-ex/ai-aie-parte-1/",
+    "commit candidato e relatório de testes"
+  ],
+  "dependencies": [
+    "STORY-0302"
+  ],
+  "stop_conditions": [
+    "Decisão material não resolvida.",
+    "Contrato obrigatório ausente ou contraditório.",
+    "Write scope sobrepõe lane ativa.",
+    "Aceitação não pode ser demonstrada por teste ou evidência."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0860-01",
+    "AC-ISSUE-0860-02",
+    "AC-ISSUE-0860-03",
+    "AC-ISSUE-0860-04"
+  ],
+  "governing_adrs": [
+    "ADR-003",
+    "ADR-004",
+    "ADR-005",
+    "ADR-006",
+    "ADR-007",
+    "ADR-008",
+    "ADR-009",
+    "ADR-017",
+    "ADR-033",
+    "ADR-038",
+    "ADR-041",
+    "ADR-042",
+    "ADR-043",
+    "ADR-046",
+    "ADR-051",
+    "ADR-052",
+    "ADR-053",
+    "ADR-055"
+  ],
+  "requirement_basis": "MIXED",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-009",
+  "context_map_dependencies": [
+    "BC-004",
+    "BC-010",
+    "BC-015"
+  ],
+  "domain_model_impact": "LOCAL_MODEL",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-003",
+    "SPEC-004",
+    "SPEC-005"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 1,
+      "items": [
+        "STORY-0302"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "src/geo/dsgeorref_geo/contexts/ai_recovery/registry-de-matchers-classicos-ia-escalonamento-explic/ai-aie-parte-1/**"
+      ],
+      "deny_paths": [
+        "src/**/epic-*",
+        "src/**/issue-*"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "geo": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-041",
+        "ADR-042",
+        "ADR-043",
+        "ADR-046"
+      ]
+    },
+    "ai": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-017",
+        "ADR-051",
+        "ADR-052",
+        "ADR-053"
+      ],
+      "protocol_required": true
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "test_stage_capability_contract_preconditions_budget_reason",
+        "test_inference_first_no_training_or_weight_mutation_in_jobs",
+        "test_modelpack_stratified_promotion_and_reproducibility_gate",
+        "test_independent_ai_capability_lifecycle_and_promotion",
+        "test_inference_only_runtime_no_training_or_weight_mutation",
+        "test_experimental_capability_cannot_publish_accepted_artifactset",
+        "test_ai_escalation_decision_02",
+        "test_ai_escalation_decision_04",
+        "test_ai_escalation_decision_06",
+        "test_ai_escalation_decision_08"
+      ]
+    },
+    "artifacts": {
+      "applicability": "PRODUCT_AND_EVIDENCE",
+      "status": "PASS",
+      "kinds": [
+        "Manifest"
+      ],
+      "evidence": [
+        "evidence/implementation/registry-de-matchers-classicos-ia-escalonamento-ex/ai-aie-parte-1/",
+        "commit candidato e relatório de testes"
+      ],
+      "contract": "SPEC-005"
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 4,
+      "ids": [
+        "AC-ISSUE-0860-01",
+        "AC-ISSUE-0860-02",
+        "AC-ISSUE-0860-03",
+        "AC-ISSUE-0860-04"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "CRITICAL",
+    "applicable_controls": [
+      "CTO-001",
+      "CTO-003",
+      "CTO-004",
+      "CTO-005",
+      "CTO-006",
+      "CTO-007",
+      "CTO-008",
+      "CTO-009",
+      "CTO-010",
+      "CTO-012",
+      "CTO-013",
+      "CTO-014",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-002",
+      "CTO-011"
+    ],
+    "required_evidence": [
+      "contracts/operations/slo-sli-catalog.yaml",
+      "docs/05-operations/CAPACITY_AND_SCALING.md",
+      "contracts/operations/external-dependency-register.csv",
+      "contracts/operations/vendor-exit-matrix.csv",
+      "contracts/operations/cost-model.yaml",
+      "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+      "contracts/operations/lock-and-queue-policy.yaml",
+      "contracts/operations/recovery-objectives.yaml",
+      "docs/05-operations/BACKUP_RESTORE.md",
+      "docs/05-operations/OBSERVABILITY.md",
+      "docs/04-quality/THREAT_MODEL.md",
+      "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+      "contracts/privacy/lgpd-control-matrix.csv",
+      "docs/04-quality/LGPD_CONTROL_MODEL.md",
+      "contracts/operations/version-and-rollback-matrix.yaml"
+    ],
+    "production_gate": "SECURITY_AND_PRIVACY_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

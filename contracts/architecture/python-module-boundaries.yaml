@@ -1,0 +1,199 @@
+schema_version: 1.0.0
+runtime:
+  primary: '3.12'
+  requires_python: '>=3.12,<3.13'
+  future_targets:
+  - '3.13'
+  - '3.14'
+limits:
+  file_lines:
+    preferred: 300
+    review: 400
+    hard: 600
+  function_lines:
+    preferred: 40
+    review: 60
+    hard: 80
+  top_level_definitions:
+    preferred: 12
+    review: 16
+    hard: 20
+  public_methods_per_class:
+    preferred: 10
+    review: 15
+    hard: 20
+  approximate_branch_points:
+    preferred: 8
+    review: 12
+    hard: 15
+prohibited_paths:
+- src/**/epic-*
+- src/**/issue-*
+prohibited_generic_modules:
+- utils.py
+- helpers.py
+- common.py
+- misc.py
+layers:
+  backend_domain:
+    path: src/backend/dsgeorref/domain
+    may_import:
+    - backend_domain
+  backend_application:
+    path: src/backend/dsgeorref/application
+    may_import:
+    - backend_domain
+    - backend_application
+  backend_adapters:
+    path: src/backend/dsgeorref/adapters
+    may_import:
+    - backend_domain
+    - backend_application
+    - backend_adapters
+  backend_bootstrap:
+    path: src/backend/dsgeorref/bootstrap
+    may_import:
+    - backend_domain
+    - backend_application
+    - backend_adapters
+    - backend_bootstrap
+    - geo_public
+    - ai_public
+  geo_public:
+    path: src/geo/dsgeorref_geo
+    may_import:
+    - geo_public
+  ai_public:
+    path: src/ai/dsgeorref_ai
+    may_import:
+    - ai_public
+    - geo_public
+exceptions:
+  file: docs/02-architecture/design-reviews/PYTHON_ARCHITECTURE_EXCEPTIONS.yaml
+  approval_roles:
+  - Arquiteto
+  - Reviewer
+baseline_version: 2.6.0
+architecture: bounded-context-first
+bounded_contexts:
+  BC-002:
+    slug: identity_access
+    classification: Generic
+    allowed_upstreams: []
+  BC-003:
+    slug: project_workspace
+    classification: Supporting
+    allowed_upstreams:
+    - BC-002
+  BC-004:
+    slug: processing_plan
+    classification: Supporting
+    allowed_upstreams:
+    - BC-002
+    - BC-003
+    - BC-011
+  BC-005:
+    slug: reference_discovery
+    classification: Supporting
+    allowed_upstreams:
+    - BC-003
+    - BC-004
+    - BC-010
+  BC-006:
+    slug: georeferencing
+    classification: Core
+    allowed_upstreams:
+    - BC-004
+    - BC-005
+    - BC-010
+    - BC-011
+  BC-007:
+    slug: geometric_quality
+    classification: Core
+    allowed_upstreams:
+    - BC-006
+    - BC-009
+    - BC-010
+  BC-008:
+    slug: relative_mosaic
+    classification: Core
+    allowed_upstreams:
+    - BC-006
+    - BC-007
+    - BC-010
+    - BC-011
+  BC-009:
+    slug: ai_recovery
+    classification: Supporting
+    allowed_upstreams:
+    - BC-004
+    - BC-010
+    - BC-015
+  BC-010:
+    slug: job_orchestration
+    classification: Supporting
+    allowed_upstreams:
+    - BC-002
+    - BC-003
+    - BC-004
+  BC-011:
+    slug: review_correction
+    classification: Supporting
+    allowed_upstreams:
+    - BC-002
+    - BC-003
+    - BC-004
+    - BC-007
+  BC-012:
+    slug: results_reporting
+    classification: Supporting
+    allowed_upstreams:
+    - BC-002
+    - BC-003
+    - BC-004
+    - BC-006
+    - BC-007
+    - BC-010
+    - BC-011
+    - BC-008
+    - BC-013
+  BC-013:
+    slug: artifact_provenance
+    classification: Supporting
+    allowed_upstreams:
+    - BC-002
+    - BC-003
+    - BC-005
+    - BC-006
+    - BC-009
+    - BC-007
+    - BC-011
+    - BC-008
+  BC-014:
+    slug: operations_audit
+    classification: Generic
+    allowed_upstreams:
+    - BC-002
+    - BC-010
+    - BC-013
+    - BC-012
+  BC-015:
+    slug: release_installation
+    classification: Generic
+    allowed_upstreams:
+    - BC-013
+  BC-016:
+    slug: operator_experience
+    classification: Supporting
+    allowed_upstreams:
+    - BC-002
+    - BC-003
+    - BC-013
+    - BC-012
+    - BC-014
+forbidden:
+- global domain/application/adapters packages for new capabilities
+- cross-context ORM imports
+- cross-context repository access
+- shared-domain package
+- utils.py/common.py/helpers.py/misc.py

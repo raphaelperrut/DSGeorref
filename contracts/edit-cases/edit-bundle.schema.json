@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/edit-cases/edit-bundle/1.0.0",
+  "title": "EditBundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "edit_bundle_id",
+    "edit_bundle_version",
+    "case_id",
+    "base_result_snapshot_id",
+    "operations",
+    "created_at",
+    "created_by",
+    "payload_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "edit_bundle_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "edit_bundle_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "case_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "base_result_snapshot_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "operations": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "operation_id",
+          "operation_type",
+          "target",
+          "payload"
+        ],
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "operation_type": {
+            "enum": [
+              "ADD_GCP",
+              "UPDATE_GCP",
+              "REMOVE_GCP",
+              "ADD_ANCHOR",
+              "UPDATE_ANCHOR",
+              "REMOVE_ANCHOR",
+              "SET_ANALYSIS_MASK",
+              "SET_EXCLUSION_MASK",
+              "SET_METADATA_OVERRIDE",
+              "ADD_REVIEW_NOTE"
+            ]
+          },
+          "target": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "rationale": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_by": {
+      "type": "string",
+      "minLength": 1
+    },
+    "payload_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "supersedes_edit_bundle_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "cases": [
+    {
+      "case_id": "minimal-valid",
+      "template_id": "TPL-ISSUE-HANDOFF",
+      "variables": {
+        "story_id": "STORY-0001",
+        "outcome": "Contrato implementado.",
+        "tests": [
+          "test_contract"
+        ]
+      },
+      "expected_status": "PASS"
+    },
+    {
+      "case_id": "missing-required",
+      "template_id": "TPL-ISSUE-HANDOFF",
+      "variables": {
+        "story_id": "STORY-0001"
+      },
+      "expected_status": "FAIL",
+      "expected_code": "VARIABLE_MISSING"
+    },
+    {
+      "case_id": "unknown-variable",
+      "template_id": "TPL-ISSUE-HANDOFF",
+      "variables": {
+        "story_id": "STORY-0001",
+        "outcome": "x",
+        "tests": [],
+        "extra": "x"
+      },
+      "expected_status": "FAIL",
+      "expected_code": "VARIABLE_UNKNOWN"
+    }
+  ]
+}

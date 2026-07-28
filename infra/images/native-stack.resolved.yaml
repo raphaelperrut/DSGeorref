@@ -1,0 +1,10 @@
+schema_version: 1.0.0
+status: NOT_BUILT
+source_lock: native-stack.lock.yaml
+required_fields_after_build:
+- image_digest
+- sbom_digest
+- provenance_digest
+- abi_smoke_result
+note: This file is intentionally unresolved before implementation. Its absence of
+  digest is execution evidence pending, not an open technology decision.

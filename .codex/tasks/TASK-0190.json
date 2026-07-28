@@ -1,0 +1,262 @@
+{
+  "task_id": "TASK-0190",
+  "issue_id": "ISSUE-0300",
+  "story_id": "STORY-0190",
+  "epic_id": "EPIC-031",
+  "sprint_id": "SPRINT-009",
+  "role": "Reviewer",
+  "outcome": "Auditar UX, contrato e evidência final para React/TypeScript/Vite, design system, cliente OpenAPI, seletor visual, acessibilidade e E2E com testes e evidência verificável.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-011-reviewer.md",
+    "docs/06-delivery/stories/STORY-0190-ISSUE-0300-auditar-ux-contrato-e-evidencia-final-react-typescript-vite-design-system.md",
+    "docs/06-delivery/epics/EPIC-031-react-typescript-vite-design-system-cliente-openapi-seletor-visual-ace.md",
+    "contracts/README.md",
+    "docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md",
+    "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
+    "docs/02-architecture/ddd/bounded-contexts/BC-016-operator-experience.md",
+    "docs/02-architecture/ddd/DDD-040-CONTEXT-MAP.md",
+    "docs/02-architecture/adrs/ADR-003-bounded-contexts-subdominios-e-linguagem-ubiqua.md",
+    "docs/02-architecture/adrs/ADR-004-integracao-entre-contexts-e-modelos-publicados.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
+    "docs/02-architecture/adrs/ADR-010-api-first-versionamento-e-contract-freeze.md",
+    "docs/02-architecture/adrs/ADR-011-boundary-http-fastapi-pydantic-e-openapi.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "docs/02-architecture/adrs/ADR-005-layout-context-first-e-direcao-de-dependencias.md",
+    "docs/02-architecture/adrs/ADR-013-cliente-typescript-gerado-e-diff-gate-openapi.md",
+    "docs/02-architecture/adrs/ADR-014-frontend-react-vite-openlayers-e-workspace-cartografico.md",
+    "docs/02-architecture/adrs/ADR-015-cli-direct-runner-e-nucleo-compartilhado.md",
+    "contracts/http/openapi.yaml",
+    "contracts/http/OPERATION_CATALOG.json",
+    "contracts/http/API_CONTRACT_INDEX.csv",
+    "contracts/operations/slo-sli-catalog.yaml",
+    "docs/05-operations/CAPACITY_AND_SCALING.md",
+    "contracts/operations/external-dependency-register.csv",
+    "contracts/operations/vendor-exit-matrix.csv",
+    "contracts/operations/cost-model.yaml",
+    "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+    "contracts/operations/version-and-rollback-matrix.yaml",
+    "docs/03-engineering/DATABASE_MIGRATIONS.md",
+    "docs/05-operations/OBSERVABILITY.md",
+    "docs/04-quality/THREAT_MODEL.md",
+    "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+    "contracts/privacy/lgpd-control-matrix.csv",
+    "docs/04-quality/LGPD_CONTROL_MODEL.md",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
+    "docs/05-operations/PRODUCTION_READINESS_GATES.md"
+  ],
+  "allow_paths": [
+    "evidence/reviews/react-typescript-vite-design-system-cliente-openapi-se/**"
+  ],
+  "deny_paths": [
+    "src/**",
+    "contracts/**",
+    "tests/**",
+    "src/**/epic-*",
+    "src/**/issue-*"
+  ],
+  "acceptance_criteria": [
+    "O resultado de “React/TypeScript/Vite, design system, cliente OpenAPI, seletor visual, acessibilidade e E2E” é observável por contrato, interface, artifact ou evidência executável.",
+    "Os requisitos vinculados possuem evidência explícita no commit candidato.",
+    "Estados de erro e caminhos fail-closed aplicáveis são testados, sem fallback silencioso.",
+    "QA e Reviewer referenciam o mesmo commit, evidências e riscos residuais; nenhuma aprovação é implícita."
+  ],
+  "tests": [
+    "test_epic_031_aceite_happy_path",
+    "test_epic_031_aceite_negative_paths"
+  ],
+  "evidence": [
+    "evidence/reviews/epic-031/story-0190/",
+    "commit candidato e relatório de testes"
+  ],
+  "dependencies": [
+    "STORY-0189"
+  ],
+  "stop_conditions": [
+    "Decisão material de produto ou arquitetura não resolvida.",
+    "Contrato obrigatório ausente ou contraditório.",
+    "Write scope sobrepõe lane ativa.",
+    "Aceitação não pode ser demonstrada por teste ou evidência."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0300-01",
+    "AC-ISSUE-0300-02",
+    "AC-ISSUE-0300-03",
+    "AC-ISSUE-0300-04"
+  ],
+  "governing_adrs": [
+    "ADR-003",
+    "ADR-004",
+    "ADR-005",
+    "ADR-006",
+    "ADR-007",
+    "ADR-008",
+    "ADR-010",
+    "ADR-011",
+    "ADR-013",
+    "ADR-014",
+    "ADR-015"
+  ],
+  "requirement_basis": "DERIVED_CONTROL",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-016",
+  "context_map_dependencies": [
+    "BC-002",
+    "BC-003",
+    "BC-012",
+    "BC-013",
+    "BC-014"
+  ],
+  "domain_model_impact": "CROSS_CONTEXT_INTEGRATION",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 1,
+      "items": [
+        "STORY-0189"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "evidence/reviews/react-typescript-vite-design-system-cliente-openapi-se/**"
+      ],
+      "deny_paths": [
+        "src/**",
+        "contracts/**",
+        "tests/**",
+        "src/**/epic-*",
+        "src/**/issue-*"
+      ]
+    },
+    "api": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": [
+        "contracts/http/openapi.yaml",
+        "contracts/http/OPERATION_CATALOG.json"
+      ]
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-010",
+        "ADR-011",
+        "ADR-013",
+        "ADR-014"
+      ]
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "test_epic_031_aceite_happy_path",
+        "test_epic_031_aceite_negative_paths"
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "PASS",
+      "kinds": [
+        "Audit"
+      ],
+      "evidence": [
+        "evidence/reviews/epic-031/story-0190/",
+        "commit candidato e relatório de testes"
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 4,
+      "ids": [
+        "AC-ISSUE-0300-01",
+        "AC-ISSUE-0300-02",
+        "AC-ISSUE-0300-03",
+        "AC-ISSUE-0300-04"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "HIGH",
+    "applicable_controls": [
+      "CTO-001",
+      "CTO-003",
+      "CTO-004",
+      "CTO-005",
+      "CTO-006",
+      "CTO-008",
+      "CTO-011",
+      "CTO-012",
+      "CTO-013",
+      "CTO-014",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-002",
+      "CTO-007",
+      "CTO-009",
+      "CTO-010"
+    ],
+    "required_evidence": [
+      "contracts/operations/slo-sli-catalog.yaml",
+      "docs/05-operations/CAPACITY_AND_SCALING.md",
+      "contracts/operations/external-dependency-register.csv",
+      "contracts/operations/vendor-exit-matrix.csv",
+      "contracts/operations/cost-model.yaml",
+      "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+      "contracts/operations/version-and-rollback-matrix.yaml",
+      "docs/03-engineering/DATABASE_MIGRATIONS.md",
+      "docs/05-operations/OBSERVABILITY.md",
+      "docs/04-quality/THREAT_MODEL.md",
+      "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+      "contracts/privacy/lgpd-control-matrix.csv",
+      "docs/04-quality/LGPD_CONTROL_MODEL.md"
+    ],
+    "production_gate": "BENCHMARK_AND_OPERATIONS_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

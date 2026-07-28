@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.1.0",
+  "roles": [
+    {
+      "id": "ROLE-001",
+      "name": "Product Owner",
+      "mission": "Responder por valor de produto, escopo, prioridades e histórias.",
+      "write_scope": "docs/01-product/**; docs/06-delivery/epics/** (product sections)",
+      "path": ".codex/roles/ROLE-001-product-owner.md"
+    },
+    {
+      "id": "ROLE-002",
+      "name": "Arquiteto",
+      "mission": "Responder por boundaries arquiteturais, contratos e decisões técnicas materiais.",
+      "write_scope": "docs/02-architecture/**; contracts/**",
+      "path": ".codex/roles/ROLE-002-arquiteto.md"
+    },
+    {
+      "id": "ROLE-003",
+      "name": "Tech Lead",
+      "mission": "Responder por decomposição, sequenciamento, integração e TaskEnvelopes.",
+      "write_scope": "docs/06-delivery/**; .codex/tasks/**",
+      "path": ".codex/roles/ROLE-003-tech-lead.md"
+    },
+    {
+      "id": "ROLE-004",
+      "name": "Backend",
+      "mission": "Implementar domínio, application services, API, persistência e workers.",
+      "write_scope": "src/backend/**; tests/backend/**",
+      "path": ".codex/roles/ROLE-004-backend.md"
+    },
+    {
+      "id": "ROLE-005",
+      "name": "Frontend",
+      "mission": "Implementar UX React/OpenLayers e integração por cliente gerado.",
+      "write_scope": "src/frontend/**; tests/frontend/**",
+      "path": ".codex/roles/ROLE-005-frontend.md"
+    },
+    {
+      "id": "ROLE-006",
+      "name": "IA",
+      "mission": "Implementar ModelRunners, ModelPacks e avaliação governada.",
+      "write_scope": "src/ai/**; tests/ai/**",
+      "path": ".codex/roles/ROLE-006-ia.md"
+    },
+    {
+      "id": "ROLE-007",
+      "name": "Geoprocessamento",
+      "mission": "Implementar raster, vetor, CRS, matching, homografia, SGV e mosaico.",
+      "write_scope": "src/geo/**; tests/geo/**",
+      "path": ".codex/roles/ROLE-007-geoprocessamento.md"
+    },
+    {
+      "id": "ROLE-008",
+      "name": "QA",
+      "mission": "Projetar e executar validação independente funcional, contratual, de segurança e científica.",
+      "write_scope": "tests/**; evidence/qa/**",
+      "path": ".codex/roles/ROLE-008-qa.md"
+    },
+    {
+      "id": "ROLE-009",
+      "name": "DevOps",
+      "mission": "Implementar CI, ambientes, observabilidade, deployment, backup e release.",
+      "write_scope": "infra/**; .github/workflows/**; tools/**; evidence/operations/**",
+      "path": ".codex/roles/ROLE-009-devops.md"
+    },
+    {
+      "id": "ROLE-010",
+      "name": "Security",
+      "mission": "Responder por threat analysis, auth, supply chain e privacidade.",
+      "write_scope": "docs/04-quality/THREAT_MODEL.md; docs/04-quality/SECURITY_PRIVACY_LGPD.md; tests/security/**; evidence/security/**",
+      "path": ".codex/roles/ROLE-010-security.md"
+    },
+    {
+      "id": "ROLE-011",
+      "name": "Reviewer",
+      "mission": "Realizar auditoria final independente de produto, arquitetura, código, testes e evidência.",
+      "write_scope": "evidence/reviews/**",
+      "path": ".codex/roles/ROLE-011-reviewer.md"
+    }
+  ],
+  "prompt_bundle_contract": "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+  "task_envelope_schema_version": "1.4.0"
+}

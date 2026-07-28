@@ -1,0 +1,265 @@
+{
+  "schema_version": "1.0.0",
+  "baseline_version": "2.6.0",
+  "generated_at_utc": "2026-07-27T17:29:09+00:00",
+  "phase": "C",
+  "name": "Domain Driven Design",
+  "approved": true,
+  "blocking_findings_open": 0,
+  "implementation_authorization": "BLOCKED_EXTERNAL",
+  "counts": {
+    "bounded_contexts": 16,
+    "core_contexts": 3,
+    "context_map_edges": 70,
+    "epics": 110,
+    "stories": 758,
+    "requirements": 376,
+    "adrs": 25,
+    "direct_context_implementation_dependencies": 0,
+    "direct_import_cycles": 0
+  },
+  "contexts": [
+    {
+      "id": "BC-001",
+      "slug": "engineering-governance",
+      "name": "Governança de Engenharia e Entrega",
+      "classification": "Enabling",
+      "strategic": "Suporte organizacional",
+      "mission": "Governar decisões, portfolio, evidências e autorização de entrega sem participar do runtime do produto.",
+      "epics": 12,
+      "stories": 91,
+      "requirements": 195
+    },
+    {
+      "id": "BC-002",
+      "slug": "identity-access",
+      "name": "Identidade e Controle de Acesso",
+      "classification": "Generic",
+      "strategic": "Suporte",
+      "mission": "Gerenciar identidades, sessões, tokens, memberships e decisões de autorização da instância.",
+      "epics": 4,
+      "stories": 26,
+      "requirements": 21
+    },
+    {
+      "id": "BC-003",
+      "slug": "project-workspace",
+      "name": "Projetos, Workspace e Assets",
+      "classification": "Supporting",
+      "strategic": "Suporte",
+      "mission": "Manter projetos, roots autorizados, catálogo de assets e snapshots de seleção sem expor paths arbitrários.",
+      "epics": 1,
+      "stories": 9,
+      "requirements": 30
+    },
+    {
+      "id": "BC-004",
+      "slug": "processing-plan",
+      "name": "Plano de Processamento e Workflow",
+      "classification": "Supporting",
+      "strategic": "Coordenação",
+      "mission": "Definir ProcessingPlans versionados, capacidades, consentimentos e políticas de escalonamento sem executar algoritmos diretamente.",
+      "epics": 1,
+      "stories": 7,
+      "requirements": 6
+    },
+    {
+      "id": "BC-005",
+      "slug": "reference-discovery",
+      "name": "Descoberta e Aquisição de Referências",
+      "classification": "Supporting",
+      "strategic": "Suporte ao core",
+      "mission": "Descobrir, ranquear e adquirir referências autorizadas, mantendo provider capabilities, licença e evidência de disponibilidade.",
+      "epics": 9,
+      "stories": 67,
+      "requirements": 67
+    },
+    {
+      "id": "BC-006",
+      "slug": "georeferencing",
+      "name": "Georreferenciamento",
+      "classification": "Core",
+      "strategic": "Core domain",
+      "mission": "Produzir correspondências, GCPs automáticos, homografia projetiva e raster georreferenciado candidato de forma reproduzível.",
+      "epics": 12,
+      "stories": 84,
+      "requirements": 35
+    },
+    {
+      "id": "BC-007",
+      "slug": "geometric-quality",
+      "name": "Verificação Geométrica e Qualidade",
+      "classification": "Core",
+      "strategic": "Core domain",
+      "mission": "Aplicar SGV fail-closed, QualityProfiles, métricas geométricas e Image Deformation Profile para aceitar ou rejeitar candidatos.",
+      "epics": 5,
+      "stories": 42,
+      "requirements": 86
+    },
+    {
+      "id": "BC-008",
+      "slug": "relative-mosaic",
+      "name": "Mosaico Relativo",
+      "classification": "Core",
+      "strategic": "Core domain",
+      "mission": "Recuperar, otimizar, ancorar, verificar e materializar componentes de mosaico relativo com promoção explícita.",
+      "epics": 6,
+      "stories": 42,
+      "requirements": 26
+    },
+    {
+      "id": "BC-009",
+      "slug": "ai-recovery",
+      "name": "Recuperação Assistida por IA e Governança de Modelos",
+      "classification": "Supporting",
+      "strategic": "Diferenciador controlado",
+      "mission": "Executar recuperação neural elegível por ModelRunner/ModelPack sem possuir autoridade de aceitação geométrica.",
+      "epics": 2,
+      "stories": 13,
+      "requirements": 24
+    },
+    {
+      "id": "BC-010",
+      "slug": "job-orchestration",
+      "name": "Orquestração de Jobs e Recursos",
+      "classification": "Supporting",
+      "strategic": "Execução",
+      "mission": "Gerenciar jobs, work units, retries, checkpoints, cancelamento, scheduling, leases e budgets sem possuir resultados científicos.",
+      "epics": 12,
+      "stories": 86,
+      "requirements": 69
+    },
+    {
+      "id": "BC-011",
+      "slug": "review-correction",
+      "name": "Revisão e Correção",
+      "classification": "Supporting",
+      "strategic": "Suporte ao core",
+      "mission": "Priorizar casos revisáveis, registrar CorrectionSets e GCPs manuais imutáveis e solicitar nova tentativa sem alterar hard gates.",
+      "epics": 4,
+      "stories": 25,
+      "requirements": 6
+    },
+    {
+      "id": "BC-012",
+      "slug": "results-reporting",
+      "name": "Resultados, Diagnósticos e Exportação",
+      "classification": "Supporting",
+      "strategic": "Entrega de valor",
+      "mission": "Consolidar snapshots de resultado, diagnósticos, comparações, relatórios de lote e exports sem recalcular a verdade científica.",
+      "epics": 4,
+      "stories": 28,
+      "requirements": 26
+    },
+    {
+      "id": "BC-013",
+      "slug": "artifact-provenance",
+      "name": "Artifacts, Proveniência e Lifecycle",
+      "classification": "Supporting",
+      "strategic": "Integridade",
+      "mission": "Publicar ArtifactSets, manter manifests, hashes, lineage, cache, backup, retention e GC reference-aware.",
+      "epics": 9,
+      "stories": 59,
+      "requirements": 65
+    },
+    {
+      "id": "BC-014",
+      "slug": "operations-audit",
+      "name": "Operações, Auditoria e Suporte",
+      "classification": "Generic",
+      "strategic": "Operação",
+      "mission": "Observar, auditar e suportar a instância por sinais derivados, health/readiness, drain, restore drills e support bundles sanitizados.",
+      "epics": 11,
+      "stories": 70,
+      "requirements": 77
+    },
+    {
+      "id": "BC-015",
+      "slug": "release-installation",
+      "name": "Release, Instalação e Supply Chain",
+      "classification": "Generic",
+      "strategic": "Entrega operacional",
+      "mission": "Gerenciar instalação, bootstrap, upgrade, release train, licenciamento e attestations sem conter regras de domínio do produto.",
+      "epics": 11,
+      "stories": 64,
+      "requirements": 25
+    },
+    {
+      "id": "BC-016",
+      "slug": "operator-experience",
+      "name": "Experiência e Orientação do Operador",
+      "classification": "Supporting",
+      "strategic": "Interação",
+      "mission": "Oferecer UI, CLI, jornadas guiadas, filtros e explicações consumindo contratos públicos, sem duplicar regras dos bounded contexts.",
+      "epics": 7,
+      "stories": 45,
+      "requirements": 57
+    }
+  ],
+  "findings": [
+    {
+      "id": "DDD-001",
+      "severity": "HIGH",
+      "finding": "Capacidades de negócio e componentes técnicos estavam no mesmo catálogo de módulos.",
+      "resolution": "16 bounded contexts definidos; 18 módulos reclassificados como implementação/adapters."
+    },
+    {
+      "id": "DDD-002",
+      "severity": "HIGH",
+      "finding": "Layout global por domain/application/adapters favorecia modelo global e big ball of mud.",
+      "resolution": "Layout context-first/layer-second registrado em ADR-005 e aplicado aos 758 TaskEnvelopes."
+    },
+    {
+      "id": "DDD-003",
+      "severity": "HIGH",
+      "finding": "Épicos, histórias, requisitos e contratos não declaravam owner semântico único.",
+      "resolution": "110 épicos, 758 histórias, 376 requisitos e contratos receberam context owner."
+    },
+    {
+      "id": "DDD-004",
+      "severity": "HIGH",
+      "finding": "Integrações internas não possuíam context map normativo.",
+      "resolution": "70 relações direcionadas com padrão DDD e linguagem publicada."
+    },
+    {
+      "id": "DDD-005",
+      "severity": "MEDIUM",
+      "finding": "Job execution e georeferencing attempt podiam ser tratados como o mesmo conceito.",
+      "resolution": "AttemptExecution pertence ao BC-010; GeoreferencingAttempt pertence ao BC-006."
+    },
+    {
+      "id": "DDD-006",
+      "severity": "MEDIUM",
+      "finding": "IA poderia parecer owner de aceitação geométrica.",
+      "resolution": "BC-009 produz candidatos; somente BC-007 emite SGVVerdict."
+    },
+    {
+      "id": "DDD-007",
+      "severity": "MEDIUM",
+      "finding": "Storage podia ser interpretado como domínio único.",
+      "resolution": "PostgreSQL/filesystem são infraestrutura; BC-013 possui semântica de artifacts, provenance e lifecycle."
+    },
+    {
+      "id": "DDD-008",
+      "severity": "MEDIUM",
+      "finding": "UI/API/CLI podiam duplicar regra de domínio.",
+      "resolution": "Canais foram definidos como adapters; BC-016 possui apenas estado de interação e consome published languages."
+    },
+    {
+      "id": "DDD-009",
+      "severity": "LOW",
+      "finding": "Não havia catálogo único de aggregates, eventos e linguagem ubíqua.",
+      "resolution": "Catálogos DDD-050, DDD-060 e DDD-070 criados."
+    }
+  ],
+  "invariants": [
+    "single context owner",
+    "no shared domain model",
+    "context-first packages",
+    "published contracts only",
+    "no cross-context database access"
+  ],
+  "notes": [
+    "Domain feedback loops are mediated by events/process managers and are not code dependency cycles."
+  ]
+}

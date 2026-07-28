@@ -1,0 +1,90 @@
+schema_version: 1.0.0
+initial: DRAFT
+terminal:
+- ACCEPTED
+- REJECTED
+- ROLLED_BACK
+- SUPERSEDED
+- CANCELLED
+transitions:
+- from: DRAFT
+  event: SUBMIT
+  to: IN_REVIEW
+  guards:
+  - bundle_valid
+  - base_snapshot_current
+- from: IN_REVIEW
+  event: REQUEST_CHANGES
+  to: CHANGES_REQUESTED
+  guards:
+  - reviewer_authorized
+- from: CHANGES_REQUESTED
+  event: RESUBMIT
+  to: IN_REVIEW
+  guards:
+  - new_revision
+  - bundle_valid
+- from: IN_REVIEW
+  event: APPROVE
+  to: APPROVED
+  guards:
+  - review_quorum
+  - no_open_conditions
+- from: IN_REVIEW
+  event: REJECT
+  to: REJECTED
+  guards:
+  - reviewer_authorized
+- from: APPROVED
+  event: APPLY
+  to: APPLYING
+  guards:
+  - base_snapshot_current
+  - application_lease_acquired
+- from: APPLYING
+  event: APPLY_SUCCEEDED
+  to: APPLIED
+  guards:
+  - new_attempt_persisted
+- from: APPLYING
+  event: APPLY_FAILED
+  to: APPROVED
+  guards:
+  - failure_recorded
+- from: APPLIED
+  event: START_VALIDATION
+  to: VALIDATING
+  guards:
+  - candidate_snapshot_exists
+- from: VALIDATING
+  event: VALIDATION_PASS
+  to: ACCEPTED
+  guards:
+  - sgv_pass
+  - artifacts_published
+- from: VALIDATING
+  event: VALIDATION_FAIL
+  to: REJECTED
+  guards:
+  - diagnostics_persisted
+- from: ACCEPTED
+  event: ROLLBACK
+  to: ROLLED_BACK
+  guards:
+  - rollback_approved
+  - target_snapshot_exists
+- from: DRAFT
+  event: CANCEL
+  to: CANCELLED
+  guards:
+  - actor_authorized
+- from: CHANGES_REQUESTED
+  event: CANCEL
+  to: CANCELLED
+  guards:
+  - actor_authorized
+- from: ACCEPTED
+  event: SUPERSEDE
+  to: SUPERSEDED
+  guards:
+  - successor_case_accepted

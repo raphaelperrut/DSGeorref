@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/ai/publication-result/1.0.0",
+  "title": "PublicationResult",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "execution_id",
+    "backend_id",
+    "status",
+    "artifact_set_id",
+    "publication_scope",
+    "requires_independent_sgv"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "execution_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "backend_id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "PUBLISHED_CANDIDATE",
+        "NOT_PUBLISHED"
+      ]
+    },
+    "artifact_set_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "publication_scope": {
+      "const": "AI_CANDIDATE_ONLY"
+    },
+    "requires_independent_sgv": {
+      "const": true
+    },
+    "failure_code": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

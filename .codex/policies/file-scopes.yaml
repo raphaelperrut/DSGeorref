@@ -1,0 +1,36 @@
+version: 1
+rules:
+  - role: Product Owner
+    allow: ["docs/01-product/**", "docs/06-delivery/epics/**"]
+    deny: ["src/**", "contracts/**", "tests/**"]
+  - role: Architect
+    allow: ["docs/02-architecture/**", "contracts/**"]
+    deny: ["src/**"]
+  - role: Tech Lead
+    allow: ["docs/06-delivery/**", ".codex/tasks/**"]
+  - role: Backend
+    allow: ["src/backend/**", "tests/backend/**"]
+  - role: Frontend
+    allow: ["src/frontend/**", "tests/frontend/**"]
+  - role: IA
+    allow: ["src/ai/**", "tests/ai/**"]
+  - role: Geoprocessamento
+    allow: ["src/geo/**", "tests/geo/**"]
+  - role: QA
+    allow: ["tests/**", "evidence/qa/**"]
+    deny: ["src/**"]
+  - role: DevOps
+    allow: ["infra/**", ".github/workflows/**", "tools/**", "evidence/operations/**"]
+  - role: Security
+    allow: ["tests/security/**", "evidence/security/**", "docs/04-quality/THREAT_MODEL.md", "docs/04-quality/SECURITY_PRIVACY_LGPD.md"]
+  - role: Reviewer
+    allow: ["evidence/reviews/**"]
+    deny: ["src/**", "contracts/**", "tests/**"]
+serialized_paths:
+  - "contracts/**"
+  - "docs/02-architecture/adrs/**"
+  - "src/backend/**/migrations/**"
+  - "**/openapi.yaml"
+  - "**/package-lock.json"
+  - "**/pnpm-lock.yaml"
+  - "**/uv.lock"

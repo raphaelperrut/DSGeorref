@@ -1,0 +1,15 @@
+schema_version: 1.0.0
+baseline_version: 2.6.0
+adr: ADR-007
+rules:
+  contract: contracts/<domain>/<capability>/** + design review
+  implementation: src/<runtime>/<stable-package>/<capability>/**
+  automation: tests/<domain>/<capability>/** + dedicated workflow
+  integration: composition root for the stable capability
+  review: evidence/reviews/<capability>/**
+prohibited:
+- src/**/epic-*
+- src/**/issue-*
+- src/**/story-*
+- src/**/task-*
+resolution: TaskEnvelopes are the materialized catalog; validate_repository enforces zero provisional scopes.

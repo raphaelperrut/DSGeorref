@@ -1,0 +1,1539 @@
+{
+  "schema_id": "dsgeorref-sar-architecture",
+  "schema_version": "3.0",
+  "artifact": {
+    "title": "DSGeorref — Software Architecture Repository",
+    "baseline": "3.0",
+    "phase": "G — CTO Review",
+    "language": "pt-BR",
+    "generated_at": "2026-07-27T00:00:00Z"
+  },
+  "status": {
+    "architecture_approved": true,
+    "requirements_approved": true,
+    "ddd_approved": true,
+    "adr_inventory_approved": true,
+    "specifications_approved": true,
+    "sprint_review_approved": true,
+    "cto_review_approved": true,
+    "investment_recommendation": "PROCEED_STAGED",
+    "implementation_authorization": "BLOCKED_EXTERNAL",
+    "production_authorization": "BLOCKED_BY_EVIDENCE_GATES",
+    "open_architecture_decisions": 0,
+    "open_cto_findings": 0
+  },
+  "counts": {
+    "adrs": 57,
+    "bounded_contexts": 16,
+    "requirements": 376,
+    "sprints": 12,
+    "epics": 110,
+    "issues": 868,
+    "stories": 758,
+    "tasks": 758,
+    "specifications": 5,
+    "cto_controls": 15,
+    "active_risks": 40,
+    "production_gates": 9,
+    "external_dependencies": 12,
+    "vendor_exit_entries": 10,
+    "contract_files": 152
+  },
+  "cto": {
+    "scorecard": [
+      {
+        "theme": "Gargalos",
+        "verdict": "APROVADO COM LIMITES",
+        "rationale": "PostgreSQL, filesystem, CPU/RAM e fila são gargalos explícitos; capacity claims dependem de benchmark.",
+        "gate": "G-CTO-02"
+      },
+      {
+        "theme": "Locks",
+        "verdict": "APROVADO",
+        "rationale": "Ordem, timeout, fencing, transaction budget e proibição de I/O sob lock foram congelados.",
+        "gate": "G-CTO-02"
+      },
+      {
+        "theme": "Dependências ocultas",
+        "verdict": "APROVADO",
+        "rationale": "12 dependências externas e auxiliares foram registradas.",
+        "gate": "G-CTO-01"
+      },
+      {
+        "theme": "Vendor lock-in",
+        "verdict": "APROVADO",
+        "rationale": "Sem cloud/vendor obrigatório; lock-in tecnológico aberto e com exit matrix.",
+        "gate": "G-CTO-01"
+      },
+      {
+        "theme": "Escala",
+        "verdict": "APROVADO COM LIMITE",
+        "rationale": "Vertical single-instance; nenhuma claim de HA ou multi-host.",
+        "gate": "G-CTO-02"
+      },
+      {
+        "theme": "Custo",
+        "verdict": "CONDICIONAL A EVIDÊNCIA",
+        "rationale": "Método e schema fechados; valor BRL requer benchmark, cotação e orçamento Owner.",
+        "gate": "G-CTO-03"
+      },
+      {
+        "theme": "GPU",
+        "verdict": "CPU-FIRST",
+        "rationale": "GPU opcional; compra não autorizada sem equivalência e unit economics.",
+        "gate": "G-CTO-03"
+      },
+      {
+        "theme": "Latência",
+        "verdict": "APROVADO",
+        "rationale": "SLOs iniciais quantitativos separados do processamento científico.",
+        "gate": "G-CTO-08"
+      },
+      {
+        "theme": "Fila",
+        "verdict": "APROVADO",
+        "rationale": "Quatro classes, envelope <=256 KiB, ack após commit, prefetch 1 e backpressure.",
+        "gate": "G-CTO-08"
+      },
+      {
+        "theme": "Backup",
+        "verdict": "CONDICIONAL A DRILL",
+        "rationale": "RPO/RTO fechados; restore drill bloqueia dados reais.",
+        "gate": "G-CTO-04"
+      },
+      {
+        "theme": "Migração",
+        "verdict": "APROVADO",
+        "rationale": "Expand-migrate-contract e rollback window explícitos.",
+        "gate": "G-CTO-05"
+      },
+      {
+        "theme": "Auditoria",
+        "verdict": "APROVADO",
+        "rationale": "Ledger separado, append-only, allowlist e cobertura gate.",
+        "gate": "G-CTO-06"
+      },
+      {
+        "theme": "Observabilidade",
+        "verdict": "APROVADO",
+        "rationale": "SLI/SLO, cardinalidade e correlação congelados.",
+        "gate": "G-CTO-08"
+      },
+      {
+        "theme": "Segurança",
+        "verdict": "CONDICIONAL A TESTE",
+        "rationale": "Arquitetura fail-closed; exposição depende de teste independente.",
+        "gate": "G-CTO-06"
+      },
+      {
+        "theme": "LGPD",
+        "verdict": "CONDICIONAL AO CONTROLADOR",
+        "rationale": "Controles técnicos fechados; decisões jurídicas/ROPA são input do controlador.",
+        "gate": "G-CTO-07"
+      },
+      {
+        "theme": "Rollback e versionamento",
+        "verdict": "APROVADO",
+        "rationale": "Matriz cobre código, API, banco, artifacts, prompts, ModelPacks e stack nativa.",
+        "gate": "G-CTO-09"
+      }
+    ],
+    "gates": [
+      {
+        "gate_id": "G-CTO-01",
+        "name": "Autorização e orçamento",
+        "owner": "Product Owner",
+        "evidence": "ImplementationAuthorizationRecord + budget BRL + TCO 12 meses",
+        "blocking_for": "implementation"
+      },
+      {
+        "gate_id": "G-CTO-02",
+        "name": "Capacidade e escala",
+        "owner": "Tech Lead",
+        "evidence": "BP-001/BP-004 em classes suportadas e lotes 40/100/300",
+        "blocking_for": "production"
+      },
+      {
+        "gate_id": "G-CTO-03",
+        "name": "Unit economics e GPU",
+        "owner": "Product Owner",
+        "evidence": "cost assessment validado; decisão CPU/GPU",
+        "blocking_for": "GPU/public production"
+      },
+      {
+        "gate_id": "G-CTO-04",
+        "name": "Backup e restore",
+        "owner": "DevOps",
+        "evidence": "restore drill com RPO/RTO atingidos",
+        "blocking_for": "real data production"
+      },
+      {
+        "gate_id": "G-CTO-05",
+        "name": "Migração e rollback",
+        "owner": "Tech Lead",
+        "evidence": "ensaio expand-migrate-contract e rollback/forward-fix",
+        "blocking_for": "upgrade"
+      },
+      {
+        "gate_id": "G-CTO-06",
+        "name": "Segurança",
+        "owner": "Security",
+        "evidence": "threat review, supply-chain evidence e teste independente",
+        "blocking_for": "network/public exposure"
+      },
+      {
+        "gate_id": "G-CTO-07",
+        "name": "LGPD e privacidade",
+        "owner": "Product Owner",
+        "evidence": "ROPA, papéis, base/finalidade, retenção, direitos e incidente",
+        "blocking_for": "personal data/public operation"
+      },
+      {
+        "gate_id": "G-CTO-08",
+        "name": "Observabilidade e SLO",
+        "owner": "DevOps",
+        "evidence": "dashboards, alertas e SLI medidos sem cardinalidade indevida",
+        "blocking_for": "production"
+      },
+      {
+        "gate_id": "G-CTO-09",
+        "name": "Release e rollback",
+        "owner": "Reviewer",
+        "evidence": "SBOM, assinatura, backup, smoke, rollback e release gate",
+        "blocking_for": "publication"
+      }
+    ],
+    "sprints": [
+      {
+        "sprint_id": "SPRINT-001",
+        "title": "Repositório, governança e fundação executável",
+        "issues": 103,
+        "stories": 91,
+        "risk_tiers": {
+          "HIGH": 19,
+          "MEDIUM": 29,
+          "CRITICAL": 43
+        },
+        "control_applicability": {
+          "CTO-001": 42,
+          "CTO-002": 28,
+          "CTO-003": 91,
+          "CTO-004": 91,
+          "CTO-005": 42,
+          "CTO-006": 91,
+          "CTO-007": 10,
+          "CTO-008": 42,
+          "CTO-009": 20,
+          "CTO-010": 36,
+          "CTO-011": 51,
+          "CTO-012": 91,
+          "CTO-013": 91,
+          "CTO-014": 36,
+          "CTO-015": 91
+        },
+        "production_gates": [
+          "BENCHMARK_AND_OPERATIONS_GATES",
+          "IMPLEMENTATION_AUTHORIZATION",
+          "SECURITY_AND_PRIVACY_GATES"
+        ],
+        "status": "PASS"
+      },
+      {
+        "sprint_id": "SPRINT-002",
+        "title": "Identidade, autorização, workspace e persistência inicial",
+        "issues": 63,
+        "stories": 55,
+        "risk_tiers": {
+          "CRITICAL": 45,
+          "HIGH": 7,
+          "MEDIUM": 3
+        },
+        "control_applicability": {
+          "CTO-001": 47,
+          "CTO-002": 25,
+          "CTO-003": 55,
+          "CTO-004": 55,
+          "CTO-005": 47,
+          "CTO-006": 55,
+          "CTO-007": 2,
+          "CTO-008": 47,
+          "CTO-009": 5,
+          "CTO-010": 43,
+          "CTO-011": 43,
+          "CTO-012": 55,
+          "CTO-013": 55,
+          "CTO-014": 55,
+          "CTO-015": 55
+        },
+        "production_gates": [
+          "BENCHMARK_AND_OPERATIONS_GATES",
+          "IMPLEMENTATION_AUTHORIZATION",
+          "SECURITY_AND_PRIVACY_GATES"
+        ],
+        "status": "PASS"
+      },
+      {
+        "sprint_id": "SPRINT-003",
+        "title": "Jobs, runners, lote básico e CLI",
+        "issues": 56,
+        "stories": 49,
+        "risk_tiers": {
+          "CRITICAL": 14,
+          "HIGH": 34,
+          "MEDIUM": 1
+        },
+        "control_applicability": {
+          "CTO-001": 49,
+          "CTO-002": 46,
+          "CTO-003": 49,
+          "CTO-004": 49,
+          "CTO-005": 49,
+          "CTO-006": 49,
+          "CTO-007": 4,
+          "CTO-008": 49,
+          "CTO-009": 45,
+          "CTO-010": 26,
+          "CTO-011": 36,
+          "CTO-012": 49,
+          "CTO-013": 49,
+          "CTO-014": 25,
+          "CTO-015": 49
+        },
+        "production_gates": [
+          "BENCHMARK_AND_OPERATIONS_GATES",
+          "IMPLEMENTATION_AUTHORIZATION",
+          "SECURITY_AND_PRIVACY_GATES"
+        ],
+        "status": "PASS"
+      },
+      {
+        "sprint_id": "SPRINT-004",
+        "title": "Resiliência, scheduler, replay e escala operacional",
+        "issues": 48,
+        "stories": 42,
+        "risk_tiers": {
+          "CRITICAL": 12,
+          "HIGH": 30
+        },
+        "control_applicability": {
+          "CTO-001": 42,
+          "CTO-002": 42,
+          "CTO-003": 42,
+          "CTO-004": 42,
+          "CTO-005": 42,
+          "CTO-006": 42,
+          "CTO-007": 2,
+          "CTO-008": 42,
+          "CTO-009": 42,
+          "CTO-010": 22,
+          "CTO-011": 24,
+          "CTO-012": 42,
+          "CTO-013": 42,
+          "CTO-014": 13,
+          "CTO-015": 42
+        },
+        "production_gates": [
+          "BENCHMARK_AND_OPERATIONS_GATES",
+          "SECURITY_AND_PRIVACY_GATES"
+        ],
+        "status": "PASS"
+      },
+      {
+        "sprint_id": "SPRINT-005",
+        "title": "Primeira fatia geoespacial classic-first",
+        "issues": 135,
+        "stories": 120,
+        "risk_tiers": {
+          "CRITICAL": 72,
+          "HIGH": 47,
+          "MEDIUM": 1
+        },
+        "control_applicability": {
+          "CTO-001": 118,
+          "CTO-002": 0,
+          "CTO-003": 120,
+          "CTO-004": 120,
+          "CTO-005": 118,
+          "CTO-006": 120,
+          "CTO-007": 113,
+          "CTO-008": 118,
+          "CTO-009": 17,
+          "CTO-010": 95,
+          "CTO-011": 35,
+          "CTO-012": 120,
+          "CTO-013": 120,
+          "CTO-014": 86,
+          "CTO-015": 120
+        },
+        "production_gates": [
+          "BENCHMARK_AND_OPERATIONS_GATES",
+          "IMPLEMENTATION_AUTHORIZATION",
+          "SECURITY_AND_PRIVACY_GATES"
+        ],
+        "status": "PASS"
+      },
+      {
+        "sprint_id": "SPRINT-006",
+        "title": "Correspondências, referências, providers e revisão assistida",
+        "issues": 98,
+        "stories": 86,
+        "risk_tiers": {
+          "CRITICAL": 10,
+          "HIGH": 76
+        },
+        "control_applicability": {
+          "CTO-001": 84,
+          "CTO-002": 0,
+          "CTO-003": 86,
+          "CTO-004": 86,
+          "CTO-005": 84,
+          "CTO-006": 86,
+          "CTO-007": 82,
+          "CTO-008": 84,
+          "CTO-009": 7,
+          "CTO-010": 71,
+          "CTO-011": 34,
+          "CTO-012": 86,
+          "CTO-013": 86,
+          "CTO-014": 80,
+          "CTO-015": 86
+        },
+        "production_gates": [
+          "BENCHMARK_AND_OPERATIONS_GATES",
+          "SECURITY_AND_PRIVACY_GATES"
+        ],
+        "status": "PASS"
+      },
+      {
+        "sprint_id": "SPRINT-007",
+        "title": "Contratos de coordenadas, grade e mosaico relativo",
+        "issues": 48,
+        "stories": 42,
+        "risk_tiers": {
+          "HIGH": 42
+        },
+        "control_applicability": {
+          "CTO-001": 42,
+          "CTO-002": 0,
+          "CTO-003": 42,
+          "CTO-004": 42,
+          "CTO-005": 42,
+          "CTO-006": 42,
+          "CTO-007": 42,
+          "CTO-008": 42,
+          "CTO-009": 3,
+          "CTO-010": 25,
+          "CTO-011": 17,
+          "CTO-012": 42,
+          "CTO-013": 42,
+          "CTO-014": 36,
+          "CTO-015": 42
+        },
+        "production_gates": [
+          "BENCHMARK_AND_OPERATIONS_GATES"
+        ],
+        "status": "PASS"
+      },
+      {
+        "sprint_id": "SPRINT-008",
+        "title": "Qualidade, reporting e materialização do mosaico relativo",
+        "issues": 40,
+        "stories": 35,
+        "risk_tiers": {
+          "HIGH": 31,
+          "CRITICAL": 4
+        },
+        "control_applicability": {
+          "CTO-001": 35,
+          "CTO-002": 7,
+          "CTO-003": 35,
+          "CTO-004": 35,
+          "CTO-005": 35,
+          "CTO-006": 35,
+          "CTO-007": 35,
+          "CTO-008": 35,
+          "CTO-009": 2,
+          "CTO-010": 26,
+          "CTO-011": 15,
+          "CTO-012": 35,
+          "CTO-013": 35,
+          "CTO-014": 9,
+          "CTO-015": 35
+        },
+        "production_gates": [
+          "BENCHMARK_AND_OPERATIONS_GATES",
+          "SECURITY_AND_PRIVACY_GATES"
+        ],
+        "status": "PASS"
+      },
+      {
+        "sprint_id": "SPRINT-009",
+        "title": "Frontend cartográfico, revisão e aprendizagem",
+        "issues": 67,
+        "stories": 58,
+        "risk_tiers": {
+          "HIGH": 22,
+          "CRITICAL": 9,
+          "MEDIUM": 27
+        },
+        "control_applicability": {
+          "CTO-001": 47,
+          "CTO-002": 2,
+          "CTO-003": 58,
+          "CTO-004": 58,
+          "CTO-005": 47,
+          "CTO-006": 58,
+          "CTO-007": 2,
+          "CTO-008": 47,
+          "CTO-009": 6,
+          "CTO-010": 4,
+          "CTO-011": 34,
+          "CTO-012": 58,
+          "CTO-013": 58,
+          "CTO-014": 50,
+          "CTO-015": 58
+        },
+        "production_gates": [
+          "BENCHMARK_AND_OPERATIONS_GATES",
+          "IMPLEMENTATION_AUTHORIZATION",
+          "SECURITY_AND_PRIVACY_GATES"
+        ],
+        "status": "PASS"
+      },
+      {
+        "sprint_id": "SPRINT-010",
+        "title": "Resultados, lineage, schemas e reprodutibilidade",
+        "issues": 44,
+        "stories": 38,
+        "risk_tiers": {
+          "CRITICAL": 13,
+          "HIGH": 25
+        },
+        "control_applicability": {
+          "CTO-001": 36,
+          "CTO-002": 21,
+          "CTO-003": 38,
+          "CTO-004": 38,
+          "CTO-005": 36,
+          "CTO-006": 38,
+          "CTO-007": 11,
+          "CTO-008": 36,
+          "CTO-009": 4,
+          "CTO-010": 34,
+          "CTO-011": 27,
+          "CTO-012": 38,
+          "CTO-013": 38,
+          "CTO-014": 15,
+          "CTO-015": 38
+        },
+        "production_gates": [
+          "BENCHMARK_AND_OPERATIONS_GATES",
+          "SECURITY_AND_PRIVACY_GATES"
+        ],
+        "status": "PASS"
+      },
+      {
+        "sprint_id": "SPRINT-011",
+        "title": "Operações, segurança, backup, IA governada e hardening",
+        "issues": 98,
+        "stories": 84,
+        "risk_tiers": {
+          "CRITICAL": 68,
+          "HIGH": 16
+        },
+        "control_applicability": {
+          "CTO-001": 84,
+          "CTO-002": 47,
+          "CTO-003": 84,
+          "CTO-004": 84,
+          "CTO-005": 84,
+          "CTO-006": 84,
+          "CTO-007": 12,
+          "CTO-008": 84,
+          "CTO-009": 9,
+          "CTO-010": 84,
+          "CTO-011": 50,
+          "CTO-012": 84,
+          "CTO-013": 84,
+          "CTO-014": 75,
+          "CTO-015": 84
+        },
+        "production_gates": [
+          "BENCHMARK_AND_OPERATIONS_GATES",
+          "SECURITY_AND_PRIVACY_GATES"
+        ],
+        "status": "PASS"
+      },
+      {
+        "sprint_id": "SPRINT-012",
+        "title": "Instalação, release train e publicação",
+        "issues": 68,
+        "stories": 58,
+        "risk_tiers": {
+          "HIGH": 27,
+          "CRITICAL": 31
+        },
+        "control_applicability": {
+          "CTO-001": 58,
+          "CTO-002": 26,
+          "CTO-003": 58,
+          "CTO-004": 58,
+          "CTO-005": 58,
+          "CTO-006": 58,
+          "CTO-007": 2,
+          "CTO-008": 58,
+          "CTO-009": 3,
+          "CTO-010": 58,
+          "CTO-011": 20,
+          "CTO-012": 58,
+          "CTO-013": 58,
+          "CTO-014": 24,
+          "CTO-015": 58
+        },
+        "production_gates": [
+          "BENCHMARK_AND_OPERATIONS_GATES",
+          "SECURITY_AND_PRIVACY_GATES"
+        ],
+        "status": "PASS"
+      }
+    ],
+    "controls": [
+      {
+        "id": "CTO-001",
+        "name": "Gargalos e capacidade",
+        "question": "Existe gargalo?",
+        "decision": "Capacidade é governada por admission control, benchmark e limites por classe; nenhuma claim de throughput existe sem evidência.",
+        "evidence": [
+          "contracts/operations/slo-sli-catalog.yaml",
+          "docs/05-operations/CAPACITY_AND_SCALING.md"
+        ]
+      },
+      {
+        "id": "CTO-002",
+        "name": "Locks e contenção",
+        "question": "Existe lock?",
+        "decision": "Locks possuem ordem, timeout, fencing e escopo curto; I/O externo sob lock é proibido.",
+        "evidence": [
+          "contracts/operations/lock-and-queue-policy.yaml"
+        ]
+      },
+      {
+        "id": "CTO-003",
+        "name": "Dependências ocultas",
+        "question": "Existe dependência escondida?",
+        "decision": "Dependências externas, dados auxiliares, drivers e serviços opcionais são inventariados e pinados.",
+        "evidence": [
+          "contracts/operations/external-dependency-register.csv"
+        ]
+      },
+      {
+        "id": "CTO-004",
+        "name": "Vendor e technology lock-in",
+        "question": "Existe vendor lock-in?",
+        "decision": "Não há vendor comercial obrigatório; lock-ins tecnológicos intencionais têm export e plano de saída.",
+        "evidence": [
+          "contracts/operations/vendor-exit-matrix.csv"
+        ]
+      },
+      {
+        "id": "CTO-005",
+        "name": "Escala e disponibilidade",
+        "question": "Escala?",
+        "decision": "A versão inicial escala verticalmente em uma instância; HA e scale-out multi-host exigem nova ADR e não podem ser prometidos.",
+        "evidence": [
+          "docs/05-operations/CAPACITY_AND_SCALING.md"
+        ]
+      },
+      {
+        "id": "CTO-006",
+        "name": "Custo e unit economics",
+        "question": "Quanto custa?",
+        "decision": "O SAR define fórmula e unidades em BRL; valor monetário depende de benchmark e cotação aprovada, sem número inventado.",
+        "evidence": [
+          "contracts/operations/cost-model.yaml",
+          "docs/05-operations/COST_AND_UNIT_ECONOMICS.md"
+        ]
+      },
+      {
+        "id": "CTO-007",
+        "name": "GPU e aceleração",
+        "question": "GPU?",
+        "decision": "CPU-only é baseline; compra ou ativação de GPU depende de ganho de unit economics e equivalência científica.",
+        "evidence": [
+          "contracts/operations/cost-model.yaml",
+          "docs/05-operations/CAPACITY_AND_SCALING.md"
+        ]
+      },
+      {
+        "id": "CTO-008",
+        "name": "Latência e SLO",
+        "question": "Latência?",
+        "decision": "API, propagação de eventos, fila e cancelamento possuem SLOs separados do tempo científico.",
+        "evidence": [
+          "contracts/operations/slo-sli-catalog.yaml"
+        ]
+      },
+      {
+        "id": "CTO-009",
+        "name": "Fila e backpressure",
+        "question": "Fila?",
+        "decision": "RabbitMQ transporta envelopes pequenos; PostgreSQL governa estado; filas são limitadas por classe e observadas por tempo de espera.",
+        "evidence": [
+          "contracts/operations/lock-and-queue-policy.yaml"
+        ]
+      },
+      {
+        "id": "CTO-010",
+        "name": "Backup e disaster recovery",
+        "question": "Backup?",
+        "decision": "RPO/RTO são classificados; restore drill isolado é gate de produção.",
+        "evidence": [
+          "contracts/operations/recovery-objectives.yaml",
+          "docs/05-operations/BACKUP_RESTORE.md"
+        ]
+      },
+      {
+        "id": "CTO-011",
+        "name": "Migração e upgrade",
+        "question": "Migração?",
+        "decision": "Expand-migrate-contract, backfill retomável e janela de rollback são obrigatórios; migrations não rodam no startup.",
+        "evidence": [
+          "contracts/operations/version-and-rollback-matrix.yaml",
+          "docs/03-engineering/DATABASE_MIGRATIONS.md"
+        ]
+      },
+      {
+        "id": "CTO-012",
+        "name": "Auditoria e observabilidade",
+        "question": "Auditoria e observabilidade?",
+        "decision": "Audit ledger é separado de logs; SLI/SLO, cardinalidade, correlação e redaction são obrigatórios.",
+        "evidence": [
+          "contracts/operations/slo-sli-catalog.yaml",
+          "docs/05-operations/OBSERVABILITY.md"
+        ]
+      },
+      {
+        "id": "CTO-013",
+        "name": "Segurança",
+        "question": "Segurança?",
+        "decision": "Fail-closed, least privilege, supply chain verificável e teste independente antecedem exposição pública.",
+        "evidence": [
+          "docs/04-quality/THREAT_MODEL.md",
+          "docs/04-quality/SECURITY_PRIVACY_LGPD.md"
+        ]
+      },
+      {
+        "id": "CTO-014",
+        "name": "LGPD e privacidade",
+        "question": "LGPD?",
+        "decision": "Coleta exige finalidade e base documentada pelo controlador; minimização, retenção, direitos e incidentes são rastreados.",
+        "evidence": [
+          "contracts/privacy/lgpd-control-matrix.csv",
+          "docs/04-quality/LGPD_CONTROL_MODEL.md"
+        ]
+      },
+      {
+        "id": "CTO-015",
+        "name": "Rollback e versionamento",
+        "question": "Rollback e versionamento?",
+        "decision": "Código, schema, API, artifacts, prompts e ModelPacks possuem compatibilidade e estratégia de rollback explícitas.",
+        "evidence": [
+          "contracts/operations/version-and-rollback-matrix.yaml"
+        ]
+      }
+    ]
+  },
+  "adrs": [
+    {
+      "id": "ADR-001",
+      "title": "Topologia do repositório, monorepo e workspaces",
+      "contexts": [
+        "BC-001"
+      ],
+      "depends_on": [],
+      "owned_requirements": 4,
+      "file": "docs/02-architecture/adrs/ADR-001-topologia-do-repositorio-monorepo-e-workspaces.md"
+    },
+    {
+      "id": "ADR-002",
+      "title": "Topologia do produto: monólito modular e instância única",
+      "contexts": [
+        "BC-001"
+      ],
+      "depends_on": [
+        "ADR-001"
+      ],
+      "owned_requirements": 11,
+      "file": "docs/02-architecture/adrs/ADR-002-topologia-do-produto-monolito-modular-e-instancia-unica.md"
+    },
+    {
+      "id": "ADR-003",
+      "title": "Bounded Contexts, subdomínios e linguagem ubíqua",
+      "contexts": [
+        "BC-001"
+      ],
+      "depends_on": [
+        "ADR-002"
+      ],
+      "owned_requirements": 0,
+      "file": "docs/02-architecture/adrs/ADR-003-bounded-contexts-subdominios-e-linguagem-ubiqua.md"
+    },
+    {
+      "id": "ADR-004",
+      "title": "Integração entre contexts e modelos publicados",
+      "contexts": [
+        "BC-001"
+      ],
+      "depends_on": [
+        "ADR-003"
+      ],
+      "owned_requirements": 1,
+      "file": "docs/02-architecture/adrs/ADR-004-integracao-entre-contexts-e-modelos-publicados.md"
+    },
+    {
+      "id": "ADR-005",
+      "title": "Layout context-first e direção de dependências",
+      "contexts": [
+        "BC-001"
+      ],
+      "depends_on": [
+        "ADR-003",
+        "ADR-004"
+      ],
+      "owned_requirements": 2,
+      "file": "docs/02-architecture/adrs/ADR-005-layout-context-first-e-direcao-de-dependencias.md"
+    },
+    {
+      "id": "ADR-006",
+      "title": "Prompts permanentes, TaskEnvelope e precedência de instruções",
+      "contexts": [
+        "BC-001"
+      ],
+      "depends_on": [
+        "ADR-001",
+        "ADR-003"
+      ],
+      "owned_requirements": 16,
+      "file": "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md"
+    },
+    {
+      "id": "ADR-007",
+      "title": "Write scopes, lanes paralelas e isolamento de mudança",
+      "contexts": [
+        "BC-001"
+      ],
+      "depends_on": [
+        "ADR-005",
+        "ADR-006"
+      ],
+      "owned_requirements": 1,
+      "file": "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md"
+    },
+    {
+      "id": "ADR-008",
+      "title": "Granularidade de histórias e limites anti-monólito",
+      "contexts": [
+        "BC-001"
+      ],
+      "depends_on": [
+        "ADR-006",
+        "ADR-007"
+      ],
+      "owned_requirements": 13,
+      "file": "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md"
+    },
+    {
+      "id": "ADR-009",
+      "title": "Runtime Python 3.12, toolchain e stack nativa reproduzível",
+      "contexts": [
+        "BC-001",
+        "BC-015"
+      ],
+      "depends_on": [
+        "ADR-001"
+      ],
+      "owned_requirements": 14,
+      "file": "docs/02-architecture/adrs/ADR-009-runtime-python-3-12-toolchain-e-stack-nativa-reproduzivel.md"
+    },
+    {
+      "id": "ADR-010",
+      "title": "API-first, versionamento e contract freeze",
+      "contexts": [
+        "BC-001"
+      ],
+      "depends_on": [
+        "ADR-003",
+        "ADR-004"
+      ],
+      "owned_requirements": 1,
+      "file": "docs/02-architecture/adrs/ADR-010-api-first-versionamento-e-contract-freeze.md"
+    },
+    {
+      "id": "ADR-011",
+      "title": "Boundary HTTP com FastAPI, Pydantic e OpenAPI",
+      "contexts": [
+        "BC-016"
+      ],
+      "depends_on": [
+        "ADR-002",
+        "ADR-010"
+      ],
+      "owned_requirements": 1,
+      "file": "docs/02-architecture/adrs/ADR-011-boundary-http-fastapi-pydantic-e-openapi.md"
+    },
+    {
+      "id": "ADR-012",
+      "title": "Modelo de interação REST, SSE e polling",
+      "contexts": [
+        "BC-016",
+        "BC-010"
+      ],
+      "depends_on": [
+        "ADR-011"
+      ],
+      "owned_requirements": 10,
+      "file": "docs/02-architecture/adrs/ADR-012-modelo-de-interacao-rest-sse-e-polling.md"
+    },
+    {
+      "id": "ADR-013",
+      "title": "Cliente TypeScript gerado e diff gate OpenAPI",
+      "contexts": [
+        "BC-016"
+      ],
+      "depends_on": [
+        "ADR-010",
+        "ADR-011"
+      ],
+      "owned_requirements": 2,
+      "file": "docs/02-architecture/adrs/ADR-013-cliente-typescript-gerado-e-diff-gate-openapi.md"
+    },
+    {
+      "id": "ADR-014",
+      "title": "Frontend React, Vite, OpenLayers e workspace cartográfico",
+      "contexts": [
+        "BC-016"
+      ],
+      "depends_on": [
+        "ADR-010",
+        "ADR-013"
+      ],
+      "owned_requirements": 9,
+      "file": "docs/02-architecture/adrs/ADR-014-frontend-react-vite-openlayers-e-workspace-cartografico.md"
+    },
+    {
+      "id": "ADR-015",
+      "title": "CLI, Direct Runner e núcleo compartilhado",
+      "contexts": [
+        "BC-016"
+      ],
+      "depends_on": [
+        "ADR-002",
+        "ADR-005",
+        "ADR-016"
+      ],
+      "owned_requirements": 2,
+      "file": "docs/02-architecture/adrs/ADR-015-cli-direct-runner-e-nucleo-compartilhado.md"
+    },
+    {
+      "id": "ADR-016",
+      "title": "Application services, Unit of Work, erros e idempotência",
+      "contexts": [
+        "BC-004"
+      ],
+      "depends_on": [
+        "ADR-005",
+        "ADR-018",
+        "ADR-020"
+      ],
+      "owned_requirements": 13,
+      "file": "docs/02-architecture/adrs/ADR-016-application-services-uow-erros-e-idempotencia.md"
+    },
+    {
+      "id": "ADR-017",
+      "title": "Feature flags e registro de capabilities",
+      "contexts": [
+        "BC-001",
+        "BC-009"
+      ],
+      "depends_on": [
+        "ADR-003",
+        "ADR-004"
+      ],
+      "owned_requirements": 3,
+      "file": "docs/02-architecture/adrs/ADR-017-feature-flags-e-registro-de-capabilities.md"
+    },
+    {
+      "id": "ADR-018",
+      "title": "PostgreSQL/PostGIS como system of record",
+      "contexts": [
+        "BC-013"
+      ],
+      "depends_on": [
+        "ADR-002",
+        "ADR-003"
+      ],
+      "owned_requirements": 5,
+      "file": "docs/02-architecture/adrs/ADR-018-postgresql-postgis-como-system-of-record.md"
+    },
+    {
+      "id": "ADR-019",
+      "title": "Schemas físicos, UUIDv7, escopo e concorrência",
+      "contexts": [
+        "BC-003",
+        "BC-013"
+      ],
+      "depends_on": [
+        "ADR-018"
+      ],
+      "owned_requirements": 6,
+      "file": "docs/02-architecture/adrs/ADR-019-schemas-fisicos-uuidv7-escopo-e-concorrencia.md"
+    },
+    {
+      "id": "ADR-020",
+      "title": "Transactional outbox e consumidores idempotentes",
+      "contexts": [
+        "BC-010"
+      ],
+      "depends_on": [
+        "ADR-018",
+        "ADR-019"
+      ],
+      "owned_requirements": 2,
+      "file": "docs/02-architecture/adrs/ADR-020-transactional-outbox-e-consumidores-idempotentes.md"
+    },
+    {
+      "id": "ADR-021",
+      "title": "Filesystem gerenciado, roots e resolução segura",
+      "contexts": [
+        "BC-013"
+      ],
+      "depends_on": [
+        "ADR-002",
+        "ADR-003"
+      ],
+      "owned_requirements": 1,
+      "file": "docs/02-architecture/adrs/ADR-021-filesystem-gerenciado-roots-e-resolucao-segura.md"
+    },
+    {
+      "id": "ADR-022",
+      "title": "Object Model: aggregates, identidade e state machines",
+      "contexts": [
+        "BC-003",
+        "BC-004",
+        "BC-012",
+        "BC-013"
+      ],
+      "depends_on": [
+        "ADR-003",
+        "ADR-018"
+      ],
+      "owned_requirements": 9,
+      "file": "docs/02-architecture/adrs/ADR-022-object-model-agregados-identidade-e-state-machines.md"
+    },
+    {
+      "id": "ADR-023",
+      "title": "ArtifactSet, manifest e bundles imutáveis",
+      "contexts": [
+        "BC-013"
+      ],
+      "depends_on": [
+        "ADR-021",
+        "ADR-022"
+      ],
+      "owned_requirements": 6,
+      "file": "docs/02-architecture/adrs/ADR-023-artifactset-manifest-e-bundles-imutaveis.md"
+    },
+    {
+      "id": "ADR-024",
+      "title": "Publicação atômica, checksums e content addressing",
+      "contexts": [
+        "BC-013"
+      ],
+      "depends_on": [
+        "ADR-021",
+        "ADR-023"
+      ],
+      "owned_requirements": 3,
+      "file": "docs/02-architecture/adrs/ADR-024-publicacao-atomica-checksums-e-content-addressing.md"
+    },
+    {
+      "id": "ADR-025",
+      "title": "Result snapshots, lineage e visão corrente",
+      "contexts": [
+        "BC-012",
+        "BC-013"
+      ],
+      "depends_on": [
+        "ADR-018",
+        "ADR-023"
+      ],
+      "owned_requirements": 6,
+      "file": "docs/02-architecture/adrs/ADR-025-result-snapshots-lineage-e-visao-corrente.md"
+    },
+    {
+      "id": "ADR-026",
+      "title": "Schema registry, migrations e compatibilidade",
+      "contexts": [
+        "BC-013",
+        "BC-015"
+      ],
+      "depends_on": [
+        "ADR-018",
+        "ADR-020",
+        "ADR-023"
+      ],
+      "owned_requirements": 4,
+      "file": "docs/02-architecture/adrs/ADR-026-schema-registry-migrations-e-compatibilidade.md"
+    },
+    {
+      "id": "ADR-027",
+      "title": "Backup, restore, retenção e GC reference-aware",
+      "contexts": [
+        "BC-013",
+        "BC-014"
+      ],
+      "depends_on": [
+        "ADR-018",
+        "ADR-021",
+        "ADR-023",
+        "ADR-025"
+      ],
+      "owned_requirements": 1,
+      "file": "docs/02-architecture/adrs/ADR-027-backup-restore-retencao-e-gc-reference-aware.md"
+    },
+    {
+      "id": "ADR-028",
+      "title": "Contas locais, sessões server-side e Argon2id",
+      "contexts": [
+        "BC-002"
+      ],
+      "depends_on": [
+        "ADR-018"
+      ],
+      "owned_requirements": 4,
+      "file": "docs/02-architecture/adrs/ADR-028-contas-locais-sessoes-server-side-e-argon2id.md"
+    },
+    {
+      "id": "ADR-029",
+      "title": "Federação OIDC e vínculo de identidade",
+      "contexts": [
+        "BC-002"
+      ],
+      "depends_on": [
+        "ADR-028"
+      ],
+      "owned_requirements": 3,
+      "file": "docs/02-architecture/adrs/ADR-029-federacao-oidc-e-vinculo-de-identidade.md"
+    },
+    {
+      "id": "ADR-030",
+      "title": "PATs, autorização central e scopes",
+      "contexts": [
+        "BC-002"
+      ],
+      "depends_on": [
+        "ADR-028",
+        "ADR-029"
+      ],
+      "owned_requirements": 2,
+      "file": "docs/02-architecture/adrs/ADR-030-pats-autorizacao-central-e-scopes.md"
+    },
+    {
+      "id": "ADR-031",
+      "title": "CSRF, CORS, security headers e proteção Web",
+      "contexts": [
+        "BC-002",
+        "BC-016"
+      ],
+      "depends_on": [
+        "ADR-028",
+        "ADR-030"
+      ],
+      "owned_requirements": 3,
+      "file": "docs/02-architecture/adrs/ADR-031-csrf-cors-security-headers-e-protecao-web.md"
+    },
+    {
+      "id": "ADR-032",
+      "title": "Secrets, TLS e ingress único",
+      "contexts": [
+        "BC-014",
+        "BC-015"
+      ],
+      "depends_on": [
+        "ADR-031"
+      ],
+      "owned_requirements": 3,
+      "file": "docs/02-architecture/adrs/ADR-032-secrets-tls-e-ingress-unico.md"
+    },
+    {
+      "id": "ADR-033",
+      "title": "Supply chain, SBOM, assinaturas e dependências",
+      "contexts": [
+        "BC-015"
+      ],
+      "depends_on": [
+        "ADR-009",
+        "ADR-032"
+      ],
+      "owned_requirements": 1,
+      "file": "docs/02-architecture/adrs/ADR-033-supply-chain-sbom-assinaturas-e-dependencias.md"
+    },
+    {
+      "id": "ADR-034",
+      "title": "OCI/Compose, instalação, bootstrap e readiness",
+      "contexts": [
+        "BC-015",
+        "BC-014"
+      ],
+      "depends_on": [
+        "ADR-002",
+        "ADR-009",
+        "ADR-032",
+        "ADR-033"
+      ],
+      "owned_requirements": 5,
+      "file": "docs/02-architecture/adrs/ADR-034-oci-compose-instalacao-bootstrap-e-readiness.md"
+    },
+    {
+      "id": "ADR-035",
+      "title": "Upgrade Controller, mixed versions e rollback",
+      "contexts": [
+        "BC-015"
+      ],
+      "depends_on": [
+        "ADR-026",
+        "ADR-027",
+        "ADR-034"
+      ],
+      "owned_requirements": 7,
+      "file": "docs/02-architecture/adrs/ADR-035-upgrade-controller-mixed-versions-e-rollback.md"
+    },
+    {
+      "id": "ADR-036",
+      "title": "Celery, RabbitMQ e TaskEnvelope mínimo",
+      "contexts": [
+        "BC-010"
+      ],
+      "depends_on": [
+        "ADR-018",
+        "ADR-020",
+        "ADR-034"
+      ],
+      "owned_requirements": 2,
+      "file": "docs/02-architecture/adrs/ADR-036-celery-rabbitmq-e-taskenvelope-minimo.md"
+    },
+    {
+      "id": "ADR-037",
+      "title": "Workers duráveis, leases e fencing",
+      "contexts": [
+        "BC-010"
+      ],
+      "depends_on": [
+        "ADR-018",
+        "ADR-036"
+      ],
+      "owned_requirements": 12,
+      "file": "docs/02-architecture/adrs/ADR-037-workers-duraveis-leases-e-fencing.md"
+    },
+    {
+      "id": "ADR-038",
+      "title": "Retry, quarantine, checkpoints, cancelamento e drain",
+      "contexts": [
+        "BC-010"
+      ],
+      "depends_on": [
+        "ADR-036",
+        "ADR-037"
+      ],
+      "owned_requirements": 9,
+      "file": "docs/02-architecture/adrs/ADR-038-retry-quarantine-checkpoints-cancelamento-e-drain.md"
+    },
+    {
+      "id": "ADR-039",
+      "title": "Scheduler, fairness, backpressure e Resource Governor",
+      "contexts": [
+        "BC-010"
+      ],
+      "depends_on": [
+        "ADR-018",
+        "ADR-036",
+        "ADR-037"
+      ],
+      "owned_requirements": 10,
+      "file": "docs/02-architecture/adrs/ADR-039-scheduler-fairness-backpressure-e-resource-governor.md"
+    },
+    {
+      "id": "ADR-040",
+      "title": "Progresso, event ledger, replay e ETA",
+      "contexts": [
+        "BC-010",
+        "BC-014"
+      ],
+      "depends_on": [
+        "ADR-036",
+        "ADR-039"
+      ],
+      "owned_requirements": 18,
+      "file": "docs/02-architecture/adrs/ADR-040-progresso-event-ledger-replay-e-eta.md"
+    },
+    {
+      "id": "ADR-041",
+      "title": "CRS, espaços de coordenadas e axis order",
+      "contexts": [
+        "BC-006",
+        "BC-007",
+        "BC-008"
+      ],
+      "depends_on": [
+        "ADR-018"
+      ],
+      "owned_requirements": 7,
+      "file": "docs/02-architecture/adrs/ADR-041-crs-espacos-de-coordenadas-e-axis-order.md"
+    },
+    {
+      "id": "ADR-042",
+      "title": "Raster validity, output grid, resampling e COG",
+      "contexts": [
+        "BC-006",
+        "BC-013"
+      ],
+      "depends_on": [
+        "ADR-021",
+        "ADR-023",
+        "ADR-041"
+      ],
+      "owned_requirements": 10,
+      "file": "docs/02-architecture/adrs/ADR-042-raster-validity-output-grid-resampling-e-cog.md"
+    },
+    {
+      "id": "ADR-043",
+      "title": "Stack geoespacial nativa, ABI e isolamento",
+      "contexts": [
+        "BC-006",
+        "BC-007"
+      ],
+      "depends_on": [
+        "ADR-009",
+        "ADR-042"
+      ],
+      "owned_requirements": 8,
+      "file": "docs/02-architecture/adrs/ADR-043-stack-geoespacial-nativa-abi-e-isolamento.md"
+    },
+    {
+      "id": "ADR-044",
+      "title": "Pipeline clássico de matching coarse-to-fine",
+      "contexts": [
+        "BC-006"
+      ],
+      "depends_on": [
+        "ADR-041",
+        "ADR-042",
+        "ADR-043"
+      ],
+      "owned_requirements": 14,
+      "file": "docs/02-architecture/adrs/ADR-044-pipeline-classico-matching-coarse-to-fine.md"
+    },
+    {
+      "id": "ADR-045",
+      "title": "Estimação geométrica, homografia e seleção de GCPs",
+      "contexts": [
+        "BC-006",
+        "BC-007"
+      ],
+      "depends_on": [
+        "ADR-044"
+      ],
+      "owned_requirements": 6,
+      "file": "docs/02-architecture/adrs/ADR-045-estimacao-geometrica-homografia-e-selecao-de-gcps.md"
+    },
+    {
+      "id": "ADR-046",
+      "title": "SGV, Quality Profiles e aceitação fail-closed",
+      "contexts": [
+        "BC-007",
+        "BC-012"
+      ],
+      "depends_on": [
+        "ADR-041",
+        "ADR-044",
+        "ADR-045"
+      ],
+      "owned_requirements": 17,
+      "file": "docs/02-architecture/adrs/ADR-046-sgv-quality-profiles-e-aceitacao-fail-closed.md"
+    },
+    {
+      "id": "ADR-047",
+      "title": "Referências, providers, aquisição e cache governado",
+      "contexts": [
+        "BC-005"
+      ],
+      "depends_on": [
+        "ADR-021",
+        "ADR-041"
+      ],
+      "owned_requirements": 8,
+      "file": "docs/02-architecture/adrs/ADR-047-referencias-providers-aquisicao-e-cache-governado.md"
+    },
+    {
+      "id": "ADR-048",
+      "title": "Edit Bundles: CorrectionSet, AnchorSet e revisão humana",
+      "contexts": [
+        "BC-011",
+        "BC-012"
+      ],
+      "depends_on": [
+        "ADR-023",
+        "ADR-025",
+        "ADR-045",
+        "ADR-046"
+      ],
+      "owned_requirements": 5,
+      "file": "docs/02-architecture/adrs/ADR-048-edit-bundles-correctionset-anchorset-e-revisao-humana.md"
+    },
+    {
+      "id": "ADR-049",
+      "title": "Mosaico relativo: grafo, otimização e ancoragem",
+      "contexts": [
+        "BC-008"
+      ],
+      "depends_on": [
+        "ADR-041",
+        "ADR-044",
+        "ADR-046",
+        "ADR-047"
+      ],
+      "owned_requirements": 10,
+      "file": "docs/02-architecture/adrs/ADR-049-mosaico-relativo-grafo-otimizacao-e-ancoragem.md"
+    },
+    {
+      "id": "ADR-050",
+      "title": "Mosaico relativo: verificador, reporting e materialização",
+      "contexts": [
+        "BC-008",
+        "BC-012",
+        "BC-013"
+      ],
+      "depends_on": [
+        "ADR-023",
+        "ADR-025",
+        "ADR-049"
+      ],
+      "owned_requirements": 8,
+      "file": "docs/02-architecture/adrs/ADR-050-mosaico-relativo-verificador-reporting-e-materializacao.md"
+    },
+    {
+      "id": "ADR-051",
+      "title": "AI Router, planner e escalonamento classic-first",
+      "contexts": [
+        "BC-009",
+        "BC-007"
+      ],
+      "depends_on": [
+        "ADR-017",
+        "ADR-046",
+        "ADR-047"
+      ],
+      "owned_requirements": 5,
+      "file": "docs/02-architecture/adrs/ADR-051-ai-router-planner-e-escalonamento-classic-first.md"
+    },
+    {
+      "id": "ADR-052",
+      "title": "Inference Engine, ModelRunner, ModelPack e offline",
+      "contexts": [
+        "BC-009",
+        "BC-013",
+        "BC-015"
+      ],
+      "depends_on": [
+        "ADR-009",
+        "ADR-023",
+        "ADR-032",
+        "ADR-051"
+      ],
+      "owned_requirements": 6,
+      "file": "docs/02-architecture/adrs/ADR-052-inference-engine-modelrunner-modelpack-e-offline.md"
+    },
+    {
+      "id": "ADR-053",
+      "title": "Reprodutibilidade científica, benchmarks, promoção e rollback",
+      "contexts": [
+        "BC-006",
+        "BC-007",
+        "BC-008",
+        "BC-009"
+      ],
+      "depends_on": [
+        "ADR-009",
+        "ADR-042",
+        "ADR-044",
+        "ADR-046",
+        "ADR-049",
+        "ADR-051",
+        "ADR-052"
+      ],
+      "owned_requirements": 26,
+      "file": "docs/02-architecture/adrs/ADR-053-reprodutibilidade-cientifica-benchmarks-promocao-e-rollback.md"
+    },
+    {
+      "id": "ADR-054",
+      "title": "Observabilidade, telemetria e diagnósticos operacionais",
+      "contexts": [
+        "BC-014"
+      ],
+      "depends_on": [
+        "ADR-002",
+        "ADR-018",
+        "ADR-036"
+      ],
+      "owned_requirements": 3,
+      "file": "docs/02-architecture/adrs/ADR-054-observabilidade-telemetria-e-diagnosticos-operacionais.md"
+    },
+    {
+      "id": "ADR-055",
+      "title": "Audit ledger, privacidade, redaction e support bundles",
+      "contexts": [
+        "BC-014"
+      ],
+      "depends_on": [
+        "ADR-018",
+        "ADR-021",
+        "ADR-028",
+        "ADR-054"
+      ],
+      "owned_requirements": 11,
+      "file": "docs/02-architecture/adrs/ADR-055-audit-ledger-privacidade-redaction-e-support-bundles.md"
+    },
+    {
+      "id": "ADR-056",
+      "title": "Licenciamento, contribuições, provider attribution e citação",
+      "contexts": [
+        "BC-015"
+      ],
+      "depends_on": [
+        "ADR-023",
+        "ADR-047",
+        "ADR-055"
+      ],
+      "owned_requirements": 1,
+      "file": "docs/02-architecture/adrs/ADR-056-licenciamento-contribuicoes-provider-attribution-e-citacao.md"
+    },
+    {
+      "id": "ADR-057",
+      "title": "Release train, publicação e gates de distribuição",
+      "contexts": [
+        "BC-015",
+        "BC-001"
+      ],
+      "depends_on": [
+        "ADR-026",
+        "ADR-033",
+        "ADR-034",
+        "ADR-035",
+        "ADR-056"
+      ],
+      "owned_requirements": 6,
+      "file": "docs/02-architecture/adrs/ADR-057-release-train-publicacao-e-gates-de-distribuicao.md"
+    }
+  ],
+  "bounded_contexts": []
+}

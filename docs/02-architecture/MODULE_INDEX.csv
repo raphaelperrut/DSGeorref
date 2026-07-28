@@ -1,0 +1,19 @@
+module_id,component_id,name,layer,domains,owner_adrs,epic_count,story_count,file,bounded_contexts,ddd_role,bounded_contexts,ddd_role
+MOD-001,COMP-001,CLI,Interfaces e superfícies,CLI,ADR-002,1,5,MOD-001-cli.md,BC-016,Adapter/Component,BC-016,Adapter/Component
+MOD-002,COMP-002,Web UI,Interfaces e superfícies,WEB/REV/EDU,ADR-002/ADR-028/ADR-048,9,53,MOD-002-web-ui.md,BC-016,Adapter/Component,BC-016,Adapter/Component
+MOD-003,COMP-003,HTTP API,Interfaces e superfícies,FND/PLT/JOB/REP,ADR-002/ADR-028,32,187,MOD-003-http-api.md,BC-002/BC-003/BC-004/BC-005/BC-006/BC-007/BC-008/BC-009/BC-010/BC-011/BC-012/BC-013/BC-014/BC-015/BC-016,Adapter/Component,BC-002/BC-003/BC-004/BC-005/BC-006/BC-007/BC-008/BC-009/BC-010/BC-011/BC-012/BC-013/BC-014/BC-015/BC-016,Adapter/Component
+MOD-004,COMP-004,Domínio + Application Services,Núcleo de domínio e processamento,FND/PLT/DAT/JOB,ADR-002/ADR-026,37,217,MOD-004-dominio-application-services.md,BC-002/BC-003/BC-004/BC-010/BC-011/BC-012/BC-013,Context implementation,BC-002/BC-003/BC-004/BC-010/BC-011/BC-012/BC-013,Context implementation
+MOD-005,COMP-005,Pipeline geoespacial,Núcleo de domínio e processamento,GEO,ADR-044/ADR-041/ADR-049/ADR-050,38,266,MOD-005-pipeline-geoespacial.md,BC-005/BC-006/BC-008,Context implementation,BC-005/BC-006/BC-008,Context implementation
+MOD-006,COMP-006,Strong Geometric Verifier,Núcleo de domínio e processamento,GEO/REP,ADR-046/ADR-053,41,284,MOD-006-strong-geometric-verifier.md,BC-007,Context implementation,BC-007,Context implementation
+MOD-007,COMP-007,IA governada,Núcleo de domínio e processamento,LAB/GEO,ADR-051/ADR-053,39,270,MOD-007-ia-governada.md,BC-009,Context implementation,BC-009,Context implementation
+MOD-008,COMP-008,Direct Runner,Execução e orquestração,JOB/CLI,ADR-002/ADR-036,13,89,MOD-008-direct-runner.md,BC-010,Adapter/Component,BC-010,Adapter/Component
+MOD-009,COMP-009,Workers duráveis,Execução e orquestração,JOB,ADR-036,12,84,MOD-009-workers-duraveis.md,BC-010,Adapter/Component,BC-010,Adapter/Component
+MOD-010,COMP-010,Scheduler + Resource Governor,Execução e orquestração,JOB/OPS,ADR-039/ADR-054,19,126,MOD-010-scheduler-resource-governor.md,BC-010,Context implementation,BC-010,Context implementation
+MOD-011,COMP-011,PostgreSQL/PostGIS,Persistência e transporte,DAT/PLT/JOB,ADR-018/ADR-026,25,157,MOD-011-postgresql-postgis.md,BC-002/BC-003/BC-004/BC-005/BC-006/BC-007/BC-008/BC-009/BC-010/BC-011/BC-012/BC-013/BC-014/BC-015,Adapter/Component,BC-002/BC-003/BC-004/BC-005/BC-006/BC-007/BC-008/BC-009/BC-010/BC-011/BC-012/BC-013/BC-014/BC-015,Adapter/Component
+MOD-012,COMP-012,Filesystem gerenciado,Persistência e transporte,DAT/GEO/REP,ADR-018/ADR-041/ADR-027,49,332,MOD-012-filesystem-gerenciado.md,BC-013,Adapter/Component,BC-013,Adapter/Component
+MOD-013,COMP-013,RabbitMQ,Persistência e transporte,JOB,ADR-036,12,84,MOD-013-rabbitmq.md,BC-010,Adapter/Component,BC-010,Adapter/Component
+MOD-014,COMP-014,Providers externos,Integrações externas,GEO/SEC,ADR-047,42,290,MOD-014-providers-externos.md,BC-005,Context implementation,BC-005,Context implementation
+MOD-015,COMP-015,OIDC opcional,Integrações externas,PLT,ADR-028,5,25,MOD-015-oidc-opcional.md,BC-002,Adapter/Component,BC-002,Adapter/Component
+MOD-016,COMP-016,Observabilidade + Auditoria,Capacidades transversais,OPS/SEC,ADR-054,11,66,MOD-016-observabilidade-auditoria.md,BC-014,Adapter/Component,BC-014,Adapter/Component
+MOD-017,COMP-017,Instalação + Supply Chain,Capacidades transversais,FND/OPS/SEC/REL/PUB,ADR-034/ADR-026,33,184,MOD-017-instalacao-supply-chain.md,BC-015,Adapter/Component,BC-015,Adapter/Component
+MOD-018,COMP-018,Backup + Retenção,Capacidades transversais,DAT/OPS,ADR-027,15,90,MOD-018-backup-retencao.md,BC-013/BC-014,Adapter/Component,BC-013/BC-014,Adapter/Component

@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "request_id": "77777777-7777-4777-8777-777777777777",
+  "capability": "feature_matching.neural",
+  "input_profile": {
+    "media_type": "image/tiff",
+    "bands": 1,
+    "width": 4096,
+    "height": 4096
+  },
+  "resource_profile": {
+    "cpu_count": 8,
+    "memory_bytes": 17179869184,
+    "gpu_available": false
+  },
+  "policy": {
+    "offline_required": true,
+    "allowed_model_packs": [
+      "modelpack:matcher/1.0.0"
+    ],
+    "data_egress": "DENY"
+  }
+}

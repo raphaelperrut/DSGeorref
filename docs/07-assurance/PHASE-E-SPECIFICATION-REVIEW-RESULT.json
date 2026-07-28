@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "phase": "E",
+  "approved": true,
+  "blocking_findings_open": 0,
+  "specifications": 5,
+  "task_envelopes": 758,
+  "checked_at": "2026-07-27T00:00:00Z",
+  "errors": []
+}

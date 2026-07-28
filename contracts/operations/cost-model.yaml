@@ -1,0 +1,39 @@
+schema_version: 1.0.0
+baseline: SAR-v3.0-PHASE-G
+currency: BRL
+pricing_mode: OWNER_APPROVED_QUOTES_PLUS_MEASURED_USAGE
+principle: No monetary forecast is published before benchmark evidence and infrastructure
+  quotations.
+monthly_tco_formula: compute + memory + primary_storage + backup_storage + bandwidth
+  + electricity_or_hosting + gpu + observability + certificates + operations_labor
+  + contingency
+unit_economics:
+- BRL per admitted job
+- BRL per processed image
+- BRL per SGV-accepted image
+- BRL per GiB-month retained
+- BRL per restore drill
+- BRL per provider acquisition
+required_inputs:
+- supported deployment class
+- measured CPU-hours
+- measured GPU-hours
+- peak RAM
+- primary and temporary storage growth
+- backup multiplier
+- egress volume
+- operations labor
+- owner monthly budget
+gpu_gate:
+  default: CPU_ONLY
+  procurement: NOT_AUTHORIZED_BY_ARCHITECTURE
+  approval_requires:
+  - scientific equivalence
+  - measured speedup
+  - lower or owner-accepted unit cost
+  - driver and ModelPack support
+  - rollback to CPU
+budget_gate:
+  implementation_authorization_requires_budget: true
+  public_production_requires_12_month_tco: true
+  variance_alert_percent: 20

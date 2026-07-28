@@ -1,0 +1,27 @@
+schema_version: 1.0.0
+baseline_version: 2.6.0
+status: SOURCE_LOCKED_BUILD_DIGEST_PENDING
+runtime:
+  python: 3.12.13
+  requires_python: '>=3.12,<3.13'
+native_stack:
+  gdal: 3.13.2
+  proj: 9.8.1
+  geos: 3.14.1
+  rasterio: 1.5.0
+  shapely: 2.1.2
+  postgresql: '18.4'
+  postgis: 3.6.4
+  rabbitmq: 4.3.4
+python_stack:
+  fastapi: 0.140.2
+  pydantic: 2.13.4
+  celery: 5.6.3
+resolution:
+  oci_digest: GENERATED_BY_SPRINT_001_BUILD
+  sbom: GENERATED_BY_SPRINT_001_BUILD
+  provenance: GENERATED_BY_SPRINT_001_BUILD
+  rule: The digest is an evidence output, not an architectural guess. CI rejects release candidates without resolved lock.
+future_lanes:
+  python_3_13: isolated non-blocking after native ABI gate
+  python_3_14: only after 3.13 lane stability

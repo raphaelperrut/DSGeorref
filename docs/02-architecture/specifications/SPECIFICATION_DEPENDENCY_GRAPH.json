@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "nodes": [
+    {
+      "id": "SPEC-001",
+      "title": "Prompt Bundle Contract"
+    },
+    {
+      "id": "SPEC-002",
+      "title": "Edit Case Registry Contract"
+    },
+    {
+      "id": "SPEC-003",
+      "title": "AIBackend Protocol Contract"
+    },
+    {
+      "id": "SPEC-004",
+      "title": "Template Contract"
+    },
+    {
+      "id": "SPEC-005",
+      "title": "Artifact Contract"
+    }
+  ],
+  "edges": [
+    {
+      "from": "SPEC-001",
+      "to": "SPEC-004",
+      "relation": "USES"
+    },
+    {
+      "from": "SPEC-002",
+      "to": "SPEC-005",
+      "relation": "PUBLISHES"
+    },
+    {
+      "from": "SPEC-003",
+      "to": "SPEC-005",
+      "relation": "PUBLISHES"
+    },
+    {
+      "from": "SPEC-001",
+      "to": "SPEC-005",
+      "relation": "RECORDED_AS_EVIDENCE"
+    },
+    {
+      "from": "SPEC-004",
+      "to": "SPEC-005",
+      "relation": "RENDERED_OUTPUT"
+    }
+  ]
+}

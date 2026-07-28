@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0.0",
+  "baseline_version": "2.6.0",
+  "purpose": "Correções de direção e dependências de integração que não bloqueiam início.",
+  "records": [
+    {
+      "original_prerequisite": "EPIC-039",
+      "original_dependent": "EPIC-082",
+      "disposition": "DIRECTION_CORRECTED",
+      "corrected_prerequisite": "EPIC-082",
+      "corrected_dependent": "EPIC-039",
+      "rationale": "A implementação consumidora deve depender do contrato/capacidade provedora, não o inverso."
+    },
+    {
+      "original_prerequisite": "EPIC-033",
+      "original_dependent": "EPIC-059",
+      "disposition": "DIRECTION_CORRECTED",
+      "corrected_prerequisite": "EPIC-059",
+      "corrected_dependent": "EPIC-033",
+      "rationale": "A implementação consumidora deve depender do contrato/capacidade provedora, não o inverso."
+    },
+    {
+      "original_prerequisite": "EPIC-049",
+      "original_dependent": "EPIC-063",
+      "disposition": "DIRECTION_CORRECTED",
+      "corrected_prerequisite": "EPIC-063",
+      "corrected_dependent": "EPIC-049",
+      "rationale": "A implementação consumidora deve depender do contrato/capacidade provedora, não o inverso."
+    },
+    {
+      "original_prerequisite": "EPIC-037",
+      "original_dependent": "EPIC-063",
+      "disposition": "DIRECTION_CORRECTED",
+      "corrected_prerequisite": "EPIC-063",
+      "corrected_dependent": "EPIC-037",
+      "rationale": "A implementação consumidora deve depender do contrato/capacidade provedora, não o inverso."
+    },
+    {
+      "original_prerequisite": "EPIC-031",
+      "original_dependent": "EPIC-017",
+      "disposition": "DIRECTION_CORRECTED",
+      "corrected_prerequisite": "EPIC-017",
+      "corrected_dependent": "EPIC-031",
+      "rationale": "A implementação consumidora deve depender do contrato/capacidade provedora, não o inverso."
+    },
+    {
+      "original_prerequisite": "EPIC-030",
+      "original_dependent": "EPIC-065",
+      "disposition": "SOFT_INTEGRATION",
+      "corrected_prerequisite": null,
+      "corrected_dependent": null,
+      "rationale": "A taxonomia de retry pode iniciar com invariantes de runtime; deve reconciliar a taxonomia de falhas antes do gate de integração, sem bloquear o início."
+    },
+    {
+      "original_prerequisite": "EPIC-049",
+      "original_dependent": "EPIC-066",
+      "disposition": "DIRECTION_CORRECTED",
+      "corrected_prerequisite": "EPIC-066",
+      "corrected_dependent": "EPIC-049",
+      "rationale": "A implementação consumidora deve depender do contrato/capacidade provedora, não o inverso."
+    },
+    {
+      "original_prerequisite": "EPIC-027",
+      "original_dependent": "EPIC-041",
+      "disposition": "DIRECTION_CORRECTED",
+      "corrected_prerequisite": "EPIC-041",
+      "corrected_dependent": "EPIC-027",
+      "rationale": "A implementação consumidora deve depender do contrato/capacidade provedora, não o inverso."
+    },
+    {
+      "original_prerequisite": "EPIC-040",
+      "original_dependent": "EPIC-069",
+      "disposition": "DIRECTION_CORRECTED",
+      "corrected_prerequisite": "EPIC-069",
+      "corrected_dependent": "EPIC-040",
+      "rationale": "A implementação consumidora deve depender do contrato/capacidade provedora, não o inverso."
+    },
+    {
+      "original_prerequisite": "EPIC-075",
+      "original_dependent": "EPIC-069",
+      "disposition": "DIRECTION_CORRECTED",
+      "corrected_prerequisite": "EPIC-069",
+      "corrected_dependent": "EPIC-075",
+      "rationale": "A implementação consumidora deve depender do contrato/capacidade provedora, não o inverso."
+    },
+    {
+      "original_prerequisite": "EPIC-034",
+      "original_dependent": "EPIC-069",
+      "disposition": "DIRECTION_CORRECTED",
+      "corrected_prerequisite": "EPIC-069",
+      "corrected_dependent": "EPIC-034",
+      "rationale": "A implementação consumidora deve depender do contrato/capacidade provedora, não o inverso."
+    },
+    {
+      "original_prerequisite": "EPIC-034",
+      "original_dependent": "EPIC-057",
+      "disposition": "DIRECTION_CORRECTED",
+      "corrected_prerequisite": "EPIC-057",
+      "corrected_dependent": "EPIC-034",
+      "rationale": "A implementação consumidora deve depender do contrato/capacidade provedora, não o inverso."
+    },
+    {
+      "original_prerequisite": "EPIC-039",
+      "original_dependent": "EPIC-067",
+      "disposition": "DIRECTION_CORRECTED",
+      "corrected_prerequisite": "EPIC-067",
+      "corrected_dependent": "EPIC-039",
+      "rationale": "A implementação consumidora deve depender do contrato/capacidade provedora, não o inverso."
+    },
+    {
+      "original_prerequisite": "EPIC-040",
+      "original_dependent": "EPIC-068",
+      "disposition": "DIRECTION_CORRECTED",
+      "corrected_prerequisite": "EPIC-068",
+      "corrected_dependent": "EPIC-040",
+      "rationale": "A implementação consumidora deve depender do contrato/capacidade provedora, não o inverso."
+    },
+    {
+      "original_prerequisite": "EPIC-049",
+      "original_dependent": "EPIC-062",
+      "disposition": "DIRECTION_CORRECTED",
+      "corrected_prerequisite": "EPIC-062",
+      "corrected_dependent": "EPIC-049",
+      "rationale": "A implementação consumidora deve depender do contrato/capacidade provedora, não o inverso."
+    },
+    {
+      "original_prerequisite": "EPIC-039",
+      "original_dependent": "EPIC-019",
+      "disposition": "DIRECTION_CORRECTED",
+      "corrected_prerequisite": "EPIC-019",
+      "corrected_dependent": "EPIC-039",
+      "rationale": "A implementação consumidora deve depender do contrato/capacidade provedora, não o inverso."
+    }
+  ]
+}

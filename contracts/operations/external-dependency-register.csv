@@ -1,0 +1,13 @@
+dependency_id,dependency,purpose,criticality,pin_or_control,exit_or_fallback,owner_context
+DEP-001,CPython/uv/Python packages,Build/runtime,High,.python-version + uv.lock + OCI digest,offline wheel/cache or signed image,BC-001
+DEP-002,PostgreSQL/PostGIS,Authoritative data,Critical,OCI digest + migration compatibility,logical/physical backup and standard geospatial export,BC-013
+DEP-003,POSIX filesystem semantics,Artifact publication,Critical,capability probe,fail closed; alternative storage needs new ADR,BC-013
+DEP-004,RabbitMQ/Celery,Durable transport,High,OCI digest + uv.lock,TaskEnvelope/outbox permits adapter replacement,BC-010
+DEP-005,GDAL/PROJ/GEOS/OpenCV plus proj-data/EPSG grids,Geospatial runtime,Critical,native stack digest,signed OCI image and pinned data bundle,BC-006
+DEP-006,Node/pnpm/React/Vite/TypeScript/OpenLayers,Frontend build/runtime,High,lockfile + CI image digest,static SPA and OpenAPI contracts,BC-016
+DEP-007,OIDC identity provider,Optional federation,Medium,issuer configuration and discovery cache,local accounts remain baseline,BC-002
+DEP-008,External reference providers/STAC APIs,Optional acquisition,High,provider capability contract,manual/local references and provider adapters,BC-005
+DEP-009,ModelPacks/GPU driver/runtime,Optional AI acceleration,High,signed ModelPack + capability probe,classic CPU path remains functional,BC-009
+DEP-010,OpenTelemetry collector/backend,Operational telemetry,Medium,OTel protocol and collector digest,replaceable backend or local minimal telemetry,BC-014
+DEP-011,OCI runtime/Compose/host kernel,Deployment,High,signed images + preflight,documented host support matrix,BC-015
+DEP-012,"CA roots, timezone data and system clock",Security/audit,High,host/image pin and health probe,fail closed for invalid trust/time,BC-014

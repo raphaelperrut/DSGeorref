@@ -1,0 +1,1792 @@
+{
+  "schema_version": "1.0.0",
+  "nodes": [
+    {
+      "id": "EPIC-001",
+      "title": "governança de decisões arquiteturais e manutenção da baseline normativa",
+      "sprint": "SPRINT-001",
+      "domain": "FND"
+    },
+    {
+      "id": "EPIC-002",
+      "title": "repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível",
+      "sprint": "SPRINT-001",
+      "domain": "FND"
+    },
+    {
+      "id": "EPIC-003",
+      "title": "monorepo greenfield com CLI/API/Web mínimos e checks reproduzíveis",
+      "sprint": "SPRINT-001",
+      "domain": "FND"
+    },
+    {
+      "id": "EPIC-004",
+      "title": "OpenAPI, cliente TypeScript e contratos CLI/jobs/eventos/artefatos/ProcessingPlan/QualityReport/FailureDiagnostic versionados",
+      "sprint": "SPRINT-001",
+      "domain": "FND"
+    },
+    {
+      "id": "EPIC-005",
+      "title": "migrations, CI, secret/dependency scan e telemetria mínima",
+      "sprint": "SPRINT-001",
+      "domain": "FND"
+    },
+    {
+      "id": "EPIC-006",
+      "title": "catálogo de conhecimento técnico e decomposição das capacidades de processamento",
+      "sprint": "SPRINT-001",
+      "domain": "FND"
+    },
+    {
+      "id": "EPIC-007",
+      "title": "LICENSE, CITATION.cff, contribuição, DCO/CLA e gate de publicação definidos",
+      "sprint": "SPRINT-001",
+      "domain": "FND"
+    },
+    {
+      "id": "EPIC-008",
+      "title": "contas locais, bootstrap único, sessões, tokens e adapter OIDC",
+      "sprint": "SPRINT-002",
+      "domain": "PLT"
+    },
+    {
+      "id": "EPIC-009",
+      "title": "usuários e papéis da instância",
+      "sprint": "SPRINT-002",
+      "domain": "PLT"
+    },
+    {
+      "id": "EPIC-010",
+      "title": "autorização por projeto, operação, artefato e caminho",
+      "sprint": "SPRINT-002",
+      "domain": "PLT"
+    },
+    {
+      "id": "EPIC-011",
+      "title": "limites, idempotência, audit log e controles administrativos",
+      "sprint": "SPRINT-002",
+      "domain": "PLT"
+    },
+    {
+      "id": "EPIC-012",
+      "title": "raízes de workspace, API de navegação segura, catálogo, hashes e lineage",
+      "sprint": "SPRINT-002",
+      "domain": "DAT"
+    },
+    {
+      "id": "EPIC-013",
+      "title": "backup/restore consistente entre banco e arquivos",
+      "sprint": "SPRINT-002",
+      "domain": "DAT"
+    },
+    {
+      "id": "EPIC-014",
+      "title": "modelo de job e máquina de estados no PostgreSQL",
+      "sprint": "SPRINT-003",
+      "domain": "JOB"
+    },
+    {
+      "id": "EPIC-015",
+      "title": "runner direto e Celery/RabbitMQ sobre o mesmo núcleo",
+      "sprint": "SPRINT-003",
+      "domain": "JOB"
+    },
+    {
+      "id": "EPIC-016",
+      "title": "retries, redelivery, cancelamento, retomada e idempotência",
+      "sprint": "SPRINT-003",
+      "domain": "JOB"
+    },
+    {
+      "id": "EPIC-017",
+      "title": "REST, SSE e polling de reconciliação com contratos versionados",
+      "sprint": "SPRINT-003",
+      "domain": "JOB"
+    },
+    {
+      "id": "EPIC-018",
+      "title": "batch hierárquico, chunking, backpressure, checkpoints e retomada para lotes usuais de 40–300 imagens",
+      "sprint": "SPRINT-003",
+      "domain": "JOB"
+    },
+    {
+      "id": "EPIC-019",
+      "title": "Resource Governor, admission control e orçamento adaptativo de RAM/CPU/GPU/disco",
+      "sprint": "SPRINT-003",
+      "domain": "JOB"
+    },
+    {
+      "id": "EPIC-020",
+      "title": "CLI estável para projetos, ingestão, jobs e resultados",
+      "sprint": "SPRINT-003",
+      "domain": "CLI"
+    },
+    {
+      "id": "EPIC-021",
+      "title": "corpus versionado com décadas e condições distintas",
+      "sprint": "SPRINT-005",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-022",
+      "title": "busca provável greenfield validada",
+      "sprint": "SPRINT-005",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-023",
+      "title": "correspondências e estimação robusta da homografia projetiva validadas",
+      "sprint": "SPRINT-005",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-024",
+      "title": "Strong Geometric Verifier fail-closed para homografia projetiva, QualityProfiles e Image Deformation Profile",
+      "sprint": "SPRINT-005",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-025",
+      "title": "registry, calibração, benchmark e lifecycle de QualityProfiles oficiais/customizados",
+      "sprint": "SPRINT-005",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-026",
+      "title": "artefatos e lineage",
+      "sprint": "SPRINT-005",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-027",
+      "title": "gateway de fontes, proteção SSRF, estados de disponibilidade e bloqueio de compra",
+      "sprint": "SPRINT-005",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-028",
+      "title": "benchmarks por período, sensor e perfil de qualidade",
+      "sprint": "SPRINT-005",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-029",
+      "title": "etapas/capacidades canônicas e ProcessingPlan reproduzível",
+      "sprint": "SPRINT-005",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-030",
+      "title": "taxonomia versionada de falhas, evidências, remediações seguras e contratos de resultado por imagem",
+      "sprint": "SPRINT-005",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-031",
+      "title": "React/TypeScript/Vite, design system, cliente OpenAPI, seletor visual, acessibilidade e E2E",
+      "sprint": "SPRINT-009",
+      "domain": "WEB"
+    },
+    {
+      "id": "EPIC-032",
+      "title": "workspace OpenLayers, configuração, acompanhamento e revisão",
+      "sprint": "SPRINT-009",
+      "domain": "WEB"
+    },
+    {
+      "id": "EPIC-033",
+      "title": "assistente guiado, recomendação explicável, consentimentos e modo avançado",
+      "sprint": "SPRINT-009",
+      "domain": "WEB"
+    },
+    {
+      "id": "EPIC-034",
+      "title": "painel de qualidade do lote, busca server-side, filtros salvos, triagem, deformação e retry/revisão de subconjuntos",
+      "sprint": "SPRINT-009",
+      "domain": "WEB"
+    },
+    {
+      "id": "EPIC-035",
+      "title": "workflow de revisão com gates revisáveis, hard gates imutáveis, checklist e auditoria",
+      "sprint": "SPRINT-009",
+      "domain": "REV"
+    },
+    {
+      "id": "EPIC-036",
+      "title": "central Aprender, exemplos visuais, projeto demonstrativo e ajuda contextual, incluindo Strong Geometric Verifier e interpretação de falhas",
+      "sprint": "SPRINT-009",
+      "domain": "EDU"
+    },
+    {
+      "id": "EPIC-037",
+      "title": "persistência e exportação escalável de resultados por imagem/lote, geometrias, manifestos e checksums",
+      "sprint": "SPRINT-010",
+      "domain": "REP"
+    },
+    {
+      "id": "EPIC-038",
+      "title": "métricas, heatmap amostrado e diagnóstico denso do Image Deformation Profile",
+      "sprint": "SPRINT-010",
+      "domain": "REP"
+    },
+    {
+      "id": "EPIC-039",
+      "title": "instrumentação OpenTelemetry, correlation IDs, métricas, dashboards e alertas para API, RabbitMQ e workers",
+      "sprint": "SPRINT-011",
+      "domain": "OPS"
+    },
+    {
+      "id": "EPIC-040",
+      "title": "benchmark, limites e orçamento de recursos",
+      "sprint": "SPRINT-011",
+      "domain": "OPS"
+    },
+    {
+      "id": "EPIC-041",
+      "title": "threat model validado, scanning e testes ofensivos",
+      "sprint": "SPRINT-002",
+      "domain": "SEC"
+    },
+    {
+      "id": "EPIC-042",
+      "title": "licença, citação, sanitização e revisão externa concluídas",
+      "sprint": "SPRINT-012",
+      "domain": "PUB"
+    },
+    {
+      "id": "EPIC-043",
+      "title": "release documentada com rollback e suporte",
+      "sprint": "SPRINT-012",
+      "domain": "REL"
+    },
+    {
+      "id": "EPIC-044",
+      "title": "OutputProfile, COG canônico, preservação de resolução e validação da grade",
+      "sprint": "SPRINT-005",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-045",
+      "title": "máscara analítica adaptativa, preview/correção, área útil separada da saída e preservação de metadados marginais",
+      "sprint": "SPRINT-005",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-046",
+      "title": "ArtifactSet imutável, staging e publicação atômica",
+      "sprint": "SPRINT-005",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-047",
+      "title": "matching coarse-to-fine, tiles, reconciliação de coordenadas e refinamento em resolução adequada",
+      "sprint": "SPRINT-005",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-048",
+      "title": "extração opcional de metadados marginais com confiança, revisão e lineage",
+      "sprint": "SPRINT-005",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-049",
+      "title": "lineage normalizado, manifestos e bundle de reprodução sob demanda",
+      "sprint": "SPRINT-010",
+      "domain": "DAT"
+    },
+    {
+      "id": "EPIC-050",
+      "title": "registry de matchers clássicos/IA, escalonamento explicável, licenças, manifests e benchmark",
+      "sprint": "SPRINT-006",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-051",
+      "title": "estimadores USAC_MAGSAC/RANSAC explícitos, calibração, proveniência e testes de compatibilidade",
+      "sprint": "SPRINT-006",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-052",
+      "title": "seleção de GCPs por cobertura/qualidade/diversidade, exportando pontos usados e descartados",
+      "sprint": "SPRINT-006",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-053",
+      "title": "grafo de referências verificadas, componentes desconectados, invalidação e retry por componente",
+      "sprint": "SPRINT-006",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-054",
+      "title": "componentes provisórios multimodais, scores versionados, preview e correção sem equivalência com prova geométrica",
+      "sprint": "SPRINT-006",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-055",
+      "title": "recuperação progressiva de vizinhos com candidate budget, telemetria de recall e retry ampliado explícito",
+      "sprint": "SPRINT-006",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-056",
+      "title": "máquina de estados de arestas, evidência direta, lineage e SGV independente da imagem dependente",
+      "sprint": "SPRINT-006",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-057",
+      "title": "resultados por componente, sucesso parcial explícito, retry por subconjunto e UX de componentes não resolvidos",
+      "sprint": "SPRINT-006",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-058",
+      "title": "gateway por capacidades, adapters STAC/API oficial, testes de contrato, allowlist, SSRF/egress e estados de licença/disponibilidade",
+      "sprint": "SPRINT-006",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-059",
+      "title": "busca espaciotemporal guiada, ranking explicável, incerteza e expansão limitada por orçamento",
+      "sprint": "SPRINT-006",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-060",
+      "title": "policy de aquisição no ProcessingPlan, preview, consentimento e bloqueio fail-closed de ativos pagos/ambíguos",
+      "sprint": "SPRINT-006",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-061",
+      "title": "cache endereçado por conteúdo, deduplicação, quotas, retention, licença, GC e proteção de lineage",
+      "sprint": "SPRINT-010",
+      "domain": "DAT"
+    },
+    {
+      "id": "EPIC-062",
+      "title": "workspace visual assistido, CorrectionSets, nova tentativa, comparação e auditoria sem bloquear o ciclo automático",
+      "sprint": "SPRINT-009",
+      "domain": "REV"
+    },
+    {
+      "id": "EPIC-063",
+      "title": "modelo tipado/versionado de GCPs, lifecycle, proveniência e round-trip dos exports",
+      "sprint": "SPRINT-006",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-064",
+      "title": "fila de revisão explicável, filtros, priorização, impacto em descendentes e operações em lote permitidas",
+      "sprint": "SPRINT-009",
+      "domain": "WEB"
+    },
+    {
+      "id": "EPIC-065",
+      "title": "taxonomia de retry técnico, orçamento, backoff, idempotência e PlanVariants algorítmicos",
+      "sprint": "SPRINT-004",
+      "domain": "JOB"
+    },
+    {
+      "id": "EPIC-066",
+      "title": "checkpoints canônicos, manifests de compatibilidade, retomada e lifecycle de intermediários",
+      "sprint": "SPRINT-004",
+      "domain": "JOB"
+    },
+    {
+      "id": "EPIC-067",
+      "title": "cancelamento cooperativo, supervisão de subprocessos, contenção e reconciliação",
+      "sprint": "SPRINT-004",
+      "domain": "JOB"
+    },
+    {
+      "id": "EPIC-068",
+      "title": "Concorrência, escalonamento e isolamento",
+      "sprint": "SPRINT-004",
+      "domain": "JOB"
+    },
+    {
+      "id": "EPIC-069",
+      "title": "Observabilidade, SLOs e diagnóstico do scheduler",
+      "sprint": "SPRINT-004",
+      "domain": "JOB"
+    },
+    {
+      "id": "EPIC-070",
+      "title": "snapshots imutáveis, regra de resultado vigente e comparação entre ciclos",
+      "sprint": "SPRINT-010",
+      "domain": "REP"
+    },
+    {
+      "id": "EPIC-071",
+      "title": "BackupSet coordenado, manifests, checksums, watermark e policies de inclusão",
+      "sprint": "SPRINT-011",
+      "domain": "DAT"
+    },
+    {
+      "id": "EPIC-072",
+      "title": "restore drills isolados, evidências, RPO/RTO e runbook executável",
+      "sprint": "SPRINT-011",
+      "domain": "OPS"
+    },
+    {
+      "id": "EPIC-073",
+      "title": "RetentionPolicy por classe/estado/dependência, holds e preview de impacto",
+      "sprint": "SPRINT-011",
+      "domain": "DAT"
+    },
+    {
+      "id": "EPIC-074",
+      "title": "GC reference-aware, tombstone, quarentena, período de graça e reconciliação",
+      "sprint": "SPRINT-011",
+      "domain": "DAT"
+    },
+    {
+      "id": "EPIC-075",
+      "title": "canal append-only de auditoria, particionamento, digests, consulta e exportação assinada opcional",
+      "sprint": "SPRINT-011",
+      "domain": "OPS"
+    },
+    {
+      "id": "EPIC-076",
+      "title": "catálogo de campos, redaction centralizada, testes de vazamento e bundles de suporte sanitizados",
+      "sprint": "SPRINT-011",
+      "domain": "SEC"
+    },
+    {
+      "id": "EPIC-077",
+      "title": "budgets de cardinalidade, sampling, retenção por sinal e dashboards de perda/overhead",
+      "sprint": "SPRINT-011",
+      "domain": "OPS"
+    },
+    {
+      "id": "EPIC-078",
+      "title": "contrato de secrets, setup, permissões, rotação, recuperação e adapters opcionais de vault",
+      "sprint": "SPRINT-011",
+      "domain": "SEC"
+    },
+    {
+      "id": "EPIC-079",
+      "title": "ingress único, TLS, redes privadas, limites e testes de exposição de portas",
+      "sprint": "SPRINT-011",
+      "domain": "OPS"
+    },
+    {
+      "id": "EPIC-080",
+      "title": "lockfiles, pins por digest/SHA, scanners, SBOM, assinatura OCI, attestations e verificador de release",
+      "sprint": "SPRINT-011",
+      "domain": "SEC"
+    },
+    {
+      "id": "EPIC-081",
+      "title": "orquestrador de upgrade, preflight, migrations explícitas, health/smoke tests e rollback/restore",
+      "sprint": "SPRINT-012",
+      "domain": "REL"
+    },
+    {
+      "id": "EPIC-082",
+      "title": "preflight de hardware e ExecutionProfiles CPU/GPU/híbrido integrados ao Resource Governor",
+      "sprint": "SPRINT-002",
+      "domain": "PLT"
+    },
+    {
+      "id": "EPIC-083",
+      "title": "modos offline/restricted/connected, egress enforcement, mirrors e testes air-gapped",
+      "sprint": "SPRINT-011",
+      "domain": "OPS"
+    },
+    {
+      "id": "EPIC-084",
+      "title": "UX guiada de IA, explicação do plano, capacidades instaladas/bloqueadas e laboratório separado",
+      "sprint": "SPRINT-009",
+      "domain": "WEB"
+    },
+    {
+      "id": "EPIC-085",
+      "title": "definição e automação de milestones internal/alpha/beta/1.0, evidências e gate de abertura do repositório",
+      "sprint": "SPRINT-012",
+      "domain": "REL"
+    },
+    {
+      "id": "EPIC-086",
+      "title": "walking skeleton frontend→API→PostgreSQL→RabbitMQ/Celery→worker→artefato diagnóstico, executável e testado ponta a ponta",
+      "sprint": "SPRINT-001",
+      "domain": "FND"
+    },
+    {
+      "id": "EPIC-087",
+      "title": "baseline operacional vertical privado com escopo da DELIVERY_PLAN e evidências do corpus controlado",
+      "sprint": "SPRINT-012",
+      "domain": "REL"
+    },
+    {
+      "id": "EPIC-088",
+      "title": "namespace experimental/labs, registry separado, ModelPacks isolados e bloqueio técnico de ArtifactSet aceito",
+      "sprint": "SPRINT-011",
+      "domain": "LAB"
+    },
+    {
+      "id": "EPIC-089",
+      "title": "release train internal/alpha/beta/1.0, automação de evidências e gate de abertura pública",
+      "sprint": "SPRINT-012",
+      "domain": "REL"
+    },
+    {
+      "id": "EPIC-090",
+      "title": "Issue Forms, templates e taxonomia de tipos com validação de campos obrigatórios",
+      "sprint": "SPRINT-001",
+      "domain": "FND"
+    },
+    {
+      "id": "EPIC-091",
+      "title": "ruleset de main, checks únicos, CODEOWNERS, política de branches e prova de bypass auditado",
+      "sprint": "SPRINT-001",
+      "domain": "FND"
+    },
+    {
+      "id": "EPIC-092",
+      "title": "fechamento da SPRINT-001 e autorização da primeira fatia funcional",
+      "sprint": "SPRINT-001",
+      "domain": "FND"
+    },
+    {
+      "id": "EPIC-093",
+      "title": "contratos de CRS, espaços de coordenadas, ordem de eixos, precisão/unidades e validade raster",
+      "sprint": "SPRINT-007",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-094",
+      "title": "Registry e transformações de CRS",
+      "sprint": "SPRINT-007",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-095",
+      "title": "Validade raster explícita",
+      "sprint": "SPRINT-007",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-096",
+      "title": "Seletor e validador de CRS",
+      "sprint": "SPRINT-007",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-097",
+      "title": "Grade, resolução e reamostragem",
+      "sprint": "SPRINT-007",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-098",
+      "title": "Mosaico relativo de recuperação",
+      "sprint": "SPRINT-007",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-099",
+      "title": "Ancoragem e recuperação a partir do mosaico relativo",
+      "sprint": "SPRINT-008",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-100",
+      "title": "Workspace e lifecycle de âncoras",
+      "sprint": "SPRINT-008",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-101",
+      "title": "Relative Mosaic Verifier e promotion lifecycle",
+      "sprint": "SPRINT-008",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-102",
+      "title": "Relatórios, visualização e exports do mosaico relativo",
+      "sprint": "SPRINT-008",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-103",
+      "title": "Budgets, persistência e materialização do mosaico relativo",
+      "sprint": "SPRINT-008",
+      "domain": "GEO"
+    },
+    {
+      "id": "EPIC-104",
+      "title": "Snapshots, replay e bundles do scheduler",
+      "sprint": "SPRINT-004",
+      "domain": "JOB"
+    },
+    {
+      "id": "EPIC-105",
+      "title": "Registry de schemas e compatibilidade de artifacts",
+      "sprint": "SPRINT-010",
+      "domain": "DAT"
+    },
+    {
+      "id": "EPIC-106",
+      "title": "Migrations compatíveis, upgrade e downgrade seguro",
+      "sprint": "SPRINT-012",
+      "domain": "REL"
+    },
+    {
+      "id": "EPIC-107",
+      "title": "Controlador e rollout coordenado de upgrades",
+      "sprint": "SPRINT-012",
+      "domain": "REL"
+    },
+    {
+      "id": "EPIC-108",
+      "title": "Instalador, bootstrap, readiness e suporte diagnóstico",
+      "sprint": "SPRINT-012",
+      "domain": "REL"
+    },
+    {
+      "id": "EPIC-109",
+      "title": "Licenciamento, contribuição, rights manifests e citação",
+      "sprint": "SPRINT-012",
+      "domain": "PUB"
+    },
+    {
+      "id": "EPIC-110",
+      "title": "governança contínua do backlog e decomposição de épicos em histórias implementáveis",
+      "sprint": "SPRINT-001",
+      "domain": "FND"
+    }
+  ],
+  "edges": [
+    {
+      "from": "EPIC-001",
+      "to": "EPIC-002",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-001",
+      "to": "EPIC-003",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-003",
+      "to": "EPIC-004",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-003",
+      "to": "EPIC-005",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-001",
+      "to": "EPIC-006",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-001",
+      "to": "EPIC-007",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-004",
+      "to": "EPIC-008",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-008",
+      "to": "EPIC-009",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-005",
+      "to": "EPIC-009",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-009",
+      "to": "EPIC-010",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-010",
+      "to": "EPIC-011",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-005",
+      "to": "EPIC-012",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-010",
+      "to": "EPIC-012",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-012",
+      "to": "EPIC-013",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-004",
+      "to": "EPIC-014",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-005",
+      "to": "EPIC-014",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-014",
+      "to": "EPIC-015",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-015",
+      "to": "EPIC-016",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-014",
+      "to": "EPIC-017",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-031",
+      "to": "EPIC-017",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-015",
+      "to": "EPIC-018",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-016",
+      "to": "EPIC-018",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-012",
+      "to": "EPIC-018",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-018",
+      "to": "EPIC-019",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-039",
+      "to": "EPIC-019",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-015",
+      "to": "EPIC-020",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-012",
+      "to": "EPIC-020",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-006",
+      "to": "EPIC-021",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-021",
+      "to": "EPIC-022",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-021",
+      "to": "EPIC-023",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-022",
+      "to": "EPIC-024",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-023",
+      "to": "EPIC-024",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-021",
+      "to": "EPIC-025",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-024",
+      "to": "EPIC-025",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-024",
+      "to": "EPIC-026",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-012",
+      "to": "EPIC-026",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-005",
+      "to": "EPIC-027",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-024",
+      "to": "EPIC-028",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-004",
+      "to": "EPIC-029",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-006",
+      "to": "EPIC-029",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-021",
+      "to": "EPIC-029",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-024",
+      "to": "EPIC-030",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-004",
+      "to": "EPIC-030",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-011",
+      "to": "EPIC-031",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-004",
+      "to": "EPIC-031",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-031",
+      "to": "EPIC-032",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-024",
+      "to": "EPIC-032",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-031",
+      "to": "EPIC-033",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-029",
+      "to": "EPIC-033",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-032",
+      "to": "EPIC-034",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-030",
+      "to": "EPIC-034",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-018",
+      "to": "EPIC-034",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-034",
+      "to": "EPIC-035",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-025",
+      "to": "EPIC-035",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-010",
+      "to": "EPIC-035",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-031",
+      "to": "EPIC-036",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-033",
+      "to": "EPIC-036",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-030",
+      "to": "EPIC-036",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-012",
+      "to": "EPIC-037",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-026",
+      "to": "EPIC-037",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-030",
+      "to": "EPIC-037",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-024",
+      "to": "EPIC-038",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-037",
+      "to": "EPIC-038",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-005",
+      "to": "EPIC-039",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-015",
+      "to": "EPIC-039",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-024",
+      "to": "EPIC-040",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-039",
+      "to": "EPIC-040",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-012",
+      "to": "EPIC-041",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-027",
+      "to": "EPIC-041",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-024",
+      "to": "EPIC-044",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-012",
+      "to": "EPIC-044",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-021",
+      "to": "EPIC-045",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-023",
+      "to": "EPIC-045",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-044",
+      "to": "EPIC-045",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-026",
+      "to": "EPIC-046",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-044",
+      "to": "EPIC-046",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-012",
+      "to": "EPIC-046",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-021",
+      "to": "EPIC-047",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-023",
+      "to": "EPIC-047",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-019",
+      "to": "EPIC-047",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-045",
+      "to": "EPIC-048",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-012",
+      "to": "EPIC-048",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-004",
+      "to": "EPIC-049",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-012",
+      "to": "EPIC-049",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-046",
+      "to": "EPIC-049",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-021",
+      "to": "EPIC-050",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-047",
+      "to": "EPIC-050",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-004",
+      "to": "EPIC-050",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-021",
+      "to": "EPIC-051",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-023",
+      "to": "EPIC-051",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-025",
+      "to": "EPIC-051",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-023",
+      "to": "EPIC-052",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-045",
+      "to": "EPIC-052",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-051",
+      "to": "EPIC-052",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-022",
+      "to": "EPIC-053",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-023",
+      "to": "EPIC-053",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-024",
+      "to": "EPIC-053",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-052",
+      "to": "EPIC-053",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-021",
+      "to": "EPIC-054",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-012",
+      "to": "EPIC-054",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-053",
+      "to": "EPIC-054",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-047",
+      "to": "EPIC-055",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-050",
+      "to": "EPIC-055",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-054",
+      "to": "EPIC-055",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-019",
+      "to": "EPIC-055",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-023",
+      "to": "EPIC-056",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-024",
+      "to": "EPIC-056",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-052",
+      "to": "EPIC-056",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-053",
+      "to": "EPIC-056",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-053",
+      "to": "EPIC-057",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-056",
+      "to": "EPIC-057",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-030",
+      "to": "EPIC-057",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-034",
+      "to": "EPIC-057",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-027",
+      "to": "EPIC-058",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-004",
+      "to": "EPIC-058",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-041",
+      "to": "EPIC-058",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-058",
+      "to": "EPIC-059",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-022",
+      "to": "EPIC-059",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-033",
+      "to": "EPIC-059",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-058",
+      "to": "EPIC-060",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-059",
+      "to": "EPIC-060",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-029",
+      "to": "EPIC-060",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-012",
+      "to": "EPIC-061",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-049",
+      "to": "EPIC-061",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-058",
+      "to": "EPIC-061",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-032",
+      "to": "EPIC-062",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-034",
+      "to": "EPIC-062",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-024",
+      "to": "EPIC-062",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-035",
+      "to": "EPIC-062",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-049",
+      "to": "EPIC-062",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-052",
+      "to": "EPIC-063",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-012",
+      "to": "EPIC-063",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-049",
+      "to": "EPIC-063",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-037",
+      "to": "EPIC-063",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-034",
+      "to": "EPIC-064",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-062",
+      "to": "EPIC-064",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-030",
+      "to": "EPIC-064",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-053",
+      "to": "EPIC-064",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-014",
+      "to": "EPIC-065",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-015",
+      "to": "EPIC-065",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-030",
+      "to": "EPIC-065",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-018",
+      "to": "EPIC-066",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-049",
+      "to": "EPIC-066",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-016",
+      "to": "EPIC-067",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-019",
+      "to": "EPIC-067",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-039",
+      "to": "EPIC-067",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-018",
+      "to": "EPIC-068",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-019",
+      "to": "EPIC-068",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-040",
+      "to": "EPIC-068",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-082",
+      "to": "EPIC-068",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-068",
+      "to": "EPIC-069",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-040",
+      "to": "EPIC-069",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-075",
+      "to": "EPIC-069",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-034",
+      "to": "EPIC-069",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-037",
+      "to": "EPIC-070",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-049",
+      "to": "EPIC-070",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-062",
+      "to": "EPIC-070",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-012",
+      "to": "EPIC-071",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-049",
+      "to": "EPIC-071",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-071",
+      "to": "EPIC-072",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-039",
+      "to": "EPIC-072",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-049",
+      "to": "EPIC-073",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-061",
+      "to": "EPIC-073",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-073",
+      "to": "EPIC-074",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-049",
+      "to": "EPIC-074",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-011",
+      "to": "EPIC-075",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-049",
+      "to": "EPIC-075",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-005",
+      "to": "EPIC-076",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-039",
+      "to": "EPIC-076",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-075",
+      "to": "EPIC-076",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-039",
+      "to": "EPIC-077",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-073",
+      "to": "EPIC-077",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-005",
+      "to": "EPIC-078",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-008",
+      "to": "EPIC-078",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-003",
+      "to": "EPIC-079",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-008",
+      "to": "EPIC-079",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-078",
+      "to": "EPIC-079",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-002",
+      "to": "EPIC-080",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-005",
+      "to": "EPIC-080",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-071",
+      "to": "EPIC-081",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-072",
+      "to": "EPIC-081",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-080",
+      "to": "EPIC-081",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-043",
+      "to": "EPIC-081",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-010",
+      "to": "EPIC-082",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-039",
+      "to": "EPIC-082",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-079",
+      "to": "EPIC-083",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-058",
+      "to": "EPIC-083",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-080",
+      "to": "EPIC-083",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-033",
+      "to": "EPIC-084",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-029",
+      "to": "EPIC-084",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-050",
+      "to": "EPIC-084",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-002",
+      "to": "EPIC-085",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-042",
+      "to": "EPIC-085",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-043",
+      "to": "EPIC-085",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-002",
+      "to": "EPIC-086",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-003",
+      "to": "EPIC-086",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-004",
+      "to": "EPIC-086",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-005",
+      "to": "EPIC-086",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-086",
+      "to": "EPIC-087",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-012",
+      "to": "EPIC-087",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-018",
+      "to": "EPIC-087",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-024",
+      "to": "EPIC-087",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-044",
+      "to": "EPIC-087",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-037",
+      "to": "EPIC-087",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-034",
+      "to": "EPIC-087",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-050",
+      "to": "EPIC-088",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-080",
+      "to": "EPIC-088",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-046",
+      "to": "EPIC-088",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-085",
+      "to": "EPIC-089",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-087",
+      "to": "EPIC-089",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-042",
+      "to": "EPIC-089",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-080",
+      "to": "EPIC-089",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-072",
+      "to": "EPIC-089",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-002",
+      "to": "EPIC-090",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-002",
+      "to": "EPIC-091",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-005",
+      "to": "EPIC-091",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-002",
+      "to": "EPIC-092",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-003",
+      "to": "EPIC-092",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-004",
+      "to": "EPIC-092",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-005",
+      "to": "EPIC-092",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-086",
+      "to": "EPIC-092",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-092",
+      "to": "EPIC-093",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-044",
+      "to": "EPIC-093",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-047",
+      "to": "EPIC-093",
+      "type": "blocks"
+    },
+    {
+      "from": "EPIC-063",
+      "to": "EPIC-093",
+      "type": "blocks"
+    }
+  ]
+}

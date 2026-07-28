@@ -1,0 +1,247 @@
+{
+  "task_id": "TASK-0754",
+  "issue_id": "ISSUE-0864",
+  "story_id": "STORY-0754",
+  "epic_id": "EPIC-110",
+  "sprint_id": "SPRINT-001",
+  "role": "Tech Lead",
+  "outcome": "Entregar Slice 1/5 — Materializar a fundação executável: governança contínua do backlog e decomposição de épicos em histórias implementáveis [REQ-ISM, REQ-ISS] com testes e evidência verificável.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-003-tech-lead.md",
+    "docs/06-delivery/stories/STORY-0754-ISSUE-0864-slice-1-5-materializar-a-fundacao-executavel-governanca-continua-do-backlog-e-decompos.md",
+    "docs/06-delivery/epics/EPIC-110-governanca-continua-do-backlog-e-decomposicao-de-epicos-em-historias-i.md",
+    "docs/01-product/requirements/REQ-ISM-001-manter-taxonomia-canonica-de-dominios-com-dominio-primario-e-afetados.md",
+    "docs/01-product/requirements/REQ-ISM-002-definir-cada-epico-por-um-outcome-verificavel-e-encerravel.md",
+    "docs/01-product/requirements/REQ-ISM-003-decompor-outcomes-em-fatias-verticais-finas-e-integraveis.md",
+    "docs/01-product/requirements/REQ-ISM-005-atribuir-identificadores-estaveis-independentes-do-numero-github.md",
+    "docs/01-product/requirements/REQ-ISM-007-derivar-criterios-e-evidencias-de-adrs-requisitos-riscos-e-gates.md",
+    "docs/01-product/requirements/REQ-ISM-008-representar-trabalho-transversal-sem-duplicacao-de-issues.md",
+    "docs/01-product/requirements/REQ-ISM-009-limitar-spikes-por-pergunta-budget-evidencia-e-decisao-de-saida.md",
+    "docs/01-product/requirements/REQ-ISM-010-preservar-snapshots-tombstones-e-deltas-aprovados-da-baseline.md",
+    "docs/01-product/requirements/REQ-ISS-001-todos-os-work-packages-devem-possuir-issue-epica-e-decomposicao-rastreav.md",
+    "docs/01-product/requirements/REQ-ISS-003-toda-issue-deve-apontar-adrs-requisitos-riscos-gates-ou-justificar-decis.md",
+    "docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md",
+    "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
+    "docs/02-architecture/ddd/bounded-contexts/BC-001-engineering-governance.md",
+    "docs/02-architecture/ddd/DDD-040-CONTEXT-MAP.md",
+    "docs/02-architecture/adrs/ADR-003-bounded-contexts-subdominios-e-linguagem-ubiqua.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
+    "docs/02-architecture/adrs/ADR-040-progresso-event-ledger-replay-e-eta.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "contracts/operations/external-dependency-register.csv",
+    "contracts/operations/vendor-exit-matrix.csv",
+    "contracts/operations/cost-model.yaml",
+    "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+    "contracts/operations/lock-and-queue-policy.yaml",
+    "contracts/operations/slo-sli-catalog.yaml",
+    "docs/05-operations/OBSERVABILITY.md",
+    "docs/04-quality/THREAT_MODEL.md",
+    "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+    "contracts/operations/version-and-rollback-matrix.yaml",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
+    "docs/05-operations/PRODUCTION_READINESS_GATES.md"
+  ],
+  "allow_paths": [
+    "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/ism-iss-parte-1/**",
+    "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/ism-iss-parte-1/**"
+  ],
+  "deny_paths": [
+    "src/**/epic-*",
+    "src/**/issue-*"
+  ],
+  "acceptance_criteria": [
+    "Cada requisito do slice possui evidência explícita: REQ-ISM-001, REQ-ISM-002, REQ-ISM-003, REQ-ISM-005, REQ-ISM-007, REQ-ISM-008, REQ-ISM-009, REQ-ISM-010, REQ-ISS-001, REQ-ISS-003.",
+    "O write scope é estável, disjunto e não usa identificador de ticket em código de produção.",
+    "Estados de falha aplicáveis são testados sem fallback silencioso.",
+    "O handoff registra impacto em contratos, riscos e rollback."
+  ],
+  "tests": [
+    "test_canonical_domain_taxonomy_primary_and_affected_domains",
+    "test_work_package_epics_outcome_evidence_and_closure",
+    "test_thin_vertical_integrable_slices_and_pr_sequence",
+    "test_stable_portfolio_ids_independent_github_numbers_titles",
+    "test_req_ism_007",
+    "test_single_primary_cross_domain_issue_contracts",
+    "test_req_ism_009",
+    "test_portfolio_snapshot_tombstone_approved_delta",
+    "test_all_work_packages_have_parent_issue_and_slice_skeleton",
+    "test_no_orphan_issue_without_adr_or_local_decision_justification"
+  ],
+  "evidence": [
+    "evidence/implementation/governanca-continua-do-backlog-e-decomposicao-de-e/ism-iss-parte-1/",
+    "commit candidato e relatório de testes"
+  ],
+  "dependencies": [
+    "STORY-0683"
+  ],
+  "stop_conditions": [
+    "Decisão material não resolvida.",
+    "Contrato obrigatório ausente ou contraditório.",
+    "Write scope sobrepõe lane ativa.",
+    "Aceitação não pode ser demonstrada por teste ou evidência."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0864-01",
+    "AC-ISSUE-0864-02",
+    "AC-ISSUE-0864-03",
+    "AC-ISSUE-0864-04"
+  ],
+  "governing_adrs": [
+    "ADR-003",
+    "ADR-006",
+    "ADR-007",
+    "ADR-008",
+    "ADR-040"
+  ],
+  "requirement_basis": "MIXED",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-001",
+  "context_map_dependencies": [],
+  "domain_model_impact": "LOCAL_MODEL",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 1,
+      "items": [
+        "STORY-0683"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/ism-iss-parte-1/**",
+        "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/ism-iss-parte-1/**"
+      ],
+      "deny_paths": [
+        "src/**/epic-*",
+        "src/**/issue-*"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "test_canonical_domain_taxonomy_primary_and_affected_domains",
+        "test_work_package_epics_outcome_evidence_and_closure",
+        "test_thin_vertical_integrable_slices_and_pr_sequence",
+        "test_stable_portfolio_ids_independent_github_numbers_titles",
+        "test_req_ism_007",
+        "test_single_primary_cross_domain_issue_contracts",
+        "test_req_ism_009",
+        "test_portfolio_snapshot_tombstone_approved_delta",
+        "test_all_work_packages_have_parent_issue_and_slice_skeleton",
+        "test_no_orphan_issue_without_adr_or_local_decision_justification"
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "PASS",
+      "kinds": [],
+      "evidence": [
+        "evidence/implementation/governanca-continua-do-backlog-e-decomposicao-de-e/ism-iss-parte-1/",
+        "commit candidato e relatório de testes"
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 4,
+      "ids": [
+        "AC-ISSUE-0864-01",
+        "AC-ISSUE-0864-02",
+        "AC-ISSUE-0864-03",
+        "AC-ISSUE-0864-04"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "MEDIUM",
+    "applicable_controls": [
+      "CTO-003",
+      "CTO-004",
+      "CTO-006",
+      "CTO-009",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-002",
+      "CTO-005",
+      "CTO-007",
+      "CTO-008",
+      "CTO-010",
+      "CTO-011",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "contracts/operations/external-dependency-register.csv",
+      "contracts/operations/vendor-exit-matrix.csv",
+      "contracts/operations/cost-model.yaml",
+      "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+      "contracts/operations/lock-and-queue-policy.yaml",
+      "contracts/operations/slo-sli-catalog.yaml",
+      "docs/05-operations/OBSERVABILITY.md",
+      "docs/04-quality/THREAT_MODEL.md",
+      "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+      "contracts/operations/version-and-rollback-matrix.yaml"
+    ],
+    "production_gate": "IMPLEMENTATION_AUTHORIZATION"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

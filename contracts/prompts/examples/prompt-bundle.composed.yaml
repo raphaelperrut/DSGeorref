@@ -1,0 +1,112 @@
+schema_version: 1.0.0
+bundle_id: PB-GEO-IMPLEMENTER
+bundle_version: 1.0.0
+purpose: Executar histórias geoespaciais herdando os controles gerais e adicionando invariantes científicas.
+role: Backend
+locale: pt-BR
+compatibility:
+  minimum_engine_version: 1.0.0
+  supported_schema_majors:
+  - 1
+  backward_read_window: 1
+inheritance:
+- bundle_id: PB-BACKEND-STORY
+  version_constraint: =1.0.0
+  alias: base
+  merge_strategy: ERROR_ON_CONFLICT
+fragments:
+- fragment_id: PF-ROLE
+  kind: ROLE
+  template_format: LITERAL
+  content: Implemente somente o resultado autorizado pelo TaskEnvelope. Não invente estados, endpoints
+    ou tabelas.
+  variables: []
+  priority: 100
+  source: repo:.codex/roles/ROLE-004-backend.md
+  content_sha256: 832b5b64faa336f98c40b0cf2edde37df386d705ad39df180fedd32e5a385ebe
+- fragment_id: PF-TASK
+  kind: TASK
+  template_format: MUSTACHE_SAFE
+  content: 'História {{story_id}}: {{outcome}}'
+  variables:
+  - name: story_id
+    value_type: STRING
+    required: true
+    sensitive: false
+  - name: outcome
+    value_type: STRING
+    required: true
+    sensitive: false
+    max_length: 500
+  priority: 200
+  source: inline:example
+  content_sha256: dcd033b528244a6a72d214e09d1f6f2b120a6a3cc5bdb9be9ffe16e86fd29c5c
+- fragment_id: PF-OUTPUT
+  kind: OUTPUT_CONTRACT
+  template_format: LITERAL
+  content: Retorne um resumo, arquivos alterados, testes executados e evidências.
+  variables: []
+  priority: 300
+  source: inline:example
+  content_sha256: 64325ab0b5816d019eb742b98b2bdb8533286e137239da8fbaaacbbf979ee8ea
+composition_order:
+- PF-ROLE
+- PF-TASK
+- PF-OUTPUT
+input_contract:
+  schema:
+    type: object
+    required:
+    - story_id
+    - outcome
+    properties:
+      story_id:
+        type: string
+      outcome:
+        type: string
+    additionalProperties: false
+  redaction_paths: []
+  maximum_serialized_bytes: 65536
+output_contract:
+  mode: JSON
+  schema:
+    type: object
+    required:
+    - summary
+    - changed_files
+    - tests
+    properties:
+      summary:
+        type: string
+      changed_files:
+        type: array
+        items:
+          type: string
+      tests:
+        type: array
+        items:
+          type: string
+    additionalProperties: false
+  maximum_serialized_bytes: 131072
+  repair_attempts: 1
+runtime_policy:
+  network_access: DENY
+  allowed_domains: []
+  tool_access:
+  - filesystem
+  - test-runner
+  max_input_tokens: 24000
+  max_output_tokens: 6000
+  nondeterminism: BOUNDED
+integrity:
+  canonicalization: JCS-RFC8785-PROFILE-1
+  hash_algorithm: SHA-256
+  payload_sha256: 83bdb38d99be51cba7973031dae6afc94e1c597e5d13fd3fe6bb19b9bf83a0c3
+  lock_digest_sha256: 0e8fddc50d507d0a077504964eb60a760729b9fed29b7c23c3e02f221fe52e58
+signatures:
+- key_id: test-key-phase-e
+  algorithm: Ed25519
+  signed_at: '2026-07-27T00:00:00Z'
+  payload_sha256: 83bdb38d99be51cba7973031dae6afc94e1c597e5d13fd3fe6bb19b9bf83a0c3
+  lock_digest_sha256: 0e8fddc50d507d0a077504964eb60a760729b9fed29b7c23c3e02f221fe52e58
+  signature: G4gBxfJy5k8Hb4eaDP-Nd63cVDnBoPiaXWxczH7NJ6NwcYBfX44bxOWQUs2-zISkuukBww2Pfgr7cXKKOSEMCA

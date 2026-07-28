@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "baseline_version": "2.6.0",
+  "generated_at_utc": "2026-07-27T17:10:22+00:00",
+  "phase": "B",
+  "name": "Requirements Review",
+  "approved": true,
+  "blocking_findings_open": 0,
+  "counts": {
+    "sprints": 12,
+    "issues": 868,
+    "parent_issues": 110,
+    "stories": 758,
+    "requirements": 376,
+    "adrs": 22,
+    "acceptance_criteria": 3692,
+    "sprint_gate_criteria": 84,
+    "story_edges": 1165,
+    "resolved_findings": 9
+  },
+  "checks": {
+    "conflicts_open": 0,
+    "unjustified_redundancies_open": 0,
+    "missing_requirements_open": 0,
+    "impossible_requirements_open": 0,
+    "story_cycles": 0,
+    "epic_cycles": 0,
+    "cross_sprint_reverse_edges": 0
+  },
+  "resolved_findings": [
+    {
+      "id": "RR-001",
+      "severity": "HIGH",
+      "category": "MISSING_REQUIREMENT",
+      "status": "RESOLVED",
+      "resolution": "Os 14 requisitos receberam statements normativos distintos e verificáveis."
+    },
+    {
+      "id": "RR-002",
+      "severity": "MEDIUM",
+      "category": "CONFLICT",
+      "status": "RESOLVED",
+      "resolution": "Todas as referências de baseline foram reconciliadas para ADR-051–022."
+    },
+    {
+      "id": "RR-003",
+      "severity": "MEDIUM",
+      "category": "AMBIGUITY",
+      "status": "RESOLVED",
+      "resolution": "As histórias foram renomeadas para automação de testes de resiliência e seus outcomes foram alinhados ao write scope."
+    },
+    {
+      "id": "RR-004",
+      "severity": "MEDIUM",
+      "category": "TRACEABILITY",
+      "status": "RESOLVED",
+      "resolution": "Foi criada rastreabilidade completa por critério e campos estruturados nos 758 TaskEnvelopes."
+    },
+    {
+      "id": "RR-005",
+      "severity": "LOW",
+      "category": "HISTORICAL_IDENTIFIER",
+      "status": "RESOLVED",
+      "resolution": "Os nomes foram substituídos por IDs estáveis test_req_<requirement_id>."
+    },
+    {
+      "id": "RR-006",
+      "severity": "LOW",
+      "category": "REDUNDANCY",
+      "status": "RESOLVED",
+      "resolution": "Os requisitos foram diferenciados: bloqueio de publicação por capability versus laboratório desabilitado por profile."
+    },
+    {
+      "id": "RR-007",
+      "severity": "INFO",
+      "category": "DEPENDENCY_CYCLE",
+      "status": "RESOLVED",
+      "resolution": "Zero ciclos e zero dependências que retrocedem entre sprints."
+    },
+    {
+      "id": "RR-008",
+      "severity": "HIGH",
+      "category": "CONSISTENCY",
+      "status": "RESOLVED",
+      "resolution": "Contagens e ondas regeneradas a partir do DAG e dos TaskEnvelopes atuais."
+    },
+    {
+      "id": "RR-009",
+      "severity": "HIGH",
+      "category": "MISSING_REQUIREMENT",
+      "status": "RESOLVED",
+      "resolution": "Os quatro statements foram expandidos com comportamento, limites, condições de bloqueio e autoridade normativa verificáveis."
+    }
+  ],
+  "artifacts": {
+    "issue_review": "docs/07-assurance/ISSUE_REQUIREMENTS_REVIEW.csv",
+    "criterion_traceability": "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
+    "requirement_review": "docs/07-assurance/REQUIREMENT_REVIEW_MATRIX.csv",
+    "sprint_gates": "docs/07-assurance/SPRINT_GATE_REQUIREMENTS_REVIEW.csv"
+  }
+}

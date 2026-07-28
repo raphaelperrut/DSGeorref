@@ -1,0 +1,19 @@
+component_id,name,layer,owner_adrs,file
+COMP-001,CLI,Interfaces e superfícies,ADR-002,COMP-001-cli.md
+COMP-002,Web UI,Interfaces e superfícies,ADR-002;ADR-028;ADR-048,COMP-002-web-ui.md
+COMP-003,HTTP API,Interfaces e superfícies,ADR-002;ADR-028,COMP-003-http-api.md
+COMP-004,Domínio + Application Services,Núcleo de domínio e processamento,ADR-002;ADR-026,COMP-004-dominio-application-services.md
+COMP-005,Pipeline geoespacial,Núcleo de domínio e processamento,ADR-044;ADR-041;ADR-049;ADR-050,COMP-005-pipeline-geoespacial.md
+COMP-006,Strong Geometric Verifier,Núcleo de domínio e processamento,ADR-046;ADR-053,COMP-006-strong-geometric-verifier.md
+COMP-007,IA governada,Núcleo de domínio e processamento,ADR-051;ADR-053,COMP-007-ia-governada.md
+COMP-008,Direct Runner,Execução e orquestração,ADR-002;ADR-036,COMP-008-direct-runner.md
+COMP-009,Workers duráveis,Execução e orquestração,ADR-036,COMP-009-workers-duraveis.md
+COMP-010,Scheduler + Resource Governor,Execução e orquestração,ADR-039;ADR-054,COMP-010-scheduler-resource-governor.md
+COMP-011,PostgreSQL/PostGIS,Persistência e transporte,ADR-018;ADR-026,COMP-011-postgresql-postgis.md
+COMP-012,Filesystem gerenciado,Persistência e transporte,ADR-018;ADR-041;ADR-027,COMP-012-filesystem-gerenciado.md
+COMP-013,RabbitMQ,Persistência e transporte,ADR-036,COMP-013-rabbitmq.md
+COMP-014,Providers externos,Integrações externas,ADR-047,COMP-014-providers-externos.md
+COMP-015,OIDC opcional,Integrações externas,ADR-028,COMP-015-oidc-opcional.md
+COMP-016,Observabilidade + Auditoria,Capacidades transversais,ADR-054,COMP-016-observabilidade-auditoria.md
+COMP-017,Instalação + Supply Chain,Capacidades transversais,ADR-034;ADR-026,COMP-017-instalacao-supply-chain.md
+COMP-018,Backup + Retenção,Capacidades transversais,ADR-027,COMP-018-backup-retencao.md

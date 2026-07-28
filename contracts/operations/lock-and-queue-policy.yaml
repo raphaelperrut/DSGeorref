@@ -1,0 +1,44 @@
+schema_version: 1.0.0
+baseline: SAR-v3.0-PHASE-G
+status: FROZEN
+database:
+  global_lock_order:
+  - upgrade_controller
+  - project
+  - job
+  - attempt
+  - work_unit
+  - artifact_publication
+  interactive_lock_timeout_seconds: 5
+  batch_lock_timeout_seconds: 30
+  api_statement_timeout_seconds: 30
+  maintenance_statement_timeout_seconds: 900
+  transaction_target_seconds: 2
+  transaction_hard_limit_seconds: 30
+  prohibited:
+  - network I/O while lock held
+  - filesystem publication while row lock held
+  - unbounded SELECT FOR UPDATE
+  - lock without fencing for cross-process ownership
+  deadlock_policy: classified retry with bounded budget and audit
+leases:
+  require_fencing_token: true
+  heartbeat_authority: PostgreSQL
+  stale_owner_cannot_publish: true
+broker:
+  durable_queue_classes:
+  - interactive
+  - batch
+  - ai-gpu
+  - maintenance
+  message_max_bytes: 262144
+  binary_payloads_forbidden: true
+  absolute_host_paths_forbidden: true
+  ack: after authoritative commit
+  initial_prefetch: 1
+  prefetch_promotion_owner: BP-004
+  redelivery: bounded classified retry then quarantine
+  queue_health_primary_sli: oldest_ready_message_age_seconds
+backpressure:
+  fanout_requires_budget: true
+  admission_closes_before_disk_or_memory_exhaustion: true

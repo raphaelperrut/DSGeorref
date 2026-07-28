@@ -1,0 +1,585 @@
+{
+  "schema_version": "1.0.0",
+  "phase": "G",
+  "baseline": "3.0",
+  "status": "APPROVED",
+  "architecture_approved": true,
+  "investment_recommendation": "PROCEED_STAGED",
+  "blocking_findings_open": 0,
+  "implementation_authorization": "BLOCKED_EXTERNAL",
+  "production_authorization": "BLOCKED_BY_EVIDENCE_GATES",
+  "counts": {
+    "sprints": 12,
+    "epics": 110,
+    "issues": 868,
+    "stories": 758,
+    "tasks": 758,
+    "adrs": 57,
+    "requirements": 376,
+    "controls": 15,
+    "active_risks": 40,
+    "production_gates": 9,
+    "external_dependencies": 12,
+    "vendor_exit_entries": 10
+  },
+  "scorecard": [
+    {
+      "theme": "Gargalos",
+      "verdict": "APROVADO COM LIMITES",
+      "rationale": "PostgreSQL, filesystem, CPU/RAM e fila são gargalos explícitos; capacity claims dependem de benchmark.",
+      "gate": "G-CTO-02"
+    },
+    {
+      "theme": "Locks",
+      "verdict": "APROVADO",
+      "rationale": "Ordem, timeout, fencing, transaction budget e proibição de I/O sob lock foram congelados.",
+      "gate": "G-CTO-02"
+    },
+    {
+      "theme": "Dependências ocultas",
+      "verdict": "APROVADO",
+      "rationale": "12 dependências externas e auxiliares foram registradas.",
+      "gate": "G-CTO-01"
+    },
+    {
+      "theme": "Vendor lock-in",
+      "verdict": "APROVADO",
+      "rationale": "Sem cloud/vendor obrigatório; lock-in tecnológico aberto e com exit matrix.",
+      "gate": "G-CTO-01"
+    },
+    {
+      "theme": "Escala",
+      "verdict": "APROVADO COM LIMITE",
+      "rationale": "Vertical single-instance; nenhuma claim de HA ou multi-host.",
+      "gate": "G-CTO-02"
+    },
+    {
+      "theme": "Custo",
+      "verdict": "CONDICIONAL A EVIDÊNCIA",
+      "rationale": "Método e schema fechados; valor BRL requer benchmark, cotação e orçamento Owner.",
+      "gate": "G-CTO-03"
+    },
+    {
+      "theme": "GPU",
+      "verdict": "CPU-FIRST",
+      "rationale": "GPU opcional; compra não autorizada sem equivalência e unit economics.",
+      "gate": "G-CTO-03"
+    },
+    {
+      "theme": "Latência",
+      "verdict": "APROVADO",
+      "rationale": "SLOs iniciais quantitativos separados do processamento científico.",
+      "gate": "G-CTO-08"
+    },
+    {
+      "theme": "Fila",
+      "verdict": "APROVADO",
+      "rationale": "Quatro classes, envelope <=256 KiB, ack após commit, prefetch 1 e backpressure.",
+      "gate": "G-CTO-08"
+    },
+    {
+      "theme": "Backup",
+      "verdict": "CONDICIONAL A DRILL",
+      "rationale": "RPO/RTO fechados; restore drill bloqueia dados reais.",
+      "gate": "G-CTO-04"
+    },
+    {
+      "theme": "Migração",
+      "verdict": "APROVADO",
+      "rationale": "Expand-migrate-contract e rollback window explícitos.",
+      "gate": "G-CTO-05"
+    },
+    {
+      "theme": "Auditoria",
+      "verdict": "APROVADO",
+      "rationale": "Ledger separado, append-only, allowlist e cobertura gate.",
+      "gate": "G-CTO-06"
+    },
+    {
+      "theme": "Observabilidade",
+      "verdict": "APROVADO",
+      "rationale": "SLI/SLO, cardinalidade e correlação congelados.",
+      "gate": "G-CTO-08"
+    },
+    {
+      "theme": "Segurança",
+      "verdict": "CONDICIONAL A TESTE",
+      "rationale": "Arquitetura fail-closed; exposição depende de teste independente.",
+      "gate": "G-CTO-06"
+    },
+    {
+      "theme": "LGPD",
+      "verdict": "CONDICIONAL AO CONTROLADOR",
+      "rationale": "Controles técnicos fechados; decisões jurídicas/ROPA são input do controlador.",
+      "gate": "G-CTO-07"
+    },
+    {
+      "theme": "Rollback e versionamento",
+      "verdict": "APROVADO",
+      "rationale": "Matriz cobre código, API, banco, artifacts, prompts, ModelPacks e stack nativa.",
+      "gate": "G-CTO-09"
+    }
+  ],
+  "gates": [
+    {
+      "gate_id": "G-CTO-01",
+      "name": "Autorização e orçamento",
+      "owner": "Product Owner",
+      "evidence": "ImplementationAuthorizationRecord + budget BRL + TCO 12 meses",
+      "blocking_for": "implementation"
+    },
+    {
+      "gate_id": "G-CTO-02",
+      "name": "Capacidade e escala",
+      "owner": "Tech Lead",
+      "evidence": "BP-001/BP-004 em classes suportadas e lotes 40/100/300",
+      "blocking_for": "production"
+    },
+    {
+      "gate_id": "G-CTO-03",
+      "name": "Unit economics e GPU",
+      "owner": "Product Owner",
+      "evidence": "cost assessment validado; decisão CPU/GPU",
+      "blocking_for": "GPU/public production"
+    },
+    {
+      "gate_id": "G-CTO-04",
+      "name": "Backup e restore",
+      "owner": "DevOps",
+      "evidence": "restore drill com RPO/RTO atingidos",
+      "blocking_for": "real data production"
+    },
+    {
+      "gate_id": "G-CTO-05",
+      "name": "Migração e rollback",
+      "owner": "Tech Lead",
+      "evidence": "ensaio expand-migrate-contract e rollback/forward-fix",
+      "blocking_for": "upgrade"
+    },
+    {
+      "gate_id": "G-CTO-06",
+      "name": "Segurança",
+      "owner": "Security",
+      "evidence": "threat review, supply-chain evidence e teste independente",
+      "blocking_for": "network/public exposure"
+    },
+    {
+      "gate_id": "G-CTO-07",
+      "name": "LGPD e privacidade",
+      "owner": "Product Owner",
+      "evidence": "ROPA, papéis, base/finalidade, retenção, direitos e incidente",
+      "blocking_for": "personal data/public operation"
+    },
+    {
+      "gate_id": "G-CTO-08",
+      "name": "Observabilidade e SLO",
+      "owner": "DevOps",
+      "evidence": "dashboards, alertas e SLI medidos sem cardinalidade indevida",
+      "blocking_for": "production"
+    },
+    {
+      "gate_id": "G-CTO-09",
+      "name": "Release e rollback",
+      "owner": "Reviewer",
+      "evidence": "SBOM, assinatura, backup, smoke, rollback e release gate",
+      "blocking_for": "publication"
+    }
+  ],
+  "sprints": [
+    {
+      "sprint_id": "SPRINT-001",
+      "title": "Repositório, governança e fundação executável",
+      "issues": 103,
+      "stories": 91,
+      "risk_tiers": {
+        "HIGH": 19,
+        "MEDIUM": 29,
+        "CRITICAL": 43
+      },
+      "control_applicability": {
+        "CTO-001": 42,
+        "CTO-002": 28,
+        "CTO-003": 91,
+        "CTO-004": 91,
+        "CTO-005": 42,
+        "CTO-006": 91,
+        "CTO-007": 10,
+        "CTO-008": 42,
+        "CTO-009": 20,
+        "CTO-010": 36,
+        "CTO-011": 51,
+        "CTO-012": 91,
+        "CTO-013": 91,
+        "CTO-014": 36,
+        "CTO-015": 91
+      },
+      "production_gates": [
+        "BENCHMARK_AND_OPERATIONS_GATES",
+        "IMPLEMENTATION_AUTHORIZATION",
+        "SECURITY_AND_PRIVACY_GATES"
+      ],
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "title": "Identidade, autorização, workspace e persistência inicial",
+      "issues": 63,
+      "stories": 55,
+      "risk_tiers": {
+        "CRITICAL": 45,
+        "HIGH": 7,
+        "MEDIUM": 3
+      },
+      "control_applicability": {
+        "CTO-001": 47,
+        "CTO-002": 25,
+        "CTO-003": 55,
+        "CTO-004": 55,
+        "CTO-005": 47,
+        "CTO-006": 55,
+        "CTO-007": 2,
+        "CTO-008": 47,
+        "CTO-009": 5,
+        "CTO-010": 43,
+        "CTO-011": 43,
+        "CTO-012": 55,
+        "CTO-013": 55,
+        "CTO-014": 55,
+        "CTO-015": 55
+      },
+      "production_gates": [
+        "BENCHMARK_AND_OPERATIONS_GATES",
+        "IMPLEMENTATION_AUTHORIZATION",
+        "SECURITY_AND_PRIVACY_GATES"
+      ],
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-003",
+      "title": "Jobs, runners, lote básico e CLI",
+      "issues": 56,
+      "stories": 49,
+      "risk_tiers": {
+        "CRITICAL": 14,
+        "HIGH": 34,
+        "MEDIUM": 1
+      },
+      "control_applicability": {
+        "CTO-001": 49,
+        "CTO-002": 46,
+        "CTO-003": 49,
+        "CTO-004": 49,
+        "CTO-005": 49,
+        "CTO-006": 49,
+        "CTO-007": 4,
+        "CTO-008": 49,
+        "CTO-009": 45,
+        "CTO-010": 26,
+        "CTO-011": 36,
+        "CTO-012": 49,
+        "CTO-013": 49,
+        "CTO-014": 25,
+        "CTO-015": 49
+      },
+      "production_gates": [
+        "BENCHMARK_AND_OPERATIONS_GATES",
+        "IMPLEMENTATION_AUTHORIZATION",
+        "SECURITY_AND_PRIVACY_GATES"
+      ],
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-004",
+      "title": "Resiliência, scheduler, replay e escala operacional",
+      "issues": 48,
+      "stories": 42,
+      "risk_tiers": {
+        "CRITICAL": 12,
+        "HIGH": 30
+      },
+      "control_applicability": {
+        "CTO-001": 42,
+        "CTO-002": 42,
+        "CTO-003": 42,
+        "CTO-004": 42,
+        "CTO-005": 42,
+        "CTO-006": 42,
+        "CTO-007": 2,
+        "CTO-008": 42,
+        "CTO-009": 42,
+        "CTO-010": 22,
+        "CTO-011": 24,
+        "CTO-012": 42,
+        "CTO-013": 42,
+        "CTO-014": 13,
+        "CTO-015": 42
+      },
+      "production_gates": [
+        "BENCHMARK_AND_OPERATIONS_GATES",
+        "SECURITY_AND_PRIVACY_GATES"
+      ],
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-005",
+      "title": "Primeira fatia geoespacial classic-first",
+      "issues": 135,
+      "stories": 120,
+      "risk_tiers": {
+        "CRITICAL": 72,
+        "HIGH": 47,
+        "MEDIUM": 1
+      },
+      "control_applicability": {
+        "CTO-001": 118,
+        "CTO-002": 0,
+        "CTO-003": 120,
+        "CTO-004": 120,
+        "CTO-005": 118,
+        "CTO-006": 120,
+        "CTO-007": 113,
+        "CTO-008": 118,
+        "CTO-009": 17,
+        "CTO-010": 95,
+        "CTO-011": 35,
+        "CTO-012": 120,
+        "CTO-013": 120,
+        "CTO-014": 86,
+        "CTO-015": 120
+      },
+      "production_gates": [
+        "BENCHMARK_AND_OPERATIONS_GATES",
+        "IMPLEMENTATION_AUTHORIZATION",
+        "SECURITY_AND_PRIVACY_GATES"
+      ],
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-006",
+      "title": "Correspondências, referências, providers e revisão assistida",
+      "issues": 98,
+      "stories": 86,
+      "risk_tiers": {
+        "CRITICAL": 10,
+        "HIGH": 76
+      },
+      "control_applicability": {
+        "CTO-001": 84,
+        "CTO-002": 0,
+        "CTO-003": 86,
+        "CTO-004": 86,
+        "CTO-005": 84,
+        "CTO-006": 86,
+        "CTO-007": 82,
+        "CTO-008": 84,
+        "CTO-009": 7,
+        "CTO-010": 71,
+        "CTO-011": 34,
+        "CTO-012": 86,
+        "CTO-013": 86,
+        "CTO-014": 80,
+        "CTO-015": 86
+      },
+      "production_gates": [
+        "BENCHMARK_AND_OPERATIONS_GATES",
+        "SECURITY_AND_PRIVACY_GATES"
+      ],
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-007",
+      "title": "Contratos de coordenadas, grade e mosaico relativo",
+      "issues": 48,
+      "stories": 42,
+      "risk_tiers": {
+        "HIGH": 42
+      },
+      "control_applicability": {
+        "CTO-001": 42,
+        "CTO-002": 0,
+        "CTO-003": 42,
+        "CTO-004": 42,
+        "CTO-005": 42,
+        "CTO-006": 42,
+        "CTO-007": 42,
+        "CTO-008": 42,
+        "CTO-009": 3,
+        "CTO-010": 25,
+        "CTO-011": 17,
+        "CTO-012": 42,
+        "CTO-013": 42,
+        "CTO-014": 36,
+        "CTO-015": 42
+      },
+      "production_gates": [
+        "BENCHMARK_AND_OPERATIONS_GATES"
+      ],
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-008",
+      "title": "Qualidade, reporting e materialização do mosaico relativo",
+      "issues": 40,
+      "stories": 35,
+      "risk_tiers": {
+        "HIGH": 31,
+        "CRITICAL": 4
+      },
+      "control_applicability": {
+        "CTO-001": 35,
+        "CTO-002": 7,
+        "CTO-003": 35,
+        "CTO-004": 35,
+        "CTO-005": 35,
+        "CTO-006": 35,
+        "CTO-007": 35,
+        "CTO-008": 35,
+        "CTO-009": 2,
+        "CTO-010": 26,
+        "CTO-011": 15,
+        "CTO-012": 35,
+        "CTO-013": 35,
+        "CTO-014": 9,
+        "CTO-015": 35
+      },
+      "production_gates": [
+        "BENCHMARK_AND_OPERATIONS_GATES",
+        "SECURITY_AND_PRIVACY_GATES"
+      ],
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-009",
+      "title": "Frontend cartográfico, revisão e aprendizagem",
+      "issues": 67,
+      "stories": 58,
+      "risk_tiers": {
+        "HIGH": 22,
+        "CRITICAL": 9,
+        "MEDIUM": 27
+      },
+      "control_applicability": {
+        "CTO-001": 47,
+        "CTO-002": 2,
+        "CTO-003": 58,
+        "CTO-004": 58,
+        "CTO-005": 47,
+        "CTO-006": 58,
+        "CTO-007": 2,
+        "CTO-008": 47,
+        "CTO-009": 6,
+        "CTO-010": 4,
+        "CTO-011": 34,
+        "CTO-012": 58,
+        "CTO-013": 58,
+        "CTO-014": 50,
+        "CTO-015": 58
+      },
+      "production_gates": [
+        "BENCHMARK_AND_OPERATIONS_GATES",
+        "IMPLEMENTATION_AUTHORIZATION",
+        "SECURITY_AND_PRIVACY_GATES"
+      ],
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-010",
+      "title": "Resultados, lineage, schemas e reprodutibilidade",
+      "issues": 44,
+      "stories": 38,
+      "risk_tiers": {
+        "CRITICAL": 13,
+        "HIGH": 25
+      },
+      "control_applicability": {
+        "CTO-001": 36,
+        "CTO-002": 21,
+        "CTO-003": 38,
+        "CTO-004": 38,
+        "CTO-005": 36,
+        "CTO-006": 38,
+        "CTO-007": 11,
+        "CTO-008": 36,
+        "CTO-009": 4,
+        "CTO-010": 34,
+        "CTO-011": 27,
+        "CTO-012": 38,
+        "CTO-013": 38,
+        "CTO-014": 15,
+        "CTO-015": 38
+      },
+      "production_gates": [
+        "BENCHMARK_AND_OPERATIONS_GATES",
+        "SECURITY_AND_PRIVACY_GATES"
+      ],
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-011",
+      "title": "Operações, segurança, backup, IA governada e hardening",
+      "issues": 98,
+      "stories": 84,
+      "risk_tiers": {
+        "CRITICAL": 68,
+        "HIGH": 16
+      },
+      "control_applicability": {
+        "CTO-001": 84,
+        "CTO-002": 47,
+        "CTO-003": 84,
+        "CTO-004": 84,
+        "CTO-005": 84,
+        "CTO-006": 84,
+        "CTO-007": 12,
+        "CTO-008": 84,
+        "CTO-009": 9,
+        "CTO-010": 84,
+        "CTO-011": 50,
+        "CTO-012": 84,
+        "CTO-013": 84,
+        "CTO-014": 75,
+        "CTO-015": 84
+      },
+      "production_gates": [
+        "BENCHMARK_AND_OPERATIONS_GATES",
+        "SECURITY_AND_PRIVACY_GATES"
+      ],
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-012",
+      "title": "Instalação, release train e publicação",
+      "issues": 68,
+      "stories": 58,
+      "risk_tiers": {
+        "HIGH": 27,
+        "CRITICAL": 31
+      },
+      "control_applicability": {
+        "CTO-001": 58,
+        "CTO-002": 26,
+        "CTO-003": 58,
+        "CTO-004": 58,
+        "CTO-005": 58,
+        "CTO-006": 58,
+        "CTO-007": 2,
+        "CTO-008": 58,
+        "CTO-009": 3,
+        "CTO-010": 58,
+        "CTO-011": 20,
+        "CTO-012": 58,
+        "CTO-013": 58,
+        "CTO-014": 24,
+        "CTO-015": 58
+      },
+      "production_gates": [
+        "BENCHMARK_AND_OPERATIONS_GATES",
+        "SECURITY_AND_PRIVACY_GATES"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "risk_register": "docs/06-delivery/RISK_REGISTER.csv",
+  "issue_matrix": "docs/07-assurance/PHASE-G-ISSUE-INVESTMENT-REVIEW.csv",
+  "checked_at": "2026-07-27T00:00:00Z"
+}

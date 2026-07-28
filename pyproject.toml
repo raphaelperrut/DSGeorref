@@ -1,0 +1,32 @@
+[project]
+name = "dsgeorref"
+version = "0.0.0"
+description = "DSGeorref greenfield modular monolith"
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src", "tests", "tools"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "C4", "RUF"]
+ignore = []
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unreachable = true
+warn_unused_ignores = true
+no_implicit_reexport = true
+namespace_packages = true
+explicit_package_bases = true
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["src"]

@@ -1,0 +1,42 @@
+schema_version: 1.0.0
+template_id: TPL-ISSUE-HANDOFF
+template_version: 1.0.0
+template_kind: MARKDOWN
+media_type: text/markdown
+engine: MUSTACHE_SAFE
+source: '# Handoff {{story_id}}
+
+
+  ## Resultado
+
+  {{outcome}}
+
+
+  ## Testes
+
+  {{#tests}}- {{.}}
+
+  {{/tests}}'
+variables:
+- name: story_id
+  value_type: STRING
+  required: true
+  sensitive: false
+- name: outcome
+  value_type: STRING
+  required: true
+  sensitive: false
+  max_length: 500
+- name: tests
+  value_type: ARRAY
+  required: true
+  sensitive: false
+partials: []
+output_validation:
+  maximum_bytes: 65536
+  required_sections:
+  - Handoff
+  - Resultado
+  - Testes
+integrity:
+  sha256: 4570744f990c80f847a4f65da4b3d2160fa1845342c20abc915b1ebbf1262ae0

@@ -1,0 +1,35 @@
+schema_version: 1.0.0
+baseline: SAR-v3.0-PHASE-G
+status: FROZEN
+surfaces:
+- surface: application code
+  compatibility: same release set; rollback to previous signed image while schema
+    remains compatible
+  breaking_change: major release
+- surface: HTTP API/OpenAPI
+  compatibility: non-breaking within major; generated client diff gate
+  breaking_change: new API major and explicit migration window
+- surface: PostgreSQL schema
+  compatibility: expand then migrate then contract; resumable backfill
+  rollback: before contract phase; after contract use forward fix or coordinated restore
+- surface: artifact manifests
+  compatibility: reader supports current and previous major; artifacts remain immutable
+  rollback: switch current view or rematerialize; never mutate history
+- surface: Prompt Bundle/Template
+  compatibility: SemVer and schema-declared migration
+  rollback: pin previous signed bundle
+- surface: ModelPack/AI backend
+  compatibility: capability and digest pinning
+  rollback: disable capability and return to CPU/classic path
+- surface: native stack
+  compatibility: OCI digest and ABI matrix
+  rollback: previous signed image plus restore-compatible database
+mixed_versions:
+  allowed_only_during_controlled_upgrade: true
+  writers_single_version: true
+  maximum_window: one upgrade operation
+migration_rules:
+- no implicit migration on restart
+- backup preflight
+- readiness and smoke evidence
+- rollback decision before contract phase

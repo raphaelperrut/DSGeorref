@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/schemas/failure-diagnostic.schema/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "title": "FailureDiagnostic",
+  "required": [
+    "code",
+    "stage",
+    "evidence",
+    "remediations"
+  ],
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "remediations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

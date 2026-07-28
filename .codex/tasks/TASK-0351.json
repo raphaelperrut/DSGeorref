@@ -1,0 +1,270 @@
+{
+  "task_id": "TASK-0351",
+  "issue_id": "ISSUE-0461",
+  "story_id": "STORY-0351",
+  "epic_id": "EPIC-057",
+  "sprint_id": "SPRINT-006",
+  "role": "Arquiteto",
+  "outcome": "Definir contrato científico e invariantes para resultados por componente, sucesso parcial explícito, retry por subconjunto e UX de componentes não resolvidos com testes e evidência verificável.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-002-arquiteto.md",
+    "docs/06-delivery/stories/STORY-0351-ISSUE-0461-definir-contrato-cientifico-e-invariantes-resultados-por-componente-sucess.md",
+    "docs/06-delivery/epics/EPIC-057-resultados-por-componente-sucesso-parcial-explicito-retry-por-subconju.md",
+    "contracts/README.md",
+    "contracts/http/openapi.yaml",
+    "docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md",
+    "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
+    "docs/02-architecture/ddd/bounded-contexts/BC-012-results-reporting.md",
+    "docs/02-architecture/ddd/DDD-040-CONTEXT-MAP.md",
+    "docs/02-architecture/adrs/ADR-003-bounded-contexts-subdominios-e-linguagem-ubiqua.md",
+    "docs/02-architecture/adrs/ADR-004-integracao-entre-contexts-e-modelos-publicados.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
+    "docs/02-architecture/adrs/ADR-010-api-first-versionamento-e-contract-freeze.md",
+    "docs/02-architecture/adrs/ADR-011-boundary-http-fastapi-pydantic-e-openapi.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-005-ARTIFACT-CONTRACT.md",
+    "docs/02-architecture/adrs/ADR-005-layout-context-first-e-direcao-de-dependencias.md",
+    "contracts/http/OPERATION_CATALOG.json",
+    "contracts/http/API_CONTRACT_INDEX.csv",
+    "contracts/operations/slo-sli-catalog.yaml",
+    "docs/05-operations/CAPACITY_AND_SCALING.md",
+    "contracts/operations/external-dependency-register.csv",
+    "contracts/operations/vendor-exit-matrix.csv",
+    "contracts/operations/cost-model.yaml",
+    "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+    "contracts/operations/recovery-objectives.yaml",
+    "docs/05-operations/BACKUP_RESTORE.md",
+    "contracts/operations/version-and-rollback-matrix.yaml",
+    "docs/03-engineering/DATABASE_MIGRATIONS.md",
+    "docs/05-operations/OBSERVABILITY.md",
+    "docs/04-quality/THREAT_MODEL.md",
+    "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+    "contracts/privacy/lgpd-control-matrix.csv",
+    "docs/04-quality/LGPD_CONTROL_MODEL.md",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
+    "docs/05-operations/PRODUCTION_READINESS_GATES.md"
+  ],
+  "allow_paths": [
+    "contracts/contexts/results_reporting/geo/resultados-por-componente-sucesso-parcial-explicito-re/**",
+    "docs/02-architecture/design-reviews/resultados-por-componente-sucesso-parcial-explicito-re/**"
+  ],
+  "deny_paths": [
+    "src/**",
+    "src/**/epic-*",
+    "src/**/issue-*"
+  ],
+  "acceptance_criteria": [
+    "O resultado de “resultados por componente, sucesso parcial explícito, retry por subconjunto e UX de componentes não resolvidos” é observável por contrato, interface, artifact ou evidência executável.",
+    "Os requisitos vinculados possuem evidência explícita no commit candidato.",
+    "Estados de erro e caminhos fail-closed aplicáveis são testados, sem fallback silencioso.",
+    "Schemas, estados, compatibilidade e autoridade de dados estão versionados e revisados pelo Arquiteto."
+  ],
+  "tests": [
+    "test_epic_057_contrato"
+  ],
+  "evidence": [
+    "evidence/implementation/epic-057/story-0351/",
+    "commit candidato e relatório de testes"
+  ],
+  "dependencies": [
+    "STORY-0329",
+    "STORY-0350",
+    "STORY-0184"
+  ],
+  "stop_conditions": [
+    "Decisão material de produto ou arquitetura não resolvida.",
+    "Contrato obrigatório ausente ou contraditório.",
+    "Write scope sobrepõe lane ativa.",
+    "Aceitação não pode ser demonstrada por teste ou evidência."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0461-01",
+    "AC-ISSUE-0461-02",
+    "AC-ISSUE-0461-03",
+    "AC-ISSUE-0461-04"
+  ],
+  "governing_adrs": [
+    "ADR-003",
+    "ADR-004",
+    "ADR-005",
+    "ADR-006",
+    "ADR-007",
+    "ADR-008",
+    "ADR-010",
+    "ADR-011"
+  ],
+  "requirement_basis": "DERIVED_CONTROL",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-012",
+  "context_map_dependencies": [
+    "BC-002",
+    "BC-003",
+    "BC-004",
+    "BC-006",
+    "BC-007",
+    "BC-008",
+    "BC-010",
+    "BC-011",
+    "BC-013"
+  ],
+  "domain_model_impact": "PUBLIC_CONTRACT",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004",
+    "SPEC-005"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 3,
+      "items": [
+        "STORY-0329",
+        "STORY-0350",
+        "STORY-0184"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "contracts/contexts/results_reporting/geo/resultados-por-componente-sucesso-parcial-explicito-re/**",
+        "docs/02-architecture/design-reviews/resultados-por-componente-sucesso-parcial-explicito-re/**"
+      ],
+      "deny_paths": [
+        "src/**",
+        "src/**/epic-*",
+        "src/**/issue-*"
+      ]
+    },
+    "api": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "contracts": [
+        "get_jobs_jobid_results",
+        "get_attempts_attemptid_diagnostics",
+        "get_results_resultid",
+        "post_results_resultid_exports",
+        "get_exports_exportid",
+        "get_results_id_comparisons"
+      ],
+      "contract_sources": [
+        "contracts/http/openapi.yaml",
+        "contracts/http/OPERATION_CATALOG.json"
+      ]
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-010",
+        "ADR-011"
+      ]
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "test_epic_057_contrato"
+      ]
+    },
+    "artifacts": {
+      "applicability": "PRODUCT_AND_EVIDENCE",
+      "status": "PASS",
+      "kinds": [],
+      "evidence": [
+        "evidence/implementation/epic-057/story-0351/",
+        "commit candidato e relatório de testes"
+      ],
+      "contract": "SPEC-005"
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 4,
+      "ids": [
+        "AC-ISSUE-0461-01",
+        "AC-ISSUE-0461-02",
+        "AC-ISSUE-0461-03",
+        "AC-ISSUE-0461-04"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "Arquiteto",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "HIGH",
+    "applicable_controls": [
+      "CTO-001",
+      "CTO-003",
+      "CTO-004",
+      "CTO-005",
+      "CTO-006",
+      "CTO-008",
+      "CTO-010",
+      "CTO-011",
+      "CTO-012",
+      "CTO-013",
+      "CTO-014",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-002",
+      "CTO-007",
+      "CTO-009"
+    ],
+    "required_evidence": [
+      "contracts/operations/slo-sli-catalog.yaml",
+      "docs/05-operations/CAPACITY_AND_SCALING.md",
+      "contracts/operations/external-dependency-register.csv",
+      "contracts/operations/vendor-exit-matrix.csv",
+      "contracts/operations/cost-model.yaml",
+      "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+      "contracts/operations/recovery-objectives.yaml",
+      "docs/05-operations/BACKUP_RESTORE.md",
+      "contracts/operations/version-and-rollback-matrix.yaml",
+      "docs/03-engineering/DATABASE_MIGRATIONS.md",
+      "docs/05-operations/OBSERVABILITY.md",
+      "docs/04-quality/THREAT_MODEL.md",
+      "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+      "contracts/privacy/lgpd-control-matrix.csv",
+      "docs/04-quality/LGPD_CONTROL_MODEL.md"
+    ],
+    "production_gate": "BENCHMARK_AND_OPERATIONS_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

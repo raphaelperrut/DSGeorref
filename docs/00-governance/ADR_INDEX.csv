@@ -1,0 +1,58 @@
+adr_id,status,title,file,independent_boundary,bounded_contexts,depends_on,owned_requirement_count
+ADR-001,Accepted,"Topologia do repositório, monorepo e workspaces",ADR-001-topologia-do-repositorio-monorepo-e-workspaces.md,true,BC-001,,4
+ADR-002,Accepted,Topologia do produto: monólito modular e instância única,ADR-002-topologia-do-produto-monolito-modular-e-instancia-unica.md,true,BC-001,ADR-001,11
+ADR-003,Accepted,"Bounded Contexts, subdomínios e linguagem ubíqua",ADR-003-bounded-contexts-subdominios-e-linguagem-ubiqua.md,true,BC-001,ADR-002,0
+ADR-004,Accepted,Integração entre contexts e modelos publicados,ADR-004-integracao-entre-contexts-e-modelos-publicados.md,true,BC-001,ADR-003,1
+ADR-005,Accepted,Layout context-first e direção de dependências,ADR-005-layout-context-first-e-direcao-de-dependencias.md,true,BC-001,ADR-003/ADR-004,2
+ADR-006,Accepted,"Prompts permanentes, TaskEnvelope e precedência de instruções",ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md,true,BC-001,ADR-001/ADR-003,16
+ADR-007,Accepted,"Write scopes, lanes paralelas e isolamento de mudança",ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md,true,BC-001,ADR-005/ADR-006,1
+ADR-008,Accepted,Granularidade de histórias e limites anti-monólito,ADR-008-granularidade-de-historias-e-limites-anti-monolito.md,true,BC-001,ADR-006/ADR-007,13
+ADR-009,Accepted,"Runtime Python 3.12, toolchain e stack nativa reproduzível",ADR-009-runtime-python-3-12-toolchain-e-stack-nativa-reproduzivel.md,true,BC-001/BC-015,ADR-001,14
+ADR-010,Accepted,"API-first, versionamento e contract freeze",ADR-010-api-first-versionamento-e-contract-freeze.md,true,BC-001,ADR-003/ADR-004,1
+ADR-011,Accepted,"Boundary HTTP com FastAPI, Pydantic e OpenAPI",ADR-011-boundary-http-fastapi-pydantic-e-openapi.md,true,BC-016,ADR-002/ADR-010,1
+ADR-012,Accepted,"Modelo de interação REST, SSE e polling",ADR-012-modelo-de-interacao-rest-sse-e-polling.md,true,BC-016/BC-010,ADR-011,10
+ADR-013,Accepted,Cliente TypeScript gerado e diff gate OpenAPI,ADR-013-cliente-typescript-gerado-e-diff-gate-openapi.md,true,BC-016,ADR-010/ADR-011,2
+ADR-014,Accepted,"Frontend React, Vite, OpenLayers e workspace cartográfico",ADR-014-frontend-react-vite-openlayers-e-workspace-cartografico.md,true,BC-016,ADR-010/ADR-013,9
+ADR-015,Accepted,"CLI, Direct Runner e núcleo compartilhado",ADR-015-cli-direct-runner-e-nucleo-compartilhado.md,true,BC-016,ADR-002/ADR-005/ADR-016,2
+ADR-016,Accepted,"Application services, Unit of Work, erros e idempotência",ADR-016-application-services-uow-erros-e-idempotencia.md,true,BC-004,ADR-005/ADR-018/ADR-020,13
+ADR-017,Accepted,Feature flags e registro de capabilities,ADR-017-feature-flags-e-registro-de-capabilities.md,true,BC-001/BC-009,ADR-003/ADR-004,3
+ADR-018,Accepted,PostgreSQL/PostGIS como system of record,ADR-018-postgresql-postgis-como-system-of-record.md,true,BC-013,ADR-002/ADR-003,5
+ADR-019,Accepted,"Schemas físicos, UUIDv7, escopo e concorrência",ADR-019-schemas-fisicos-uuidv7-escopo-e-concorrencia.md,true,BC-003/BC-013,ADR-018,6
+ADR-020,Accepted,Transactional outbox e consumidores idempotentes,ADR-020-transactional-outbox-e-consumidores-idempotentes.md,true,BC-010,ADR-018/ADR-019,2
+ADR-021,Accepted,"Filesystem gerenciado, roots e resolução segura",ADR-021-filesystem-gerenciado-roots-e-resolucao-segura.md,true,BC-013,ADR-002/ADR-003,1
+ADR-022,Accepted,"Object Model: aggregates, identidade e state machines",ADR-022-object-model-agregados-identidade-e-state-machines.md,true,BC-003/BC-004/BC-012/BC-013,ADR-003/ADR-018,9
+ADR-023,Accepted,"ArtifactSet, manifest e bundles imutáveis",ADR-023-artifactset-manifest-e-bundles-imutaveis.md,true,BC-013,ADR-021/ADR-022,6
+ADR-024,Accepted,"Publicação atômica, checksums e content addressing",ADR-024-publicacao-atomica-checksums-e-content-addressing.md,true,BC-013,ADR-021/ADR-023,3
+ADR-025,Accepted,"Result snapshots, lineage e visão corrente",ADR-025-result-snapshots-lineage-e-visao-corrente.md,true,BC-012/BC-013,ADR-018/ADR-023,6
+ADR-026,Accepted,"Schema registry, migrations e compatibilidade",ADR-026-schema-registry-migrations-e-compatibilidade.md,true,BC-013/BC-015,ADR-018/ADR-020/ADR-023,4
+ADR-027,Accepted,"Backup, restore, retenção e GC reference-aware",ADR-027-backup-restore-retencao-e-gc-reference-aware.md,true,BC-013/BC-014,ADR-018/ADR-021/ADR-023/ADR-025,1
+ADR-028,Accepted,"Contas locais, sessões server-side e Argon2id",ADR-028-contas-locais-sessoes-server-side-e-argon2id.md,true,BC-002,ADR-018,4
+ADR-029,Accepted,Federação OIDC e vínculo de identidade,ADR-029-federacao-oidc-e-vinculo-de-identidade.md,true,BC-002,ADR-028,3
+ADR-030,Accepted,"PATs, autorização central e scopes",ADR-030-pats-autorizacao-central-e-scopes.md,true,BC-002,ADR-028/ADR-029,2
+ADR-031,Accepted,"CSRF, CORS, security headers e proteção Web",ADR-031-csrf-cors-security-headers-e-protecao-web.md,true,BC-002/BC-016,ADR-028/ADR-030,3
+ADR-032,Accepted,"Secrets, TLS e ingress único",ADR-032-secrets-tls-e-ingress-unico.md,true,BC-014/BC-015,ADR-031,3
+ADR-033,Accepted,"Supply chain, SBOM, assinaturas e dependências",ADR-033-supply-chain-sbom-assinaturas-e-dependencias.md,true,BC-015,ADR-009/ADR-032,1
+ADR-034,Accepted,"OCI/Compose, instalação, bootstrap e readiness",ADR-034-oci-compose-instalacao-bootstrap-e-readiness.md,true,BC-015/BC-014,ADR-002/ADR-009/ADR-032/ADR-033,5
+ADR-035,Accepted,"Upgrade Controller, mixed versions e rollback",ADR-035-upgrade-controller-mixed-versions-e-rollback.md,true,BC-015,ADR-026/ADR-027/ADR-034,7
+ADR-036,Accepted,"Celery, RabbitMQ e TaskEnvelope mínimo",ADR-036-celery-rabbitmq-e-taskenvelope-minimo.md,true,BC-010,ADR-018/ADR-020/ADR-034,2
+ADR-037,Accepted,"Workers duráveis, leases e fencing",ADR-037-workers-duraveis-leases-e-fencing.md,true,BC-010,ADR-018/ADR-036,12
+ADR-038,Accepted,"Retry, quarantine, checkpoints, cancelamento e drain",ADR-038-retry-quarantine-checkpoints-cancelamento-e-drain.md,true,BC-010,ADR-036/ADR-037,9
+ADR-039,Accepted,"Scheduler, fairness, backpressure e Resource Governor",ADR-039-scheduler-fairness-backpressure-e-resource-governor.md,true,BC-010,ADR-018/ADR-036/ADR-037,10
+ADR-040,Accepted,"Progresso, event ledger, replay e ETA",ADR-040-progresso-event-ledger-replay-e-eta.md,true,BC-010/BC-014,ADR-036/ADR-039,18
+ADR-041,Accepted,"CRS, espaços de coordenadas e axis order",ADR-041-crs-espacos-de-coordenadas-e-axis-order.md,true,BC-006/BC-007/BC-008,ADR-018,7
+ADR-042,Accepted,"Raster validity, output grid, resampling e COG",ADR-042-raster-validity-output-grid-resampling-e-cog.md,true,BC-006/BC-013,ADR-021/ADR-023/ADR-041,10
+ADR-043,Accepted,"Stack geoespacial nativa, ABI e isolamento",ADR-043-stack-geoespacial-nativa-abi-e-isolamento.md,true,BC-006/BC-007,ADR-009/ADR-042,8
+ADR-044,Accepted,Pipeline clássico de matching coarse-to-fine,ADR-044-pipeline-classico-matching-coarse-to-fine.md,true,BC-006,ADR-041/ADR-042/ADR-043,14
+ADR-045,Accepted,"Estimação geométrica, homografia e seleção de GCPs",ADR-045-estimacao-geometrica-homografia-e-selecao-de-gcps.md,true,BC-006/BC-007,ADR-044,6
+ADR-046,Accepted,"SGV, Quality Profiles e aceitação fail-closed",ADR-046-sgv-quality-profiles-e-aceitacao-fail-closed.md,true,BC-007/BC-012,ADR-041/ADR-044/ADR-045,17
+ADR-047,Accepted,"Referências, providers, aquisição e cache governado",ADR-047-referencias-providers-aquisicao-e-cache-governado.md,true,BC-005,ADR-021/ADR-041,8
+ADR-048,Accepted,"Edit Bundles: CorrectionSet, AnchorSet e revisão humana",ADR-048-edit-bundles-correctionset-anchorset-e-revisao-humana.md,true,BC-011/BC-012,ADR-023/ADR-025/ADR-045/ADR-046,5
+ADR-049,Accepted,"Mosaico relativo: grafo, otimização e ancoragem",ADR-049-mosaico-relativo-grafo-otimizacao-e-ancoragem.md,true,BC-008,ADR-041/ADR-044/ADR-046/ADR-047,10
+ADR-050,Accepted,"Mosaico relativo: verificador, reporting e materialização",ADR-050-mosaico-relativo-verificador-reporting-e-materializacao.md,true,BC-008/BC-012/BC-013,ADR-023/ADR-025/ADR-049,8
+ADR-051,Accepted,"AI Router, planner e escalonamento classic-first",ADR-051-ai-router-planner-e-escalonamento-classic-first.md,true,BC-009/BC-007,ADR-017/ADR-046/ADR-047,5
+ADR-052,Accepted,"Inference Engine, ModelRunner, ModelPack e offline",ADR-052-inference-engine-modelrunner-modelpack-e-offline.md,true,BC-009/BC-013/BC-015,ADR-009/ADR-023/ADR-032/ADR-051,6
+ADR-053,Accepted,"Reprodutibilidade científica, benchmarks, promoção e rollback",ADR-053-reprodutibilidade-cientifica-benchmarks-promocao-e-rollback.md,true,BC-006/BC-007/BC-008/BC-009,ADR-009/ADR-042/ADR-044/ADR-046/ADR-049/ADR-051/ADR-052,26
+ADR-054,Accepted,"Observabilidade, telemetria e diagnósticos operacionais",ADR-054-observabilidade-telemetria-e-diagnosticos-operacionais.md,true,BC-014,ADR-002/ADR-018/ADR-036,3
+ADR-055,Accepted,"Audit ledger, privacidade, redaction e support bundles",ADR-055-audit-ledger-privacidade-redaction-e-support-bundles.md,true,BC-014,ADR-018/ADR-021/ADR-028/ADR-054,11
+ADR-056,Accepted,"Licenciamento, contribuições, provider attribution e citação",ADR-056-licenciamento-contribuicoes-provider-attribution-e-citacao.md,true,BC-015,ADR-023/ADR-047/ADR-055,1
+ADR-057,Accepted,"Release train, publicação e gates de distribuição",ADR-057-release-train-publicacao-e-gates-de-distribuicao.md,true,BC-015/BC-001,ADR-026/ADR-033/ADR-034/ADR-035/ADR-056,6

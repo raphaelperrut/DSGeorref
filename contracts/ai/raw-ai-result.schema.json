@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/ai/raw-ai-result/1.0.0",
+  "title": "RawAIResult",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "execution_id",
+    "backend_id",
+    "model_pack_id",
+    "status",
+    "candidates",
+    "diagnostics",
+    "runtime_record"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "execution_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "backend_id": {
+      "type": "string"
+    },
+    "model_pack_id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "SUCCEEDED",
+        "FAILED",
+        "CANCELLED",
+        "DEADLINE_EXCEEDED"
+      ]
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "runtime_record": {
+      "type": "object",
+      "required": [
+        "started_at",
+        "finished_at",
+        "device",
+        "seed"
+      ],
+      "properties": {
+        "started_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "finished_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "device": {
+          "type": "string"
+        },
+        "seed": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/correction-set/1.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "title": "CorrectionSet",
+  "required": [
+    "id",
+    "attempt_id",
+    "version",
+    "gcps"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "attempt_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "gcps": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "edit_case_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "edit_bundle_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "edit_bundle_version": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    }
+  }
+}

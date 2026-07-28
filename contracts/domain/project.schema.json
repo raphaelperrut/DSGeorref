@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/schemas/project.schema/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "title": "Project",
+  "required": [
+    "id",
+    "name",
+    "revision"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    }
+  }
+}

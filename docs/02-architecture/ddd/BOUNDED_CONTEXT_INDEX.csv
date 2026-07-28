@@ -1,0 +1,17 @@
+context_id,name,slug,classification,strategic_role,epic_count,epics,file
+BC-001,Governança de Engenharia e Entrega,engineering-governance,Enabling,Suporte organizacional,12,EPIC-001/EPIC-002/EPIC-003/EPIC-004/EPIC-005/EPIC-006/EPIC-007/EPIC-086/EPIC-090/EPIC-091/EPIC-092/EPIC-110,bounded-contexts/BC-001-engineering-governance.md
+BC-002,Identidade e Controle de Acesso,identity-access,Generic,Suporte,4,EPIC-008/EPIC-009/EPIC-010/EPIC-011,bounded-contexts/BC-002-identity-access.md
+BC-003,"Projetos, Workspace e Assets",project-workspace,Supporting,Suporte,1,EPIC-012,bounded-contexts/BC-003-project-workspace.md
+BC-004,Plano de Processamento e Workflow,processing-plan,Supporting,Coordenação,1,EPIC-029,bounded-contexts/BC-004-processing-plan.md
+BC-005,Descoberta e Aquisição de Referências,reference-discovery,Supporting,Suporte ao core,9,EPIC-022/EPIC-027/EPIC-053/EPIC-054/EPIC-055/EPIC-056/EPIC-058/EPIC-059/EPIC-060,bounded-contexts/BC-005-reference-discovery.md
+BC-006,Georreferenciamento,georeferencing,Core,Core domain,12,EPIC-023/EPIC-044/EPIC-045/EPIC-047/EPIC-048/EPIC-051/EPIC-052/EPIC-093/EPIC-094/EPIC-095/EPIC-096/EPIC-097,bounded-contexts/BC-006-georeferencing.md
+BC-007,Verificação Geométrica e Qualidade,geometric-quality,Core,Core domain,5,EPIC-021/EPIC-024/EPIC-025/EPIC-028/EPIC-038,bounded-contexts/BC-007-geometric-quality.md
+BC-008,Mosaico Relativo,relative-mosaic,Core,Core domain,6,EPIC-098/EPIC-099/EPIC-100/EPIC-101/EPIC-102/EPIC-103,bounded-contexts/BC-008-relative-mosaic.md
+BC-009,Recuperação Assistida por IA e Governança de Modelos,ai-recovery,Supporting,Diferenciador controlado,2,EPIC-050/EPIC-088,bounded-contexts/BC-009-ai-recovery.md
+BC-010,Orquestração de Jobs e Recursos,job-orchestration,Supporting,Execução,12,EPIC-014/EPIC-015/EPIC-016/EPIC-017/EPIC-018/EPIC-019/EPIC-065/EPIC-066/EPIC-067/EPIC-068/EPIC-069/EPIC-104,bounded-contexts/BC-010-job-orchestration.md
+BC-011,Revisão e Correção,review-correction,Supporting,Suporte ao core,4,EPIC-035/EPIC-062/EPIC-063/EPIC-064,bounded-contexts/BC-011-review-correction.md
+BC-012,"Resultados, Diagnósticos e Exportação",results-reporting,Supporting,Entrega de valor,4,EPIC-030/EPIC-037/EPIC-057/EPIC-070,bounded-contexts/BC-012-results-reporting.md
+BC-013,"Artifacts, Proveniência e Lifecycle",artifact-provenance,Supporting,Integridade,9,EPIC-013/EPIC-026/EPIC-046/EPIC-049/EPIC-061/EPIC-071/EPIC-073/EPIC-074/EPIC-105,bounded-contexts/BC-013-artifact-provenance.md
+BC-014,"Operações, Auditoria e Suporte",operations-audit,Generic,Operação,11,EPIC-039/EPIC-040/EPIC-041/EPIC-072/EPIC-075/EPIC-076/EPIC-077/EPIC-078/EPIC-079/EPIC-082/EPIC-083,bounded-contexts/BC-014-operations-audit.md
+BC-015,"Release, Instalação e Supply Chain",release-installation,Generic,Entrega operacional,11,EPIC-042/EPIC-043/EPIC-080/EPIC-081/EPIC-085/EPIC-087/EPIC-089/EPIC-106/EPIC-107/EPIC-108/EPIC-109,bounded-contexts/BC-015-release-installation.md
+BC-016,Experiência e Orientação do Operador,operator-experience,Supporting,Interação,7,EPIC-020/EPIC-031/EPIC-032/EPIC-033/EPIC-034/EPIC-036/EPIC-084,bounded-contexts/BC-016-operator-experience.md

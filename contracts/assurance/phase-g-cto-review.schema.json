@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/schemas/phase-g-cto-review/1.0.0",
+  "title": "Phase G CTO Review Metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status",
+    "risk_tier",
+    "applicable_controls",
+    "non_applicable_controls",
+    "required_evidence",
+    "production_gate"
+  ],
+  "properties": {
+    "status": {
+      "const": "PASS"
+    },
+    "risk_tier": {
+      "enum": [
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ]
+    },
+    "applicable_controls": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "CTO-001",
+          "CTO-002",
+          "CTO-003",
+          "CTO-004",
+          "CTO-005",
+          "CTO-006",
+          "CTO-007",
+          "CTO-008",
+          "CTO-009",
+          "CTO-010",
+          "CTO-011",
+          "CTO-012",
+          "CTO-013",
+          "CTO-014",
+          "CTO-015"
+        ]
+      },
+      "minItems": 5,
+      "uniqueItems": true
+    },
+    "non_applicable_controls": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "CTO-001",
+          "CTO-002",
+          "CTO-003",
+          "CTO-004",
+          "CTO-005",
+          "CTO-006",
+          "CTO-007",
+          "CTO-008",
+          "CTO-009",
+          "CTO-010",
+          "CTO-011",
+          "CTO-012",
+          "CTO-013",
+          "CTO-014",
+          "CTO-015"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "required_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "production_gate": {
+      "enum": [
+        "IMPLEMENTATION_AUTHORIZATION",
+        "BENCHMARK_AND_OPERATIONS_GATES",
+        "SECURITY_AND_PRIVACY_GATES"
+      ]
+    }
+  }
+}

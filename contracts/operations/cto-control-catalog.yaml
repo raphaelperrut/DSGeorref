@@ -1,0 +1,116 @@
+schema_version: 1.0.0
+baseline: SAR-v3.0-PHASE-G
+status: FROZEN
+controls:
+- id: CTO-001
+  name: Gargalos e capacidade
+  question: Existe gargalo?
+  decision: Capacidade é governada por admission control, benchmark e limites por
+    classe; nenhuma claim de throughput existe sem evidência.
+  evidence:
+  - contracts/operations/slo-sli-catalog.yaml
+  - docs/05-operations/CAPACITY_AND_SCALING.md
+- id: CTO-002
+  name: Locks e contenção
+  question: Existe lock?
+  decision: Locks possuem ordem, timeout, fencing e escopo curto; I/O externo sob
+    lock é proibido.
+  evidence:
+  - contracts/operations/lock-and-queue-policy.yaml
+- id: CTO-003
+  name: Dependências ocultas
+  question: Existe dependência escondida?
+  decision: Dependências externas, dados auxiliares, drivers e serviços opcionais
+    são inventariados e pinados.
+  evidence:
+  - contracts/operations/external-dependency-register.csv
+- id: CTO-004
+  name: Vendor e technology lock-in
+  question: Existe vendor lock-in?
+  decision: Não há vendor comercial obrigatório; lock-ins tecnológicos intencionais
+    têm export e plano de saída.
+  evidence:
+  - contracts/operations/vendor-exit-matrix.csv
+- id: CTO-005
+  name: Escala e disponibilidade
+  question: Escala?
+  decision: A versão inicial escala verticalmente em uma instância; HA e scale-out
+    multi-host exigem nova ADR e não podem ser prometidos.
+  evidence:
+  - docs/05-operations/CAPACITY_AND_SCALING.md
+- id: CTO-006
+  name: Custo e unit economics
+  question: Quanto custa?
+  decision: O SAR define fórmula e unidades em BRL; valor monetário depende de benchmark
+    e cotação aprovada, sem número inventado.
+  evidence:
+  - contracts/operations/cost-model.yaml
+  - docs/05-operations/COST_AND_UNIT_ECONOMICS.md
+- id: CTO-007
+  name: GPU e aceleração
+  question: GPU?
+  decision: CPU-only é baseline; compra ou ativação de GPU depende de ganho de unit
+    economics e equivalência científica.
+  evidence:
+  - contracts/operations/cost-model.yaml
+  - docs/05-operations/CAPACITY_AND_SCALING.md
+- id: CTO-008
+  name: Latência e SLO
+  question: Latência?
+  decision: API, propagação de eventos, fila e cancelamento possuem SLOs separados
+    do tempo científico.
+  evidence:
+  - contracts/operations/slo-sli-catalog.yaml
+- id: CTO-009
+  name: Fila e backpressure
+  question: Fila?
+  decision: RabbitMQ transporta envelopes pequenos; PostgreSQL governa estado; filas
+    são limitadas por classe e observadas por tempo de espera.
+  evidence:
+  - contracts/operations/lock-and-queue-policy.yaml
+- id: CTO-010
+  name: Backup e disaster recovery
+  question: Backup?
+  decision: RPO/RTO são classificados; restore drill isolado é gate de produção.
+  evidence:
+  - contracts/operations/recovery-objectives.yaml
+  - docs/05-operations/BACKUP_RESTORE.md
+- id: CTO-011
+  name: Migração e upgrade
+  question: Migração?
+  decision: Expand-migrate-contract, backfill retomável e janela de rollback são obrigatórios;
+    migrations não rodam no startup.
+  evidence:
+  - contracts/operations/version-and-rollback-matrix.yaml
+  - docs/03-engineering/DATABASE_MIGRATIONS.md
+- id: CTO-012
+  name: Auditoria e observabilidade
+  question: Auditoria e observabilidade?
+  decision: Audit ledger é separado de logs; SLI/SLO, cardinalidade, correlação e
+    redaction são obrigatórios.
+  evidence:
+  - contracts/operations/slo-sli-catalog.yaml
+  - docs/05-operations/OBSERVABILITY.md
+- id: CTO-013
+  name: Segurança
+  question: Segurança?
+  decision: Fail-closed, least privilege, supply chain verificável e teste independente
+    antecedem exposição pública.
+  evidence:
+  - docs/04-quality/THREAT_MODEL.md
+  - docs/04-quality/SECURITY_PRIVACY_LGPD.md
+- id: CTO-014
+  name: LGPD e privacidade
+  question: LGPD?
+  decision: Coleta exige finalidade e base documentada pelo controlador; minimização,
+    retenção, direitos e incidentes são rastreados.
+  evidence:
+  - contracts/privacy/lgpd-control-matrix.csv
+  - docs/04-quality/LGPD_CONTROL_MODEL.md
+- id: CTO-015
+  name: Rollback e versionamento
+  question: Rollback e versionamento?
+  decision: Código, schema, API, artifacts, prompts e ModelPacks possuem compatibilidade
+    e estratégia de rollback explícitas.
+  evidence:
+  - contracts/operations/version-and-rollback-matrix.yaml

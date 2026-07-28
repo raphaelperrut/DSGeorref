@@ -1,0 +1,44 @@
+# Registro de riscos ativo — Fase G
+
+O registro histórico acumulado foi substituído por 40 riscos ativos, consolidados e operacionais. Cada risco possui trigger, owner, mitigation, contingency e evidence gate. Entradas absorvidas não permanecem como ruído.
+
+- **RISK-G-001 [Critical] Capacity** — PostgreSQL torna-se gargalo de estado, outbox, audit e scheduler Gate: `G-CTO-02`.
+- **RISK-G-002 [Critical] Capacity** — Filesystem esgota IOPS ou espaço temporário durante raster/mosaico Gate: `G-CTO-02`.
+- **RISK-G-003 [High] Queue** — RabbitMQ acumula backlog ou atinge watermark de disco Gate: `G-CTO-08`.
+- **RISK-G-004 [Critical] Locks** — Deadlock, lease vencido ou owner antigo publica resultado Gate: `G-CTO-02`.
+- **RISK-G-005 [High] Native processing** — Estágio GDAL/OpenCV longo não alcança safe point de cancelamento Gate: `G-CTO-02`.
+- **RISK-G-006 [Critical] Availability** — Single instance é ponto único de falha Gate: `G-CTO-04`.
+- **RISK-G-007 [High] Hidden dependency** — proj-data, EPSG grids ou ABI nativa muda resultado científico Gate: `G-CTO-02`.
+- **RISK-G-008 [High] Hidden dependency** — Provider externo muda API, licença ou disponibilidade Gate: `G-CTO-07`.
+- **RISK-G-009 [High] Hidden dependency** — OIDC indisponível ou linking incorreto bloqueia usuários Gate: `G-CTO-06`.
+- **RISK-G-010 [High] GPU** — Driver, runtime ou ModelPack incompatível causa falha/divergência Gate: `G-CTO-03`.
+- **RISK-G-011 [Critical] Storage** — Filesystem não oferece rename/fsync/locking esperados Gate: `G-CTO-01`.
+- **RISK-G-012 [Medium] Frontend** — Browser/toolchain incompatível quebra workspace ou cliente Gate: `G-CTO-09`.
+- **RISK-G-013 [High] Lock-in** — PostGIS-specific model torna saída custosa Gate: `G-CTO-01`.
+- **RISK-G-014 [Medium] Lock-in** — Celery/RabbitMQ semantics vazam ao domínio Gate: `G-CTO-02`.
+- **RISK-G-015 [High] Scale** — Carga excede teto de escala vertical da instância Gate: `G-CTO-02`.
+- **RISK-G-016 [High] Scale** — Claims de 40–300 imagens são publicados sem corpus e classe Gate: `G-CTO-02`.
+- **RISK-G-017 [High] Cost** — TCO ou custo unitário excede orçamento do Owner Gate: `G-CTO-03`.
+- **RISK-G-018 [High] Cost** — Crescimento de originais, artifacts e backups torna storage dominante Gate: `G-CTO-03`.
+- **RISK-G-019 [Medium] GPU cost** — GPU aumenta custo sem reduzir unidade econômica ou fila Gate: `G-CTO-03`.
+- **RISK-G-020 [High] Latency** — API, SSE ou fila perde responsividade sob processamento Gate: `G-CTO-08`.
+- **RISK-G-021 [High] Queue** — Aging/fairness falha e classe interativa sofre starvation Gate: `G-CTO-08`.
+- **RISK-G-022 [Critical] Backup** — RPO/RTO não é atingido ou BackupSet diverge Gate: `G-CTO-04`.
+- **RISK-G-023 [Critical] Migration** — Migration destrutiva elimina rollback Gate: `G-CTO-05`.
+- **RISK-G-024 [High] Versioning** — Mixed versions escrevem schemas incompatíveis Gate: `G-CTO-05`.
+- **RISK-G-025 [Critical] Audit** — Evento administrativo ou científico não entra no audit ledger Gate: `G-CTO-06`.
+- **RISK-G-026 [High] Observability** — Cardinalidade ou payload sensível torna telemetry cara/insegura Gate: `G-CTO-08`.
+- **RISK-G-027 [Critical] Security** — Conta, sessão, PAT ou autorização é comprometida Gate: `G-CTO-06`.
+- **RISK-G-028 [Critical] Security** — Path traversal, symlink escape ou artifact serving indevido Gate: `G-CTO-06`.
+- **RISK-G-029 [Critical] Supply chain** — Imagem, pacote, ModelPack ou release não verificável é executado Gate: `G-CTO-09`.
+- **RISK-G-030 [Critical] LGPD** — Dados pessoais são coletados sem finalidade/base ou além do necessário Gate: `G-CTO-07`.
+- **RISK-G-031 [High] LGPD** — Retenção, exclusão ou direitos divergem entre DB e artifacts Gate: `G-CTO-07`.
+- **RISK-G-032 [Critical] Privacy** — Secret, raster, geolocation ou path absoluto entra em log/support bundle Gate: `G-CTO-06`.
+- **RISK-G-033 [Critical] Scientific quality** — Falso positivo geométrico é aceito Gate: `G-CTO-02`.
+- **RISK-G-034 [Critical] AI** — AI publica ou influencia aceite sem SGV independente Gate: `G-CTO-06`.
+- **RISK-G-035 [High] Licensing** — Provider, model or artifact perde attribution/licença válida Gate: `G-CTO-09`.
+- **RISK-G-036 [High] Operations** — Complexidade excede capacidade do mantenedor solo Gate: `G-CTO-01`.
+- **RISK-G-037 [Medium] Incident response** — Alert fatigue ou runbook incompleto atrasa contenção Gate: `G-CTO-08`.
+- **RISK-G-038 [Critical] Release** — Publicação ocorre sem gates de segurança, restore ou rollback Gate: `G-CTO-09`.
+- **RISK-G-039 [High] Versioning** — Artifact, Prompt Bundle ou ModelPack incompatível é lido silenciosamente Gate: `G-CTO-05`.
+- **RISK-G-040 [High] Data consistency** — Banco, filesystem e broker divergem após crash Gate: `G-CTO-04`.

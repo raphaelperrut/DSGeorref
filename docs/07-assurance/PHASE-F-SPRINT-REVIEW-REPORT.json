@@ -1,0 +1,248 @@
+{
+  "schema_version": "1.0.0",
+  "baseline": "2.9",
+  "phase": "F — Revisão Sprint por Sprint",
+  "date": "2026-07-27",
+  "status": "APPROVED",
+  "implementation_authorization": "BLOCKED_EXTERNAL",
+  "counts": {
+    "sprints": 12,
+    "issues": 868,
+    "stories": 758,
+    "criteria": 3692,
+    "api": 216,
+    "database": 151,
+    "frontend": 75,
+    "geo": 275,
+    "ai": 62
+  },
+  "sprints": [
+    {
+      "sprint_id": "SPRINT-001",
+      "title": "Repositório, governança e fundação executável",
+      "epics": 12,
+      "stories": 91,
+      "issues": 103,
+      "criteria": 364,
+      "api": 19,
+      "database": 18,
+      "frontend": 7,
+      "geo": 0,
+      "ai": 10,
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "title": "Identidade, autorização, workspace e persistência inicial",
+      "epics": 8,
+      "stories": 55,
+      "issues": 63,
+      "criteria": 220,
+      "api": 25,
+      "database": 24,
+      "frontend": 5,
+      "geo": 0,
+      "ai": 2,
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-003",
+      "title": "Jobs, runners, lote básico e CLI",
+      "epics": 7,
+      "stories": 49,
+      "issues": 56,
+      "criteria": 196,
+      "api": 19,
+      "database": 26,
+      "frontend": 5,
+      "geo": 0,
+      "ai": 4,
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-004",
+      "title": "Resiliência, scheduler, replay e escala operacional",
+      "epics": 6,
+      "stories": 42,
+      "issues": 48,
+      "criteria": 168,
+      "api": 12,
+      "database": 18,
+      "frontend": 0,
+      "geo": 0,
+      "ai": 2,
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-005",
+      "title": "Primeira fatia geoespacial classic-first",
+      "epics": 15,
+      "stories": 120,
+      "issues": 135,
+      "criteria": 480,
+      "api": 15,
+      "database": 0,
+      "frontend": 0,
+      "geo": 112,
+      "ai": 13,
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-006",
+      "title": "Correspondências, referências, providers e revisão assistida",
+      "epics": 12,
+      "stories": 86,
+      "issues": 98,
+      "criteria": 344,
+      "api": 24,
+      "database": 0,
+      "frontend": 7,
+      "geo": 80,
+      "ai": 10,
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-007",
+      "title": "Contratos de coordenadas, grade e mosaico relativo",
+      "epics": 6,
+      "stories": 42,
+      "issues": 48,
+      "criteria": 168,
+      "api": 6,
+      "database": 0,
+      "frontend": 0,
+      "geo": 42,
+      "ai": 0,
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-008",
+      "title": "Qualidade, reporting e materialização do mosaico relativo",
+      "epics": 5,
+      "stories": 35,
+      "issues": 40,
+      "criteria": 140,
+      "api": 5,
+      "database": 7,
+      "frontend": 0,
+      "geo": 35,
+      "ai": 0,
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-009",
+      "title": "Frontend cartográfico, revisão e aprendizagem",
+      "epics": 9,
+      "stories": 58,
+      "issues": 67,
+      "criteria": 232,
+      "api": 27,
+      "database": 2,
+      "frontend": 48,
+      "geo": 0,
+      "ai": 2,
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-010",
+      "title": "Resultados, lineage, schemas e reprodutibilidade",
+      "epics": 6,
+      "stories": 38,
+      "issues": 44,
+      "criteria": 152,
+      "api": 12,
+      "database": 20,
+      "frontend": 3,
+      "geo": 6,
+      "ai": 5,
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-011",
+      "title": "Operações, segurança, backup, IA governada e hardening",
+      "epics": 14,
+      "stories": 84,
+      "issues": 98,
+      "criteria": 336,
+      "api": 37,
+      "database": 24,
+      "frontend": 0,
+      "geo": 0,
+      "ai": 12,
+      "status": "PASS"
+    },
+    {
+      "sprint_id": "SPRINT-012",
+      "title": "Instalação, release train e publicação",
+      "epics": 10,
+      "stories": 58,
+      "issues": 68,
+      "criteria": 232,
+      "api": 15,
+      "database": 12,
+      "frontend": 0,
+      "geo": 0,
+      "ai": 2,
+      "status": "PASS"
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-001",
+      "severity": "HIGH",
+      "finding": "8 documentos de sprint mantinham contagens de histórias anteriores à decomposição.",
+      "resolution": "Contagens reconciliadas com STORY_INDEX e validador adicionado.",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "F-002",
+      "severity": "HIGH",
+      "finding": "TaskEnvelopes não declaravam explicitamente aplicabilidade e resultado para API, banco, frontend, geo, IA, artefatos e review.",
+      "resolution": "Schema 1.5.0 e phase_f_review obrigatório em 758 TaskEnvelopes.",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "F-003",
+      "severity": "HIGH",
+      "finding": "Tarefas derivadas de QA, integração e review podiam omitir ADRs de domínio aplicáveis ao épico.",
+      "resolution": "1910 autoridades ADR aplicáveis foram adicionadas sem criar decisões novas.",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "F-004",
+      "severity": "HIGH",
+      "finding": "Tarefas com impacto de API nem sempre referenciavam o OpenAPI e o catálogo congelado.",
+      "resolution": "513 referências explícitas de contrato foram adicionadas.",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "F-005",
+      "severity": "MEDIUM",
+      "finding": "Banco, migration e rollback eram tratados por regra genérica no handoff, sem declaração por issue.",
+      "resolution": "Aplicabilidade, authorities, migration_required e rollback_required agora são campos por tarefa.",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "F-006",
+      "severity": "MEDIUM",
+      "finding": "A classificação de artefatos de produto versus artefatos somente de evidência não era explícita.",
+      "resolution": "Cada issue agora declara PRODUCT_AND_EVIDENCE ou EVIDENCE_ONLY, com SPEC-005 quando aplicável.",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "F-007",
+      "severity": "MEDIUM",
+      "finding": "A cadeia de review era normativa, mas não estava materializada por TaskEnvelope.",
+      "resolution": "required_roles e same_candidate_commit são obrigatórios em phase_f_review.",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "F-008",
+      "severity": "LOW",
+      "finding": "STORY_INDEX.json e STORY_DEPENDENCY_GRAPH.json ainda indicavam baseline 2.6.0.",
+      "resolution": "Baseline atualizada para 2.9.0.",
+      "status": "RESOLVED"
+    }
+  ],
+  "blocking_findings_open": 0
+}

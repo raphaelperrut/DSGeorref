@@ -1,0 +1,280 @@
+{
+  "task_id": "TASK-0105",
+  "issue_id": "ISSUE-0215",
+  "story_id": "STORY-0105",
+  "epic_id": "EPIC-019",
+  "sprint_id": "SPRINT-003",
+  "role": "Backend",
+  "outcome": "Implementar runner, worker ou scheduler para Resource Governor, admission control e orçamento adaptativo de RAM/CPU/GPU/disco com testes e evidência verificável.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-004-backend.md",
+    "docs/06-delivery/stories/STORY-0105-ISSUE-0215-implementar-runner-worker-ou-scheduler-resource-governor-admission-control.md",
+    "docs/06-delivery/epics/EPIC-019-resource-governor-admission-control-e-orcamento-adaptativo-de-ram-cpu-.md",
+    "docs/01-product/requirements/REQ-BEX-007-permitir-cancelamento-e-pausa-cooperativos-e-escopados.md",
+    "docs/01-product/requirements/REQ-BEX-008-governar-concorrencia-por-recursos-leases-e-backpressure.md",
+    "docs/01-product/requirements/REQ-BEX-009-calcular-progresso-por-work-units-e-eta-com-confianca.md",
+    "docs/01-product/requirements/REQ-DIS-002-descoberta-de-vizinhos-e-progressiva-orcada-e-auditavel-itens-nao-examin.md",
+    "docs/01-product/requirements/REQ-RES-001-o-scheduler-aplica-resource-governor-adaptativo-com-orcamento-de-ram-cpu.md",
+    "docs/01-product/requirements/REQ-SCH-001-jobs-devem-ser-escalonados-por-classes-weighted-fairness-e-aging-sem-sta.md",
+    "contracts/README.md",
+    "docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md",
+    "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
+    "docs/02-architecture/ddd/bounded-contexts/BC-010-job-orchestration.md",
+    "docs/02-architecture/ddd/DDD-040-CONTEXT-MAP.md",
+    "docs/02-architecture/adrs/ADR-003-bounded-contexts-subdominios-e-linguagem-ubiqua.md",
+    "docs/02-architecture/adrs/ADR-004-integracao-entre-contexts-e-modelos-publicados.md",
+    "docs/02-architecture/adrs/ADR-005-layout-context-first-e-direcao-de-dependencias.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
+    "docs/02-architecture/adrs/ADR-012-modelo-de-interacao-rest-sse-e-polling.md",
+    "docs/02-architecture/adrs/ADR-016-application-services-uow-erros-e-idempotencia.md",
+    "docs/02-architecture/adrs/ADR-037-workers-duraveis-leases-e-fencing.md",
+    "docs/02-architecture/adrs/ADR-038-retry-quarantine-checkpoints-cancelamento-e-drain.md",
+    "docs/02-architecture/adrs/ADR-039-scheduler-fairness-backpressure-e-resource-governor.md",
+    "docs/02-architecture/adrs/ADR-040-progresso-event-ledger-replay-e-eta.md",
+    "docs/02-architecture/adrs/ADR-047-referencias-providers-aquisicao-e-cache-governado.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "docs/02-architecture/adrs/ADR-018-postgresql-postgis-como-system-of-record.md",
+    "docs/02-architecture/adrs/ADR-019-schemas-fisicos-uuidv7-escopo-e-concorrencia.md",
+    "contracts/operations/slo-sli-catalog.yaml",
+    "docs/05-operations/CAPACITY_AND_SCALING.md",
+    "contracts/operations/lock-and-queue-policy.yaml",
+    "contracts/operations/external-dependency-register.csv",
+    "contracts/operations/vendor-exit-matrix.csv",
+    "contracts/operations/cost-model.yaml",
+    "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+    "contracts/operations/recovery-objectives.yaml",
+    "docs/05-operations/BACKUP_RESTORE.md",
+    "contracts/operations/version-and-rollback-matrix.yaml",
+    "docs/03-engineering/DATABASE_MIGRATIONS.md",
+    "docs/05-operations/OBSERVABILITY.md",
+    "docs/04-quality/THREAT_MODEL.md",
+    "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
+    "docs/05-operations/PRODUCTION_READINESS_GATES.md"
+  ],
+  "allow_paths": [
+    "src/backend/dsgeorref/contexts/job_orchestration/application/resource-governor-admission-control-e-orcamento-adapta/**",
+    "src/backend/dsgeorref/contexts/job_orchestration/adapters/resource-governor-admission-control-e-orcamento-adapta/**"
+  ],
+  "deny_paths": [
+    "src/frontend/**",
+    "src/geo/**",
+    "src/ai/**",
+    "src/**/epic-*",
+    "src/**/issue-*"
+  ],
+  "acceptance_criteria": [
+    "O resultado de “Resource Governor, admission control e orçamento adaptativo de RAM/CPU/GPU/disco” é observável por contrato, interface, artifact ou evidência executável.",
+    "Os requisitos REQ-BEX-007, REQ-BEX-008, REQ-BEX-009, REQ-DIS-002, REQ-RES-001, REQ-SCH-001 possuem evidência explícita no commit candidato.",
+    "Estados de erro e caminhos fail-closed aplicáveis são testados, sem fallback silencioso.",
+    "Redelivery, crash e repetição não duplicam efeitos autoritativos."
+  ],
+  "tests": [
+    "test_batch_execution_decision_07",
+    "test_batch_execution_decision_08",
+    "test_batch_execution_decision_09",
+    "test_budgeted_neighbor_retrieval_recall_and_unexamined_state",
+    "test_epic_019_execucao"
+  ],
+  "evidence": [
+    "evidence/implementation/epic-019/story-0105/",
+    "commit candidato e relatório de testes"
+  ],
+  "dependencies": [
+    "STORY-0103"
+  ],
+  "stop_conditions": [
+    "Decisão material de produto ou arquitetura não resolvida.",
+    "Contrato obrigatório ausente ou contraditório.",
+    "Write scope sobrepõe lane ativa.",
+    "Aceitação não pode ser demonstrada por teste ou evidência."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0215-01",
+    "AC-ISSUE-0215-02",
+    "AC-ISSUE-0215-03",
+    "AC-ISSUE-0215-04"
+  ],
+  "governing_adrs": [
+    "ADR-003",
+    "ADR-004",
+    "ADR-005",
+    "ADR-006",
+    "ADR-007",
+    "ADR-008",
+    "ADR-012",
+    "ADR-016",
+    "ADR-018",
+    "ADR-019",
+    "ADR-037",
+    "ADR-038",
+    "ADR-039",
+    "ADR-040",
+    "ADR-047"
+  ],
+  "requirement_basis": "MIXED",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-010",
+  "context_map_dependencies": [
+    "BC-002",
+    "BC-003",
+    "BC-004"
+  ],
+  "domain_model_impact": "LOCAL_MODEL",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 1,
+      "items": [
+        "STORY-0103"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "src/backend/dsgeorref/contexts/job_orchestration/application/resource-governor-admission-control-e-orcamento-adapta/**",
+        "src/backend/dsgeorref/contexts/job_orchestration/adapters/resource-governor-admission-control-e-orcamento-adapta/**"
+      ],
+      "deny_paths": [
+        "src/frontend/**",
+        "src/geo/**",
+        "src/ai/**",
+        "src/**/epic-*",
+        "src/**/issue-*"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-018",
+        "ADR-019"
+      ],
+      "migration_required": false,
+      "rollback_required": true
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-012"
+      ]
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-047"
+      ]
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "test_batch_execution_decision_07",
+        "test_batch_execution_decision_08",
+        "test_batch_execution_decision_09",
+        "test_budgeted_neighbor_retrieval_recall_and_unexamined_state",
+        "test_epic_019_execucao"
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "PASS",
+      "kinds": [],
+      "evidence": [
+        "evidence/implementation/epic-019/story-0105/",
+        "commit candidato e relatório de testes"
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 4,
+      "ids": [
+        "AC-ISSUE-0215-01",
+        "AC-ISSUE-0215-02",
+        "AC-ISSUE-0215-03",
+        "AC-ISSUE-0215-04"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "Arquiteto",
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "HIGH",
+    "applicable_controls": [
+      "CTO-001",
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-005",
+      "CTO-006",
+      "CTO-008",
+      "CTO-009",
+      "CTO-010",
+      "CTO-011",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-007",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "contracts/operations/slo-sli-catalog.yaml",
+      "docs/05-operations/CAPACITY_AND_SCALING.md",
+      "contracts/operations/lock-and-queue-policy.yaml",
+      "contracts/operations/external-dependency-register.csv",
+      "contracts/operations/vendor-exit-matrix.csv",
+      "contracts/operations/cost-model.yaml",
+      "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+      "contracts/operations/recovery-objectives.yaml",
+      "docs/05-operations/BACKUP_RESTORE.md",
+      "contracts/operations/version-and-rollback-matrix.yaml",
+      "docs/03-engineering/DATABASE_MIGRATIONS.md",
+      "docs/05-operations/OBSERVABILITY.md",
+      "docs/04-quality/THREAT_MODEL.md",
+      "docs/04-quality/SECURITY_PRIVACY_LGPD.md"
+    ],
+    "production_gate": "BENCHMARK_AND_OPERATIONS_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

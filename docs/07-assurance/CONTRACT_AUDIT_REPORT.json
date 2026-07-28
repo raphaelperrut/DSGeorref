@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "baseline_version": "2.6.0",
+  "generated_at_utc": "2026-07-27T15:56:54+00:00",
+  "status": "PASS",
+  "openapi_version": "3.1.0",
+  "operations": 56,
+  "frozen_operations": 56,
+  "operation_contract_files": 56,
+  "json_schema_files": 19,
+  "openapi_component_schemas": 125,
+  "domain_contract_files": 15,
+  "event_contract_files": 2,
+  "errors": []
+}

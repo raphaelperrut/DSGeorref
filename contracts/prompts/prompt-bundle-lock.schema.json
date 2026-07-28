@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/prompts/prompt-bundle-lock/1.0.0",
+  "title": "PromptBundleLock",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "lock_version",
+    "bundle_id",
+    "bundle_version",
+    "resolved_at",
+    "root_payload_sha256",
+    "resolved_dependencies",
+    "lock_digest_sha256"
+  ],
+  "properties": {
+    "lock_version": {
+      "const": "1.0.0"
+    },
+    "bundle_id": {
+      "type": "string",
+      "pattern": "^PB-"
+    },
+    "bundle_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "resolved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "root_payload_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "resolved_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "bundle_id",
+          "bundle_version",
+          "payload_sha256",
+          "source"
+        ],
+        "properties": {
+          "bundle_id": {
+            "type": "string",
+            "pattern": "^PB-"
+          },
+          "bundle_version": {
+            "type": "string"
+          },
+          "payload_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "lock_digest_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

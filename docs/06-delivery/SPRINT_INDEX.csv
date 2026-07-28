@@ -1,0 +1,13 @@
+sprint_id,title,status,epic_count,file
+SPRINT-001,"Repositório, governança e fundação executável",Planned,12,SPRINT-001-repositorio-governanca-e-fundacao-executavel.md
+SPRINT-002,"Identidade, autorização, workspace e persistência inicial",Planned,8,SPRINT-002-identidade-autorizacao-workspace-e-persistencia-inicial.md
+SPRINT-003,"Jobs, runners, lote básico e CLI",Planned,7,SPRINT-003-jobs-runners-lote-basico-e-cli.md
+SPRINT-004,"Resiliência, scheduler, replay e escala operacional",Planned,6,SPRINT-004-resiliencia-scheduler-replay-e-escala-operacional.md
+SPRINT-005,Primeira fatia geoespacial classic-first,Planned,15,SPRINT-005-primeira-fatia-geoespacial-classic-first.md
+SPRINT-006,"Correspondências, referências, providers e revisão assistida",Planned,12,SPRINT-006-correspondencias-referencias-providers-e-revisao-assistida.md
+SPRINT-007,"Contratos de coordenadas, grade e mosaico relativo",Planned,6,SPRINT-007-contratos-de-coordenadas-grade-e-mosaico-relativo.md
+SPRINT-008,"Qualidade, reporting e materialização do mosaico relativo",Planned,5,SPRINT-008-qualidade-reporting-e-materializacao-do-mosaico-relativo.md
+SPRINT-009,"Frontend cartográfico, revisão e aprendizagem",Planned,9,SPRINT-009-frontend-cartografico-revisao-e-aprendizagem.md
+SPRINT-010,"Resultados, lineage, schemas e reprodutibilidade",Planned,6,SPRINT-010-resultados-lineage-schemas-e-reprodutibilidade.md
+SPRINT-011,"Operações, segurança, backup, IA governada e hardening",Planned,14,SPRINT-011-operacoes-seguranca-backup-ia-governada-e-hardening.md
+SPRINT-012,"Instalação, release train e publicação",Planned,10,SPRINT-012-instalacao-release-train-e-publicacao.md

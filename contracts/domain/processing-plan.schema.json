@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/processing-plan/1.0.0",
+  "title": "ProcessingPlan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "project_id",
+    "input_snapshot_id",
+    "strategy",
+    "quality_profile_id",
+    "output_profile_id",
+    "capabilities",
+    "budgets",
+    "digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "project_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "input_snapshot_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "strategy": {
+      "type": "string"
+    },
+    "quality_profile_id": {
+      "type": "string"
+    },
+    "output_profile_id": {
+      "type": "string"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "budgets": {
+      "type": "object"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

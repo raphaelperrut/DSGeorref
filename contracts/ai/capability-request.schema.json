@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/ai/capability-request/1.0.0",
+  "title": "CapabilityRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "request_id",
+    "capability",
+    "input_profile",
+    "resource_profile",
+    "policy"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "request_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "capability": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]{2,80}$"
+    },
+    "input_profile": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "resource_profile": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "policy": {
+      "type": "object",
+      "required": [
+        "offline_required",
+        "allowed_model_packs",
+        "data_egress"
+      ],
+      "properties": {
+        "offline_required": {
+          "type": "boolean"
+        },
+        "allowed_model_packs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "data_egress": {
+          "enum": [
+            "DENY",
+            "ALLOWLIST"
+          ]
+        }
+      }
+    }
+  }
+}

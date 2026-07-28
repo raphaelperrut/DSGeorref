@@ -1,0 +1,43 @@
+schema_version: 1.0.0
+baseline: SAR-v3.0-PHASE-G
+status: TARGETS_REQUIRE_MEASUREMENT
+scope: single-instance supported deployment class
+availability:
+  monthly_target_percent: 99.0
+  planned_maintenance_excluded: true
+  ha_claim_allowed: false
+http:
+  health_readiness_p95_ms: 250
+  lightweight_query_p95_ms: 500
+  lightweight_query_p99_ms: 1500
+  command_acceptance_p95_ms: 1000
+  catalog_page_size_max: 100
+  catalog_100k_records_p95_ms: 1000
+  measurement_excludes_scientific_processing: true
+events:
+  sse_propagation_p95_ms: 2000
+  polling_fallback_interval_ms: 5000
+queue:
+  interactive_wait_p95_ms: 10000
+  starvation_max_seconds: 300
+  batch_runtime_slo: BENCHMARK_PROFILE_ONLY
+cancellation:
+  ack_p95_ms: 5000
+  safe_point_terminal_max_seconds: 120
+startup:
+  readiness_max_seconds: 120
+scientific:
+  false_accept_budget_owner: BP-002
+  throughput_owner: BP-001/BP-004
+  no_unbenchmarked_claims: true
+measurement:
+  required_dimensions:
+  - deployment_class
+  - corpus_version
+  - software_digest
+  - concurrency
+  - resource_class
+  percentiles:
+  - p50
+  - p95
+  - p99

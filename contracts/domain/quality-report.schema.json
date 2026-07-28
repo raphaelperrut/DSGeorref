@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/schemas/quality-report.schema/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "title": "QualityReport",
+  "required": [
+    "attempt_id",
+    "profile_id",
+    "verdict",
+    "metrics"
+  ],
+  "properties": {
+    "attempt_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "profile_id": {
+      "type": "string"
+    },
+    "verdict": {
+      "enum": [
+        "accepted",
+        "reviewable",
+        "rejected"
+      ]
+    },
+    "metrics": {
+      "type": "object"
+    }
+  }
+}

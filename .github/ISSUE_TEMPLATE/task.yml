@@ -1,0 +1,15 @@
+name: Engineering task
+description: Tech Lead task envelope for one bounded implementation lane
+body:
+  - type: input
+    id: issue
+    attributes: {label: Parent issue}
+    validations: {required: true}
+  - type: textarea
+    id: scope
+    attributes: {label: Allowed and forbidden paths}
+    validations: {required: true}
+  - type: textarea
+    id: tests
+    attributes: {label: Tests and evidence}
+    validations: {required: true}

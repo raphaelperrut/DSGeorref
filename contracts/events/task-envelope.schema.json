@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/task-envelope/1.0.0",
+  "title": "TaskEnvelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_id",
+    "job_id",
+    "work_unit_id",
+    "attempt_id",
+    "kind",
+    "payload_ref",
+    "idempotency_key",
+    "resource_class"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "task_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "job_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "work_unit_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "attempt_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "kind": {
+      "type": "string",
+      "minLength": 1
+    },
+    "payload_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 16
+    },
+    "resource_class": {
+      "type": "string",
+      "enum": [
+        "interactive",
+        "standard",
+        "batch",
+        "gpu"
+      ]
+    },
+    "traceparent": {
+      "type": "string"
+    },
+    "not_before": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

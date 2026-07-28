@@ -1,0 +1,15 @@
+name: Product story
+description: Product Owner story requiring architecture and decomposition
+body:
+  - type: input
+    id: epic
+    attributes: {label: Parent epic}
+    validations: {required: true}
+  - type: textarea
+    id: story
+    attributes: {label: Story and user value}
+    validations: {required: true}
+  - type: textarea
+    id: acceptance
+    attributes: {label: Acceptance criteria}
+    validations: {required: true}

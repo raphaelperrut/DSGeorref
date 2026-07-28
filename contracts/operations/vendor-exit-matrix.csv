@@ -1,0 +1,11 @@
+exit_id,technology,lock_type,lock_level,position,exit_mechanism,effort_class,required_gate
+EXIT-001,PostgreSQL/PostGIS,Technology,High,Intentional,SQL/GeoPackage/GeoJSON/COG exports; migration adapters,Large,New ADR + data migration rehearsal
+EXIT-002,POSIX managed filesystem,Technology,High,Intentional,Artifact locator/manifest boundary; object storage adapter possible,Large,New ADR + atomicity and consistency proof
+EXIT-003,RabbitMQ/Celery,Technology,Medium,Intentional,"TaskEnvelope, outbox and application services",Medium,"Equivalent redelivery, retry and observability tests"
+EXIT-004,FastAPI/Pydantic,Framework,Low,Replaceable,OpenAPI and transport/domain separation,Medium,Contract and generated-client equivalence
+EXIT-005,React/Vite/OpenLayers,Framework,Medium,Replaceable,HTTP/OpenAPI and published cartographic contracts,Large,UX and performance regression suite
+EXIT-006,GDAL/PROJ/GEOS/OpenCV,Domain stack,High,Intentional OSS dependency,Typed adapters and standard artifact formats,Very large,Scientific equivalence and corpus regression
+EXIT-007,OpenTelemetry backend,Vendor,Low,Avoided,OTLP/vendor-neutral collector,Small,Telemetry conformance
+EXIT-008,External providers,Vendor,Low,Avoided,Capability gateway and local/manual reference path,Small per provider,Provider contract and license review
+EXIT-009,GPU vendor/runtime,Vendor,Low in baseline,Avoided,CPU-only baseline and capability probing,Medium if enabled,Scientific and cost regression
+EXIT-010,OIDC provider,Vendor,Low,Avoided,issuer/subject contract and local accounts,Small,Identity linking and revocation test

@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0.0",
+  "phase": "E",
+  "title": "Specification Review",
+  "baseline": "2.8.0",
+  "approved": true,
+  "blocking_findings_open": 0,
+  "implementation_authorization": "BLOCKED_EXTERNAL",
+  "executed_at": "2026-07-27T00:00:00Z",
+  "scope": {
+    "specifications": 5,
+    "framework_documents": 1,
+    "contract_files": 139,
+    "json_schemas": 44,
+    "examples": 8,
+    "task_envelopes": 758,
+    "adrs": 57,
+    "bounded_contexts": 16,
+    "requirements": 376,
+    "stories": 758,
+    "contracts_with_owner": 138
+  },
+  "word_counts": {
+    "SPEC-001-PROMPT-BUNDLE-CONTRACT.md": 7474,
+    "SPEC-002-EDIT-CASE-REGISTRY-CONTRACT.md": 1129,
+    "SPEC-003-AI-BACKEND-PROTOCOL-CONTRACT.md": 1224,
+    "SPEC-004-TEMPLATE-CONTRACT.md": 854,
+    "SPEC-005-ARTIFACT-CONTRACT.md": 1470
+  },
+  "specifications": [
+    {
+      "id": "SPEC-001",
+      "title": "Prompt Bundle Contract",
+      "status": "FROZEN",
+      "owner_context": "BC-001",
+      "primary_contract": "contracts/prompts/prompt-bundle.schema.json",
+      "key_controls": [
+        "JSON/YAML profile",
+        "SemVer",
+        "JCS profile",
+        "SHA-256",
+        "Ed25519",
+        "inheritance DAG",
+        "composition",
+        "safe templates",
+        "compatibility",
+        "offline resolution"
+      ]
+    },
+    {
+      "id": "SPEC-002",
+      "title": "Edit Case Registry Contract",
+      "status": "FROZEN",
+      "owner_context": "BC-011",
+      "primary_contract": "contracts/edit-cases/edit-case.schema.json",
+      "key_controls": [
+        "aggregate root",
+        "12 states",
+        "deterministic transitions",
+        "review quorum",
+        "new Attempt",
+        "full validation",
+        "rollback without mutation",
+        "append-only events"
+      ]
+    },
+    {
+      "id": "SPEC-003",
+      "title": "AIBackend Protocol Contract",
+      "status": "FROZEN",
+      "owner_context": "BC-009",
+      "primary_contract": "contracts/ai/ai-backend-protocol.yaml",
+      "key_controls": [
+        "supports",
+        "estimate",
+        "execute",
+        "validate",
+        "publish",
+        "candidate-only publication",
+        "independent SGV",
+        "resource budgets",
+        "offline ModelPacks"
+      ]
+    },
+    {
+      "id": "SPEC-004",
+      "title": "Template Contract",
+      "status": "FROZEN",
+      "owner_context": "BC-001",
+      "primary_contract": "contracts/templates/template.schema.json",
+      "key_controls": [
+        "LITERAL",
+        "MUSTACHE_SAFE",
+        "STRUCTURED",
+        "typed variables",
+        "no arbitrary evaluation",
+        "output validation",
+        "golden tests"
+      ]
+    },
+    {
+      "id": "SPEC-005",
+      "title": "Artifact Contract",
+      "status": "FROZEN",
+      "owner_context": "BC-013",
+      "primary_contract": "contracts/artifacts/artifact-set-manifest.schema.json",
+      "key_controls": [
+        "artifact kind registry",
+        "typed descriptors",
+        "ArtifactSet manifest v2",
+        "validation profiles",
+        "atomic publication",
+        "lineage",
+        "compatibility read window"
+      ]
+    }
+  ],
+  "findings_resolved": [
+    {
+      "id": "SE-001",
+      "severity": "HIGH",
+      "finding": "Prompt Bundle era conceito sem representação canônica, lock ou trust model.",
+      "resolution": "Contrato completo, schema, examples, deterministic hash e Ed25519 vector."
+    },
+    {
+      "id": "SE-002",
+      "severity": "HIGH",
+      "finding": "Edit Bundle não possuía registry, workflow, concurrency e rollback.",
+      "resolution": "EditCase aggregate, state machine, events, ReviewDecision e RollbackPlan."
+    },
+    {
+      "id": "SE-003",
+      "severity": "HIGH",
+      "finding": "Backends de IA poderiam divergir em método, authority e publication.",
+      "resolution": "Protocolo exato de cinco métodos, typed I/O e candidate-only publication."
+    },
+    {
+      "id": "SE-004",
+      "severity": "MEDIUM",
+      "finding": "Templates não tinham sintaxe segura, typing ou output schema.",
+      "resolution": "Template Contract com safe engines, variables, partial DAG e golden vectors."
+    },
+    {
+      "id": "SE-005",
+      "severity": "HIGH",
+      "finding": "Artifacts eram descritos como arquivos genéricos e manifest v1 era insuficiente.",
+      "resolution": "Registry de 24 kinds, descriptors, profiles, manifest v2 e publication record."
+    },
+    {
+      "id": "SE-006",
+      "severity": "MEDIUM",
+      "finding": "TaskEnvelopes não declaravam specifications aplicáveis.",
+      "resolution": "Schema 1.4 e metadata aplicada aos 758 TaskEnvelopes."
+    },
+    {
+      "id": "SE-007",
+      "severity": "MEDIUM",
+      "finding": "ADRs relevantes não apontavam para contratos executáveis da Fase E.",
+      "resolution": "Referências normativas adicionadas sem criar ADRs artificiais."
+    }
+  ],
+  "validation": {
+    "specification_review": "PASS",
+    "architecture_review": "PASS",
+    "requirements_review": "PASS",
+    "ddd_review": "PASS",
+    "adr_review": "PASS",
+    "python_architecture": "PASS",
+    "repository_validation": "PASS",
+    "prompt_signature_vector": "PASS",
+    "edit_case_state_machine": "PASS",
+    "ai_method_order": "PASS",
+    "contract_ownership": "PASS"
+  },
+  "open_risks": [
+    {
+      "id": "SER-001",
+      "risk": "Implementação futura pode divergir entre texto e schema.",
+      "control": "CI executa conformance review e bloqueia mismatch.",
+      "residual": "LOW"
+    },
+    {
+      "id": "SER-002",
+      "risk": "Prompt injection não é eliminada apenas por assinatura.",
+      "control": "data/instruction separation, tool sandbox, allow paths, output validation and reviewer.",
+      "residual": "MEDIUM"
+    },
+    {
+      "id": "SER-003",
+      "risk": "Manifest v1 pode não conter dados suficientes para migração completa.",
+      "control": "read-only adapter; promotion blocks when mandatory evidence is unavailable.",
+      "residual": "LOW"
+    },
+    {
+      "id": "SER-004",
+      "risk": "AIBackend implementation may overestimate or underestimate resources.",
+      "control": "benchmarks and calibrated profiles; scheduler admission remains external.",
+      "residual": "MEDIUM"
+    }
+  ],
+  "phase_gate": {
+    "phase_e_approved": true,
+    "phase_f_architectural_entry": "APPROVED",
+    "production_code_authorized": false
+  }
+}

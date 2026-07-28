@@ -1,0 +1,55 @@
+module_id,module_name,bounded_context,context_name,role
+MOD-001,CLI,BC-016,Experiência e Orientação do Operador,Adapter/Component
+MOD-002,Web UI,BC-016,Experiência e Orientação do Operador,Adapter/Component
+MOD-003,HTTP API,BC-002,Identidade e Controle de Acesso,Adapter/Component
+MOD-003,HTTP API,BC-003,"Projetos, Workspace e Assets",Adapter/Component
+MOD-003,HTTP API,BC-004,Plano de Processamento e Workflow,Adapter/Component
+MOD-003,HTTP API,BC-005,Descoberta e Aquisição de Referências,Adapter/Component
+MOD-003,HTTP API,BC-006,Georreferenciamento,Adapter/Component
+MOD-003,HTTP API,BC-007,Verificação Geométrica e Qualidade,Adapter/Component
+MOD-003,HTTP API,BC-008,Mosaico Relativo,Adapter/Component
+MOD-003,HTTP API,BC-009,Recuperação Assistida por IA e Governança de Modelos,Adapter/Component
+MOD-003,HTTP API,BC-010,Orquestração de Jobs e Recursos,Adapter/Component
+MOD-003,HTTP API,BC-011,Revisão e Correção,Adapter/Component
+MOD-003,HTTP API,BC-012,"Resultados, Diagnósticos e Exportação",Adapter/Component
+MOD-003,HTTP API,BC-013,"Artifacts, Proveniência e Lifecycle",Adapter/Component
+MOD-003,HTTP API,BC-014,"Operações, Auditoria e Suporte",Adapter/Component
+MOD-003,HTTP API,BC-015,"Release, Instalação e Supply Chain",Adapter/Component
+MOD-003,HTTP API,BC-016,Experiência e Orientação do Operador,Adapter/Component
+MOD-004,Domínio + Application Services,BC-002,Identidade e Controle de Acesso,Context implementation
+MOD-004,Domínio + Application Services,BC-003,"Projetos, Workspace e Assets",Context implementation
+MOD-004,Domínio + Application Services,BC-004,Plano de Processamento e Workflow,Context implementation
+MOD-004,Domínio + Application Services,BC-010,Orquestração de Jobs e Recursos,Context implementation
+MOD-004,Domínio + Application Services,BC-011,Revisão e Correção,Context implementation
+MOD-004,Domínio + Application Services,BC-012,"Resultados, Diagnósticos e Exportação",Context implementation
+MOD-004,Domínio + Application Services,BC-013,"Artifacts, Proveniência e Lifecycle",Context implementation
+MOD-005,Pipeline geoespacial,BC-005,Descoberta e Aquisição de Referências,Context implementation
+MOD-005,Pipeline geoespacial,BC-006,Georreferenciamento,Context implementation
+MOD-005,Pipeline geoespacial,BC-008,Mosaico Relativo,Context implementation
+MOD-006,Strong Geometric Verifier,BC-007,Verificação Geométrica e Qualidade,Context implementation
+MOD-007,IA governada,BC-009,Recuperação Assistida por IA e Governança de Modelos,Context implementation
+MOD-008,Direct Runner,BC-010,Orquestração de Jobs e Recursos,Adapter/Component
+MOD-009,Workers duráveis,BC-010,Orquestração de Jobs e Recursos,Adapter/Component
+MOD-010,Scheduler + Resource Governor,BC-010,Orquestração de Jobs e Recursos,Context implementation
+MOD-011,PostgreSQL/PostGIS,BC-002,Identidade e Controle de Acesso,Adapter/Component
+MOD-011,PostgreSQL/PostGIS,BC-003,"Projetos, Workspace e Assets",Adapter/Component
+MOD-011,PostgreSQL/PostGIS,BC-004,Plano de Processamento e Workflow,Adapter/Component
+MOD-011,PostgreSQL/PostGIS,BC-005,Descoberta e Aquisição de Referências,Adapter/Component
+MOD-011,PostgreSQL/PostGIS,BC-006,Georreferenciamento,Adapter/Component
+MOD-011,PostgreSQL/PostGIS,BC-007,Verificação Geométrica e Qualidade,Adapter/Component
+MOD-011,PostgreSQL/PostGIS,BC-008,Mosaico Relativo,Adapter/Component
+MOD-011,PostgreSQL/PostGIS,BC-009,Recuperação Assistida por IA e Governança de Modelos,Adapter/Component
+MOD-011,PostgreSQL/PostGIS,BC-010,Orquestração de Jobs e Recursos,Adapter/Component
+MOD-011,PostgreSQL/PostGIS,BC-011,Revisão e Correção,Adapter/Component
+MOD-011,PostgreSQL/PostGIS,BC-012,"Resultados, Diagnósticos e Exportação",Adapter/Component
+MOD-011,PostgreSQL/PostGIS,BC-013,"Artifacts, Proveniência e Lifecycle",Adapter/Component
+MOD-011,PostgreSQL/PostGIS,BC-014,"Operações, Auditoria e Suporte",Adapter/Component
+MOD-011,PostgreSQL/PostGIS,BC-015,"Release, Instalação e Supply Chain",Adapter/Component
+MOD-012,Filesystem gerenciado,BC-013,"Artifacts, Proveniência e Lifecycle",Adapter/Component
+MOD-013,RabbitMQ,BC-010,Orquestração de Jobs e Recursos,Adapter/Component
+MOD-014,Providers externos,BC-005,Descoberta e Aquisição de Referências,Context implementation
+MOD-015,OIDC opcional,BC-002,Identidade e Controle de Acesso,Adapter/Component
+MOD-016,Observabilidade + Auditoria,BC-014,"Operações, Auditoria e Suporte",Adapter/Component
+MOD-017,Instalação + Supply Chain,BC-015,"Release, Instalação e Supply Chain",Adapter/Component
+MOD-018,Backup + Retenção,BC-013,"Artifacts, Proveniência e Lifecycle",Adapter/Component
+MOD-018,Backup + Retenção,BC-014,"Operações, Auditoria e Suporte",Adapter/Component

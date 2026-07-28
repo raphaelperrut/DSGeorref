@@ -1,0 +1,10 @@
+gate_id,name,owner,evidence,blocking_for
+G-CTO-01,Autorização e orçamento,Product Owner,ImplementationAuthorizationRecord + budget BRL + TCO 12 meses,implementation
+G-CTO-02,Capacidade e escala,Tech Lead,BP-001/BP-004 em classes suportadas e lotes 40/100/300,production
+G-CTO-03,Unit economics e GPU,Product Owner,cost assessment validado; decisão CPU/GPU,GPU/public production
+G-CTO-04,Backup e restore,DevOps,restore drill com RPO/RTO atingidos,real data production
+G-CTO-05,Migração e rollback,Tech Lead,ensaio expand-migrate-contract e rollback/forward-fix,upgrade
+G-CTO-06,Segurança,Security,"threat review, supply-chain evidence e teste independente",network/public exposure
+G-CTO-07,LGPD e privacidade,Product Owner,"ROPA, papéis, base/finalidade, retenção, direitos e incidente",personal data/public operation
+G-CTO-08,Observabilidade e SLO,DevOps,"dashboards, alertas e SLI medidos sem cardinalidade indevida",production
+G-CTO-09,Release e rollback,Reviewer,"SBOM, assinatura, backup, smoke, rollback e release gate",publication

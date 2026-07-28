@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/sgv-verdict/1.0.0",
+  "title": "SGVVerdict",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "candidate_id",
+    "profile_id",
+    "verdict",
+    "hard_gates",
+    "metrics",
+    "evidence_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "candidate_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "profile_id": {
+      "type": "string"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "accepted",
+        "reviewable",
+        "rejected"
+      ]
+    },
+    "hard_gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "passed"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "passed": {
+            "type": "boolean"
+          },
+          "value": {},
+          "threshold": {}
+        }
+      }
+    },
+    "metrics": {
+      "type": "object"
+    },
+    "evidence_digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}
