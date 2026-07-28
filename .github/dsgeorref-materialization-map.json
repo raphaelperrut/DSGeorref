@@ -1,0 +1,521 @@
+{
+  "dependency_edges": [],
+  "issues": {
+    "ISSUE-0001": {
+      "number": 1,
+      "title": "[ISSUE-0001] governança de decisões arquiteturais e manutenção da baseline normativa",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/1"
+    },
+    "ISSUE-0002": {
+      "number": 2,
+      "title": "[ISSUE-0002] repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/2"
+    },
+    "ISSUE-0003": {
+      "number": 3,
+      "title": "[ISSUE-0003] monorepo greenfield com CLI/API/Web mínimos e checks reproduzíveis",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/3"
+    },
+    "ISSUE-0004": {
+      "number": 4,
+      "title": "[ISSUE-0004] OpenAPI, cliente TypeScript e contratos CLI/jobs/eventos/artefatos/ProcessingPlan/QualityReport/FailureDiagnostic versionados",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/4"
+    },
+    "ISSUE-0005": {
+      "number": 5,
+      "title": "[ISSUE-0005] migrations, CI, secret/dependency scan e telemetria mínima",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/5"
+    },
+    "ISSUE-0006": {
+      "number": 6,
+      "title": "[ISSUE-0006] catálogo de conhecimento técnico e decomposição das capacidades de processamento",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/6"
+    },
+    "ISSUE-0007": {
+      "number": 7,
+      "title": "[ISSUE-0007] LICENSE, CITATION.cff, contribuição, DCO/CLA e gate de publicação definidos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/7"
+    },
+    "ISSUE-0086": {
+      "number": 8,
+      "title": "[ISSUE-0086] walking skeleton frontend→API→PostgreSQL→RabbitMQ/Celery→worker→artefato diagnóstico, executável e testado ponta a ponta",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/8"
+    },
+    "ISSUE-0090": {
+      "number": 9,
+      "title": "[ISSUE-0090] Issue Forms, templates e taxonomia de tipos com validação de campos obrigatórios",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/9"
+    },
+    "ISSUE-0091": {
+      "number": 10,
+      "title": "[ISSUE-0091] ruleset de main, checks únicos, CODEOWNERS, política de branches e prova de bypass auditado",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/10"
+    },
+    "ISSUE-0092": {
+      "number": 11,
+      "title": "[ISSUE-0092] fechamento da SPRINT-001 e autorização da primeira fatia funcional",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/11"
+    },
+    "ISSUE-0110": {
+      "number": 12,
+      "title": "[ISSUE-0110] governança contínua do backlog e decomposição de épicos em histórias implementáveis",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/12"
+    },
+    "ISSUE-0111": {
+      "number": 13,
+      "title": "[ISSUE-0111] Definir escopo, contratos e invariantes: governança de decisões arquiteturais e manutenção da baseline normativa",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/13"
+    },
+    "ISSUE-0112": {
+      "number": 14,
+      "title": "[ISSUE-0112] Consolidar slices e liberar integração: governança de decisões arquiteturais e manutenção da baseline normativa",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/14"
+    },
+    "ISSUE-0113": {
+      "number": 15,
+      "title": "[ISSUE-0113] Automatizar validações e controles: governança de decisões arquiteturais e manutenção da baseline normativa",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/15"
+    },
+    "ISSUE-0114": {
+      "number": 16,
+      "title": "[ISSUE-0114] Integrar a capacidade ao fluxo do repositório: governança de decisões arquiteturais e manutenção da baseline normativa",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/16"
+    },
+    "ISSUE-0115": {
+      "number": 17,
+      "title": "[ISSUE-0115] Validar evidência e realizar auditoria final: governança de decisões arquiteturais e manutenção da baseline normativa",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/17"
+    },
+    "ISSUE-0116": {
+      "number": 18,
+      "title": "[ISSUE-0116] Consolidar slices e liberar integração: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/18"
+    },
+    "ISSUE-0117": {
+      "number": 19,
+      "title": "[ISSUE-0117] Consolidar slices e liberar integração: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/19"
+    },
+    "ISSUE-0118": {
+      "number": 20,
+      "title": "[ISSUE-0118] Automatizar validações e controles: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/20"
+    },
+    "ISSUE-0119": {
+      "number": 21,
+      "title": "[ISSUE-0119] Integrar a capacidade ao fluxo do repositório: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/21"
+    },
+    "ISSUE-0120": {
+      "number": 22,
+      "title": "[ISSUE-0120] Validar evidência e realizar auditoria final: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/22"
+    },
+    "ISSUE-0121": {
+      "number": 23,
+      "title": "[ISSUE-0121] Definir escopo, contratos e invariantes: monorepo greenfield com CLI/API/Web mínimos e checks reproduzíveis",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/23"
+    },
+    "ISSUE-0122": {
+      "number": 24,
+      "title": "[ISSUE-0122] Materializar a fundação executável: monorepo greenfield com CLI/API/Web mínimos e checks reproduzíveis",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/24"
+    },
+    "ISSUE-0123": {
+      "number": 25,
+      "title": "[ISSUE-0123] Automatizar validações e controles: monorepo greenfield com CLI/API/Web mínimos e checks reproduzíveis",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/25"
+    },
+    "ISSUE-0124": {
+      "number": 26,
+      "title": "[ISSUE-0124] Integrar a capacidade ao fluxo do repositório: monorepo greenfield com CLI/API/Web mínimos e checks reproduzíveis",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/26"
+    },
+    "ISSUE-0125": {
+      "number": 27,
+      "title": "[ISSUE-0125] Validar evidência e realizar auditoria final: monorepo greenfield com CLI/API/Web mínimos e checks reproduzíveis",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/27"
+    },
+    "ISSUE-0126": {
+      "number": 28,
+      "title": "[ISSUE-0126] Consolidar slices e liberar integração: OpenAPI, cliente TypeScript e contratos CLI/jobs/eventos/artefatos/ProcessingPlan/QualityReport/FailureDiagnostic versionados",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/28"
+    },
+    "ISSUE-0127": {
+      "number": 29,
+      "title": "[ISSUE-0127] Consolidar slices e liberar integração: OpenAPI, cliente TypeScript e contratos CLI/jobs/eventos/artefatos/ProcessingPlan/QualityReport/FailureDiagnostic versionados",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/29"
+    },
+    "ISSUE-0128": {
+      "number": 30,
+      "title": "[ISSUE-0128] Automatizar validações e controles: OpenAPI, cliente TypeScript e contratos CLI/jobs/eventos/artefatos/ProcessingPlan/QualityReport/FailureDiagnostic versionados",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/30"
+    },
+    "ISSUE-0129": {
+      "number": 31,
+      "title": "[ISSUE-0129] Integrar a capacidade ao fluxo do repositório: OpenAPI, cliente TypeScript e contratos CLI/jobs/eventos/artefatos/ProcessingPlan/QualityReport/FailureDiagnostic versionados",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/31"
+    },
+    "ISSUE-0130": {
+      "number": 32,
+      "title": "[ISSUE-0130] Validar evidência e realizar auditoria final: OpenAPI, cliente TypeScript e contratos CLI/jobs/eventos/artefatos/ProcessingPlan/QualityReport/FailureDiagnostic versionados",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/32"
+    },
+    "ISSUE-0131": {
+      "number": 33,
+      "title": "[ISSUE-0131] Consolidar slices e liberar integração: migrations, CI, secret/dependency scan e telemetria mínima",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/33"
+    },
+    "ISSUE-0132": {
+      "number": 34,
+      "title": "[ISSUE-0132] Consolidar slices e liberar integração: migrations, CI, secret/dependency scan e telemetria mínima",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/34"
+    },
+    "ISSUE-0133": {
+      "number": 35,
+      "title": "[ISSUE-0133] Automatizar validações e controles: migrations, CI, secret/dependency scan e telemetria mínima",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/35"
+    },
+    "ISSUE-0134": {
+      "number": 36,
+      "title": "[ISSUE-0134] Integrar a capacidade ao fluxo do repositório: migrations, CI, secret/dependency scan e telemetria mínima",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/36"
+    },
+    "ISSUE-0135": {
+      "number": 37,
+      "title": "[ISSUE-0135] Validar evidência e realizar auditoria final: migrations, CI, secret/dependency scan e telemetria mínima",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/37"
+    },
+    "ISSUE-0136": {
+      "number": 38,
+      "title": "[ISSUE-0136] Definir escopo, contratos e invariantes: catálogo de conhecimento técnico e decomposição das capacidades de processamento",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/38"
+    },
+    "ISSUE-0137": {
+      "number": 39,
+      "title": "[ISSUE-0137] Materializar a fundação executável: catálogo de conhecimento técnico e decomposição das capacidades de processamento",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/39"
+    },
+    "ISSUE-0138": {
+      "number": 40,
+      "title": "[ISSUE-0138] Automatizar validações e controles: catálogo de conhecimento técnico e decomposição das capacidades de processamento",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/40"
+    },
+    "ISSUE-0139": {
+      "number": 41,
+      "title": "[ISSUE-0139] Integrar a capacidade ao fluxo do repositório: catálogo de conhecimento técnico e decomposição das capacidades de processamento",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/41"
+    },
+    "ISSUE-0140": {
+      "number": 42,
+      "title": "[ISSUE-0140] Validar evidência e realizar auditoria final: catálogo de conhecimento técnico e decomposição das capacidades de processamento",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/42"
+    },
+    "ISSUE-0141": {
+      "number": 43,
+      "title": "[ISSUE-0141] Definir escopo, contratos e invariantes: LICENSE, CITATION.cff, contribuição, DCO/CLA e gate de publicação definidos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/43"
+    },
+    "ISSUE-0142": {
+      "number": 44,
+      "title": "[ISSUE-0142] Materializar a fundação executável: LICENSE, CITATION.cff, contribuição, DCO/CLA e gate de publicação definidos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/44"
+    },
+    "ISSUE-0143": {
+      "number": 45,
+      "title": "[ISSUE-0143] Automatizar validações e controles: LICENSE, CITATION.cff, contribuição, DCO/CLA e gate de publicação definidos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/45"
+    },
+    "ISSUE-0144": {
+      "number": 46,
+      "title": "[ISSUE-0144] Integrar a capacidade ao fluxo do repositório: LICENSE, CITATION.cff, contribuição, DCO/CLA e gate de publicação definidos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/46"
+    },
+    "ISSUE-0145": {
+      "number": 47,
+      "title": "[ISSUE-0145] Validar evidência e realizar auditoria final: LICENSE, CITATION.cff, contribuição, DCO/CLA e gate de publicação definidos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/47"
+    },
+    "ISSUE-0644": {
+      "number": 48,
+      "title": "[ISSUE-0644] Definir escopo, contratos e invariantes: walking skeleton frontend→API→PostgreSQL→RabbitMQ/Celery→worker→artefato diagnóstico, executável e testado ponta a ponta",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/48"
+    },
+    "ISSUE-0645": {
+      "number": 49,
+      "title": "[ISSUE-0645] Consolidar slices e liberar integração: walking skeleton frontend→API→PostgreSQL→RabbitMQ/Celery→worker→artefato diagnóstico, executável e testado ponta a ponta",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/49"
+    },
+    "ISSUE-0646": {
+      "number": 50,
+      "title": "[ISSUE-0646] Automatizar validações e controles: walking skeleton frontend→API→PostgreSQL→RabbitMQ/Celery→worker→artefato diagnóstico, executável e testado ponta a ponta",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/50"
+    },
+    "ISSUE-0647": {
+      "number": 51,
+      "title": "[ISSUE-0647] Integrar a capacidade ao fluxo do repositório: walking skeleton frontend→API→PostgreSQL→RabbitMQ/Celery→worker→artefato diagnóstico, executável e testado ponta a ponta",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/51"
+    },
+    "ISSUE-0648": {
+      "number": 52,
+      "title": "[ISSUE-0648] Validar evidência e realizar auditoria final: walking skeleton frontend→API→PostgreSQL→RabbitMQ/Celery→worker→artefato diagnóstico, executável e testado ponta a ponta",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/52"
+    },
+    "ISSUE-0665": {
+      "number": 53,
+      "title": "[ISSUE-0665] Definir escopo, contratos e invariantes: Issue Forms, templates e taxonomia de tipos com validação de campos obrigatórios",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/53"
+    },
+    "ISSUE-0666": {
+      "number": 54,
+      "title": "[ISSUE-0666] Materializar a fundação executável: Issue Forms, templates e taxonomia de tipos com validação de campos obrigatórios",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/54"
+    },
+    "ISSUE-0667": {
+      "number": 55,
+      "title": "[ISSUE-0667] Automatizar validações e controles: Issue Forms, templates e taxonomia de tipos com validação de campos obrigatórios",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/55"
+    },
+    "ISSUE-0668": {
+      "number": 56,
+      "title": "[ISSUE-0668] Integrar a capacidade ao fluxo do repositório: Issue Forms, templates e taxonomia de tipos com validação de campos obrigatórios",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/56"
+    },
+    "ISSUE-0669": {
+      "number": 57,
+      "title": "[ISSUE-0669] Validar evidência e realizar auditoria final: Issue Forms, templates e taxonomia de tipos com validação de campos obrigatórios",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/57"
+    },
+    "ISSUE-0670": {
+      "number": 58,
+      "title": "[ISSUE-0670] Definir escopo, contratos e invariantes: ruleset de main, checks únicos, CODEOWNERS, política de branches e prova de bypass auditado",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/58"
+    },
+    "ISSUE-0671": {
+      "number": 59,
+      "title": "[ISSUE-0671] Materializar a fundação executável: ruleset de main, checks únicos, CODEOWNERS, política de branches e prova de bypass auditado",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/59"
+    },
+    "ISSUE-0672": {
+      "number": 60,
+      "title": "[ISSUE-0672] Automatizar validações e controles: ruleset de main, checks únicos, CODEOWNERS, política de branches e prova de bypass auditado",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/60"
+    },
+    "ISSUE-0673": {
+      "number": 61,
+      "title": "[ISSUE-0673] Integrar a capacidade ao fluxo do repositório: ruleset de main, checks únicos, CODEOWNERS, política de branches e prova de bypass auditado",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/61"
+    },
+    "ISSUE-0674": {
+      "number": 62,
+      "title": "[ISSUE-0674] Validar evidência e realizar auditoria final: ruleset de main, checks únicos, CODEOWNERS, política de branches e prova de bypass auditado",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/62"
+    },
+    "ISSUE-0675": {
+      "number": 63,
+      "title": "[ISSUE-0675] Definir escopo, contratos e invariantes: fechamento da SPRINT-001 e autorização da primeira fatia funcional",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/63"
+    },
+    "ISSUE-0676": {
+      "number": 64,
+      "title": "[ISSUE-0676] Materializar a fundação executável: fechamento da SPRINT-001 e autorização da primeira fatia funcional",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/64"
+    },
+    "ISSUE-0677": {
+      "number": 65,
+      "title": "[ISSUE-0677] Automatizar validações e controles: fechamento da SPRINT-001 e autorização da primeira fatia funcional",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/65"
+    },
+    "ISSUE-0678": {
+      "number": 66,
+      "title": "[ISSUE-0678] Integrar a capacidade ao fluxo do repositório: fechamento da SPRINT-001 e autorização da primeira fatia funcional",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/66"
+    },
+    "ISSUE-0679": {
+      "number": 67,
+      "title": "[ISSUE-0679] Validar evidência e realizar auditoria final: fechamento da SPRINT-001 e autorização da primeira fatia funcional",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/67"
+    },
+    "ISSUE-0793": {
+      "number": 68,
+      "title": "[ISSUE-0793] Definir escopo, contratos e invariantes: governança contínua do backlog e decomposição de épicos em histórias implementáveis",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/68"
+    },
+    "ISSUE-0794": {
+      "number": 69,
+      "title": "[ISSUE-0794] Consolidar slices e liberar integração: governança contínua do backlog e decomposição de épicos em histórias implementáveis",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/69"
+    },
+    "ISSUE-0795": {
+      "number": 70,
+      "title": "[ISSUE-0795] Automatizar validações e controles: governança contínua do backlog e decomposição de épicos em histórias implementáveis",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/70"
+    },
+    "ISSUE-0796": {
+      "number": 71,
+      "title": "[ISSUE-0796] Integrar a capacidade ao fluxo do repositório: governança contínua do backlog e decomposição de épicos em histórias implementáveis",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/71"
+    },
+    "ISSUE-0797": {
+      "number": 72,
+      "title": "[ISSUE-0797] Validar evidência e realizar auditoria final: governança contínua do backlog e decomposição de épicos em histórias implementáveis",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/72"
+    },
+    "ISSUE-0798": {
+      "number": 73,
+      "title": "[ISSUE-0798] Slice 1/2 — Materializar a fundação executável: governança de decisões arquiteturais e manutenção da baseline normativa [REQ-FRZ, REQ-GOV-ADR, REQ-GOV-DEC, REQ-ISM, REQ-SPRINT-001]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/73"
+    },
+    "ISSUE-0799": {
+      "number": 74,
+      "title": "[ISSUE-0799] Slice 2/2 — Materializar a fundação executável: governança de decisões arquiteturais e manutenção da baseline normativa [REQ-SPRINT-001, REQ-TOOL]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/74"
+    },
+    "ISSUE-0800": {
+      "number": 75,
+      "title": "[ISSUE-0800] Slice 1/2 — Definir escopo, contratos e invariantes: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível [REQ-CLASSICPROFILE, REQ-ISS, REQ-NATIVE, REQ-PLN, REQ-PRJ, REQ-RUN, REQ-SPRINT-001]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/75"
+    },
+    "ISSUE-0801": {
+      "number": 76,
+      "title": "[ISSUE-0801] Slice 2/2 — Definir escopo, contratos e invariantes: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível [REQ-WORKER]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/76"
+    },
+    "ISSUE-0802": {
+      "number": 77,
+      "title": "[ISSUE-0802] Slice 1/9 — Materializar a fundação executável: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível [REQ-CLASSICPROFILE, REQ-GOV, REQ-GOV-ADR]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/77"
+    },
+    "ISSUE-0803": {
+      "number": 78,
+      "title": "[ISSUE-0803] Slice 2/9 — Materializar a fundação executável: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível [REQ-GOV-ADR, REQ-ISM, REQ-ISS, REQ-NATIVE]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/78"
+    },
+    "ISSUE-0804": {
+      "number": 79,
+      "title": "[ISSUE-0804] Slice 3/9 — Materializar a fundação executável: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível [REQ-NATIVE, REQ-PLN]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/79"
+    },
+    "ISSUE-0805": {
+      "number": 80,
+      "title": "[ISSUE-0805] Slice 4/9 — Materializar a fundação executável: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível [REQ-PLN, REQ-PRJ]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/80"
+    },
+    "ISSUE-0806": {
+      "number": 81,
+      "title": "[ISSUE-0806] Slice 5/9 — Materializar a fundação executável: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível [REQ-PRJ, REQ-PRM]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/81"
+    },
+    "ISSUE-0807": {
+      "number": 82,
+      "title": "[ISSUE-0807] Slice 6/9 — Materializar a fundação executável: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível [REQ-PRM, REQ-RUN]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/82"
+    },
+    "ISSUE-0808": {
+      "number": 83,
+      "title": "[ISSUE-0808] Slice 7/9 — Materializar a fundação executável: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível [REQ-RUNTIME, REQ-SPRINT-001]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/83"
+    },
+    "ISSUE-0809": {
+      "number": 84,
+      "title": "[ISSUE-0809] Slice 8/9 — Materializar a fundação executável: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível [REQ-SPRINT-001, REQ-TOOL, REQ-WORKER]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/84"
+    },
+    "ISSUE-0810": {
+      "number": 85,
+      "title": "[ISSUE-0810] Slice 9/9 — Materializar a fundação executável: repositório privado, Project central/views/campos, labels, Issue Forms, templates, ruleset, checks e configuração reproduzível [REQ-WORKER]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/85"
+    },
+    "ISSUE-0811": {
+      "number": 86,
+      "title": "[ISSUE-0811] Slice 1/2 — Definir escopo, contratos e invariantes: OpenAPI, cliente TypeScript e contratos CLI/jobs/eventos/artefatos/ProcessingPlan/QualityReport/FailureDiagnostic versionados [REQ-CRS, REQ-DBSCHEMA, REQ-EPIC, REQ-FS1, REQ-RUN]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/86"
+    },
+    "ISSUE-0812": {
+      "number": 87,
+      "title": "[ISSUE-0812] Slice 2/2 — Definir escopo, contratos e invariantes: OpenAPI, cliente TypeScript e contratos CLI/jobs/eventos/artefatos/ProcessingPlan/QualityReport/FailureDiagnostic versionados [REQ-RUNTIME, REQ-SCM, REQ-TOOL, REQ-TOP, REQ-UX]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/87"
+    },
+    "ISSUE-0813": {
+      "number": 88,
+      "title": "[ISSUE-0813] Slice 1/3 — Materializar a fundação executável: OpenAPI, cliente TypeScript e contratos CLI/jobs/eventos/artefatos/ProcessingPlan/QualityReport/FailureDiagnostic versionados [REQ-ARTLAYOUT, REQ-DBSCHEMA, REQ-FS1]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/88"
+    },
+    "ISSUE-0814": {
+      "number": 89,
+      "title": "[ISSUE-0814] Slice 2/3 — Materializar a fundação executável: OpenAPI, cliente TypeScript e contratos CLI/jobs/eventos/artefatos/ProcessingPlan/QualityReport/FailureDiagnostic versionados [REQ-RUN, REQ-RUNTIME]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/89"
+    },
+    "ISSUE-0815": {
+      "number": 90,
+      "title": "[ISSUE-0815] Slice 3/3 — Materializar a fundação executável: OpenAPI, cliente TypeScript e contratos CLI/jobs/eventos/artefatos/ProcessingPlan/QualityReport/FailureDiagnostic versionados [REQ-RUNTIME, REQ-TOOL, REQ-UPG]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/90"
+    },
+    "ISSUE-0816": {
+      "number": 91,
+      "title": "[ISSUE-0816] Slice 1/2 — Definir escopo, contratos e invariantes: migrations, CI, secret/dependency scan e telemetria mínima [REQ-AIE, REQ-BEX, REQ-EPIC, REQ-FS1, REQ-INS, REQ-ISS, REQ-OBS]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/91"
+    },
+    "ISSUE-0817": {
+      "number": 92,
+      "title": "[ISSUE-0817] Slice 2/2 — Definir escopo, contratos e invariantes: migrations, CI, secret/dependency scan e telemetria mínima [REQ-SGVCAL]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/92"
+    },
+    "ISSUE-0818": {
+      "number": 93,
+      "title": "[ISSUE-0818] Slice 1/4 — Materializar a fundação executável: migrations, CI, secret/dependency scan e telemetria mínima [REQ-AIE, REQ-BEX]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/93"
+    },
+    "ISSUE-0819": {
+      "number": 94,
+      "title": "[ISSUE-0819] Slice 2/4 — Materializar a fundação executável: migrations, CI, secret/dependency scan e telemetria mínima [REQ-BEX, REQ-EPIC, REQ-FRZ, REQ-FS1]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/94"
+    },
+    "ISSUE-0820": {
+      "number": 95,
+      "title": "[ISSUE-0820] Slice 3/4 — Materializar a fundação executável: migrations, CI, secret/dependency scan e telemetria mínima [REQ-FS1, REQ-GOV, REQ-SGVCAL]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/95"
+    },
+    "ISSUE-0821": {
+      "number": 96,
+      "title": "[ISSUE-0821] Slice 4/4 — Materializar a fundação executável: migrations, CI, secret/dependency scan e telemetria mínima [REQ-SGVCAL, REQ-SRG, REQ-SRP, REQ-SUP, REQ-TOOL, REQ-UPG]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/96"
+    },
+    "ISSUE-0862": {
+      "number": 97,
+      "title": "[ISSUE-0862] Slice 1/2 — Materializar a fundação executável: walking skeleton frontend→API→PostgreSQL→RabbitMQ/Celery→worker→artefato diagnóstico, executável e testado ponta a ponta [REQ-DEL, REQ-ISM, REQ-SPRINT-001]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/97"
+    },
+    "ISSUE-0863": {
+      "number": 98,
+      "title": "[ISSUE-0863] Slice 2/2 — Materializar a fundação executável: walking skeleton frontend→API→PostgreSQL→RabbitMQ/Celery→worker→artefato diagnóstico, executável e testado ponta a ponta [REQ-SPRINT-001]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/98"
+    },
+    "ISSUE-0864": {
+      "number": 99,
+      "title": "[ISSUE-0864] Slice 1/5 — Materializar a fundação executável: governança contínua do backlog e decomposição de épicos em histórias implementáveis [REQ-ISM, REQ-ISS]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/99"
+    },
+    "ISSUE-0865": {
+      "number": 100,
+      "title": "[ISSUE-0865] Slice 2/5 — Materializar a fundação executável: governança contínua do backlog e decomposição de épicos em histórias implementáveis [REQ-ISS, REQ-PLN]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/100"
+    },
+    "ISSUE-0866": {
+      "number": 101,
+      "title": "[ISSUE-0866] Slice 3/5 — Materializar a fundação executável: governança contínua do backlog e decomposição de épicos em histórias implementáveis [REQ-PRJ, REQ-PRM]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/101"
+    },
+    "ISSUE-0867": {
+      "number": 102,
+      "title": "[ISSUE-0867] Slice 4/5 — Materializar a fundação executável: governança contínua do backlog e decomposição de épicos em histórias implementáveis [REQ-PRM, REQ-SPRINT-001]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/102"
+    },
+    "ISSUE-0868": {
+      "number": 103,
+      "title": "[ISSUE-0868] Slice 5/5 — Materializar a fundação executável: governança contínua do backlog e decomposição de épicos em histórias implementáveis [REQ-SPRINT-001]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/103"
+    }
+  },
+  "schema_version": "1.0.0"
+}
