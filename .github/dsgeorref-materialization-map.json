@@ -12,11 +12,21 @@
     "ISSUE-0003->ISSUE-0005",
     "ISSUE-0003->ISSUE-0086",
     "ISSUE-0003->ISSUE-0092",
+    "ISSUE-0004->ISSUE-0008",
     "ISSUE-0004->ISSUE-0086",
     "ISSUE-0004->ISSUE-0092",
+    "ISSUE-0005->ISSUE-0009",
+    "ISSUE-0005->ISSUE-0012",
     "ISSUE-0005->ISSUE-0086",
     "ISSUE-0005->ISSUE-0091",
     "ISSUE-0005->ISSUE-0092",
+    "ISSUE-0008->ISSUE-0009",
+    "ISSUE-0009->ISSUE-0010",
+    "ISSUE-0010->ISSUE-0011",
+    "ISSUE-0010->ISSUE-0012",
+    "ISSUE-0010->ISSUE-0082",
+    "ISSUE-0012->ISSUE-0013",
+    "ISSUE-0012->ISSUE-0041",
     "ISSUE-0086->ISSUE-0092",
     "ISSUE-0111->ISSUE-0113",
     "ISSUE-0111->ISSUE-0798",
@@ -64,6 +74,7 @@
     "ISSUE-0127->ISSUE-0129",
     "ISSUE-0128->ISSUE-0129",
     "ISSUE-0129->ISSUE-0130",
+    "ISSUE-0130->ISSUE-0146",
     "ISSUE-0130->ISSUE-0644",
     "ISSUE-0130->ISSUE-0675",
     "ISSUE-0131->ISSUE-0133",
@@ -74,6 +85,8 @@
     "ISSUE-0132->ISSUE-0134",
     "ISSUE-0133->ISSUE-0134",
     "ISSUE-0134->ISSUE-0135",
+    "ISSUE-0135->ISSUE-0151",
+    "ISSUE-0135->ISSUE-0166",
     "ISSUE-0135->ISSUE-0644",
     "ISSUE-0135->ISSUE-0670",
     "ISSUE-0135->ISSUE-0675",
@@ -87,6 +100,66 @@
     "ISSUE-0142->ISSUE-0144",
     "ISSUE-0143->ISSUE-0144",
     "ISSUE-0144->ISSUE-0145",
+    "ISSUE-0146->ISSUE-0148",
+    "ISSUE-0146->ISSUE-0822",
+    "ISSUE-0146->ISSUE-0823",
+    "ISSUE-0147->ISSUE-0149",
+    "ISSUE-0148->ISSUE-0149",
+    "ISSUE-0149->ISSUE-0150",
+    "ISSUE-0150->ISSUE-0151",
+    "ISSUE-0151->ISSUE-0153",
+    "ISSUE-0151->ISSUE-0824",
+    "ISSUE-0151->ISSUE-0825",
+    "ISSUE-0152->ISSUE-0154",
+    "ISSUE-0153->ISSUE-0154",
+    "ISSUE-0154->ISSUE-0155",
+    "ISSUE-0155->ISSUE-0156",
+    "ISSUE-0156->ISSUE-0158",
+    "ISSUE-0156->ISSUE-0826",
+    "ISSUE-0156->ISSUE-0827",
+    "ISSUE-0157->ISSUE-0159",
+    "ISSUE-0158->ISSUE-0159",
+    "ISSUE-0159->ISSUE-0160",
+    "ISSUE-0160->ISSUE-0161",
+    "ISSUE-0160->ISSUE-0166",
+    "ISSUE-0160->ISSUE-0621",
+    "ISSUE-0161->ISSUE-0162",
+    "ISSUE-0161->ISSUE-0163",
+    "ISSUE-0162->ISSUE-0164",
+    "ISSUE-0163->ISSUE-0164",
+    "ISSUE-0164->ISSUE-0165",
+    "ISSUE-0166->ISSUE-0168",
+    "ISSUE-0166->ISSUE-0169",
+    "ISSUE-0166->ISSUE-0828",
+    "ISSUE-0166->ISSUE-0829",
+    "ISSUE-0166->ISSUE-0830",
+    "ISSUE-0167->ISSUE-0170",
+    "ISSUE-0168->ISSUE-0170",
+    "ISSUE-0169->ISSUE-0170",
+    "ISSUE-0170->ISSUE-0171",
+    "ISSUE-0171->ISSUE-0172",
+    "ISSUE-0171->ISSUE-0354",
+    "ISSUE-0172->ISSUE-0173",
+    "ISSUE-0172->ISSUE-0174",
+    "ISSUE-0172->ISSUE-0175",
+    "ISSUE-0173->ISSUE-0176",
+    "ISSUE-0174->ISSUE-0176",
+    "ISSUE-0175->ISSUE-0176",
+    "ISSUE-0176->ISSUE-0177",
+    "ISSUE-0354->ISSUE-0356",
+    "ISSUE-0354->ISSUE-0357",
+    "ISSUE-0354->ISSUE-0857",
+    "ISSUE-0354->ISSUE-0858",
+    "ISSUE-0354->ISSUE-0859",
+    "ISSUE-0355->ISSUE-0358",
+    "ISSUE-0356->ISSUE-0358",
+    "ISSUE-0357->ISSUE-0358",
+    "ISSUE-0358->ISSUE-0359",
+    "ISSUE-0621->ISSUE-0622",
+    "ISSUE-0621->ISSUE-0623",
+    "ISSUE-0622->ISSUE-0624",
+    "ISSUE-0623->ISSUE-0624",
+    "ISSUE-0624->ISSUE-0625",
     "ISSUE-0644->ISSUE-0646",
     "ISSUE-0644->ISSUE-0862",
     "ISSUE-0644->ISSUE-0863",
@@ -142,6 +215,18 @@
     "ISSUE-0819->ISSUE-0132",
     "ISSUE-0820->ISSUE-0132",
     "ISSUE-0821->ISSUE-0132",
+    "ISSUE-0822->ISSUE-0147",
+    "ISSUE-0823->ISSUE-0147",
+    "ISSUE-0824->ISSUE-0152",
+    "ISSUE-0825->ISSUE-0152",
+    "ISSUE-0826->ISSUE-0157",
+    "ISSUE-0827->ISSUE-0157",
+    "ISSUE-0828->ISSUE-0167",
+    "ISSUE-0829->ISSUE-0167",
+    "ISSUE-0830->ISSUE-0167",
+    "ISSUE-0857->ISSUE-0355",
+    "ISSUE-0858->ISSUE-0355",
+    "ISSUE-0859->ISSUE-0355",
     "ISSUE-0862->ISSUE-0645",
     "ISSUE-0863->ISSUE-0645",
     "ISSUE-0864->ISSUE-0794",
@@ -185,6 +270,46 @@
       "number": 7,
       "title": "[ISSUE-0007] LICENSE, CITATION.cff, contribuição, DCO/CLA e gate de publicação definidos",
       "url": "https://github.com/raphaelperrut/DSGeorref/issues/7"
+    },
+    "ISSUE-0008": {
+      "number": 104,
+      "title": "[ISSUE-0008] contas locais, bootstrap único, sessões, tokens e adapter OIDC",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/104"
+    },
+    "ISSUE-0009": {
+      "number": 105,
+      "title": "[ISSUE-0009] usuários e papéis da instância",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/105"
+    },
+    "ISSUE-0010": {
+      "number": 106,
+      "title": "[ISSUE-0010] autorização por projeto, operação, artefato e caminho",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/106"
+    },
+    "ISSUE-0011": {
+      "number": 107,
+      "title": "[ISSUE-0011] limites, idempotência, audit log e controles administrativos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/107"
+    },
+    "ISSUE-0012": {
+      "number": 108,
+      "title": "[ISSUE-0012] raízes de workspace, API de navegação segura, catálogo, hashes e lineage",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/108"
+    },
+    "ISSUE-0013": {
+      "number": 109,
+      "title": "[ISSUE-0013] backup/restore consistente entre banco e arquivos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/109"
+    },
+    "ISSUE-0041": {
+      "number": 110,
+      "title": "[ISSUE-0041] threat model validado, scanning e testes ofensivos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/110"
+    },
+    "ISSUE-0082": {
+      "number": 111,
+      "title": "[ISSUE-0082] preflight de hardware e ExecutionProfiles CPU/GPU/híbrido integrados ao Resource Governor",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/111"
     },
     "ISSUE-0086": {
       "number": 8,
@@ -385,6 +510,221 @@
       "number": 47,
       "title": "[ISSUE-0145] Validar evidência e realizar auditoria final: LICENSE, CITATION.cff, contribuição, DCO/CLA e gate de publicação definidos",
       "url": "https://github.com/raphaelperrut/DSGeorref/issues/47"
+    },
+    "ISSUE-0146": {
+      "number": 112,
+      "title": "[ISSUE-0146] Definir política, estados e contratos: contas locais, bootstrap único, sessões, tokens e adapter OIDC",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/112"
+    },
+    "ISSUE-0147": {
+      "number": 113,
+      "title": "[ISSUE-0147] Consolidar slices e liberar integração: contas locais, bootstrap único, sessões, tokens e adapter OIDC",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/113"
+    },
+    "ISSUE-0148": {
+      "number": 114,
+      "title": "[ISSUE-0148] Expor administração e fluxos de uso: contas locais, bootstrap único, sessões, tokens e adapter OIDC",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/114"
+    },
+    "ISSUE-0149": {
+      "number": 115,
+      "title": "[ISSUE-0149] Validar ameaças, autorização e falhas: contas locais, bootstrap único, sessões, tokens e adapter OIDC",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/115"
+    },
+    "ISSUE-0150": {
+      "number": 116,
+      "title": "[ISSUE-0150] Executar QA e auditoria final: contas locais, bootstrap único, sessões, tokens e adapter OIDC",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/116"
+    },
+    "ISSUE-0151": {
+      "number": 117,
+      "title": "[ISSUE-0151] Definir política, estados e contratos: usuários e papéis da instância",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/117"
+    },
+    "ISSUE-0152": {
+      "number": 118,
+      "title": "[ISSUE-0152] Consolidar slices e liberar integração: usuários e papéis da instância",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/118"
+    },
+    "ISSUE-0153": {
+      "number": 119,
+      "title": "[ISSUE-0153] Expor administração e fluxos de uso: usuários e papéis da instância",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/119"
+    },
+    "ISSUE-0154": {
+      "number": 120,
+      "title": "[ISSUE-0154] Validar ameaças, autorização e falhas: usuários e papéis da instância",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/120"
+    },
+    "ISSUE-0155": {
+      "number": 121,
+      "title": "[ISSUE-0155] Executar QA e auditoria final: usuários e papéis da instância",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/121"
+    },
+    "ISSUE-0156": {
+      "number": 122,
+      "title": "[ISSUE-0156] Definir política, estados e contratos: autorização por projeto, operação, artefato e caminho",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/122"
+    },
+    "ISSUE-0157": {
+      "number": 123,
+      "title": "[ISSUE-0157] Consolidar slices e liberar integração: autorização por projeto, operação, artefato e caminho",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/123"
+    },
+    "ISSUE-0158": {
+      "number": 124,
+      "title": "[ISSUE-0158] Expor administração e fluxos de uso: autorização por projeto, operação, artefato e caminho",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/124"
+    },
+    "ISSUE-0159": {
+      "number": 125,
+      "title": "[ISSUE-0159] Validar ameaças, autorização e falhas: autorização por projeto, operação, artefato e caminho",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/125"
+    },
+    "ISSUE-0160": {
+      "number": 126,
+      "title": "[ISSUE-0160] Executar QA e auditoria final: autorização por projeto, operação, artefato e caminho",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/126"
+    },
+    "ISSUE-0161": {
+      "number": 127,
+      "title": "[ISSUE-0161] Definir política, estados e contratos: limites, idempotência, audit log e controles administrativos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/127"
+    },
+    "ISSUE-0162": {
+      "number": 128,
+      "title": "[ISSUE-0162] Implementar domínio e persistência: limites, idempotência, audit log e controles administrativos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/128"
+    },
+    "ISSUE-0163": {
+      "number": 129,
+      "title": "[ISSUE-0163] Expor administração e fluxos de uso: limites, idempotência, audit log e controles administrativos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/129"
+    },
+    "ISSUE-0164": {
+      "number": 130,
+      "title": "[ISSUE-0164] Validar ameaças, autorização e falhas: limites, idempotência, audit log e controles administrativos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/130"
+    },
+    "ISSUE-0165": {
+      "number": 131,
+      "title": "[ISSUE-0165] Executar QA e auditoria final: limites, idempotência, audit log e controles administrativos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/131"
+    },
+    "ISSUE-0166": {
+      "number": 132,
+      "title": "[ISSUE-0166] Definir modelo, invariantes e contratos de dados: raízes de workspace, API de navegação segura, catálogo, hashes e lineage",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/132"
+    },
+    "ISSUE-0167": {
+      "number": 133,
+      "title": "[ISSUE-0167] Consolidar slices e liberar integração: raízes de workspace, API de navegação segura, catálogo, hashes e lineage",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/133"
+    },
+    "ISSUE-0168": {
+      "number": 134,
+      "title": "[ISSUE-0168] Implementar armazenamento e lifecycle: raízes de workspace, API de navegação segura, catálogo, hashes e lineage",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/134"
+    },
+    "ISSUE-0169": {
+      "number": 135,
+      "title": "[ISSUE-0169] Expor serviços e integrar consumers: raízes de workspace, API de navegação segura, catálogo, hashes e lineage",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/135"
+    },
+    "ISSUE-0170": {
+      "number": 136,
+      "title": "[ISSUE-0170] Validar segurança, recuperação e concorrência: raízes de workspace, API de navegação segura, catálogo, hashes e lineage",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/136"
+    },
+    "ISSUE-0171": {
+      "number": 137,
+      "title": "[ISSUE-0171] Executar QA e auditoria final: raízes de workspace, API de navegação segura, catálogo, hashes e lineage",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/137"
+    },
+    "ISSUE-0172": {
+      "number": 138,
+      "title": "[ISSUE-0172] Definir modelo, invariantes e contratos de dados: backup/restore consistente entre banco e arquivos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/138"
+    },
+    "ISSUE-0173": {
+      "number": 139,
+      "title": "[ISSUE-0173] Implementar persistência e migrations: backup/restore consistente entre banco e arquivos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/139"
+    },
+    "ISSUE-0174": {
+      "number": 140,
+      "title": "[ISSUE-0174] Implementar armazenamento e lifecycle: backup/restore consistente entre banco e arquivos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/140"
+    },
+    "ISSUE-0175": {
+      "number": 141,
+      "title": "[ISSUE-0175] Expor serviços e integrar consumers: backup/restore consistente entre banco e arquivos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/141"
+    },
+    "ISSUE-0176": {
+      "number": 142,
+      "title": "[ISSUE-0176] Validar segurança, recuperação e concorrência: backup/restore consistente entre banco e arquivos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/142"
+    },
+    "ISSUE-0177": {
+      "number": 143,
+      "title": "[ISSUE-0177] Executar QA e auditoria final: backup/restore consistente entre banco e arquivos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/143"
+    },
+    "ISSUE-0354": {
+      "number": 144,
+      "title": "[ISSUE-0354] Modelar ameaças e requisitos de controle: threat model validado, scanning e testes ofensivos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/144"
+    },
+    "ISSUE-0355": {
+      "number": 145,
+      "title": "[ISSUE-0355] Consolidar slices e liberar integração: threat model validado, scanning e testes ofensivos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/145"
+    },
+    "ISSUE-0356": {
+      "number": 146,
+      "title": "[ISSUE-0356] Implementar controles e enforcement: threat model validado, scanning e testes ofensivos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/146"
+    },
+    "ISSUE-0357": {
+      "number": 147,
+      "title": "[ISSUE-0357] Executar testes negativos e ofensivos: threat model validado, scanning e testes ofensivos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/147"
+    },
+    "ISSUE-0358": {
+      "number": 148,
+      "title": "[ISSUE-0358] Instrumentar detecção, resposta e runbook: threat model validado, scanning e testes ofensivos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/148"
+    },
+    "ISSUE-0359": {
+      "number": 149,
+      "title": "[ISSUE-0359] Auditar evidência de segurança final: threat model validado, scanning e testes ofensivos",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/149"
+    },
+    "ISSUE-0621": {
+      "number": 150,
+      "title": "[ISSUE-0621] Definir política, estados e contratos: preflight de hardware e ExecutionProfiles CPU/GPU/híbrido integrados ao Resource Governor",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/150"
+    },
+    "ISSUE-0622": {
+      "number": 151,
+      "title": "[ISSUE-0622] Implementar domínio e persistência: preflight de hardware e ExecutionProfiles CPU/GPU/híbrido integrados ao Resource Governor",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/151"
+    },
+    "ISSUE-0623": {
+      "number": 152,
+      "title": "[ISSUE-0623] Expor administração e fluxos de uso: preflight de hardware e ExecutionProfiles CPU/GPU/híbrido integrados ao Resource Governor",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/152"
+    },
+    "ISSUE-0624": {
+      "number": 153,
+      "title": "[ISSUE-0624] Validar ameaças, autorização e falhas: preflight de hardware e ExecutionProfiles CPU/GPU/híbrido integrados ao Resource Governor",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/153"
+    },
+    "ISSUE-0625": {
+      "number": 154,
+      "title": "[ISSUE-0625] Executar QA e auditoria final: preflight de hardware e ExecutionProfiles CPU/GPU/híbrido integrados ao Resource Governor",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/154"
     },
     "ISSUE-0644": {
       "number": 48,
@@ -630,6 +970,66 @@
       "number": 96,
       "title": "[ISSUE-0821] Slice 4/4 — Materializar a fundação executável: migrations, CI, secret/dependency scan e telemetria mínima [REQ-SGVCAL, REQ-SRG, REQ-SRP, REQ-SUP, REQ-TOOL, REQ-UPG]",
       "url": "https://github.com/raphaelperrut/DSGeorref/issues/96"
+    },
+    "ISSUE-0822": {
+      "number": 155,
+      "title": "[ISSUE-0822] Slice 1/2 — Implementar domínio e persistência: contas locais, bootstrap único, sessões, tokens e adapter OIDC [REQ-AUTH-IMPL, REQ-DBSCHEMA]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/155"
+    },
+    "ISSUE-0823": {
+      "number": 156,
+      "title": "[ISSUE-0823] Slice 2/2 — Implementar domínio e persistência: contas locais, bootstrap único, sessões, tokens e adapter OIDC [REQ-ID]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/156"
+    },
+    "ISSUE-0824": {
+      "number": 157,
+      "title": "[ISSUE-0824] Slice 1/2 — Implementar domínio e persistência: usuários e papéis da instância [REQ-ACC, REQ-AUTH-IMPL]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/157"
+    },
+    "ISSUE-0825": {
+      "number": 158,
+      "title": "[ISSUE-0825] Slice 2/2 — Implementar domínio e persistência: usuários e papéis da instância [REQ-ID]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/158"
+    },
+    "ISSUE-0826": {
+      "number": 159,
+      "title": "[ISSUE-0826] Slice 1/2 — Implementar domínio e persistência: autorização por projeto, operação, artefato e caminho [REQ-ACC, REQ-AUTH-IMPL]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/159"
+    },
+    "ISSUE-0827": {
+      "number": 160,
+      "title": "[ISSUE-0827] Slice 2/2 — Implementar domínio e persistência: autorização por projeto, operação, artefato e caminho [REQ-HW]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/160"
+    },
+    "ISSUE-0828": {
+      "number": 161,
+      "title": "[ISSUE-0828] Slice 1/3 — Implementar persistência e migrations: raízes de workspace, API de navegação segura, catálogo, hashes e lineage [REQ-ART, REQ-ARTLAYOUT, REQ-CAT, REQ-DBSCHEMA, REQ-FS]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/161"
+    },
+    "ISSUE-0829": {
+      "number": 162,
+      "title": "[ISSUE-0829] Slice 2/3 — Implementar persistência e migrations: raízes de workspace, API de navegação segura, catálogo, hashes e lineage [REQ-PRV, REQ-RUN, REQ-SCM, REQ-TOOL]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/162"
+    },
+    "ISSUE-0830": {
+      "number": 163,
+      "title": "[ISSUE-0830] Slice 3/3 — Implementar persistência e migrations: raízes de workspace, API de navegação segura, catálogo, hashes e lineage [REQ-UPG]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/163"
+    },
+    "ISSUE-0857": {
+      "number": 164,
+      "title": "[ISSUE-0857] Slice 1/3 — Definir políticas e contratos fail-closed: threat model validado, scanning e testes ofensivos [REQ-AIE]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/164"
+    },
+    "ISSUE-0858": {
+      "number": 165,
+      "title": "[ISSUE-0858] Slice 2/3 — Definir políticas e contratos fail-closed: threat model validado, scanning e testes ofensivos [REQ-ARTLAYOUT, REQ-AUTH-IMPL]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/165"
+    },
+    "ISSUE-0859": {
+      "number": 166,
+      "title": "[ISSUE-0859] Slice 3/3 — Definir políticas e contratos fail-closed: threat model validado, scanning e testes ofensivos [REQ-AUTH-IMPL, REQ-EPIC, REQ-FS, REQ-SRC]",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/166"
     },
     "ISSUE-0862": {
       "number": 97,
