@@ -1,15 +1,52 @@
-name: Defect
-description: Reproducible product, contract, security or scientific defect
+name: Bug
+about: Relatar comportamento incorreto ou regressão reproduzível
+title: "[BUG] "
+labels: []
 body:
+  - type: markdown
+    attributes:
+      value: "Não inclua segredos, dados pessoais ou dados geoespaciais sensíveis."
+  - type: input
+    id: stable-id
+    attributes:
+      label: Stable ID relacionado
+      description: ISSUE-xxxx, STORY-xxxx ou contrato relacionado, quando existir.
+      placeholder: ISSUE-0000
   - type: textarea
     id: observed
-    attributes: {label: Observed behavior}
-    validations: {required: true}
+    attributes:
+      label: Comportamento observado
+    validations:
+      required: true
   - type: textarea
     id: expected
-    attributes: {label: Expected behavior}
-    validations: {required: true}
+    attributes:
+      label: Comportamento esperado
+    validations:
+      required: true
   - type: textarea
-    id: reproduce
-    attributes: {label: Reproduction and evidence}
-    validations: {required: true}
+    id: reproduction
+    attributes:
+      label: Reprodução mínima
+      description: Passos, comandos, entrada sanitizada e frequência.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Ambiente
+      description: Commit, versão, SO, Python, navegador e configuração relevante.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidências sanitizadas
+      description: Logs, screenshots ou artefatos sem credenciais.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Verificações
+      options:
+        - label: Confirmei que esta issue não contém segredos nem dados pessoais.
+          required: true

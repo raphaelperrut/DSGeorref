@@ -1,0 +1,21 @@
+# DSGeorref CODEOWNERS
+# Estado inicial para repositório pessoal. Adicione revisores ou equipes reais
+# antes de habilitar "Require review from Code Owners" sem bypass.
+
+* @raphaelperrut
+
+/.github/ @raphaelperrut
+/.codex/ @raphaelperrut
+/docs/00-governance/ @raphaelperrut
+/docs/02-architecture/ @raphaelperrut
+/docs/04-quality/ @raphaelperrut
+/docs/05-operations/ @raphaelperrut
+/docs/06-delivery/ @raphaelperrut
+/contracts/ @raphaelperrut
+/infra/ @raphaelperrut
+/src/backend/ @raphaelperrut
+/src/frontend/ @raphaelperrut
+/src/geo/ @raphaelperrut
+/src/ai/ @raphaelperrut
+/tests/ @raphaelperrut
+/tools/ @raphaelperrut

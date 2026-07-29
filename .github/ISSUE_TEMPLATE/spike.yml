@@ -1,11 +1,38 @@
-name: Research spike
-description: Time-bounded evidence gathering that cannot directly ship product code
+name: Spike
+about: Investigação time-boxed com decisão e evidência explícitas
+title: "[SPIKE] "
+labels: []
 body:
   - type: textarea
     id: question
-    attributes: {label: Decision question}
-    validations: {required: true}
+    attributes:
+      label: Pergunta decisória
+      description: Qual incerteza precisa ser reduzida?
+    validations:
+      required: true
+  - type: input
+    id: timebox
+    attributes:
+      label: Timebox
+      placeholder: 4 horas / 2 dias
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativas a comparar
+    validations:
+      required: true
   - type: textarea
     id: evidence
-    attributes: {label: Required evidence and stop condition}
-    validations: {required: true}
+    attributes:
+      label: Evidências e método
+    validations:
+      required: true
+  - type: textarea
+    id: stop
+    attributes:
+      label: Critério de parada e saída esperada
+      description: ADR, benchmark, decisão de não prosseguir ou issue refinada.
+    validations:
+      required: true

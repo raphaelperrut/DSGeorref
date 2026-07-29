@@ -1,15 +1,48 @@
-name: Product story
-description: Product Owner story requiring architecture and decomposition
+name: Story
+about: Registrar uma história implementável vinculada a um épico
+title: "[STORY] "
+labels: []
 body:
   - type: input
-    id: epic
-    attributes: {label: Parent epic}
-    validations: {required: true}
+    id: stable-id
+    attributes:
+      label: Stable ID
+      placeholder: ISSUE-0000 / STORY-0000
+    validations:
+      required: true
+  - type: input
+    id: parent
+    attributes:
+      label: Epic pai
+      placeholder: EPIC-000 ou #123
+    validations:
+      required: true
   - type: textarea
-    id: story
-    attributes: {label: Story and user value}
-    validations: {required: true}
+    id: value
+    attributes:
+      label: Valor e resultado esperado
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Escopo e limites
+      description: Inclua caminhos permitidos/proibidos e invariantes.
+    validations:
+      required: true
   - type: textarea
     id: acceptance
-    attributes: {label: Acceptance criteria}
-    validations: {required: true}
+    attributes:
+      label: Critérios de aceitação verificáveis
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependências e contratos
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidência exigida para conclusão
+    validations:
+      required: true
