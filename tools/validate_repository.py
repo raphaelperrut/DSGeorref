@@ -47,14 +47,14 @@ for p in list(ROOT.rglob('*.yaml'))+list(ROOT.rglob('*.yml')):
     except Exception as e: errors.append(f'invalid YAML {p.relative_to(ROOT)}: {e}')
 
 # Task schema validation.
-schema=json.loads((ROOT/'.codex/tasks/TASK_ENVELOPE.schema.json').read_text())
+schema=json.loads((ROOT/'.codex/tasks/TASK_ENVELOPE.schema.json').read_text(encoding="utf-8"))
 validator=Draft202012Validator(schema)
 for p in ROOT.glob('.codex/tasks/TASK-*.json'):
-    obj=json.loads(p.read_text())
+    obj = json.loads(p.read_text(encoding="utf-8"))
     for e in validator.iter_errors(obj): errors.append(f'{p.name}: {e.message}')
 
 # Story dependency graph references and cycles.
-graph=json.loads((ROOT/'docs/06-delivery/STORY_DEPENDENCY_GRAPH.json').read_text())
+graph=json.loads((ROOT/'docs/06-delivery/STORY_DEPENDENCY_GRAPH.json').read_text(encoding="utf-8"))
 node_ids={n['id'] for n in graph['nodes']}
 adj={n:set() for n in node_ids}
 for e in graph['edges']:
@@ -86,7 +86,7 @@ if any(not r['stories'] for r in trace_rows): errors.append('active requirement 
 
 story_by_id={r['story_id']:r for r in story_rows}
 for p in ROOT.glob('.codex/tasks/TASK-*.json'):
-    obj=json.loads(p.read_text())
+    obj=json.loads(p.read_text(encoding="utf-8"))
     row=story_by_id.get(obj.get('story_id'))
     if not row: errors.append(f'{p.name}: story absent from index'); continue
     for key in ['issue_id','task_id','epic_id']:
@@ -137,7 +137,7 @@ required_sar = [
 for rel in required_sar:
     if not (ROOT/rel).exists(): errors.append(f'missing SAR artifact {rel}')
 
-tech = yaml.safe_load((ROOT/'docs/03-engineering/TECHNOLOGY_BASELINE.yaml').read_text())
+tech = yaml.safe_load((ROOT/'docs/03-engineering/TECHNOLOGY_BASELINE.yaml').read_text(encoding="utf-8"))
 if tech.get('status') != 'APPROVED_FOR_IMPLEMENTATION': errors.append('technology baseline not approved')
 if tech.get('execution_authorization') != 'BLOCKED_EXTERNAL': errors.append('technology execution authorization drift')
 if not tech.get('official_verification',{}).get('path'): errors.append('technology verification evidence absent')
@@ -166,7 +166,7 @@ pyproject=tomllib.loads((ROOT/'pyproject.toml').read_text(encoding='utf-8'))
 if pyproject.get('project',{}).get('requires-python') != '>=3.12,<3.13': errors.append('pyproject requires-python drift')
 if pyproject.get('tool',{}).get('ruff',{}).get('target-version') != 'py312': errors.append('Ruff target must be py312')
 if pyproject.get('tool',{}).get('mypy',{}).get('python_version') != '3.12': errors.append('mypy Python version must be 3.12')
-ar=json.loads((ROOT/'docs/07-assurance/PHASE-A-ARCHITECTURE-REVIEW-REPORT.json').read_text())
+ar=json.loads((ROOT/'docs/07-assurance/PHASE-A-ARCHITECTURE-REVIEW-REPORT.json').read_text(encoding="utf-8"))
 if ar.get('architecture_approved') is not True: errors.append('Phase A architecture review not approved')
 if ar.get('runtime',{}).get('primary') != 'CPython 3.12.13': errors.append('Phase A runtime drift')
 if ar.get('implementation_readiness') not in {'READY','CONDITIONAL','READY_FOR_PHASE_B'}: errors.append('invalid implementation readiness state')
@@ -191,10 +191,10 @@ for p in ROOT.glob('docs/02-architecture/adrs/ADR-*.md'):
     for h in ['## Alternativas consideradas','## Racional da seleção','## Verificação de conformidade','## Rastreabilidade SAR']:
         if h not in t: errors.append(f'{p.name}: missing {h}')
 
-opcat=json.loads((ROOT/'contracts/http/OPERATION_CATALOG.json').read_text())
-openapi=yaml.safe_load((ROOT/'contracts/http/openapi.yaml').read_text())
+opcat=json.loads((ROOT/'contracts/http/OPERATION_CATALOG.json').read_text(encoding="utf-8"))
+openapi=yaml.safe_load((ROOT/'contracts/http/openapi.yaml').read_text(encoding="utf-8"))
 actual={(m.upper(),path) for path,item in openapi['paths'].items() for m in item if m.lower() in {'get','post','put','patch','delete'}}
-expected_ops={(o['method'].upper(),o['path']) for o in json.loads((ROOT/'contracts/http/OPERATION_CATALOG.json').read_text())['operations']}
+expected_ops={(o['method'].upper(),o['path']) for o in json.loads((ROOT/'contracts/http/OPERATION_CATALOG.json').read_text(encoding="utf-8"))['operations']}
 if actual != expected_ops: errors.append(f'OpenAPI operation catalog drift: expected {len(expected_ops)}, actual {len(actual)}')
 
 for p in ROOT.glob('docs/06-delivery/stories/STORY-*.md'):
@@ -211,7 +211,7 @@ for p in ROOT.glob('docs/06-delivery/sprints/SPRINT-*.md'):
 story_status={r['story_id']:r.get('status','').lower() for r in story_rows}
 story_req_count={r['story_id']:len([x for x in r.get('requirements','').split('/') if x]) for r in story_rows}
 for p in ROOT.glob('.codex/tasks/TASK-*.json'):
-    obj=json.loads(p.read_text())
+    obj=json.loads(p.read_text(encoding="utf-8"))
     status=story_status.get(obj['story_id'],'')
     if status == 'ready':
         if story_req_count.get(obj['story_id'],0) > 20:
@@ -250,7 +250,7 @@ for e in graph['edges']:
         dst=int(node_meta[e['to']]['sprint'].split('-')[1])
         if src>dst: errors.append(f'hard dependency reverses sprint order: {e}')
 for p in ROOT.glob('.codex/tasks/TASK-*.json'):
-    obj=json.loads(p.read_text())
+    obj=json.loads(p.read_text(encoding="utf-8"))
     if set(obj.get('dependencies',[])) != graph_deps.get(obj['story_id'],set()):
         errors.append(f'{p.name}: task dependencies differ from hard dependency graph')
 for p in ROOT.glob('docs/06-delivery/epics/EPIC-*.md'):
@@ -268,10 +268,10 @@ for p in ROOT.glob('docs/02-architecture/adrs/ADR-*.md'):
 # Phase A closure gates.
 openapi_text=(ROOT/'contracts/http/openapi.yaml').read_text(encoding='utf-8')
 if 'CommandRequest' in openapi_text or 'ResourceEnvelope' in openapi_text: errors.append('generic HTTP envelope remains')
-opcat=json.loads((ROOT/'contracts/http/OPERATION_CATALOG.json').read_text())['operations']
+opcat=json.loads((ROOT/'contracts/http/OPERATION_CATALOG.json').read_text(encoding="utf-8"))['operations']
 if len(opcat)!=56 or any(o.get('contract_status')!='FROZEN' or not o.get('specific_contract') or not o.get('permission') or not o.get('error_codes') for o in opcat): errors.append('HTTP contract freeze incomplete')
 for p in ROOT.glob('.codex/tasks/TASK-*.json'):
-    obj=json.loads(p.read_text())
+    obj=json.loads(p.read_text(encoding="utf-8"))
     if any(re.search(r'/(?:epic|issue|story|task)-',x,re.I) for x in obj.get('allow_paths',[]) if x.startswith('src/')): errors.append(f'{p.name}: transient production scope')
 for r in story_rows:
     reqs=[x for x in r.get('requirements','').split('/') if x]
@@ -298,7 +298,7 @@ required_phase_b = [
 ]
 for rel in required_phase_b:
     if not (ROOT/rel).exists(): errors.append(f'missing Phase B artifact {rel}')
-rr=json.loads((ROOT/'docs/07-assurance/PHASE-B-REQUIREMENTS-REVIEW-REPORT.json').read_text())
+rr=json.loads((ROOT/'docs/07-assurance/PHASE-B-REQUIREMENTS-REVIEW-REPORT.json').read_text(encoding="utf-8"))
 if rr.get('approved') is not True or rr.get('blocking_findings_open') != 0: errors.append('Phase B not approved')
 crit_rows=rows('docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv')
 issue_rr_rows=rows('docs/07-assurance/ISSUE_REQUIREMENTS_REVIEW.csv')
@@ -315,7 +315,7 @@ for rel in ['docs/01-product/FUNCTIONAL_REQUIREMENTS.md','docs/01-product/NON_FU
     t=(ROOT/rel).read_text(encoding='utf-8')
     if 'Requisito verificável por' in t: errors.append(f'non-semantic aggregate requirement in {rel}')
 for p in ROOT.glob('.codex/tasks/TASK-*.json'):
-    o=json.loads(p.read_text())
+    o=json.loads(p.read_text(encoding="utf-8"))
     if o.get('requirements_review_status')!='PASS': errors.append(f'{p.name}: Phase B not PASS')
     if len(o.get('acceptance_criterion_ids',[])) != len(o.get('acceptance_criteria',[])): errors.append(f'{p.name}: criterion ID mismatch')
 for p in ROOT.glob('docs/06-delivery/sprints/SPRINT-*.md'):
@@ -337,7 +337,7 @@ required_phase_c=[
 ]
 for rel in required_phase_c:
     if not (ROOT/rel).exists(): errors.append(f'missing Phase C artifact {rel}')
-phase_c=json.loads((ROOT/'docs/07-assurance/PHASE-C-DOMAIN-DRIVEN-DESIGN-REPORT.json').read_text())
+phase_c=json.loads((ROOT/'docs/07-assurance/PHASE-C-DOMAIN-DRIVEN-DESIGN-REPORT.json').read_text(encoding="utf-8"))
 if phase_c.get('approved') is not True or phase_c.get('blocking_findings_open') != 0: errors.append('Phase C not approved')
 ctx_rows=rows('docs/02-architecture/ddd/BOUNDED_CONTEXT_INDEX.csv')
 if len(ctx_rows)!=16: errors.append(f'expected 16 bounded contexts, found {len(ctx_rows)}')
@@ -347,7 +347,7 @@ for r in epic_rows:
 for r in story_rows:
     if r.get('bounded_context') not in ctx_ids or r.get('ddd_status')!='PASS': errors.append(f"{r['story_id']}: DDD ownership invalid")
 for p in ROOT.glob('.codex/tasks/TASK-*.json'):
-    o=json.loads(p.read_text())
+    o=json.loads(p.read_text(encoding="utf-8"))
     if o.get('bounded_context') not in ctx_ids or o.get('ddd_review_status')!='PASS': errors.append(f'{p.name}: DDD task metadata invalid')
     if any(re.match(r'src/backend/dsgeorref/(?:domain|application|adapters)/',x) for x in o.get('allow_paths',[])): errors.append(f'{p.name}: global backend layer path')
 
@@ -370,42 +370,42 @@ for rel in required_phase_e:
     if not (ROOT/rel).exists(): errors.append(f'missing Phase E artifact {rel}')
 if len(list(ROOT.glob('docs/02-architecture/specifications/SPEC-00[1-5]-*.md'))) != 5: errors.append('Phase E specification count drift')
 for p in ROOT.glob('.codex/tasks/TASK-*.json'):
-    o=json.loads(p.read_text())
+    o=json.loads(p.read_text(encoding="utf-8"))
     if o.get('specification_review_status')!='PASS': errors.append(f'{p.name}: specification review not PASS')
     if o.get('specification_baseline')!='SAR-v2.9-PHASE-F': errors.append(f'{p.name}: specification baseline drift')
     if o.get('adr_baseline')!='SAR-v2.9-PHASE-F': errors.append(f'{p.name}: ADR baseline drift after Phase E')
     if len(o.get('applicable_specifications',[])) < 2: errors.append(f'{p.name}: missing specification applicability')
 phase_e_report_path=ROOT/'docs/07-assurance/PHASE-E-SPECIFICATION-REVIEW-REPORT.json'
 if phase_e_report_path.exists():
-    pe=json.loads(phase_e_report_path.read_text())
+    pe=json.loads(phase_e_report_path.read_text(encoding="utf-8"))
     if pe.get('approved') is not True or pe.get('blocking_findings_open') != 0: errors.append('Phase E not approved')
 
 # Phase F sprint-by-sprint review.
-phase_f=json.loads((ROOT/'docs/07-assurance/PHASE-F-SPRINT-REVIEW-REPORT.json').read_text())
+phase_f=json.loads((ROOT/'docs/07-assurance/PHASE-F-SPRINT-REVIEW-REPORT.json').read_text(encoding="utf-8"))
 if phase_f.get('status')!='APPROVED' or phase_f.get('blocking_findings_open')!=0: errors.append('Phase F review not approved')
 phase_f_rows=rows('docs/07-assurance/PHASE-F-ISSUE-DELIVERY-REVIEW.csv')
 if len(phase_f_rows)!=868: errors.append(f'Phase F matrix expected 868, found {len(phase_f_rows)}')
 if {r['issue_id'] for r in phase_f_rows}!={r['issue_id'] for r in issue_rows}: errors.append('Phase F issue coverage drift')
 for p in ROOT.glob('.codex/tasks/TASK-*.json'):
-    o=json.loads(p.read_text()); rv=o.get('phase_f_review',{})
+    o=json.loads(p.read_text(encoding="utf-8")); rv=o.get('phase_f_review',{})
     if o.get('sprint_review_status')!='PASS' or o.get('sprint_review_baseline')!='SAR-v2.9-PHASE-F': errors.append(f'{p.name}: Phase F metadata invalid')
     for k in ['dependencies','files','api','database','frontend','geo','ai','tests','artifacts','acceptance_criteria','review']:
         if rv.get(k,{}).get('status')!='PASS': errors.append(f'{p.name}: Phase F {k} not PASS')
 for s in rows('docs/06-delivery/SPRINT_INDEX.csv'):
     actual=sum(1 for r in story_rows if r['sprint']==s['sprint_id'])
-    text=(ROOT/'docs/06-delivery/sprints'/s['file']).read_text()
+    text=(ROOT/'docs/06-delivery/sprints'/s['file']).read_text(encoding="utf-8")
     vals=[int(x) for x in re.findall(r'\*\*Histórias:\*\* `?(\d+)',text)]
     if not vals or any(v!=actual for v in vals): errors.append(f"{s['sprint_id']}: Phase F story count drift")
 
 
 
 # Phase G CTO review.
-phase_g=json.loads((ROOT/'docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.json').read_text())
+phase_g=json.loads((ROOT/'docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.json').read_text(encoding="utf-8"))
 if phase_g.get('status')!='APPROVED' or phase_g.get('blocking_findings_open')!=0: errors.append('Phase G not approved')
 phase_g_rows=rows('docs/07-assurance/PHASE-G-ISSUE-INVESTMENT-REVIEW.csv')
 if len(phase_g_rows)!=868: errors.append(f'Phase G matrix expected 868, found {len(phase_g_rows)}')
 for p in ROOT.glob('.codex/tasks/TASK-*.json'):
-    o=json.loads(p.read_text())
+    o=json.loads(p.read_text(encoding="utf-8"))
     if o.get('cto_review_status')!='PASS' or o.get('cto_review_baseline')!='SAR-v3.0-PHASE-G': errors.append(f'{p.name}: Phase G metadata invalid')
 
 if errors:
