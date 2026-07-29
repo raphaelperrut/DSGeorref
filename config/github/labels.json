@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "labels": [
+    {"name": "blocked:external", "color": "B60205", "description": "Bloqueio por dependência externa ao fluxo controlado"},
+    {"name": "codex:ready", "color": "0E8A16", "description": "TaskEnvelope e contexto prontos para execução assistida"},
+    {"name": "needs:architecture", "color": "5319E7", "description": "Requer análise ou decisão arquitetural"},
+    {"name": "needs:qa", "color": "FBCA04", "description": "Requer validação de qualidade"},
+    {"name": "needs:security", "color": "D93F0B", "description": "Requer revisão de segurança"},
+    {"name": "contract-change", "color": "1D76DB", "description": "Altera contrato versionado"},
+    {"name": "breaking-change", "color": "B60205", "description": "Mudança incompatível ou com migração obrigatória"},
+    {"name": "evidence-required", "color": "C2E0C6", "description": "Conclusão exige evidência persistida"},
+    {"name": "dependencies-missing", "color": "E99695", "description": "Dependências canônicas ainda não materializadas"}
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "manual_action": "Abra a view em layout Table, clique no + da última coluna, abra Hidden fields e selecione Parent issue e Sub-issue progress.",
+  "project": {
+    "id": "PVT_kwHOBpYJ7s4Beo57",
+    "number": 3,
+    "title": "DSGeorref Engineering",
+    "url": "https://github.com/users/raphaelperrut/projects/3"
+  },
+  "remote_mutation_supported": false,
+  "required_native_fields": [
+    "Parent issue",
+    "Sub-issue progress"
+  ],
+  "schema_version": "1.0.0",
+  "views": [
+    {
+      "layout": "TABLE_LAYOUT",
+      "missing_required_native_fields": [
+        "Sub-issue progress"
+      ],
+      "name": "Backlog",
+      "number": 1,
+      "visible_fields": [
+        "Bounded Context",
+        "Gate",
+        "Owner Role",
+        "Parent issue",
+        "Planned Sprint",
+        "Priority",
+        "Risk Tier",
+        "Status",
+        "Sub-issues progress",
+        "Title",
+        "Work Type"
+      ]
+    },
+    {
+      "layout": "BOARD_LAYOUT",
+      "missing_required_native_fields": [
+        "Parent issue",
+        "Sub-issue progress"
+      ],
+      "name": "Board",
+      "number": 2,
+      "visible_fields": [
+        "Assignees",
+        "Estimate",
+        "Iteration",
+        "Linked pull requests",
+        "Priority",
+        "Size",
+        "Status",
+        "Sub-issues progress",
+        "Title"
+      ]
+    },
+    {
+      "layout": "BOARD_LAYOUT",
+      "missing_required_native_fields": [
+        "Parent issue",
+        "Sub-issue progress"
+      ],
+      "name": "Current iteration",
+      "number": 3,
+      "visible_fields": [
+        "Assignees",
+        "Linked pull requests",
+        "Status",
+        "Sub-issues progress",
+        "Title"
+      ]
+    },
+    {
+      "layout": "ROADMAP_LAYOUT",
+      "missing_required_native_fields": [
+        "Parent issue",
+        "Sub-issue progress"
+      ],
+      "name": "Releases: Roadmap",
+      "number": 4,
+      "visible_fields": [
+        "Assignees",
+        "Status",
+        "Title"
+      ]
+    },
+    {
+      "layout": "TABLE_LAYOUT",
+      "missing_required_native_fields": [
+        "Parent issue",
+        "Sub-issue progress"
+      ],
+      "name": "My items",
+      "number": 5,
+      "visible_fields": [
+        "Estimate",
+        "Iteration",
+        "Linked pull requests",
+        "Priority",
+        "Size",
+        "Sub-issues progress",
+        "Title"
+      ]
+    },
+    {
+      "layout": "TABLE_LAYOUT",
+      "missing_required_native_fields": [
+        "Parent issue",
+        "Sub-issue progress"
+      ],
+      "name": "SPRINT-001 Foundation",
+      "number": 6,
+      "visible_fields": [
+        "Assignees",
+        "Linked pull requests",
+        "Status",
+        "Sub-issues progress",
+        "Title"
+      ]
+    },
+    {
+      "layout": "ROADMAP_LAYOUT",
+      "missing_required_native_fields": [
+        "Parent issue",
+        "Sub-issue progress"
+      ],
+      "name": "Epics Roadmap",
+      "number": 7,
+      "visible_fields": [
+        "Assignees",
+        "Linked pull requests",
+        "Status",
+        "Sub-issues progress",
+        "Title"
+      ]
+    },
+    {
+      "layout": "TABLE_LAYOUT",
+      "missing_required_native_fields": [
+        "Sub-issue progress"
+      ],
+      "name": "Blocked",
+      "number": 8,
+      "visible_fields": [
+        "Assignees",
+        "Linked pull requests",
+        "Parent issue",
+        "Status",
+        "Sub-issues progress",
+        "Title"
+      ]
+    },
+    {
+      "layout": "TABLE_LAYOUT",
+      "missing_required_native_fields": [
+        "Sub-issue progress"
+      ],
+      "name": "Critical Risks",
+      "number": 9,
+      "visible_fields": [
+        "Assignees",
+        "Linked pull requests",
+        "Parent issue",
+        "Status",
+        "Sub-issues progress",
+        "Title"
+      ]
+    },
+    {
+      "layout": "TABLE_LAYOUT",
+      "missing_required_native_fields": [
+        "Sub-issue progress"
+      ],
+      "name": "Geo e IA",
+      "number": 10,
+      "visible_fields": [
+        "Assignees",
+        "Linked pull requests",
+        "Parent issue",
+        "Status",
+        "Sub-issues progress",
+        "Title"
+      ]
+    }
+  ]
+}

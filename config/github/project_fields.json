@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "fields": [
+    {"name": "Stable ID", "data_type": "TEXT", "create": true},
+    {
+      "name": "Work Type", "data_type": "SINGLE_SELECT", "create": true,
+      "options": [
+        {"name": "Epic", "description": "Epic delivery envelope", "color": "PURPLE"},
+        {"name": "Story", "description": "Implementable story", "color": "BLUE"},
+        {"name": "Bug", "description": "Defect", "color": "RED"},
+        {"name": "Spike", "description": "Time-boxed investigation", "color": "YELLOW"}
+      ]
+    },
+    {
+      "name": "Planned Sprint", "data_type": "SINGLE_SELECT", "create": true,
+      "options": [
+        {"name": "SPRINT-001", "color": "GRAY"}, {"name": "SPRINT-002", "color": "GRAY"},
+        {"name": "SPRINT-003", "color": "GRAY"}, {"name": "SPRINT-004", "color": "GRAY"},
+        {"name": "SPRINT-005", "color": "GRAY"}, {"name": "SPRINT-006", "color": "GRAY"},
+        {"name": "SPRINT-007", "color": "GRAY"}, {"name": "SPRINT-008", "color": "GRAY"},
+        {"name": "SPRINT-009", "color": "GRAY"}, {"name": "SPRINT-010", "color": "GRAY"},
+        {"name": "SPRINT-011", "color": "GRAY"}, {"name": "SPRINT-012", "color": "GRAY"}
+      ]
+    },
+    {
+      "name": "Priority", "data_type": "SINGLE_SELECT", "create": true,
+      "options": [
+        {"name": "P0", "color": "RED"}, {"name": "P1", "color": "ORANGE"},
+        {"name": "P2", "color": "YELLOW"}, {"name": "P3", "color": "GRAY"}
+      ]
+    },
+    {
+      "name": "Gate", "data_type": "SINGLE_SELECT", "create": true,
+      "options": [
+        {"name": "G0", "color": "GRAY"}, {"name": "G1", "color": "BLUE"},
+        {"name": "G2", "color": "BLUE"}, {"name": "G3", "color": "GREEN"},
+        {"name": "G4", "color": "PURPLE"}, {"name": "G5", "color": "RED"},
+        {"name": "G6", "color": "YELLOW"}, {"name": "G7", "color": "GREEN"}
+      ]
+    },
+    {
+      "name": "Bounded Context", "data_type": "SINGLE_SELECT", "create": true,
+      "options": [
+        {"name": "BC-001", "color": "GRAY"}, {"name": "BC-002", "color": "GRAY"},
+        {"name": "BC-003", "color": "GRAY"}, {"name": "BC-004", "color": "GRAY"},
+        {"name": "BC-005", "color": "GRAY"}, {"name": "BC-006", "color": "GRAY"},
+        {"name": "BC-007", "color": "GRAY"}, {"name": "BC-008", "color": "GRAY"},
+        {"name": "BC-009", "color": "GRAY"}, {"name": "BC-010", "color": "GRAY"},
+        {"name": "BC-011", "color": "GRAY"}, {"name": "BC-012", "color": "GRAY"},
+        {"name": "BC-013", "color": "GRAY"}, {"name": "BC-014", "color": "GRAY"},
+        {"name": "BC-015", "color": "GRAY"}, {"name": "BC-016", "color": "GRAY"}
+      ]
+    },
+    {
+      "name": "Owner Role", "data_type": "SINGLE_SELECT", "create": true,
+      "options": [
+        {"name": "Arquiteto", "color": "PURPLE"}, {"name": "Backend", "color": "BLUE"},
+        {"name": "DevOps", "color": "GREEN"}, {"name": "Frontend", "color": "BLUE"},
+        {"name": "Geoprocessamento", "color": "GREEN"}, {"name": "IA", "color": "PURPLE"},
+        {"name": "Product Owner", "color": "YELLOW"}, {"name": "QA", "color": "ORANGE"},
+        {"name": "Reviewer", "color": "GRAY"}, {"name": "Security", "color": "RED"},
+        {"name": "Tech Lead", "color": "PURPLE"}
+      ]
+    },
+    {
+      "name": "Risk Tier", "data_type": "SINGLE_SELECT", "create": true,
+      "options": [
+        {"name": "CRITICAL", "color": "RED"}, {"name": "HIGH", "color": "ORANGE"},
+        {"name": "MEDIUM", "color": "YELLOW"}, {"name": "LOW", "color": "GREEN"}
+      ]
+    },
+    {
+      "name": "Size", "data_type": "SINGLE_SELECT", "create": true,
+      "options": [
+        {"name": "XS", "color": "GRAY"}, {"name": "S", "color": "BLUE"},
+        {"name": "M", "color": "GREEN"}, {"name": "L", "color": "ORANGE"}
+      ]
+    },
+    {"name": "ADR IDs", "data_type": "TEXT", "create": true},
+    {"name": "TaskEnvelope", "data_type": "TEXT", "create": true},
+    {
+      "name": "Status", "data_type": "SINGLE_SELECT", "create": false,
+      "options": [
+        {"name": "Inbox", "color": "GRAY"}, {"name": "Backlog", "color": "GRAY"},
+        {"name": "Ready", "color": "BLUE"}, {"name": "In progress", "color": "YELLOW"},
+        {"name": "In review", "color": "PURPLE"}, {"name": "Blocked", "color": "RED"},
+        {"name": "Done", "color": "GREEN"}, {"name": "Canceled", "color": "GRAY"}
+      ]
+    }
+  ]
+}

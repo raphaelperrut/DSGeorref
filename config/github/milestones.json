@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "milestones": [
+    {
+      "title": "Internal",
+      "description": "Baseline executável para validação interna, sem distribuição pública.",
+      "state": "open",
+      "due_on": null
+    },
+    {
+      "title": "Alpha",
+      "description": "Walking skeleton e primeiro fluxo funcional integrado, com limitações conhecidas.",
+      "state": "open",
+      "due_on": null
+    },
+    {
+      "title": "Beta",
+      "description": "Capacidades principais integradas, com segurança e qualidade em validação ampliada.",
+      "state": "open",
+      "due_on": null
+    },
+    {
+      "title": "v1.0",
+      "description": "Primeira versão estável, documentada, reproduzível e autorizada para distribuição.",
+      "state": "open",
+      "due_on": null
+    }
+  ],
+  "sprint_map": {
+    "SPRINT-001": "Internal",
+    "SPRINT-002": "Internal"
+  },
+  "decision_note": "Somente SPRINT-001 e SPRINT-002 estão associadas por padrão. Amplie este mapa quando a estratégia de releases posteriores for aprovada."
+}

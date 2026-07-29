@@ -1,0 +1,68 @@
+{
+  "actions_workflow": ".github\\workflows\\project-automation.yml",
+  "built_in_workflows": [
+    {
+      "enabled": true,
+      "id": "PWF_lAHOBpYJ7s4Beo57zgZuwJI",
+      "name": "Auto-add sub-issues to project",
+      "number": 10
+    },
+    {
+      "enabled": true,
+      "id": "PWF_lAHOBpYJ7s4Beo57zgZuwJU",
+      "name": "Auto-add to project",
+      "number": 13
+    },
+    {
+      "enabled": true,
+      "id": "PWF_lAHOBpYJ7s4Beo57zgZuwJA",
+      "name": "Auto-close issue",
+      "number": 9
+    },
+    {
+      "enabled": true,
+      "id": "PWF_lAHOBpYJ7s4Beo57zgZuwJQ",
+      "name": "Item added to project",
+      "number": 12
+    },
+    {
+      "enabled": true,
+      "id": "PWF_lAHOBpYJ7s4Beo57zgZuwI0",
+      "name": "Item closed",
+      "number": 7
+    },
+    {
+      "enabled": true,
+      "id": "PWF_lAHOBpYJ7s4Beo57zgZxvhA",
+      "name": "Item reopened",
+      "number": 14
+    },
+    {
+      "enabled": true,
+      "id": "PWF_lAHOBpYJ7s4Beo57zgZuwJM",
+      "name": "Pull request linked to issue",
+      "number": 11
+    },
+    {
+      "enabled": true,
+      "id": "PWF_lAHOBpYJ7s4Beo57zgZuwI4",
+      "name": "Pull request merged",
+      "number": 8
+    }
+  ],
+  "manual_workflows_required": [
+    "Item added to project → Status = Inbox",
+    "Issue closed → Status = Done",
+    "Issue reopened → Status = Backlog",
+    "Status changed to Done → close issue",
+    "Auto-add items matching repository raphaelperrut/DSGeorref",
+    "Auto-archive completed items after the retention period you choose"
+  ],
+  "project": {
+    "id": "PVT_kwHOBpYJ7s4Beo57",
+    "number": 3,
+    "title": "DSGeorref Engineering",
+    "url": "https://github.com/users/raphaelperrut/projects/3"
+  },
+  "schema_version": "1.0.0"
+}
