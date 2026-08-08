@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "snapshot_id": "PORTFOLIO-SNAPSHOT-EPIC-001",
+  "snapshot_version": "1.0.0",
+  "owner": "BC-001",
+  "captured_at": "2026-08-08T00:00:00Z",
+  "repository_source": {
+    "catalog_path": "docs/06-delivery/STORY_INDEX.json",
+    "revision": "042a369"
+  },
+  "reconciliations": [
+    {
+      "stable_id": "ISSUE-0111",
+      "repository_issue": {
+        "issue_id": "ISSUE-0111",
+        "story_id": "STORY-0001",
+        "task_id": "TASK-0001",
+        "source_path": "docs/06-delivery/stories/STORY-0001-ISSUE-0111-definir-escopo-contratos-e-invariantes-governanca-de-decisoes-arquiteturai.md"
+      },
+      "github_issue": {
+        "repository": "example/DSGeorref",
+        "issue_number": 111,
+        "node_id": "I_kwDOExample0111"
+      },
+      "status": "RECONCILED"
+    }
+  ],
+  "reconciliation_summary": {
+    "reconciled": 1,
+    "unresolved": 0
+  }
+}

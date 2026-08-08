@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/foundation-boundaries/1.0.0",
+  "title": "Sprint Zero Foundation Boundaries Decision 04",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "decision_id",
+    "decision_version",
+    "owner",
+    "status",
+    "boundaries"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "decision_id": {
+      "const": "SPRINT-ZERO-BASELINE-DECISION-04"
+    },
+    "decision_version": {
+      "const": "1.0.0"
+    },
+    "owner": {
+      "const": "BC-001"
+    },
+    "status": {
+      "const": "DECLARATIVE_CONTRACT"
+    },
+    "boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "core",
+        "api",
+        "runners"
+      ],
+      "properties": {
+        "core": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "boundary_id",
+            "concern",
+            "runtime_materialized"
+          ],
+          "properties": {
+            "boundary_id": {
+              "const": "foundation-core"
+            },
+            "concern": {
+              "const": "domain_and_application_services"
+            },
+            "runtime_materialized": {
+              "const": false
+            }
+          }
+        },
+        "api": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "boundary_id",
+            "concern",
+            "runtime_materialized"
+          ],
+          "properties": {
+            "boundary_id": {
+              "const": "foundation-api"
+            },
+            "concern": {
+              "const": "http_transport_adapter"
+            },
+            "runtime_materialized": {
+              "const": false
+            }
+          }
+        },
+        "runners": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "boundary_id",
+            "concern",
+            "runtime_materialized"
+          ],
+          "properties": {
+            "boundary_id": {
+              "const": "foundation-runners"
+            },
+            "concern": {
+              "const": "execution_adapters"
+            },
+            "runtime_materialized": {
+              "const": false
+            }
+          }
+        }
+      }
+    }
+  }
+}

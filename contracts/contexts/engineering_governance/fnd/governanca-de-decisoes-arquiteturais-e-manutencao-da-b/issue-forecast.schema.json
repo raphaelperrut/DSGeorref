@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/issue-forecast/1.0.0",
+  "title": "Engineering Governance Issue Forecast",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "forecast_id",
+    "forecast_version",
+    "owner",
+    "issue_id",
+    "unit",
+    "interval",
+    "confidence",
+    "snapshot",
+    "variance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "forecast_id": {
+      "type": "string",
+      "pattern": "^FORECAST-[A-Z0-9][A-Z0-9._-]*$"
+    },
+    "forecast_version": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+    },
+    "owner": {
+      "const": "BC-001"
+    },
+    "issue_id": {
+      "type": "string",
+      "pattern": "^ISSUE-[0-9]{4}$"
+    },
+    "unit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "interval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minimum",
+        "mode",
+        "maximum"
+      ],
+      "properties": {
+        "minimum": {
+          "type": "number",
+          "minimum": 0
+        },
+        "mode": {
+          "type": "number",
+          "minimum": 0
+        },
+        "maximum": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "confidence": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 1
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "snapshot_id",
+        "snapshot_version"
+      ],
+      "properties": {
+        "snapshot_id": {
+          "type": "string",
+          "pattern": "^PORTFOLIO-SNAPSHOT-[A-Z0-9][A-Z0-9._-]*$"
+        },
+        "snapshot_version": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+        }
+      }
+    },
+    "variance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "basis_snapshot_id",
+        "basis_snapshot_version",
+        "minimum_delta",
+        "mode_delta",
+        "maximum_delta"
+      ],
+      "properties": {
+        "basis_snapshot_id": {
+          "type": "string",
+          "pattern": "^PORTFOLIO-SNAPSHOT-[A-Z0-9][A-Z0-9._-]*$"
+        },
+        "basis_snapshot_version": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+        },
+        "minimum_delta": {
+          "type": "number"
+        },
+        "mode_delta": {
+          "type": "number"
+        },
+        "maximum_delta": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

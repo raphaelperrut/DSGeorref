@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/portfolio-snapshot/1.0.0",
+  "title": "Engineering Governance Portfolio Snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "snapshot_id",
+    "snapshot_version",
+    "owner",
+    "captured_at",
+    "repository_source",
+    "reconciliations",
+    "reconciliation_summary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^PORTFOLIO-SNAPSHOT-[A-Z0-9][A-Z0-9._-]*$"
+    },
+    "snapshot_version": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+    },
+    "owner": {
+      "const": "BC-001"
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "repository_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "catalog_path",
+        "revision"
+      ],
+      "properties": {
+        "catalog_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 7
+        }
+      }
+    },
+    "reconciliations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "stable_id",
+          "repository_issue",
+          "github_issue",
+          "status"
+        ],
+        "properties": {
+          "stable_id": {
+            "type": "string",
+            "pattern": "^(EPIC|STORY|ISSUE|TASK)-[0-9]{4}$"
+          },
+          "repository_issue": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "issue_id",
+              "story_id",
+              "task_id",
+              "source_path"
+            ],
+            "properties": {
+              "issue_id": {
+                "type": "string",
+                "pattern": "^ISSUE-[0-9]{4}$"
+              },
+              "story_id": {
+                "type": "string",
+                "pattern": "^STORY-[0-9]{4}$"
+              },
+              "task_id": {
+                "type": "string",
+                "pattern": "^TASK-[0-9]{4}$"
+              },
+              "source_path": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "github_issue": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "repository",
+              "issue_number",
+              "node_id"
+            ],
+            "properties": {
+              "repository": {
+                "type": "string",
+                "pattern": "^[^/]+/[^/]+$"
+              },
+              "issue_number": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "node_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "status": {
+            "const": "RECONCILED"
+          }
+        }
+      }
+    },
+    "reconciliation_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reconciled",
+        "unresolved"
+      ],
+      "properties": {
+        "reconciled": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "unresolved": {
+          "const": 0
+        }
+      }
+    }
+  }
+}

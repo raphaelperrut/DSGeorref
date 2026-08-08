@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "decision_id": "SPRINT-ZERO-BASELINE-DECISION-04",
+  "decision_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "DECLARATIVE_CONTRACT",
+  "boundaries": {
+    "core": {
+      "boundary_id": "foundation-core",
+      "concern": "domain_and_application_services",
+      "runtime_materialized": false
+    },
+    "api": {
+      "boundary_id": "foundation-api",
+      "concern": "http_transport_adapter",
+      "runtime_materialized": false
+    },
+    "runners": {
+      "boundary_id": "foundation-runners",
+      "concern": "execution_adapters",
+      "runtime_materialized": false
+    }
+  }
+}
