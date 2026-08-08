@@ -21,6 +21,9 @@ Definir escopo, contratos e invariantes para a capacidade **governança de decis
 
 - `contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**`
 - `docs/02-architecture/design-reviews/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**`
+- `tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py`
+- `evidence/implementation/epic-001/story-0001/**`
+- `contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv`
 ## Fora de escopo
 
 - Alterar ADR, contrato compartilhado ou regra de produto sem issue de decisão aprovada.

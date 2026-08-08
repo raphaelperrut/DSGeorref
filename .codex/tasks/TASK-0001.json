@@ -49,7 +49,10 @@
   ],
   "allow_paths": [
     "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
-    "docs/02-architecture/design-reviews/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**"
+    "docs/02-architecture/design-reviews/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py",
+    "evidence/implementation/epic-001/story-0001/**",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv"
   ],
   "deny_paths": [
     "src/**",
@@ -119,7 +122,10 @@
       "status": "PASS",
       "allow_paths": [
         "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
-        "docs/02-architecture/design-reviews/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**"
+        "docs/02-architecture/design-reviews/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
+        "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py",
+        "evidence/implementation/epic-001/story-0001/**",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv"
       ],
       "deny_paths": [
         "src/**",
