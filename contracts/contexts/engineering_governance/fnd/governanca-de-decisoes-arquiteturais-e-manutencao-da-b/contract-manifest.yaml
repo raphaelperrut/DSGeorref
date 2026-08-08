@@ -1,0 +1,94 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-001
+  story_id: STORY-0001
+  issue_id: ISSUE-0111
+  task_id: TASK-0001
+compatibility:
+  policy: SEMVER
+  backward_compatible_changes: OPTIONAL_ADDITIONS_WITHIN_CURRENT_MAJOR
+  breaking_change: NEW_MAJOR_OR_REPLACEMENT_ADR
+  unknown_properties: REJECT
+runtime:
+  implementation: NOT_INCLUDED
+  http: NOT_APPLICABLE
+  persistence: NOT_APPLICABLE
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+traceability:
+  requirements:
+  - REQ-ISM-004
+  - REQ-ISS-002
+  - REQ-SPRINT-001-004
+  acceptance_criteria:
+  - AC-ISSUE-0111-01
+  - AC-ISSUE-0111-02
+  - AC-ISSUE-0111-03
+  - AC-ISSUE-0111-04
+contracts:
+- contract_id: portfolio-snapshot
+  owner: BC-001
+  version: 1.0.0
+  schema: contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/portfolio-snapshot.schema.json
+  example: contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/portfolio-snapshot.json
+  requirement: REQ-ISM-004
+  acceptance_criteria:
+  - AC-ISSUE-0111-01
+  - AC-ISSUE-0111-02
+  - AC-ISSUE-0111-03
+  invariants:
+  - STABLE_ID_IS_INDEPENDENT_FROM_GITHUB_ISSUE_NUMBER
+  - BOTH_REPOSITORY_AND_GITHUB_SIDES_ARE_IDENTIFIED
+  - RECONCILIATION_IS_ONE_TO_ONE_AND_COMPLETE
+  failure_modes:
+  - REQUIRED_FIELD_MISSING
+  - MISSING_RECONCILIATION_SIDE
+  - INCONSISTENT_RECONCILIATION
+  - UNKNOWN_PROPERTY
+- contract_id: issue-forecast
+  owner: BC-001
+  version: 1.0.0
+  schema: contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/issue-forecast.schema.json
+  example: contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/issue-forecast.json
+  requirement: REQ-ISS-002
+  acceptance_criteria:
+  - AC-ISSUE-0111-01
+  - AC-ISSUE-0111-02
+  - AC-ISSUE-0111-03
+  invariants:
+  - MINIMUM_LE_MODE_LE_MAXIMUM
+  - CONFIDENCE_IS_EXPLICIT
+  - VARIANCE_REFERENCES_THE_DECLARED_VERSIONED_SNAPSHOT
+  failure_modes:
+  - REQUIRED_FIELD_MISSING
+  - INVALID_INTERVAL_ORDER
+  - SNAPSHOT_VARIANCE_MISMATCH
+  - UNKNOWN_PROPERTY
+- contract_id: foundation-boundaries
+  owner: BC-001
+  version: 1.0.0
+  schema: contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/foundation-boundaries.schema.json
+  example: contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/foundation-boundaries.json
+  requirement: REQ-SPRINT-001-004
+  acceptance_criteria:
+  - AC-ISSUE-0111-01
+  - AC-ISSUE-0111-02
+  - AC-ISSUE-0111-03
+  invariants:
+  - CORE_API_AND_RUNNERS_ARE_DISTINCT_BOUNDARIES
+  - BOUNDARIES_ARE_DECLARATIVE_ONLY_IN_THIS_STORY
+  failure_modes:
+  - REQUIRED_FIELD_MISSING
+  - BOUNDARY_MISSING
+  - BOUNDARY_COLLAPSED
+  - RUNTIME_MATERIALIZATION_ATTEMPTED
+  - UNKNOWN_PROPERTY
+proof:
+  tests:
+  - test_versioned_issue_portfolio_catalog_github_reconciliation
+  - test_issue_forecast_min_mode_max_confidence_and_snapshot_variance
+  - test_sprint_zero_baseline_decision_04
+  - test_epic_001_contrato

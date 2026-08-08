@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "forecast_id": "FORECAST-ISSUE-0111",
+  "forecast_version": "1.0.0",
+  "owner": "BC-001",
+  "issue_id": "ISSUE-0111",
+  "unit": "relative_delivery_unit",
+  "interval": {
+    "minimum": 5,
+    "mode": 8,
+    "maximum": 12
+  },
+  "confidence": 0.8,
+  "snapshot": {
+    "snapshot_id": "PORTFOLIO-SNAPSHOT-EPIC-001",
+    "snapshot_version": "1.0.0"
+  },
+  "variance": {
+    "basis_snapshot_id": "PORTFOLIO-SNAPSHOT-EPIC-001",
+    "basis_snapshot_version": "1.0.0",
+    "minimum_delta": 0,
+    "mode_delta": 0,
+    "maximum_delta": 0
+  }
+}

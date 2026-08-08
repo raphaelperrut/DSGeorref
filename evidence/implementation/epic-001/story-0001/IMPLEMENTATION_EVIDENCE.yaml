@@ -1,0 +1,112 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-001
+  story_id: STORY-0001
+  issue_id: ISSUE-0111
+  task_id: TASK-0001
+candidate:
+  base_commit: 042a369
+  state: UNCOMMITTED_WORKTREE_PENDING_HUMAN_REVIEW
+  owner_context: BC-001
+  implementation_role: Arquiteto
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+contract_artifacts:
+- contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/contract-manifest.yaml
+- contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/portfolio-snapshot.schema.json
+- contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/issue-forecast.schema.json
+- contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/foundation-boundaries.schema.json
+- contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/portfolio-snapshot.json
+- contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/issue-forecast.json
+- contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/foundation-boundaries.json
+supporting_artifacts:
+- contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+- tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py
+- docs/02-architecture/design-reviews/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/ISSUE-0111-DESIGN-REVIEW.md
+coverage:
+- requirement: REQ-ISM-004
+  acceptance_criteria:
+  - AC-ISSUE-0111-01
+  - AC-ISSUE-0111-02
+  - AC-ISSUE-0111-03
+  test: test_versioned_issue_portfolio_catalog_github_reconciliation
+  artifact: portfolio-snapshot.schema.json
+- requirement: REQ-ISS-002
+  acceptance_criteria:
+  - AC-ISSUE-0111-01
+  - AC-ISSUE-0111-02
+  - AC-ISSUE-0111-03
+  test: test_issue_forecast_min_mode_max_confidence_and_snapshot_variance
+  artifact: issue-forecast.schema.json
+- requirement: REQ-SPRINT-001-004
+  acceptance_criteria:
+  - AC-ISSUE-0111-01
+  - AC-ISSUE-0111-02
+  - AC-ISSUE-0111-03
+  test: test_sprint_zero_baseline_decision_04
+  artifact: foundation-boundaries.schema.json
+- requirement: CONTRACT_GOVERNANCE
+  acceptance_criteria:
+  - AC-ISSUE-0111-02
+  - AC-ISSUE-0111-04
+  test: test_epic_001_contrato
+  artifact: contract-manifest.yaml
+tests_first:
+  red_observed: true
+  reason: contract-manifest.yaml absent before contract implementation
+  harness_errors: false
+  results:
+  - test: test_versioned_issue_portfolio_catalog_github_reconciliation
+    red: EXPECTED_MISSING_CONTRACT_ARTIFACT
+    green: PASS
+  - test: test_issue_forecast_min_mode_max_confidence_and_snapshot_variance
+    red: EXPECTED_MISSING_CONTRACT_ARTIFACT
+    green: PASS
+  - test: test_sprint_zero_baseline_decision_04
+    red: EXPECTED_MISSING_CONTRACT_ARTIFACT
+    green: PASS
+  - test: test_epic_001_contrato
+    red: EXPECTED_MISSING_CONTRACT_ARTIFACT
+    green: PASS
+fail_closed_coverage:
+- missing schema version
+- incorrect owner
+- missing required property
+- missing reconciliation side
+- Stable ID divergent from repository issue ID
+- duplicate Stable ID or GitHub identity
+- inconsistent reconciliation summary
+- minimum greater than mode
+- mode greater than maximum
+- missing confidence
+- snapshot and variance mismatch
+- missing core, API or runners boundary
+- duplicated or semantically collapsed boundary
+- attempted runtime materialization
+- missing referenced contract
+- missing ownership registration
+- unexpected property
+runtime_applicability:
+  runtime: NOT_INCLUDED
+  http: NOT_APPLICABLE
+  persistence: NOT_APPLICABLE
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+validation:
+  contract_schemas_and_examples: PASS
+  mandatory_tests_individual: PASS
+  validate_repository: PASS
+  make_verify: PASS_WITH_PYTHONUTF8
+  make_verify_initial_attempt: ENVIRONMENT_ENCODING_FAILURE_CP1252_BEFORE_ARCHITECTURE_REVIEW
+  git_diff_check: PASS
+  write_scope_inspection: PASS
+  validator_out_of_scope_changes: NONE
+  commands:
+  - four mandatory tests executed individually
+  - python tools/validate_repository.py
+  - make verify with PYTHONUTF8=1
+  - git diff --check
+  - git status --short
+  - git diff --name-only
+  - git diff --stat

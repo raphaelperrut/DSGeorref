@@ -26,6 +26,13 @@ contracts/assurance/README.md,BC-001,assurance,VERSIONED,NO
 contracts/assurance/phase-f-issue-review.schema.json,BC-001,assurance,VERSIONED,NO
 contracts/assurance/phase-g-cto-review.schema.json,BC-001,assurance,VERSIONED,NO
 contracts/contexts/README.md,BC-013,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/foundation-boundaries.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/issue-forecast.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/portfolio-snapshot.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/foundation-boundaries.schema.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/issue-forecast.schema.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/portfolio-snapshot.schema.json,BC-001,contexts,VERSIONED,NO
 contracts/domain/asset.schema.json,BC-003,domain,VERSIONED,NO
 contracts/domain/attempt.schema.json,BC-013,domain,VERSIONED,NO
 contracts/domain/backup-set.schema.json,BC-013,domain,VERSIONED,NO
