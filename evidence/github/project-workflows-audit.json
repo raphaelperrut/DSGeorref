@@ -20,7 +20,7 @@
       "number": 9
     },
     {
-      "enabled": true,
+      "enabled": false,
       "id": "PWF_lAHOBpYJ7s4Beo57zgZuwJQ",
       "name": "Item added to project",
       "number": 12
@@ -51,7 +51,7 @@
     }
   ],
   "manual_workflows_required": [
-    "Item added to project → Status = Inbox",
+    "Item added to project → Status = Backlog",
     "Issue closed → Status = Done",
     "Issue reopened → Status = Backlog",
     "Status changed to Done → close issue",

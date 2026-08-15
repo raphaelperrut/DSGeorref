@@ -177,13 +177,43 @@ def read_json(path: Path, *, default: Any = None) -> Any:
 
 def write_json_atomic(path: Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+
     with tempfile.NamedTemporaryFile(
-        "w", encoding="utf-8", delete=False, dir=path.parent, suffix=".tmp"
+        "w",
+        encoding="utf-8",
+        delete=False,
+        dir=path.parent,
+        suffix=".tmp",
     ) as handle:
-        json.dump(value, handle, ensure_ascii=False, indent=2, sort_keys=True)
+        json.dump(
+            value,
+            handle,
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
         handle.write("\n")
         temporary = Path(handle.name)
-    temporary.replace(path)
+
+    try:
+        attempts = 7
+
+        for attempt in range(attempts):
+            try:
+                temporary.replace(path)
+                return
+            except PermissionError:
+                if attempt == attempts - 1:
+                    raise
+
+                delay = min(0.2 * (2 ** attempt), 2.0)
+                time.sleep(delay)
+    finally:
+        if temporary.exists():
+            try:
+                temporary.unlink()
+            except OSError:
+                pass
 
 
 def parse_repo(repo: str) -> tuple[str, str]:
@@ -263,6 +293,23 @@ def get_project_items(project_id: str) -> list[dict[str, Any]]:
                 ... on PullRequest {
                   id number title state
                   repository { nameWithOwner }
+                }
+              }
+              fieldValues(first: 100) {
+                nodes {
+                  __typename
+                  ... on ProjectV2ItemFieldTextValue {
+                    text
+                    field {
+                      ... on ProjectV2Field { name }
+                    }
+                  }
+                  ... on ProjectV2ItemFieldSingleSelectValue {
+                    name
+                    field {
+                      ... on ProjectV2SingleSelectField { name }
+                    }
+                  }
                 }
               }
             }
