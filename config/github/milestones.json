@@ -28,7 +28,17 @@
   ],
   "sprint_map": {
     "SPRINT-001": "Internal",
-    "SPRINT-002": "Internal"
+    "SPRINT-002": "Internal",
+    "SPRINT-003": "Alpha",
+    "SPRINT-004": "Alpha",
+    "SPRINT-005": "Alpha",
+    "SPRINT-006": "Alpha",
+    "SPRINT-007": "Alpha",
+    "SPRINT-008": "Alpha",
+    "SPRINT-009": "Beta",
+    "SPRINT-010": "Beta",
+    "SPRINT-011": "Beta",
+    "SPRINT-012": "v1.0"
   },
-  "decision_note": "Somente SPRINT-001 e SPRINT-002 estão associadas por padrão. Amplie este mapa quando a estratégia de releases posteriores for aprovada."
+  "decision_note": "Mapeamento aprovado pelo Owner: SPRINT-001/002=Internal; SPRINT-003..008=Alpha; SPRINT-009..011=Beta; SPRINT-012=v1.0."
 }

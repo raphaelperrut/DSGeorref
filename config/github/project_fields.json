@@ -81,7 +81,7 @@
     {
       "name": "Status", "data_type": "SINGLE_SELECT", "create": false,
       "options": [
-        {"name": "Inbox", "color": "GRAY"}, {"name": "Backlog", "color": "GRAY"},
+        {"name": "Backlog", "color": "GRAY"},
         {"name": "Ready", "color": "BLUE"}, {"name": "In progress", "color": "YELLOW"},
         {"name": "In review", "color": "PURPLE"}, {"name": "Blocked", "color": "RED"},
         {"name": "Done", "color": "GREEN"}, {"name": "Canceled", "color": "GRAY"}

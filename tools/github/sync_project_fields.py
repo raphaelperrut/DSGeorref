@@ -3,7 +3,7 @@
 
 Dry-run is the default. Use --apply to write. The script reads the canonical SAR
 indexes plus .github/dsgeorref-materialization-map.json. It is resumable and
-stores hashes in .github/dsgeorref-project-field-sync.json.
+stores hashes in .github/dsgeorref-project-field-sync.json as checkpoint evidence; remote Project values are always reconciled.
 """
 from __future__ import annotations
 
@@ -227,6 +227,30 @@ def update_item_fields(
     gh_graphql(mutation, variables)
 
 
+def current_project_values(item: dict[str, Any]) -> dict[str, str]:
+    """Return current governed Text/SingleSelect Project values."""
+    values: dict[str, str] = {}
+    connection = item.get("fieldValues") or {}
+
+    for node in connection.get("nodes", []) or []:
+        if not node:
+            continue
+
+        field = node.get("field") or {}
+        field_name = field.get("name")
+        if not field_name:
+            continue
+
+        typename = node.get("__typename")
+
+        if typename == "ProjectV2ItemFieldTextValue":
+            values[field_name] = str(node.get("text") or "")
+        elif typename == "ProjectV2ItemFieldSingleSelectValue":
+            values[field_name] = str(node.get("name") or "")
+
+    return values
+
+
 def value_hash(values: dict[str, str]) -> str:
     raw = json.dumps(values, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
@@ -247,7 +271,7 @@ def main() -> int:
         help="Acrescenta opções ausentes preservando IDs e opções já existentes",
     )
     parser.add_argument("--add-missing-items", action="store_true")
-    parser.add_argument("--force", action="store_true", help="Ignora hashes do checkpoint")
+    parser.add_argument("--force", action="store_true", help="Compatibility flag; remote reconciliation always runs")
     parser.add_argument("--apply", action="store_true")
     args = parser.parse_args()
 
@@ -375,52 +399,185 @@ def main() -> int:
 
     items = get_project_items(project["id"])
     repo_key = args.repo.casefold()
-    items_by_number: dict[int, str] = {}
+
+    items_by_number: dict[int, dict[str, Any]] = {}
     for item in items:
         content = item.get("content") or {}
         repository = ((content.get("repository") or {}).get("nameWithOwner") or "").casefold()
         number = content.get("number")
         if repository == repo_key and isinstance(number, int):
-            items_by_number[number] = item["id"]
+            items_by_number[number] = item
 
-    pending: list[tuple[str, int, dict[str, str], str]] = []
-    for issue_id in selected:
+    reconcile_ids = (
+        selected[: args.max_items]
+        if args.max_items > 0
+        else selected
+    )
+
+    # Remote state is authoritative for reconciliation.
+    # Checkpoint hashes are evidence only and never skip inspection.
+    #
+    # EMPTY     -> SET
+    # SAME      -> NO-OP
+    # DIFFERENT -> CONFLICT
+    #
+    # The complete batch is inspected before the first mutation.
+    plans: list[
+        tuple[str, int, str | None, dict[str, str], str]
+    ] = []
+
+    missing_items: list[tuple[str, int]] = []
+    conflicts: list[tuple[str, int, str, str, str]] = []
+
+    remote_items_inspected = 0
+    already_correct = 0
+    fields_to_set = 0
+
+    for issue_id in reconcile_ids:
+        number = numbers[issue_id]
         desired = canonical[issue_id]
         digest = value_hash(desired)
-        if not args.force and state["synced"].get(issue_id) == digest:
-            continue
-        pending.append((issue_id, numbers[issue_id], desired, digest))
-    if args.max_items > 0:
-        pending = pending[: args.max_items]
-    print(f"Pending field sync in this batch: {len(pending)}")
 
-    for issue_id, number, desired, digest in pending:
-        item_id = items_by_number.get(number)
-        if not item_id:
-            print(f"ADD PROJECT ITEM: {issue_id} (#{number})")
-            if not args.apply:
-                continue
+        item = items_by_number.get(number)
+
+        if item is None:
             if not args.add_missing_items:
-                raise GovernanceError(
-                    f"{issue_id} (#{number}) não está no Project. "
-                    "Reexecute com --add-missing-items --apply."
-                )
-            issue_node_id = get_issue_node_id(args.repo, number)
-            item_id = add_project_item(project["id"], issue_node_id)
-            items_by_number[number] = item_id
+                missing_items.append((issue_id, number))
+                continue
 
-        rendered = ", ".join(f"{key}={value}" for key, value in desired.items() if value)
-        print(f"SYNC {issue_id} (#{number}): {rendered}")
-        if args.apply:
-            update_item_fields(project["id"], item_id, desired, fields_by_name)
-            state["project"] = {
-                "id": project["id"],
-                "number": project["number"],
-                "owner": args.owner,
-                "owner_type": args.owner_type,
+            to_set = {
+                name: value
+                for name, value in desired.items()
+                if value
             }
+
+            fields_to_set += len(to_set)
+
+            plans.append(
+                (
+                    issue_id,
+                    number,
+                    None,
+                    to_set,
+                    digest,
+                )
+            )
+            continue
+
+        remote_items_inspected += 1
+
+        current = current_project_values(item)
+        to_set: dict[str, str] = {}
+
+        for name, desired_value in desired.items():
+            if not desired_value:
+                continue
+
+            current_value = str(current.get(name, "") or "").strip()
+
+            if not current_value:
+                to_set[name] = desired_value
+                fields_to_set += 1
+
+            elif current_value == desired_value:
+                already_correct += 1
+
+            else:
+                conflicts.append(
+                    (
+                        issue_id,
+                        number,
+                        name,
+                        current_value,
+                        desired_value,
+                    )
+                )
+
+        plans.append(
+            (
+                issue_id,
+                number,
+                item["id"],
+                to_set,
+                digest,
+            )
+        )
+
+    items_requiring_updates = sum(
+        1
+        for _issue_id, _number, _item_id, changes, _digest in plans
+        if changes
+    )
+
+    print(f"Remote items inspected: {remote_items_inspected}")
+    print(f"Fields already correct: {already_correct}")
+    print(f"Fields to set: {fields_to_set}")
+    print(f"Conflicts: {len(conflicts)}")
+    print(f"Items requiring field updates: {items_requiring_updates}")
+
+    for issue_id, number in missing_items:
+        print(f"MISSING PROJECT ITEM: {issue_id} (#{number})")
+
+    for issue_id, number, field_name, current_value, desired_value in conflicts:
+        print(
+            f"CONFLICT {issue_id} (#{number}): "
+            f"{field_name}={current_value!r} "
+            f"!= canonical {desired_value!r}"
+        )
+
+    for issue_id, number, item_id, to_set, _digest in plans:
+        if item_id is None:
+            print(f"ADD PROJECT ITEM: {issue_id} (#{number})")
+
+        for field_name, desired_value in to_set.items():
+            print(
+                f"SET {issue_id} (#{number}): "
+                f"{field_name}=<empty> -> {desired_value}"
+            )
+
+    # Fail closed before any remote mutation.
+    if conflicts:
+        raise GovernanceError(
+            f"{len(conflicts)} conflict(s) detected. "
+            "No remote changes were sent."
+        )
+
+    if missing_items:
+        raise GovernanceError(
+            f"{len(missing_items)} item(s) are missing from the Project. "
+            "No remote changes were sent. "
+            "Use --add-missing-items explicitly when applicable."
+        )
+
+    # APPLY remains fill-only: only values proven empty above are written.
+    if args.apply:
+        for issue_id, number, item_id, to_set, digest in plans:
+            if item_id is None:
+                issue_node_id = get_issue_node_id(args.repo, number)
+                item_id = add_project_item(project["id"], issue_node_id)
+
+            if to_set:
+                update_item_fields(
+                    project["id"],
+                    item_id,
+                    to_set,
+                    fields_by_name,
+                )
+
+            # Checkpoint data is accumulated in memory only.
+            # Remote Project state remains authoritative.
             state["synced"][issue_id] = digest
-            write_json_atomic(state_path, state)
+
+        # Persist checkpoint once after the complete remote batch.
+        state["project"] = {
+            "id": project["id"],
+            "number": project["number"],
+            "owner": args.owner,
+            "owner_type": args.owner_type,
+        }
+
+        write_json_atomic(state_path, state)
+        print(f"Checkpoint persisted: {state_path}")
 
     print("Concluído.")
     if not args.apply:

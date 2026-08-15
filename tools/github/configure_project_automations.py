@@ -63,7 +63,7 @@ jobs:
 """
 
 MANUAL_WORKFLOWS = [
-    "Item added to project → Status = Inbox",
+    "Item added to project → Status = Backlog",
     "Issue closed → Status = Done",
     "Issue reopened → Status = Backlog",
     "Status changed to Done → close issue",
@@ -134,7 +134,7 @@ def runtime() -> int:
         raise GovernanceError("DSGEO_PROJECT_NUMBER deve ser inteiro.") from exc
 
     action = event.get("action")
-    desired_status = {"opened": "Inbox", "reopened": "Backlog", "closed": "Done"}.get(action)
+    desired_status = {"opened": "Backlog", "reopened": "Backlog", "closed": "Done"}.get(action)
     if not desired_status:
         print(f"Ação `{action}` não requer sincronização.")
         return 0

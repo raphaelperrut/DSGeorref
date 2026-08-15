@@ -218,10 +218,8 @@ def load_state(path: Path) -> dict[str, Any]:
 def save_state(path: Path, state: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(
-        json.dumps(state, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    serialized = json.dumps(state, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+    temporary.write_bytes(serialized.encode("utf-8"))
     temporary.replace(path)
 
 
@@ -269,11 +267,14 @@ def list_remote_issues(repo: str) -> dict[str, RemoteIssue]:
 
 def merge_remote_into_state(state: dict[str, Any], remote: dict[str, RemoteIssue]) -> None:
     for stable_id, issue in remote.items():
-        state["issues"][stable_id] = {
-            "number": issue.number,
-            "url": issue.url,
-            "title": issue.title,
-        }
+        entry = state["issues"].setdefault(stable_id, {})
+        entry.update(
+            {
+                "number": issue.number,
+                "url": issue.url,
+                "title": issue.title,
+            }
+        )
 
 
 def canonical_epic_issue_ids(issues: Iterable[CanonicalIssue]) -> dict[str, str]:

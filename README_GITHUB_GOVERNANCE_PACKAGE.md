@@ -246,7 +246,7 @@ Project → … → Workflows
 
 Ative e configure:
 
-1. Item added to project → `Status = Inbox`.
+1. Item added to project → `Status = Backlog`.
 2. Issue closed → `Status = Done`.
 3. Issue reopened → `Status = Backlog`.
 4. Status changed to Done → close issue.
