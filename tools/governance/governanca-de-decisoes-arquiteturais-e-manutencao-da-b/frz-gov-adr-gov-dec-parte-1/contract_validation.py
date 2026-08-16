@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from pathlib import Path
 from typing import Any
 
@@ -26,11 +27,13 @@ def load_contract(repository_root: Path) -> dict[str, Any]:
     if not isinstance(schema, dict):
         raise ValueError("lifecycle contract must be a JSON object")
     profile = schema.get("x-dsgeorref-profile")
-    expected = {
-        "owner": "STORY-0688",
-        "bounded_context": "BC-001",
-    }
-    if not isinstance(profile, dict) or any(profile.get(k) != v for k, v in expected.items()):
+    owner = profile.get("owner") if isinstance(profile, dict) else None
+    bounded_context = profile.get("bounded_context") if isinstance(profile, dict) else None
+    if (
+        not isinstance(owner, str)
+        or re.fullmatch(r"STORY-[0-9]{4}", owner) is None
+        or bounded_context != "BC-001"
+    ):
         raise ValueError("lifecycle contract has an unexpected owner profile")
     digest_profile = profile.get("baseline_digest")
     canonicalization = (

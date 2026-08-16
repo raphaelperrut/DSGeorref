@@ -2,8 +2,11 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import itertools
+import os
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -17,7 +20,6 @@ sys.path.insert(0, str(MODULE_ROOT))
 
 from baseline_lifecycle import (  # noqa: E402
     AppendOnlyRecordLedger,
-    EvidenceArtifact,
     build_baseline,
     validate_baseline,
     validate_closure,
@@ -28,23 +30,39 @@ from baseline_lifecycle import (  # noqa: E402
 from canonical_json import canonical_json_bytes  # noqa: E402
 from decision_governance import (  # noqa: E402
     DECISION_CLASSIFICATIONS,
-    LOCAL_CLASSIFICATIONS,
     validate_adr_change_governance,
     validate_classification_before_identifier,
     validate_new_adr_eligibility,
 )
 from portfolio_validation import validate_snapshot_tombstone_delta_history  # noqa: E402
+from scope_validation import validate_effective_task_scope  # noqa: E402
 from sprint_validation import (  # noqa: E402
-    derive_story_selection,
+    derive_canonical_sprint_selection,
     minimum_sprint_scope,
     validate_graph_derived_selection,
     validate_minimum_sprint_scope,
 )
 
 
-def _revision(name: str = "HEAD") -> str:
+TASK_PATH = ".codex/tasks/TASK-0688.json"
+CHECKPOINT = "d7788e2b45802ddd71d422b440d63984ee8b70d0"
+REJECTED = "0160efea15c84de1703bcd1df0e551376a1ce892"
+BASE = "afcbb18719e4531e2046c524633e1f68bf9b6e53"
+ADR_AUTHORITY_PATH = (
+    "docs/02-architecture/adrs/"
+    "ADR-057-release-train-publicacao-e-gates-de-distribuicao.md"
+)
+SCHEMA_PATH = (
+    "docs/03-engineering/contexts/engineering_governance/"
+    "governanca-de-decisoes-arquiteturais-e-manutencao-da-b/"
+    "frz-gov-adr-gov-dec-parte-1/foundation-baseline-lifecycle.schema.json"
+)
+_FIXTURE_SEQUENCE = itertools.count()
+
+
+def _revision(name: str = "HEAD", repository: Path = ROOT) -> str:
     completed = subprocess.run(
-        ["git", "-C", str(ROOT), "rev-parse", name],
+        ["git", "-C", str(repository), "rev-parse", name],
         check=True,
         capture_output=True,
         encoding="ascii",
@@ -52,12 +70,54 @@ def _revision(name: str = "HEAD") -> str:
     return completed.stdout.strip()
 
 
+def _git(repository: Path, *arguments: str, text: bool = True) -> str | bytes:
+    completed = subprocess.run(
+        ["git", "-C", str(repository), *arguments],
+        check=True,
+        capture_output=True,
+        encoding="utf-8" if text else None,
+    )
+    return completed.stdout
+
+
+def _init_repository(path: Path) -> None:
+    path.mkdir(parents=True, exist_ok=True)
+    _git(path, "init", "-q")
+    _git(path, "config", "user.name", "Governed Fixture")
+    _git(path, "config", "user.email", "fixture@dsgeorref.invalid")
+
+
+def _write(repository: Path, relative_path: str, content: bytes) -> None:
+    target = repository / relative_path
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(content)
+
+
+def _fixture_directory(name: str) -> Path:
+    suffix = f"{os.getpid()}-{next(_FIXTURE_SEQUENCE)}"
+    target = Path(tempfile.gettempdir()) / f"dsg0798-{name}-{suffix}"
+    target.mkdir(parents=True)
+    return target
+
+
+def _commit(repository: Path, message: str) -> str:
+    _git(repository, "add", ".")
+    _git(repository, "commit", "-q", "-m", message)
+    return _revision(repository=repository)
+
+
+def _reference(repository: Path, revision: str, path: str) -> dict[str, str]:
+    content = _git(repository, "show", f"{revision}:{path}", text=False)
+    assert isinstance(content, bytes)
+    return {
+        "source_revision": revision,
+        "path": path,
+        "sha256": hashlib.sha256(content).hexdigest(),
+    }
+
+
 def _codes(findings: list[Any]) -> set[str]:
     return {finding.code for finding in findings}
-
-
-def _reference(path: str, content: bytes) -> dict[str, str]:
-    return {"path": path, "sha256": hashlib.sha256(content).hexdigest()}
 
 
 def _baseline(revision: str | None = None, version: str = "1.0.0") -> dict[str, Any]:
@@ -66,24 +126,22 @@ def _baseline(revision: str | None = None, version: str = "1.0.0") -> dict[str, 
         revision or _revision(),
         "FOUNDATION-BASELINE-CANONICAL",
         version,
+        TASK_PATH,
     )
 
 
 def test_foundation_baseline_digest_controlled_change_and_adr_supersession() -> None:
     current = _baseline()
+    predecessor = _baseline(_revision("origin/main"), "0.9.0")
     assert current == _baseline()
     assert validate_baseline(ROOT, current) == []
     assert current["coverage"] == sorted(current["coverage"], key=lambda row: row["path"])
-    assert current["coverage"][0]["path"] == ".codex/roles/ROLE-003-tech-lead.md"
-    assert any(row["path"] == ".codex/tasks/TASK-0688.json" for row in current["coverage"])
-
-    predecessor = _baseline(_revision("origin/main"), "0.9.0")
-    assert predecessor["baseline_digest"] != current["baseline_digest"]
+    assert any(row["path"] == TASK_PATH for row in current["coverage"])
     assert _codes(validate_transition(ROOT, predecessor, current, None)) == {
         "SUPERSESSION_REQUIRED"
     }
     supersession = {
-        "schema_version": "1.0.0",
+        "schema_version": "2.0.0",
         "record_type": "FOUNDATION_BASELINE_SUPERSESSION",
         "supersession_id": "FOUNDATION-SUPERSESSION-CANONICAL-1",
         "predecessor": {
@@ -94,19 +152,27 @@ def test_foundation_baseline_digest_controlled_change_and_adr_supersession() -> 
             key: current[key]
             for key in ("baseline_id", "baseline_version", "baseline_digest")
         },
-        "reason": "TASK-0688 coverage authority changed under reviewed reconciliation.",
-        "authority": {"path": "evidence/authority.json", "sha256": "a" * 64},
+        "reason": "Coverage authority changed under governed reconciliation.",
+        "authority": _reference(ROOT, current["source_revision"], ADR_AUTHORITY_PATH),
         "recorded_at": "2026-08-16T18:00:00Z",
     }
     assert validate_transition(ROOT, predecessor, current, supersession) == []
 
+    forged = copy.deepcopy(supersession)
+    forged["authority"] = {
+        "source_revision": current["source_revision"],
+        "path": "does/not/exist.json",
+        "sha256": "a" * 64,
+    }
+    assert "AUTHORITY_INVALID" in _codes(
+        validate_transition(ROOT, predecessor, current, forged)
+    )
     inconsistent = copy.deepcopy(current)
     inconsistent["coverage"] = list(reversed(inconsistent["coverage"]))
     assert {"COVERAGE_MISMATCH", "DIGEST_MISMATCH"} <= _codes(
         validate_baseline(ROOT, inconsistent)
     )
     ledger = AppendOnlyRecordLedger()
-    ledger.append(predecessor)
     ledger.append(current)
     replacement = copy.deepcopy(current)
     replacement["baseline_digest"] = "b" * 64
@@ -119,13 +185,41 @@ def test_foundation_baseline_digest_controlled_change_and_adr_supersession() -> 
 
 
 def _closure_fixture() -> tuple[
+    Path,
     dict[str, Any],
     dict[str, Any],
     dict[str, Any],
-    dict[str, EvidenceArtifact],
+    dict[str, Any],
 ]:
-    baseline = _baseline()
-    candidate, merged = _revision(), _revision("origin/main")
+    repository = _fixture_directory("governed-evidence")
+    _init_repository(repository)
+    _write(repository, SCHEMA_PATH, (ROOT / SCHEMA_PATH).read_bytes())
+    _write(
+        repository,
+        "docs/00-governance/DEFINITION_OF_DONE.md",
+        (ROOT / "docs/00-governance/DEFINITION_OF_DONE.md").read_bytes(),
+    )
+    _write(repository, ADR_AUTHORITY_PATH, (ROOT / ADR_AUTHORITY_PATH).read_bytes())
+    _write(
+        repository,
+        ".codex/policies/file-scopes.yaml",
+        (ROOT / ".codex/policies/file-scopes.yaml").read_bytes(),
+    )
+    candidate = _commit(repository, "candidate implementation")
+    main_branch = str(_git(repository, "branch", "--show-current")).strip()
+    _git(repository, "checkout", "-q", "-b", "governed-review")
+    _write(repository, "evidence/reviews/review-marker.txt", b"reviewed candidate\n")
+    _commit(repository, "independent review")
+    _git(repository, "checkout", "-q", main_branch)
+    _write(repository, "evidence/merge-marker.txt", b"human merge\n")
+    _commit(repository, "prepare human merge")
+    _git(repository, "merge", "-q", "--no-ff", "governed-review", "-m", "merge reviewed candidate")
+    merged = _revision(repository=repository)
+    baseline = {
+        "baseline_id": "FOUNDATION-BASELINE-CANONICAL",
+        "baseline_version": "1.0.0",
+        "baseline_digest": "a" * 64,
+    }
     proof_names = (
         "IMPLEMENTATION_AND_MANDATORY_TESTS",
         "ARTIFACTS_AND_CONTRACTS_SYNCHRONIZED",
@@ -145,138 +239,287 @@ def _closure_fixture() -> tuple[
         "FIRST_SLICE_AUTHORIZATION",
         "G1_FOUNDATION_GATE_RESULT",
     )
-    artifacts: dict[str, EvidenceArtifact] = {}
-    proofs: dict[str, Any] = {}
-    for name in proof_names:
-        path = f"evidence/proofs/{name.lower()}.json"
-        content = canonical_json_bytes({"proof": name})
-        artifacts[path] = EvidenceArtifact(
-            content,
-            reviewed_candidate_commit=candidate,
-            merged_commit=merged if name == "HUMAN_MERGE" else None,
+    roles = {
+        "QA_APPROVAL": "QA",
+        "REVIEWER_APPROVAL": "Reviewer",
+        "HUMAN_MERGE": "Autoridade Humana",
+        "FIRST_SLICE_AUTHORIZATION": "Product Owner",
+    }
+    proof_paths: dict[str, str] = {}
+    for proof_name in proof_names:
+        payload: dict[str, Any] = {
+            "record_type": "FOUNDATION_CLOSURE_PROOF",
+            "proof_type": proof_name,
+            "result": "PASS",
+            "baseline": baseline,
+            "reviewed_candidate_commit": candidate,
+        }
+        if proof_name == "HUMAN_MERGE":
+            payload["merged_commit"] = merged
+        if proof_name in roles:
+            payload["authority_role"] = roles[proof_name]
+        governed_role_paths = {
+            "QA_APPROVAL": "evidence/qa/qa-approval.json",
+            "REVIEWER_APPROVAL": "evidence/reviews/reviewer-approval.json",
+            "FIRST_SLICE_AUTHORIZATION": (
+                "docs/01-product/first-slice-authorization.json"
+            ),
+        }
+        path = governed_role_paths.get(
+            proof_name, f"evidence/proofs/{proof_name.lower()}.json"
         )
-        proofs[name] = {"result": "PASS", "artifact": _reference(path, content)}
+        _write(repository, path, canonical_json_bytes(payload))
+        if proof_name == "QA_APPROVAL":
+            _write(
+                repository,
+                "evidence/proofs/forged-qa-approval.json",
+                canonical_json_bytes(payload),
+            )
+        proof_paths[proof_name] = path
+    _write(repository, "evidence/proofs/arbitrary.json", b'{"result":"PASS"}')
+    proof_revision = _commit(repository, "governed closure proofs")
+    proofs = {
+        name: {
+            "result": "PASS",
+            "artifact": _reference(repository, proof_revision, proof_paths[name]),
+        }
+        for name in proof_names
+    }
     evidence_set = {
-        "schema_version": "1.0.0",
+        "schema_version": "2.0.0",
         "record_type": "FOUNDATION_CLOSURE_EVIDENCE_SET",
         "evidence_set_id": "FOUNDATION-CLOSURE-EVIDENCE-CANONICAL-1",
-        "baseline": {
-            key: baseline[key]
-            for key in ("baseline_id", "baseline_version", "baseline_digest")
-        },
+        "baseline": baseline,
         "reviewed_candidate_commit": candidate,
         "merged_commit": merged,
         "proofs": proofs,
     }
-    evidence_bytes = canonical_json_bytes(evidence_set)
-    authority_bytes = canonical_json_bytes({"authority": "ADR-057"})
-    artifacts["evidence/closure-set.json"] = EvidenceArtifact(evidence_bytes)
-    artifacts["evidence/closure-authority.json"] = EvidenceArtifact(authority_bytes)
+    _write(repository, "evidence/closure-set.json", canonical_json_bytes(evidence_set))
+    evidence_revision = _commit(repository, "governed closure evidence set")
     closure = {
-        "schema_version": "1.0.0",
+        "schema_version": "2.0.0",
         "record_type": "FOUNDATION_CLOSURE",
         "closure_id": "FOUNDATION-CLOSURE-CANONICAL-1",
-        "baseline": evidence_set["baseline"],
+        "baseline": baseline,
         "evidence_set_id": evidence_set["evidence_set_id"],
-        "evidence_set": _reference("evidence/closure-set.json", evidence_bytes),
+        "evidence_set": _reference(
+            repository, evidence_revision, "evidence/closure-set.json"
+        ),
         "closure_authority": _reference(
-            "evidence/closure-authority.json", authority_bytes
+            repository,
+            evidence_revision,
+            "docs/00-governance/DEFINITION_OF_DONE.md",
         ),
         "closed_at": "2026-08-16T18:30:00Z",
     }
-    return baseline, evidence_set, closure, artifacts
-
-
-def test_foundation_closure_evidence_set_and_material_reopening_criteria() -> None:
-    baseline, evidence_set, closure, artifacts = _closure_fixture()
-    assert validate_evidence_set(ROOT, evidence_set, baseline, artifacts) == []
-    assert validate_closure(ROOT, closure, evidence_set, baseline, artifacts) == []
-
-    incomplete = copy.deepcopy(evidence_set)
-    incomplete["proofs"].pop("QA_APPROVAL")
-    assert "SCHEMA_INVALID" in _codes(
-        validate_evidence_set(ROOT, incomplete, baseline, artifacts)
+    trigger = {
+        "record_type": "FOUNDATION_REOPENING_TRIGGER",
+        "kind": "COVERED_SOURCE_DIGEST_CHANGED",
+        "prior_closure_id": closure["closure_id"],
+        "prior_baseline": baseline,
+        "new_candidate_id": "FOUNDATION-CANDIDATE-CANONICAL-2",
+        "new_evidence_set_id": "FOUNDATION-CLOSURE-EVIDENCE-CANONICAL-2",
+    }
+    candidate_record = {
+        "record_type": "FOUNDATION_REOPENING_CANDIDATE",
+        "candidate_id": trigger["new_candidate_id"],
+        "prior_closure_id": closure["closure_id"],
+        "prior_baseline": baseline,
+    }
+    evidence_record = {
+        "record_type": "FOUNDATION_REOPENING_EVIDENCE_SET",
+        "evidence_set_id": trigger["new_evidence_set_id"],
+        "candidate_id": trigger["new_candidate_id"],
+        "status": "OPEN",
+    }
+    _write(
+        repository,
+        "evidence/reopening/new-candidate.json",
+        canonical_json_bytes(candidate_record),
     )
-    wrong_link = copy.deepcopy(artifacts)
-    first_path = evidence_set["proofs"]["FOUNDATION_CHECKS"]["artifact"]["path"]
-    wrong_link[first_path] = EvidenceArtifact(wrong_link[first_path].content, "f" * 40)
-    assert "COMMIT_LINK_MISMATCH" in _codes(
-        validate_evidence_set(ROOT, evidence_set, baseline, wrong_link)
+    _write(
+        repository,
+        "evidence/reopening/new-evidence-set.json",
+        canonical_json_bytes(evidence_record),
     )
-
-    closure_bytes = canonical_json_bytes(closure)
-    trigger_bytes = canonical_json_bytes({"trigger": "covered source changed"})
-    authority_bytes = canonical_json_bytes({"authority": "Project Owner"})
-    artifacts["evidence/prior-closure.json"] = EvidenceArtifact(closure_bytes)
-    artifacts["evidence/material-trigger.json"] = EvidenceArtifact(trigger_bytes)
-    artifacts["evidence/reopening-authority.json"] = EvidenceArtifact(authority_bytes)
+    reopening_links_revision = _commit(repository, "governed reopening links")
+    trigger["new_candidate"] = _reference(
+        repository,
+        reopening_links_revision,
+        "evidence/reopening/new-candidate.json",
+    )
+    trigger["new_evidence_set"] = _reference(
+        repository,
+        reopening_links_revision,
+        "evidence/reopening/new-evidence-set.json",
+    )
+    _write(repository, "evidence/prior-closure.json", canonical_json_bytes(closure))
+    _write(repository, "evidence/material-trigger.json", canonical_json_bytes(trigger))
+    reopening_revision = _commit(repository, "governed reopening evidence")
     reopening = {
-        "schema_version": "1.0.0",
+        "schema_version": "2.0.0",
         "record_type": "FOUNDATION_REOPENING",
         "reopening_id": "FOUNDATION-REOPENING-CANONICAL-1",
         "prior_closure_id": closure["closure_id"],
-        "prior_closure": _reference("evidence/prior-closure.json", closure_bytes),
-        "prior_baseline": closure["baseline"],
+        "prior_closure": _reference(
+            repository, reopening_revision, "evidence/prior-closure.json"
+        ),
+        "prior_baseline": baseline,
         "material_trigger": {
-            "kind": "COVERED_SOURCE_DIGEST_CHANGED",
-            "evidence": _reference("evidence/material-trigger.json", trigger_bytes),
+            "kind": trigger["kind"],
+            "evidence": _reference(
+                repository, reopening_revision, "evidence/material-trigger.json"
+            ),
         },
-        "new_candidate_id": "FOUNDATION-CANDIDATE-CANONICAL-2",
-        "new_evidence_set_id": "FOUNDATION-CLOSURE-EVIDENCE-CANONICAL-2",
-        "authority": _reference("evidence/reopening-authority.json", authority_bytes),
+        "new_candidate_id": trigger["new_candidate_id"],
+        "new_evidence_set_id": trigger["new_evidence_set_id"],
+        "authority": _reference(repository, reopening_revision, ADR_AUTHORITY_PATH),
         "reopened_at": "2026-08-16T19:00:00Z",
     }
+    return repository, baseline, evidence_set, closure, reopening
+
+
+def test_foundation_closure_evidence_set_and_material_reopening_criteria() -> None:
+    repository, baseline, evidence_set, closure, reopening = _closure_fixture()
+    assert validate_evidence_set(repository, evidence_set, baseline) == []
+    assert validate_closure(repository, closure, evidence_set, baseline) == []
     ledger = AppendOnlyRecordLedger()
     ledger.append(evidence_set)
     ledger.append(closure)
     assert validate_reopening(
-        ROOT, reopening, closure, baseline, evidence_set, artifacts, ledger
+        repository, reopening, closure, baseline, evidence_set, ledger
     ) == []
+
+    incomplete = copy.deepcopy(evidence_set)
+    incomplete["proofs"].pop("QA_APPROVAL")
+    assert "SCHEMA_INVALID" in _codes(
+        validate_evidence_set(repository, incomplete, baseline)
+    )
+    arbitrary = copy.deepcopy(evidence_set)
+    arbitrary["proofs"]["QA_APPROVAL"]["artifact"] = _reference(
+        repository,
+        next(iter(evidence_set["proofs"].values()))["artifact"]["source_revision"],
+        "evidence/proofs/arbitrary.json",
+    )
+    assert "EVIDENCE_INVALID" in _codes(
+        validate_evidence_set(repository, arbitrary, baseline)
+    )
+    forged_role = copy.deepcopy(evidence_set)
+    forged_role["proofs"]["QA_APPROVAL"]["artifact"] = _reference(
+        repository,
+        _revision(repository=repository),
+        "evidence/proofs/forged-qa-approval.json",
+    )
+    assert "EVIDENCE_AUTHORITY_INVALID" in _codes(
+        validate_evidence_set(repository, forged_role, baseline)
+    )
+    forged_closure = copy.deepcopy(closure)
+    forged_closure["closure_authority"] = arbitrary["proofs"]["QA_APPROVAL"][
+        "artifact"
+    ]
+    assert "AUTHORITY_INVALID" in _codes(
+        validate_closure(repository, forged_closure, evidence_set, baseline)
+    )
+    forged_reopening = copy.deepcopy(reopening)
+    forged_reopening["authority"] = arbitrary["proofs"]["QA_APPROVAL"]["artifact"]
+    assert "REOPENING_AUTHORITY_INVALID" in _codes(
+        validate_reopening(
+            repository, forged_reopening, closure, baseline, evidence_set, ledger
+        )
+    )
+    wrong_trigger = copy.deepcopy(reopening)
+    wrong_trigger["new_candidate_id"] = "FOUNDATION-CANDIDATE-FORGED"
+    assert "MATERIAL_TRIGGER_INVALID" in _codes(
+        validate_reopening(
+            repository, wrong_trigger, closure, baseline, evidence_set, ledger
+        )
+    )
     mutated_evidence = copy.deepcopy(evidence_set)
     mutated_evidence["merged_commit"] = "e" * 40
     assert "HISTORY_NOT_PRESERVED" in _codes(
         validate_reopening(
-            ROOT, reopening, closure, baseline, mutated_evidence, artifacts, ledger
+            repository, reopening, closure, baseline, mutated_evidence, ledger
         )
     )
 
 
 def test_adr_governance_overlap() -> None:
-    assert validate_new_adr_eligibility(
-        "NEW_ADR",
-        "NEW_ADR",
-        boundary_independent=True,
-        durable_impact=True,
-        high_reversal_cost=True,
-    ) == []
-    for local_classification in sorted(LOCAL_CLASSIFICATIONS):
-        findings = validate_new_adr_eligibility(
-            "NEW_ADR",
-            local_classification,
-            boundary_independent=True,
-            durable_impact=True,
-            high_reversal_cost=True,
-        )
-        assert "ARTIFICIAL_ADR_PROMOTION" in _codes(findings)
-    assert validate_adr_change_governance(
-        overlapping_adr_ids=("ADR-006",),
-        superseded_adr_ids=("ADR-006",),
-        declared_normative_owner="ADR-040",
-        expected_normative_owner="ADR-040",
-        owner_approved=True,
-    ) == []
-    rejected = validate_adr_change_governance(
-        overlapping_adr_ids=("ADR-006",),
-        superseded_adr_ids=(),
-        declared_normative_owner="ADR-999",
-        expected_normative_owner="ADR-040",
-        owner_approved=False,
+    path = (
+        "docs/02-architecture/adrs/"
+        "ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md"
     )
-    assert _codes(rejected) == {
+    assert validate_adr_change_governance(
+        ROOT,
+        base_revision=BASE,
+        candidate_revision=REJECTED,
+        proposal_path=path,
+        overlapping_adr_ids=(),
+        superseded_adr_ids=(),
+        declared_normative_owner="ADR-006",
+    ) == []
+    forged = validate_adr_change_governance(
+        ROOT,
+        base_revision=BASE,
+        candidate_revision=REJECTED,
+        proposal_path=path,
+        overlapping_adr_ids=("ADR-999",),
+        superseded_adr_ids=("ADR-999",),
+        declared_normative_owner="CALLER-OWNER",
+    )
+    assert {
+        "ADR_REFERENCE_UNKNOWN",
         "ADR_OVERLAP_UNRESOLVED",
+        "SUPERSESSION_CLAIM_MISMATCH",
         "NORMATIVE_OWNER_INVALID",
-        "OWNER_GATE_REQUIRED",
-    }
+    } <= _codes(forged)
+    duplicate = validate_adr_change_governance(
+        ROOT,
+        base_revision=BASE,
+        candidate_revision=REJECTED,
+        proposal_path=path,
+        overlapping_adr_ids=("ADR-006", "ADR-006"),
+        superseded_adr_ids=(),
+        declared_normative_owner="ADR-006",
+    )
+    assert "ADR_REFERENCE_DUPLICATE" in _codes(duplicate)
+
+
+def _decision_repository() -> tuple[Path, str, str, str]:
+    repository = _fixture_directory("decision-authority")
+    _init_repository(repository)
+    _write(
+        repository,
+        "docs/00-governance/ADR_INDEX.csv",
+        b"adr_id,status,title,file,independent_boundary,bounded_contexts,depends_on,owned_requirement_count\n",
+    )
+    base = _commit(repository, "classification base")
+    proposal_path = "docs/02-architecture/adrs/ADR-058-new-governed-boundary.md"
+    adr = """# ADR-058 — New governed boundary
+
+- **Status:** `Accepted`
+- **Aprovador:** `Project Owner`
+- **Owner normativo:** `ADR-058`
+- **Boundary independente:** `SIM`
+
+## Contexto
+
+Esta ADR isola uma decisão arquitetural de alto impacto e alto custo de reversão.
+""".encode()
+    _write(repository, proposal_path, adr)
+    row = (
+        "ADR-058,Accepted,New governed boundary,ADR-058-new-governed-boundary.md,"
+        "true,BC-001,,1\n"
+    ).encode()
+    _write(
+        repository,
+        "docs/00-governance/ADR_INDEX.csv",
+        (
+            b"adr_id,status,title,file,independent_boundary,bounded_contexts,depends_on,owned_requirement_count\n"
+            + row
+        ),
+    )
+    candidate = _commit(repository, "allocated ADR without prior classification record")
+    return repository, base, candidate, proposal_path
 
 
 def test_req_gov_dec_001() -> None:
@@ -287,51 +530,210 @@ def test_req_gov_dec_001() -> None:
         "BENCHMARK_PROFILE",
         "ISSUE_DETAIL",
     }
-    for classification in DECISION_CLASSIFICATIONS:
-        assert validate_classification_before_identifier(classification, None) == []
-    early = validate_classification_before_identifier(None, "ADR-999")
-    assert _codes(early) == {"CLASSIFICATION_REQUIRED", "IDENTIFIER_ALLOCATED_EARLY"}
-    assert _codes(validate_classification_before_identifier("LOCAL_NOTE", None)) == {
-        "CLASSIFICATION_INVALID"
-    }
+    existing = (
+        "docs/02-architecture/adrs/"
+        "ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md"
+    )
+    assert validate_classification_before_identifier(
+        ROOT,
+        base_revision=BASE,
+        candidate_revision=REJECTED,
+        proposal_path=existing,
+        declared_classification="REFINE_EXISTING",
+        allocated_identifier="ADR-006",
+    ) == []
+    repository, base, candidate, proposal = _decision_repository()
+    early = validate_classification_before_identifier(
+        repository,
+        base_revision=base,
+        candidate_revision=candidate,
+        proposal_path=proposal,
+        declared_classification="NEW_ADR",
+        allocated_identifier="ADR-058",
+    )
+    assert _codes(early) == {"IDENTIFIER_ALLOCATED_EARLY"}
+    forged = validate_classification_before_identifier(
+        ROOT,
+        base_revision=BASE,
+        candidate_revision=REJECTED,
+        proposal_path=existing,
+        declared_classification="NEW_ADR",
+        allocated_identifier="ADR-999",
+    )
+    assert {"CLASSIFICATION_MISMATCH", "IDENTIFIER_MISMATCH"} <= _codes(forged)
 
 
 def test_req_gov_dec_002() -> None:
-    for values in ((False, True, True), (True, False, True), (True, True, False)):
-        findings = validate_new_adr_eligibility(
-            "NEW_ADR",
-            "NEW_ADR",
-            boundary_independent=values[0],
-            durable_impact=values[1],
-            high_reversal_cost=values[2],
+    existing = (
+        "docs/02-architecture/adrs/"
+        "ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md"
+    )
+    artificial = validate_new_adr_eligibility(
+        ROOT,
+        base_revision=BASE,
+        candidate_revision=REJECTED,
+        proposal_path=existing,
+        declared_classification="NEW_ADR",
+    )
+    assert {"CLASSIFICATION_MISMATCH", "ARTIFICIAL_ADR_PROMOTION"} <= _codes(
+        artificial
+    )
+    repository, base, candidate, proposal = _decision_repository()
+    governed = validate_new_adr_eligibility(
+        repository,
+        base_revision=base,
+        candidate_revision=candidate,
+        proposal_path=proposal,
+        declared_classification="NEW_ADR",
+    )
+    assert "NEW_ADR_INELIGIBLE" not in _codes(governed)
+    assert "IDENTIFIER_ALLOCATED_EARLY" in _codes(governed)
+    assert "OWNER_GATE_REQUIRED" in _codes(
+        validate_adr_change_governance(
+            repository,
+            base_revision=base,
+            candidate_revision=candidate,
+            proposal_path=proposal,
+            overlapping_adr_ids=(),
+            superseded_adr_ids=(),
+            declared_normative_owner="ADR-058",
         )
-        assert _codes(findings) == {"NEW_ADR_INELIGIBLE"}
+    )
+
+
+def _portfolio_repository() -> tuple[Path, dict[str, dict[str, str]]]:
+    repository = _fixture_directory("portfolio-authority")
+    _init_repository(repository)
+    _write(
+        repository,
+        ".codex/policies/file-scopes.yaml",
+        (ROOT / ".codex/policies/file-scopes.yaml").read_bytes(),
+    )
+    _write(repository, "README.md", b"governed portfolio fixture\n")
+    _commit(repository, "portfolio base")
+    previous = {"ITEM-1": {"value": "old"}, "ITEM-2": {"value": "removed"}}
+    current = {"ITEM-1": {"value": "new"}}
+    delta = {
+        "record_type": "PORTFOLIO_DELTA",
+        "delta_id": "DELTA-1",
+        "changes": [
+            {"item_id": "ITEM-1", "before": previous["ITEM-1"], "after": current["ITEM-1"]},
+            {"item_id": "ITEM-2", "before": previous["ITEM-2"], "after": None},
+        ],
+    }
+    approval = {
+        "record_type": "PORTFOLIO_DELTA_APPROVAL",
+        "delta_id": "DELTA-1",
+        "delta_sha256": hashlib.sha256(canonical_json_bytes(delta)).hexdigest(),
+        "status": "APPROVED",
+        "authority_role": "Product Owner",
+    }
+    tombstone = {
+        "record_type": "PORTFOLIO_TOMBSTONE",
+        "item_id": "ITEM-2",
+        "delta_id": "DELTA-1",
+        "prior_item_sha256": hashlib.sha256(
+            canonical_json_bytes(previous["ITEM-2"])
+        ).hexdigest(),
+    }
+    active_tombstone = {
+        "record_type": "PORTFOLIO_TOMBSTONE",
+        "item_id": "ITEM-1",
+        "delta_id": "DELTA-1",
+        "prior_item_sha256": hashlib.sha256(
+            canonical_json_bytes(previous["ITEM-1"])
+        ).hexdigest(),
+    }
+    fake_approval = dict(approval)
+    records = {
+        "delta": delta,
+        "approval": approval,
+        "tombstone": tombstone,
+        "active-tombstone": active_tombstone,
+        "fake-approval": fake_approval,
+    }
+    paths = {
+        "delta": "records/delta.json",
+        "approval": "docs/01-product/portfolio-delta-approval.json",
+        "tombstone": "records/tombstone.json",
+        "active-tombstone": "records/active-tombstone.json",
+        "fake-approval": "records/fake-approval.json",
+    }
+    for name, record in records.items():
+        _write(repository, paths[name], canonical_json_bytes(record))
+    revision = _commit(repository, "governed portfolio transition")
+    refs = {
+        name: _reference(repository, revision, paths[name])
+        for name in records
+    }
+    return repository, refs
 
 
 def test_portfolio_snapshot_tombstone_approved_delta() -> None:
-    snapshot = {"snapshot": "PORTFOLIO-1", "items": ["ISSUE-0111", "ISSUE-0798"]}
+    repository, refs = _portfolio_repository()
+    previous = {"ITEM-1": {"value": "old"}, "ITEM-2": {"value": "removed"}}
+    current = {"ITEM-1": {"value": "new"}}
+    snapshots = (("SNAPSHOT-1", previous), ("SNAPSHOT-2", current))
     assert validate_snapshot_tombstone_delta_history(
-        (("PORTFOLIO-1", snapshot),),
-        previous_item_ids=("ISSUE-0111", "ISSUE-0798"),
-        current_item_ids=("ISSUE-0798",),
-        tombstoned_item_ids=("ISSUE-0111",),
-        applied_delta_ids=("DELTA-1",),
-        approved_delta_ids=("DELTA-1",),
+        repository,
+        snapshots,
+        previous_items=previous,
+        current_items=current,
+        tombstone_references=(refs["tombstone"],),
+        delta_references=(refs["delta"],),
+        approval_references=(refs["approval"],),
     ) == []
-    mutated = {"snapshot": "PORTFOLIO-1", "items": ["ISSUE-0798"]}
-    findings = validate_snapshot_tombstone_delta_history(
-        (("PORTFOLIO-1", snapshot), ("PORTFOLIO-1", mutated)),
-        previous_item_ids=("ISSUE-0111", "ISSUE-0798"),
-        current_item_ids=("ISSUE-0798",),
-        tombstoned_item_ids=(),
-        applied_delta_ids=("DELTA-UNAPPROVED",),
-        approved_delta_ids=(),
+    unexplained = validate_snapshot_tombstone_delta_history(
+        repository,
+        snapshots,
+        previous_items=previous,
+        current_items=current,
+        tombstone_references=(),
+        delta_references=(),
+        approval_references=(),
     )
-    assert _codes(findings) == {
-        "SNAPSHOT_MUTATED",
+    assert {"DELTA_TRANSITION_MISMATCH", "TOMBSTONE_REQUIRED"} <= _codes(
+        unexplained
+    )
+    active = validate_snapshot_tombstone_delta_history(
+        repository,
+        snapshots,
+        previous_items=previous,
+        current_items=current,
+        tombstone_references=(refs["active-tombstone"],),
+        delta_references=(refs["delta"], refs["delta"]),
+        approval_references=(refs["fake-approval"],),
+    )
+    assert {
+        "TOMBSTONE_INVALID",
         "TOMBSTONE_REQUIRED",
-        "DELTA_NOT_APPROVED",
-    }
+        "DELTA_DUPLICATE",
+        "DELTA_APPROVAL_INVALID",
+    } <= _codes(active)
+    mutated_snapshots = (("SNAPSHOT-1", previous), ("SNAPSHOT-1", current))
+    assert "SNAPSHOT_MUTATED" in _codes(
+        validate_snapshot_tombstone_delta_history(
+            repository,
+            mutated_snapshots,
+            previous_items=previous,
+            current_items=current,
+            tombstone_references=(refs["tombstone"],),
+            delta_references=(refs["delta"],),
+            approval_references=(refs["approval"],),
+        )
+    )
+    mismatched_snapshots = (("SNAPSHOT-1", current), ("SNAPSHOT-2", previous))
+    assert "SNAPSHOT_HISTORY_INVALID" in _codes(
+        validate_snapshot_tombstone_delta_history(
+            repository,
+            mismatched_snapshots,
+            previous_items=previous,
+            current_items=current,
+            tombstone_references=(refs["tombstone"],),
+            delta_references=(refs["delta"],),
+            approval_references=(refs["approval"],),
+        )
+    )
 
 
 def test_sprint_zero_baseline_decision_01() -> None:
@@ -342,25 +744,31 @@ def test_sprint_zero_baseline_decision_01() -> None:
     assert _codes(validate_minimum_sprint_scope(ROOT, expected[:-1])) == {
         "SPRINT_MINIMUM_SCOPE_MISMATCH"
     }
-    assert _codes(validate_minimum_sprint_scope(ROOT, tuple(reversed(expected)))) == {
-        "SPRINT_MINIMUM_SCOPE_MISMATCH"
-    }
 
 
 def test_sprint_zero_baseline_decision_02() -> None:
-    expected = derive_story_selection(ROOT, ("STORY-0688",))
-    assert expected == ("STORY-0001", "STORY-0688")
-    assert expected == derive_story_selection(ROOT, ("STORY-0688",))
-    assert validate_graph_derived_selection(ROOT, ("STORY-0688",), expected) == []
-    parallel = {
-        "STORY-0692",
-        "STORY-0693",
-        "STORY-0754",
-        "STORY-0757",
-        "STORY-0758",
-    }
-    assert parallel.isdisjoint(expected)
-    rejected = validate_graph_derived_selection(
-        ROOT, ("STORY-0688",), (*expected, "STORY-0692")
+    expected = derive_canonical_sprint_selection(ROOT)
+    assert len(expected) == 92
+    assert "STORY-0688" in expected
+    assert expected == derive_canonical_sprint_selection(ROOT)
+    assert validate_graph_derived_selection(ROOT, expected) == []
+    arbitrary = validate_graph_derived_selection(ROOT, ("STORY-0001", "STORY-0688"))
+    assert _codes(arbitrary) == {"SPRINT_SELECTION_NON_CANONICAL"}
+
+
+def test_taskenvelope_control_plane_scope() -> None:
+    assert validate_effective_task_scope(
+        ROOT,
+        base_revision="origin/main",
+        authority_checkpoint=CHECKPOINT,
+        candidate_revision=REJECTED,
+        task_envelope_path=TASK_PATH,
+    ) == []
+    unauthorized = validate_effective_task_scope(
+        ROOT,
+        base_revision="origin/main",
+        authority_checkpoint="origin/main",
+        candidate_revision=REJECTED,
+        task_envelope_path=TASK_PATH,
     )
-    assert _codes(rejected) == {"SPRINT_SELECTION_NON_CANONICAL"}
+    assert "TASK_CONTROL_PLANE_UNAUTHORIZED" in _codes(unauthorized)

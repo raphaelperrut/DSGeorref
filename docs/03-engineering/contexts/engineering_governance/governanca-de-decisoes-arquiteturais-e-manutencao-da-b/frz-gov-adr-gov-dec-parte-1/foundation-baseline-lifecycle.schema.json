@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://dsgeorref.local/docs/engineering-governance/foundation-baseline-lifecycle/1.0.0",
+  "$id": "https://dsgeorref.local/docs/engineering-governance/foundation-baseline-lifecycle/2.0.0",
   "title": "STORY-0688 Foundation Baseline Lifecycle Contract",
   "description": "Closed executable contract for baseline identity, coverage and digest, supersession, FoundationClosureEvidenceSet, closure, and material reopening. It does not define payloads owned by STORY-0692, STORY-0693, STORY-0754, STORY-0757, or STORY-0758.",
   "oneOf": [
@@ -11,7 +11,7 @@
     { "$ref": "#/$defs/FoundationReopening" }
   ],
   "x-dsgeorref-profile": {
-    "profile_version": "1.0.0",
+    "profile_version": "2.0.0",
     "owner": "STORY-0688",
     "bounded_context": "BC-001",
     "authorities": [
@@ -45,8 +45,10 @@
       "Supersession records, predecessor and successor baselines, reasons, authorities, closures, and evidence are immutable historical lineage.",
       "Closure requires every named proof in FoundationClosureEvidenceSet and one immutable FoundationClosure.",
       "Every proof except HUMAN_MERGE identifies reviewed_candidate_commit; HUMAN_MERGE links that candidate to merged_commit.",
+      "Every evidence reference resolves path and digest from its exact source_revision in governed Git history; caller-supplied bytes are not authority.",
+      "QA, Reviewer, and Product Owner proof paths must be authorized by the file-scope policy at reviewed_candidate_commit; HUMAN_MERGE requires an actual multi-parent Git merge.",
       "A material trigger requires FoundationReopening while preserving the prior closure and evidence by digest.",
-      "Reopening creates a new candidate_id and evidence_set_id rather than mutating a prior record.",
+      "A reopening trigger resolves distinct governed candidate and open evidence-set artifacts linked to the prior closure; matching caller IDs alone are insufficient.",
       "Unknown properties, incomplete records, ambiguous types, invalid digests, and unordered or duplicate coverage fail closed.",
       "Upstream-owned payloads are consumed by reference only and are never duplicated by this contract."
     ],
@@ -59,7 +61,7 @@
     ]
   },
   "$defs": {
-    "SchemaVersion": { "const": "1.0.0" },
+    "SchemaVersion": { "const": "2.0.0" },
     "SemVer": { "type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$" },
     "GitCommit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
     "Sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
@@ -82,8 +84,9 @@
     "EvidenceReference": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["path", "sha256"],
+      "required": ["source_revision", "path", "sha256"],
       "properties": {
+        "source_revision": { "$ref": "#/$defs/GitCommit" },
         "path": { "$ref": "#/$defs/RepositoryPath" },
         "sha256": { "$ref": "#/$defs/Sha256" }
       }

@@ -1,82 +1,108 @@
-# STORY-0688 implementation evidence
+# ISSUE-0798 — QA repair implementation evidence
 
-## Candidate and authority
+## Candidate and boundary
 
-- Story/issue: `STORY-0688 / ISSUE-0798 / #73`
-- Base checkpoint: `d7788e2b45802ddd71d422b440d63984ee8b70d0`
-- Contract: `foundation-baseline-lifecycle.schema.json`, profile `1.0.0`
-- Canonicalization: `SPEC-001-JCS`
-- Runtime used for mandatory tests: CPython `3.12.10`
-- Candidate commit: the local implementation commit containing this report; QA and
-  Reviewer approval are explicitly not claimed here.
+This repair is layered on rejected candidate
+0160efea15c84de1703bcd1df0e551376a1ce892; that commit remains an ancestor and
+was not amended. The normative checkpoint remains
+d7788e2b45802ddd71d422b440d63984ee8b70d0.
 
-## Requirement-to-test traceability
+The implementation is limited to validation and evidence for Slice 1/2. It does
+not implement ISSUE-0802, ISSUE-0803, ISSUE-0864, ISSUE-0867, ISSUE-0868, or
+Slice 2.
 
-| Requirement | Executable behavior | Canonical test |
-|---|---|---|
-| `REQ-FRZ-001` | Git-derived coverage, stable identity, JCS/SHA-256 digest and explicit supersession | `test_foundation_baseline_digest_controlled_change_and_adr_supersession` |
-| `REQ-FRZ-004` | complete proof verification, immutable closure and material reopening with preserved history | `test_foundation_closure_evidence_set_and_material_reopening_criteria` |
-| `REQ-GOV-ADR-002` | independent/durable/high-reversal-cost eligibility | `test_adr_governance_overlap` |
-| `REQ-GOV-ADR-003` | rejection of artificial local-detail promotion | `test_adr_governance_overlap` |
-| `REQ-GOV-ADR-018` | overlap, normative owner and Owner-gate validation | `test_adr_governance_overlap` |
-| `REQ-GOV-DEC-001` | closed classification set before identifier allocation | `test_req_gov_dec_001` |
-| `REQ-GOV-DEC-002` | `NEW_ADR` proportionality and eligibility | `test_req_gov_dec_002` |
-| `REQ-ISM-010` | immutable snapshots, tombstones and approved applied deltas | `test_portfolio_snapshot_tombstone_approved_delta` |
-| `REQ-SPRINT-001-001` | exact minimum scope derived from `AP-008` | `test_sprint_zero_baseline_decision_01` |
-| `REQ-SPRINT-001-002` | deterministic closure/order from the canonical story graph and TaskEnvelope gates | `test_sprint_zero_baseline_decision_02` |
+## Effective-diff accounting
 
-## Implemented files
+The rejected candidate's effective diff against origin/main contains 12 files,
+not 10. One of those files is the TaskEnvelope control-plane mutation
+.codex/tasks/TASK-0688.json, which is not an implementation-plane path in the
+TaskEnvelope allowlist.
 
-- production validators: `canonical_json.py`, `contract_validation.py`,
-  `baseline_lifecycle.py`, `decision_governance.py`, `portfolio_validation.py`,
-  `sprint_validation.py`, `foundation_validation_types.py`;
-- mandatory test: `tests/fnd/.../test_materialization.py`;
-- implementation documentation: package `README.md`;
-- executable contract: the checkpoint schema was consumed without semantic change.
+The repaired candidate is expected to contain 16 effective files:
 
-## Determinism and fail-closed evidence
+- one Owner-authorized TaskEnvelope control-plane mutation;
+- four contract, documentation, evidence, and mandatory-test files;
+- eleven stable Python validation modules.
 
-- Coverage is resolved from Git blobs at a full source commit and sorted by Unicode
-  path order.
-- Digest input uses the zeroed projection required by the schema.
-- Findings are immutable/orderable values and all validators sort their output.
-- Unknown schema properties, incomplete proofs, digest/link mismatch, silent
-  replacement, early identifier allocation, unapproved delta and non-canonical
-  graph selection are rejected.
-- The deterministic baseline and graph tests are repeated during the complete gate.
+The control-plane file is governed by the Tech Lead ownership rule for
+.codex/tasks/**, is frozen at the normative checkpoint, and is separately
+verified by the effective-scope validator. All implementation-plane files
+remain subject to the TaskEnvelope allow/deny paths. The validator does not add
+the TaskEnvelope to its own allowlist and does not weaken global policy.
 
-## Commands and results
+## HIGH finding repairs
 
-| Command | Result |
-|---|---|
-| `py -3.12 -m pytest -p no:cacheprovider -q tests/fnd/.../test_materialization.py` | `PASS — 8 passed in 10.21s` |
-| deterministic ISSUE-0798 reruns after final semantic correction | `PASS — 8 passed in 8.27s; 8 passed in 8.28s` |
-| existing FND regression suite after final semantic correction | `PASS — 15 passed in 32.70s` |
-| repository validation | `PASS` |
-| architecture review | `PASS` |
-| requirements review | `PASS` |
-| DDD review | `PASS` |
-| ADR review | `PASS` |
-| specification review | `PASS` |
-| sprint review | `PASS` |
-| Python architecture | `PASS` |
-| `make verify` under CPython 3.12 with `PYTHONUTF8=1` | `PASS` |
-| TaskEnvelope scope audit | `PASS — 10 changed files; 0 outside allow paths` |
-| whitespace/diff audit | `PASS — 0 trailing-whitespace findings; tracked diff check clean` |
+1. Lifecycle authority and evidence are Git-resolved governed artifacts.
+   Closure evidence has typed semantic linkage to the baseline and candidate,
+   file-scope-bound authority, ancestry checks, a real Git merge, and an
+   append-only closure ledger. Reopening requires a governed substantive
+   trigger that resolves distinct candidate and evidence-set artifacts.
+2. Decision governance derives classification, identifier history, normative
+   owner, supersession, overlap, and Owner approval from governed ADR artifacts
+   and history. An existing ADR's Owner gate comes from its accepted base
+   authority; caller booleans or newly written approval text do not establish
+   authority.
+3. ISM validation binds prior/current state to distinct snapshot-history
+   endpoints, resolves deltas and tombstones from governed revisions, and
+   requires approval records in a Product Owner-authorized path. The applied
+   delta must exactly explain the observed transition.
+4. Sprint validation derives the canonical SPRINT-001 story selection from the
+   governed backlog and AP-008, then computes dependency closure and stable
+   topological ordering.
+5. Effective TaskEnvelope scope is evaluated with separate, canonical
+   control-plane authority and implementation-plane TaskEnvelope scope.
 
-## Boundaries and limitations
+## Regression evidence
 
-This implementation validates accepted normative rules but does not deliver any
-payload, repository, GitHub/Project mechanism, Foundation Gate result or selection
-runtime owned by `STORY-0692`, `STORY-0693`, `STORY-0754`, `STORY-0757` or
-`STORY-0758`. Their absence is not treated as a validation failure.
+The mandatory test module contains nine tests, including negative assertions
+for every QA HIGH bypass: nonexistent lifecycle authority, incomplete or
+arbitrary closure/reopening evidence, role-shaped evidence outside the role's
+governed scope, forged ADR classification, eligibility, Owner authority, early
+identifier allocation, unexplained ISM mutation, disconnected snapshots,
+invalid tombstones, duplicate or fake delta approval, arbitrary Sprint
+selection, and the effective TaskEnvelope scope.
 
-No database, migration, API, queue, frontend, geospatial or AI behavior applies.
-No external state is mutated. QA, Reviewer and human merge proof remain future
-independent gates and are not asserted by this implementation evidence.
+The final mandatory and independent adversarial run completed with 9 passed.
+The complete FND run completed with 16 passed. The FND command required
+execution outside the filesystem sandbox because the pre-existing ISSUE-0869
+test creates a nested TemporaryDirectory at repository root; two sandboxed
+attempts each reached 15 passed and failed before an assertion with Windows
+permission errors in that temporary fixture.
 
-## Rollback
+## Python architecture coverage
 
-Revert only the local implementation commit and its introduced files. There is no
-data migration or external-state rollback. The already-approved checkpoint and any
-previous immutable closure/evidence records must remain intact.
+tools/check_python_architecture.py scans src/**/*.py; it reports zero scanned
+files for these governance modules and therefore is not evidence of their
+architecture compliance.
+
+An additional narrow review used the existing repository architecture policy
+and the existing branch_points metric against all eleven Python modules in the
+authorized implementation package. It scanned 11 files and reported zero
+policy errors. This supplements, but does not alter, the global architecture
+gate.
+
+## Final validation
+
+- repository validation: PASS;
+- architecture review: PASS;
+- requirements review: PASS;
+- domain-driven design review: PASS;
+- ADR review: PASS after removing ignored probe fixtures from workdir;
+- specification review: PASS;
+- sprint review: PASS;
+- global Python architecture: PASS with 0 files scanned;
+- narrow Python architecture: PASS with 11 files scanned and 0 findings;
+- mandatory/adversarial tests: PASS, 9 tests;
+- complete FND regressions: PASS, 16 tests;
+- effective scope audit: PASS, 16 files and 0 findings;
+- git diff --check: PASS;
+- make verify: PASS.
+
+## Schema correction
+
+The rejected schema allowed unversioned caller bytes to stand in for governed
+evidence. EvidenceReference now requires a repository path, full source
+revision, and digest, and the validator resolves all three as one immutable Git
+artifact. Because the new required fields are a breaking contract correction,
+the lifecycle schema/profile version is 2.0.0, following SPEC-001 semantic
+versioning.

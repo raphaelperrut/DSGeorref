@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import defaultdict
 from collections.abc import Iterable
 from pathlib import Path
+import re
 from typing import Any
 
 from canonical_json import CanonicalizationError, load_json_bytes
@@ -11,7 +12,10 @@ from foundation_validation_types import Finding
 
 GRAPH_PATH = Path("docs/06-delivery/STORY_DEPENDENCY_GRAPH.json")
 PROFILE_PATH = Path("docs/03-engineering/application-profiles/AP-008-sprint-001-execution-profile.md")
+BACKLOG_PATH = Path("docs/06-delivery/sprint-backlogs/SPRINT-001-BACKLOG.md")
 MINIMUM_SCOPE_PREFIX = "O escopo mínimo inclui "
+SPRINT_HEADING_PATTERN = re.compile(r"^# AP-008 — (SPRINT-[0-9]{3}) execution profile$")
+BACKLOG_STORY_PATTERN = re.compile(r"^\| `(STORY-[0-9]{4})` \|", re.MULTILINE)
 
 
 def minimum_sprint_scope(repository_root: Path) -> tuple[str, ...]:
@@ -94,10 +98,9 @@ def _graph_parts(
     return nodes, predecessors, edges
 
 
-def derive_story_selection(
-    repository_root: Path, requested_story_ids: Iterable[str]
+def _derive_story_selection(
+    graph: dict[str, Any], requested_story_ids: Iterable[str]
 ) -> tuple[str, ...]:
-    graph = _load_graph(repository_root)
     nodes, predecessors, edges = _graph_parts(graph)
     requested = tuple(requested_story_ids)
     if not requested or len(requested) != len(set(requested)):
@@ -105,7 +108,13 @@ def derive_story_selection(
     unknown = sorted(set(requested) - set(nodes))
     if unknown:
         raise ValueError(f"unknown requested stories: {', '.join(unknown)}")
+    selected = _predecessor_closure(requested, predecessors)
+    return _topological_order(selected, edges)
 
+
+def _predecessor_closure(
+    requested: tuple[str, ...], predecessors: dict[str, set[str]]
+) -> set[str]:
     selected = set(requested)
     pending = list(requested)
     while pending:
@@ -114,7 +123,12 @@ def derive_story_selection(
             if predecessor not in selected:
                 selected.add(predecessor)
                 pending.append(predecessor)
+    return selected
 
+
+def _topological_order(
+    selected: set[str], edges: list[tuple[str, str]]
+) -> tuple[str, ...]:
     indegree = {story_id: 0 for story_id in selected}
     successors: dict[str, set[str]] = defaultdict(set)
     for source, target in edges:
@@ -134,6 +148,50 @@ def derive_story_selection(
     if len(ordered) != len(selected):
         raise ValueError("canonical story graph contains a dependency cycle")
     return tuple(ordered)
+
+
+def _canonical_sprint_id(repository_root: Path) -> str:
+    try:
+        first_line = (repository_root / PROFILE_PATH).read_text(encoding="utf-8").splitlines()[0]
+    except (IndexError, OSError, UnicodeDecodeError) as error:
+        raise ValueError(f"AP-008 sprint identity is unavailable: {error}") from error
+    match = SPRINT_HEADING_PATTERN.fullmatch(first_line)
+    if match is None:
+        raise ValueError("AP-008 sprint identity is invalid")
+    return match.group(1)
+
+
+def _canonical_backlog_story_ids(repository_root: Path, sprint_id: str) -> tuple[str, ...]:
+    try:
+        text = (repository_root / BACKLOG_PATH).read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError) as error:
+        raise ValueError(f"canonical sprint backlog is unavailable: {error}") from error
+    if f"- **Sprint:** `{sprint_id}`" not in text:
+        raise ValueError("canonical sprint backlog has wrong sprint identity")
+    story_ids = tuple(BACKLOG_STORY_PATTERN.findall(text))
+    if not story_ids or len(story_ids) != len(set(story_ids)):
+        raise ValueError("canonical sprint backlog story inventory is empty or duplicated")
+    return story_ids
+
+
+def derive_canonical_sprint_selection(repository_root: Path) -> tuple[str, ...]:
+    graph = _load_graph(repository_root)
+    nodes, _predecessors, _edges = _graph_parts(graph)
+    sprint_id = _canonical_sprint_id(repository_root)
+    backlog_story_ids = _canonical_backlog_story_ids(repository_root, sprint_id)
+    unknown = sorted(set(backlog_story_ids) - set(nodes))
+    if unknown:
+        raise ValueError(f"canonical sprint backlog references unknown stories: {', '.join(unknown)}")
+    for story_id in backlog_story_ids:
+        node = nodes[story_id]
+        task_path = Path(".codex/tasks") / f"{node.get('task_id')}.json"
+        try:
+            task = load_json_bytes((repository_root / task_path).read_bytes())
+        except (OSError, CanonicalizationError) as error:
+            raise ValueError(f"canonical task is invalid for {story_id}: {error}") from error
+        if not isinstance(task, dict) or task.get("story_id") != story_id or task.get("sprint_id") != sprint_id:
+            raise ValueError(f"backlog/task sprint authority mismatch for {story_id}")
+    return _derive_story_selection(graph, backlog_story_ids)
 
 
 def _selected_task_findings(
@@ -170,12 +228,11 @@ def _selected_task_findings(
 
 def validate_graph_derived_selection(
     repository_root: Path,
-    requested_story_ids: Iterable[str],
     selected_story_ids: Iterable[str],
 ) -> list[Finding]:
     selected = tuple(selected_story_ids)
     try:
-        expected = derive_story_selection(repository_root, requested_story_ids)
+        expected = derive_canonical_sprint_selection(repository_root)
         nodes, _predecessors, _edges = _graph_parts(_load_graph(repository_root))
     except ValueError as error:
         return [Finding("STORY_GRAPH_INVALID", str(GRAPH_PATH), str(error))]
