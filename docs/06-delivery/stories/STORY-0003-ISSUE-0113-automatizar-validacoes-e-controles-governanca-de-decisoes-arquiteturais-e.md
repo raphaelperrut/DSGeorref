@@ -1,7 +1,7 @@
 # STORY-0003 / ISSUE-0113 — Automatizar validações e controles: governança de decisões arquiteturais e manutenção da baseline normativa
 
 - **Tipo:** `História implementável`
-- **Estado:** `In progress`
+- **Estado:** `Done`
 - **Épico pai:** `EPIC-001`
 - **Sprint:** `SPRINT-001`
 - **Domínio:** `FND`

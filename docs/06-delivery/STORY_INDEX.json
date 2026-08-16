@@ -117,7 +117,7 @@
       "sprint": "SPRINT-001",
       "domain": "FND",
       "type": "Story",
-      "status": "in-progress",
+      "status": "done",
       "role": "DevOps",
       "title": "Automatizar validações e controles: governança de decisões arquiteturais e manutenção da baseline normativa",
       "dependencies": [
@@ -40859,7 +40859,7 @@
       "sprint": "SPRINT-001",
       "domain": "FND",
       "type": "Story",
-      "status": "planned",
+      "status": "ready",
       "role": "QA",
       "title": "Validar automação fail-closed e idempotente: governança de decisões arquiteturais e manutenção da baseline normativa",
       "dependencies": [

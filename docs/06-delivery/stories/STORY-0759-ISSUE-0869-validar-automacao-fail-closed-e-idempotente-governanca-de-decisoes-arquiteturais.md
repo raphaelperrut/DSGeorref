@@ -1,7 +1,7 @@
 # STORY-0759 / ISSUE-0869 — Validar automação fail-closed e idempotente: governança de decisões arquiteturais e manutenção da baseline normativa
 
 - **Tipo:** `História implementável`
-- **Estado:** `Planned`
+- **Estado:** `Ready`
 - **Épico pai:** `EPIC-001`
 - **Sprint:** `SPRINT-001`
 - **Domínio:** `FND`
