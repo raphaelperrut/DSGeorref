@@ -1,0 +1,137 @@
+schema_version: 1.0.0
+evidence_type: DEVOPS_REVIEW_FINDINGS_CORRECTION
+traceability:
+  story_id: STORY-0003
+  issue_id: ISSUE-0113
+  github_issue: 15
+  task_id: TASK-0003
+  executor: DevOps
+baseline:
+  main_head: ea05b7a00cdbff084090734f89fcba9cb1546bc5
+  origin_main: ea05b7a00cdbff084090734f89fcba9cb1546bc5
+  correction_branch: codex/fix-issue-0113-review-findings
+  ahead_behind_at_branch_creation: 0/0
+previous_candidate:
+  sha: ea05b7a00cdbff084090734f89fcba9cb1546bc5
+  review_result: CHANGES_REQUIRED
+  remains_approved: false
+  previous_evidence: evidence/operations/epic-001/story-0003/IMPLEMENTATION_EVIDENCE.yaml
+candidate_history:
+- sha: ea05b7a00cdbff084090734f89fcba9cb1546bc5
+  review: FIRST_REVIEW
+  result: CHANGES_REQUIRED
+- sha: 264ca587f7158c75c34796b3c02fd0806f7eb564
+  review: SECOND_REVIEW
+  result: CHANGES_REQUIRED
+  contract_satisfied: false
+  previous_negative_cases: FAIL
+  evidence_matches_new_candidate: false
+- sha: b7c6ea32f7c30aee22cfa9df8faf8bf495a08bed
+  review: THIRD_REVIEW
+  result: CHANGES_REQUIRED
+  valid_rfc3339_leap_seconds: FAIL
+  contract_satisfied: false
+review_findings:
+- severity: HIGH
+  finding: unresolved schema reference leaked a traceback
+  resolution: invalid reference findings prevent example validation and resolution errors are controlled
+  status: FIXED
+- severity: HIGH
+  finding: ownership registry accepted unexpected publications in the governed namespace
+  resolution: expected and actual namespace sets are compared for missing, unexpected and duplicate rows
+  status: FIXED
+- severity: MEDIUM
+  finding: manifest list duplicates were removed by normalization
+  resolution: duplicates are reported before conversion to a set
+  status: FIXED
+- severity: HIGH
+  finding: date-time validation was fail-open without the optional RFC 3339 checker
+  reproduced_on_candidate: 264ca587f7158c75c34796b3c02fd0806f7eb564
+  clean_environment:
+    python: '3.12'
+    dependency_source: requirements-validation.txt
+    jsonschema: 4.26.0
+    date_time_checker_available: false
+    rfc3339_optional_package_available: false
+    invalid_date_time_accepted: true
+  resolution: the initial dedicated checker closed invalid-value fail-open behavior without optional packages; leap-second completeness is corrected by the subsequent finding
+  status: FIXED
+- severity: HIGH
+  finding: the dedicated RFC 3339 checker rejected valid leap-second representations
+  reproduced_on_candidate: b7c6ea32f7c30aee22cfa9df8faf8bf495a08bed
+  reproduced_values:
+  - '1998-12-31T23:59:60Z'
+  - '1998-12-31T15:59:60.123-08:00'
+  cause: Python datetime cannot directly represent second 60 and the grammar allowed only seconds 00 through 59
+  resolution: second 60 is normalized by the declared offset and accepted only at the RFC 3339 leap-second position at the last minute UTC of a month
+  historical_occurrence_table_used: false
+  status: FIXED
+new_candidate:
+  status: CREATED_AFTER_ALL_GATES
+  sha_source: PR_HEAD_AND_FINAL_HANDOFF
+  supersedes_for_approval: b7c6ea32f7c30aee22cfa9df8faf8bf495a08bed
+changed_files:
+- tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validator.py
+- tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validation_types.py
+- evidence/operations/epic-001/story-0003/REVIEW_FINDINGS_CORRECTION_EVIDENCE.yaml
+focused_validation:
+  happy_path: PASS
+  unresolved_ref_exit_nonzero: PASS
+  unresolved_ref_controlled_finding: PASS
+  unresolved_ref_without_traceback: PASS
+  unresolved_ref_deterministic: PASS
+  ownership_baseline: PASS
+  ownership_extra: PASS
+  ownership_missing: PASS
+  ownership_duplicate: PASS
+  ownership_invalid_values: PASS
+  manifest_duplicate: PASS
+  manifest_duplicate_deterministic: PASS
+  previous_negative_cases:
+    candidate_264ca587f7158c75c34796b3c02fd0806f7eb564: FAIL
+    corrected_candidate: PASS
+  date_time_arbitrary_string: PASS
+  date_time_impossible_date: PASS
+  date_time_impossible_time: PASS
+  date_time_structurally_invalid: PASS
+  date_time_timezone_missing: PASS
+  date_time_existing_valid_example: PASS
+  date_time_controlled_finding: PASS
+  date_time_without_traceback: PASS
+  date_time_deterministic: PASS
+  rfc3339_normal_timestamps: PASS
+  rfc3339_lowercase_t_z: PASS
+  rfc3339_valid_offsets: PASS
+  rfc3339_valid_fractions: PASS
+  leap_second_utc: PASS
+  leap_second_offset: PASS
+  leap_second_offset_fraction: PASS
+  leap_second_61_rejected: PASS
+  leap_second_wrong_utc_position_rejected: PASS
+  leap_second_non_month_end_rejected: PASS
+  all_historical_findings_regression: PASS
+  repeated_output_identical: PASS
+  input_hashes_unchanged: PASS
+contract_validation:
+  test: test_epic_001_contrato
+  execution: DIRECT_FUNCTION
+  result: PASS
+gate_results:
+  python_312_syntax: PASS
+  repository_validator: PASS
+  make_verify: PASS
+scope:
+  task0003_write_scope_respected: true
+  requirements_validation_touched: false
+  tests_touched: false
+  qa_evidence_touched: false
+  frozen_artifacts_touched: false
+  src_touched: false
+operational_impact:
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+qa_handoff:
+  qa_executed: false
+  test_automation_created_by_devops: false
+  qa_evidence_created_by_devops: false
+  re_review_required_before_qa: true

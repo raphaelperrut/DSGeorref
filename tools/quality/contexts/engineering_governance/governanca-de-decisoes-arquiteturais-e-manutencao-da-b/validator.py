@@ -3,7 +3,11 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import re
 import sys
+from calendar import monthrange
+from collections import Counter
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 from urllib.parse import unquote, urldefrag, urljoin
@@ -11,11 +15,69 @@ from urllib.parse import unquote, urldefrag, urljoin
 from jsonschema import Draft202012Validator, FormatChecker
 from jsonschema.exceptions import SchemaError
 from referencing import Registry, Resource
+from referencing.exceptions import Unresolvable
 
-from contract_definition import EXPECTED_CONTRACTS, EXPECTED_VERSION, MANIFEST_REL, OWNERSHIP_REL
+from contract_definition import (
+    CONTRACT_REL,
+    EXPECTED_CONTRACTS,
+    EXPECTED_VERSION,
+    MANIFEST_REL,
+    OWNERSHIP_REL,
+)
 from manifest_validation import validate_manifest
 from semantic_invariants import validate_semantics
 from validation_types import Finding, expect
+
+
+_RFC3339_DATE_TIME = re.compile(
+    r"^(?P<year>[0-9]{4})-(?P<month>0[1-9]|1[0-2])-(?P<day>[0-9]{2})"
+    r"[Tt](?P<hour>[01][0-9]|2[0-3]):(?P<minute>[0-5][0-9]):"
+    r"(?P<second>[0-5][0-9]|60)(?:\.[0-9]+)?"
+    r"(?P<timezone>[Zz]|(?P<offset_sign>[+-])"
+    r"(?P<offset_hour>[01][0-9]|2[0-3]):(?P<offset_minute>[0-5][0-9]))$"
+)
+
+
+def _is_rfc3339_date_time(value: object) -> bool:
+    if not isinstance(value, str):
+        return True
+    match = _RFC3339_DATE_TIME.fullmatch(value)
+    if match is None:
+        return False
+    second = int(match.group("second"))
+    try:
+        local_time = datetime(
+            year=int(match.group("year")),
+            month=int(match.group("month")),
+            day=int(match.group("day")),
+            hour=int(match.group("hour")),
+            minute=int(match.group("minute")),
+            second=min(second, 59),
+        )
+    except ValueError:
+        return False
+    if second < 60:
+        return True
+    offset_minutes = 0
+    if match.group("timezone").upper() != "Z":
+        offset_minutes = 60 * int(match.group("offset_hour")) + int(
+            match.group("offset_minute")
+        )
+        if match.group("offset_sign") == "-":
+            offset_minutes = -offset_minutes
+    try:
+        utc_time = local_time - timedelta(minutes=offset_minutes)
+    except OverflowError:
+        return False
+    is_last_minute_utc = utc_time.hour == 23 and utc_time.minute == 59
+    is_month_end_utc = utc_time.day == monthrange(utc_time.year, utc_time.month)[1]
+    return is_last_minute_utc and is_month_end_utc
+
+
+def _story_format_checker() -> FormatChecker:
+    checker = FormatChecker()
+    checker.checks("date-time")(_is_rfc3339_date_time)
+    return checker
 
 
 def _load_json(path: Path, artifact: str) -> tuple[Any | None, list[Finding]]:
@@ -104,11 +166,19 @@ def _validate_schema_pairs(root: Path) -> tuple[dict[str, dict[str, Any]], list[
         EXPECTED_CONTRACTS[key]["schema"].as_posix(): value
         for key, value in schemas.items()
     }
-    findings.extend(_schema_references(schema_docs))
+    reference_findings = _schema_references(schema_docs)
+    findings.extend(reference_findings)
+    unresolved_artifacts = {
+        finding.artifact
+        for finding in reference_findings
+        if finding.code == "SCHEMA_REFERENCE_UNRESOLVABLE"
+    }
     registry = Registry()
     valid_schemas: dict[str, dict[str, Any]] = {}
     for contract_id, schema in sorted(schemas.items()):
         artifact = EXPECTED_CONTRACTS[contract_id]["schema"].as_posix()
+        if artifact in unresolved_artifacts:
+            continue
         try:
             Draft202012Validator.check_schema(schema)
             registry = registry.with_resource(schema["$id"], Resource.from_contents(schema))
@@ -117,15 +187,23 @@ def _validate_schema_pairs(root: Path) -> tuple[dict[str, dict[str, Any]], list[
         else:
             valid_schemas[contract_id] = schema
     valid_examples: dict[str, dict[str, Any]] = {}
+    format_checker = _story_format_checker()
     for contract_id in sorted(set(valid_schemas) & set(examples)):
         rel = EXPECTED_CONTRACTS[contract_id]["example"].as_posix()
         validator = Draft202012Validator(
-            valid_schemas[contract_id], registry=registry, format_checker=FormatChecker()
+            valid_schemas[contract_id], registry=registry, format_checker=format_checker
         )
-        errors = sorted(
-            validator.iter_errors(examples[contract_id]),
-            key=lambda error: list(error.absolute_path),
-        )
+        try:
+            errors = sorted(
+                validator.iter_errors(examples[contract_id]),
+                key=lambda error: list(error.absolute_path),
+            )
+        except Unresolvable as exc:
+            schema_artifact = EXPECTED_CONTRACTS[contract_id]["schema"].as_posix()
+            findings.append(
+                Finding(schema_artifact, "SCHEMA_REFERENCE_UNRESOLVABLE", str(exc))
+            )
+            continue
         for error in errors:
             location = "/" + "/".join(str(part) for part in error.absolute_path)
             findings.append(Finding(rel, "EXAMPLE_SCHEMA_INVALID", f"{location}: {error.message}"))
@@ -154,16 +232,34 @@ def _validate_ownership(root: Path) -> list[Finding]:
         for contract in EXPECTED_CONTRACTS.values()
         for field in ("schema", "example")
     )
-    for reference in sorted(published):
+    namespace_prefix = CONTRACT_REL.as_posix() + "/"
+    namespace_references = [
+        row.get("contract", "")
+        for row in rows
+        if row.get("contract") == MANIFEST_REL.as_posix()
+        or row.get("contract", "").startswith(namespace_prefix)
+    ]
+    actual = set(namespace_references)
+    findings.extend(
+        Finding(artifact, "OWNERSHIP_REFERENCE_MISSING", reference)
+        for reference in sorted(published - actual)
+    )
+    findings.extend(
+        Finding(artifact, "OWNERSHIP_REFERENCE_UNEXPECTED", reference)
+        for reference in sorted(actual - published)
+    )
+    findings.extend(
+        Finding(
+            artifact,
+            "OWNERSHIP_REFERENCE_DUPLICATE",
+            f"{reference}: found {count} registry rows",
+        )
+        for reference, count in sorted(Counter(namespace_references).items())
+        if count > 1
+    )
+    for reference in sorted(published & actual):
         matches = [row for row in rows if row.get("contract") == reference]
         if len(matches) != 1:
-            findings.append(
-                Finding(
-                    artifact,
-                    "OWNERSHIP_REFERENCE_INVALID",
-                    f"{reference}: expected one registry row, found {len(matches)}",
-                )
-            )
             continue
         row = matches[0]
         expected = {

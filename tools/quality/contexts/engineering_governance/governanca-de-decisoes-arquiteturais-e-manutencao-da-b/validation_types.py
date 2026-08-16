@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import Counter
 from dataclasses import dataclass
 from typing import Any
 
@@ -41,4 +42,14 @@ def string_set(value: Any, artifact: str, field: str) -> tuple[set[str], list[Fi
         return set(), [
             Finding(artifact, "INVALID_STRUCTURE", f"{field} must be an array of strings")
         ]
-    return set(value), []
+    counts = Counter(value)
+    findings = [
+        Finding(
+            artifact,
+            "DUPLICATE_VALUE",
+            f"{field}: {item!r} occurs {count} times",
+        )
+        for item, count in sorted(counts.items())
+        if count > 1
+    ]
+    return set(value), findings
