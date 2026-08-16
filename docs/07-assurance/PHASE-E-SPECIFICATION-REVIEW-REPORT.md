@@ -22,11 +22,11 @@ A revisão preservou as 57 ADRs definitivas. Nenhuma nova ADR foi criada, porque
 | Arquivos de contrato | 139 |
 | JSON Schemas | 44 |
 | Exemplos executáveis | 8 |
-| TaskEnvelopes reconciliados | 758 |
+| TaskEnvelopes reconciliados | 759 |
 | ADRs preservadas | 57 |
 | Bounded Contexts | 16 |
 | Requisitos cobertos | 376 |
-| Histórias implementáveis | 758 |
+| Histórias implementáveis | 759 |
 
 ## 3. Resultado geral
 
@@ -111,7 +111,7 @@ Consumers acessam os contracts por published models; não importam modelos inter
 | SE-003 | Alta | Backends IA sem interface e autoridade uniforme | SPEC-003 + cinco métodos tipados |
 | SE-004 | Média | Templates com risco de lógica arbitrária | SPEC-004 + safe engines e output validation |
 | SE-005 | Alta | Artifacts genéricos e manifest insuficiente | SPEC-005 + registry + manifest v2 |
-| SE-006 | Média | Tarefas sem specification applicability | TaskEnvelope 1.4 em 758 tasks |
+| SE-006 | Média | Tarefas sem specification applicability | TaskEnvelope 1.4 em 759 tasks |
 | SE-007 | Média | ADRs sem referência aos contracts executáveis | Seções normativas adicionadas |
 
 Todos os achados estão resolvidos. Não há waiver aberto.

@@ -10,7 +10,7 @@ ctx=rows("docs/02-architecture/ddd/BOUNDED_CONTEXT_INDEX.csv")
 ctx_ids={r["context_id"] for r in ctx}
 if len(ctx)!=16: errors.append(f"expected 16 contexts, found {len(ctx)}")
 if sum(1 for r in ctx if r["classification"]=="Core")!=3: errors.append("expected 3 core contexts")
-for rel,key,count in [("docs/06-delivery/EPIC_INDEX.csv","epic_id",110),("docs/06-delivery/STORY_INDEX.csv","story_id",758),("docs/06-delivery/ISSUE_INDEX.csv","issue_id",868),("docs/01-product/REQUIREMENT_INDEX.csv","requirement_id",376)]:
+for rel,key,count in [("docs/06-delivery/EPIC_INDEX.csv","epic_id",110),("docs/06-delivery/STORY_INDEX.csv","story_id",759),("docs/06-delivery/ISSUE_INDEX.csv","issue_id",869),("docs/01-product/REQUIREMENT_INDEX.csv","requirement_id",376)]:
     rr=rows(rel)
     if len(rr)!=count: errors.append(f"{rel}: count drift")
     for r in rr:

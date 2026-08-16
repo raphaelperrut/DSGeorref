@@ -1,7 +1,7 @@
 # STORY-0003 / ISSUE-0113 — Automatizar validações e controles: governança de decisões arquiteturais e manutenção da baseline normativa
 
 - **Tipo:** `História implementável`
-- **Estado:** `Planned`
+- **Estado:** `In progress`
 - **Épico pai:** `EPIC-001`
 - **Sprint:** `SPRINT-001`
 - **Domínio:** `FND`
@@ -15,13 +15,13 @@ Como mantenedor de engenharia, preciso automatizar validações e controles para
 
 ## Resultado verificável
 
-Automatizar validações e controles para a capacidade **governança de decisões arquiteturais e manutenção da baseline normativa**, com saída versionada, testes e evidência no commit candidato.
+Automatizar validações e controles para a capacidade **governança de decisões arquiteturais e manutenção da baseline normativa**, com validator e workflow versionados, execução read-only determinística, diagnóstico acionável e evidence DevOps no commit candidato.
 
 ## Escopo
 
-- `tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**`
 - `tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**`
 - `.github/workflows/governanca-de-decisoes-arquiteturais-e-manutencao-da-b.yaml`
+- `evidence/operations/epic-001/story-0003/**`
 ## Fora de escopo
 
 - Alterar ADR, contrato compartilhado ou regra de produto sem issue de decisão aprovada.
@@ -44,14 +44,14 @@ Nenhum requisito exclusivo; valida integração do épico.
 
 ## Critérios de aceitação
 
-- [ ] O resultado de “governança de decisões arquiteturais e manutenção da baseline normativa” é observável por contrato, interface, artifact ou evidência executável.
-- [ ] Os requisitos vinculados possuem evidência explícita no commit candidato.
-- [ ] Estados de erro e caminhos fail-closed aplicáveis são testados, sem fallback silencioso.
-- [ ] A automação é idempotente, suporta dry-run quando destrutiva e falha com diagnóstico acionável.
+- [ ] O validator versionado avalia os contratos aplicáveis com saída determinística, read-only e diagnóstico acionável.
+- [ ] O workflow executa o validator e preserva status e diagnóstico suficientes para a validação QA no commit candidato.
+- [ ] A automação não altera ADRs, contratos congelados ou estado do produto e suporta dry-run quando qualquer ação potencialmente destrutiva for aplicável.
+- [ ] A evidence DevOps registra saída do validator, execução do workflow, arquivos alterados e justificativa de escopo.
 
 ## Testes obrigatórios
 
-- `test_epic_001_automacao`
+- `test_epic_001_contrato`
 
 ## Evidências obrigatórias
 
@@ -59,6 +59,10 @@ Nenhum requisito exclusivo; valida integração do épico.
 - Lista de arquivos alterados e justificativa de escopo.
 - Handoff com limitações, riscos residuais e impacto em contratos.
 - Aprovação independente aplicável ao mesmo commit.
+
+## Condição de conclusão no fluxo
+
+Esta lane pode concluir quando validator, workflow, diagnóstico e evidence DevOps estiverem satisfeitos. O fluxo de delivery permanece bloqueado para `STORY-0004` até `STORY-0759` validar o mesmo commit candidato final.
 
 ## Condições de parada
 
@@ -69,7 +73,7 @@ Nenhum requisito exclusivo; valida integração do épico.
 
 ## Prompt de execução Codex
 
-Leia `AGENTS.md`, `.codex/roles/ROLE-009-devops.md`, este documento, o épico `EPIC-001` e o TaskEnvelope `TASK-0003`. Trabalhe somente nos paths permitidos. Implemente o menor incremento que satisfaça todos os critérios, execute os testes, registre evidências e interrompa quando qualquer condição de parada ocorrer.
+Leia `AGENTS.md`, `.codex/roles/ROLE-009-devops.md`, este documento, o épico `EPIC-001` e o TaskEnvelope `TASK-0003`. Trabalhe somente nos paths permitidos. Implemente o menor incremento que satisfaça todos os critérios, execute a validação contratual, registre evidence DevOps e entregue o mesmo commit candidato para `STORY-0759`. Interrompa quando qualquer condição de parada ocorrer.
 
 
 ## Revisão SAR
@@ -135,7 +139,7 @@ Leia `AGENTS.md`, `.codex/roles/ROLE-009-devops.md`, este documento, o épico `E
 | Frontend | NOT_APPLICABLE | PASS |
 | Geo | NOT_APPLICABLE | PASS |
 | IA | NOT_APPLICABLE | PASS |
-| Testes | 1 testes obrigatórios | PASS |
+| Testes | 1 validação contratual obrigatória | PASS |
 | Artefatos | EVIDENCE_ONLY | PASS |
 | Critérios | 4 critérios com IDs estáveis | PASS |
 | Review | QA, Reviewer; mesmo commit candidato | PASS |

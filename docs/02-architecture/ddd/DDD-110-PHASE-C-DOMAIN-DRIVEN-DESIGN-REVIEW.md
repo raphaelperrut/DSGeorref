@@ -18,7 +18,7 @@ A arquitetura foi reorganizada em bounded contexts sem alterar os requisitos nem
 - Dependências diretas entre implementações de contexts: 0;
 - Ciclos diretos de import/modelo: 0;
 - Épicos classificados: 110;
-- Histórias/TaskEnvelopes classificados: 758;
+- Histórias/TaskEnvelopes classificados: 759;
 - Requisitos classificados: 376;
 - ADRs após a Fase C: 25;
 
@@ -26,7 +26,7 @@ A arquitetura foi reorganizada em bounded contexts sem alterar os requisitos nem
 
 | ID | Contexto | Tipo | Épicos | Histórias | Requisitos relacionados |
 |---|---|---|---:|---:|---:|
-| `BC-001` | Governança de Engenharia e Entrega | Enabling | 12 | 91 | 195 |
+| `BC-001` | Governança de Engenharia e Entrega | Enabling | 12 | 92 | 195 |
 | `BC-002` | Identidade e Controle de Acesso | Generic | 4 | 26 | 21 |
 | `BC-003` | Projetos, Workspace e Assets | Supporting | 1 | 9 | 30 |
 | `BC-004` | Plano de Processamento e Workflow | Supporting | 1 | 7 | 6 |
@@ -48,8 +48,8 @@ A arquitetura foi reorganizada em bounded contexts sem alterar os requisitos nem
 | ID | Severidade | Achado | Resolução |
 |---|---|---|---|
 | `DDD-001` | HIGH | Capacidades de negócio e componentes técnicos estavam no mesmo catálogo de módulos. | 16 bounded contexts definidos; 18 módulos reclassificados como implementação/adapters. |
-| `DDD-002` | HIGH | Layout global por domain/application/adapters favorecia modelo global e big ball of mud. | Layout context-first/layer-second registrado em ADR-005 e aplicado aos 758 TaskEnvelopes. |
-| `DDD-003` | HIGH | Épicos, histórias, requisitos e contratos não declaravam owner semântico único. | 110 épicos, 758 histórias, 376 requisitos e contratos receberam context owner. |
+| `DDD-002` | HIGH | Layout global por domain/application/adapters favorecia modelo global e big ball of mud. | Layout context-first/layer-second registrado em ADR-005 e aplicado aos 759 TaskEnvelopes. |
+| `DDD-003` | HIGH | Épicos, histórias, requisitos e contratos não declaravam owner semântico único. | 110 épicos, 759 histórias, 376 requisitos e contratos receberam context owner. |
 | `DDD-004` | HIGH | Integrações internas não possuíam context map normativo. | 70 relações direcionadas com padrão DDD e linguagem publicada. |
 | `DDD-005` | MEDIUM | Job execution e georeferencing attempt podiam ser tratados como o mesmo conceito. | AttemptExecution pertence ao BC-010; GeoreferencingAttempt pertence ao BC-006. |
 | `DDD-006` | MEDIUM | IA poderia parecer owner de aceitação geométrica. | BC-009 produz candidatos; somente BC-007 emite SGVVerdict. |
@@ -288,7 +288,7 @@ A direção abaixo identifica o fornecedor semântico e o consumidor. Feedback l
 
 | Sprint | Bounded Contexts | Épicos | Histórias | Regra de integração |
 |---|---|---:|---:|---|
-| `SPRINT-001` | `BC-001` | 12 | 91 | contratos upstream congelados antes de lanes downstream |
+| `SPRINT-001` | `BC-001` | 12 | 92 | contratos upstream congelados antes de lanes downstream |
 | `SPRINT-002` | `BC-002`, `BC-003`, `BC-013`, `BC-014` | 8 | 55 | contratos upstream congelados antes de lanes downstream |
 | `SPRINT-003` | `BC-010`, `BC-016` | 7 | 49 | contratos upstream congelados antes de lanes downstream |
 | `SPRINT-004` | `BC-010` | 6 | 42 | contratos upstream congelados antes de lanes downstream |
@@ -342,7 +342,7 @@ As ADRs `001–022` receberam contextualização DDD e foram mapeadas em `ADR_CO
 
 ## Revisão de dependências
 
-- dependências de histórias: 1.165 hard blockers, 88 ondas, zero ciclo;
+- dependências de histórias: 1.166 hard blockers, 88 ondas, zero ciclo;
 - relações de context map: 70;
 - dependências diretas de implementação entre contexts: zero;
 - acesso cross-schema/tabela: proibido;
@@ -366,8 +366,8 @@ As ADRs `001–022` receberam contextualização DDD e foram mapeadas em `ADR_CO
 - [x] 16 bounded contexts com missão e linguagem local;
 - [x] aggregates e eventos catalogados;
 - [x] context map e padrões de integração definidos;
-- [x] 110 épicos, 758 histórias, 868 issues e 376 requisitos reconciliados;
-- [x] 758 TaskEnvelopes com context owner e write scope context-first;
+- [x] 110 épicos, 759 histórias, 869 issues e 376 requisitos reconciliados;
+- [x] 759 TaskEnvelopes com context owner e write scope context-first;
 - [x] 57 ADRs consistentes após a consolidação definitiva da Fase D;
 - [x] contratos com owner único;
 - [x] módulos técnicos separados de contexts;

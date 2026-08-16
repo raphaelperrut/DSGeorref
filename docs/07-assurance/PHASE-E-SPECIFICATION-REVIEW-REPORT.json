@@ -13,11 +13,11 @@
     "contract_files": 139,
     "json_schemas": 44,
     "examples": 8,
-    "task_envelopes": 758,
+    "task_envelopes": 759,
     "adrs": 57,
     "bounded_contexts": 16,
     "requirements": 376,
-    "stories": 758,
+    "stories": 759,
     "contracts_with_owner": 138
   },
   "word_counts": {
@@ -150,7 +150,7 @@
       "id": "SE-006",
       "severity": "MEDIUM",
       "finding": "TaskEnvelopes não declaravam specifications aplicáveis.",
-      "resolution": "Schema 1.4 e metadata aplicada aos 758 TaskEnvelopes."
+      "resolution": "Schema 1.4 e metadata aplicada aos 759 TaskEnvelopes."
     },
     {
       "id": "SE-007",

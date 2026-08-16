@@ -6,9 +6,9 @@
 | ADRs | 18 |
 | Requisitos | 376 |
 | Épicos | 110 |
-| Histórias | 758 |
-| Issues | 868 |
-| TaskEnvelopes | 758 |
+| Histórias | 759 |
+| Issues | 869 |
+| TaskEnvelopes | 759 |
 | Sprints | 12 |
 | Contratos HTTP | 12 |
 | Schemas/contratos totais | 34 |

@@ -1,8 +1,8 @@
 # Ondas de paralelização
 
-- **Histórias:** 758
+- **Histórias:** 759
 - **Ondas topológicas:** 88
-- **Hard blockers:** 1165
+- **Hard blockers:** 1166
 - **Semântica:** uma história pode iniciar somente quando todas as dependências anteriores estiverem integradas e seu write scope estiver livre.
 
 ## Onda 001
@@ -34,7 +34,7 @@
 
 | História | Issue | Épico | Sprint | Papel | Write scope |
 |---|---|---|---|---|---|
-| `STORY-0003` | `ISSUE-0113` | `EPIC-001` | `SPRINT-001` | DevOps | `tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**`<br>`tools/quality/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**`<br>`.github/workflows/governanca-de-decisoes-arquiteturais-e-manutencao-da-b.yaml` |
+| `STORY-0003` | `ISSUE-0113` | `EPIC-001` | `SPRINT-001` | DevOps | `tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**`<br>`.github/workflows/governanca-de-decisoes-arquiteturais-e-manutencao-da-b.yaml`<br>`evidence/operations/epic-001/story-0003/**` |
 | `STORY-0251` | `ISSUE-0361` | `EPIC-042` | `SPRINT-012` | Tech Lead | `src/backend/dsgeorref/application/licenca-citacao-sanitizacao-e-revisao-externa-concluid/**` |
 | `STORY-0252` | `ISSUE-0362` | `EPIC-042` | `SPRINT-012` | DevOps | `tests/pub/licenca-citacao-sanitizacao-e-revisao-externa-concluid/**`<br>`tools/quality/licenca-citacao-sanitizacao-e-revisao-externa-concluid/**`<br>`.github/workflows/licenca-citacao-sanitizacao-e-revisao-externa-concluid.yaml` |
 | `STORY-0256` | `ISSUE-0366` | `EPIC-043` | `SPRINT-012` | DevOps | `tests/rel/release-documentada-com-rollback-e-suporte/**`<br>`tools/quality/release-documentada-com-rollback-e-suporte/**`<br>`.github/workflows/release-documentada-com-rollback-e-suporte.yaml` |
@@ -131,6 +131,7 @@
 | `STORY-0676` | `ISSUE-0786` | `EPIC-108` | `SPRINT-012` | QA | `tests/rel/instalador-bootstrap-readiness-e-suporte-diagnostico/**`<br>`tools/quality/instalador-bootstrap-readiness-e-suporte-diagnostico/**`<br>`.github/workflows/instalador-bootstrap-readiness-e-suporte-diagnostico.yaml` |
 | `STORY-0681` | `ISSUE-0791` | `EPIC-109` | `SPRINT-012` | Security | `src/backend/dsgeorref/security/licenciamento-contribuicao-rights-manifests-e-citacao/**`<br>`tests/security/licenciamento-contribuicao-rights-manifests-e-citacao/**` |
 | `STORY-0684` | `ISSUE-0794` | `EPIC-110` | `SPRINT-001` | Tech Lead | `tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/consolidacao/**`<br>`docs/03-engineering/capabilities/governanca-continua-do-backlog-e-decomposicao-de-epico/consolidacao/**` |
+| `STORY-0759` | `ISSUE-0869` | `EPIC-001` | `SPRINT-001` | QA | `tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_automation.py`<br>`evidence/qa/epic-001/story-0759/**` |
 
 ## Onda 004
 

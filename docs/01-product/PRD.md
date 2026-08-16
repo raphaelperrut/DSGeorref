@@ -169,9 +169,9 @@ Esta baseline materializa integralmente o roadmap em contexto mínimo por agente
 
 - **18 módulos arquiteturais** com boundaries, owners e escopo de código;
 - **376 requisitos ativos** com classificação, prioridade, owner, evidência, épicos e histórias;
-- **110 épicos** e **758 histórias implementáveis**;
-- **868 issues** no total, incluindo envelopes pais e histórias filhas;
-- **758 TaskEnvelopes Codex** com referências, paths, testes, evidências e condições de parada;
+- **110 épicos** e **759 histórias implementáveis**;
+- **869 issues** no total, incluindo envelopes pais e histórias filhas;
+- **759 TaskEnvelopes Codex** com referências, paths, testes, evidências e condições de parada;
 - **12 sprints** com backlog detalhado e árvore de dependências;
 - **12 contratos HTTP por domínio**, OpenAPI raiz e schemas de domínio/eventos/artifacts.
 

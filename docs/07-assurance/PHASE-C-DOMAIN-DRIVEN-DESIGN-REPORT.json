@@ -12,7 +12,7 @@
     "core_contexts": 3,
     "context_map_edges": 70,
     "epics": 110,
-    "stories": 758,
+    "stories": 759,
     "requirements": 376,
     "adrs": 25,
     "direct_context_implementation_dependencies": 0,
@@ -27,7 +27,7 @@
       "strategic": "Suporte organizacional",
       "mission": "Governar decisões, portfolio, evidências e autorização de entrega sem participar do runtime do produto.",
       "epics": 12,
-      "stories": 91,
+      "stories": 92,
       "requirements": 195
     },
     {
@@ -207,13 +207,13 @@
       "id": "DDD-002",
       "severity": "HIGH",
       "finding": "Layout global por domain/application/adapters favorecia modelo global e big ball of mud.",
-      "resolution": "Layout context-first/layer-second registrado em ADR-005 e aplicado aos 758 TaskEnvelopes."
+      "resolution": "Layout context-first/layer-second registrado em ADR-005 e aplicado aos 759 TaskEnvelopes."
     },
     {
       "id": "DDD-003",
       "severity": "HIGH",
       "finding": "Épicos, histórias, requisitos e contratos não declaravam owner semântico único.",
-      "resolution": "110 épicos, 758 histórias, 376 requisitos e contratos receberam context owner."
+      "resolution": "110 épicos, 759 histórias, 376 requisitos e contratos receberam context owner."
     },
     {
       "id": "DDD-004",

@@ -92,7 +92,7 @@ O registro de 325 entradas históricas foi substituído por 40 riscos ativos con
 
 ## SPRINT-001 — Repositório, governança e fundação executável
 
-- Issues: 103; histórias: 91; Critical: 43; High: 19; Medium: 29.
+- Issues: 104; histórias: 92; Critical: 44; High: 19; Medium: 29.
 - Gates: BENCHMARK_AND_OPERATIONS_GATES, IMPLEMENTATION_AUTHORIZATION, SECURITY_AND_PRIVACY_GATES.
 - Relatório detalhado: `docs/07-assurance/phase-g/SPRINT-001-CTO-REVIEW.md`.
 
@@ -164,7 +164,7 @@ O registro de 325 entradas históricas foi substituído por 40 riscos ativos con
 
 # Apêndice B — Issue por issue
 
-A tabela abaixo cobre as 868 issues. A matriz CSV canônica está em `docs/07-assurance/PHASE-G-ISSUE-INVESTMENT-REVIEW.csv`.
+A tabela abaixo cobre as 869 issues. A matriz CSV canônica está em `docs/07-assurance/PHASE-G-ISSUE-INVESTMENT-REVIEW.csv`.
 
 | Sprint | Issue | Tipo | Contexto | Risco | Controles | Gate |
 |---|---|---|---|---|---|---|
@@ -271,6 +271,7 @@ A tabela abaixo cobre as 868 issues. A matriz CSV canônica está em `docs/07-as
 | SPRINT-001 | ISSUE-0866 | Story | BC-001 | HIGH | CTO-001, CTO-003, CTO-004, CTO-005, CTO-006, CTO-007, CTO-008, CTO-010, CTO-012, CTO-013, CTO-015 | BENCHMARK_AND_OPERATIONS_GATES |
 | SPRINT-001 | ISSUE-0867 | Story | BC-001 | HIGH | CTO-001, CTO-003, CTO-004, CTO-005, CTO-006, CTO-007, CTO-008, CTO-012, CTO-013, CTO-015 | BENCHMARK_AND_OPERATIONS_GATES |
 | SPRINT-001 | ISSUE-0868 | Story | BC-001 | CRITICAL | CTO-003, CTO-004, CTO-006, CTO-012, CTO-013, CTO-015 | SECURITY_AND_PRIVACY_GATES |
+| SPRINT-001 | ISSUE-0869 | Story | BC-001 | CRITICAL | CTO-002, CTO-003, CTO-004, CTO-006, CTO-012, CTO-013, CTO-015 | SECURITY_AND_PRIVACY_GATES |
 | SPRINT-002 | ISSUE-0008 | Epic delivery envelope | BC-002 | CRITICAL | CTO-001, CTO-002, CTO-003, CTO-004, CTO-005, CTO-006, CTO-008, CTO-010, CTO-011, CTO-012, CTO-013, CTO-014, CTO-015 | SECURITY_AND_PRIVACY_GATES |
 | SPRINT-002 | ISSUE-0009 | Epic delivery envelope | BC-002 | CRITICAL | CTO-001, CTO-002, CTO-003, CTO-004, CTO-005, CTO-006, CTO-008, CTO-010, CTO-011, CTO-012, CTO-013, CTO-014, CTO-015 | SECURITY_AND_PRIVACY_GATES |
 | SPRINT-002 | ISSUE-0010 | Epic delivery envelope | BC-002 | CRITICAL | CTO-001, CTO-002, CTO-003, CTO-004, CTO-005, CTO-006, CTO-008, CTO-009, CTO-010, CTO-011, CTO-012, CTO-013, CTO-014, CTO-015 | SECURITY_AND_PRIVACY_GATES |

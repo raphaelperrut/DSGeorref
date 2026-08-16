@@ -5,8 +5,8 @@
 - **Resultado:** `APROVADO`
 - **Implementação:** `BLOCKED_EXTERNAL`
 - **Sprints:** `12`
-- **Issues:** `868`
-- **Histórias/TaskEnvelopes:** `758`
+- **Issues:** `869`
+- **Histórias/TaskEnvelopes:** `759`
 
 ## Método
 
@@ -16,23 +16,23 @@ Cada sprint foi revisada na ordem `Sprint → Issue → Dependências → Arquiv
 
 | Dimensão | Cobertura | Resultado |
 |---|---:|---|
-| Dependências | 868 issues | PASS |
-| Arquivos | 868 issues | PASS |
+| Dependências | 869 issues | PASS |
+| Arquivos | 869 issues | PASS |
 | API | 216 histórias aplicáveis | PASS |
 | Banco | 151 histórias aplicáveis | PASS |
 | Frontend | 75 histórias aplicáveis | PASS |
 | Geo | 275 histórias aplicáveis | PASS |
 | IA | 62 histórias aplicáveis | PASS |
-| Testes | 758 histórias | PASS |
-| Artefatos | 758 histórias | PASS |
+| Testes | 759 histórias | PASS |
+| Artefatos | 759 histórias | PASS |
 | Critérios | 3.692 critérios | PASS |
-| Review | 868 issues | PASS |
+| Review | 869 issues | PASS |
 
 ## Sprint por sprint
 
 | Sprint | Épicos | Histórias | Issues | Critérios | API | Banco | Frontend | Geo | IA | Resultado |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| SPRINT-001 | 12 | 91 | 103 | 364 | 19 | 18 | 7 | 0 | 10 | PASS |
+| SPRINT-001 | 12 | 92 | 104 | 368 | 19 | 18 | 7 | 0 | 10 | PASS |
 | SPRINT-002 | 8 | 55 | 63 | 220 | 25 | 24 | 5 | 0 | 2 | PASS |
 | SPRINT-003 | 7 | 49 | 56 | 196 | 19 | 26 | 5 | 0 | 4 | PASS |
 | SPRINT-004 | 6 | 42 | 48 | 168 | 12 | 18 | 0 | 0 | 2 | PASS |
@@ -50,7 +50,7 @@ Cada sprint foi revisada na ordem `Sprint → Issue → Dependências → Arquiv
 | ID | Severidade | Achado | Resolução | Estado |
 |---|---|---|---|---|
 | F-001 | HIGH | 8 documentos de sprint mantinham contagens de histórias anteriores à decomposição. | Contagens reconciliadas com STORY_INDEX e validador adicionado. | RESOLVED |
-| F-002 | HIGH | TaskEnvelopes não declaravam explicitamente aplicabilidade e resultado para API, banco, frontend, geo, IA, artefatos e review. | Schema 1.5.0 e phase_f_review obrigatório em 758 TaskEnvelopes. | RESOLVED |
+| F-002 | HIGH | TaskEnvelopes não declaravam explicitamente aplicabilidade e resultado para API, banco, frontend, geo, IA, artefatos e review. | Schema 1.5.0 e phase_f_review obrigatório em 759 TaskEnvelopes. | RESOLVED |
 | F-003 | HIGH | Tarefas derivadas de QA, integração e review podiam omitir ADRs de domínio aplicáveis ao épico. | 1910 autoridades ADR aplicáveis foram adicionadas sem criar decisões novas. | RESOLVED |
 | F-004 | HIGH | Tarefas com impacto de API nem sempre referenciavam o OpenAPI e o catálogo congelado. | 513 referências explícitas de contrato foram adicionadas. | RESOLVED |
 | F-005 | MEDIUM | Banco, migration e rollback eram tratados por regra genérica no handoff, sem declaração por issue. | Aplicabilidade, authorities, migration_required e rollback_required agora são campos por tarefa. | RESOLVED |
@@ -60,7 +60,7 @@ Cada sprint foi revisada na ordem `Sprint → Issue → Dependências → Arquiv
 
 ## Conclusão
 
-Todas as 12 sprints possuem revisão detalhada e todas as 868 issues possuem uma linha canônica. Nenhuma dimensão aplicável permanece sem authority, contrato, teste, evidência, critério ou review explícito. A aprovação da Fase F não altera a autorização externa para implementação.
+Todas as 12 sprints possuem revisão detalhada e todas as 869 issues possuem uma linha canônica. Nenhuma dimensão aplicável permanece sem authority, contrato, teste, evidência, critério ou review explícito. A aprovação da Fase F não altera a autorização externa para implementação.
 
 # Apêndices completos por sprint
 
@@ -69,25 +69,25 @@ Todas as 12 sprints possuem revisão detalhada e todas as 868 issues possuem uma
 - **Fase:** `F — Revisão Sprint por Sprint`
 - **Baseline:** `SAR-v2.9-PHASE-F`
 - **Épicos:** `12`
-- **Histórias:** `91`
-- **Issues totais:** `103`
+- **Histórias:** `92`
+- **Issues totais:** `104`
 - **Resultado:** `PASS`
 
 ## Cobertura por dimensão
 
 | Dimensão | Issues/histórias aplicáveis | Resultado |
 |---|---:|---|
-| Dependências | 103 | PASS |
-| Arquivos | 103 | PASS |
+| Dependências | 104 | PASS |
+| Arquivos | 104 | PASS |
 | API | 19 histórias | PASS |
 | Banco | 18 histórias | PASS |
 | Frontend | 7 histórias | PASS |
 | Geo | 0 histórias | PASS |
 | IA | 10 histórias | PASS |
-| Testes | 91 histórias | PASS |
-| Artefatos | 27 produto + 64 evidência | PASS |
-| Critérios | 364 | PASS |
-| Review | 103 | PASS |
+| Testes | 92 histórias | PASS |
+| Artefatos | 27 produto + 65 evidência | PASS |
+| Critérios | 368 | PASS |
+| Review | 104 | PASS |
 
 ## Issue por issue
 
@@ -196,6 +196,7 @@ Todas as 12 sprints possuem revisão detalhada e todas as 868 issues possuem uma
 | ISSUE-0866 | Tech Lead | PASS | PASS | N/A | N/A | N/A | N/A | PASS | PASS | PASS | PASS | PASS | PASS |
 | ISSUE-0867 | Tech Lead | PASS | PASS | N/A | N/A | N/A | N/A | PASS | PASS | PASS | PASS | PASS | PASS |
 | ISSUE-0868 | Tech Lead | PASS | PASS | N/A | N/A | N/A | N/A | N/A | PASS | PASS | PASS | PASS | PASS |
+| ISSUE-0869 | QA | PASS | PASS | N/A | N/A | N/A | N/A | N/A | PASS | PASS | PASS | PASS | PASS |
 
 ## Gate da sprint
 

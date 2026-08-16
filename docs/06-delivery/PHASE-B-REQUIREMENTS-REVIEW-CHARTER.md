@@ -8,7 +8,7 @@
 ## Escopo
 
 - 12 sprints;
-- 868 issues, incluindo 110 envelopes de épico e 758 histórias implementáveis;
+- 869 issues, incluindo 110 envelopes de épico e 759 histórias implementáveis;
 - todos os critérios de aceite e gates de sprint;
 - 376 requisitos ativos;
 - 22 ADRs;

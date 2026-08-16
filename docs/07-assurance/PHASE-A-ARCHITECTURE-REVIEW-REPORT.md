@@ -22,7 +22,7 @@ A arquitetura implementa os 376 requisitos ativos dentro do monólito modular e 
 
 ## Roadmap e fundação
 
-O roadmap, os backlogs das 12 sprints, as issues fundacionais, os índices de épicos/histórias/issues e os TaskEnvelopes foram reconciliados. O portfólio contém 758 histórias e 868 issues, com DAG acíclico de 1.165 hard blockers distribuídos em 88 ondas topológicas.
+O roadmap, os backlogs das 12 sprints, as issues fundacionais, os índices de épicos/histórias/issues e os TaskEnvelopes foram reconciliados. O portfólio contém 759 histórias e 869 issues, com DAG acíclico de 1.166 hard blockers distribuídos em 88 ondas topológicas.
 
 ## Contratos
 

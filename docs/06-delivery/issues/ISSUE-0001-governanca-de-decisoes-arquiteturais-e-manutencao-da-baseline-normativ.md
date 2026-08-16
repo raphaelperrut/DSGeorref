@@ -1,7 +1,7 @@
 # ISSUE-0001 — governança de decisões arquiteturais e manutenção da baseline normativa
 
 - **Tipo:** `Envelope de entrega do épico`
-- **Status:** `blocked-external`
+- **Status:** `in-progress`
 - **Épico pai:** `EPIC-001`
 - **Sprint:** `SPRINT-001`
 - **Bounded Context owner:** `BC-001 — Governança de Engenharia e Entrega`
@@ -44,6 +44,7 @@ O envelope pai não autoriza código. Cada história filha possui TaskEnvelope c
 - `STORY-0001` / `ISSUE-0111` — `Arquiteto` — Definir escopo, contratos e invariantes: governança de decisões arquiteturais e manutenção da baseline normativa
 - `STORY-0002` / `ISSUE-0112` — `Tech Lead` — Consolidar slices e liberar integração: governança de decisões arquiteturais e manutenção da baseline normativa
 - `STORY-0003` / `ISSUE-0113` — `DevOps` — Automatizar validações e controles: governança de decisões arquiteturais e manutenção da baseline normativa
+- `STORY-0759` / `ISSUE-0869` — `QA` — Validar automação fail-closed e idempotente: governança de decisões arquiteturais e manutenção da baseline normativa
 - `STORY-0004` / `ISSUE-0114` — `Tech Lead` — Integrar a capacidade ao fluxo do repositório: governança de decisões arquiteturais e manutenção da baseline normativa
 - `STORY-0005` / `ISSUE-0115` — `Reviewer` — Validar evidência e realizar auditoria final: governança de decisões arquiteturais e manutenção da baseline normativa
 - `STORY-0688` / `ISSUE-0798` — `Tech Lead` — Slice 1/2 — Materializar a fundação executável: governança de decisões arquiteturais e manutenção da baseline normativa [REQ-FRZ, REQ-GOV-ADR, REQ-GOV-DEC, REQ-ISM, REQ-SPRINT-001]

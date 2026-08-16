@@ -3,8 +3,8 @@
 - **Fase:** `F — Revisão Sprint por Sprint`
 - **Baseline:** `SAR-v2.9-PHASE-F`
 - **Épicos:** `12`
-- **Histórias:** `91`
-- **Issues totais:** `103`
+- **Histórias:** `92`
+- **Issues totais:** `104`
 - **Resultado:** `PASS`
 
 ## Cobertura por dimensão
@@ -130,6 +130,7 @@
 | ISSUE-0866 | Tech Lead | PASS | PASS | N/A | N/A | N/A | N/A | PASS | PASS | PASS | PASS | PASS | PASS |
 | ISSUE-0867 | Tech Lead | PASS | PASS | N/A | N/A | N/A | N/A | PASS | PASS | PASS | PASS | PASS | PASS |
 | ISSUE-0868 | Tech Lead | PASS | PASS | N/A | N/A | N/A | N/A | N/A | PASS | PASS | PASS | PASS | PASS |
+| ISSUE-0869 | QA | PASS | PASS | N/A | N/A | N/A | N/A | N/A | PASS | PASS | PASS | PASS | PASS |
 
 ## Gate da sprint
 

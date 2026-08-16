@@ -10,7 +10,7 @@
       "sprint": "SPRINT-001",
       "domain": "FND",
       "type": "Story",
-      "status": "planned",
+      "status": "done",
       "role": "Arquiteto",
       "title": "Definir escopo, contratos e invariantes: governança de decisões arquiteturais e manutenção da baseline normativa",
       "dependencies": [],
@@ -117,7 +117,7 @@
       "sprint": "SPRINT-001",
       "domain": "FND",
       "type": "Story",
-      "status": "planned",
+      "status": "in-progress",
       "role": "DevOps",
       "title": "Automatizar validações e controles: governança de decisões arquiteturais e manutenção da baseline normativa",
       "dependencies": [
@@ -142,9 +142,9 @@
       "rr_status": "PASS",
       "file": "STORY-0003-ISSUE-0113-automatizar-validacoes-e-controles-governanca-de-decisoes-arquiteturais-e.md",
       "allow_paths": [
-        "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
-        "tools/quality/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
-        ".github/workflows/governanca-de-decisoes-arquiteturais-e-manutencao-da-b.yaml"
+        "tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
+        ".github/workflows/governanca-de-decisoes-arquiteturais-e-manutencao-da-b.yaml",
+        "evidence/operations/epic-001/story-0003/**"
       ],
       "deny_paths": [
         "src/geo/**",
@@ -153,13 +153,13 @@
         "src/**/issue-*"
       ],
       "acceptance_criteria": [
-        "O resultado de “governança de decisões arquiteturais e manutenção da baseline normativa” é observável por contrato, interface, artifact ou evidência executável.",
-        "Os requisitos vinculados possuem evidência explícita no commit candidato.",
-        "Estados de erro e caminhos fail-closed aplicáveis são testados, sem fallback silencioso.",
-        "A automação é idempotente, suporta dry-run quando destrutiva e falha com diagnóstico acionável."
+        "O validator versionado avalia os contratos aplicáveis com saída determinística, read-only e diagnóstico acionável.",
+        "O workflow executa o validator e preserva status e diagnóstico suficientes para a validação QA no commit candidato.",
+        "A automação não altera ADRs, contratos congelados ou estado do produto e suporta dry-run quando qualquer ação potencialmente destrutiva for aplicável.",
+        "A evidence DevOps registra saída do validator, execução do workflow, arquivos alterados e justificativa de escopo."
       ],
       "tests": [
-        "test_epic_001_automacao"
+        "test_epic_001_contrato"
       ]
     },
     {
@@ -175,7 +175,7 @@
       "title": "Integrar a capacidade ao fluxo do repositório: governança de decisões arquiteturais e manutenção da baseline normativa",
       "dependencies": [
         "STORY-0002",
-        "STORY-0003"
+        "STORY-0759"
       ],
       "requirements": [],
       "governing_adrs": [
@@ -40849,6 +40849,64 @@
         "test_sprint_zero_baseline_decision_08",
         "test_sprint_zero_baseline_decision_09",
         "test_sprint_zero_baseline_decision_10"
+      ]
+    },
+    {
+      "story_id": "STORY-0759",
+      "issue_id": "ISSUE-0869",
+      "task_id": "TASK-0759",
+      "epic_id": "EPIC-001",
+      "sprint": "SPRINT-001",
+      "domain": "FND",
+      "type": "Story",
+      "status": "planned",
+      "role": "QA",
+      "title": "Validar automação fail-closed e idempotente: governança de decisões arquiteturais e manutenção da baseline normativa",
+      "dependencies": [
+        "STORY-0003"
+      ],
+      "requirements": [],
+      "governing_adrs": [
+        "ADR-003",
+        "ADR-006",
+        "ADR-007",
+        "ADR-008",
+        "ADR-009",
+        "ADR-033",
+        "ADR-034"
+      ],
+      "requirement_basis": "DERIVED_CONTROL",
+      "criterion_ids": [
+        "AC-ISSUE-0869-01",
+        "AC-ISSUE-0869-02",
+        "AC-ISSUE-0869-03",
+        "AC-ISSUE-0869-04"
+      ],
+      "rr_status": "PASS",
+      "file": "STORY-0759-ISSUE-0869-validar-automacao-fail-closed-e-idempotente-governanca-de-decisoes-arquiteturais.md",
+      "allow_paths": [
+        "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_automation.py",
+        "evidence/qa/epic-001/story-0759/**"
+      ],
+      "deny_paths": [
+        "src/**",
+        "tools/**",
+        ".github/workflows/**",
+        "contracts/**",
+        "schemas/**",
+        "examples/**",
+        "evidence/operations/**",
+        "src/**/epic-*",
+        "src/**/issue-*"
+      ],
+      "acceptance_criteria": [
+        "`test_epic_001_automacao` passa contra o mesmo commit candidato final produzido por `STORY-0003`.",
+        "Estados de erro e caminhos fail-closed aplicáveis são exercitados sem fallback silencioso.",
+        "Execuções repetidas demonstram idempotência e ausência de mutação indevida.",
+        "A evidence QA registra resultados, diagnóstico, commit candidato e aprovação independente do Reviewer."
+      ],
+      "tests": [
+        "test_epic_001_automacao"
       ]
     }
   ]

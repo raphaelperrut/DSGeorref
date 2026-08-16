@@ -1,7 +1,7 @@
 # STORY-0001 / ISSUE-0111 — Definir escopo, contratos e invariantes: governança de decisões arquiteturais e manutenção da baseline normativa
 
 - **Tipo:** `História implementável`
-- **Estado:** `Planned`
+- **Estado:** `Done`
 - **Épico pai:** `EPIC-001`
 - **Sprint:** `SPRINT-001`
 - **Domínio:** `FND`

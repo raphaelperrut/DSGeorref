@@ -6,7 +6,7 @@
 - **Pendências bloqueantes abertas:** `0`
 - **Requisitos ativos:** `376`
 - **Sprints revisadas:** `12`
-- **Issues revisadas:** `868`
+- **Issues revisadas:** `869`
 - **ADRs revisadas:** `22`
 - **Dependências circulares:** `0`
 
@@ -21,7 +21,7 @@ A baseline de requisitos está consistente com a arquitetura e pode seguir para 
 | `RR-001` | HIGH | MISSING_REQUIREMENT | `RESOLVED` | Os 14 requisitos receberam statements normativos distintos e verificáveis. |
 | `RR-002` | MEDIUM | CONFLICT | `RESOLVED` | Todas as referências de baseline foram reconciliadas para ADR-051–022. |
 | `RR-003` | MEDIUM | AMBIGUITY | `RESOLVED` | As histórias foram renomeadas para automação de testes de resiliência e seus outcomes foram alinhados ao write scope. |
-| `RR-004` | MEDIUM | TRACEABILITY | `RESOLVED` | Foi criada rastreabilidade completa por critério e campos estruturados nos 758 TaskEnvelopes. |
+| `RR-004` | MEDIUM | TRACEABILITY | `RESOLVED` | Foi criada rastreabilidade completa por critério e campos estruturados nos 759 TaskEnvelopes. |
 | `RR-005` | LOW | HISTORICAL_IDENTIFIER | `RESOLVED` | Os nomes foram substituídos por IDs estáveis test_req_<requirement_id>. |
 | `RR-006` | LOW | REDUNDANCY | `RESOLVED` | Os requisitos foram diferenciados: bloqueio de publicação por capability versus laboratório desabilitado por profile. |
 | `RR-007` | INFO | DEPENDENCY_CYCLE | `RESOLVED` | Zero ciclos e zero dependências que retrocedem entre sprints. |
@@ -34,15 +34,15 @@ A baseline de requisitos está consistente com a arquitetura e pode seguir para 
 - **Redundância:** nenhum requisito funcional duplicado permanece; controles repetidos de QA, review e fail-closed foram classificados como framework deliberado.
 - **Requisito faltando:** nenhum requisito de produto ou qualidade sem história; 18 statements insuficientes encontrados durante a revisão (14 derivados de nomes de teste e 4 excessivamente concisos) foram reescritos; critérios de controle sem requisito direto estão classificados como controles arquiteturais e governados por ADR.
 - **Requisito impossível:** nenhum requisito impossível após alinhar as 12 histórias de automação ao write scope.
-- **Dependência circular:** zero ciclos em 758 histórias e 110 épicos; zero arestas invertidas entre sprints.
+- **Dependência circular:** zero ciclos em 759 histórias e 110 épicos; zero arestas invertidas entre sprints.
 
 ## Cobertura completa por sprint e issue
 
-As tabelas abaixo registram todas as 868 issues. A granularidade de cada critério está na matriz `ACCEPTANCE_CRITERION_TRACEABILITY.csv`.
+As tabelas abaixo registram todas as 869 issues. A granularidade de cada critério está na matriz `ACCEPTANCE_CRITERION_TRACEABILITY.csv`.
 
 ### SPRINT-001
 
-- Issues: `103`; critérios: `436`; status: `PASS`.
+- Issues: `104`; critérios: `440`; status: `PASS`.
 
 | Issue | Tipo | Épico | História | Critérios | Base | ADRs | Resultado |
 |---|---|---|---|---:|---|---|---|
@@ -149,6 +149,7 @@ As tabelas abaixo registram todas as 868 issues. A granularidade de cada critér
 | `ISSUE-0866` | STORY | `EPIC-110` | `STORY-0756` | 4 | MIXED | ADR-002、ADR-054、ADR-053、ADR-026、ADR-007、ADR-008 | `PASS` |
 | `ISSUE-0867` | STORY | `EPIC-110` | `STORY-0757` | 4 | MIXED | ADR-002、ADR-054、ADR-053、ADR-026、ADR-007、ADR-008 | `PASS` |
 | `ISSUE-0868` | STORY | `EPIC-110` | `STORY-0758` | 4 | MIXED | ADR-002、ADR-054、ADR-053、ADR-026、ADR-007、ADR-008 | `PASS` |
+| `ISSUE-0869` | STORY | `EPIC-001` | `STORY-0759` | 4 | DERIVED_CONTROL | ADR-002、ADR-054、ADR-053、ADR-026、ADR-007、ADR-008 | `PASS` |
 
 ### SPRINT-002
 

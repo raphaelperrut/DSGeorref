@@ -1,14 +1,15 @@
 {
-  "task_id": "TASK-0003",
-  "issue_id": "ISSUE-0113",
-  "story_id": "STORY-0003",
+  "task_id": "TASK-0759",
+  "issue_id": "ISSUE-0869",
+  "story_id": "STORY-0759",
   "epic_id": "EPIC-001",
   "sprint_id": "SPRINT-001",
-  "role": "DevOps",
-  "outcome": "Automatizar validações e controles para governança de decisões arquiteturais e manutenção da baseline normativa com validator, workflow, diagnóstico e evidence DevOps verificável.",
+  "role": "QA",
+  "outcome": "Validar no mesmo commit candidato a automação de STORY-0003, demonstrando fail-closed, idempotência e evidência QA independente.",
   "references": [
     "AGENTS.md",
-    ".codex/roles/ROLE-009-devops.md",
+    ".codex/roles/ROLE-008-qa.md",
+    "docs/06-delivery/stories/STORY-0759-ISSUE-0869-validar-automacao-fail-closed-e-idempotente-governanca-de-decisoes-arquiteturais.md",
     "docs/06-delivery/stories/STORY-0003-ISSUE-0113-automatizar-validacoes-e-controles-governanca-de-decisoes-arquiteturais-e.md",
     "docs/06-delivery/epics/EPIC-001-governanca-de-decisoes-arquiteturais-e-manutencao-da-baseline-normativ.md",
     "contracts/README.md",
@@ -39,43 +40,47 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
-    "tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
-    ".github/workflows/governanca-de-decisoes-arquiteturais-e-manutencao-da-b.yaml",
-    "evidence/operations/epic-001/story-0003/**"
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_automation.py",
+    "evidence/qa/epic-001/story-0759/**"
   ],
   "deny_paths": [
-    "src/geo/**",
-    "src/ai/**",
+    "src/**",
+    "tools/**",
+    ".github/workflows/**",
+    "contracts/**",
+    "schemas/**",
+    "examples/**",
+    "evidence/operations/**",
     "src/**/epic-*",
     "src/**/issue-*"
   ],
   "acceptance_criteria": [
-    "O validator versionado avalia os contratos aplicáveis com saída determinística, read-only e diagnóstico acionável.",
-    "O workflow executa o validator e preserva status e diagnóstico suficientes para a validação QA no commit candidato.",
-    "A automação não altera ADRs, contratos congelados ou estado do produto e suporta dry-run quando qualquer ação potencialmente destrutiva for aplicável.",
-    "A evidence DevOps registra saída do validator, execução do workflow, arquivos alterados e justificativa de escopo."
+    "`test_epic_001_automacao` passa contra o mesmo commit candidato final produzido por `STORY-0003`.",
+    "Estados de erro e caminhos fail-closed aplicáveis são exercitados sem fallback silencioso.",
+    "Execuções repetidas demonstram idempotência e ausência de mutação indevida.",
+    "A evidence QA registra resultados, diagnóstico, commit candidato e aprovação independente do Reviewer."
   ],
   "tests": [
-    "test_epic_001_contrato"
+    "test_epic_001_automacao"
   ],
   "evidence": [
-    "evidence/operations/epic-001/story-0003/",
-    "commit candidato e relatório de testes"
+    "evidence/qa/epic-001/story-0759/",
+    "mesmo commit candidato final de STORY-0003 e relatório de testes"
   ],
   "dependencies": [
-    "STORY-0001"
+    "STORY-0003"
   ],
   "stop_conditions": [
-    "Decisão material de produto ou arquitetura não resolvida.",
-    "Contrato obrigatório ausente ou contraditório.",
-    "Write scope sobrepõe lane ativa.",
-    "Aceitação não pode ser demonstrada por teste ou evidência."
+    "O commit candidato difere daquele produzido por STORY-0003.",
+    "O teste obrigatório ou seu contrato está ausente ou contraditório.",
+    "O write scope exige alteração em path pertencente à lane DevOps.",
+    "A aceitação não pode ser demonstrada por teste ou evidência QA objetiva."
   ],
   "acceptance_criterion_ids": [
-    "AC-ISSUE-0113-01",
-    "AC-ISSUE-0113-02",
-    "AC-ISSUE-0113-03",
-    "AC-ISSUE-0113-04"
+    "AC-ISSUE-0869-01",
+    "AC-ISSUE-0869-02",
+    "AC-ISSUE-0869-03",
+    "AC-ISSUE-0869-04"
   ],
   "governing_adrs": [
     "ADR-003",
@@ -106,19 +111,23 @@
       "status": "PASS",
       "count": 1,
       "items": [
-        "STORY-0001"
+        "STORY-0003"
       ]
     },
     "files": {
       "status": "PASS",
       "allow_paths": [
-        "tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
-        ".github/workflows/governanca-de-decisoes-arquiteturais-e-manutencao-da-b.yaml",
-        "evidence/operations/epic-001/story-0003/**"
+        "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_automation.py",
+        "evidence/qa/epic-001/story-0759/**"
       ],
       "deny_paths": [
-        "src/geo/**",
-        "src/ai/**",
+        "src/**",
+        "tools/**",
+        ".github/workflows/**",
+        "contracts/**",
+        "schemas/**",
+        "examples/**",
+        "evidence/operations/**",
         "src/**/epic-*",
         "src/**/issue-*"
       ]
@@ -155,7 +164,7 @@
     "tests": {
       "status": "PASS",
       "items": [
-        "test_epic_001_contrato"
+        "test_epic_001_automacao"
       ]
     },
     "artifacts": {
@@ -163,8 +172,8 @@
       "status": "PASS",
       "kinds": [],
       "evidence": [
-        "evidence/operations/epic-001/story-0003/",
-        "commit candidato e relatório de testes"
+        "evidence/qa/epic-001/story-0759/",
+        "mesmo commit candidato final de STORY-0003 e relatório de testes"
       ],
       "contract": null
     },
@@ -172,16 +181,15 @@
       "status": "PASS",
       "count": 4,
       "ids": [
-        "AC-ISSUE-0113-01",
-        "AC-ISSUE-0113-02",
-        "AC-ISSUE-0113-03",
-        "AC-ISSUE-0113-04"
+        "AC-ISSUE-0869-01",
+        "AC-ISSUE-0869-02",
+        "AC-ISSUE-0869-03",
+        "AC-ISSUE-0869-04"
       ]
     },
     "review": {
       "status": "PASS",
       "required_roles": [
-        "QA",
         "Reviewer"
       ],
       "same_candidate_commit": true

@@ -37,11 +37,12 @@ Governança de decisões arquiteturais e manutenção da baseline normativa.
 ## Histórias implementáveis
 
 
-Este épico possui **7** histórias filhas:
+Este épico possui **8** histórias filhas:
 
 - `STORY-0001` / `ISSUE-0111` / `TASK-0001` — Definir escopo, contratos e invariantes: governança de decisões arquiteturais e manutenção da baseline normativa
 - `STORY-0002` / `ISSUE-0112` / `TASK-0002` — Consolidar slices e liberar integração: governança de decisões arquiteturais e manutenção da baseline normativa
 - `STORY-0003` / `ISSUE-0113` / `TASK-0003` — Automatizar validações e controles: governança de decisões arquiteturais e manutenção da baseline normativa
+- `STORY-0759` / `ISSUE-0869` / `TASK-0759` — Validar automação fail-closed e idempotente: governança de decisões arquiteturais e manutenção da baseline normativa
 - `STORY-0004` / `ISSUE-0114` / `TASK-0004` — Integrar a capacidade ao fluxo do repositório: governança de decisões arquiteturais e manutenção da baseline normativa
 - `STORY-0005` / `ISSUE-0115` / `TASK-0005` — Validar evidência e realizar auditoria final: governança de decisões arquiteturais e manutenção da baseline normativa
 - `STORY-0688` / `ISSUE-0798` / `TASK-0688` — Slice 1/2 — Materializar a fundação executável: governança de decisões arquiteturais e manutenção da baseline normativa [REQ-FRZ, REQ-GOV-ADR, REQ-GOV-DEC, REQ-ISM, REQ-SPRINT-001]

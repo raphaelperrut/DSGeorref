@@ -2,7 +2,7 @@
 
 | Sprint | Contexts | Épicos | Histórias |
 |---|---|---:|---:|
-| `SPRINT-001` | `BC-001` | 12 | 91 |
+| `SPRINT-001` | `BC-001` | 12 | 92 |
 | `SPRINT-002` | `BC-002`, `BC-003`, `BC-013`, `BC-014` | 8 | 55 |
 | `SPRINT-003` | `BC-010`, `BC-016` | 7 | 49 |
 | `SPRINT-004` | `BC-010` | 6 | 42 |

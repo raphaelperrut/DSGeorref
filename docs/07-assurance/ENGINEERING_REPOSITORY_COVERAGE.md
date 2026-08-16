@@ -9,11 +9,11 @@ Este relatório descreve o estado atual da baseline, não um registro histórico
 | Requisitos funcionais e não funcionais extraídos | `376` requisitos em `REQUIREMENTS_BASELINE.md` e `requirements/` | Completo |
 | PRD profissional | `docs/01-product/PRD.md` | Completo |
 | Épicos | 110 arquivos em `docs/06-delivery/epics/` | Completo |
-| Histórias de usuário e critérios de aceite | `758` arquivos em `docs/06-delivery/stories/` | Completo |
+| Histórias de usuário e critérios de aceite | `759` arquivos em `docs/06-delivery/stories/` | Completo |
 | Dependências entre histórias | `STORY_DEPENDENCY_GRAPH.json`, `STORY_DEPENDENCY_GRAPH.md`, 88 ondas topológicas | Completo |
 | ADRs vigentes e contíguas | `ADR-001` a `ADR-057` | Completo |
 | Contratos de API e domínio | `contracts/http/domains/`, OpenAPI e schemas versionados | Completo |
-| Tarefas Codex executáveis | `758` TaskEnvelopes validados em `.codex/tasks/` | Completo |
+| Tarefas Codex executáveis | `759` TaskEnvelopes validados em `.codex/tasks/` | Completo |
 | Prompts permanentes por agente | 11 protocolos em `.codex/roles/` | Completo |
 | Backlog sprint a sprint | 12 arquivos em `docs/06-delivery/sprint-backlogs/` | Completo |
 | Cobertura requisito → história | 100% na `TRACEABILITY_MATRIX.csv` | Completo |

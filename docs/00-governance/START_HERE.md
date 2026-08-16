@@ -19,9 +19,9 @@
 - 18 módulos
 - 12 sprints
 - 110 épicos
-- 758 histórias implementáveis
-- 868 issues
-- 758 tarefas Codex
+- 759 histórias implementáveis
+- 869 issues
+- 759 tarefas Codex
 
 ## Regra de execução
 
@@ -34,7 +34,7 @@ Arquitetura aprovada, ações AR-ACT-001 a AR-ACT-004 encerradas, 22 ADRs aceita
 
 ## Fase B — Requirements Review (2.6.0)
 
-Revisão concluída e aprovada: 12 sprints, 868 issues, 376 requisitos, 22 ADRs e todos os critérios de aceite reconciliados. Zero conflito, requisito impossível ou ciclo bloqueante permanece aberto.
+Revisão concluída e aprovada: 12 sprints, 869 issues, 376 requisitos, 22 ADRs e todos os critérios de aceite reconciliados. Zero conflito, requisito impossível ou ciclo bloqueante permanece aberto.
 ## Fase G — CTO Review
 
 A due diligence técnica final está em `docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md`. Custos, capacidade, locks, dependências, saída de tecnologias, SLOs, recuperação, segurança, LGPD e rollback possuem contracts e gates executáveis.

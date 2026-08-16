@@ -8339,6 +8339,17 @@
       "role": "Tech Lead",
       "title": "Slice 5/5 — Materializar a fundação executável: governança contínua do backlog e decomposição de épicos em histórias implementáveis [REQ-SPRINT-001]",
       "file": "docs/06-delivery/stories/STORY-0758-ISSUE-0868-slice-5-5-materializar-a-fundacao-executavel-governanca-continua-do-backlog-e-decompos.md"
+    },
+    {
+      "id": "STORY-0759",
+      "issue_id": "ISSUE-0869",
+      "task_id": "TASK-0759",
+      "epic_id": "EPIC-001",
+      "sprint": "SPRINT-001",
+      "domain": "FND",
+      "role": "QA",
+      "title": "Validar automação fail-closed e idempotente: governança de decisões arquiteturais e manutenção da baseline normativa",
+      "file": "docs/06-delivery/stories/STORY-0759-ISSUE-0869-validar-automacao-fail-closed-e-idempotente-governanca-de-decisoes-arquiteturais.md"
     }
   ],
   "edges": [
@@ -8364,6 +8375,11 @@
     },
     {
       "from": "STORY-0003",
+      "to": "STORY-0759",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0759",
       "to": "STORY-0004",
       "relation": "blocks"
     },

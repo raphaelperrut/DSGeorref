@@ -8,9 +8,9 @@
   "open_decisions": 0,
   "cycles": 0,
   "requirements": 376,
-  "stories": 758,
-  "issues": 868,
-  "tasks": 758,
+  "stories": 759,
+  "issues": 869,
+  "tasks": 759,
   "decomposition": {
     "ADR v2.6 001": [
       "ADR-051",

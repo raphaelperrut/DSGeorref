@@ -11,7 +11,7 @@ A Fase G aprova arquitetura e investimento técnico quando não existe decisão 
 ## Saídas
 
 - relatório Markdown e JSON;
-- matriz de 868 issues;
+- matriz de 869 issues;
 - 12 relatórios de sprint;
 - risk register consolidado;
 - contracts operacionais e de privacidade;

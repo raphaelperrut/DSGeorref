@@ -143,7 +143,7 @@ Versões compatíveis, thresholds, tunables e convenções locais continuam em A
 ## Consistência aplicada
 
 - todos os 376 requisitos possuem exatamente um owner ADR;
-- 758 histórias, 868 issues e 758 TaskEnvelopes foram reconciliados;
+- 759 histórias, 869 issues e 759 TaskEnvelopes foram reconciliados;
 - sprints e épicos possuem união derivada das ADRs das histórias;
 - referências de arquivos de ADR nos TaskEnvelopes apontam somente para arquivos existentes;
 - o grafo de 57 decisões é acíclico;

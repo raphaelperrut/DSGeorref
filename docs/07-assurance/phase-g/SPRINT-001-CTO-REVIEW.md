@@ -1,9 +1,9 @@
 # SPRINT-001 — CTO Review
 
 - **Título:** Repositório, governança e fundação executável
-- **Issues:** 103
-- **Histórias:** 91
-- **Risco:** Critical 43; High 19; Medium 29
+- **Issues:** 104
+- **Histórias:** 92
+- **Risco:** Critical 44; High 19; Medium 29
 - **Resultado:** `PASS`
 
 ## Aplicabilidade dos controles
@@ -131,3 +131,4 @@
 | ISSUE-0866 | Story | BC-001 | HIGH | CTO-001, CTO-003, CTO-004, CTO-005, CTO-006, CTO-007, CTO-008, CTO-010, CTO-012, CTO-013, CTO-015 | BENCHMARK_AND_OPERATIONS_GATES | PASS |
 | ISSUE-0867 | Story | BC-001 | HIGH | CTO-001, CTO-003, CTO-004, CTO-005, CTO-006, CTO-007, CTO-008, CTO-012, CTO-013, CTO-015 | BENCHMARK_AND_OPERATIONS_GATES | PASS |
 | ISSUE-0868 | Story | BC-001 | CRITICAL | CTO-003, CTO-004, CTO-006, CTO-012, CTO-013, CTO-015 | SECURITY_AND_PRIVACY_GATES | PASS |
+| ISSUE-0869 | Story | BC-001 | CRITICAL | CTO-002, CTO-003, CTO-004, CTO-006, CTO-012, CTO-013, CTO-015 | SECURITY_AND_PRIVACY_GATES | PASS |

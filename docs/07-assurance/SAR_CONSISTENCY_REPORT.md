@@ -18,12 +18,12 @@
 | Requisitos | 376 |
 | Sprints | 12 |
 | Épicos | 110 |
-| Histórias | 758 |
-| Issues | 868 |
-| TaskEnvelopes | 758 |
+| Histórias | 759 |
+| Issues | 869 |
+| TaskEnvelopes | 759 |
 | Operações HTTP | 56 |
 | Arquivos de contrato | 94 |
-| Hard blockers | 1165 |
+| Hard blockers | 1166 |
 | Ondas topológicas | 88 |
 
 ## Resultado da consistência

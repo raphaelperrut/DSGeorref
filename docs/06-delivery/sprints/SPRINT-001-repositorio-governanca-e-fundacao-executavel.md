@@ -45,7 +45,7 @@ Repositório, governança e fundação executável.
 
 ## Backlog implementável
 
-- **Histórias:** `91`
+- **Histórias:** `92`
 - **Documento detalhado:** `docs/06-delivery/sprint-backlogs/SPRINT-001-BACKLOG.md`
 - **TaskEnvelopes:** `.codex/tasks/TASK-*.json`
 - **Grafo:** `docs/06-delivery/STORY_DEPENDENCY_GRAPH.json`
@@ -55,9 +55,9 @@ Repositório, governança e fundação executável.
 
 - **Baseline arquitetural de entrada:** ADRs 001–057 aceitas, tecnologia fechada em `TECHNOLOGY_BASELINE`, contratos compartilhados versionados.
 - **Decisões tecnológicas em aberto:** `0`.
-- **Histórias:** `91`.
+- **Histórias:** `92`.
 - **Ondas topológicas globais presentes:** `0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19`.
-- **Papéis executores:** `Arquiteto`, `DevOps`, `Reviewer`, `Tech Lead`.
+- **Papéis executores:** `Arquiteto`, `DevOps`, `QA`, `Reviewer`, `Tech Lead`.
 - **Regra de capacidade:** WIP por classe; nenhuma história inicia sem predecessores integrados e write scope disponível.
 - **Gate arquitetural de saída:** contratos sem drift, migrations reversíveis/recuperáveis, observabilidade, testes e evidência; inconsistência bloqueia fechamento.
 - **Handoff:** SprintEvidenceSet registra commit, versões/digests, stories, defects, riscos, benchmarks e decisões evidence-bound promovidas.
@@ -74,7 +74,7 @@ Repositório, governança e fundação executável.
 ## Requirements Review — Fase B
 
 - **Resultado:** `PASS`
-- **Issues revisadas:** `103`
+- **Issues revisadas:** `104`
 - **Critérios de aceite rastreados:** `436`
 - **Conflitos bloqueantes:** `0`
 - **Redundâncias funcionais não justificadas:** `0`
@@ -101,7 +101,7 @@ Repositório, governança e fundação executável.
 
 ## Sprint Review — Fase F
 
-- **Issues revisadas:** `103` (`12` envelopes + `91` histórias).
+- **Issues revisadas:** `104` (`12` envelopes + `92` histórias).
 - **Dependências:** `PASS`; DAG sem ciclos e sem retrocesso entre sprints.
 - **Arquivos:** `PASS`; write scopes explícitos, estáveis e sem paths derivados de issue/story/task.
 - **API:** `19` histórias aplicáveis; OpenAPI e catálogo de operações referenciados.
@@ -118,8 +118,8 @@ Repositório, governança e fundação executável.
 ## CTO Review — Fase G
 
 - **Resultado:** `PASS`
-- **Issues revisadas:** `103`
-- **Histórias revisadas:** `91`
-- **Risk tier:** Critical `43`, High `19`, Medium `29`
+- **Issues revisadas:** `104`
+- **Histórias revisadas:** `92`
+- **Risk tier:** Critical `44`, High `19`, Medium `29`
 - **Gates aplicáveis:** `BENCHMARK_AND_OPERATIONS_GATES, IMPLEMENTATION_AUTHORIZATION, SECURITY_AND_PRIVACY_GATES`
 - **Relatório:** `docs/07-assurance/phase-g/SPRINT-001-CTO-REVIEW.md`

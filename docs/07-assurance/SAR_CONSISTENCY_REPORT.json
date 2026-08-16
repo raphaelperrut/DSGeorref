@@ -17,12 +17,12 @@
     "sprints": 12,
     "epics": 110,
     "parent_issues": 110,
-    "stories": 758,
-    "issues": 868,
-    "codex_tasks": 758,
+    "stories": 759,
+    "issues": 869,
+    "codex_tasks": 759,
     "http_operations": 56,
     "contract_files": 94,
-    "hard_dependency_edges": 1165,
+    "hard_dependency_edges": 1166,
     "topological_waves": 88
   },
   "consistency_checks": {

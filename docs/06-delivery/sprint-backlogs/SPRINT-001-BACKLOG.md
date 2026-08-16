@@ -1,7 +1,7 @@
 # SPRINT-001 — Backlog implementável
 
 - **Sprint:** `SPRINT-001`
-- **Histórias:** `91`
+- **Histórias:** `92`
 - **Épicos:** `12`
 
 ## Histórias por épico
@@ -13,7 +13,7 @@
 | `STORY-0001` | `ISSUE-0111` | `TASK-0001` | Arquiteto | — |
 | `STORY-0002` | `ISSUE-0112` | `TASK-0002` | Tech Lead | STORY-0688, STORY-0689 |
 | `STORY-0003` | `ISSUE-0113` | `TASK-0003` | DevOps | STORY-0001 |
-| `STORY-0004` | `ISSUE-0114` | `TASK-0004` | Tech Lead | STORY-0002, STORY-0003 |
+| `STORY-0004` | `ISSUE-0114` | `TASK-0004` | Tech Lead | STORY-0002, STORY-0759 |
 | `STORY-0005` | `ISSUE-0115` | `TASK-0005` | Reviewer | STORY-0004 |
 | `STORY-0688` | `ISSUE-0798` | `TASK-0688` | Tech Lead | STORY-0001 |
 | `STORY-0689` | `ISSUE-0799` | `TASK-0689` | Tech Lead | STORY-0001 |
@@ -156,3 +156,4 @@
 | `STORY-0756` | `ISSUE-0866` | `TASK-0756` | Tech Lead | STORY-0683 |
 | `STORY-0757` | `ISSUE-0867` | `TASK-0757` | Tech Lead | STORY-0683 |
 | `STORY-0758` | `ISSUE-0868` | `TASK-0758` | Tech Lead | STORY-0683 |
+| `STORY-0759` | `ISSUE-0869` | `TASK-0759` | QA | STORY-0003 |

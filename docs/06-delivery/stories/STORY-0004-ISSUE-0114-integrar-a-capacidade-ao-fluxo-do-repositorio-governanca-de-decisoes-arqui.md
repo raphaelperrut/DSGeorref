@@ -39,7 +39,7 @@ Nenhum requisito exclusivo; valida integração do épico.
 ## Dependências
 
 
-`STORY-0002`, `STORY-0003`
+`STORY-0002`, `STORY-0759`
 
 ## Critérios de aceitação
 

@@ -8,14 +8,14 @@
   "blocking_findings_open": 0,
   "counts": {
     "sprints": 12,
-    "issues": 868,
+    "issues": 869,
     "parent_issues": 110,
-    "stories": 758,
+    "stories": 759,
     "requirements": 376,
     "adrs": 22,
-    "acceptance_criteria": 3692,
+    "acceptance_criteria": 3696,
     "sprint_gate_criteria": 84,
-    "story_edges": 1165,
+    "story_edges": 1166,
     "resolved_findings": 9
   },
   "checks": {
@@ -54,7 +54,7 @@
       "severity": "MEDIUM",
       "category": "TRACEABILITY",
       "status": "RESOLVED",
-      "resolution": "Foi criada rastreabilidade completa por critério e campos estruturados nos 758 TaskEnvelopes."
+      "resolution": "Foi criada rastreabilidade completa por critério e campos estruturados nos 759 TaskEnvelopes."
     },
     {
       "id": "RR-005",

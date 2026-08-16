@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "baseline": "SAR-v2.9-PHASE-F",
-  "issues_reviewed": 868,
+  "issues_reviewed": 869,
   "reviews": [
     {
       "issue_id": "ISSUE-0001",
@@ -20,7 +20,7 @@
         "dependencies_count": 0,
         "dependencies": "",
         "files_status": "PASS",
-        "allow_paths": "7 TaskEnvelopes filhos",
+        "allow_paths": "8 TaskEnvelopes filhos",
         "api_applicability": "APPLICABLE",
         "api_status": "PASS",
         "api_contracts": "0",
@@ -37,13 +37,13 @@
         "ai_status": "PASS",
         "ai_authorities": "",
         "tests_status": "PASS",
-        "tests": "29 testes declarados",
+        "tests": "30 testes declarados",
         "artifacts_applicability": "EVIDENCE_ONLY",
         "artifacts_status": "PASS",
         "artifact_kinds": "",
-        "evidence": "7 evidence scopes",
+        "evidence": "8 evidence scopes",
         "criteria_status": "PASS",
-        "criteria_count": 28,
+        "criteria_count": 32,
         "criterion_ids": "AC-ISSUE-0001-01/AC-ISSUE-0001-02/AC-ISSUE-0001-03/AC-ISSUE-0001-04/AC-ISSUE-0001-05/AC-ISSUE-0001-06",
         "review_status": "PASS",
         "required_reviewers": "Arquiteto/QA/Reviewer",
@@ -5380,9 +5380,9 @@
         "files": {
           "status": "PASS",
           "allow_paths": [
-            "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
-            "tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
-            ".github/workflows/governanca-de-decisoes-arquiteturais-e-manutencao-da-b.yaml"
+          "tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
+          ".github/workflows/governanca-de-decisoes-arquiteturais-e-manutencao-da-b.yaml",
+          "evidence/operations/epic-001/story-0003/**"
           ],
           "deny_paths": [
             "src/geo/**",
@@ -5423,7 +5423,7 @@
         "tests": {
           "status": "PASS",
           "items": [
-            "test_epic_001_automacao"
+          "test_epic_001_contrato"
           ]
         },
         "artifacts": {
@@ -5467,8 +5467,8 @@
           "status": "PASS",
           "count": 2,
           "items": [
-            "STORY-0002",
-            "STORY-0003"
+          "STORY-0002",
+          "STORY-0759"
           ]
         },
         "files": {
@@ -81868,6 +81868,102 @@
           "status": "PASS",
           "required_roles": [
             "QA",
+            "Reviewer"
+          ],
+          "same_candidate_commit": true
+        }
+      }
+    },
+    {
+      "issue_id": "ISSUE-0869",
+      "story_id": "STORY-0759",
+      "task_id": "TASK-0759",
+      "sprint_id": "SPRINT-001",
+      "review": {
+        "status": "PASS",
+        "dependencies": {
+          "status": "PASS",
+          "count": 1,
+          "items": [
+            "STORY-0003"
+          ]
+        },
+        "files": {
+          "status": "PASS",
+          "allow_paths": [
+            "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_automation.py",
+            "evidence/qa/epic-001/story-0759/**"
+          ],
+          "deny_paths": [
+            "src/**",
+            "tools/**",
+            ".github/workflows/**",
+            "contracts/**",
+            "schemas/**",
+            "examples/**",
+            "evidence/operations/**",
+            "src/**/epic-*",
+            "src/**/issue-*"
+          ]
+        },
+        "api": {
+          "applicability": "NOT_APPLICABLE",
+          "status": "PASS",
+          "contracts": [],
+          "contract_sources": []
+        },
+        "database": {
+          "applicability": "NOT_APPLICABLE",
+          "status": "PASS",
+          "authorities": [],
+          "migration_required": false,
+          "rollback_required": false
+        },
+        "frontend": {
+          "applicability": "NOT_APPLICABLE",
+          "status": "PASS",
+          "authorities": []
+        },
+        "geo": {
+          "applicability": "NOT_APPLICABLE",
+          "status": "PASS",
+          "authorities": []
+        },
+        "ai": {
+          "applicability": "NOT_APPLICABLE",
+          "status": "PASS",
+          "authorities": [],
+          "protocol_required": false
+        },
+        "tests": {
+          "status": "PASS",
+          "items": [
+            "test_epic_001_automacao"
+          ]
+        },
+        "artifacts": {
+          "applicability": "EVIDENCE_ONLY",
+          "status": "PASS",
+          "kinds": [],
+          "evidence": [
+            "evidence/qa/epic-001/story-0759/",
+            "mesmo commit candidato final de STORY-0003 e relatório de testes"
+          ],
+          "contract": null
+        },
+        "acceptance_criteria": {
+          "status": "PASS",
+          "count": 4,
+          "ids": [
+            "AC-ISSUE-0869-01",
+            "AC-ISSUE-0869-02",
+            "AC-ISSUE-0869-03",
+            "AC-ISSUE-0869-04"
+          ]
+        },
+        "review": {
+          "status": "PASS",
+          "required_roles": [
             "Reviewer"
           ],
           "same_candidate_commit": true

@@ -11,9 +11,9 @@
   "counts": {
     "sprints": 12,
     "epics": 110,
-    "issues": 868,
-    "stories": 758,
-    "tasks": 758,
+    "issues": 869,
+    "stories": 759,
+    "tasks": 759,
     "adrs": 57,
     "requirements": 376,
     "controls": 15,
@@ -189,29 +189,29 @@
     {
       "sprint_id": "SPRINT-001",
       "title": "Repositório, governança e fundação executável",
-      "issues": 103,
-      "stories": 91,
+      "issues": 104,
+      "stories": 92,
       "risk_tiers": {
         "HIGH": 19,
         "MEDIUM": 29,
-        "CRITICAL": 43
+        "CRITICAL": 44
       },
       "control_applicability": {
         "CTO-001": 42,
-        "CTO-002": 28,
-        "CTO-003": 91,
-        "CTO-004": 91,
+        "CTO-002": 29,
+        "CTO-003": 92,
+        "CTO-004": 92,
         "CTO-005": 42,
-        "CTO-006": 91,
+        "CTO-006": 92,
         "CTO-007": 10,
         "CTO-008": 42,
         "CTO-009": 20,
         "CTO-010": 36,
         "CTO-011": 51,
-        "CTO-012": 91,
-        "CTO-013": 91,
+        "CTO-012": 92,
+        "CTO-013": 92,
         "CTO-014": 36,
-        "CTO-015": 91
+        "CTO-015": 92
       },
       "production_gates": [
         "BENCHMARK_AND_OPERATIONS_GATES",

@@ -2,8 +2,8 @@
 
 - **Baseline:** `2.6.0`
 - **Resultado:** `PASS`
-- **Nós:** `758`
-- **Hard blockers:** `1165`
+- **Nós:** `759`
+- **Hard blockers:** `1166`
 - **Raízes:** `20`
 - **Folhas:** `41`
 - **Ondas topológicas:** `88`

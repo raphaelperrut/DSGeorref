@@ -6,7 +6,7 @@ errors=[]
 def rows(rel):
  with (ROOT/rel).open(encoding='utf-8-sig',newline='') as f:return list(csv.DictReader(f))
 stories=rows('docs/06-delivery/STORY_INDEX.csv'); issues=rows('docs/06-delivery/ISSUE_INDEX.csv'); sprints=rows('docs/06-delivery/SPRINT_INDEX.csv'); matrix=rows('docs/07-assurance/PHASE-F-ISSUE-DELIVERY-REVIEW.csv')
-if len(matrix)!=868:errors.append(f'Phase F matrix expected 868, found {len(matrix)}')
+if len(matrix)!=869:errors.append(f'Phase F matrix expected 869, found {len(matrix)}')
 if {r['issue_id'] for r in matrix}!={r['issue_id'] for r in issues}:errors.append('Phase F issue coverage drift')
 sc={s:sum(1 for r in stories if r['sprint']==s) for s in {r['sprint'] for r in stories}}
 for row in sprints:
@@ -30,4 +30,4 @@ report=json.loads((ROOT/'docs/07-assurance/PHASE-F-SPRINT-REVIEW-REPORT.json').r
 if report.get('status')!='APPROVED' or report.get('blocking_findings_open')!=0:errors.append('Phase F report not approved')
 if errors:
  print('SPRINT REVIEW FAILED');print('\n'.join(errors[:200]));sys.exit(1)
-print('SPRINT REVIEW PASS');print('sprints: 12');print('issues: 868');print('stories: 758');print('matrix rows:',len(matrix))
+print('SPRINT REVIEW PASS');print('sprints: 12');print('issues: 869');print('stories: 759');print('matrix rows:',len(matrix))
