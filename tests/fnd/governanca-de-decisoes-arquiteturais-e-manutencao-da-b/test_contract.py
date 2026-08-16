@@ -3,6 +3,8 @@ from __future__ import annotations
 import copy
 import csv
 import json
+import runpy
+import sys
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any
@@ -26,6 +28,11 @@ FORECAST_SCHEMA = CONTRACT_ROOT / "issue-forecast.schema.json"
 FORECAST_EXAMPLE = CONTRACT_ROOT / "examples/issue-forecast.json"
 BOUNDARIES_SCHEMA = CONTRACT_ROOT / "foundation-boundaries.schema.json"
 BOUNDARIES_EXAMPLE = CONTRACT_ROOT / "examples/foundation-boundaries.json"
+VALIDATOR_PATH = (
+    ROOT
+    / "tools/quality/contexts/engineering_governance"
+    / "governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validator.py"
+)
 
 PUBLISHED_PATHS = {
     path.relative_to(ROOT).as_posix()
@@ -75,6 +82,38 @@ def _contract_entry(manifest: dict[str, Any], contract_id: str) -> dict[str, Any
     matches = [item for item in manifest["contracts"] if item["contract_id"] == contract_id]
     assert len(matches) == 1
     return matches[0]
+
+
+def _validator_symbols() -> dict[str, Any]:
+    sys.path.insert(0, str(VALIDATOR_PATH.parent))
+    try:
+        return runpy.run_path(str(VALIDATOR_PATH))
+    finally:
+        sys.path.pop(0)
+
+
+def _synthetic_schema_pair(dialect: object) -> tuple[dict[str, Any], list[Any]]:
+    symbols = _validator_symbols()
+    validate_pairs = symbols["_validate_schema_pairs"]
+    validator_globals = validate_pairs.__globals__
+    validator_globals["EXPECTED_CONTRACTS"] = {
+        "synthetic": {
+            "schema": Path("synthetic.schema.json"),
+            "example": Path("synthetic.example.json"),
+        }
+    }
+    schema = {
+        "$schema": dialect,
+        "$id": "https://dsgeorref.local/contracts/synthetic/1.0.0",
+        "type": "object",
+    }
+
+    def load_synthetic(path: Path, artifact: str) -> tuple[dict[str, Any], list[Any]]:
+        del artifact
+        return (schema if path.name == "synthetic.schema.json" else {}), []
+
+    validator_globals["_load_json"] = load_synthetic
+    return validate_pairs(ROOT)
 
 
 def _assert_portfolio_semantics(snapshot: dict[str, Any]) -> None:
@@ -269,6 +308,50 @@ def test_sprint_zero_baseline_decision_04() -> None:
     unexpected = copy.deepcopy(decision)
     unexpected["endpoint"] = "/governance"
     _assert_schema_rejects(validator, unexpected)
+
+
+def test_rfc3339_leap_seconds_require_an_announced_utc_date() -> None:
+    checker = _validator_symbols()["_story_format_checker"]()
+    expected = {
+        "2025-01-31T23:59:60Z": False,
+        "2025-01-31T23:59:59Z": True,
+        "1998-12-31T23:59:60Z": True,
+        "1998-12-31T15:59:60.123-08:00": True,
+        "2025-06-30T23:59:60Z": False,
+    }
+    first = {value: checker.conforms(value, "date-time") for value in expected}
+    second = {value: checker.conforms(value, "date-time") for value in expected}
+    assert first == expected
+    assert second == first
+
+
+def test_schema_dialect_failures_are_controlled_and_deterministic(capsys: Any) -> None:
+    supported_examples, supported_findings = _synthetic_schema_pair(
+        "https://json-schema.org/draft/2020-12/schema"
+    )
+    assert supported_examples == {"synthetic": {}}
+    assert supported_findings == []
+
+    for dialect in ("https://example.invalid/unknown-dialect", 202012):
+        valid_examples, findings = _synthetic_schema_pair(dialect)
+        repeated = _synthetic_schema_pair(dialect)
+        assert "synthetic" not in valid_examples
+        assert any(finding.code == "SCHEMA_DIALECT_INVALID" for finding in findings)
+        assert (valid_examples, findings) == repeated
+
+        symbols = _validator_symbols()
+        main = symbols["main"]
+        main.__globals__["validate"] = lambda repository_root: findings
+        first_code = main([])
+        first_output = capsys.readouterr()
+        second_code = main([])
+        second_output = capsys.readouterr()
+        assert first_code == second_code == 1
+        assert first_output == second_output
+        assert "VALIDATION FAILED" in first_output.out
+        assert "SCHEMA_DIALECT_INVALID" in first_output.out
+        assert "VALIDATION PASS" not in first_output.out
+        assert "Traceback" not in first_output.out + first_output.err
 
 
 def test_epic_001_contrato() -> None:

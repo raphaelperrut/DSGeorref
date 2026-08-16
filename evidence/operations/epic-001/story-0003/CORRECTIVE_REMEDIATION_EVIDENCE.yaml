@@ -1,0 +1,88 @@
+schema_version: 1.0.0
+evidence_type: DEVOPS_CORRECTIVE_REMEDIATION
+traceability:
+  story_id: STORY-0003
+  issue_id: ISSUE-0113
+  github_issue: 15
+  task_id: TASK-0003
+  executor: DevOps
+authority:
+  owner_corrective_authorization: YES
+  validator_path_authorized: YES
+  test_path_authorized: YES
+  evidence_path_authorized: YES
+  issue_0869_write_scope_used: NO
+original_candidate:
+  sha: 09831b6b1ac72acc8eb08582617d51376f23014c
+  pull_request: 878
+  merge_commit: abfd2f5b6b88733b78024109928dd0c234639171
+  reviewer_result: CHANGES_REQUIRED
+pre_patch_reproduction:
+  leap_second:
+    input: '2025-01-31T23:59:60Z'
+    observed_result: ACCEPTED
+    exact_output: LEAP_ACCEPTED=True
+  schema_dialect:
+    input: https://example.invalid/unknown-dialect
+    observed_result: UNCONTROLLED_TRACEBACK
+    exception: 'referencing.jsonschema.UnknownDialect: https://example.invalid/unknown-dialect'
+    exit_code: 1
+corrections:
+  leap_second:
+    mechanism: offline allowlist of IERS-announced positive leap-second UTC dates
+    authority_snapshot: IERS Bulletin C 72
+    unlisted_dates: FAIL_CLOSED
+    reported_case: REJECTED
+    historical_case_1998_12_31: ACCEPTED
+  schema_dialect:
+    mechanism: narrow handling of dialect-detection exceptions at Resource.from_contents
+    controlled_finding: SCHEMA_DIALECT_INVALID
+    unknown_dialect: REJECTED
+    malformed_dialect: REJECTED
+    implicit_fallback: NONE
+    raw_traceback: NONE
+changed_paths:
+- tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validator.py
+- tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py
+- evidence/operations/epic-001/story-0003/CORRECTIVE_REMEDIATION_EVIDENCE.yaml
+verification:
+  runtime: CPython 3.12.10
+  utf8_mode: 1
+  focused_regressions:
+    command: py -3.12 -m pytest -q tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py -k "rfc3339 or schema_dialect" -p no:cacheprovider
+    result: PASS
+    summary: 2 passed, 4 deselected
+  story_0003_tests:
+    command: py -3.12 -m pytest -q tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py -p no:cacheprovider
+    result: PASS
+    summary: 6 passed
+  required_contract_test:
+    command: py -3.12 -c "import runpy; runpy.run_path('tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py')['test_epic_001_contrato']()"
+    result: PASS
+  repository_validator:
+    command: py -3.12 tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validator.py
+    result: PASS
+  mandatory_gate:
+    command: make verify
+    environment: Python 3.12.10 with PYTHONUTF8=1
+    result: PASS
+    steps_passed: 7
+new_candidate:
+  status: CREATED_AFTER_FINAL_GATES_AND_EVIDENCE
+  sha_source: FINAL_HANDOFF
+  supersedes: 09831b6b1ac72acc8eb08582617d51376f23014c
+scope:
+  authorized_paths_only: true
+  frozen_contracts_changed: false
+  src_changed: false
+  issue_0869_files_changed: false
+  previous_devops_evidence_rewritten: false
+  project_configuration_changed: false
+  project_date_fields_protected: true
+limitations:
+- Future IERS-announced leap seconds require an explicit offline allowlist update; until then, unlisted second-60 values fail closed.
+- Local gates ran on CPython 3.12.10, within the repository's supported 3.12 runtime; the workflow remains pinned to CPython 3.12.13.
+residual_risks: []
+independent_review:
+  performed_by_implementer: false
+  required_for_new_candidate: true
