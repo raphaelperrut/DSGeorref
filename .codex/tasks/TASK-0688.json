@@ -9,6 +9,7 @@
   "references": [
     "AGENTS.md",
     ".codex/roles/ROLE-003-tech-lead.md",
+    "docs/00-governance/DEFINITION_OF_DONE.md",
     "docs/06-delivery/stories/STORY-0688-ISSUE-0798-slice-1-2-materializar-a-fundacao-executavel-governanca-de-decisoes-arquiteturais-e-ma.md",
     "docs/06-delivery/epics/EPIC-001-governanca-de-decisoes-arquiteturais-e-manutencao-da-baseline-normativ.md",
     "docs/01-product/requirements/REQ-FRZ-001-a-foundation-deve-possuir-baseline-identificavel-e-mudancas-materiais-de.md",
@@ -33,6 +34,8 @@
     "docs/02-architecture/adrs/ADR-057-release-train-publicacao-e-gates-de-distribuicao.md",
     "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
     "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "docs/03-engineering/application-profiles/AP-008-sprint-001-execution-profile.md",
+    "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/foundation-baseline-lifecycle.schema.json",
     "contracts/operations/external-dependency-register.csv",
     "contracts/operations/vendor-exit-matrix.csv",
     "contracts/operations/cost-model.yaml",
@@ -42,13 +45,16 @@
     "docs/05-operations/OBSERVABILITY.md",
     "docs/04-quality/THREAT_MODEL.md",
     "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+    "docs/04-quality/RELEASE_GATES.md",
     "contracts/operations/version-and-rollback-matrix.yaml",
     "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
     "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/**",
-    "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/**"
+    "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/**",
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+    "evidence/implementation/governanca-de-decisoes-arquiteturais-e-manutencao/frz-gov-adr-gov-dec-parte-1/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -126,7 +132,9 @@
       "status": "PASS",
       "allow_paths": [
         "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/**",
-        "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/**"
+        "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/**",
+        "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+        "evidence/implementation/governanca-de-decisoes-arquiteturais-e-manutencao/frz-gov-adr-gov-dec-parte-1/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

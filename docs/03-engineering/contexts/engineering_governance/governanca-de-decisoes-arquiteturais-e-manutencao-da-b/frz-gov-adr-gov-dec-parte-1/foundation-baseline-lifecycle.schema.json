@@ -1,0 +1,267 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/docs/engineering-governance/foundation-baseline-lifecycle/2.0.0",
+  "title": "STORY-0688 Foundation Baseline Lifecycle Contract",
+  "description": "Closed executable contract for baseline identity, coverage and digest, supersession, FoundationClosureEvidenceSet, closure, and material reopening. It does not define payloads owned by STORY-0692, STORY-0693, STORY-0754, STORY-0757, or STORY-0758.",
+  "oneOf": [
+    { "$ref": "#/$defs/FoundationBaseline" },
+    { "$ref": "#/$defs/FoundationBaselineSupersession" },
+    { "$ref": "#/$defs/FoundationClosureEvidenceSet" },
+    { "$ref": "#/$defs/FoundationClosure" },
+    { "$ref": "#/$defs/FoundationReopening" }
+  ],
+  "x-dsgeorref-profile": {
+    "profile_version": "2.0.0",
+    "owner": "STORY-0688",
+    "bounded_context": "BC-001",
+    "authorities": [
+      "REQ-FRZ-001",
+      "REQ-FRZ-004",
+      "ADR-057",
+      "SPEC-001",
+      "AP-008",
+      "DEFINITION_OF_DONE",
+      "G1_FOUNDATION_GATE"
+    ],
+    "coverage_derivation": {
+      "authoritative_input": ".codex/tasks/TASK-0688.json",
+      "steps": [
+        "Resolve source_revision as one full Git commit SHA.",
+        "At that revision, select .codex/tasks/TASK-0688.json plus every repository-relative file in its references array.",
+        "Reject a missing path, directory, duplicate, absolute path, parent traversal, non-UTF-8 normative text, or ambiguous duplicate JSON key.",
+        "Compute each content_sha256 over the exact Git blob bytes at source_revision.",
+        "Sort coverage by path in ascending Unicode code-point order; a second hand-maintained inventory is forbidden."
+      ]
+    },
+    "baseline_digest": {
+      "algorithm": "SHA-256",
+      "input_projection": "Complete validated FoundationBaseline with baseline_digest replaced by 64 lowercase zeroes.",
+      "canonicalization": "SPEC-001 project JCS profile: lexical key order, UTF-8 without BOM, NFC strings, finite JSON numbers, and no non-semantic whitespace.",
+      "output": "Lowercase hexadecimal SHA-256 of the canonical UTF-8 bytes."
+    },
+    "invariants": [
+      "Any coverage membership, covered Git blob, baseline identity, version, or source revision change changes the digest input.",
+      "A changed baseline digest requires FoundationBaselineSupersession; silent replacement is forbidden.",
+      "Supersession records, predecessor and successor baselines, reasons, authorities, closures, and evidence are immutable historical lineage.",
+      "Closure requires every named proof in FoundationClosureEvidenceSet and one immutable FoundationClosure.",
+      "Every proof except HUMAN_MERGE identifies reviewed_candidate_commit; HUMAN_MERGE links that candidate to merged_commit.",
+      "Every evidence reference resolves path and digest from its exact source_revision in governed Git history; caller-supplied bytes are not authority.",
+      "QA, Reviewer, and Product Owner proof paths must be authorized by the file-scope policy at reviewed_candidate_commit; HUMAN_MERGE requires an actual multi-parent Git merge.",
+      "A material trigger requires FoundationReopening while preserving the prior closure and evidence by digest.",
+      "A reopening trigger resolves distinct governed candidate and open evidence-set artifacts linked to the prior closure; matching caller IDs alone are insufficient.",
+      "Unknown properties, incomplete records, ambiguous types, invalid digests, and unordered or duplicate coverage fail closed.",
+      "Upstream-owned payloads are consumed by reference only and are never duplicated by this contract."
+    ],
+    "upstream_ownership": [
+      { "story": "STORY-0692", "capability": "ADR_CLASSIFICATION_AND_APPLICATION", "mode": "REFERENCE_ONLY" },
+      { "story": "STORY-0693", "capability": "ADR_PROMOTION_OVERLAP_OWNER_GATE", "mode": "REFERENCE_ONLY" },
+      { "story": "STORY-0754", "capability": "SNAPSHOT_TOMBSTONE_APPROVED_DELTA", "mode": "REFERENCE_ONLY" },
+      { "story": "STORY-0757", "capability": "FOUNDATION_GATE_RESULT", "mode": "REFERENCE_ONLY" },
+      { "story": "STORY-0758", "capability": "GRAPH_DERIVED_SPRINT_001_SELECTION", "mode": "REFERENCE_ONLY" }
+    ]
+  },
+  "$defs": {
+    "SchemaVersion": { "const": "2.0.0" },
+    "SemVer": { "type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$" },
+    "GitCommit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "Sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "RepositoryPath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$"
+    },
+    "NonBlankText": { "type": "string", "minLength": 1, "pattern": ".*\\S.*" },
+    "BaselineReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseline_id", "baseline_version", "baseline_digest"],
+      "properties": {
+        "baseline_id": { "type": "string", "pattern": "^FOUNDATION-BASELINE-[A-Z0-9][A-Z0-9._-]*$" },
+        "baseline_version": { "$ref": "#/$defs/SemVer" },
+        "baseline_digest": { "$ref": "#/$defs/Sha256" }
+      }
+    },
+    "EvidenceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_revision", "path", "sha256"],
+      "properties": {
+        "source_revision": { "$ref": "#/$defs/GitCommit" },
+        "path": { "$ref": "#/$defs/RepositoryPath" },
+        "sha256": { "$ref": "#/$defs/Sha256" }
+      }
+    },
+    "CoverageEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "content_sha256"],
+      "properties": {
+        "path": { "$ref": "#/$defs/RepositoryPath" },
+        "content_sha256": { "$ref": "#/$defs/Sha256" }
+      }
+    },
+    "FoundationBaseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "record_type", "baseline_id", "baseline_version", "owner", "source_revision",
+        "coverage_authority", "coverage", "canonicalization_profile", "digest_algorithm", "baseline_digest"
+      ],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/SchemaVersion" },
+        "record_type": { "const": "FOUNDATION_BASELINE" },
+        "baseline_id": { "type": "string", "pattern": "^FOUNDATION-BASELINE-[A-Z0-9][A-Z0-9._-]*$" },
+        "baseline_version": { "$ref": "#/$defs/SemVer" },
+        "owner": { "const": "BC-001" },
+        "source_revision": { "$ref": "#/$defs/GitCommit" },
+        "coverage_authority": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["task_id", "task_envelope_path", "references_field", "include_task_envelope"],
+          "properties": {
+            "task_id": { "const": "TASK-0688" },
+            "task_envelope_path": { "const": ".codex/tasks/TASK-0688.json" },
+            "references_field": { "const": "references" },
+            "include_task_envelope": { "const": true }
+          }
+        },
+        "coverage": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/CoverageEntry" },
+          "$comment": "Entries exactly equal the derived set and are sorted by path ascending in Unicode code-point order."
+        },
+        "canonicalization_profile": { "const": "SPEC-001-JCS" },
+        "digest_algorithm": { "const": "SHA-256" },
+        "baseline_digest": { "$ref": "#/$defs/Sha256" }
+      }
+    },
+    "FoundationBaselineSupersession": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "record_type", "supersession_id", "predecessor", "successor", "reason", "authority", "recorded_at"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/SchemaVersion" },
+        "record_type": { "const": "FOUNDATION_BASELINE_SUPERSESSION" },
+        "supersession_id": { "type": "string", "pattern": "^FOUNDATION-SUPERSESSION-[A-Z0-9][A-Z0-9._-]*$" },
+        "predecessor": { "$ref": "#/$defs/BaselineReference" },
+        "successor": { "$ref": "#/$defs/BaselineReference" },
+        "reason": { "$ref": "#/$defs/NonBlankText" },
+        "authority": { "$ref": "#/$defs/EvidenceReference" },
+        "recorded_at": { "type": "string", "format": "date-time" }
+      },
+      "$comment": "predecessor and successor differ by baseline_digest; this record and both baseline records are immutable and append-only."
+    },
+    "ClosureProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["result", "artifact"],
+      "properties": {
+        "result": { "const": "PASS" },
+        "artifact": { "$ref": "#/$defs/EvidenceReference" }
+      }
+    },
+    "ClosureProofs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "IMPLEMENTATION_AND_MANDATORY_TESTS", "ARTIFACTS_AND_CONTRACTS_SYNCHRONIZED",
+        "MIGRATIONS_AND_ROLLBACK_APPLICABILITY", "APPLICABLE_INVARIANTS", "ACCEPTANCE_CRITERIA",
+        "QA_APPROVAL", "REVIEWER_APPROVAL", "DOCUMENTATION_AND_TRACEABILITY", "HUMAN_MERGE",
+        "APPLICABLE_CTO_CONTROLS", "SPRINT_EVIDENCE_SET", "FOUNDATION_CHECKS",
+        "NETWORK_AUTHENTICATION_APPLICABILITY", "SECURE_ROOTS", "DIAGNOSTIC_FLOW",
+        "FIRST_SLICE_AUTHORIZATION", "G1_FOUNDATION_GATE_RESULT"
+      ],
+      "properties": {
+        "IMPLEMENTATION_AND_MANDATORY_TESTS": { "$ref": "#/$defs/ClosureProof" },
+        "ARTIFACTS_AND_CONTRACTS_SYNCHRONIZED": { "$ref": "#/$defs/ClosureProof" },
+        "MIGRATIONS_AND_ROLLBACK_APPLICABILITY": { "$ref": "#/$defs/ClosureProof" },
+        "APPLICABLE_INVARIANTS": { "$ref": "#/$defs/ClosureProof" },
+        "ACCEPTANCE_CRITERIA": { "$ref": "#/$defs/ClosureProof" },
+        "QA_APPROVAL": { "$ref": "#/$defs/ClosureProof" },
+        "REVIEWER_APPROVAL": { "$ref": "#/$defs/ClosureProof" },
+        "DOCUMENTATION_AND_TRACEABILITY": { "$ref": "#/$defs/ClosureProof" },
+        "HUMAN_MERGE": { "$ref": "#/$defs/ClosureProof" },
+        "APPLICABLE_CTO_CONTROLS": { "$ref": "#/$defs/ClosureProof" },
+        "SPRINT_EVIDENCE_SET": { "$ref": "#/$defs/ClosureProof" },
+        "FOUNDATION_CHECKS": { "$ref": "#/$defs/ClosureProof" },
+        "NETWORK_AUTHENTICATION_APPLICABILITY": { "$ref": "#/$defs/ClosureProof" },
+        "SECURE_ROOTS": { "$ref": "#/$defs/ClosureProof" },
+        "DIAGNOSTIC_FLOW": { "$ref": "#/$defs/ClosureProof" },
+        "FIRST_SLICE_AUTHORIZATION": { "$ref": "#/$defs/ClosureProof" },
+        "G1_FOUNDATION_GATE_RESULT": { "$ref": "#/$defs/ClosureProof" }
+      }
+    },
+    "FoundationClosureEvidenceSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "record_type", "evidence_set_id", "baseline", "reviewed_candidate_commit", "merged_commit", "proofs"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/SchemaVersion" },
+        "record_type": { "const": "FOUNDATION_CLOSURE_EVIDENCE_SET" },
+        "evidence_set_id": { "type": "string", "pattern": "^FOUNDATION-CLOSURE-EVIDENCE-[A-Z0-9][A-Z0-9._-]*$" },
+        "baseline": { "$ref": "#/$defs/BaselineReference" },
+        "reviewed_candidate_commit": { "$ref": "#/$defs/GitCommit" },
+        "merged_commit": { "$ref": "#/$defs/GitCommit" },
+        "proofs": { "$ref": "#/$defs/ClosureProofs" }
+      },
+      "$comment": "Upstream proof artifacts are referenced by path and digest; their payload schemas are not duplicated."
+    },
+    "FoundationClosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "record_type", "closure_id", "baseline", "evidence_set_id", "evidence_set", "closure_authority", "closed_at"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/SchemaVersion" },
+        "record_type": { "const": "FOUNDATION_CLOSURE" },
+        "closure_id": { "type": "string", "pattern": "^FOUNDATION-CLOSURE-[A-Z0-9][A-Z0-9._-]*$" },
+        "baseline": { "$ref": "#/$defs/BaselineReference" },
+        "evidence_set_id": { "type": "string", "pattern": "^FOUNDATION-CLOSURE-EVIDENCE-[A-Z0-9][A-Z0-9._-]*$" },
+        "evidence_set": { "$ref": "#/$defs/EvidenceReference" },
+        "closure_authority": { "$ref": "#/$defs/EvidenceReference" },
+        "closed_at": { "type": "string", "format": "date-time" }
+      },
+      "$comment": "evidence_set resolves to a valid FoundationClosureEvidenceSet with the same evidence_set_id and baseline; closure is immutable."
+    },
+    "MaterialReopeningTrigger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "evidence"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "COVERAGE_MEMBERSHIP_CHANGED",
+            "COVERED_SOURCE_DIGEST_CHANGED",
+            "COVERED_AUTHORITY_SUPERSEDED",
+            "CLOSURE_EVIDENCE_INVALIDATED",
+            "FOUNDATION_GATE_INVALIDATED"
+          ]
+        },
+        "evidence": { "$ref": "#/$defs/EvidenceReference" }
+      }
+    },
+    "FoundationReopening": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "record_type", "reopening_id", "prior_closure_id", "prior_closure", "prior_baseline",
+        "material_trigger", "new_candidate_id", "new_evidence_set_id", "authority", "reopened_at"
+      ],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/SchemaVersion" },
+        "record_type": { "const": "FOUNDATION_REOPENING" },
+        "reopening_id": { "type": "string", "pattern": "^FOUNDATION-REOPENING-[A-Z0-9][A-Z0-9._-]*$" },
+        "prior_closure_id": { "type": "string", "pattern": "^FOUNDATION-CLOSURE-[A-Z0-9][A-Z0-9._-]*$" },
+        "prior_closure": { "$ref": "#/$defs/EvidenceReference" },
+        "prior_baseline": { "$ref": "#/$defs/BaselineReference" },
+        "material_trigger": { "$ref": "#/$defs/MaterialReopeningTrigger" },
+        "new_candidate_id": { "type": "string", "pattern": "^FOUNDATION-CANDIDATE-[A-Z0-9][A-Z0-9._-]*$" },
+        "new_evidence_set_id": { "type": "string", "pattern": "^FOUNDATION-CLOSURE-EVIDENCE-[A-Z0-9][A-Z0-9._-]*$" },
+        "authority": { "$ref": "#/$defs/EvidenceReference" },
+        "reopened_at": { "type": "string", "format": "date-time" }
+      },
+      "$comment": "prior_closure resolves to prior_closure_id and prior_baseline. Prior closure and evidence remain immutable; reopening creates distinct candidate and evidence records."
+    }
+  }
+}
