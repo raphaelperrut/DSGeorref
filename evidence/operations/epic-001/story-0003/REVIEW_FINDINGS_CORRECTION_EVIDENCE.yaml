@@ -1,0 +1,77 @@
+schema_version: 1.0.0
+evidence_type: DEVOPS_REVIEW_FINDINGS_CORRECTION
+traceability:
+  story_id: STORY-0003
+  issue_id: ISSUE-0113
+  github_issue: 15
+  task_id: TASK-0003
+  executor: DevOps
+baseline:
+  main_head: ea05b7a00cdbff084090734f89fcba9cb1546bc5
+  origin_main: ea05b7a00cdbff084090734f89fcba9cb1546bc5
+  correction_branch: codex/fix-issue-0113-review-findings
+  ahead_behind_at_branch_creation: 0/0
+previous_candidate:
+  sha: ea05b7a00cdbff084090734f89fcba9cb1546bc5
+  review_result: CHANGES_REQUIRED
+  remains_approved: false
+  previous_evidence: evidence/operations/epic-001/story-0003/IMPLEMENTATION_EVIDENCE.yaml
+review_findings:
+- severity: HIGH
+  finding: unresolved schema reference leaked a traceback
+  resolution: invalid reference findings prevent example validation and resolution errors are controlled
+  status: FIXED
+- severity: HIGH
+  finding: ownership registry accepted unexpected publications in the governed namespace
+  resolution: expected and actual namespace sets are compared for missing, unexpected and duplicate rows
+  status: FIXED
+- severity: MEDIUM
+  finding: manifest list duplicates were removed by normalization
+  resolution: duplicates are reported before conversion to a set
+  status: FIXED
+new_candidate:
+  status: CREATED_AFTER_ALL_GATES
+  sha_source: PR_HEAD_AND_FINAL_HANDOFF
+  supersedes_for_approval: ea05b7a00cdbff084090734f89fcba9cb1546bc5
+changed_files:
+- tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validator.py
+- tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validation_types.py
+- evidence/operations/epic-001/story-0003/REVIEW_FINDINGS_CORRECTION_EVIDENCE.yaml
+focused_validation:
+  happy_path: PASS
+  unresolved_ref_exit_nonzero: PASS
+  unresolved_ref_controlled_finding: PASS
+  unresolved_ref_without_traceback: PASS
+  unresolved_ref_deterministic: PASS
+  ownership_baseline: PASS
+  ownership_extra: PASS
+  ownership_missing: PASS
+  ownership_duplicate: PASS
+  ownership_invalid_values: PASS
+  manifest_duplicate: PASS
+  manifest_duplicate_deterministic: PASS
+  previous_negative_cases: PASS
+  repeated_output_identical: PASS
+  input_hashes_unchanged: PASS
+contract_validation:
+  test: test_epic_001_contrato
+  execution: DIRECT_FUNCTION
+  result: PASS
+gate_results:
+  python_312_syntax: PASS
+  repository_validator: PASS
+  make_verify: PASS
+scope:
+  task0003_write_scope_respected: true
+  tests_touched: false
+  qa_evidence_touched: false
+  frozen_artifacts_touched: false
+  src_touched: false
+operational_impact:
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+qa_handoff:
+  qa_executed: false
+  test_automation_created_by_devops: false
+  qa_evidence_created_by_devops: false
+  re_review_required_before_qa: true

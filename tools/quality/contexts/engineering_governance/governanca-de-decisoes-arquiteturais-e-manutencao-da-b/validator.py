@@ -4,6 +4,7 @@ import argparse
 import csv
 import json
 import sys
+from collections import Counter
 from pathlib import Path
 from typing import Any
 from urllib.parse import unquote, urldefrag, urljoin
@@ -11,8 +12,15 @@ from urllib.parse import unquote, urldefrag, urljoin
 from jsonschema import Draft202012Validator, FormatChecker
 from jsonschema.exceptions import SchemaError
 from referencing import Registry, Resource
+from referencing.exceptions import Unresolvable
 
-from contract_definition import EXPECTED_CONTRACTS, EXPECTED_VERSION, MANIFEST_REL, OWNERSHIP_REL
+from contract_definition import (
+    CONTRACT_REL,
+    EXPECTED_CONTRACTS,
+    EXPECTED_VERSION,
+    MANIFEST_REL,
+    OWNERSHIP_REL,
+)
 from manifest_validation import validate_manifest
 from semantic_invariants import validate_semantics
 from validation_types import Finding, expect
@@ -104,11 +112,19 @@ def _validate_schema_pairs(root: Path) -> tuple[dict[str, dict[str, Any]], list[
         EXPECTED_CONTRACTS[key]["schema"].as_posix(): value
         for key, value in schemas.items()
     }
-    findings.extend(_schema_references(schema_docs))
+    reference_findings = _schema_references(schema_docs)
+    findings.extend(reference_findings)
+    unresolved_artifacts = {
+        finding.artifact
+        for finding in reference_findings
+        if finding.code == "SCHEMA_REFERENCE_UNRESOLVABLE"
+    }
     registry = Registry()
     valid_schemas: dict[str, dict[str, Any]] = {}
     for contract_id, schema in sorted(schemas.items()):
         artifact = EXPECTED_CONTRACTS[contract_id]["schema"].as_posix()
+        if artifact in unresolved_artifacts:
+            continue
         try:
             Draft202012Validator.check_schema(schema)
             registry = registry.with_resource(schema["$id"], Resource.from_contents(schema))
@@ -122,10 +138,17 @@ def _validate_schema_pairs(root: Path) -> tuple[dict[str, dict[str, Any]], list[
         validator = Draft202012Validator(
             valid_schemas[contract_id], registry=registry, format_checker=FormatChecker()
         )
-        errors = sorted(
-            validator.iter_errors(examples[contract_id]),
-            key=lambda error: list(error.absolute_path),
-        )
+        try:
+            errors = sorted(
+                validator.iter_errors(examples[contract_id]),
+                key=lambda error: list(error.absolute_path),
+            )
+        except Unresolvable as exc:
+            schema_artifact = EXPECTED_CONTRACTS[contract_id]["schema"].as_posix()
+            findings.append(
+                Finding(schema_artifact, "SCHEMA_REFERENCE_UNRESOLVABLE", str(exc))
+            )
+            continue
         for error in errors:
             location = "/" + "/".join(str(part) for part in error.absolute_path)
             findings.append(Finding(rel, "EXAMPLE_SCHEMA_INVALID", f"{location}: {error.message}"))
@@ -154,16 +177,34 @@ def _validate_ownership(root: Path) -> list[Finding]:
         for contract in EXPECTED_CONTRACTS.values()
         for field in ("schema", "example")
     )
-    for reference in sorted(published):
+    namespace_prefix = CONTRACT_REL.as_posix() + "/"
+    namespace_references = [
+        row.get("contract", "")
+        for row in rows
+        if row.get("contract") == MANIFEST_REL.as_posix()
+        or row.get("contract", "").startswith(namespace_prefix)
+    ]
+    actual = set(namespace_references)
+    findings.extend(
+        Finding(artifact, "OWNERSHIP_REFERENCE_MISSING", reference)
+        for reference in sorted(published - actual)
+    )
+    findings.extend(
+        Finding(artifact, "OWNERSHIP_REFERENCE_UNEXPECTED", reference)
+        for reference in sorted(actual - published)
+    )
+    findings.extend(
+        Finding(
+            artifact,
+            "OWNERSHIP_REFERENCE_DUPLICATE",
+            f"{reference}: found {count} registry rows",
+        )
+        for reference, count in sorted(Counter(namespace_references).items())
+        if count > 1
+    )
+    for reference in sorted(published & actual):
         matches = [row for row in rows if row.get("contract") == reference]
         if len(matches) != 1:
-            findings.append(
-                Finding(
-                    artifact,
-                    "OWNERSHIP_REFERENCE_INVALID",
-                    f"{reference}: expected one registry row, found {len(matches)}",
-                )
-            )
             continue
         row = matches[0]
         expected = {
