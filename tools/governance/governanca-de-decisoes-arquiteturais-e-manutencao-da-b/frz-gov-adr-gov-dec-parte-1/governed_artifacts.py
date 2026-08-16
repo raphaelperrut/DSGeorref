@@ -99,6 +99,19 @@ def revision_parent_count(repository_root: Path, revision: str) -> int:
     return max(0, len(completed.stdout.split()) - 1) if completed.returncode == 0 else 0
 
 
+def revision_first_parent(repository_root: Path, revision: str) -> str | None:
+    if COMMIT_PATTERN.fullmatch(revision) is None:
+        return None
+    completed = subprocess.run(
+        ["git", "-C", str(repository_root), "rev-parse", f"{revision}^1"],
+        check=False,
+        capture_output=True,
+        encoding="ascii",
+    )
+    parent = completed.stdout.strip()
+    return parent if completed.returncode == 0 and COMMIT_PATTERN.fullmatch(parent) else None
+
+
 def role_authorizes_path(
     repository_root: Path,
     policy_revision: str,
@@ -111,6 +124,62 @@ def role_authorizes_path(
     allow, deny = patterns
     authorized = any(fnmatch.fnmatchcase(path, pattern) for pattern in allow)
     denied = any(fnmatch.fnmatchcase(path, pattern) for pattern in deny)
+    return authorized and not denied
+
+
+def task_authorizes_artifact(
+    repository_root: Path,
+    authority_revision: str,
+    expected_role: str,
+    artifact_path: str,
+    payload: Mapping[str, Any],
+    *,
+    required_reference: str,
+) -> bool:
+    task_id = payload.get("task_id")
+    issue_id = payload.get("issue_id")
+    story_id = payload.get("story_id")
+    if not all(isinstance(value, str) and value for value in (task_id, issue_id, story_id)):
+        return False
+    task_path = f".codex/tasks/{task_id}.json"
+    try:
+        task = load_json_bytes(git_blob(repository_root, authority_revision, task_path))
+    except (CanonicalizationError, ValueError):
+        return False
+    if not isinstance(task, Mapping) or any(
+        task.get(field) != payload.get(field)
+        for field in ("task_id", "issue_id", "story_id")
+    ):
+        return False
+    if task.get("role") != expected_role:
+        return False
+    if not role_authorizes_path(
+        repository_root, authority_revision, expected_role, artifact_path
+    ):
+        return False
+    if not _task_scope_authorizes(task, artifact_path):
+        return False
+    references = task.get("references")
+    dependencies = task.get("dependencies")
+    authority_links = (
+        tuple(references) if isinstance(references, list) else ()
+    ) + (tuple(dependencies) if isinstance(dependencies, list) else ())
+    return any(
+        isinstance(reference, str) and required_reference in reference
+        for reference in authority_links
+    )
+
+
+def _task_scope_authorizes(task: Mapping[str, Any], artifact_path: str) -> bool:
+    allow = task.get("allow_paths")
+    deny = task.get("deny_paths", [])
+    if not isinstance(allow, list) or not isinstance(deny, list):
+        return False
+    patterns = (*allow, *deny)
+    if not all(isinstance(pattern, str) and pattern for pattern in patterns):
+        return False
+    authorized = any(fnmatch.fnmatchcase(artifact_path, pattern) for pattern in allow)
+    denied = any(fnmatch.fnmatchcase(artifact_path, pattern) for pattern in deny)
     return authorized and not denied
 
 

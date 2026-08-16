@@ -7,7 +7,12 @@ from typing import Any
 
 from canonical_json import CanonicalizationError, canonical_json_bytes
 from foundation_validation_types import Finding
-from governed_artifacts import resolve_governed_artifact, role_authorizes_path
+from governed_artifacts import (
+    resolve_governed_artifact,
+    revision_first_parent,
+    role_authorizes_path,
+    task_authorizes_artifact,
+)
 
 
 def _digest(value: Any) -> str:
@@ -49,6 +54,27 @@ def _governed_records(
                 )
             )
             continue
+        if expected_role == "Product Owner":
+            authority_revision = revision_first_parent(
+                repository_root, artifact.source_revision
+            )
+            authorized = authority_revision is not None and task_authorizes_artifact(
+                repository_root,
+                authority_revision,
+                expected_role,
+                artifact.path,
+                record,
+                required_reference="REQ-ISM-010",
+            )
+            if not authorized:
+                findings.append(
+                    Finding(
+                        finding_code,
+                        field,
+                        "approval is not bound to a pre-existing governed Product Owner TaskEnvelope",
+                    )
+                )
+                continue
         records.append(record)
     return records, findings
 

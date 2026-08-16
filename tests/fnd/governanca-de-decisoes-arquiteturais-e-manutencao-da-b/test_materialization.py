@@ -205,6 +205,23 @@ def _closure_fixture() -> tuple[
         ".codex/policies/file-scopes.yaml",
         (ROOT / ".codex/policies/file-scopes.yaml").read_bytes(),
     )
+    qa_task = {
+        "task_id": "TASK-9001",
+        "issue_id": "ISSUE-9001",
+        "story_id": "STORY-9001",
+        "role": "QA",
+        "references": [
+            "docs/06-delivery/stories/STORY-0688-governed-foundation.md"
+        ],
+        "allow_paths": ["evidence/qa/qa-approval.json"],
+        "deny_paths": [],
+        "dependencies": ["STORY-0688"],
+    }
+    _write(
+        repository,
+        ".codex/tasks/TASK-9001.json",
+        canonical_json_bytes(qa_task),
+    )
     candidate = _commit(repository, "candidate implementation")
     main_branch = str(_git(repository, "branch", "--show-current")).strip()
     _git(repository, "checkout", "-q", "-b", "governed-review")
@@ -258,6 +275,14 @@ def _closure_fixture() -> tuple[
             payload["merged_commit"] = merged
         if proof_name in roles:
             payload["authority_role"] = roles[proof_name]
+        if proof_name == "QA_APPROVAL":
+            payload.update(
+                {
+                    "task_id": "TASK-9001",
+                    "issue_id": "ISSUE-9001",
+                    "story_id": "STORY-9001",
+                }
+            )
         governed_role_paths = {
             "QA_APPROVAL": "evidence/qa/qa-approval.json",
             "REVIEWER_APPROVAL": "evidence/reviews/reviewer-approval.json",
@@ -272,7 +297,7 @@ def _closure_fixture() -> tuple[
         if proof_name == "QA_APPROVAL":
             _write(
                 repository,
-                "evidence/proofs/forged-qa-approval.json",
+                "evidence/qa/forged-qa-approval.json",
                 canonical_json_bytes(payload),
             )
         proof_paths[proof_name] = path
@@ -408,7 +433,7 @@ def test_foundation_closure_evidence_set_and_material_reopening_criteria() -> No
     forged_role["proofs"]["QA_APPROVAL"]["artifact"] = _reference(
         repository,
         _revision(repository=repository),
-        "evidence/proofs/forged-qa-approval.json",
+        "evidence/qa/forged-qa-approval.json",
     )
     assert "EVIDENCE_AUTHORITY_INVALID" in _codes(
         validate_evidence_set(repository, forged_role, baseline)
@@ -482,6 +507,67 @@ def test_adr_governance_overlap() -> None:
         declared_normative_owner="ADR-006",
     )
     assert "ADR_REFERENCE_DUPLICATE" in _codes(duplicate)
+
+    repository, base, candidate, proposal = _overlapping_adr_repository()
+    bypass = validate_adr_change_governance(
+        repository,
+        base_revision=base,
+        candidate_revision=candidate,
+        proposal_path=proposal,
+        overlapping_adr_ids=(),
+        superseded_adr_ids=(),
+        declared_normative_owner="ADR-001",
+    )
+    assert "ADR_OVERLAP_UNRESOLVED" in _codes(bypass)
+
+
+def _overlapping_adr_repository() -> tuple[Path, str, str, str]:
+    repository = _fixture_directory("overlap-authority")
+    _init_repository(repository)
+    header = (
+        b"adr_id,status,title,file,independent_boundary,bounded_contexts,"
+        b"depends_on,owned_requirement_count\n"
+    )
+    rows = (
+        b"ADR-001,Accepted,One,ADR-001-one.md,true,BC-001,,1\n"
+        b"ADR-002,Accepted,Two,ADR-002-two.md,true,BC-001,,1\n"
+    )
+    _write(repository, "docs/00-governance/ADR_INDEX.csv", header + rows)
+    first_path = "docs/02-architecture/adrs/ADR-001-one.md"
+    second_path = "docs/02-architecture/adrs/ADR-002-two.md"
+    _write(repository, first_path, _adr_fixture("ADR-001", "Unique boundary one."))
+    _write(
+        repository,
+        second_path,
+        _adr_fixture("ADR-002", "Shared durable boundary decision."),
+    )
+    base = _commit(repository, "accepted ADR baseline")
+    _write(
+        repository,
+        first_path,
+        _adr_fixture("ADR-001", "Shared durable boundary decision."),
+    )
+    candidate = _commit(repository, "material overlapping ADR change")
+    return repository, base, candidate, first_path
+
+
+def _adr_fixture(identifier: str, decision: str) -> bytes:
+    return f"""# {identifier}
+
+- **Status:** `Accepted`
+- **Aprovador:** `Project Owner`
+- **Owner normativo:** `{identifier}`
+- **Boundary independente:** `SIM`
+- **Substitui:** `Nenhuma`
+
+## Decisão
+
+- {decision}
+
+## Rastreabilidade SAR
+
+- **Requisitos owned:** `REQ-{identifier[-3:]}`
+""".encode()
 
 
 def _decision_repository() -> tuple[Path, str, str, str]:
@@ -609,6 +695,23 @@ def _portfolio_repository() -> tuple[Path, dict[str, dict[str, str]]]:
         ".codex/policies/file-scopes.yaml",
         (ROOT / ".codex/policies/file-scopes.yaml").read_bytes(),
     )
+    owner_task = {
+        "task_id": "TASK-9002",
+        "issue_id": "ISSUE-9002",
+        "story_id": "STORY-9002",
+        "role": "Product Owner",
+        "references": [
+            "docs/01-product/requirements/REQ-ISM-010-governed-deltas.md"
+        ],
+        "allow_paths": ["docs/01-product/portfolio-delta-approval.json"],
+        "deny_paths": [],
+        "dependencies": [],
+    }
+    _write(
+        repository,
+        ".codex/tasks/TASK-9002.json",
+        canonical_json_bytes(owner_task),
+    )
     _write(repository, "README.md", b"governed portfolio fixture\n")
     _commit(repository, "portfolio base")
     previous = {"ITEM-1": {"value": "old"}, "ITEM-2": {"value": "removed"}}
@@ -627,6 +730,9 @@ def _portfolio_repository() -> tuple[Path, dict[str, dict[str, str]]]:
         "delta_sha256": hashlib.sha256(canonical_json_bytes(delta)).hexdigest(),
         "status": "APPROVED",
         "authority_role": "Product Owner",
+        "task_id": "TASK-9002",
+        "issue_id": "ISSUE-9002",
+        "story_id": "STORY-9002",
     }
     tombstone = {
         "record_type": "PORTFOLIO_TOMBSTONE",
@@ -645,12 +751,14 @@ def _portfolio_repository() -> tuple[Path, dict[str, dict[str, str]]]:
         ).hexdigest(),
     }
     fake_approval = dict(approval)
+    forged_approval = dict(approval)
     records = {
         "delta": delta,
         "approval": approval,
         "tombstone": tombstone,
         "active-tombstone": active_tombstone,
         "fake-approval": fake_approval,
+        "forged-approval": forged_approval,
     }
     paths = {
         "delta": "records/delta.json",
@@ -658,6 +766,7 @@ def _portfolio_repository() -> tuple[Path, dict[str, dict[str, str]]]:
         "tombstone": "records/tombstone.json",
         "active-tombstone": "records/active-tombstone.json",
         "fake-approval": "records/fake-approval.json",
+        "forged-approval": "docs/01-product/forged-portfolio-approval.json",
     }
     for name, record in records.items():
         _write(repository, paths[name], canonical_json_bytes(record))
@@ -710,6 +819,16 @@ def test_portfolio_snapshot_tombstone_approved_delta() -> None:
         "DELTA_DUPLICATE",
         "DELTA_APPROVAL_INVALID",
     } <= _codes(active)
+    forged_owner = validate_snapshot_tombstone_delta_history(
+        repository,
+        snapshots,
+        previous_items=previous,
+        current_items=current,
+        tombstone_references=(refs["tombstone"],),
+        delta_references=(refs["delta"],),
+        approval_references=(refs["forged-approval"],),
+    )
+    assert "DELTA_APPROVAL_INVALID" in _codes(forged_owner)
     mutated_snapshots = (("SNAPSHOT-1", previous), ("SNAPSHOT-1", current))
     assert "SNAPSHOT_MUTATED" in _codes(
         validate_snapshot_tombstone_delta_history(

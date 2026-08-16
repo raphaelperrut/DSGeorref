@@ -20,6 +20,7 @@ APPLICATION_PROFILE_DIRECTORY = PurePosixPath("docs/03-engineering/application-p
 BENCHMARK_PROFILE_DIRECTORY = PurePosixPath("docs/03-engineering/benchmark-profiles")
 ISSUE_DIRECTORY = PurePosixPath("docs/06-delivery/issues")
 ADR_ID_PATTERN = re.compile(r"^ADR-[0-9]{3}$")
+REQUIREMENT_ID_PATTERN = re.compile(r"\bREQ-[A-Z0-9-]+\b")
 
 
 def _try_blob(repository_root: Path, revision: str, path: str) -> bytes | None:
@@ -193,6 +194,59 @@ def _explicit_superseded_ids(text: str) -> frozenset[str]:
     return frozenset(item.strip() for item in value.split(",") if item.strip())
 
 
+def _section_bullets(text: str, heading: str) -> frozenset[str]:
+    match = re.search(
+        rf"^## {re.escape(heading)}\s*$\n(?P<body>.*?)(?=^## |\Z)",
+        text,
+        re.MULTILINE | re.DOTALL,
+    )
+    if match is None:
+        return frozenset()
+    return frozenset(
+        re.sub(r"\s+", " ", line[2:].strip()).casefold()
+        for line in match.group("body").splitlines()
+        if line.startswith("- ") and line[2:].strip()
+    )
+
+
+def _owned_requirements(text: str) -> frozenset[str]:
+    match = re.search(r"^- \*\*Requisitos owned:\*\* (?P<value>.+)$", text, re.MULTILINE)
+    return (
+        frozenset(REQUIREMENT_ID_PATTERN.findall(match.group("value")))
+        if match is not None
+        else frozenset()
+    )
+
+
+def _derived_overlapping_adr_ids(
+    repository_root: Path,
+    revision: str,
+    proposal_path: str,
+    index: dict[str, dict[str, str]],
+    candidate_text: str,
+    base_text: bytes | None,
+) -> frozenset[str]:
+    if base_text is not None and base_text == candidate_text.encode("utf-8"):
+        return frozenset()
+    proposal_id = _identifier_from_path(proposal_path)
+    decisions = _section_bullets(candidate_text, "Decisão")
+    requirements = _owned_requirements(candidate_text)
+    overlaps = set(_explicit_superseded_ids(candidate_text))
+    for adr_id, row in index.items():
+        if adr_id == proposal_id:
+            continue
+        path = str(ADR_DIRECTORY / str(row.get("file", "")))
+        try:
+            other_text = _adr_text(repository_root, revision, path)
+        except ValueError:
+            continue
+        same_decision = bool(decisions & _section_bullets(other_text, "Decisão"))
+        same_requirement = bool(requirements & _owned_requirements(other_text))
+        if same_decision or same_requirement:
+            overlaps.add(adr_id)
+    return frozenset(overlaps)
+
+
 def validate_adr_change_governance(
     repository_root: Path,
     *,
@@ -221,7 +275,15 @@ def validate_adr_change_governance(
     explicit = _explicit_superseded_ids(candidate_text)
     if frozenset(superseded) != explicit:
         findings.append(Finding("SUPERSESSION_CLAIM_MISMATCH", "superseded_adr_ids", "claim differs from governed ADR metadata"))
-    unresolved = sorted(set(overlaps) - explicit)
+    derived_overlaps = _derived_overlapping_adr_ids(
+        repository_root,
+        candidate_revision,
+        proposal_path,
+        index,
+        candidate_text,
+        base_text,
+    )
+    unresolved = sorted((set(overlaps) | set(derived_overlaps)) - explicit)
     if unresolved:
         findings.append(Finding("ADR_OVERLAP_UNRESOLVED", "overlapping_adr_ids", ", ".join(unresolved)))
     expected_owner = _metadata_value(owner_text, "Owner normativo")

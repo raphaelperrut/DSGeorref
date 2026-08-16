@@ -17,13 +17,17 @@ authority.
 - `baseline_lifecycle.py` derives coverage from the governed TaskEnvelope reference
   at a full Git commit and validates baseline digests and supersession lineage.
 - `governed_artifacts.py`, `lifecycle_evidence.py` and `lifecycle_records.py`
-  resolve evidence from exact Git revisions, verify proof semantics/authority and
+  resolve evidence from exact Git revisions, bind QA authority to the governed
+  TaskEnvelope for the reviewed action, verify proof semantics/authority and
   preserve append-only closure history.
 - `decision_governance.py` derives classification, eligibility, identity, owner,
-  overlap references and Owner gate from repository history, the ADR index and ADR
-  metadata instead of accepting caller booleans as facts.
+  material overlap, supersession and Owner gate from repository history, the ADR
+  index, decision clauses and owned requirements instead of treating caller
+  overlap metadata as proof of absence.
 - `portfolio_validation.py` validates historical snapshot immutability and exact
-  governed delta, approval and tombstone consistency.
+  governed delta, approval and tombstone consistency; Product Owner approval must
+  resolve to a pre-existing governed TaskEnvelope for the exact approval path and
+  REQ-ISM-010 action.
 - `sprint_validation.py` reads `AP-008` and the canonical story dependency graph to
   validate exact minimum scope and the complete deterministic SPRINT-001 selection.
 - `scope_validation.py` composes frozen control-plane authority with TaskEnvelope
@@ -47,9 +51,12 @@ preserves each baseline identity/version and rejects reuse of any immutable reco
 identity/version with different canonical bytes.
 Closure requires the full proof set loaded from each exact `source_revision`,
 semantic proof type/result/baseline linkage, candidate ancestry and role authority
-for QA, Reviewer, human merge and first-slice authorization. Reopening requires a
-governed material trigger linked to the new candidate/evidence identities and
-byte-identical preservation of the prior closure and evidence set.
+for QA, Reviewer, human merge and first-slice authorization. QA approval also
+requires matching task, issue and story identity in the candidate's governed
+TaskEnvelope, whose task scope must authorize the evidence path and STORY-0688
+action. Reopening requires a governed material trigger linked to the new
+candidate/evidence identities and byte-identical preservation of the prior closure
+and evidence set.
 
 ## Parallel Story boundary
 

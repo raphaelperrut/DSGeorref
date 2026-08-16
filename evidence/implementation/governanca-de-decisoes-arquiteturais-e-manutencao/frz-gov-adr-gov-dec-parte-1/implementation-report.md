@@ -1,10 +1,10 @@
-# ISSUE-0798 — QA repair implementation evidence
+# ISSUE-0798 — Targeted QA repair implementation evidence
 
 ## Candidate and boundary
 
-This repair is layered on rejected candidate
-0160efea15c84de1703bcd1df0e551376a1ce892; that commit remains an ancestor and
-was not amended. The normative checkpoint remains
+This targeted repair is layered on rejected candidate
+58e91cb4b83fa9f92140d51e3a20c94d568b36ae; that commit remains the direct
+ancestor and was not amended, reset or rebased. The normative checkpoint remains
 d7788e2b45802ddd71d422b440d63984ee8b70d0.
 
 The implementation is limited to validation and evidence for Slice 1/2. It does
@@ -30,22 +30,20 @@ verified by the effective-scope validator. All implementation-plane files
 remain subject to the TaskEnvelope allow/deny paths. The validator does not add
 the TaskEnvelope to its own allowlist and does not weaken global policy.
 
-## HIGH finding repairs
+## Targeted HIGH finding repairs
 
-1. Lifecycle authority and evidence are Git-resolved governed artifacts.
-   Closure evidence has typed semantic linkage to the baseline and candidate,
-   file-scope-bound authority, ancestry checks, a real Git merge, and an
-   append-only closure ledger. Reopening requires a governed substantive
-   trigger that resolves distinct candidate and evidence-set artifacts.
-2. Decision governance derives classification, identifier history, normative
-   owner, supersession, overlap, and Owner approval from governed ADR artifacts
-   and history. An existing ADR's Owner gate comes from its accepted base
-   authority; caller booleans or newly written approval text do not establish
-   authority.
-3. ISM validation binds prior/current state to distinct snapshot-history
-   endpoints, resolves deltas and tombstones from governed revisions, and
-   requires approval records in a Product Owner-authorized path. The applied
-   delta must exactly explain the observed transition.
+1. Lifecycle QA evidence must match task, issue and story identity from a
+   candidate-resident QA TaskEnvelope. Both the global role policy and that
+   TaskEnvelope must authorize the exact evidence path, and the TaskEnvelope must
+   govern STORY-0688. A role-shaped file elsewhere under `evidence/qa/**` fails
+   closed.
+2. Decision governance derives material overlap from candidate ADR decision
+   clauses, owned requirements, explicit supersession, the canonical ADR index
+   and repository history. Caller-provided `overlapping_adr_ids` is combined with,
+   not substituted for, that derived set; an empty list cannot conceal overlap.
+3. ISM approval must match task, issue and story identity from a pre-existing
+   Product Owner TaskEnvelope. Global product-path ownership, role text and exact
+   delta metadata are insufficient without task scope and REQ-ISM-010 authority.
 4. Sprint validation derives the canonical SPRINT-001 story selection from the
    governed backlog and AP-008, then computes dependency closure and stable
    topological ordering.
@@ -54,20 +52,10 @@ the TaskEnvelope to its own allowlist and does not weaken global policy.
 
 ## Regression evidence
 
-The mandatory test module contains nine tests, including negative assertions
-for every QA HIGH bypass: nonexistent lifecycle authority, incomplete or
-arbitrary closure/reopening evidence, role-shaped evidence outside the role's
-governed scope, forged ADR classification, eligibility, Owner authority, early
-identifier allocation, unexplained ISM mutation, disconnected snapshots,
-invalid tombstones, duplicate or fake delta approval, arbitrary Sprint
-selection, and the effective TaskEnvelope scope.
-
-The final mandatory and independent adversarial run completed with 9 passed.
-The complete FND run completed with 16 passed. The FND command required
-execution outside the filesystem sandbox because the pre-existing ISSUE-0869
-test creates a nested TemporaryDirectory at repository root; two sandboxed
-attempts each reached 15 passed and failed before an assertion with Windows
-permission errors in that temporary fixture.
+The mandatory test module retains nine tests and adds one focused negative
+assertion for each remaining bypass: a forged QA record inside `evidence/qa/**`,
+a materially overlapping ADR change with an empty caller list, and a forged
+Product Owner approval inside `docs/01-product/**`.
 
 ## Python architecture coverage
 
@@ -81,22 +69,17 @@ authorized implementation package. It scanned 11 files and reported zero
 policy errors. This supplements, but does not alter, the global architecture
 gate.
 
-## Final validation
+## Targeted validation
 
-- repository validation: PASS;
-- architecture review: PASS;
-- requirements review: PASS;
-- domain-driven design review: PASS;
-- ADR review: PASS after removing ignored probe fixtures from workdir;
-- specification review: PASS;
-- sprint review: PASS;
-- global Python architecture: PASS with 0 files scanned;
-- narrow Python architecture: PASS with 11 files scanned and 0 findings;
 - mandatory/adversarial tests: PASS, 9 tests;
-- complete FND regressions: PASS, 16 tests;
-- effective scope audit: PASS, 16 files and 0 findings;
-- git diff --check: PASS;
-- make verify: PASS.
+- applicable FND regression: PASS, 16 tests (the repository-root temporary
+  fixture required the established outside-sandbox Windows rerun);
+- three independent attack probes: PASS, all three attacks failed closed;
+- TaskEnvelope/file-scope audit: PASS, 7 repair files and 0 findings;
+- `git diff --check`: PASS;
+- repository-required `make verify`: PASS with `PYTHONUTF8=1` (the initial
+  default-Python invocation stopped at its pre-existing Windows cp1252 decoding
+  mismatch before completing the architecture review).
 
 ## Schema correction
 

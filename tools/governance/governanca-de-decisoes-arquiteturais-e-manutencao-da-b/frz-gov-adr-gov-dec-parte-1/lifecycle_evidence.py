@@ -12,6 +12,7 @@ from governed_artifacts import (
     revision_is_ancestor,
     revision_parent_count,
     role_authorizes_path,
+    task_authorizes_artifact,
 )
 from lifecycle_records import AppendOnlyRecordLedger
 
@@ -124,6 +125,21 @@ def _proof_authority_findings(
                 "EVIDENCE_AUTHORITY_INVALID",
                 field,
                 f"proof path is not governed for role {role}",
+            )
+        ]
+    if proof_name == "QA_APPROVAL" and not task_authorizes_artifact(
+        repository_root,
+        candidate,
+        "QA",
+        artifact_path,
+        payload,
+        required_reference="STORY-0688",
+    ):
+        return [
+            Finding(
+                "EVIDENCE_AUTHORITY_INVALID",
+                field,
+                "QA proof is not bound to its governed TaskEnvelope and reviewed action",
             )
         ]
     if proof_name == "HUMAN_MERGE" and revision_parent_count(repository_root, merged) < 2:
