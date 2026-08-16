@@ -3,8 +3,10 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import re
 import sys
 from collections import Counter
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import unquote, urldefrag, urljoin
@@ -24,6 +26,40 @@ from contract_definition import (
 from manifest_validation import validate_manifest
 from semantic_invariants import validate_semantics
 from validation_types import Finding, expect
+
+
+_RFC3339_DATE_TIME = re.compile(
+    r"^(?P<year>[0-9]{4})-(?P<month>0[1-9]|1[0-2])-(?P<day>[0-9]{2})"
+    r"[Tt](?P<hour>[01][0-9]|2[0-3]):(?P<minute>[0-5][0-9]):"
+    r"(?P<second>[0-5][0-9])(?:\.[0-9]+)?"
+    r"(?:[Zz]|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])$"
+)
+
+
+def _is_rfc3339_date_time(value: object) -> bool:
+    if not isinstance(value, str):
+        return True
+    match = _RFC3339_DATE_TIME.fullmatch(value)
+    if match is None:
+        return False
+    try:
+        datetime(
+            year=int(match.group("year")),
+            month=int(match.group("month")),
+            day=int(match.group("day")),
+            hour=int(match.group("hour")),
+            minute=int(match.group("minute")),
+            second=int(match.group("second")),
+        )
+    except ValueError:
+        return False
+    return True
+
+
+def _story_format_checker() -> FormatChecker:
+    checker = FormatChecker()
+    checker.checks("date-time")(_is_rfc3339_date_time)
+    return checker
 
 
 def _load_json(path: Path, artifact: str) -> tuple[Any | None, list[Finding]]:
@@ -133,10 +169,11 @@ def _validate_schema_pairs(root: Path) -> tuple[dict[str, dict[str, Any]], list[
         else:
             valid_schemas[contract_id] = schema
     valid_examples: dict[str, dict[str, Any]] = {}
+    format_checker = _story_format_checker()
     for contract_id in sorted(set(valid_schemas) & set(examples)):
         rel = EXPECTED_CONTRACTS[contract_id]["example"].as_posix()
         validator = Draft202012Validator(
-            valid_schemas[contract_id], registry=registry, format_checker=FormatChecker()
+            valid_schemas[contract_id], registry=registry, format_checker=format_checker
         )
         try:
             errors = sorted(

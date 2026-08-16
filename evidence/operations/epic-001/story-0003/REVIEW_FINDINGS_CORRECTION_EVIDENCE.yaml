@@ -16,6 +16,16 @@ previous_candidate:
   review_result: CHANGES_REQUIRED
   remains_approved: false
   previous_evidence: evidence/operations/epic-001/story-0003/IMPLEMENTATION_EVIDENCE.yaml
+candidate_history:
+- sha: ea05b7a00cdbff084090734f89fcba9cb1546bc5
+  review: FIRST_REVIEW
+  result: CHANGES_REQUIRED
+- sha: 264ca587f7158c75c34796b3c02fd0806f7eb564
+  review: SECOND_REVIEW
+  result: CHANGES_REQUIRED
+  contract_satisfied: false
+  previous_negative_cases: FAIL
+  evidence_matches_new_candidate: false
 review_findings:
 - severity: HIGH
   finding: unresolved schema reference leaked a traceback
@@ -29,10 +39,22 @@ review_findings:
   finding: manifest list duplicates were removed by normalization
   resolution: duplicates are reported before conversion to a set
   status: FIXED
+- severity: HIGH
+  finding: date-time validation was fail-open without the optional RFC 3339 checker
+  reproduced_on_candidate: 264ca587f7158c75c34796b3c02fd0806f7eb564
+  clean_environment:
+    python: '3.12'
+    dependency_source: requirements-validation.txt
+    jsonschema: 4.26.0
+    date_time_checker_available: false
+    rfc3339_optional_package_available: false
+    invalid_date_time_accepted: true
+  resolution: a dedicated instance-scoped RFC 3339 checker validates structure and calendar semantics without optional packages
+  status: FIXED
 new_candidate:
   status: CREATED_AFTER_ALL_GATES
   sha_source: PR_HEAD_AND_FINAL_HANDOFF
-  supersedes_for_approval: ea05b7a00cdbff084090734f89fcba9cb1546bc5
+  supersedes_for_approval: 264ca587f7158c75c34796b3c02fd0806f7eb564
 changed_files:
 - tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validator.py
 - tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validation_types.py
@@ -50,7 +72,18 @@ focused_validation:
   ownership_invalid_values: PASS
   manifest_duplicate: PASS
   manifest_duplicate_deterministic: PASS
-  previous_negative_cases: PASS
+  previous_negative_cases:
+    candidate_264ca587f7158c75c34796b3c02fd0806f7eb564: FAIL
+    corrected_candidate: PASS
+  date_time_arbitrary_string: PASS
+  date_time_impossible_date: PASS
+  date_time_impossible_time: PASS
+  date_time_structurally_invalid: PASS
+  date_time_timezone_missing: PASS
+  date_time_existing_valid_example: PASS
+  date_time_controlled_finding: PASS
+  date_time_without_traceback: PASS
+  date_time_deterministic: PASS
   repeated_output_identical: PASS
   input_hashes_unchanged: PASS
 contract_validation:
@@ -63,6 +96,7 @@ gate_results:
   make_verify: PASS
 scope:
   task0003_write_scope_respected: true
+  requirements_validation_touched: false
   tests_touched: false
   qa_evidence_touched: false
   frozen_artifacts_touched: false
