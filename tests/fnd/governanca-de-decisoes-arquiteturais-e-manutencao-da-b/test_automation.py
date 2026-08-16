@@ -5,7 +5,6 @@ import hashlib
 import json
 import os
 import platform
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -28,6 +27,21 @@ CONTRACT_REL = Path(
 OWNERSHIP_REL = Path("contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv")
 SENTINEL_REL = Path("qa-unrelated-sentinel.bin")
 SENTINEL_BYTES = b"ISSUE-0869 unrelated sentinel\x00\xff\n"
+GOVERNED_SOURCE_RELS = (
+    OWNERSHIP_REL,
+    CONTRACT_REL / "contract-manifest.yaml",
+    CONTRACT_REL / "examples/foundation-boundaries.json",
+    CONTRACT_REL / "examples/issue-forecast.json",
+    CONTRACT_REL / "examples/portfolio-snapshot.json",
+    CONTRACT_REL / "foundation-boundaries.schema.json",
+    CONTRACT_REL / "issue-forecast.schema.json",
+    CONTRACT_REL / "portfolio-snapshot.schema.json",
+    VALIDATOR_DIR_REL / "contract_definition.py",
+    VALIDATOR_DIR_REL / "manifest_validation.py",
+    VALIDATOR_DIR_REL / "semantic_invariants.py",
+    VALIDATOR_DIR_REL / "validation_types.py",
+    VALIDATOR_REL,
+)
 
 
 @dataclass(frozen=True)
@@ -60,12 +74,61 @@ def _snapshot_digest(snapshot: tuple[tuple[str, str], ...]) -> str:
     return _sha256(encoded)
 
 
+def _assert_candidate_source_inventory() -> None:
+    if not (ROOT / ".git").exists():
+        return
+    completed = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(ROOT),
+            "ls-files",
+            "--",
+            VALIDATOR_DIR_REL.as_posix(),
+            CONTRACT_REL.as_posix(),
+            OWNERSHIP_REL.as_posix(),
+        ],
+        check=False,
+        capture_output=True,
+        encoding="utf-8",
+    )
+    assert completed.returncode == 0, completed.stderr
+    tracked = {Path(line) for line in completed.stdout.splitlines() if line}
+    assert tracked == set(GOVERNED_SOURCE_RELS)
+    unchanged = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(ROOT),
+            "diff",
+            "--quiet",
+            "HEAD",
+            "--",
+            *(relative.as_posix() for relative in GOVERNED_SOURCE_RELS),
+        ],
+        check=False,
+    )
+    assert unchanged.returncode == 0
+
+
+def _candidate_source_bytes(relative: Path) -> bytes:
+    if not (ROOT / ".git").exists():
+        return (ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+    completed = subprocess.run(
+        ["git", "-C", str(ROOT), "show", f"HEAD:{relative.as_posix()}"],
+        check=False,
+        capture_output=True,
+    )
+    assert completed.returncode == 0, completed.stderr
+    return completed.stdout
+
+
 def _prepare_sandbox(root: Path) -> None:
-    shutil.copytree(ROOT / VALIDATOR_DIR_REL, root / VALIDATOR_DIR_REL)
-    shutil.copytree(ROOT / CONTRACT_REL, root / CONTRACT_REL)
-    ownership = root / OWNERSHIP_REL
-    ownership.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(ROOT / OWNERSHIP_REL, ownership)
+    _assert_candidate_source_inventory()
+    for relative in GOVERNED_SOURCE_RELS:
+        destination = root / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_bytes(_candidate_source_bytes(relative))
     (root / SENTINEL_REL).write_bytes(SENTINEL_BYTES)
 
 
@@ -224,6 +287,7 @@ def collect_validation_evidence() -> dict[str, Any]:
             "stderr_sha256": _sha256(first.stderr),
             "filesystem_snapshot_sha256": _snapshot_digest(after),
             "filesystem_file_count": len(after),
+            "filesystem_paths": [path for path, _digest in after],
             "sentinel_sha256": sentinel_hash,
         }
 

@@ -39,6 +39,15 @@ commands:
     py -3.12 -c "import json,runpy;
     m=runpy.run_path('tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_automation.py');
     print(json.dumps(m['collect_validation_evidence'](),indent=2,sort_keys=True))"
+  - >-
+    git add --
+    'tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_automation.py'
+    'evidence/qa/epic-001/story-0759/VALIDATION_EVIDENCE.yaml';
+    $tree = git write-tree;
+    git archive --format=tar --output=$archive $tree; tar -xf $archive -C $target;
+    py -3.12 -c "import json,runpy;
+    m=runpy.run_path('tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_automation.py');
+    print(json.dumps(m['collect_validation_evidence'](),indent=2,sort_keys=True))"
   - make verify
 
 valid_repeated_execution:
@@ -49,8 +58,23 @@ valid_repeated_execution:
   stderr_byte_identical: true
   stderr_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
   filesystem_snapshot_identical_before_between_after: true
-  filesystem_snapshot_sha256: d22bcf171773e93b9f24d3ea651eb1647c8c4a019b68c6f87a687a6f1f1c1f58
-  filesystem_file_count: 23
+  filesystem_snapshot_sha256: cd9389ae8da9126b6db793b48c615055f7527d176056b6edf5330721fa112531
+  filesystem_file_count: 14
+  filesystem_paths:
+    - contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+    - contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/contract-manifest.yaml
+    - contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/foundation-boundaries.json
+    - contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/issue-forecast.json
+    - contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/portfolio-snapshot.json
+    - contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/foundation-boundaries.schema.json
+    - contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/issue-forecast.schema.json
+    - contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/portfolio-snapshot.schema.json
+    - qa-unrelated-sentinel.bin
+    - tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/contract_definition.py
+    - tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/manifest_validation.py
+    - tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/semantic_invariants.py
+    - tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validation_types.py
+    - tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validator.py
   unexpected_files_created: false
   idempotent: true
 
@@ -73,43 +97,55 @@ fail_closed:
       expected_finding: ARTIFACT_MISSING
       return_code: 1
       stdout_sha256: ea6bb9f1c36409d300dbea7ad21559533bec5a0b21b7d80b04528895b3c117f5
-      filesystem_snapshot_sha256: b043fdf7d29d166d52775338df6958c214882184837d306804d658a7332a0df5
+      filesystem_snapshot_sha256: b5579260a4a4b5b65d2b868b8c82e996380cc671615c72ca7be4c13a0c6b6626
       repeated_identically: true
     - case: invalid_truncated_json
       expected_finding: JSON_INVALID
       return_code: 1
       stdout_sha256: 81c8443b1e28ff6bd69ecd5dea50db85772aba17f06777c22b16b9bfffecd856
-      filesystem_snapshot_sha256: ed2626ce582d43e04cecbe608d0049d356593134868cc8583017214d84ba8257
+      filesystem_snapshot_sha256: 585ed552f9377375718e2d54f481dbeb9d4d6c4d241fa8efeab5122c429b4c00
     - case: unresolvable_reference
       expected_finding: SCHEMA_REFERENCE_UNRESOLVABLE
       return_code: 1
       stdout_sha256: 2428542cca5d5a10f8e7112f9ff8f09728825558d3dde3a812bcc1a9241f8013
-      filesystem_snapshot_sha256: 9a8df2a66c796465599103461c82d22787f7d4a706c05df5fe443e04a27202e1
+      filesystem_snapshot_sha256: 00443e10212d58c3e7619145a26818aa81f5b535bea62ee2f162dbc9ab4a23d2
     - case: invalid_owner_metadata
       expected_finding: OWNER_INVALID
       return_code: 1
       stdout_sha256: 6adbee164be7246bbc5abb64585d0cdeda308e9777676181b11c95abccda5811
-      filesystem_snapshot_sha256: fa369f7c1a396cf37484919b6bc0b2912451506f9296255bffe523a44a70d1d0
+      filesystem_snapshot_sha256: 73eb31926beaaf64822eb78b6700a5fc922818034f29d8a08dc11c95208f6bf8
     - case: prohibited_unknown_property
       expected_finding: EXAMPLE_SCHEMA_INVALID
       return_code: 1
       stdout_sha256: b51e15c83ee656b6842c038d0c228a61ea68a7646b71a3cb499f94367ad8bc7e
-      filesystem_snapshot_sha256: c9738f83f5e8bdaa0cc737848e8a417979f8b77485b721be51701343b81f45bb
+      filesystem_snapshot_sha256: 03f625de8eaa2a80940fd4a12954820f1c1fc1f76378a8d57ddb9848ebf0d1f6
     - case: violated_semantic_invariant
       expected_finding: INVALID_INTERVAL_ORDER
       return_code: 1
       stdout_sha256: 0abafb89d4595cdbcbdc9192fd34297746445ec89a46637fb209adebd736b4bc
-      filesystem_snapshot_sha256: a0b83ebe337eef2943fc777f056506ac3aeae9222bd03e90ed96b883b87f95a3
+      filesystem_snapshot_sha256: 72df297a436096fbaeefd2023aa38c23b760e40e50f3d3ebc98421144711bfd1
     - case: unsupported_schema_dialect
       expected_finding: SCHEMA_DIALECT_INVALID
       return_code: 1
       stdout_sha256: 6b7526dd46da8e05cedba303d9fa55bc29316bffba2e22b02d92a96974c7d338
-      filesystem_snapshot_sha256: 6f1be842497d7e85a0ac47ac9d94b5519c74583a707309346ba9f719188cee5d
+      filesystem_snapshot_sha256: 891575e2c258e46622165da9c98b4f18b1615bb1b636fe58c47160d3b2d54c92
     - case: invalid_unannounced_leap_second
       expected_finding: EXAMPLE_SCHEMA_INVALID
       return_code: 1
       stdout_sha256: 1fd64acdb0913e79f08d4414fd8f2045cef1c9deebb4434271e88badc91af567
-      filesystem_snapshot_sha256: 0dfca5f3507e0ce9a8783f90ae86f5d87969c7cc69c912955e47e5da3f888bcf
+      filesystem_snapshot_sha256: 7927f308e6adcbe9db938cdf3754e26c1596eb3f0b57ef9605657be3ccff5adb
+
+candidate_clean_reproduction:
+  source_inventory: EXPLICIT_GOVERNED_PATHS_CROSS_CHECKED_WITH_GIT_TRACKED_FILES
+  workspace_file_count: 14
+  clean_tree_file_count: 14
+  workspace_snapshot_sha256: cd9389ae8da9126b6db793b48c615055f7527d176056b6edf5330721fa112531
+  clean_tree_snapshot_sha256: cd9389ae8da9126b6db793b48c615055f7527d176056b6edf5330721fa112531
+  path_inventory_identical: true
+  return_codes_identical: true
+  stdout_stderr_evidence_identical: true
+  fail_closed_outcomes_identical: true
+  workspace_clean_tree_evidence_equivalent: true
 
 mandatory_gates:
   canonical_test:
@@ -138,8 +174,9 @@ scope:
 limitations_and_residual_risks:
   - The matrix targets published STORY-0003 end-to-end boundaries and does not duplicate the full implementation-unit suite.
   - Local evidence covers CPython 3.12.10 on Windows; the approved workflow remains the Linux/CPython 3.12.13 integration surface.
-  - A Git commit cannot embed its own SHA without a circular content dependency; the exact final QA candidate SHA is bound in the implementation handoff after commit creation.
+  - The exact candidate SHA is recorded in the final handoff after all gates and commit creation, following the repository evidence convention.
 
-qa_candidate:
-  commit_sha_binding: ISSUE-0869_IMPLEMENTATION_HANDOFF
+candidate_commit:
+  status: CREATED_AFTER_ALL_GATES
+  sha_location: FINAL_HANDOFF
   evidence_final_tree_aligned: true
