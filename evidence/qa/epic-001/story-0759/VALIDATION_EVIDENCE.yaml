@@ -1,0 +1,182 @@
+schema_version: 1.0.0
+evidence_type: QA_VALIDATION
+issue_id: ISSUE-0869
+github_issue: 877
+story_id: STORY-0759
+task_id: TASK-0759
+role: QA_IMPLEMENTER
+
+authority:
+  qa_target_sha: e71167bf2b431000e8781be69fcb0fae89c0dcc3
+  upstream_pr: 879
+  integration_merge: 7d21807b6779247f7e049d0173fcce87fd390922
+  target_is_ancestor_of_origin_main: true
+  approved_implementation_changed_after_review: false
+  independent_reviewer:
+    result: APPROVED
+    approved_sha: e71167bf2b431000e8781be69fcb0fae89c0dcc3
+    high_finding_resolved: true
+    medium_finding_resolved: true
+    open_findings: []
+  qa_target_sha_confirmed: true
+  independent_reviewer_requirement_satisfied: true
+  qa_write_scope_authorized: true
+
+runtime:
+  implementation: CPython
+  version: 3.12.10
+  utf8_mode: true
+  bytecode_writes_disabled: true
+  subprocess_executable: sys.executable
+  subprocess_flag: -B
+
+commands:
+  - >-
+    $env:PYTHONDONTWRITEBYTECODE='1'; $env:PYTHONUTF8='1';
+    py -3.12 -c "import runpy;
+    runpy.run_path('tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_automation.py')['test_epic_001_automacao']()"
+  - >-
+    py -3.12 -c "import json,runpy;
+    m=runpy.run_path('tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_automation.py');
+    print(json.dumps(m['collect_validation_evidence'](),indent=2,sort_keys=True))"
+  - >-
+    git add --
+    'tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_automation.py'
+    'evidence/qa/epic-001/story-0759/VALIDATION_EVIDENCE.yaml';
+    $tree = git write-tree;
+    git archive --format=tar --output=$archive $tree; tar -xf $archive -C $target;
+    py -3.12 -c "import json,runpy;
+    m=runpy.run_path('tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_automation.py');
+    print(json.dumps(m['collect_validation_evidence'](),indent=2,sort_keys=True))"
+  - make verify
+
+valid_repeated_execution:
+  first_return_code: 0
+  second_return_code: 0
+  stdout_byte_identical: true
+  stdout_sha256: 0e5d1a9e8a987415b8aae2337e51cf7a96f556df255c29b7fc2d4e03ecdaa5a3
+  stderr_byte_identical: true
+  stderr_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  filesystem_snapshot_identical_before_between_after: true
+  filesystem_snapshot_sha256: cd9389ae8da9126b6db793b48c615055f7527d176056b6edf5330721fa112531
+  filesystem_file_count: 14
+  filesystem_paths:
+    - contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+    - contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/contract-manifest.yaml
+    - contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/foundation-boundaries.json
+    - contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/issue-forecast.json
+    - contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/portfolio-snapshot.json
+    - contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/foundation-boundaries.schema.json
+    - contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/issue-forecast.schema.json
+    - contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/portfolio-snapshot.schema.json
+    - qa-unrelated-sentinel.bin
+    - tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/contract_definition.py
+    - tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/manifest_validation.py
+    - tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/semantic_invariants.py
+    - tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validation_types.py
+    - tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validator.py
+  unexpected_files_created: false
+  idempotent: true
+
+sentinel:
+  path: qa-unrelated-sentinel.bin
+  sha256: 9309071b29a8504b64af88adbbc0d47c6573d68056334f75bf2b67a68117bb4f
+  path_unchanged: true
+  bytes_unchanged: true
+  hash_unchanged: true
+
+fail_closed:
+  matrix_pass: true
+  controlled_findings: true
+  traceback_absent: true
+  silent_fallback_absent: true
+  input_mutation_absent: true
+  stderr_sha256_all_cases: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  cases:
+    - case: required_artifact_missing
+      expected_finding: ARTIFACT_MISSING
+      return_code: 1
+      stdout_sha256: ea6bb9f1c36409d300dbea7ad21559533bec5a0b21b7d80b04528895b3c117f5
+      filesystem_snapshot_sha256: b5579260a4a4b5b65d2b868b8c82e996380cc671615c72ca7be4c13a0c6b6626
+      repeated_identically: true
+    - case: invalid_truncated_json
+      expected_finding: JSON_INVALID
+      return_code: 1
+      stdout_sha256: 81c8443b1e28ff6bd69ecd5dea50db85772aba17f06777c22b16b9bfffecd856
+      filesystem_snapshot_sha256: 585ed552f9377375718e2d54f481dbeb9d4d6c4d241fa8efeab5122c429b4c00
+    - case: unresolvable_reference
+      expected_finding: SCHEMA_REFERENCE_UNRESOLVABLE
+      return_code: 1
+      stdout_sha256: 2428542cca5d5a10f8e7112f9ff8f09728825558d3dde3a812bcc1a9241f8013
+      filesystem_snapshot_sha256: 00443e10212d58c3e7619145a26818aa81f5b535bea62ee2f162dbc9ab4a23d2
+    - case: invalid_owner_metadata
+      expected_finding: OWNER_INVALID
+      return_code: 1
+      stdout_sha256: 6adbee164be7246bbc5abb64585d0cdeda308e9777676181b11c95abccda5811
+      filesystem_snapshot_sha256: 73eb31926beaaf64822eb78b6700a5fc922818034f29d8a08dc11c95208f6bf8
+    - case: prohibited_unknown_property
+      expected_finding: EXAMPLE_SCHEMA_INVALID
+      return_code: 1
+      stdout_sha256: b51e15c83ee656b6842c038d0c228a61ea68a7646b71a3cb499f94367ad8bc7e
+      filesystem_snapshot_sha256: 03f625de8eaa2a80940fd4a12954820f1c1fc1f76378a8d57ddb9848ebf0d1f6
+    - case: violated_semantic_invariant
+      expected_finding: INVALID_INTERVAL_ORDER
+      return_code: 1
+      stdout_sha256: 0abafb89d4595cdbcbdc9192fd34297746445ec89a46637fb209adebd736b4bc
+      filesystem_snapshot_sha256: 72df297a436096fbaeefd2023aa38c23b760e40e50f3d3ebc98421144711bfd1
+    - case: unsupported_schema_dialect
+      expected_finding: SCHEMA_DIALECT_INVALID
+      return_code: 1
+      stdout_sha256: 6b7526dd46da8e05cedba303d9fa55bc29316bffba2e22b02d92a96974c7d338
+      filesystem_snapshot_sha256: 891575e2c258e46622165da9c98b4f18b1615bb1b636fe58c47160d3b2d54c92
+    - case: invalid_unannounced_leap_second
+      expected_finding: EXAMPLE_SCHEMA_INVALID
+      return_code: 1
+      stdout_sha256: 1fd64acdb0913e79f08d4414fd8f2045cef1c9deebb4434271e88badc91af567
+      filesystem_snapshot_sha256: 7927f308e6adcbe9db938cdf3754e26c1596eb3f0b57ef9605657be3ccff5adb
+
+candidate_clean_reproduction:
+  source_inventory: EXPLICIT_GOVERNED_PATHS_CROSS_CHECKED_WITH_GIT_TRACKED_FILES
+  workspace_file_count: 14
+  clean_tree_file_count: 14
+  workspace_snapshot_sha256: cd9389ae8da9126b6db793b48c615055f7527d176056b6edf5330721fa112531
+  clean_tree_snapshot_sha256: cd9389ae8da9126b6db793b48c615055f7527d176056b6edf5330721fa112531
+  path_inventory_identical: true
+  return_codes_identical: true
+  stdout_stderr_evidence_identical: true
+  fail_closed_outcomes_identical: true
+  workspace_clean_tree_evidence_equivalent: true
+
+mandatory_gates:
+  canonical_test:
+    result: PASS
+    return_code: 0
+  make_verify:
+    result: PASS
+    return_code: 0
+    repository_validation: PASS
+    architecture_review: PASS
+    requirements_review: PASS
+    domain_driven_design_review: PASS
+    adr_review: PASS
+    specification_review: PASS
+    sprint_review: PASS
+    python_architecture: PASS
+
+scope:
+  authorized_paths_only: true
+  devops_files_changed: false
+  frozen_contract_changed: false
+  issue_0113_files_changed: false
+  project_configuration_changed: false
+  project_date_fields_protected: true
+
+limitations_and_residual_risks:
+  - The matrix targets published STORY-0003 end-to-end boundaries and does not duplicate the full implementation-unit suite.
+  - Local evidence covers CPython 3.12.10 on Windows; the approved workflow remains the Linux/CPython 3.12.13 integration surface.
+  - The exact candidate SHA is recorded in the final handoff after all gates and commit creation, following the repository evidence convention.
+
+candidate_commit:
+  status: CREATED_AFTER_ALL_GATES
+  sha_location: FINAL_HANDOFF
+  evidence_final_tree_aligned: true
