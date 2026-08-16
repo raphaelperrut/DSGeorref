@@ -508,7 +508,10 @@ def test_adr_governance_overlap() -> None:
     )
     assert "ADR_REFERENCE_DUPLICATE" in _codes(duplicate)
 
-    repository, base, candidate, proposal = _overlapping_adr_repository()
+    repository, base, candidate, proposal = _adr_overlap_repository(
+        "Durable dispatch state is stored authoritatively in PostgreSQL, "
+        "while RabbitMQ only transports messages."
+    )
     bypass = validate_adr_change_governance(
         repository,
         base_revision=base,
@@ -520,8 +523,22 @@ def test_adr_governance_overlap() -> None:
     )
     assert "ADR_OVERLAP_UNRESOLVED" in _codes(bypass)
 
+    repository, base, candidate, proposal = _adr_overlap_repository(
+        "Browser color themes are selected per user preference."
+    )
+    unrelated = validate_adr_change_governance(
+        repository,
+        base_revision=base,
+        candidate_revision=candidate,
+        proposal_path=proposal,
+        overlapping_adr_ids=(),
+        superseded_adr_ids=(),
+        declared_normative_owner="ADR-001",
+    )
+    assert "ADR_OVERLAP_UNRESOLVED" not in _codes(unrelated)
 
-def _overlapping_adr_repository() -> tuple[Path, str, str, str]:
+
+def _adr_overlap_repository(candidate_decision: str) -> tuple[Path, str, str, str]:
     repository = _fixture_directory("overlap-authority")
     _init_repository(repository)
     header = (
@@ -539,13 +556,17 @@ def _overlapping_adr_repository() -> tuple[Path, str, str, str]:
     _write(
         repository,
         second_path,
-        _adr_fixture("ADR-002", "Shared durable boundary decision."),
+        _adr_fixture(
+            "ADR-002",
+            "PostgreSQL is authoritative for durable dispatch state; "
+            "RabbitMQ is transport only.",
+        ),
     )
     base = _commit(repository, "accepted ADR baseline")
     _write(
         repository,
         first_path,
-        _adr_fixture("ADR-001", "Shared durable boundary decision."),
+        _adr_fixture("ADR-001", candidate_decision),
     )
     candidate = _commit(repository, "material overlapping ADR change")
     return repository, base, candidate, first_path

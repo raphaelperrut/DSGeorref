@@ -218,6 +218,26 @@ def _owned_requirements(text: str) -> frozenset[str]:
     )
 
 
+def _decision_terms(clause: str) -> frozenset[str]:
+    return frozenset(
+        term for term in re.findall(r"[^\W_]+", clause.casefold()) if len(term) >= 4
+    )
+
+
+def _decision_similarity_signal(left: str, right: str) -> bool:
+    left_terms = _decision_terms(left)
+    right_terms = _decision_terms(right)
+    shared = left_terms & right_terms
+    shorter = min(len(left_terms), len(right_terms))
+    return shorter > 0 and len(shared) >= 3 and len(shared) * 2 >= shorter
+
+
+def _bounded_contexts(row: dict[str, str]) -> frozenset[str]:
+    return frozenset(
+        item.strip() for item in row.get("bounded_contexts", "").split("/") if item.strip()
+    )
+
+
 def _derived_overlapping_adr_ids(
     repository_root: Path,
     revision: str,
@@ -232,17 +252,21 @@ def _derived_overlapping_adr_ids(
     decisions = _section_bullets(candidate_text, "Decisão")
     requirements = _owned_requirements(candidate_text)
     overlaps = set(_explicit_superseded_ids(candidate_text))
+    proposal_contexts = _bounded_contexts(index.get(str(proposal_id), {}))
     for adr_id, row in index.items():
         if adr_id == proposal_id:
             continue
         path = str(ADR_DIRECTORY / str(row.get("file", "")))
-        try:
-            other_text = _adr_text(repository_root, revision, path)
-        except ValueError:
-            continue
-        same_decision = bool(decisions & _section_bullets(other_text, "Decisão"))
+        other_text = _adr_text(repository_root, revision, path)
+        other_decisions = _section_bullets(other_text, "Decisão")
+        same_decision = bool(decisions & other_decisions)
+        similar_decision = bool(proposal_contexts & _bounded_contexts(row)) and any(
+            _decision_similarity_signal(left, right)
+            for left in decisions
+            for right in other_decisions
+        )
         same_requirement = bool(requirements & _owned_requirements(other_text))
-        if same_decision or same_requirement:
+        if same_decision or similar_decision or same_requirement:
             overlaps.add(adr_id)
     return frozenset(overlaps)
 
@@ -275,14 +299,18 @@ def validate_adr_change_governance(
     explicit = _explicit_superseded_ids(candidate_text)
     if frozenset(superseded) != explicit:
         findings.append(Finding("SUPERSESSION_CLAIM_MISMATCH", "superseded_adr_ids", "claim differs from governed ADR metadata"))
-    derived_overlaps = _derived_overlapping_adr_ids(
-        repository_root,
-        candidate_revision,
-        proposal_path,
-        index,
-        candidate_text,
-        base_text,
-    )
+    try:
+        derived_overlaps = _derived_overlapping_adr_ids(
+            repository_root,
+            candidate_revision,
+            proposal_path,
+            index,
+            candidate_text,
+            base_text,
+        )
+    except ValueError as error:
+        findings.append(Finding("ADR_AUTHORITY_INVALID", proposal_path, str(error)))
+        return sorted(set(findings))
     unresolved = sorted((set(overlaps) | set(derived_overlaps)) - explicit)
     if unresolved:
         findings.append(Finding("ADR_OVERLAP_UNRESOLVED", "overlapping_adr_ids", ", ".join(unresolved)))
