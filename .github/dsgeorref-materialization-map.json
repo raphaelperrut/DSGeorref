@@ -229,7 +229,7 @@
     "ISSUE-0111->ISSUE-0798",
     "ISSUE-0111->ISSUE-0799",
     "ISSUE-0112->ISSUE-0114",
-    "ISSUE-0113->ISSUE-0114",
+    "ISSUE-0113->ISSUE-0869",
     "ISSUE-0114->ISSUE-0115",
     "ISSUE-0115->ISSUE-0121",
     "ISSUE-0115->ISSUE-0136",
@@ -1389,7 +1389,8 @@
     "ISSUE-0865->ISSUE-0794",
     "ISSUE-0866->ISSUE-0794",
     "ISSUE-0867->ISSUE-0794",
-    "ISSUE-0868->ISSUE-0794"
+    "ISSUE-0868->ISSUE-0794",
+    "ISSUE-0869->ISSUE-0114"
   ],
   "issues": {
     "ISSUE-0001": {
@@ -6535,6 +6536,11 @@
       "number": 103,
       "title": "[ISSUE-0868] Slice 5/5 — Materializar a fundação executável: governança contínua do backlog e decomposição de épicos em histórias implementáveis [REQ-SPRINT-001]",
       "url": "https://github.com/raphaelperrut/DSGeorref/issues/103"
+    },
+    "ISSUE-0869": {
+      "number": 877,
+      "title": "[ISSUE-0869] Validar automação fail-closed e idempotente: governança de decisões arquiteturais e manutenção da baseline normativa",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/877"
     }
   },
   "schema_version": "1.0.0"
