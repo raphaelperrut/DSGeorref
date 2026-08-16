@@ -26,6 +26,11 @@ candidate_history:
   contract_satisfied: false
   previous_negative_cases: FAIL
   evidence_matches_new_candidate: false
+- sha: b7c6ea32f7c30aee22cfa9df8faf8bf495a08bed
+  review: THIRD_REVIEW
+  result: CHANGES_REQUIRED
+  valid_rfc3339_leap_seconds: FAIL
+  contract_satisfied: false
 review_findings:
 - severity: HIGH
   finding: unresolved schema reference leaked a traceback
@@ -49,12 +54,22 @@ review_findings:
     date_time_checker_available: false
     rfc3339_optional_package_available: false
     invalid_date_time_accepted: true
-  resolution: a dedicated instance-scoped RFC 3339 checker validates structure and calendar semantics without optional packages
+  resolution: the initial dedicated checker closed invalid-value fail-open behavior without optional packages; leap-second completeness is corrected by the subsequent finding
+  status: FIXED
+- severity: HIGH
+  finding: the dedicated RFC 3339 checker rejected valid leap-second representations
+  reproduced_on_candidate: b7c6ea32f7c30aee22cfa9df8faf8bf495a08bed
+  reproduced_values:
+  - '1998-12-31T23:59:60Z'
+  - '1998-12-31T15:59:60.123-08:00'
+  cause: Python datetime cannot directly represent second 60 and the grammar allowed only seconds 00 through 59
+  resolution: second 60 is normalized by the declared offset and accepted only at the RFC 3339 leap-second position at the last minute UTC of a month
+  historical_occurrence_table_used: false
   status: FIXED
 new_candidate:
   status: CREATED_AFTER_ALL_GATES
   sha_source: PR_HEAD_AND_FINAL_HANDOFF
-  supersedes_for_approval: 264ca587f7158c75c34796b3c02fd0806f7eb564
+  supersedes_for_approval: b7c6ea32f7c30aee22cfa9df8faf8bf495a08bed
 changed_files:
 - tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validator.py
 - tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validation_types.py
@@ -84,6 +99,17 @@ focused_validation:
   date_time_controlled_finding: PASS
   date_time_without_traceback: PASS
   date_time_deterministic: PASS
+  rfc3339_normal_timestamps: PASS
+  rfc3339_lowercase_t_z: PASS
+  rfc3339_valid_offsets: PASS
+  rfc3339_valid_fractions: PASS
+  leap_second_utc: PASS
+  leap_second_offset: PASS
+  leap_second_offset_fraction: PASS
+  leap_second_61_rejected: PASS
+  leap_second_wrong_utc_position_rejected: PASS
+  leap_second_non_month_end_rejected: PASS
+  all_historical_findings_regression: PASS
   repeated_output_identical: PASS
   input_hashes_unchanged: PASS
 contract_validation:

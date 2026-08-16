@@ -5,8 +5,9 @@ import csv
 import json
 import re
 import sys
+from calendar import monthrange
 from collections import Counter
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 from urllib.parse import unquote, urldefrag, urljoin
@@ -31,8 +32,9 @@ from validation_types import Finding, expect
 _RFC3339_DATE_TIME = re.compile(
     r"^(?P<year>[0-9]{4})-(?P<month>0[1-9]|1[0-2])-(?P<day>[0-9]{2})"
     r"[Tt](?P<hour>[01][0-9]|2[0-3]):(?P<minute>[0-5][0-9]):"
-    r"(?P<second>[0-5][0-9])(?:\.[0-9]+)?"
-    r"(?:[Zz]|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])$"
+    r"(?P<second>[0-5][0-9]|60)(?:\.[0-9]+)?"
+    r"(?P<timezone>[Zz]|(?P<offset_sign>[+-])"
+    r"(?P<offset_hour>[01][0-9]|2[0-3]):(?P<offset_minute>[0-5][0-9]))$"
 )
 
 
@@ -42,18 +44,34 @@ def _is_rfc3339_date_time(value: object) -> bool:
     match = _RFC3339_DATE_TIME.fullmatch(value)
     if match is None:
         return False
+    second = int(match.group("second"))
     try:
-        datetime(
+        local_time = datetime(
             year=int(match.group("year")),
             month=int(match.group("month")),
             day=int(match.group("day")),
             hour=int(match.group("hour")),
             minute=int(match.group("minute")),
-            second=int(match.group("second")),
+            second=min(second, 59),
         )
     except ValueError:
         return False
-    return True
+    if second < 60:
+        return True
+    offset_minutes = 0
+    if match.group("timezone").upper() != "Z":
+        offset_minutes = 60 * int(match.group("offset_hour")) + int(
+            match.group("offset_minute")
+        )
+        if match.group("offset_sign") == "-":
+            offset_minutes = -offset_minutes
+    try:
+        utc_time = local_time - timedelta(minutes=offset_minutes)
+    except OverflowError:
+        return False
+    is_last_minute_utc = utc_time.hour == 23 and utc_time.minute == 59
+    is_month_end_utc = utc_time.day == monthrange(utc_time.year, utc_time.month)[1]
+    return is_last_minute_utc and is_month_end_utc
 
 
 def _story_format_checker() -> FormatChecker:
