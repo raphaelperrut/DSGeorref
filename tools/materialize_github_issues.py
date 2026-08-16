@@ -84,6 +84,7 @@ class RemoteIssue:
     number: int
     title: str
     url: str
+    body: str = ""
 
 
 def run_command(
@@ -238,7 +239,7 @@ def list_remote_issues(repo: str) -> dict[str, RemoteIssue]:
             "--limit",
             "1000",
             "--json",
-            "number,title,url",
+            "number,title,url,body",
         ],
         check=False,
     )
@@ -261,8 +262,92 @@ def list_remote_issues(repo: str) -> dict[str, RemoteIssue]:
             number=int(row["number"]),
             title=row["title"],
             url=row["url"],
+            body=row.get("body") or "",
         )
     return remote
+
+
+def validate_remote_adoptions(
+    *,
+    issues: Iterable[CanonicalIssue],
+    remote: dict[str, RemoteIssue],
+    existing_ids: set[str],
+) -> list[tuple[str, RemoteIssue]]:
+    """Return unmapped remote issues that can be adopted without ambiguity."""
+
+    canonical = {issue.issue_id: issue for issue in issues}
+    adoptions: list[tuple[str, RemoteIssue]] = []
+    for stable_id in sorted(set(remote) - existing_ids):
+        issue = canonical.get(stable_id)
+        if issue is None:
+            continue
+        candidate = remote[stable_id]
+        source = issue.source_path.relative_to(ROOT).as_posix()
+        required_markers = (
+            f"**Stable ID:** `{stable_id}`",
+            f"**Fonte canônica:** `{source}`",
+        )
+        if candidate.title != issue.github_title or any(
+            marker not in candidate.body for marker in required_markers
+        ):
+            raise MaterializationError(
+                f"Issue remota #{candidate.number} não pode ser adotada como {stable_id}: "
+                "título ou rastreabilidade não correspondem à fonte canônica."
+            )
+        adoptions.append((stable_id, candidate))
+    return adoptions
+
+
+def available_native_issue_types(repo: str) -> tuple[str, set[str]]:
+    """Return repository owner type and native issue types before any mutation."""
+
+    try:
+        owner, name = repo.split("/", 1)
+    except ValueError as exc:
+        raise MaterializationError(
+            f"Repository inválido: {repo!r}; use OWNER/REPO."
+        ) from exc
+    query = """
+    query($owner: String!, $name: String!) {
+      repository(owner: $owner, name: $name) {
+        owner { __typename }
+        issueTypes(first: 100) { nodes { name } }
+      }
+    }
+    """
+    result = run_command(
+        [
+            "gh",
+            "api",
+            "graphql",
+            "-f",
+            f"query={query}",
+            "-f",
+            f"owner={owner}",
+            "-f",
+            f"name={name}",
+        ],
+        check=False,
+    )
+    if result.returncode != 0:
+        raise MaterializationError(
+            "Falha no preflight de native Issue Types:\n"
+            + (result.stderr or result.stdout)
+        )
+    try:
+        repository = json.loads(result.stdout)["data"]["repository"]
+        owner_type = repository["owner"]["__typename"]
+        connection = repository.get("issueTypes") or {}
+        available = {
+            node["name"]
+            for node in connection.get("nodes", [])
+            if isinstance(node, dict) and node.get("name")
+        }
+    except (KeyError, TypeError, json.JSONDecodeError) as exc:
+        raise MaterializationError(
+            "Resposta inválida no preflight de native Issue Types."
+        ) from exc
+    return owner_type, available
 
 
 def merge_remote_into_state(state: dict[str, Any], remote: dict[str, RemoteIssue]) -> None:
@@ -347,7 +432,7 @@ def create_issue(
     project_title: str | None,
     milestone: str | None,
     parent_number: int | None,
-    use_issue_types: bool,
+    native_issue_type: str | None,
 ) -> RemoteIssue:
     with tempfile.NamedTemporaryFile(
         mode="w",
@@ -375,8 +460,8 @@ def create_issue(
         command.extend(["--milestone", milestone])
     if parent_number is not None:
         command.extend(["--parent", str(parent_number)])
-    if use_issue_types:
-        command.extend(["--type", "Epic" if issue.is_epic else "Story"])
+    if native_issue_type:
+        command.extend(["--type", native_issue_type])
 
     try:
         result = run_command(command, check=False)
@@ -668,9 +753,12 @@ def main() -> int:
         state = load_state(state_path)
 
         remote = list_remote_issues(args.repo) if shutil.which("gh") else {}
+        adoptions = validate_remote_adoptions(
+            issues=issues,
+            remote=remote,
+            existing_ids=set(state["issues"]),
+        )
         merge_remote_into_state(state, remote)
-        if args.apply:
-            save_state(state_path, state)
 
         existing_ids = set(state["issues"])
         pending = [] if args.only_links else select_issues(
@@ -683,11 +771,38 @@ def main() -> int:
         )
         epic_issue_ids = canonical_epic_issue_ids(issues)
 
+        target_issue_ids = {stable_id for stable_id, _remote_issue in adoptions}
+        target_issue_ids.update(issue.issue_id for issue in pending)
+        target_issues = [
+            issue for issue in issues if issue.issue_id in target_issue_ids
+        ]
+        native_issue_types: set[str] = set()
+        if args.use_issue_types and target_issues:
+            owner_type, native_issue_types = available_native_issue_types(args.repo)
+            requested_types = {
+                "Epic" if issue.is_epic else "Story" for issue in target_issues
+            }
+            for requested_type in sorted(requested_types - native_issue_types):
+                reason = (
+                    "personal repository owner"
+                    if owner_type == "User"
+                    else "type unavailable in repository"
+                )
+                print(
+                    f"NATIVE ISSUE TYPE {requested_type}: NOT_APPLICABLE "
+                    f"({reason}); Project Work Type remains authoritative"
+                )
+
+        if args.apply:
+            save_state(state_path, state)
+
         mode = "APPLY" if args.apply else "DRY-RUN"
         print(f"MODE: {mode}")
         print(f"Repository: {args.repo}")
         print(f"Existing materialized issues: {len(existing_ids)}")
         print(f"Pending in this batch: {len(pending)}")
+        for stable_id, remote_issue in adoptions:
+            print(f"ADOPT {stable_id} -> #{remote_issue.number} {remote_issue.url}")
 
         created_count = 0
         for issue in pending:
@@ -707,13 +822,18 @@ def main() -> int:
             )
             if not args.apply:
                 continue
+            desired_native_issue_type = "Epic" if issue.is_epic else "Story"
             remote_issue = create_issue(
                 issue,
                 repo=args.repo,
                 project_title=args.project_title,
                 milestone=args.milestone,
                 parent_number=parent_number,
-                use_issue_types=args.use_issue_types,
+                native_issue_type=(
+                    desired_native_issue_type
+                    if desired_native_issue_type in native_issue_types
+                    else None
+                ),
             )
             state["issues"][issue.issue_id] = {
                 "number": remote_issue.number,
@@ -745,6 +865,7 @@ def main() -> int:
         print("\nSUMMARY")
         print(f"Created issues: {created_count if args.apply else 0}")
         print(f"Planned creates in dry-run: {len(pending) if not args.apply else 0}")
+        print(f"Remote adoptions: {len(adoptions)}")
         print(f"Dependency links created: {dependency_created}")
         print(f"Dependency links waiting for missing issues: {dependency_unavailable}")
         print(f"State file: {state_path.relative_to(ROOT) if state_path.is_relative_to(ROOT) else state_path}")
