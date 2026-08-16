@@ -5,7 +5,6 @@ import csv
 import json
 import re
 import sys
-from calendar import monthrange
 from collections import Counter
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -15,7 +14,8 @@ from urllib.parse import unquote, urldefrag, urljoin
 from jsonschema import Draft202012Validator, FormatChecker
 from jsonschema.exceptions import SchemaError
 from referencing import Registry, Resource
-from referencing.exceptions import Unresolvable
+from referencing.exceptions import CannotDetermineSpecification, Unresolvable
+from referencing.jsonschema import UnknownDialect
 
 from contract_definition import (
     CONTRACT_REL,
@@ -35,6 +35,40 @@ _RFC3339_DATE_TIME = re.compile(
     r"(?P<second>[0-5][0-9]|60)(?:\.[0-9]+)?"
     r"(?P<timezone>[Zz]|(?P<offset_sign>[+-])"
     r"(?P<offset_hour>[01][0-9]|2[0-3]):(?P<offset_minute>[0-5][0-9]))$"
+)
+
+# IERS-announced positive leap-second insertion dates through Bulletin C 72.
+# Unlisted future dates remain invalid until this offline table is updated.
+_POSITIVE_LEAP_SECOND_DATES_UTC = frozenset(
+    {
+        (1972, 6, 30),
+        (1972, 12, 31),
+        (1973, 12, 31),
+        (1974, 12, 31),
+        (1975, 12, 31),
+        (1976, 12, 31),
+        (1977, 12, 31),
+        (1978, 12, 31),
+        (1979, 12, 31),
+        (1981, 6, 30),
+        (1982, 6, 30),
+        (1983, 6, 30),
+        (1985, 6, 30),
+        (1987, 12, 31),
+        (1989, 12, 31),
+        (1990, 12, 31),
+        (1992, 6, 30),
+        (1993, 6, 30),
+        (1994, 6, 30),
+        (1995, 12, 31),
+        (1997, 6, 30),
+        (1998, 12, 31),
+        (2005, 12, 31),
+        (2008, 12, 31),
+        (2012, 6, 30),
+        (2015, 6, 30),
+        (2016, 12, 31),
+    }
 )
 
 
@@ -69,9 +103,12 @@ def _is_rfc3339_date_time(value: object) -> bool:
         utc_time = local_time - timedelta(minutes=offset_minutes)
     except OverflowError:
         return False
-    is_last_minute_utc = utc_time.hour == 23 and utc_time.minute == 59
-    is_month_end_utc = utc_time.day == monthrange(utc_time.year, utc_time.month)[1]
-    return is_last_minute_utc and is_month_end_utc
+    utc_date = (utc_time.year, utc_time.month, utc_time.day)
+    return (
+        utc_time.hour == 23
+        and utc_time.minute == 59
+        and utc_date in _POSITIVE_LEAP_SECOND_DATES_UTC
+    )
 
 
 def _story_format_checker() -> FormatChecker:
@@ -181,11 +218,16 @@ def _validate_schema_pairs(root: Path) -> tuple[dict[str, dict[str, Any]], list[
             continue
         try:
             Draft202012Validator.check_schema(schema)
-            registry = registry.with_resource(schema["$id"], Resource.from_contents(schema))
+            schema_id = schema["$id"]
         except (SchemaError, KeyError) as exc:
             findings.append(Finding(artifact, "SCHEMA_INVALID", str(exc).splitlines()[0]))
-        else:
-            valid_schemas[contract_id] = schema
+            continue
+        try:
+            resource = Resource.from_contents(schema)
+        except (CannotDetermineSpecification, UnknownDialect):
+            continue
+        registry = registry.with_resource(schema_id, resource)
+        valid_schemas[contract_id] = schema
     valid_examples: dict[str, dict[str, Any]] = {}
     format_checker = _story_format_checker()
     for contract_id in sorted(set(valid_schemas) & set(examples)):
