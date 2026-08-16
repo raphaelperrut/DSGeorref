@@ -1,0 +1,88 @@
+schema_version: 1.0.0
+evidence_type: DEVOPS_IMPLEMENTATION
+traceability:
+  story_id: STORY-0003
+  issue_id: ISSUE-0113
+  github_issue: 15
+  task_id: TASK-0003
+  executor: DevOps
+baseline:
+  branch: main
+  starting_head: 54a960345ba8fd94a480237b9c5944dbf4d503dc
+  origin_main: 54a960345ba8fd94a480237b9c5944dbf4d503dc
+  ahead_behind: 0/0
+  worktree_at_start: CLEAN
+candidate_commit:
+  status: CREATED_AFTER_ALL_GATES
+  sha_location: FINAL_HANDOFF
+implementation:
+  validator:
+    entrypoint: tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validator.py
+    contract_version: 1.0.0
+    properties:
+    - READ_ONLY
+    - DETERMINISTIC
+    - IDEMPOTENT
+    - FAIL_CLOSED
+    - ACTIONABLE_DIAGNOSTICS
+  workflow: .github/workflows/governanca-de-decisoes-arquiteturais-e-manutencao-da-b.yaml
+  workflow_permissions:
+    contents: read
+changed_files:
+- tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/contract_definition.py
+- tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/manifest_validation.py
+- tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validator.py
+- tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/semantic_invariants.py
+- tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validation_types.py
+- .github/workflows/governanca-de-decisoes-arquiteturais-e-manutencao-da-b.yaml
+- evidence/operations/epic-001/story-0003/IMPLEMENTATION_EVIDENCE.yaml
+commands:
+- command: python -m pip install -r requirements-validation.txt
+  result: PASS
+  detail: PyYAML 6.0.3, jsonschema 4.26.0 and cryptography 50.0.0 installed.
+- command: python tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validator.py
+  result: PASS
+  detail: Manifest, three schema/example pairs, references, ownership and semantic invariants passed.
+- command: workflow YAML parse with PyYAML
+  result: PASS
+  detail: Workflow is valid YAML and uses Python 3.12.13 with read-only contents permission.
+- command: direct execution of test_epic_001_contrato
+  result: PASS
+  detail: Existing frozen contract validation passed without modifying the test.
+focused_validation:
+  happy_path: PASS
+  repeated_output_identical: PASS
+  input_hashes_unchanged: PASS
+  missing_schema_exit_nonzero: PASS
+  unknown_property_exit_nonzero: PASS
+  invalid_schema_exit_nonzero: PASS
+  semantic_invariant_exit_nonzero: PASS
+  invalid_manifest_version_exit_nonzero: PASS
+  invalid_ownership_exit_nonzero: PASS
+  diagnostics_actionable: PASS
+gate_results:
+  repository_validator: PASS
+  make_verify: PASS
+  workflow_yaml_validation: PASS
+  git_diff_check: PASS
+scope:
+  task0003_write_scope_respected: true
+  tests_touched: false
+  qa_evidence_touched: false
+  frozen_contracts_touched: false
+  src_touched: false
+  justification: Only the validator subtree, its workflow and DevOps evidence are changed.
+operational_impact:
+  api: NOT_APPLICABLE
+  database: NOT_APPLICABLE
+  runtime_product: NOT_APPLICABLE
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+limitations:
+- Local validation uses available CPython 3.13.2; CI pins the normative CPython 3.12.13.
+- Pytest is not part of requirements-validation.txt in this baseline; the named contract test function was executed directly and passed.
+- QA validation and independent approval remain owned by STORY-0759 / ISSUE-0869 / GitHub #877.
+qa_handoff:
+  target: STORY-0759 / ISSUE-0869 / TASK-0759 / GitHub #877
+  test_automation_created_by_devops: false
+  qa_evidence_created_by_devops: false
