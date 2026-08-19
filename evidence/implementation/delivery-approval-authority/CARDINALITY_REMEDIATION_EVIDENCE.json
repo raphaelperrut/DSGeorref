@@ -1,0 +1,44 @@
+{
+  "authority": {
+    "adr_058_rule": "Executor, QA and Reviewer accountable-subject sets are pairwise disjoint for the same TaskEnvelope and candidate SHA.",
+    "authoritative_cardinality": "NON_EMPTY_SET",
+    "task_0760_rule": "Machine-verifiable rules require pairwise-disjoint accountable-subject sets for Executor, QA and Reviewer.",
+    "upper_cardinality_bound_defined": false
+  },
+  "candidate_sha_in_evidence": false,
+  "changes": {
+    "implementation_range_authorized_paths_after_remediation": 12,
+    "readme_aligned": true,
+    "regression": "test_multiple_valid_executors_are_accepted",
+    "verifier_changed": false
+  },
+  "digests": {
+    ".codex/tasks/TASK-0760.json": "d43e024a0604f03db199bf307607078bcdada2382b073a0a1f85fa6dd7e03f3d",
+    "contracts/assurance/delivery-approval-authority/README.md": "201c106739b68ed7e3854ae3de0ceb6087fe7fbf6d4013f2033c4dcee440eab7",
+    "docs/02-architecture/adrs/ADR-058-delivery-approval-authority-e-attestations-criptograficas-independentes.md": "760c972e53e8a61a1ac102c48c6b81429cfe1d8e29e071e93f4abb2d06c75a9d",
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_delivery_approval_authority_contract.py": "0a2afabd23972db784b89446d589a2cae14a5961c74cfc2dc183cae4ba745032"
+  },
+  "finding": {
+    "code": "UNAUTHORIZED_EXECUTOR_EXACTLY_ONE_CARDINALITY",
+    "severity": "HIGH"
+  },
+  "remediation_of_rejected_candidate": "cf4328feefa841428dadee1ea61649ac1006d3f2",
+  "results": {
+    "adversarial_probes": {
+      "false_passes": 0,
+      "passed": 24,
+      "status": "PASS"
+    },
+    "focused_contract_tests": {
+      "passed": 3,
+      "status": "PASS"
+    },
+    "functional_regressions": {
+      "passed": 7,
+      "status": "PASS"
+    },
+    "make_verify_utf8": "PASS",
+    "multiple_valid_executors_probe": "PASS"
+  },
+  "schema_version": "1.0.0"
+}

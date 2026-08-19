@@ -77,6 +77,11 @@ def _private_key(label: str) -> Ed25519PrivateKey:
     return Ed25519PrivateKey.from_private_bytes(seed)
 
 
+def _public_key(label: str) -> str:
+    public_bytes = _private_key(label).public_key().public_bytes_raw()
+    return base64.urlsafe_b64encode(public_bytes).rstrip(b"=").decode()
+
+
 def _signature_message(document: dict[str, Any], domain: str) -> bytes:
     projection = copy.deepcopy(document)
     projection["signature"]["value"] = ""
@@ -561,13 +566,83 @@ def test_delivery_approval_authority_contract() -> None:
     assert verdict["status"] == "PASS"
     assert verdict["code"] == "APPROVAL_AUTHORITY_VERIFIED"
     assert set(verdict["validated_roles"]) == set(ROLE_DECISIONS)
-    assert all(len(values) == 1 for values in verdict["accountable_subjects"].values())
+    assert all(verdict["accountable_subjects"][role] for role in ROLE_DECISIONS)
     with OWNERSHIP_PATH.open(encoding="utf-8", newline="") as ownership_file:
         registered = {row["contract"] for row in csv.DictReader(ownership_file)}
     assert PUBLISHED_PATHS <= registered
     prompt_schema = _load_json(ROOT / "contracts/prompts/prompt-bundle-signature.schema.json")
     assert prompt_schema["properties"]["message_profile"]["const"] not in DOMAINS.values()
     assert SCOPE not in json.dumps(prompt_schema, sort_keys=True)
+
+
+def test_multiple_valid_executors_are_accepted() -> None:
+    suite = _load_json(VECTOR_PATH)
+    trusted = suite["trusted_configuration"]
+    evidence = _evidence(suite)
+    context = _context(suite)
+    profile = copy.deepcopy(trusted["trust_profile"])
+
+    first_key = next(key for key in profile["keys"] if key["key_id"] == "daa-test-executor")
+    second_key = copy.deepcopy(first_key)
+    second_key.update(
+        key_id="daa-test-executor-2",
+        public_key=_public_key("executor-2"),
+        principal={
+            "issuer": first_key["principal"]["issuer"],
+            "subject": "principal-executor-2",
+        },
+    )
+    profile["keys"].append(second_key)
+    _resign(profile, "root", DOMAINS["profile"])
+
+    first_binding = next(item for item in evidence["bindings"] if item["role"] == "Executor")
+    second_binding = copy.deepcopy(first_binding)
+    second_binding.update(
+        binding_id="daa-binding-executor-2",
+        principal=second_key["principal"],
+        accountable_subject="acct:person/executor-2",
+    )
+    _resign(second_binding, "binding", DOMAINS["binding"])
+    evidence["bindings"].append(second_binding)
+
+    first_attestation = next(
+        item for item in evidence["attestations"] if item["role"] == "Executor"
+    )
+    second_attestation = copy.deepcopy(first_attestation)
+    second_attestation.update(
+        attestation_id="daa-attestation-executor-2",
+        principal=second_key["principal"],
+        accountable_subject="acct:person/executor-2",
+        binding={
+            "binding_id": second_binding["binding_id"],
+            "binding_version": second_binding["binding_version"],
+            "digest_sha256": _digest(second_binding),
+        },
+    )
+    second_attestation["signature"]["key_id"] = second_key["key_id"]
+    _resign(second_attestation, "executor-2", DOMAINS["attestation"])
+    evidence["attestations"].append(second_attestation)
+
+    verdict = _verify(
+        evidence,
+        trusted["trust_anchors"],
+        profile,
+        context["task_envelope"],
+        context["candidate_sha"],
+        suite["verification_time"],
+    )
+    assert verdict["status"] == "PASS"
+    assert verdict["code"] == "APPROVAL_AUTHORITY_VERIFIED"
+    assert verdict["accountable_subjects"]["Executor"] == [
+        "acct:person/executor",
+        "acct:person/executor-2",
+    ]
+    assert not (
+        set(verdict["accountable_subjects"]["Executor"])
+        & set(verdict["accountable_subjects"]["QA"])
+        | set(verdict["accountable_subjects"]["Executor"])
+        & set(verdict["accountable_subjects"]["Reviewer"])
+    )
 
 
 def test_delivery_approval_authority_fail_closed() -> None:

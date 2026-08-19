@@ -67,11 +67,16 @@ The TaskEnvelope must validate against `.codex/tasks/TASK_ENVELOPE.schema.json`.
 is SHA-256 of its canonical JSON bytes and must match every attestation. The expected
 candidate SHA is supplied by the verifier's calling gate and must match every attestation.
 
-For one TaskEnvelope/candidate pair, the complete PASS set is exactly:
+For one TaskEnvelope/candidate pair, a complete PASS requires a non-empty attestation set
+for every required role:
 
-- one `Executor` attestation with decision `DELIVERED`;
+- one or more `Executor` attestations with decision `DELIVERED`;
 - one or more `QA` attestations with decision `APPROVE`;
 - one or more `Reviewer` attestations with decision `APPROVE`.
+
+No required role has an upper cardinality bound in this contract. Multiple attestations for
+a role are accepted when every attestation is valid and the resulting accountable-subject
+sets remain pairwise disjoint across the three roles.
 
 Every attestation must have a valid signature from the principal key selected from the
 trusted profile, an exact valid binding digest, matching principal/role/accountable subject,
