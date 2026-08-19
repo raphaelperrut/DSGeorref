@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/assurance/delivery-approval-authority/approval-attestation/1.0.0",
+  "title": "DeliveryApprovalAttestation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "attestation_id", "trust_scope", "policy", "principal", "accountable_subject", "role", "decision", "binding", "task_envelope", "candidate_sha", "issued_at", "signature"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "attestation_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+    "trust_scope": {"const": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1"},
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "profile_version"],
+      "properties": {
+        "profile_id": {"type": "string"},
+        "profile_version": {"type": "string"}
+      }
+    },
+    "principal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["issuer", "subject"],
+      "properties": {
+        "issuer": {"type": "string", "format": "uri", "maxLength": 512},
+        "subject": {"type": "string", "minLength": 1, "maxLength": 512}
+      }
+    },
+    "accountable_subject": {"type": "string", "pattern": "^acct:[a-z0-9][a-z0-9._:@/-]{2,255}$"},
+    "role": {"enum": ["Executor", "QA", "Reviewer"]},
+    "decision": {"enum": ["DELIVERED", "APPROVE", "REJECT"]},
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_id", "binding_version", "digest_sha256"],
+      "properties": {
+        "binding_id": {"type": "string"},
+        "binding_version": {"type": "string"},
+        "digest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "task_envelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task_id", "digest_sha256"],
+      "properties": {
+        "task_id": {"type": "string", "pattern": "^TASK-[0-9]{4}$"},
+        "digest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "candidate_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "issued_at": {"type": "string", "format": "date-time"},
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key_id", "algorithm", "message_profile", "value"],
+      "properties": {
+        "key_id": {"type": "string"},
+        "algorithm": {"const": "Ed25519"},
+        "message_profile": {"const": "DSGEOREF-DELIVERY-APPROVAL-ATTESTATION-V1"},
+        "value": {"type": "string", "pattern": "^[A-Za-z0-9_-]{86}$"}
+      }
+    }
+  }
+}

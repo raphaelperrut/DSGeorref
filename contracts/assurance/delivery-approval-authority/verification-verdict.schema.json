@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/assurance/delivery-approval-authority/verification-verdict/1.0.0",
+  "title": "DeliveryApprovalVerificationVerdict",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "code", "trust_scope", "profile", "task_envelope", "candidate_sha", "verification_time", "validated_roles", "accountable_subjects"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "status": {"enum": ["PASS", "FAIL"]},
+    "code": {
+      "enum": [
+        "APPROVAL_AUTHORITY_VERIFIED", "SCHEMA_INVALID", "TRUST_ANCHOR_INVALID",
+        "TRUST_PROFILE_INVALID", "TRUST_SCOPE_INVALID", "POLICY_MISMATCH",
+        "ISSUER_UNTRUSTED", "SIGNER_UNKNOWN", "SIGNER_PURPOSE_INVALID",
+        "SIGNATURE_INVALID", "TEMPORAL_INVALID", "REVOKED", "SCOPE_INVALID",
+        "BINDING_MISSING", "BINDING_INVALID", "BINDING_MISMATCH",
+        "PRINCIPAL_MISMATCH", "ROLE_MISMATCH", "ACCOUNTABLE_SUBJECT_MISMATCH",
+        "TASK_ENVELOPE_INVALID", "TASK_ENVELOPE_DIGEST_MISMATCH",
+        "CANDIDATE_SHA_MISMATCH", "APPROVAL_MISSING", "DECISION_INVALID",
+        "INDEPENDENCE_VIOLATION"
+      ]
+    },
+    "trust_scope": {"const": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1"},
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "profile_version"],
+      "properties": {
+        "profile_id": {"type": "string"},
+        "profile_version": {"type": "string"}
+      }
+    },
+    "task_envelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task_id", "digest_sha256"],
+      "properties": {
+        "task_id": {"type": "string"},
+        "digest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "candidate_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "verification_time": {"type": "string", "format": "date-time"},
+    "validated_roles": {"type": "array", "uniqueItems": true, "items": {"enum": ["Executor", "QA", "Reviewer"]}},
+    "accountable_subjects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["Executor", "QA", "Reviewer"],
+      "properties": {
+        "Executor": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "QA": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "Reviewer": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "PASS"}}},
+      "then": {
+        "properties": {
+          "code": {"const": "APPROVAL_AUTHORITY_VERIFIED"},
+          "validated_roles": {"minItems": 3, "maxItems": 3}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "FAIL"}}},
+      "then": {
+        "properties": {
+          "validated_roles": {"maxItems": 0},
+          "accountable_subjects": {
+            "properties": {
+              "Executor": {"maxItems": 0},
+              "QA": {"maxItems": 0},
+              "Reviewer": {"maxItems": 0}
+            }
+          }
+        }
+      }
+    }
+  ]
+}

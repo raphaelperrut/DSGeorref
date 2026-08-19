@@ -1,0 +1,82 @@
+{
+  "candidate_sha_in_evidence": false,
+  "contract": {
+    "governing_adr": "ADR-058",
+    "owner": "BC-001",
+    "spec001_scope_reused": false,
+    "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+    "version": "1.0.0"
+  },
+  "digests": {
+    "artifacts": {
+      "contracts/assurance/delivery-approval-authority/README.md": "7710c520ddbfda22af3f381621f884af97f81ec7a77bdf0961e9cf050868328f",
+      "contracts/assurance/delivery-approval-authority/approval-attestation.schema.json": "d3ade93c1d7d918c918b957df28c0454f2f43571750b890914b20d557c9050a8",
+      "contracts/assurance/delivery-approval-authority/role-binding.schema.json": "3c45c84c42eb2e2f835583c37eb0d7a4132cd79fe68fb350d2cc6f1b3516a5c2",
+      "contracts/assurance/delivery-approval-authority/test-vectors/conformance-suite.json": "cf46783133327949c3cf309badd23774c82db32c84eb1ea037f09cccf386f6f2",
+      "contracts/assurance/delivery-approval-authority/trust-anchor-set.schema.json": "dc7a2d29a89c3aa11c9acd0a5bca0b0599d6ea63d8d2027fdca7d630e768d167",
+      "contracts/assurance/delivery-approval-authority/trust-profile.schema.json": "16054854fef135db4ede62541f50b91674836e305f9874e70a3288d581d05e21",
+      "contracts/assurance/delivery-approval-authority/verification-verdict.schema.json": "852ccf4697aea41797383261b522415a7bc4a22e6104cbfd8c3f7fcfd659a138",
+      "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv": "da7f802e359ca668f5a1448be570801c5933c64d39639a848fcb54acd0ea769f",
+      "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_delivery_approval_authority_contract.py": "99c6027e6fd83ee4d6727e6adf9c1070282d35a7c108cc2c2a85e72abaaa9ac9"
+    },
+    "probe_matrix_sha256": "bcf9e1ecc46866796569e31a679eee8c92d1f36e5822035357b2242a06819bef",
+    "profile": "SHA-256 over canonical JSON or UTF-8 with LF normalization",
+    "task_envelope_sha256": "d43e024a0604f03db199bf307607078bcdada2382b073a0a1f85fa6dd7e03f3d"
+  },
+  "identity": {
+    "issue_id": "ISSUE-0870",
+    "sprint_id": "SPRINT-001",
+    "story_id": "STORY-0760",
+    "task_id": "TASK-0760"
+  },
+  "results": {
+    "adversarial_probes": {
+      "false_passes": 0,
+      "passed": 24,
+      "status": "PASS"
+    },
+    "domain_driven_design_review": {
+      "status": "PASS"
+    },
+    "focused_contract_tests": {
+      "passed": 2,
+      "status": "PASS"
+    },
+    "golden_path": {
+      "status": "PASS"
+    },
+    "make_verify": {
+      "status": "PASS"
+    },
+    "ownership_and_contract_regressions": {
+      "passed": 6,
+      "status": "PASS"
+    },
+    "pairwise_independence": {
+      "status": "PASS"
+    },
+    "repository_validation": {
+      "status": "PASS"
+    },
+    "specification_review": {
+      "status": "PASS"
+    },
+    "task_and_candidate_replay_protection": {
+      "status": "PASS"
+    }
+  },
+  "schema_version": "1.0.0",
+  "trust_boundary": {
+    "caller_controlled_authority_paths": 0,
+    "trusted_context": [
+      "pinned trust anchor set",
+      "trusted profile repository",
+      "validated TaskEnvelope bytes",
+      "current candidate SHA from delivery gate"
+    ],
+    "untrusted_evidence": [
+      "role bindings",
+      "approval attestations"
+    ]
+  }
+}
