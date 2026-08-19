@@ -8350,6 +8350,17 @@
       "role": "QA",
       "title": "Validar automação fail-closed e idempotente: governança de decisões arquiteturais e manutenção da baseline normativa",
       "file": "docs/06-delivery/stories/STORY-0759-ISSUE-0869-validar-automacao-fail-closed-e-idempotente-governanca-de-decisoes-arquiteturais.md"
+    },
+    {
+      "id": "STORY-0760",
+      "issue_id": "ISSUE-0870",
+      "task_id": "TASK-0760",
+      "epic_id": "EPIC-001",
+      "sprint": "SPRINT-001",
+      "domain": "FND",
+      "role": "Arquiteto",
+      "title": "Publicar contrato da Delivery Approval Authority",
+      "file": "docs/06-delivery/stories/STORY-0760-ISSUE-0870-publicar-contrato-da-delivery-approval-authority.md"
     }
   ],
   "edges": [
@@ -14181,6 +14192,11 @@
     {
       "from": "STORY-0683",
       "to": "STORY-0758",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0001",
+      "to": "STORY-0760",
       "relation": "blocks"
     }
   ],

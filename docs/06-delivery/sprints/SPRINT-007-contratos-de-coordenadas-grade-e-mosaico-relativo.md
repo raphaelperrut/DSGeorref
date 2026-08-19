@@ -47,7 +47,7 @@ Contratos de coordenadas, grade e mosaico relativo.
 
 ## Revisão SAR da sprint
 
-- **Baseline arquitetural de entrada:** ADRs 001–057 aceitas, tecnologia fechada em `TECHNOLOGY_BASELINE`, contratos compartilhados versionados.
+- **Baseline arquitetural de entrada:** ADRs 001–058 aceitas, tecnologia fechada em `TECHNOLOGY_BASELINE`, contratos compartilhados versionados.
 - **Decisões tecnológicas em aberto:** `0`.
 - **Histórias:** `42`.
 - **Ondas topológicas globais presentes:** `0, 1, 2, 3, 44, 45, 46, 47`.

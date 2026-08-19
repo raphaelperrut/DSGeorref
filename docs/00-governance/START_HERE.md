@@ -19,9 +19,9 @@
 - 18 módulos
 - 12 sprints
 - 110 épicos
-- 759 histórias implementáveis
-- 869 issues
-- 759 tarefas Codex
+- 760 histórias implementáveis
+- 870 issues
+- 760 tarefas Codex
 
 ## Regra de execução
 

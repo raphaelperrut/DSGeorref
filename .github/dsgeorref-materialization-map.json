@@ -228,6 +228,7 @@
     "ISSUE-0111->ISSUE-0113",
     "ISSUE-0111->ISSUE-0798",
     "ISSUE-0111->ISSUE-0799",
+    "ISSUE-0111->ISSUE-0870",
     "ISSUE-0112->ISSUE-0114",
     "ISSUE-0113->ISSUE-0869",
     "ISSUE-0114->ISSUE-0115",
@@ -1390,7 +1391,8 @@
     "ISSUE-0866->ISSUE-0794",
     "ISSUE-0867->ISSUE-0794",
     "ISSUE-0868->ISSUE-0794",
-    "ISSUE-0869->ISSUE-0114"
+    "ISSUE-0869->ISSUE-0114",
+    "ISSUE-0870->ISSUE-0799"
   ],
   "issues": {
     "ISSUE-0001": {
@@ -6541,6 +6543,14 @@
       "number": 877,
       "title": "[ISSUE-0869] Validar automação fail-closed e idempotente: governança de decisões arquiteturais e manutenção da baseline normativa",
       "url": "https://github.com/raphaelperrut/DSGeorref/issues/877"
+    },
+    "ISSUE-0870": {
+      "epic_id": "EPIC-001",
+      "kind": "story",
+      "number": 882,
+      "sprint": "SPRINT-001",
+      "title": "[ISSUE-0870] Publicar contrato da Delivery Approval Authority",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/882"
     }
   },
   "schema_version": "1.0.0"

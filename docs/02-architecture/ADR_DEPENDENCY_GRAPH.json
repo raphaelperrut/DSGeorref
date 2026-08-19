@@ -430,6 +430,13 @@
         "BC-015",
         "BC-001"
       ]
+    },
+    {
+      "id": "ADR-058",
+      "title": "Delivery Approval Authority e attestations criptográficas independentes",
+      "contexts": [
+        "BC-001"
+      ]
     }
   ],
   "edges": [
@@ -1101,6 +1108,26 @@
     {
       "from": "ADR-056",
       "to": "ADR-057",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-003",
+      "to": "ADR-058",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-006",
+      "to": "ADR-058",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-007",
+      "to": "ADR-058",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-010",
+      "to": "ADR-058",
       "type": "ARCHITECTURAL_PREREQUISITE"
     }
   ],

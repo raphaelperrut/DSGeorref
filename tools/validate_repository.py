@@ -27,7 +27,7 @@ counts={
  'tasks':check_sequence(ROOT.glob('.codex/tasks/TASK-*.json'),r'TASK-(\d{4})','TASK'),
  'requirements':len(list(ROOT.glob('docs/01-product/requirements/REQ-*.md'))),
 }
-expected={'adrs':57,'components':18,'modules':18,'sprints':12,'epics':110,'parent_issues':110,'stories':759,'tasks':759,'requirements':376}
+expected={'adrs':58,'components':18,'modules':18,'sprints':12,'epics':110,'parent_issues':110,'stories':760,'tasks':760,'requirements':376}
 for k,v in expected.items():
     if counts[k]!=v: errors.append(f'{k}: expected {v}, found {counts[k]}')
 
@@ -36,7 +36,7 @@ for k,v in expected.items():
 phase_d_required=['docs/07-assurance/PHASE-D-ADR-REVIEW-REPORT.md','docs/07-assurance/PHASE-D-ADR-REVIEW-REPORT.json','docs/07-assurance/ADR_APPLICABILITY_MATRIX.csv','docs/02-architecture/ADR_DEPENDENCY_GRAPH.json','docs/02-architecture/sar/SAR-180-PHASE-D-ADR-DEFINITIVO.md']
 for rel in phase_d_required:
     if not (ROOT/rel).exists(): errors.append(f'missing Phase D artifact {rel}')
-if counts.get('adrs') != 57: errors.append('Phase D ADR count drift')
+if counts.get('adrs') != 58: errors.append('Phase D ADR count drift')
 
 # JSON/YAML syntax.
 for p in ROOT.rglob('*.json'):
@@ -78,8 +78,8 @@ issue_rows=rows('docs/06-delivery/ISSUE_INDEX.csv')
 story_rows=rows('docs/06-delivery/STORY_INDEX.csv')
 req_rows=rows('docs/01-product/REQUIREMENT_INDEX.csv')
 trace_rows=rows('docs/06-delivery/TRACEABILITY_MATRIX.csv')
-if len(issue_rows)!=869: errors.append(f'ISSUE_INDEX expected 869, found {len(issue_rows)}')
-if len(story_rows)!=759: errors.append(f'STORY_INDEX expected 759, found {len(story_rows)}')
+if len(issue_rows)!=870: errors.append(f'ISSUE_INDEX expected 870, found {len(issue_rows)}')
+if len(story_rows)!=760: errors.append(f'STORY_INDEX expected 760, found {len(story_rows)}')
 if len(req_rows)!=376: errors.append(f'REQUIREMENT_INDEX expected 376, found {len(req_rows)}')
 if len(trace_rows)!=376: errors.append(f'TRACEABILITY expected 376, found {len(trace_rows)}')
 if any(not r['stories'] for r in trace_rows): errors.append('active requirement without story coverage')
@@ -303,7 +303,7 @@ if rr.get('approved') is not True or rr.get('blocking_findings_open') != 0: erro
 crit_rows=rows('docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv')
 issue_rr_rows=rows('docs/07-assurance/ISSUE_REQUIREMENTS_REVIEW.csv')
 req_rr_rows=rows('docs/07-assurance/REQUIREMENT_REVIEW_MATRIX.csv')
-if len(issue_rr_rows)!=869: errors.append(f'Phase B issue review expected 869, found {len(issue_rr_rows)}')
+if len(issue_rr_rows)!=870: errors.append(f'Phase B issue review expected 870, found {len(issue_rr_rows)}')
 if len(req_rr_rows)!=376: errors.append(f'Phase B requirement review expected 376, found {len(req_rr_rows)}')
 for r in crit_rows:
     if r.get('status')!='PASS' or not r.get('adr_ids'): errors.append(f"bad criterion review {r.get('criterion_id')}")
@@ -320,7 +320,7 @@ for p in ROOT.glob('.codex/tasks/TASK-*.json'):
     if len(o.get('acceptance_criterion_ids',[])) != len(o.get('acceptance_criteria',[])): errors.append(f'{p.name}: criterion ID mismatch')
 for p in ROOT.glob('docs/06-delivery/sprints/SPRINT-*.md'):
     t=p.read_text(encoding='utf-8')
-    if 'ADRs 001–057 aceitas' not in t: errors.append(f'{p.name}: stale ADR baseline')
+    if 'ADRs 001–058 aceitas' not in t: errors.append(f'{p.name}: stale ADR baseline')
     if '## Requirements Review — Fase B' not in t: errors.append(f'{p.name}: missing Phase B review')
 
 
@@ -384,7 +384,7 @@ if phase_e_report_path.exists():
 phase_f=json.loads((ROOT/'docs/07-assurance/PHASE-F-SPRINT-REVIEW-REPORT.json').read_text(encoding="utf-8"))
 if phase_f.get('status')!='APPROVED' or phase_f.get('blocking_findings_open')!=0: errors.append('Phase F review not approved')
 phase_f_rows=rows('docs/07-assurance/PHASE-F-ISSUE-DELIVERY-REVIEW.csv')
-if len(phase_f_rows)!=869: errors.append(f'Phase F matrix expected 869, found {len(phase_f_rows)}')
+if len(phase_f_rows)!=870: errors.append(f'Phase F matrix expected 870, found {len(phase_f_rows)}')
 if {r['issue_id'] for r in phase_f_rows}!={r['issue_id'] for r in issue_rows}: errors.append('Phase F issue coverage drift')
 for p in ROOT.glob('.codex/tasks/TASK-*.json'):
     o=json.loads(p.read_text(encoding="utf-8")); rv=o.get('phase_f_review',{})
@@ -403,7 +403,7 @@ for s in rows('docs/06-delivery/SPRINT_INDEX.csv'):
 phase_g=json.loads((ROOT/'docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.json').read_text(encoding="utf-8"))
 if phase_g.get('status')!='APPROVED' or phase_g.get('blocking_findings_open')!=0: errors.append('Phase G not approved')
 phase_g_rows=rows('docs/07-assurance/PHASE-G-ISSUE-INVESTMENT-REVIEW.csv')
-if len(phase_g_rows)!=869: errors.append(f'Phase G matrix expected 869, found {len(phase_g_rows)}')
+if len(phase_g_rows)!=870: errors.append(f'Phase G matrix expected 870, found {len(phase_g_rows)}')
 for p in ROOT.glob('.codex/tasks/TASK-*.json'):
     o=json.loads(p.read_text(encoding="utf-8"))
     if o.get('cto_review_status')!='PASS' or o.get('cto_review_baseline')!='SAR-v3.0-PHASE-G': errors.append(f'{p.name}: Phase G metadata invalid')

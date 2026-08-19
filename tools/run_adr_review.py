@@ -5,9 +5,9 @@ ROOT=Path(__file__).resolve().parents[1]
 errors=[]
 adr_files=sorted(ROOT.glob('docs/02-architecture/adrs/ADR-*.md'))
 ids=[int(re.search(r'ADR-(\d{3})',p.name).group(1)) for p in adr_files]
-if ids!=list(range(1,58)): errors.append(f'ADR sequence: {ids[:3]}...{ids[-3:]}')
+if ids!=list(range(1,59)): errors.append(f'ADR sequence: {ids[:3]}...{ids[-3:]}')
 idx=list(csv.DictReader((ROOT/'docs/00-governance/ADR_INDEX.csv').open(encoding='utf-8-sig')))
-if len(idx)!=57: errors.append(f'ADR_INDEX count {len(idx)}')
+if len(idx)!=58: errors.append(f'ADR_INDEX count {len(idx)}')
 known={r['adr_id'] for r in idx}
 for p in adr_files:
  t=p.read_text(encoding='utf-8')
@@ -15,7 +15,7 @@ for p in adr_files:
   if h not in t: errors.append(f'{p.name} missing {h}')
  if '**Decisões em aberto:** `Nenhuma`' not in t: errors.append(f'{p.name} open decision')
 g=json.loads((ROOT/'docs/02-architecture/ADR_DEPENDENCY_GRAPH.json').read_text())
-if len(g['nodes'])!=57 or g.get('cycles')!=0: errors.append('ADR graph count/cycles')
+if len(g['nodes'])!=58 or g.get('cycles')!=0: errors.append('ADR graph count/cycles')
 adj={n['id']:[] for n in g['nodes']}
 for e in g['edges']:
  if e['from'] not in known or e['to'] not in known: errors.append(f'unknown edge {e}')
@@ -49,4 +49,4 @@ for p in ROOT.rglob('*'):
   if a not in known: errors.append(f'{p.relative_to(ROOT)} references {a}')
 if errors:
  print(json.dumps({'status':'FAIL','errors':errors[:200],'error_count':len(errors)},ensure_ascii=False,indent=2));sys.exit(1)
-print(json.dumps({'status':'PASS','adrs':57,'requirements':376,'cycles':0,'open_decisions':0},ensure_ascii=False,indent=2))
+print(json.dumps({'status':'PASS','adrs':58,'requirements':376,'cycles':0,'open_decisions':0},ensure_ascii=False,indent=2))

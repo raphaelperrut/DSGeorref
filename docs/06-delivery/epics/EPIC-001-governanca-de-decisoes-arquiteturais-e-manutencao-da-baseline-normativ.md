@@ -9,7 +9,7 @@
 - **Release gate:** `G0`
 - **Referências arquiteturais:** ADR-002, ADR-054, ADR-053, ADR-026
 
-- ADRs: `ADR-001`, `ADR-003`, `ADR-006`, `ADR-007`, `ADR-008`, `ADR-009`, `ADR-010`, `ADR-011`, `ADR-012`, `ADR-033`, `ADR-034`, `ADR-035`, `ADR-040`, `ADR-057`
+- ADRs: `ADR-001`, `ADR-003`, `ADR-006`, `ADR-007`, `ADR-008`, `ADR-009`, `ADR-010`, `ADR-011`, `ADR-012`, `ADR-033`, `ADR-034`, `ADR-035`, `ADR-040`, `ADR-057`, `ADR-058`
 
 ## Resultado
 
@@ -37,7 +37,7 @@ Governança de decisões arquiteturais e manutenção da baseline normativa.
 ## Histórias implementáveis
 
 
-Este épico possui **8** histórias filhas:
+Este épico possui **9** histórias filhas:
 
 - `STORY-0001` / `ISSUE-0111` / `TASK-0001` — Definir escopo, contratos e invariantes: governança de decisões arquiteturais e manutenção da baseline normativa
 - `STORY-0002` / `ISSUE-0112` / `TASK-0002` — Consolidar slices e liberar integração: governança de decisões arquiteturais e manutenção da baseline normativa
@@ -47,6 +47,7 @@ Este épico possui **8** histórias filhas:
 - `STORY-0005` / `ISSUE-0115` / `TASK-0005` — Validar evidência e realizar auditoria final: governança de decisões arquiteturais e manutenção da baseline normativa
 - `STORY-0688` / `ISSUE-0798` / `TASK-0688` — Slice 1/2 — Materializar a fundação executável: governança de decisões arquiteturais e manutenção da baseline normativa [REQ-FRZ, REQ-GOV-ADR, REQ-GOV-DEC, REQ-ISM, REQ-SPRINT-001]
 - `STORY-0689` / `ISSUE-0799` / `TASK-0689` — Slice 2/2 — Materializar a fundação executável: governança de decisões arquiteturais e manutenção da baseline normativa [REQ-SPRINT-001, REQ-TOOL]
+- `STORY-0760` / `ISSUE-0870` / `TASK-0760` — Publicar contrato da Delivery Approval Authority
 
 A ordem efetiva é governada por `STORY_DEPENDENCY_GRAPH.json`; IDs não substituem dependências.
 
@@ -61,5 +62,5 @@ A ordem efetiva é governada por `STORY_DEPENDENCY_GRAPH.json`; IDs não substit
 
 ## Revisão de ADRs — Fase D
 
-- **ADRs aplicáveis:** `ADR-001`, `ADR-003`, `ADR-006`, `ADR-007`, `ADR-008`, `ADR-009`, `ADR-010`, `ADR-011`, `ADR-012`, `ADR-033`, `ADR-034`, `ADR-035`, `ADR-040`, `ADR-057`
+- **ADRs aplicáveis:** `ADR-001`, `ADR-003`, `ADR-006`, `ADR-007`, `ADR-008`, `ADR-009`, `ADR-010`, `ADR-011`, `ADR-012`, `ADR-033`, `ADR-034`, `ADR-035`, `ADR-040`, `ADR-057`, `ADR-058`
 - **Resultado:** `PASS`
