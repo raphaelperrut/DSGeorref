@@ -17,7 +17,7 @@ ids={c["id"] for c in controls}
 if len(ids)!=15:errors.append("expected 15 CTO controls")
 matrix=rows("docs/07-assurance/PHASE-G-ISSUE-INVESTMENT-REVIEW.csv")
 issues=rows("docs/06-delivery/ISSUE_INDEX.csv")
-if len(matrix)!=870 or {r["issue_id"] for r in matrix}!={r["issue_id"] for r in issues}:errors.append("Phase G issue coverage drift")
+if len(matrix)!=871 or {r["issue_id"] for r in matrix}!={r["issue_id"] for r in issues}:errors.append("Phase G issue coverage drift")
 risk=rows("docs/06-delivery/RISK_REGISTER.csv")
 if len(risk)!=40:errors.append("active risk register must contain 40 consolidated risks")
 for r in risk:
@@ -48,6 +48,6 @@ if errors:
  sys.exit(1)
 print("CTO REVIEW PASS")
 print("controls: 15")
-print("issues: 870")
+print("issues: 871")
 print("active risks: 40")
 print("gates: 9")

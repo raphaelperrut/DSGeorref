@@ -36261,7 +36261,9 @@
       "role": "Tech Lead",
       "title": "Slice 2/2 — Materializar a fundação executável: governança de decisões arquiteturais e manutenção da baseline normativa [REQ-SPRINT-001, REQ-TOOL]",
       "dependencies": [
-        "STORY-0001"
+        "STORY-0001",
+        "STORY-0760",
+        "STORY-0761"
       ],
       "requirements": [
         "REQ-SPRINT-001-003",
@@ -36281,7 +36283,8 @@
         "ADR-053",
         "ADR-026",
         "ADR-007",
-        "ADR-008"
+        "ADR-008",
+        "ADR-058"
       ],
       "requirement_basis": "MIXED",
       "criterion_ids": [
@@ -40965,6 +40968,70 @@
       "tests": [
         "test_delivery_approval_authority_contract",
         "test_delivery_approval_authority_fail_closed"
+      ]
+    },
+    {
+      "story_id": "STORY-0761",
+      "issue_id": "ISSUE-0871",
+      "task_id": "TASK-0761",
+      "epic_id": "EPIC-001",
+      "sprint": "SPRINT-001",
+      "domain": "FND",
+      "type": "Story",
+      "status": "planned",
+      "role": "Security",
+      "title": "Materializar verifier e trust operacional da Delivery Approval Authority",
+      "dependencies": [
+        "STORY-0760"
+      ],
+      "requirements": [],
+      "governing_adrs": [
+        "ADR-001",
+        "ADR-003",
+        "ADR-006",
+        "ADR-007",
+        "ADR-010",
+        "ADR-058"
+      ],
+      "requirement_basis": "DERIVED_CONTROL",
+      "criterion_ids": [
+        "AC-ISSUE-0871-01",
+        "AC-ISSUE-0871-02",
+        "AC-ISSUE-0871-03",
+        "AC-ISSUE-0871-04"
+      ],
+      "rr_status": "PASS",
+      "file": "STORY-0761-ISSUE-0871-materializar-verifier-e-trust-operacional-da-daa.md",
+      "allow_paths": [
+        "tools/governance/delivery_approval_authority/**",
+        "contracts/assurance/delivery-approval-authority/trust/**",
+        "docs/03-engineering/contexts/engineering_governance/delivery_approval_authority/**",
+        "tests/security/delivery_approval_authority/**",
+        "evidence/security/delivery-approval-authority/**"
+      ],
+      "deny_paths": [
+        "src/**",
+        ".github/**",
+        "contracts/prompts/**",
+        "contracts/assurance/delivery-approval-authority/test-vectors/**",
+        "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_delivery_approval_authority_contract.py",
+        "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/**",
+        ".codex/tasks/TASK-0689.json",
+        "docs/06-delivery/stories/STORY-0689-ISSUE-0799-*.md",
+        "src/**/epic-*",
+        "src/**/issue-*"
+      ],
+      "acceptance_criteria": [
+        "Verifier reutilizável de governança valida o contrato DAA e retorna somente verification-verdict conforme, sem importar implementação do harness de conformance.",
+        "Trust-anchor-set e trust profile operacionais são governados, versionados e resolvidos por repository/revision explícita; ausência, ambiguidade ou divergência falha fechado.",
+        "A entrada não confiável não pode fornecer ou substituir verifier, trust profile, anchors, issuer, key ou policy, e material sob test-vectors/** nunca adquire autoridade operacional.",
+        "Testes positivos e negativos demonstram resolução histórica, separação completa de conformance, revogação/expiração, assinatura inválida e trust ausente sem fallback."
+      ],
+      "tests": [
+        "test_delivery_approval_operational_verifier",
+        "test_delivery_approval_governed_trust_resolution",
+        "test_delivery_approval_rejects_caller_and_conformance_trust",
+        "test_delivery_approval_operational_fail_closed"
       ]
     }
   ]
