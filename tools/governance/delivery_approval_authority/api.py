@@ -1,10 +1,13 @@
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Any
 
 from .crypto import digest
-from .repository import GovernedTrustError, resolve_governed_trust
+from .repository import (
+    GovernedTrustError,
+    resolve_governed_trust,
+    runtime_governed_repository,
+)
 from .schemas import SchemaSet
 from .verdicts import EPOCH, SCOPE, ZERO_SHA, fail_context
 from .verifier import OperationalVerifier
@@ -31,18 +34,17 @@ def _unresolved_verdict(task: Any, candidate_sha: Any, verification_time: Any) -
 
 def verify_delivery_approval(
     *,
-    repository: Path,
-    revision: str,
     task_envelope: Any,
     expected_candidate_sha: Any,
     verification_time: Any,
     evidence: Any,
 ) -> dict[str, Any]:
-    """Return only a fail-closed DAA verdict for one governed repository revision.
+    """Return a verdict using trust bound to this verifier's repository checkout.
 
-    Trust profile, anchors, schemas, issuers and keys are never accepted as parameters.
+    Repository, revision, profile, anchors, issuers and keys are never caller parameters.
     """
     try:
+        repository, revision = runtime_governed_repository()
         schemas = SchemaSet(repository, revision)
         trust = resolve_governed_trust(repository, revision)
     except (GovernedTrustError, OSError, ValueError):

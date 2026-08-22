@@ -1,6 +1,5 @@
 {
   "schema_version": "1.0.0",
-  "repository": "raphaelperrut/DSGeorref",
   "anchors": {
     "path": "contracts/assurance/delivery-approval-authority/trust/anchors/dsgeorref-daa-operational-roots-1.0.0.json",
     "sha256": "b5ef44d14070663a97d450761bde373a7b9d7fe150aed6fc20b6ca3bf13ae14f"

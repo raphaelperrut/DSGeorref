@@ -13,7 +13,10 @@ from .canonical import CanonicalizationError, load_json_object
 COMMIT_PATTERN = re.compile(r"^[0-9a-f]{40}$")
 TRUST_ROOT = "contracts/assurance/delivery-approval-authority/trust"
 MANIFEST_PATH = f"{TRUST_ROOT}/manifest.json"
-EXPECTED_REPOSITORY = "raphaelperrut/DSGeorref"
+PINNED_ANCHOR_PATH = (
+    f"{TRUST_ROOT}/anchors/dsgeorref-daa-operational-roots-1.0.0.json"
+)
+PINNED_ANCHOR_SHA256 = "b5ef44d14070663a97d450761bde373a7b9d7fe150aed6fc20b6ca3bf13ae14f"
 
 
 class GovernedTrustError(ValueError):
@@ -22,7 +25,6 @@ class GovernedTrustError(ValueError):
 
 @dataclass(frozen=True)
 class GovernedTrust:
-    repository_id: str
     revision: str
     anchors: dict[str, Any]
     profile: dict[str, Any]
@@ -46,6 +48,15 @@ def _validate_revision(repository: Path, revision: str) -> None:
     resolved = _git(repository, "rev-parse", "--verify", f"{revision}^{{commit}}")
     if resolved.decode("ascii").strip() != revision:
         raise GovernedTrustError("revision does not resolve exactly")
+
+
+def runtime_governed_repository() -> tuple[Path, str]:
+    """Resolve the repository and revision from the trusted verifier installation."""
+    repository = Path(__file__).resolve().parents[3]
+    revision = _git(repository, "rev-parse", "--verify", "HEAD^{commit}")
+    decoded = revision.decode("ascii").strip()
+    _validate_revision(repository, decoded)
+    return repository, decoded
 
 
 def _blob(repository: Path, revision: str, path: str) -> bytes:
@@ -91,16 +102,16 @@ def resolve_governed_trust(repository: Path, revision: str) -> GovernedTrust:
     repository = repository.resolve(strict=True)
     _validate_revision(repository, revision)
     manifest = governed_json(repository, revision, MANIFEST_PATH)
-    if set(manifest) != {"schema_version", "repository", "anchors", "profile"}:
+    if set(manifest) != {"schema_version", "anchors", "profile"}:
         raise GovernedTrustError("trust manifest fields are invalid")
     if manifest.get("schema_version") != "1.0.0":
         raise GovernedTrustError("trust manifest version is unsupported")
-    if manifest.get("repository") != EXPECTED_REPOSITORY:
-        raise GovernedTrustError("governed repository identity mismatch")
+    pinned_anchor = {"path": PINNED_ANCHOR_PATH, "sha256": PINNED_ANCHOR_SHA256}
+    if manifest.get("anchors") != pinned_anchor:
+        raise GovernedTrustError("trust anchor is not pinned by the operational verifier")
     anchors, anchor_digest = _artifact(repository, revision, manifest["anchors"])
     profile, profile_digest = _artifact(repository, revision, manifest["profile"])
     return GovernedTrust(
-        repository_id=EXPECTED_REPOSITORY,
         revision=revision,
         anchors=anchors,
         profile=profile,

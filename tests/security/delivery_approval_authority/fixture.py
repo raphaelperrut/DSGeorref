@@ -228,7 +228,6 @@ def _commit_trust(repository: Path, anchors: dict[str, Any], profile: dict[str, 
     profile_digest = _write_json(repository / profile_path, profile)
     manifest = {
         "schema_version": "1.0.0",
-        "repository": "raphaelperrut/DSGeorref",
         "anchors": {"path": anchor_path.as_posix(), "sha256": anchor_digest},
         "profile": {"path": profile_path.as_posix(), "sha256": profile_digest},
     }
