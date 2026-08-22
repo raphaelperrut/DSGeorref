@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/assurance/delivery-approval-authority/trust-profile/1.0.0",
+  "title": "DeliveryApprovalTrustProfile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "profile_id", "profile_version", "trust_scope", "canonicalization", "hash_algorithm", "signature_algorithm", "valid_from", "valid_until", "identity_issuers", "keys", "signature"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "profile_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
+    "profile_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "trust_scope": {"const": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1"},
+    "canonicalization": {"const": "JCS-RFC8785-PROFILE-1"},
+    "hash_algorithm": {"const": "SHA-256"},
+    "signature_algorithm": {"const": "Ed25519"},
+    "valid_from": {"type": "string", "format": "date-time"},
+    "valid_until": {"type": "string", "format": "date-time"},
+    "identity_issuers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["issuer", "trust_scope", "valid_from", "valid_until", "revoked_at"],
+        "properties": {
+          "issuer": {"type": "string", "format": "uri", "maxLength": 512},
+          "trust_scope": {"const": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1"},
+          "valid_from": {"type": "string", "format": "date-time"},
+          "valid_until": {"type": "string", "format": "date-time"},
+          "revoked_at": {"type": ["string", "null"], "format": "date-time"}
+        }
+      }
+    },
+    "keys": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key_id", "algorithm", "public_key", "purpose", "trust_scope", "principal", "roles", "task_envelope_ids", "valid_from", "valid_until", "revoked_at"],
+        "properties": {
+          "key_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+          "algorithm": {"const": "Ed25519"},
+          "public_key": {"type": "string", "pattern": "^[A-Za-z0-9_-]{43}$"},
+          "purpose": {"enum": ["DELIVERY_ROLE_BINDING", "DELIVERY_APPROVAL_ATTESTATION"]},
+          "trust_scope": {"const": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1"},
+          "principal": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["issuer", "subject"],
+                "properties": {
+                  "issuer": {"type": "string", "format": "uri", "maxLength": 512},
+                  "subject": {"type": "string", "minLength": 1, "maxLength": 512}
+                }
+              }
+            ]
+          },
+          "roles": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["Executor", "QA", "Reviewer"]}},
+          "task_envelope_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^TASK-[0-9]{4}$"}},
+          "valid_from": {"type": "string", "format": "date-time"},
+          "valid_until": {"type": "string", "format": "date-time"},
+          "revoked_at": {"type": ["string", "null"], "format": "date-time"}
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key_id", "algorithm", "message_profile", "value"],
+      "properties": {
+        "key_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+        "algorithm": {"const": "Ed25519"},
+        "message_profile": {"const": "DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V1"},
+        "value": {"type": "string", "pattern": "^[A-Za-z0-9_-]{86}$"}
+      }
+    }
+  }
+}

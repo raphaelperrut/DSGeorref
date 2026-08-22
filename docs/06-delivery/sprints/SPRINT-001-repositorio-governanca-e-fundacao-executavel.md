@@ -45,7 +45,7 @@ Repositório, governança e fundação executável.
 
 ## Backlog implementável
 
-- **Histórias:** `92`
+- **Histórias:** `93`
 - **Documento detalhado:** `docs/06-delivery/sprint-backlogs/SPRINT-001-BACKLOG.md`
 - **TaskEnvelopes:** `.codex/tasks/TASK-*.json`
 - **Grafo:** `docs/06-delivery/STORY_DEPENDENCY_GRAPH.json`
@@ -53,9 +53,9 @@ Repositório, governança e fundação executável.
 
 ## Revisão SAR da sprint
 
-- **Baseline arquitetural de entrada:** ADRs 001–057 aceitas, tecnologia fechada em `TECHNOLOGY_BASELINE`, contratos compartilhados versionados.
+- **Baseline arquitetural de entrada:** ADRs 001–058 aceitas, tecnologia fechada em `TECHNOLOGY_BASELINE`, contratos compartilhados versionados.
 - **Decisões tecnológicas em aberto:** `0`.
-- **Histórias:** `92`.
+- **Histórias:** `93`.
 - **Ondas topológicas globais presentes:** `0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19`.
 - **Papéis executores:** `Arquiteto`, `DevOps`, `QA`, `Reviewer`, `Tech Lead`.
 - **Regra de capacidade:** WIP por classe; nenhuma história inicia sem predecessores integrados e write scope disponível.
@@ -74,8 +74,8 @@ Repositório, governança e fundação executável.
 ## Requirements Review — Fase B
 
 - **Resultado:** `PASS`
-- **Issues revisadas:** `104`
-- **Critérios de aceite rastreados:** `436`
+- **Issues revisadas:** `105`
+- **Critérios de aceite rastreados:** `440`
 - **Conflitos bloqueantes:** `0`
 - **Redundâncias funcionais não justificadas:** `0`
 - **Requisitos faltantes:** `0`
@@ -86,7 +86,7 @@ Repositório, governança e fundação executável.
 
 ## Revisão de ADRs — Fase D
 
-- **ADRs aplicáveis:** `ADR-001`, `ADR-002`, `ADR-003`, `ADR-004`, `ADR-005`, `ADR-006`, `ADR-007`, `ADR-008`, `ADR-009`, `ADR-010`, `ADR-011`, `ADR-012`, `ADR-013`, `ADR-014`, `ADR-015`, `ADR-016`, `ADR-017`, `ADR-018`, `ADR-019`, `ADR-020`, `ADR-021`, `ADR-022`, `ADR-023`, `ADR-024`, `ADR-025`, `ADR-026`, `ADR-030`, `ADR-033`, `ADR-034`, `ADR-035`, `ADR-037`, `ADR-038`, `ADR-039`, `ADR-040`, `ADR-041`, `ADR-042`, `ADR-043`, `ADR-044`, `ADR-045`, `ADR-046`, `ADR-050`, `ADR-051`, `ADR-052`, `ADR-053`, `ADR-054`, `ADR-055`, `ADR-056`, `ADR-057`
+- **ADRs aplicáveis:** `ADR-001`, `ADR-002`, `ADR-003`, `ADR-004`, `ADR-005`, `ADR-006`, `ADR-007`, `ADR-008`, `ADR-009`, `ADR-010`, `ADR-011`, `ADR-012`, `ADR-013`, `ADR-014`, `ADR-015`, `ADR-016`, `ADR-017`, `ADR-018`, `ADR-019`, `ADR-020`, `ADR-021`, `ADR-022`, `ADR-023`, `ADR-024`, `ADR-025`, `ADR-026`, `ADR-030`, `ADR-033`, `ADR-034`, `ADR-035`, `ADR-037`, `ADR-038`, `ADR-039`, `ADR-040`, `ADR-041`, `ADR-042`, `ADR-043`, `ADR-044`, `ADR-045`, `ADR-046`, `ADR-050`, `ADR-051`, `ADR-052`, `ADR-053`, `ADR-054`, `ADR-055`, `ADR-056`, `ADR-057`, `ADR-058`
 - **Cobertura:** todas as histórias da sprint possuem ADRs explícitas no TaskEnvelope.
 - **Decisão em aberto:** `Nenhuma`
 - **Resultado:** `PASS`
@@ -101,7 +101,7 @@ Repositório, governança e fundação executável.
 
 ## Sprint Review — Fase F
 
-- **Issues revisadas:** `104` (`12` envelopes + `92` histórias).
+- **Issues revisadas:** `105` (`12` envelopes + `93` histórias).
 - **Dependências:** `PASS`; DAG sem ciclos e sem retrocesso entre sprints.
 - **Arquivos:** `PASS`; write scopes explícitos, estáveis e sem paths derivados de issue/story/task.
 - **API:** `19` histórias aplicáveis; OpenAPI e catálogo de operações referenciados.
@@ -111,15 +111,15 @@ Repositório, governança e fundação executável.
 - **IA:** `10` histórias aplicáveis; `SPEC-003` obrigatório quando aplicável.
 - **Testes:** `91` histórias com testes explícitos.
 - **Artefatos:** produto ou evidência explicitamente classificados em todas as histórias.
-- **Critérios:** `364` critérios com IDs estáveis.
+- **Critérios:** `368` critérios com IDs estáveis.
 - **Review:** cadeia explícita e mesmo commit candidato.
 - **Relatório detalhado:** `docs/07-assurance/phase-f/SPRINT-001-REVIEW.md`.
 - **Resultado:** `PASS`.
 ## CTO Review — Fase G
 
 - **Resultado:** `PASS`
-- **Issues revisadas:** `104`
-- **Histórias revisadas:** `92`
-- **Risk tier:** Critical `44`, High `19`, Medium `29`
+- **Issues revisadas:** `105`
+- **Histórias revisadas:** `93`
+- **Risk tier:** Critical `45`, High `19`, Medium `29`
 - **Gates aplicáveis:** `BENCHMARK_AND_OPERATIONS_GATES, IMPLEMENTATION_AUTHORIZATION, SECURITY_AND_PRIVACY_GATES`
 - **Relatório:** `docs/07-assurance/phase-g/SPRINT-001-CTO-REVIEW.md`

@@ -1,0 +1,336 @@
+{
+  "schema_version": "1.0.0",
+  "rejected_candidate_sha": "18e6a2921e71617cdd61e451bcd9bce5ef690472",
+  "implementation_parent_sha": "1793a7b35f81beea35adec78c4243300661bf6e0",
+  "authority_separation": {
+    "prerequisite_authority": "Project Owner ADR-058 decision plus upstream issue/task/baseline materialization supplied before implementation",
+    "implementation_authority": "TASK-0760 allow_paths only",
+    "task_self_authorizes_control_plane": false,
+    "isolated_parent_make_verify_utf8": "PASS"
+  },
+  "counts": {
+    "PREREQUISITE_GOVERNANCE": 43,
+    "TASK_0760_IMPLEMENTATION": 10,
+    "UNAUTHORIZED": 0
+  },
+  "classifications": [
+    {
+      "authority": "UPSTREAM_TASK_ALLOCATION_MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "Tech Lead control plane",
+      "path": ".codex/tasks/TASK-0760.json"
+    },
+    {
+      "authority": "UPSTREAM_GITHUB_ISSUE_882_MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "Repository control plane",
+      "path": ".github/dsgeorref-materialization-map.json"
+    },
+    {
+      "authority": "UPSTREAM_GITHUB_ISSUE_882_MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "Repository control plane",
+      "path": ".github/dsgeorref-project-field-sync.json"
+    },
+    {
+      "authority": "TASK-0760_ALLOW_PATHS",
+      "classification": "TASK_0760_IMPLEMENTATION",
+      "owner": "BC-001 / Arquiteto",
+      "path": "contracts/assurance/delivery-approval-authority/README.md"
+    },
+    {
+      "authority": "TASK-0760_ALLOW_PATHS",
+      "classification": "TASK_0760_IMPLEMENTATION",
+      "owner": "BC-001 / Arquiteto",
+      "path": "contracts/assurance/delivery-approval-authority/approval-attestation.schema.json"
+    },
+    {
+      "authority": "TASK-0760_ALLOW_PATHS",
+      "classification": "TASK_0760_IMPLEMENTATION",
+      "owner": "BC-001 / Arquiteto",
+      "path": "contracts/assurance/delivery-approval-authority/role-binding.schema.json"
+    },
+    {
+      "authority": "TASK-0760_ALLOW_PATHS",
+      "classification": "TASK_0760_IMPLEMENTATION",
+      "owner": "BC-001 / Arquiteto",
+      "path": "contracts/assurance/delivery-approval-authority/test-vectors/conformance-suite.json"
+    },
+    {
+      "authority": "TASK-0760_ALLOW_PATHS",
+      "classification": "TASK_0760_IMPLEMENTATION",
+      "owner": "BC-001 / Arquiteto",
+      "path": "contracts/assurance/delivery-approval-authority/trust-anchor-set.schema.json"
+    },
+    {
+      "authority": "TASK-0760_ALLOW_PATHS",
+      "classification": "TASK_0760_IMPLEMENTATION",
+      "owner": "BC-001 / Arquiteto",
+      "path": "contracts/assurance/delivery-approval-authority/trust-profile.schema.json"
+    },
+    {
+      "authority": "TASK-0760_ALLOW_PATHS",
+      "classification": "TASK_0760_IMPLEMENTATION",
+      "owner": "BC-001 / Arquiteto",
+      "path": "contracts/assurance/delivery-approval-authority/verification-verdict.schema.json"
+    },
+    {
+      "authority": "TASK-0760_ALLOW_PATHS",
+      "classification": "TASK_0760_IMPLEMENTATION",
+      "owner": "BC-001 / Arquiteto",
+      "path": "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/00-governance/ADR_INDEX.csv"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/00-governance/START_HERE.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/01-product/PRD.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/02-architecture/ADR_DEPENDENCY_GRAPH.json"
+    },
+    {
+      "authority": "ADR-058 OWNER_DECISION APPROVE_OPTION_B",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "Project Owner",
+      "path": "docs/02-architecture/adrs/ADR-058-delivery-approval-authority-e-attestations-criptograficas-independentes.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/02-architecture/ddd/DDD-100-ROADMAP-AND-BACKLOG-RECONCILIATION.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/CURRENT_STATUS.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/ISSUE_INDEX.csv"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/ROADMAP.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/STORY_DEPENDENCY_GRAPH.json"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/STORY_INDEX.csv"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/STORY_INDEX.json"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/epics/EPIC-001-governanca-de-decisoes-arquiteturais-e-manutencao-da-baseline-normativ.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/sprint-backlogs/SPRINT-001-BACKLOG.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/sprints/SPRINT-001-repositorio-governanca-e-fundacao-executavel.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/sprints/SPRINT-002-identidade-autorizacao-workspace-e-persistencia-inicial.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/sprints/SPRINT-003-jobs-runners-lote-basico-e-cli.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/sprints/SPRINT-004-resiliencia-scheduler-replay-e-escala-operacional.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/sprints/SPRINT-005-primeira-fatia-geoespacial-classic-first.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/sprints/SPRINT-006-correspondencias-referencias-providers-e-revisao-assistida.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/sprints/SPRINT-007-contratos-de-coordenadas-grade-e-mosaico-relativo.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/sprints/SPRINT-008-qualidade-reporting-e-materializacao-do-mosaico-relativo.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/sprints/SPRINT-009-frontend-cartografico-revisao-e-aprendizagem.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/sprints/SPRINT-010-resultados-lineage-schemas-e-reprodutibilidade.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/sprints/SPRINT-011-operacoes-seguranca-backup-ia-governada-e-hardening.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/sprints/SPRINT-012-instalacao-release-train-e-publicacao.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/06-delivery/stories/STORY-0760-ISSUE-0870-publicar-contrato-da-delivery-approval-authority.md"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/07-assurance/DDD_TRACEABILITY_MATRIX.csv"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/07-assurance/ISSUE_REQUIREMENTS_REVIEW.csv"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/07-assurance/PHASE-E-SPECIFICATION-REVIEW-RESULT.json"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/07-assurance/PHASE-F-ISSUE-DELIVERY-REVIEW.csv"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/07-assurance/PHASE-G-ISSUE-INVESTMENT-REVIEW.csv"
+    },
+    {
+      "authority": "ADR-058 / STORY-0760 / ISSUE-0870 UPSTREAM BASELINE MATERIALIZATION",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 engineering governance",
+      "path": "docs/07-assurance/SPECIFICATION_APPLICABILITY_MATRIX.csv"
+    },
+    {
+      "authority": "TASK-0760_ALLOW_PATHS",
+      "classification": "TASK_0760_IMPLEMENTATION",
+      "owner": "BC-001 / Arquiteto",
+      "path": "evidence/implementation/delivery-approval-authority/IMPLEMENTATION_EVIDENCE.json"
+    },
+    {
+      "authority": "TASK-0760_ALLOW_PATHS",
+      "classification": "TASK_0760_IMPLEMENTATION",
+      "owner": "BC-001 / Arquiteto",
+      "path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_delivery_approval_authority_contract.py"
+    },
+    {
+      "authority": "UPSTREAM_BASELINE_CARDINALITY_MATERIALIZATION; ISOLATED_PARENT_MAKE_VERIFY_PASS",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 repository validation control plane",
+      "path": "tools/run_adr_review.py"
+    },
+    {
+      "authority": "UPSTREAM_BASELINE_CARDINALITY_MATERIALIZATION; ISOLATED_PARENT_MAKE_VERIFY_PASS",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 repository validation control plane",
+      "path": "tools/run_cto_review.py"
+    },
+    {
+      "authority": "UPSTREAM_BASELINE_CARDINALITY_MATERIALIZATION; ISOLATED_PARENT_MAKE_VERIFY_PASS",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 repository validation control plane",
+      "path": "tools/run_domain_driven_design_review.py"
+    },
+    {
+      "authority": "UPSTREAM_BASELINE_CARDINALITY_MATERIALIZATION; ISOLATED_PARENT_MAKE_VERIFY_PASS",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 repository validation control plane",
+      "path": "tools/run_requirements_review.py"
+    },
+    {
+      "authority": "UPSTREAM_BASELINE_CARDINALITY_MATERIALIZATION; ISOLATED_PARENT_MAKE_VERIFY_PASS",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 repository validation control plane",
+      "path": "tools/run_sprint_review.py"
+    },
+    {
+      "authority": "UPSTREAM_BASELINE_CARDINALITY_MATERIALIZATION; ISOLATED_PARENT_MAKE_VERIFY_PASS",
+      "classification": "PREREQUISITE_GOVERNANCE",
+      "owner": "BC-001 repository validation control plane",
+      "path": "tools/validate_repository.py"
+    }
+  ]
+}

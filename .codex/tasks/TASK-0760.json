@@ -1,0 +1,243 @@
+{
+  "task_id": "TASK-0760",
+  "issue_id": "ISSUE-0870",
+  "story_id": "STORY-0760",
+  "epic_id": "EPIC-001",
+  "sprint_id": "SPRINT-001",
+  "role": "Arquiteto",
+  "outcome": "Publicar o contrato machine-readable da Delivery Approval Authority definido pela ADR-058, sem implementar integração ou alterar a ISSUE-0799.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-002-arquiteto.md",
+    "docs/06-delivery/stories/STORY-0760-ISSUE-0870-publicar-contrato-da-delivery-approval-authority.md",
+    "docs/06-delivery/epics/EPIC-001-governanca-de-decisoes-arquiteturais-e-manutencao-da-baseline-normativ.md",
+    "docs/00-governance/ROLE_AUTHORITY_MATRIX.md",
+    "docs/00-governance/DEFINITION_OF_DONE.md",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    "docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md",
+    "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
+    "docs/02-architecture/ddd/bounded-contexts/BC-001-engineering-governance.md",
+    "docs/02-architecture/ddd/DDD-040-CONTEXT-MAP.md",
+    "docs/02-architecture/adrs/ADR-003-bounded-contexts-subdominios-e-linguagem-ubiqua.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-010-api-first-versionamento-e-contract-freeze.md",
+    "docs/02-architecture/adrs/ADR-058-delivery-approval-authority-e-attestations-criptograficas-independentes.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "contracts/assurance/README.md",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
+    "contracts/operations/lock-and-queue-policy.yaml",
+    "contracts/operations/external-dependency-register.csv",
+    "contracts/operations/vendor-exit-matrix.csv",
+    "contracts/operations/cost-model.yaml",
+    "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+    "contracts/operations/slo-sli-catalog.yaml",
+    "docs/05-operations/OBSERVABILITY.md",
+    "docs/04-quality/THREAT_MODEL.md",
+    "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+    "contracts/operations/version-and-rollback-matrix.yaml",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
+    "docs/05-operations/PRODUCTION_READINESS_GATES.md"
+  ],
+  "allow_paths": [
+    "contracts/assurance/delivery-approval-authority/**",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_delivery_approval_authority_contract.py",
+    "evidence/implementation/delivery-approval-authority/**"
+  ],
+  "deny_paths": [
+    "src/**",
+    ".github/**",
+    "contracts/prompts/**",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    ".codex/tasks/TASK-0689.json",
+    "docs/06-delivery/stories/STORY-0689-ISSUE-0799-*.md",
+    "src/**/epic-*",
+    "src/**/issue-*"
+  ],
+  "acceptance_criteria": [
+    "Schemas versionados definem principal estável, accountable subject e binding autorizado de principal→papel, incluindo authority, scope, validade e revogação.",
+    "A approval attestation vincula principal, papel, decisão, TaskEnvelope ID e digest canônico SHA-256, candidate SHA exato e versão da política, sob trust scope próprio.",
+    "Regras machine-verifiable exigem conjuntos dois a dois disjuntos de accountable subjects para Executor, QA e Reviewer no mesmo TaskEnvelope/candidate SHA.",
+    "Vetores de conformidade rejeitam, em modo fail-closed, trust ou binding ausente/inválido/revogado, assinatura inválida, mismatch/replay de digest ou SHA, approval ausente e sobreposição de papéis."
+  ],
+  "tests": [
+    "test_delivery_approval_authority_contract",
+    "test_delivery_approval_authority_fail_closed"
+  ],
+  "evidence": [
+    "evidence/implementation/delivery-approval-authority/",
+    "commit candidato, digests dos vetores e relatório de testes"
+  ],
+  "dependencies": [
+    "STORY-0001"
+  ],
+  "stop_conditions": [
+    "A implementação exige ampliar o authority source, a regra de independência ou o trust boundary definido pela ADR-058.",
+    "O contrato mistura signatures ou key scopes da Delivery Approval Authority com a SPEC-001 ou com supply chain.",
+    "A prova depende de authority substituta expressamente rejeitada pela ADR-058.",
+    "O write scope exige alteração da ISSUE-0799, de TASK-0689, de código de produto ou de integração de plataforma.",
+    "A aceitação não pode ser demonstrada por schemas, vetores e testes objetivos."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0870-01",
+    "AC-ISSUE-0870-02",
+    "AC-ISSUE-0870-03",
+    "AC-ISSUE-0870-04"
+  ],
+  "governing_adrs": [
+    "ADR-003",
+    "ADR-006",
+    "ADR-007",
+    "ADR-010",
+    "ADR-058"
+  ],
+  "requirement_basis": "DERIVED_CONTROL",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-001",
+  "context_map_dependencies": [],
+  "domain_model_impact": "PUBLIC_CONTRACT",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 1,
+      "items": [
+        "STORY-0001"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "contracts/assurance/delivery-approval-authority/**",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
+        "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_delivery_approval_authority_contract.py",
+        "evidence/implementation/delivery-approval-authority/**"
+      ],
+      "deny_paths": [
+        "src/**",
+        ".github/**",
+        "contracts/prompts/**",
+        "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+        ".codex/tasks/TASK-0689.json",
+        "docs/06-delivery/stories/STORY-0689-ISSUE-0799-*.md",
+        "src/**/epic-*",
+        "src/**/issue-*"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "test_delivery_approval_authority_contract",
+        "test_delivery_approval_authority_fail_closed"
+      ]
+    },
+    "artifacts": {
+      "applicability": "PRODUCT_AND_EVIDENCE",
+      "status": "PASS",
+      "kinds": [],
+      "evidence": [
+        "evidence/implementation/delivery-approval-authority/",
+        "commit candidato, digests dos vetores e relatório de testes"
+      ],
+      "contract": "contracts/assurance/delivery-approval-authority/"
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 4,
+      "ids": [
+        "AC-ISSUE-0870-01",
+        "AC-ISSUE-0870-02",
+        "AC-ISSUE-0870-03",
+        "AC-ISSUE-0870-04"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "Arquiteto",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "CRITICAL",
+    "applicable_controls": [
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-006",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-005",
+      "CTO-007",
+      "CTO-008",
+      "CTO-009",
+      "CTO-010",
+      "CTO-011",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "contracts/operations/lock-and-queue-policy.yaml",
+      "contracts/operations/external-dependency-register.csv",
+      "contracts/operations/vendor-exit-matrix.csv",
+      "contracts/operations/cost-model.yaml",
+      "docs/05-operations/COST_AND_UNIT_ECONOMICS.md",
+      "contracts/operations/slo-sli-catalog.yaml",
+      "docs/05-operations/OBSERVABILITY.md",
+      "docs/04-quality/THREAT_MODEL.md",
+      "docs/04-quality/SECURITY_PRIVACY_LGPD.md",
+      "contracts/operations/version-and-rollback-matrix.yaml"
+    ],
+    "production_gate": "SECURITY_AND_PRIVACY_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

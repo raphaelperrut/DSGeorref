@@ -51,7 +51,7 @@ Instalação, release train e publicação.
 
 ## Revisão SAR da sprint
 
-- **Baseline arquitetural de entrada:** ADRs 001–057 aceitas, tecnologia fechada em `TECHNOLOGY_BASELINE`, contratos compartilhados versionados.
+- **Baseline arquitetural de entrada:** ADRs 001–058 aceitas, tecnologia fechada em `TECHNOLOGY_BASELINE`, contratos compartilhados versionados.
 - **Decisões tecnológicas em aberto:** `0`.
 - **Histórias:** `58`.
 - **Ondas topológicas globais presentes:** `0, 1, 2, 3, 8, 9, 10, 11, 40, 41, 42, 43, 48, 49, 50, 51`.

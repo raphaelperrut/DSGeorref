@@ -1,0 +1,447 @@
+{
+  "attestations": [
+    {
+      "accountable_subject": "acct:person/executor",
+      "attestation_id": "daa-attestation-executor",
+      "binding": {
+        "binding_id": "daa-binding-executor",
+        "binding_version": "1.0.0",
+        "digest_sha256": "7c1d1165db101bd6190a56f303969c93dc88c84f664a246cdfef534cbf742785"
+      },
+      "candidate_sha": "0123456789abcdef0123456789abcdef01234567",
+      "decision": "DELIVERED",
+      "issued_at": "2026-08-18T12:00:00Z",
+      "policy": {
+        "profile_id": "delivery-approval-test",
+        "profile_version": "1.0.0"
+      },
+      "principal": {
+        "issuer": "https://identity.test.dsgeorref.local",
+        "subject": "principal-executor"
+      },
+      "role": "Executor",
+      "schema_version": "1.0.0",
+      "signature": {
+        "algorithm": "Ed25519",
+        "key_id": "daa-test-executor",
+        "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ATTESTATION-V1",
+        "value": "qRpvj22gMluMJkGpExh_9bDWOtY3qugg7kSB4j516TL44VI4wHOT-g_t8-3FESe-pGNLYOFmyb0p3Pkeg8h8Dw"
+      },
+      "task_envelope": {
+        "digest_sha256": "d43e024a0604f03db199bf307607078bcdada2382b073a0a1f85fa6dd7e03f3d",
+        "task_id": "TASK-0760"
+      },
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1"
+    },
+    {
+      "accountable_subject": "acct:person/qa",
+      "attestation_id": "daa-attestation-qa",
+      "binding": {
+        "binding_id": "daa-binding-qa",
+        "binding_version": "1.0.0",
+        "digest_sha256": "4f8ed08e96ad59a4562386e2d4099b0726e1f0d0ac33ef8c65a11a9a7a095583"
+      },
+      "candidate_sha": "0123456789abcdef0123456789abcdef01234567",
+      "decision": "APPROVE",
+      "issued_at": "2026-08-18T12:00:00Z",
+      "policy": {
+        "profile_id": "delivery-approval-test",
+        "profile_version": "1.0.0"
+      },
+      "principal": {
+        "issuer": "https://identity.test.dsgeorref.local",
+        "subject": "principal-qa"
+      },
+      "role": "QA",
+      "schema_version": "1.0.0",
+      "signature": {
+        "algorithm": "Ed25519",
+        "key_id": "daa-test-qa",
+        "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ATTESTATION-V1",
+        "value": "c8nogLfPyiBvSqwuB9EPhwoPnavUA4iNEKT3rSmJA0y_2c60ubkvDtmkTJmrUQYsfbL-u4NFWZn91ha1wwzrDg"
+      },
+      "task_envelope": {
+        "digest_sha256": "d43e024a0604f03db199bf307607078bcdada2382b073a0a1f85fa6dd7e03f3d",
+        "task_id": "TASK-0760"
+      },
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1"
+    },
+    {
+      "accountable_subject": "acct:person/reviewer",
+      "attestation_id": "daa-attestation-reviewer",
+      "binding": {
+        "binding_id": "daa-binding-reviewer",
+        "binding_version": "1.0.0",
+        "digest_sha256": "be97036044dc0ddfe813076158e786b0438508f0eee890588d2f5342594adb39"
+      },
+      "candidate_sha": "0123456789abcdef0123456789abcdef01234567",
+      "decision": "APPROVE",
+      "issued_at": "2026-08-18T12:00:00Z",
+      "policy": {
+        "profile_id": "delivery-approval-test",
+        "profile_version": "1.0.0"
+      },
+      "principal": {
+        "issuer": "https://identity.test.dsgeorref.local",
+        "subject": "principal-reviewer"
+      },
+      "role": "Reviewer",
+      "schema_version": "1.0.0",
+      "signature": {
+        "algorithm": "Ed25519",
+        "key_id": "daa-test-reviewer",
+        "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ATTESTATION-V1",
+        "value": "K0gM5AgVP2LkRk50IVq7QFbALCjSD66LDintCrSq4DADJ1TLxtGWe4VsfBechI-pN-OgoS79kkSjgEdUSneEBg"
+      },
+      "task_envelope": {
+        "digest_sha256": "d43e024a0604f03db199bf307607078bcdada2382b073a0a1f85fa6dd7e03f3d",
+        "task_id": "TASK-0760"
+      },
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1"
+    }
+  ],
+  "bindings": [
+    {
+      "accountable_subject": "acct:person/executor",
+      "binding_id": "daa-binding-executor",
+      "binding_version": "1.0.0",
+      "policy": {
+        "profile_id": "delivery-approval-test",
+        "profile_version": "1.0.0"
+      },
+      "principal": {
+        "issuer": "https://identity.test.dsgeorref.local",
+        "subject": "principal-executor"
+      },
+      "revoked_at": null,
+      "role": "Executor",
+      "schema_version": "1.0.0",
+      "signature": {
+        "algorithm": "Ed25519",
+        "key_id": "daa-test-binding",
+        "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V1",
+        "value": "Hc3CUJAKDf0YoCwD-Sxn9A7DDGgE9d5J3mF3-tiqwVMhgUhkBswsnVXtVa3tH3P9ArLzwhZv4VTjfu4XByCeCw"
+      },
+      "task_envelope_ids": [
+        "TASK-0760"
+      ],
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+      "valid_from": "2026-08-10T00:00:00Z",
+      "valid_until": "2026-08-25T00:00:00Z"
+    },
+    {
+      "accountable_subject": "acct:person/qa",
+      "binding_id": "daa-binding-qa",
+      "binding_version": "1.0.0",
+      "policy": {
+        "profile_id": "delivery-approval-test",
+        "profile_version": "1.0.0"
+      },
+      "principal": {
+        "issuer": "https://identity.test.dsgeorref.local",
+        "subject": "principal-qa"
+      },
+      "revoked_at": null,
+      "role": "QA",
+      "schema_version": "1.0.0",
+      "signature": {
+        "algorithm": "Ed25519",
+        "key_id": "daa-test-binding",
+        "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V1",
+        "value": "_9ti05A7WDXLv0o690T-T0iGKdS46uTLvLywOIGCLA0oCaNebHIhdmreEqb4vlXowgxphg42CFsPvwjm3sJoCQ"
+      },
+      "task_envelope_ids": [
+        "TASK-0760"
+      ],
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+      "valid_from": "2026-08-10T00:00:00Z",
+      "valid_until": "2026-08-25T00:00:00Z"
+    },
+    {
+      "accountable_subject": "acct:person/reviewer",
+      "binding_id": "daa-binding-reviewer",
+      "binding_version": "1.0.0",
+      "policy": {
+        "profile_id": "delivery-approval-test",
+        "profile_version": "1.0.0"
+      },
+      "principal": {
+        "issuer": "https://identity.test.dsgeorref.local",
+        "subject": "principal-reviewer"
+      },
+      "revoked_at": null,
+      "role": "Reviewer",
+      "schema_version": "1.0.0",
+      "signature": {
+        "algorithm": "Ed25519",
+        "key_id": "daa-test-binding",
+        "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V1",
+        "value": "URIoB9Qd-PCtbCm2h1DNq6ZTcHGPOndzLOxN5fqfVifr9VBT5g4TmlcOoi2s2zvpgZTXvuG4JZBzl87_yXxKDg"
+      },
+      "task_envelope_ids": [
+        "TASK-0760"
+      ],
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+      "valid_from": "2026-08-10T00:00:00Z",
+      "valid_until": "2026-08-25T00:00:00Z"
+    }
+  ],
+  "candidate_sha": "0123456789abcdef0123456789abcdef01234567",
+  "contract_version": "1.0.0",
+  "probes": [
+    {
+      "expected_code": "SCHEMA_INVALID",
+      "expected_status": "FAIL",
+      "probe_id": "caller-declared-trust-profile"
+    },
+    {
+      "expected_code": "SCHEMA_INVALID",
+      "expected_status": "FAIL",
+      "probe_id": "caller-declared-public-key"
+    },
+    {
+      "expected_code": "ISSUER_UNTRUSTED",
+      "expected_status": "FAIL",
+      "probe_id": "caller-declared-issuer"
+    },
+    {
+      "expected_code": "SIGNER_UNKNOWN",
+      "expected_status": "FAIL",
+      "probe_id": "unknown-signer"
+    },
+    {
+      "expected_code": "REVOKED",
+      "expected_status": "FAIL",
+      "probe_id": "revoked-signer"
+    },
+    {
+      "expected_code": "TEMPORAL_INVALID",
+      "expected_status": "FAIL",
+      "probe_id": "expired-signer"
+    },
+    {
+      "expected_code": "SCOPE_INVALID",
+      "expected_status": "FAIL",
+      "probe_id": "signer-out-of-scope"
+    },
+    {
+      "expected_code": "BINDING_MISSING",
+      "expected_status": "FAIL",
+      "probe_id": "binding-missing"
+    },
+    {
+      "expected_code": "SIGNATURE_INVALID",
+      "expected_status": "FAIL",
+      "probe_id": "binding-signature-invalid"
+    },
+    {
+      "expected_code": "TEMPORAL_INVALID",
+      "expected_status": "FAIL",
+      "probe_id": "binding-temporal-incompatible"
+    },
+    {
+      "expected_code": "PRINCIPAL_MISMATCH",
+      "expected_status": "FAIL",
+      "probe_id": "principal-divergent"
+    },
+    {
+      "expected_code": "ROLE_MISMATCH",
+      "expected_status": "FAIL",
+      "probe_id": "role-divergent"
+    },
+    {
+      "expected_code": "ACCOUNTABLE_SUBJECT_MISMATCH",
+      "expected_status": "FAIL",
+      "probe_id": "accountable-subject-divergent"
+    },
+    {
+      "expected_code": "TASK_ENVELOPE_INVALID",
+      "expected_status": "FAIL",
+      "probe_id": "task-envelope-invalid"
+    },
+    {
+      "expected_code": "TASK_ENVELOPE_DIGEST_MISMATCH",
+      "expected_status": "FAIL",
+      "probe_id": "task-envelope-digest-divergent"
+    },
+    {
+      "expected_code": "TASK_ENVELOPE_DIGEST_MISMATCH",
+      "expected_status": "FAIL",
+      "probe_id": "task-envelope-replay"
+    },
+    {
+      "expected_code": "CANDIDATE_SHA_MISMATCH",
+      "expected_status": "FAIL",
+      "probe_id": "candidate-sha-divergent"
+    },
+    {
+      "expected_code": "CANDIDATE_SHA_MISMATCH",
+      "expected_status": "FAIL",
+      "probe_id": "candidate-sha-replay"
+    },
+    {
+      "expected_code": "APPROVAL_MISSING",
+      "expected_status": "FAIL",
+      "probe_id": "approval-missing"
+    },
+    {
+      "expected_code": "SIGNATURE_INVALID",
+      "expected_status": "FAIL",
+      "probe_id": "approval-tampered"
+    },
+    {
+      "expected_code": "DECISION_INVALID",
+      "expected_status": "FAIL",
+      "probe_id": "approval-reject"
+    },
+    {
+      "expected_code": "INDEPENDENCE_VIOLATION",
+      "expected_status": "FAIL",
+      "probe_id": "accountable-subject-overlap"
+    },
+    {
+      "expected_code": "TRUST_SCOPE_INVALID",
+      "expected_status": "FAIL",
+      "probe_id": "spec001-trust-scope-cross-use"
+    },
+    {
+      "expected_code": "SIGNATURE_INVALID",
+      "expected_status": "FAIL",
+      "probe_id": "spec001-signature-domain-cross-use"
+    }
+  ],
+  "suite_version": "1.0.0",
+  "task_envelope": {
+    "digest_sha256": "d43e024a0604f03db199bf307607078bcdada2382b073a0a1f85fa6dd7e03f3d",
+    "path": ".codex/tasks/TASK-0760.json",
+    "task_id": "TASK-0760"
+  },
+  "trusted_configuration": {
+    "trust_anchors": {
+      "anchor_set_id": "delivery-approval-test-anchors",
+      "anchor_set_version": "1.0.0",
+      "anchors": [
+        {
+          "algorithm": "Ed25519",
+          "key_id": "daa-test-root",
+          "public_key": "tYQ6degqm6uaKVOUCvaYCRc3yBykl3Z3pDA1x8u91JE",
+          "purpose": "DELIVERY_TRUST_PROFILE_SIGNING",
+          "revoked_at": null,
+          "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_until": "2027-01-01T00:00:00Z"
+        }
+      ],
+      "schema_version": "1.0.0",
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1"
+    },
+    "trust_profile": {
+      "canonicalization": "JCS-RFC8785-PROFILE-1",
+      "hash_algorithm": "SHA-256",
+      "identity_issuers": [
+        {
+          "issuer": "https://identity.test.dsgeorref.local",
+          "revoked_at": null,
+          "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+          "valid_from": "2026-08-01T00:00:00Z",
+          "valid_until": "2026-09-01T00:00:00Z"
+        }
+      ],
+      "keys": [
+        {
+          "algorithm": "Ed25519",
+          "key_id": "daa-test-binding",
+          "principal": null,
+          "public_key": "q-lzaCfXHSqtVW1n-HwKBMVlQyXRDP1ddXOx71yo9Co",
+          "purpose": "DELIVERY_ROLE_BINDING",
+          "revoked_at": null,
+          "roles": [
+            "Executor",
+            "QA",
+            "Reviewer"
+          ],
+          "task_envelope_ids": [
+            "TASK-0760"
+          ],
+          "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+          "valid_from": "2026-08-01T00:00:00Z",
+          "valid_until": "2026-09-01T00:00:00Z"
+        },
+        {
+          "algorithm": "Ed25519",
+          "key_id": "daa-test-executor",
+          "principal": {
+            "issuer": "https://identity.test.dsgeorref.local",
+            "subject": "principal-executor"
+          },
+          "public_key": "llE0oYxHAI10Cx-lTpqvFuZLfcvDvT7X7pshmodnQTU",
+          "purpose": "DELIVERY_APPROVAL_ATTESTATION",
+          "revoked_at": null,
+          "roles": [
+            "Executor"
+          ],
+          "task_envelope_ids": [
+            "TASK-0760"
+          ],
+          "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+          "valid_from": "2026-08-01T00:00:00Z",
+          "valid_until": "2026-09-01T00:00:00Z"
+        },
+        {
+          "algorithm": "Ed25519",
+          "key_id": "daa-test-qa",
+          "principal": {
+            "issuer": "https://identity.test.dsgeorref.local",
+            "subject": "principal-qa"
+          },
+          "public_key": "kgjJFARoqJv2nlPsE8GrT4BvaZms0Yj2msB82VQrbGY",
+          "purpose": "DELIVERY_APPROVAL_ATTESTATION",
+          "revoked_at": null,
+          "roles": [
+            "QA"
+          ],
+          "task_envelope_ids": [
+            "TASK-0760"
+          ],
+          "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+          "valid_from": "2026-08-01T00:00:00Z",
+          "valid_until": "2026-09-01T00:00:00Z"
+        },
+        {
+          "algorithm": "Ed25519",
+          "key_id": "daa-test-reviewer",
+          "principal": {
+            "issuer": "https://identity.test.dsgeorref.local",
+            "subject": "principal-reviewer"
+          },
+          "public_key": "r-4OTw4MIy2Jufo8ZcSd4olfj5uiYMFXvdFEcYWulN8",
+          "purpose": "DELIVERY_APPROVAL_ATTESTATION",
+          "revoked_at": null,
+          "roles": [
+            "Reviewer"
+          ],
+          "task_envelope_ids": [
+            "TASK-0760"
+          ],
+          "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+          "valid_from": "2026-08-01T00:00:00Z",
+          "valid_until": "2026-09-01T00:00:00Z"
+        }
+      ],
+      "profile_id": "delivery-approval-test",
+      "profile_version": "1.0.0",
+      "schema_version": "1.0.0",
+      "signature": {
+        "algorithm": "Ed25519",
+        "key_id": "daa-test-root",
+        "message_profile": "DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V1",
+        "value": "MsCzDhIgxjwmeUUiYRIuurRKl3dJjfsdy2V3sd8iDweg9sdgUhPDv0WgGkGvXpnXG756xfn2gW_5-pLDPfq4CA"
+      },
+      "signature_algorithm": "Ed25519",
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+      "valid_from": "2026-08-01T00:00:00Z",
+      "valid_until": "2026-09-01T00:00:00Z"
+    }
+  },
+  "verification_time": "2026-08-18T13:00:00Z"
+}

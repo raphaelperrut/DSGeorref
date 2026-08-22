@@ -47,7 +47,7 @@ Resultados, lineage, schemas e reprodutibilidade.
 
 ## Revisão SAR da sprint
 
-- **Baseline arquitetural de entrada:** ADRs 001–057 aceitas, tecnologia fechada em `TECHNOLOGY_BASELINE`, contratos compartilhados versionados.
+- **Baseline arquitetural de entrada:** ADRs 001–058 aceitas, tecnologia fechada em `TECHNOLOGY_BASELINE`, contratos compartilhados versionados.
 - **Decisões tecnológicas em aberto:** `0`.
 - **Histórias:** `38`.
 - **Ondas topológicas globais presentes:** `0, 1, 2, 3, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 48, 49, 50, 51`.
