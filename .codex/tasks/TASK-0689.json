@@ -32,6 +32,8 @@
     "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
     "docs/02-architecture/adrs/ADR-012-modelo-de-interacao-rest-sse-e-polling.md",
     "docs/02-architecture/adrs/ADR-035-upgrade-controller-mixed-versions-e-rollback.md",
+    "docs/02-architecture/adrs/ADR-058-delivery-approval-authority-e-attestations-criptograficas-independentes.md",
+    "contracts/assurance/delivery-approval-authority/README.md",
     "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
     "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
     "contracts/operations/external-dependency-register.csv",
@@ -79,7 +81,8 @@
     "commit candidato e relatório de testes"
   ],
   "dependencies": [
-    "STORY-0001"
+    "STORY-0001",
+    "STORY-0760"
   ],
   "stop_conditions": [
     "Decisão material não resolvida.",
@@ -100,7 +103,8 @@
     "ADR-007",
     "ADR-008",
     "ADR-012",
-    "ADR-035"
+    "ADR-035",
+    "ADR-058"
   ],
   "requirement_basis": "MIXED",
   "requirements_review_status": "PASS",
@@ -120,9 +124,10 @@
     "status": "PASS",
     "dependencies": {
       "status": "PASS",
-      "count": 1,
+      "count": 2,
       "items": [
-        "STORY-0001"
+        "STORY-0001",
+        "STORY-0760"
       ]
     },
     "files": {
