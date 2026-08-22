@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "TASK-0761",
+  "issue_id": "ISSUE-0871",
+  "repository": "raphaelperrut/DSGeorref",
+  "baseline_revision": "a591109a2c15605a81206c296678e82554051db6",
+  "candidate_revision_record": "handoff",
+  "trust_resolution": {
+    "mode": "exact-full-git-commit",
+    "working_tree_authoritative": false,
+    "manifest_path": "contracts/assurance/delivery-approval-authority/trust/manifest.json",
+    "conformance_path_authoritative": false
+  },
+  "focused_tests": {
+    "command": "py -3.12 -m pytest tests/security/delivery_approval_authority/test_operational_verifier.py -q -p no:cacheprovider --basetemp C:\\tmp\\daa871c",
+    "result": "PASS",
+    "passed": 4,
+    "failed": 0
+  },
+  "trust_boundaries": {
+    "caller_controlled_trust": false,
+    "conformance_trust_reused": false,
+    "test_verifier_used": false,
+    "unknown_or_revoked_trust_fails_closed": true,
+    "repository_revision_divergence_fails_closed": true
+  },
+  "sha256": {
+    "tools/governance/delivery_approval_authority/__init__.py": "d2fdf9516480889a4f55d67b1984fc12758b11dc97753cce82cd73f706963d1a",
+    "tools/governance/delivery_approval_authority/api.py": "466df3eefee7f5440296a1a2db0452c05e6a53624f4113367bf0ad8c68dc04a3",
+    "tools/governance/delivery_approval_authority/canonical.py": "4317f3f6d91f94e18baff8b092c0fd6d89f6d5db3ec06b4490d4f2f918e87be5",
+    "tools/governance/delivery_approval_authority/crypto.py": "d530aa848a6afbcd10f06045b888d725509883ad10d51c531aa9658b89ee67b2",
+    "tools/governance/delivery_approval_authority/records.py": "76870ca1348121d9e66396f8e9227484153dbfbcb1f99b02a4e02ea3c82e3d80",
+    "tools/governance/delivery_approval_authority/repository.py": "e05ba55fa7ecb4cf27c274fc9a8a109dde3d530f04d753707678f6556a52d800",
+    "tools/governance/delivery_approval_authority/schemas.py": "115d8c93c751ac93df3f6e51ccd602fa81f0e59ca6367adf4f019409e2ba78b2",
+    "tools/governance/delivery_approval_authority/verdicts.py": "df5bb63412bd5662cdc11eee8c2e2e25b9fe31fe39fe0f7078c28c750e293013",
+    "tools/governance/delivery_approval_authority/verifier.py": "a2c62e807f55c225ec1c1dc8bab1b2993f2ff774d0b20da5af47e7159ca1f5c5",
+    "contracts/assurance/delivery-approval-authority/trust/manifest.json": "fbf2a35fbebe6a33d4c382e7e1fa367b03e921df2e770d95a1372ca8ea9249fe",
+    "contracts/assurance/delivery-approval-authority/trust/anchors/dsgeorref-daa-operational-roots-1.0.0.json": "b5ef44d14070663a97d450761bde373a7b9d7fe150aed6fc20b6ca3bf13ae14f",
+    "contracts/assurance/delivery-approval-authority/trust/profiles/dsgeorref-daa-operational-1.0.0.json": "1821327944386e3b0b9f325f3da6983c61c8ca05694dea1ba25c5bf9cd3d2e9c"
+  },
+  "lifecycle": {
+    "rotation": "publish a newly signed version and atomically update manifest digests",
+    "revocation": "set revoked_at in a newly signed governed profile or anchor revision",
+    "historical_verification": "select the original repository revision and explicit verification time",
+    "rollback": "select a prior governed revision; never fall back to caller trust",
+    "compatibility": "DAA contract 1.0.0 only"
+  },
+  "limitations": [
+    "No production private-key custody is claimed or stored by this candidate.",
+    "The bootstrap profile has no principal approval keys and therefore fails closed until independent signer issuance.",
+    "QA and Reviewer approvals remain independent gates on the final candidate SHA."
+  ]
+}

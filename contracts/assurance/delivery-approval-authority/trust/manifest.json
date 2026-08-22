@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "repository": "raphaelperrut/DSGeorref",
+  "anchors": {
+    "path": "contracts/assurance/delivery-approval-authority/trust/anchors/dsgeorref-daa-operational-roots-1.0.0.json",
+    "sha256": "b5ef44d14070663a97d450761bde373a7b9d7fe150aed6fc20b6ca3bf13ae14f"
+  },
+  "profile": {
+    "path": "contracts/assurance/delivery-approval-authority/trust/profiles/dsgeorref-daa-operational-1.0.0.json",
+    "sha256": "1821327944386e3b0b9f325f3da6983c61c8ca05694dea1ba25c5bf9cd3d2e9c"
+  }
+}
