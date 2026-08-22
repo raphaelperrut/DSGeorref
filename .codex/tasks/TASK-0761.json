@@ -47,6 +47,7 @@
   "allow_paths": [
     "tools/governance/delivery_approval_authority/**",
     "contracts/assurance/delivery-approval-authority/trust/**",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
     "docs/03-engineering/contexts/engineering_governance/delivery_approval_authority/**",
     "tests/security/delivery_approval_authority/**",
     "evidence/security/delivery-approval-authority/**"
@@ -131,6 +132,7 @@
       "allow_paths": [
         "tools/governance/delivery_approval_authority/**",
         "contracts/assurance/delivery-approval-authority/trust/**",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
         "docs/03-engineering/contexts/engineering_governance/delivery_approval_authority/**",
         "tests/security/delivery_approval_authority/**",
         "evidence/security/delivery-approval-authority/**"
