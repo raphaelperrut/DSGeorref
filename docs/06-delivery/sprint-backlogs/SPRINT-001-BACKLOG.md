@@ -1,7 +1,7 @@
 # SPRINT-001 — Backlog implementável
 
 - **Sprint:** `SPRINT-001`
-- **Histórias:** `93`
+- **Histórias:** `94`
 - **Épicos:** `12`
 
 ## Histórias por épico
@@ -158,3 +158,4 @@
 | `STORY-0758` | `ISSUE-0868` | `TASK-0758` | Tech Lead | STORY-0683 |
 | `STORY-0759` | `ISSUE-0869` | `TASK-0759` | QA | STORY-0003 |
 | `STORY-0760` | `ISSUE-0870` | `TASK-0760` | Arquiteto | STORY-0001 |
+| `STORY-0761` | `ISSUE-0871` | `TASK-0761` | Security | STORY-0760 |

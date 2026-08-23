@@ -2,8 +2,8 @@
 
 - **Baseline:** `2.6.0`
 - **Épicos:** `110`
-- **Histórias implementáveis:** `760`
-- **Issues totais:** `870`
+- **Histórias implementáveis:** `761`
+- **Issues totais:** `871`
 
 A ordem é dirigida pelo DAG e pelos gates. A Fase A está encerrada; coding continua condicionado ao registro externo de autorização.
 
@@ -19,7 +19,7 @@ A ordem é dirigida pelo DAG e pelos gates. A Fase A está encerrada; coding con
 ## SPRINT-001 — Repositório, governança e fundação executável
 
 - **Épicos:** 12
-- **Histórias:** 93
+- **Histórias:** 94
 - **Backlog:** `docs/06-delivery/sprint-backlogs/SPRINT-001-BACKLOG.md`
 
 ## SPRINT-002 — Identidade, autorização, workspace e persistência inicial

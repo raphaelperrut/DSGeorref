@@ -9,7 +9,7 @@ crit=rows('docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv')
 issues=rows('docs/07-assurance/ISSUE_REQUIREMENTS_REVIEW.csv')
 reqs=rows('docs/07-assurance/REQUIREMENT_REVIEW_MATRIX.csv')
 sprints=rows('docs/07-assurance/SPRINT_GATE_REQUIREMENTS_REVIEW.csv')
-if len(issues)!=870: errors.append(f'issues reviewed: {len(issues)}')
+if len(issues)!=871: errors.append(f'issues reviewed: {len(issues)}')
 if len(reqs)!=376: errors.append(f'requirements reviewed: {len(reqs)}')
 if not crit: errors.append('criterion matrix empty')
 for r in crit:

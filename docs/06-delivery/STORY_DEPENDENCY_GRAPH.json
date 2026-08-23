@@ -8361,6 +8361,17 @@
       "role": "Arquiteto",
       "title": "Publicar contrato da Delivery Approval Authority",
       "file": "docs/06-delivery/stories/STORY-0760-ISSUE-0870-publicar-contrato-da-delivery-approval-authority.md"
+    },
+    {
+      "id": "STORY-0761",
+      "issue_id": "ISSUE-0871",
+      "task_id": "TASK-0761",
+      "epic_id": "EPIC-001",
+      "sprint": "SPRINT-001",
+      "domain": "FND",
+      "role": "Security",
+      "title": "Materializar verifier e trust operacional da Delivery Approval Authority",
+      "file": "docs/06-delivery/stories/STORY-0761-ISSUE-0871-materializar-verifier-e-trust-operacional-da-daa.md"
     }
   ],
   "edges": [
@@ -14197,6 +14208,21 @@
     {
       "from": "STORY-0001",
       "to": "STORY-0760",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0760",
+      "to": "STORY-0761",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0760",
+      "to": "STORY-0689",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0761",
+      "to": "STORY-0689",
       "relation": "blocks"
     }
   ],

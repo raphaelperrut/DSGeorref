@@ -82,7 +82,8 @@
   ],
   "dependencies": [
     "STORY-0001",
-    "STORY-0760"
+    "STORY-0760",
+    "STORY-0761"
   ],
   "stop_conditions": [
     "Decisão material não resolvida.",
@@ -124,10 +125,11 @@
     "status": "PASS",
     "dependencies": {
       "status": "PASS",
-      "count": 2,
+      "count": 3,
       "items": [
         "STORY-0001",
-        "STORY-0760"
+        "STORY-0760",
+        "STORY-0761"
       ]
     },
     "files": {

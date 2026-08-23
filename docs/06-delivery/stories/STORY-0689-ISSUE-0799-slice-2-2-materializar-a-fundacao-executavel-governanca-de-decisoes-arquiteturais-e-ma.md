@@ -1,7 +1,7 @@
 # STORY-0689 / ISSUE-0799 — Slice 2/2 — Materializar a fundação executável: governança de decisões arquiteturais e manutenção da baseline normativa [REQ-SPRINT-001, REQ-TOOL]
 
 - **Tipo:** `História implementável`
-- **Estado:** `Ready-after-authorization`
+- **Estado:** `Blocked`
 - **Épico pai:** `EPIC-001`
 - **Sprint:** `SPRINT-001`
 - **Domínio:** `FND`
@@ -36,12 +36,14 @@ Slice 2/2 concluído com contrato, implementação ou evidência compatível com
 
 - `ADR-007`
 - `ADR-008`
+- `ADR-058`
+- `contracts/assurance/delivery-approval-authority/README.md`
 - contratos e ADRs referenciados pelos requisitos.
 
 ## Dependências
 
 
-`STORY-0001`
+`STORY-0001`, `STORY-0760`, `STORY-0761`
 
 ## Critérios de aceitação
 

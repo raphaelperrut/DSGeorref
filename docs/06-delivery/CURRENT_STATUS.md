@@ -5,8 +5,8 @@
 - **Arquitetura:** aceita (`ADR-001` a `ADR-058`)
 - **Bounded Contexts:** 16
 - **Requisitos:** 376 ativos
-- **Backlog:** 110 épicos, 760 histórias, 870 issues
-- **TaskEnvelopes Codex:** 760, schema 1.6.0
+- **Backlog:** 110 épicos, 761 histórias, 871 issues
+- **TaskEnvelopes Codex:** 761, schema 1.6.0
 - **Fases A–G:** concluídas e aprovadas
 - **CTO Review:** `PROCEED_STAGED`
 - **Riscos ativos consolidados:** 40
