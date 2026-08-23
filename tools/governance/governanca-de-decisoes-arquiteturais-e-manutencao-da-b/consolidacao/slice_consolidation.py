@@ -76,7 +76,6 @@ def validate_slice_consolidation(
     findings.extend(coverage_findings)
     findings.extend(
         _completion_findings(
-            view,
             tasks,
             reviewer_record.get("completion_evidence") if reviewer_record else None,
             repository_root,
@@ -262,43 +261,24 @@ def _coverage(
 
 
 def _completion_findings(
-    view: CandidateView,
     tasks: tuple[Mapping[str, Any], ...],
     references: object,
     repository_root: Path,
 ) -> list[Finding]:
-    completed_from_state: set[str] = set()
-    expected: set[str] = set()
-    findings: list[Finding] = []
-    for task in tasks:
-        story_id = str(task.get("story_id"))
-        expected.add(story_id)
-        story_paths = [
-            item
-            for item in task.get("references") or []
-            if isinstance(item, str) and "/stories/STORY-" in item
-        ]
-        if len(story_paths) != 1:
-            continue
-        story = view.blob(story_paths[0]).decode("utf-8")
-        state = re.search(r"^- \*\*Estado:\*\* `([^`]+)`", story, re.MULTILINE)
-        if state is not None and state.group(1) == "Done":
-            completed_from_state.add(story_id)
-
+    expected = {str(task.get("story_id")) for task in tasks}
     completed_from_evidence, governed_findings = validate_governed_completion(
         repository_root, references
     )
-    findings.extend(
+    findings = [
         Finding(finding.code, finding.field, finding.detail)
         for finding in governed_findings
-    )
-    proven = completed_from_state | set(completed_from_evidence)
-    for story_id in sorted(expected - proven):
+    ]
+    for story_id in sorted(expected - set(completed_from_evidence)):
         findings.append(
             Finding(
                 "SLICE_COMPLETION_UNPROVEN",
                 story_id,
-                "canonical Done state or governed completion evidence is required",
+                "governed completion evidence is required",
             )
         )
     return findings

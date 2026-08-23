@@ -79,27 +79,32 @@ def _canonical_completion(
     )
 
 
-def _story_state(story_id: str, state: str | None):
+def _story_states(states: dict[str, str | None]):
     original_blob = CandidateView.blob
-    marker = {
+    markers = {
         "STORY-0688": "STORY-0688-ISSUE-0798",
         "STORY-0689": "STORY-0689-ISSUE-0799",
-    }[story_id]
+    }
 
     def replaced(view: CandidateView, path: str) -> bytes:
         content = original_blob(view, path)
-        if marker not in path:
-            return content
-        replacement = b"" if state is None else f"- **Estado:** `{state}`".encode()
-        return re.sub(
-            rb"^- \*\*Estado:\*\* `[^`]*`\r?\n?",
-            replacement + (b"\n" if replacement else b""),
-            content,
-            count=1,
-            flags=re.MULTILINE,
-        )
+        for story_id, state in states.items():
+            if markers[story_id] in path:
+                replacement = b"" if state is None else f"- **Estado:** `{state}`".encode()
+                return re.sub(
+                    rb"^- \*\*Estado:\*\* `[^`]*`\r?\n?",
+                    replacement + (b"\n" if replacement else b""),
+                    content,
+                    count=1,
+                    flags=re.MULTILINE,
+                )
+        return content
 
     return patch.object(CandidateView, "blob", replaced)
+
+
+def _story_state(story_id: str, state: str | None):
+    return _story_states({story_id: state})
 
 
 def test_story_0002_slice_consolidation() -> None:
@@ -117,15 +122,35 @@ def test_story_0002_slice_consolidation() -> None:
     assert result.released_dependents == ("STORY-0004",)
 
 
-def test_canonical_done_slice_is_accepted_without_equivalent_evidence() -> None:
+def test_done_slice_without_canonical_proof_is_rejected() -> None:
     candidate = _candidate()
     review = _review(candidate)
 
     with _story_state("STORY-0688", "Done"), _canonical_completion(("STORY-0689",)):
         result = consolidation.validate_slice_consolidation(ROOT, candidate, review)
 
-    assert result.ready, result.findings
-    assert result.released_dependents == ("STORY-0004",)
+    assert not result.ready
+    assert "SLICE_COMPLETION_UNPROVEN" in {
+        finding.code for finding in result.findings
+    }
+    assert result.released_dependents == ()
+
+
+def test_all_done_with_zero_canonical_references_fails_closed() -> None:
+    candidate = _candidate()
+    review = _review(candidate)
+    review["completion_evidence"] = []
+
+    with _story_states({"STORY-0688": "Done", "STORY-0689": "Done"}):
+        result = consolidation.validate_slice_consolidation(ROOT, candidate, review)
+
+    assert not result.ready
+    assert {
+        finding.field
+        for finding in result.findings
+        if finding.code == "SLICE_COMPLETION_UNPROVEN"
+    } == {"STORY-0688", "STORY-0689"}
+    assert result.released_dependents == ()
 
 
 def test_non_terminal_states_are_rejected_without_completion_evidence() -> None:

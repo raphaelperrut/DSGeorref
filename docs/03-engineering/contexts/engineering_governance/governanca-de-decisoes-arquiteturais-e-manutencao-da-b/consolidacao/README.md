@@ -10,14 +10,13 @@ It rejects missing outputs, baseline drift, overlapping scopes, duplicate
 requirement ownership, byte-identical Python implementations, invalid Python,
 and the absence of the established Slice 2 reuse of the Slice 1 boundary.
 
-A slice is complete only when its canonical state is `Done`, or when the
-Reviewer supplies governed completion artifact references accepted by the
-existing Sprint graph completion validator. The consolidation package delegates
-those references without redefining them. That canonical validator enforces the
-completed story/task/candidate binding, immutable reference lineage, QA and
-Reviewer assurance, and Delivery Approval Authority verification. Ready,
-Ready-after-authorization, Planned, In Progress, Blocked, unknown, missing, and
-locally asserted path/hash records are never completion by themselves.
+A slice is complete only when the Reviewer supplies governed completion artifact
+references accepted by the existing Sprint graph completion validator. The
+consolidation package delegates those references without redefining them. That
+canonical validator enforces the completed story/task/candidate binding,
+immutable reference lineage, QA and Reviewer assurance, and Delivery Approval
+Authority verification. No story state, including `Done`, and no locally
+asserted path/hash record is completion proof by itself.
 
 Dependent stories are never released implicitly. A reviewer record must bind the
 exact candidate, list residual risks (an empty list is explicit), name the exact
