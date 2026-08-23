@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 from collections.abc import Mapping
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from typing import Any
 
 from tools.governance.delivery_approval_authority import verify_delivery_approval
@@ -11,6 +12,26 @@ from slice_one import Finding, canonical_json_bytes
 
 
 REQUIRED_ROLES = frozenset({"Executor", "QA", "Reviewer"})
+_OPERATIONAL_CONTEXT_AUTHORITY = object()
+
+
+@dataclass(frozen=True)
+class _TrustedOperationalContext:
+    verification_time: str
+    authority: object
+
+
+def _trusted_operational_context() -> _TrustedOperationalContext:
+    """Capture explicit UTC time from the trusted operational clock."""
+    instant = _operational_utc_now().astimezone(timezone.utc)
+    return _TrustedOperationalContext(
+        verification_time=instant.isoformat().replace("+00:00", "Z"),
+        authority=_OPERATIONAL_CONTEXT_AUTHORITY,
+    )
+
+
+def _operational_utc_now() -> datetime:
+    return datetime.now(timezone.utc)
 
 
 @dataclass(frozen=True)
@@ -29,6 +50,8 @@ class DeliveryApprovalGate:
     """
 
     def __init__(self) -> None:
+        operational_context = _trusted_operational_context()
+        self._verification_time = operational_context.verification_time
         self._cache: dict[
             str, tuple[VerifiedDeliveryApproval | None, tuple[Finding, ...]]
         ] = {}
@@ -39,7 +62,6 @@ class DeliveryApprovalGate:
         evidence: Mapping[str, Any],
         task_envelope: Mapping[str, Any],
         candidate_sha: str,
-        verification_time: str,
     ) -> tuple[VerifiedDeliveryApproval | None, list[Finding]]:
         cache_key = hashlib.sha256(
             canonical_json_bytes(
@@ -47,7 +69,7 @@ class DeliveryApprovalGate:
                     "candidate_sha": candidate_sha,
                     "evidence": evidence,
                     "task_envelope": task_envelope,
-                    "verification_time": verification_time,
+                    "verification_time": self._verification_time,
                 }
             )
         ).hexdigest()
@@ -59,7 +81,7 @@ class DeliveryApprovalGate:
                 evidence=dict(evidence),
                 task_envelope=dict(task_envelope),
                 expected_candidate_sha=candidate_sha,
-                verification_time=verification_time,
+                verification_time=self._verification_time,
             )
         except (AssertionError, KeyError, TypeError, ValueError) as error:
             return None, [_finding(f"DAA verification failed closed: {error}")]

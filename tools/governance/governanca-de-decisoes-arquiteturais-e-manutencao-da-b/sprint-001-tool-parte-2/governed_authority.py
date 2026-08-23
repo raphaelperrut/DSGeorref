@@ -1,9 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from datetime import datetime, timezone
 from pathlib import Path
-import subprocess
 from typing import Any
 
 from delivery_approval import DeliveryApprovalGate
@@ -112,22 +110,5 @@ def _delivery_approval_findings(
         evidence=evidence,
         task_envelope=task,
         candidate_sha=candidate,
-        verification_time=_revision_time(repository_root, candidate),
     )
     return findings
-
-
-def _revision_time(repository_root: Path, revision: str) -> str:
-    completed = subprocess.run(
-        ["git", "-C", str(repository_root), "show", "-s", "--format=%cI", revision],
-        check=False,
-        capture_output=True,
-        encoding="ascii",
-    )
-    if completed.returncode != 0:
-        return "1970-01-01T00:00:00Z"
-    try:
-        instant = datetime.fromisoformat(completed.stdout.strip()).astimezone(timezone.utc)
-    except ValueError:
-        return "1970-01-01T00:00:00Z"
-    return instant.isoformat().replace("+00:00", "Z")

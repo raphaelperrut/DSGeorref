@@ -9,9 +9,10 @@ import os
 import subprocess
 import sys
 import tempfile
-from unittest import mock
+from datetime import datetime
 from pathlib import Path
 from typing import Any
+from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -247,24 +248,7 @@ def _operational_test_verdict(
         task_id = "INVALID"
     verifier = _DAA_TEST_VERIFIERS.get(task_id)
     if verifier is None:
-        profile = daa_test_profile(_DAA_TEST_KEYS)
-        profile["valid_until"] = _DAA_TEST_VALID_UNTIL
-        for issuer in profile["identity_issuers"]:
-            issuer["valid_until"] = _DAA_TEST_VALID_UNTIL
-        for signer in profile["keys"]:
-            signer["valid_until"] = _DAA_TEST_VALID_UNTIL
-            signer["task_envelope_ids"] = [task_id]
-        daa_test_sign(profile, _DAA_TEST_KEYS["root"], DAA_PROFILE_DOMAIN)
-        revision = _revision(repository=ROOT)
-        if _DAA_TEST_SCHEMAS is None:
-            _DAA_TEST_SCHEMAS = SchemaSet(ROOT, revision)
-        trust = GovernedTrust(
-            revision=revision,
-            anchors=copy.deepcopy(_DAA_TEST_ANCHORS),
-            profile=profile,
-            digests={},
-        )
-        verifier = OperationalVerifier(trust, _DAA_TEST_SCHEMAS)
+        verifier = _new_operational_test_verifier(task_id)
         _DAA_TEST_VERIFIERS[task_id] = verifier
     return verifier.verify(
         evidence=evidence,
@@ -272,6 +256,40 @@ def _operational_test_verdict(
         candidate_sha=expected_candidate_sha,
         verification_time=verification_time,
     )
+
+
+def _new_operational_test_verifier(
+    task_id: str,
+    *,
+    revoked_at: str | None = None,
+) -> OperationalVerifier:
+    global _DAA_TEST_SCHEMAS
+    profile = daa_test_profile(_DAA_TEST_KEYS)
+    profile["valid_until"] = _DAA_TEST_VALID_UNTIL
+    for issuer in profile["identity_issuers"]:
+        issuer["valid_until"] = _DAA_TEST_VALID_UNTIL
+    for signer in profile["keys"]:
+        signer["valid_until"] = _DAA_TEST_VALID_UNTIL
+        signer["task_envelope_ids"] = [task_id]
+        if signer["key_id"] == "issue-0871-qa":
+            signer["revoked_at"] = revoked_at
+    daa_test_sign(profile, _DAA_TEST_KEYS["root"], DAA_PROFILE_DOMAIN)
+    revision = _revision(repository=ROOT)
+    if _DAA_TEST_SCHEMAS is None:
+        _DAA_TEST_SCHEMAS = SchemaSet(ROOT, revision)
+    trust = GovernedTrust(
+        revision=revision,
+        anchors=copy.deepcopy(_DAA_TEST_ANCHORS),
+        profile=profile,
+        digests={},
+    )
+    return OperationalVerifier(trust, _DAA_TEST_SCHEMAS)
+
+
+def _daa_gate_at(verification_time: str) -> daa_adapter.DeliveryApprovalGate:
+    instant = datetime.fromisoformat(verification_time.replace("Z", "+00:00"))
+    with mock.patch.object(daa_adapter, "_operational_utc_now", return_value=instant):
+        return daa_adapter.DeliveryApprovalGate()
 
 
 def _daa_gate(repository: Path) -> daa_adapter.DeliveryApprovalGate:
@@ -1629,6 +1647,10 @@ def _governed_graph_fixture() -> tuple[
 
 def test_daa_operational_trust_boundary() -> None:
     assert inspect.signature(daa_adapter.DeliveryApprovalGate).parameters == {}
+    assert inspect.signature(daa_adapter._trusted_operational_context).parameters == {}
+    assert "verification_time" not in inspect.signature(
+        daa_adapter.DeliveryApprovalGate.verify
+    ).parameters
     forbidden = {
         "repository",
         "revision",
@@ -1657,6 +1679,90 @@ def test_daa_operational_trust_boundary() -> None:
     source = inspect.getsource(daa_adapter)
     assert "test_delivery_approval_authority_contract" not in source
     assert "test-vectors" not in source
+    assert "%cI" not in source
+    try:
+        daa_adapter.DeliveryApprovalGate("2026-08-23T13:00:00Z")  # type: ignore[call-arg]
+    except TypeError:
+        pass
+    else:
+        raise AssertionError("caller-controlled verification_time was accepted")
+
+
+def test_daa_trusted_operational_time() -> None:
+    task = json.loads((ROOT / ".codex/tasks/TASK-0689.json").read_text(encoding="utf-8"))
+    candidate = _revision(repository=ROOT)
+
+    def evidence_at(issued_at: str) -> dict[str, Any]:
+        evidence = _signed_daa_evidence(task, candidate)
+        for attestation in evidence["attestations"]:
+            attestation["issued_at"] = issued_at
+            daa_test_sign(
+                attestation,
+                _DAA_TEST_KEYS[attestation["role"].lower()],
+                DAA_ATTESTATION_DOMAIN,
+            )
+        return evidence
+
+    issued_after_commit = "2026-08-23T12:00:00Z"
+    commit_time = datetime.fromisoformat(
+        _git(ROOT, "show", "-s", "--format=%cI", candidate).strip()
+    )
+    assert datetime.fromisoformat(issued_after_commit.replace("Z", "+00:00")) > commit_time
+    valid = evidence_at(issued_after_commit)
+    gate = _daa_gate_at("2026-08-23T13:00:00Z")
+    with mock.patch.object(
+        daa_adapter, "verify_delivery_approval", _operational_test_verdict
+    ):
+        approval, findings = gate.verify(
+            evidence=valid,
+            task_envelope=task,
+            candidate_sha=candidate,
+        )
+    assert approval is not None and findings == []
+
+    for issued_at in ("2026-08-23T14:00:00Z", "2026-08-21T23:00:00Z"):
+        with mock.patch.object(
+            daa_adapter, "verify_delivery_approval", _operational_test_verdict
+        ):
+            approval, findings = _daa_gate_at("2026-08-23T13:00:00Z").verify(
+                evidence=evidence_at(issued_at),
+                task_envelope=task,
+                candidate_sha=candidate,
+            )
+        assert approval is None
+        assert any("TEMPORAL_INVALID" in finding.detail for finding in findings)
+
+    with mock.patch.object(
+        daa_adapter, "verify_delivery_approval", _operational_test_verdict
+    ):
+        approval, findings = _daa_gate_at("2027-08-23T00:00:00Z").verify(
+            evidence=valid,
+            task_envelope=task,
+            candidate_sha=candidate,
+        )
+    assert approval is None
+    assert any("TEMPORAL_INVALID" in finding.detail for finding in findings)
+
+    revoked_verifier = _new_operational_test_verifier(
+        task["task_id"], revoked_at="2026-08-23T12:30:00Z"
+    )
+
+    def revoked_verdict(**context: Any) -> dict[str, Any]:
+        return revoked_verifier.verify(
+            evidence=context["evidence"],
+            task_envelope=context["task_envelope"],
+            candidate_sha=context["expected_candidate_sha"],
+            verification_time=context["verification_time"],
+        )
+
+    with mock.patch.object(daa_adapter, "verify_delivery_approval", revoked_verdict):
+        approval, findings = _daa_gate_at("2026-08-23T13:00:00Z").verify(
+            evidence=valid,
+            task_envelope=task,
+            candidate_sha=candidate,
+        )
+    assert approval is None
+    assert any("REVOKED" in finding.detail for finding in findings)
 
 
 def test_sprint_zero_baseline_decision_03() -> None:

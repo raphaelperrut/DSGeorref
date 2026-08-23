@@ -44,6 +44,8 @@ candidate SHA, and requires pairwise-disjoint accountable subjects for Executor,
 QA, and Reviewer. Git authors, labels, task IDs, caller-supplied trust, and test or
 conformance verifiers never establish identity or independence. Synthetic keys used
 by unit tests remain fixture-only and never enter the production adapter.
+The gate receives an explicit timestamp captured by its trusted operational context;
+candidate commit timestamps and caller-supplied timestamps are never clocks of trust.
 
 `SprintEvidenceSet` is canonical JSON bound to a source revision and governed
 artifacts. Its digest covers the complete record through a zero-digest projection.
