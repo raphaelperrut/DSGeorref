@@ -37,7 +37,7 @@ Governança de decisões arquiteturais e manutenção da baseline normativa.
 ## Histórias implementáveis
 
 
-Este épico possui **9** histórias filhas:
+Este épico possui **10** histórias filhas:
 
 - `STORY-0001` / `ISSUE-0111` / `TASK-0001` — Definir escopo, contratos e invariantes: governança de decisões arquiteturais e manutenção da baseline normativa
 - `STORY-0002` / `ISSUE-0112` / `TASK-0002` — Consolidar slices e liberar integração: governança de decisões arquiteturais e manutenção da baseline normativa
@@ -48,6 +48,7 @@ Este épico possui **9** histórias filhas:
 - `STORY-0688` / `ISSUE-0798` / `TASK-0688` — Slice 1/2 — Materializar a fundação executável: governança de decisões arquiteturais e manutenção da baseline normativa [REQ-FRZ, REQ-GOV-ADR, REQ-GOV-DEC, REQ-ISM, REQ-SPRINT-001]
 - `STORY-0689` / `ISSUE-0799` / `TASK-0689` — Slice 2/2 — Materializar a fundação executável: governança de decisões arquiteturais e manutenção da baseline normativa [REQ-SPRINT-001, REQ-TOOL]
 - `STORY-0760` / `ISSUE-0870` / `TASK-0760` — Publicar contrato da Delivery Approval Authority
+- `STORY-0761` / `ISSUE-0871` / `TASK-0761` — Materializar verifier e trust operacional da Delivery Approval Authority
 
 A ordem efetiva é governada por `STORY_DEPENDENCY_GRAPH.json`; IDs não substituem dependências.
 

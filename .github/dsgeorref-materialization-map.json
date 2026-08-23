@@ -1392,7 +1392,9 @@
     "ISSUE-0867->ISSUE-0794",
     "ISSUE-0868->ISSUE-0794",
     "ISSUE-0869->ISSUE-0114",
-    "ISSUE-0870->ISSUE-0799"
+    "ISSUE-0870->ISSUE-0799",
+    "ISSUE-0870->ISSUE-0871",
+    "ISSUE-0871->ISSUE-0799"
   ],
   "issues": {
     "ISSUE-0001": {
@@ -6551,6 +6553,14 @@
       "sprint": "SPRINT-001",
       "title": "[ISSUE-0870] Publicar contrato da Delivery Approval Authority",
       "url": "https://github.com/raphaelperrut/DSGeorref/issues/882"
+    },
+    "ISSUE-0871": {
+      "epic_id": "EPIC-001",
+      "kind": "story",
+      "number": 884,
+      "sprint": "SPRINT-001",
+      "title": "[ISSUE-0871] Materializar verifier e trust operacional da Delivery Approval Authority",
+      "url": "https://github.com/raphaelperrut/DSGeorref/issues/884"
     }
   },
   "schema_version": "1.0.0"

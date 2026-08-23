@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "dsgeorref-daa-operational",
+  "profile_version": "1.0.0",
+  "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+  "canonicalization": "JCS-RFC8785-PROFILE-1",
+  "hash_algorithm": "SHA-256",
+  "signature_algorithm": "Ed25519",
+  "valid_from": "2026-08-22T00:00:00Z",
+  "valid_until": "2027-08-22T00:00:00Z",
+  "identity_issuers": [
+    {
+      "issuer": "https://github.com",
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+      "valid_from": "2026-08-22T00:00:00Z",
+      "valid_until": "2027-08-22T00:00:00Z",
+      "revoked_at": null
+    }
+  ],
+  "keys": [
+    {
+      "key_id": "daa-operational-binding-authority-2026",
+      "algorithm": "Ed25519",
+      "public_key": "hKCqDsxCXHt1IqcwYYSomrdeePYM6uX-xDEsw0sJem4",
+      "purpose": "DELIVERY_ROLE_BINDING",
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+      "principal": null,
+      "roles": [
+        "Executor",
+        "QA",
+        "Reviewer"
+      ],
+      "task_envelope_ids": [
+        "TASK-0761"
+      ],
+      "valid_from": "2026-08-22T00:00:00Z",
+      "valid_until": "2027-08-22T00:00:00Z",
+      "revoked_at": null
+    }
+  ],
+  "signature": {
+    "key_id": "daa-operational-profile-root-2026",
+    "algorithm": "Ed25519",
+    "message_profile": "DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V1",
+    "value": "xibwmqdlapO1WA7pvPb0j0ykbtv4cclcZkFRrVvs17enHB9aMr8O0tJp2eXI3EpOAmuft6i9P-_ueDykBFsxCw"
+  }
+}
