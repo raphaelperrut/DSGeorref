@@ -39,3 +39,14 @@ jobs:
           python -c
           "import runpy;
           runpy.run_path('tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py')['test_epic_001_contrato']()"
+
+      - name: Validate repository integration
+        run: >-
+          python
+          tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/repository_integration.py
+
+      - name: Run repository integration test
+        run: >-
+          python -c
+          "import runpy;
+          runpy.run_path('tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_integration.py')['test_epic_001_integracao']()"
