@@ -17,6 +17,16 @@
     "passed": 4,
     "failed": 0
   },
+  "qa_high_remediation": {
+    "rejected_candidate": "dad7b50968021a1b652abc5c8b6a3421a31de1d9",
+    "command": "py -3.12 -m pytest tests/security/delivery_approval_authority/test_operational_verifier.py -q -p no:cacheprovider --basetemp C:\\tmp\\daa871-remediation",
+    "result": "PASS",
+    "passed": 4,
+    "caller_controlled_repository_accepted": false,
+    "self_trusting_repository_accepted": false,
+    "conformance_material_accepted": false,
+    "governed_repository_path": "PASS"
+  },
   "trust_boundaries": {
     "caller_controlled_trust": false,
     "conformance_trust_reused": false,
