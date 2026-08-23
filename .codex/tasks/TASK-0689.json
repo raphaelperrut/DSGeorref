@@ -50,7 +50,9 @@
   ],
   "allow_paths": [
     "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/**",
-    "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/**"
+    "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/**",
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+    "evidence/implementation/governanca-de-decisoes-arquiteturais-e-manutencao/sprint-001-tool-parte-2/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -134,7 +136,9 @@
       "status": "PASS",
       "allow_paths": [
         "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/**",
-        "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/**"
+        "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/**",
+        "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+        "evidence/implementation/governanca-de-decisoes-arquiteturais-e-manutencao/sprint-001-tool-parte-2/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

@@ -2,13 +2,17 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import inspect
 import itertools
+import json
 import os
 import subprocess
 import sys
 import tempfile
+from datetime import datetime
 from pathlib import Path
 from typing import Any
+from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -16,7 +20,15 @@ MODULE_ROOT = ROOT / (
     "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/"
     "frz-gov-adr-gov-dec-parte-1"
 )
+MODULE_ROOT_2 = ROOT / (
+    "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/"
+    "sprint-001-tool-parte-2"
+)
+SECURITY_TEST_ROOT = ROOT / "tests/security"
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(MODULE_ROOT))
+sys.path.insert(0, str(MODULE_ROOT_2))
+sys.path.insert(0, str(SECURITY_TEST_ROOT))
 
 from baseline_lifecycle import (  # noqa: E402
     AppendOnlyRecordLedger,
@@ -26,6 +38,25 @@ from baseline_lifecycle import (  # noqa: E402
     validate_evidence_set,
     validate_reopening,
     validate_transition,
+)
+import delivery_approval as daa_adapter  # noqa: E402
+from delivery_approval_authority.fixture import (  # noqa: E402
+    ATTESTATION_DOMAIN as DAA_ATTESTATION_DOMAIN,
+    BINDING_DOMAIN as DAA_BINDING_DOMAIN,
+    PROFILE_DOMAIN as DAA_PROFILE_DOMAIN,
+    _anchors as daa_test_anchors,
+    _attestation as daa_test_attestation,
+    _binding as daa_test_binding,
+    _key as daa_test_key,
+    _profile as daa_test_profile,
+    _sign as daa_test_sign,
+)
+from tools.governance.delivery_approval_authority.repository import (  # noqa: E402
+    GovernedTrust,
+)
+from tools.governance.delivery_approval_authority.schemas import SchemaSet  # noqa: E402
+from tools.governance.delivery_approval_authority.verifier import (  # noqa: E402
+    OperationalVerifier,
 )
 from canonical_json import canonical_json_bytes  # noqa: E402
 from decision_governance import (  # noqa: E402
@@ -41,6 +72,30 @@ from sprint_validation import (  # noqa: E402
     minimum_sprint_scope,
     validate_graph_derived_selection,
     validate_minimum_sprint_scope,
+)
+from sprint_decisions import (  # noqa: E402
+    validate_ci_capabilities,
+    validate_contract_exercises,
+    validate_cutover_preconditions,
+    validate_diagnostic_claim,
+    validate_sprint_closure,
+)
+from sprint_graph import validate_sprint_extension, validate_wave  # noqa: E402
+from sprint_evidence import (  # noqa: E402
+    REQUIRED_DECISIONS,
+    REQUIRED_EVIDENCE_KINDS,
+    REQUIRED_REQUIREMENTS,
+    REQUIRED_TESTS,
+    SprintEvidenceLedger,
+    build_sprint_evidence_set,
+    sprint_evidence_human_summary,
+    validate_sprint_evidence_set,
+)
+from toolchain_validation import (  # noqa: E402
+    RUNTIME_GATES,
+    validate_make_ci_parity,
+    validate_python_runtime,
+    validate_uv_lock_baseline,
 )
 
 
@@ -58,6 +113,17 @@ SCHEMA_PATH = (
     "frz-gov-adr-gov-dec-parte-1/foundation-baseline-lifecycle.schema.json"
 )
 _FIXTURE_SEQUENCE = itertools.count()
+_DAA_GATES: dict[Path, daa_adapter.DeliveryApprovalGate] = {}
+_DAA_TEST_KEYS = {
+    label: daa_test_key(label)
+    for label in ("root", "binding", "executor", "qa", "reviewer")
+}
+_DAA_TEST_ANCHORS = daa_test_anchors(_DAA_TEST_KEYS["root"])
+_DAA_TEST_VALID_UNTIL = "2027-08-23T00:00:00Z"
+for _daa_anchor in _DAA_TEST_ANCHORS["anchors"]:
+    _daa_anchor["valid_until"] = _DAA_TEST_VALID_UNTIL
+_DAA_TEST_SCHEMAS: SchemaSet | None = None
+_DAA_TEST_VERIFIERS: dict[str, OperationalVerifier] = {}
 
 
 def _revision(name: str = "HEAD", repository: Path = ROOT) -> str:
@@ -101,9 +167,193 @@ def _fixture_directory(name: str) -> Path:
 
 
 def _commit(repository: Path, message: str) -> str:
+    _install_pending_daa_records(repository)
     _git(repository, "add", ".")
     _git(repository, "commit", "-q", "-m", message)
     return _revision(repository=repository)
+
+
+def _install_pending_daa_records(repository: Path) -> None:
+    claims: set[tuple[str, str]] = set()
+    for path in repository.rglob("*.json"):
+        if ".git" in path.parts or "delivery-approval-authority" in path.parts:
+            continue
+        try:
+            _collect_authority_claims(json.loads(path.read_text(encoding="utf-8")), claims)
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            continue
+    for task_id, candidate in sorted(claims):
+        task_path = f".codex/tasks/{task_id}.json"
+        try:
+            task = json.loads(_git(repository, "show", f"{candidate}:{task_path}"))
+        except subprocess.CalledProcessError:
+            continue
+        evidence = _signed_daa_evidence(task, candidate)
+        target = f"evidence/delivery-approval-authority/{task_id}/{candidate}.json"
+        _write(repository, target, canonical_json_bytes(evidence))
+
+
+def _collect_authority_claims(value: object, claims: set[tuple[str, str]]) -> None:
+    if isinstance(value, dict):
+        task_id = value.get("task_id")
+        candidate = value.get("reviewed_candidate_commit")
+        if isinstance(task_id, str) and isinstance(candidate, str) and len(candidate) == 40:
+            claims.add((task_id, candidate))
+        for item in value.values():
+            _collect_authority_claims(item, claims)
+    elif isinstance(value, list):
+        for item in value:
+            _collect_authority_claims(item, claims)
+
+
+def _signed_daa_evidence(task: dict[str, Any], candidate: str) -> dict[str, Any]:
+    task_id = task["task_id"]
+    bindings = [
+        daa_test_binding(role, _DAA_TEST_KEYS["binding"])
+        for role in ("Executor", "QA", "Reviewer")
+    ]
+    for binding in bindings:
+        binding["task_envelope_ids"] = [task_id]
+        binding["valid_until"] = _DAA_TEST_VALID_UNTIL
+        daa_test_sign(
+            binding,
+            _DAA_TEST_KEYS["binding"],
+            DAA_BINDING_DOMAIN,
+        )
+    attestations = [
+        daa_test_attestation(
+            role,
+            binding,
+            task,
+            candidate,
+            _DAA_TEST_KEYS[role.lower()],
+        )
+        for role, binding in zip(
+            ("Executor", "QA", "Reviewer"), bindings, strict=True
+        )
+    ]
+    return {"bindings": bindings, "attestations": attestations}
+
+
+def _operational_test_verdict(
+    *,
+    task_envelope: Any,
+    expected_candidate_sha: Any,
+    verification_time: Any,
+    evidence: Any,
+) -> dict[str, Any]:
+    global _DAA_TEST_SCHEMAS
+    task_id = task_envelope.get("task_id") if isinstance(task_envelope, dict) else None
+    if not isinstance(task_id, str):
+        task_id = "INVALID"
+    verifier = _DAA_TEST_VERIFIERS.get(task_id)
+    if verifier is None:
+        verifier = _new_operational_test_verifier(task_id)
+        _DAA_TEST_VERIFIERS[task_id] = verifier
+    return verifier.verify(
+        evidence=evidence,
+        task_envelope=task_envelope,
+        candidate_sha=expected_candidate_sha,
+        verification_time=verification_time,
+    )
+
+
+def _new_operational_test_verifier(
+    task_id: str,
+    *,
+    revoked_at: str | None = None,
+) -> OperationalVerifier:
+    global _DAA_TEST_SCHEMAS
+    profile = daa_test_profile(_DAA_TEST_KEYS)
+    profile["valid_until"] = _DAA_TEST_VALID_UNTIL
+    for issuer in profile["identity_issuers"]:
+        issuer["valid_until"] = _DAA_TEST_VALID_UNTIL
+    for signer in profile["keys"]:
+        signer["valid_until"] = _DAA_TEST_VALID_UNTIL
+        signer["task_envelope_ids"] = [task_id]
+        if signer["key_id"] == "issue-0871-qa":
+            signer["revoked_at"] = revoked_at
+    daa_test_sign(profile, _DAA_TEST_KEYS["root"], DAA_PROFILE_DOMAIN)
+    revision = _revision(repository=ROOT)
+    if _DAA_TEST_SCHEMAS is None:
+        _DAA_TEST_SCHEMAS = SchemaSet(ROOT, revision)
+    trust = GovernedTrust(
+        revision=revision,
+        anchors=copy.deepcopy(_DAA_TEST_ANCHORS),
+        profile=profile,
+        digests={},
+    )
+    return OperationalVerifier(trust, _DAA_TEST_SCHEMAS)
+
+
+def _daa_gate_at(verification_time: str) -> daa_adapter.DeliveryApprovalGate:
+    instant = datetime.fromisoformat(verification_time.replace("Z", "+00:00"))
+    with mock.patch.object(daa_adapter, "_operational_utc_now", return_value=instant):
+        return daa_adapter.DeliveryApprovalGate()
+
+
+def _daa_gate(repository: Path) -> daa_adapter.DeliveryApprovalGate:
+    key = repository.resolve()
+    if key not in _DAA_GATES:
+        _DAA_GATES[key] = daa_adapter.DeliveryApprovalGate()
+    return _DAA_GATES[key]
+
+
+_BUILD_SPRINT_EVIDENCE_SET = build_sprint_evidence_set
+_VALIDATE_CONTRACT_EXERCISES = validate_contract_exercises
+_VALIDATE_CUTOVER_PRECONDITIONS = validate_cutover_preconditions
+_VALIDATE_DIAGNOSTIC_CLAIM = validate_diagnostic_claim
+_VALIDATE_PYTHON_RUNTIME = validate_python_runtime
+_VALIDATE_SPRINT_CLOSURE = validate_sprint_closure
+_VALIDATE_SPRINT_EVIDENCE_SET = validate_sprint_evidence_set
+_VALIDATE_SPRINT_EXTENSION = validate_sprint_extension
+_VALIDATE_WAVE = validate_wave
+
+
+def _with_daa(function: Any, repository: Path, *args: Any, **kwargs: Any) -> Any:
+    kwargs.setdefault("delivery_gate", _daa_gate(repository))
+    with mock.patch.object(
+        daa_adapter,
+        "verify_delivery_approval",
+        _operational_test_verdict,
+    ):
+        return function(repository, *args, **kwargs)
+
+
+def build_sprint_evidence_set(repository: Path, **kwargs: Any) -> dict[str, Any]:
+    return _with_daa(_BUILD_SPRINT_EVIDENCE_SET, repository, **kwargs)
+
+
+def validate_contract_exercises(repository: Path, *args: Any, **kwargs: Any) -> Any:
+    return _with_daa(_VALIDATE_CONTRACT_EXERCISES, repository, *args, **kwargs)
+
+
+def validate_cutover_preconditions(repository: Path, *args: Any, **kwargs: Any) -> Any:
+    return _with_daa(_VALIDATE_CUTOVER_PRECONDITIONS, repository, *args, **kwargs)
+
+
+def validate_diagnostic_claim(repository: Path, *args: Any, **kwargs: Any) -> Any:
+    return _with_daa(_VALIDATE_DIAGNOSTIC_CLAIM, repository, *args, **kwargs)
+
+
+def validate_python_runtime(repository: Path, *args: Any, **kwargs: Any) -> Any:
+    return _with_daa(_VALIDATE_PYTHON_RUNTIME, repository, *args, **kwargs)
+
+
+def validate_sprint_closure(repository: Path, *args: Any, **kwargs: Any) -> Any:
+    return _with_daa(_VALIDATE_SPRINT_CLOSURE, repository, *args, **kwargs)
+
+
+def validate_sprint_evidence_set(repository: Path, *args: Any, **kwargs: Any) -> Any:
+    return _with_daa(_VALIDATE_SPRINT_EVIDENCE_SET, repository, *args, **kwargs)
+
+
+def validate_sprint_extension(repository: Path, *args: Any, **kwargs: Any) -> Any:
+    return _with_daa(_VALIDATE_SPRINT_EXTENSION, repository, *args, **kwargs)
+
+
+def validate_wave(repository: Path, *args: Any, **kwargs: Any) -> Any:
+    return _with_daa(_VALIDATE_WAVE, repository, *args, **kwargs)
 
 
 def _reference(repository: Path, revision: str, path: str) -> dict[str, str]:
@@ -203,25 +453,39 @@ def _closure_fixture() -> tuple[
     _write(
         repository,
         ".codex/policies/file-scopes.yaml",
-        (ROOT / ".codex/policies/file-scopes.yaml").read_bytes(),
+        (ROOT / ".codex/policies/file-scopes.yaml")
+        .read_bytes()
+        .replace(b"role: Architect", b"role: Arquiteto"),
     )
-    qa_task = {
-        "task_id": "TASK-9001",
-        "issue_id": "ISSUE-9001",
-        "story_id": "STORY-9001",
-        "role": "QA",
-        "references": [
-            "docs/06-delivery/stories/STORY-0688-governed-foundation.md"
-        ],
-        "allow_paths": ["evidence/qa/qa-approval.json"],
-        "deny_paths": [],
-        "dependencies": ["STORY-0688"],
-    }
-    _write(
+    _install_authority(
         repository,
-        ".codex/tasks/TASK-9001.json",
-        canonical_json_bytes(qa_task),
+        role="QA",
+        task_id="TASK-9001",
+        issue_id="ISSUE-9001",
+        story_id="STORY-9001",
+        references=["STORY-0688"],
+        allow_paths=["evidence/qa/qa-approval.json"],
     )
+    _install_authority(
+        repository,
+        role="Reviewer",
+        task_id="TASK-9002",
+        issue_id="ISSUE-9002",
+        story_id="STORY-9002",
+        references=["G1 Foundation", "STORY-0688"],
+        allow_paths=["evidence/reviews/**"],
+    )
+    _install_authority(
+        repository,
+        role="Product Owner",
+        task_id="TASK-9003",
+        issue_id="ISSUE-9003",
+        story_id="STORY-9003",
+        references=["REQ-SPRINT-001-010", "STORY-0688"],
+        allow_paths=["docs/01-product/**"],
+    )
+    _commit(repository, "pre-existing closure authority control plane")
+    _write(repository, "candidate/implementation.txt", b"foundation candidate\n")
     candidate = _commit(repository, "candidate implementation")
     main_branch = str(_git(repository, "branch", "--show-current")).strip()
     _git(repository, "checkout", "-q", "-b", "governed-review")
@@ -283,12 +547,30 @@ def _closure_fixture() -> tuple[
                     "story_id": "STORY-9001",
                 }
             )
+        if proof_name == "G1_FOUNDATION_GATE_RESULT":
+            payload.update(
+                {
+                    "authority_role": "Reviewer",
+                    "task_id": "TASK-9002",
+                    "issue_id": "ISSUE-9002",
+                    "story_id": "STORY-9002",
+                }
+            )
+        if proof_name == "FIRST_SLICE_AUTHORIZATION":
+            payload.update(
+                {
+                    "task_id": "TASK-9003",
+                    "issue_id": "ISSUE-9003",
+                    "story_id": "STORY-9003",
+                }
+            )
         governed_role_paths = {
             "QA_APPROVAL": "evidence/qa/qa-approval.json",
             "REVIEWER_APPROVAL": "evidence/reviews/reviewer-approval.json",
             "FIRST_SLICE_AUTHORIZATION": (
                 "docs/01-product/first-slice-authorization.json"
             ),
+            "G1_FOUNDATION_GATE_RESULT": "evidence/reviews/g1-foundation.json",
         }
         path = governed_role_paths.get(
             proof_name, f"evidence/proofs/{proof_name.lower()}.json"
@@ -337,6 +619,12 @@ def _closure_fixture() -> tuple[
         ),
         "closed_at": "2026-08-16T18:30:00Z",
     }
+    _write(
+        repository,
+        "evidence/foundation-closure.json",
+        canonical_json_bytes(closure),
+    )
+    _commit(repository, "governed foundation closure")
     trigger = {
         "record_type": "FOUNDATION_REOPENING_TRIGGER",
         "kind": "COVERED_SOURCE_DIGEST_CHANGED",
@@ -714,7 +1002,9 @@ def _portfolio_repository() -> tuple[Path, dict[str, dict[str, str]]]:
     _write(
         repository,
         ".codex/policies/file-scopes.yaml",
-        (ROOT / ".codex/policies/file-scopes.yaml").read_bytes(),
+        (ROOT / ".codex/policies/file-scopes.yaml")
+        .read_bytes()
+        .replace(b"role: Architect", b"role: Arquiteto"),
     )
     owner_task = {
         "task_id": "TASK-9002",
@@ -888,8 +1178,9 @@ def test_sprint_zero_baseline_decision_01() -> None:
 
 def test_sprint_zero_baseline_decision_02() -> None:
     expected = derive_canonical_sprint_selection(ROOT)
-    assert len(expected) == 92
+    assert len(expected) == 93
     assert "STORY-0688" in expected
+    assert "STORY-0760" in expected
     assert expected == derive_canonical_sprint_selection(ROOT)
     assert validate_graph_derived_selection(ROOT, expected) == []
     arbitrary = validate_graph_derived_selection(ROOT, ("STORY-0001", "STORY-0688"))
@@ -899,16 +1190,1683 @@ def test_sprint_zero_baseline_decision_02() -> None:
 def test_taskenvelope_control_plane_scope() -> None:
     assert validate_effective_task_scope(
         ROOT,
-        base_revision="origin/main",
+        base_revision=BASE,
         authority_checkpoint=CHECKPOINT,
         candidate_revision=REJECTED,
         task_envelope_path=TASK_PATH,
     ) == []
     unauthorized = validate_effective_task_scope(
         ROOT,
-        base_revision="origin/main",
-        authority_checkpoint="origin/main",
+        base_revision=BASE,
+        authority_checkpoint=BASE,
         candidate_revision=REJECTED,
         task_envelope_path=TASK_PATH,
     )
     assert "TASK_CONTROL_PLANE_UNAUTHORIZED" in _codes(unauthorized)
+
+
+def _recompute_evidence_digest(record: dict[str, Any]) -> None:
+    record["evidence_set_digest"] = "0" * 64
+    record["evidence_set_digest"] = hashlib.sha256(
+        canonical_json_bytes(record)
+    ).hexdigest()
+
+
+def _sprint_evidence_fixture() -> tuple[
+    Path,
+    dict[str, Any],
+    SprintEvidenceLedger,
+    dict[str, Any],
+    str,
+]:
+    repository = _fixture_directory("sprint-evidence")
+    _init_repository(repository)
+    source_revision, artifacts, tests = _sprint_evidence_inputs(repository)
+    evidence_set = build_sprint_evidence_set(
+        repository,
+        schema_version="1.0.0",
+        evidence_set_id="SPRINT-001-EVIDENCE-CANONICAL",
+        sprint_id="SPRINT-001",
+        source_revision=source_revision,
+        artifacts=artifacts,
+        requirements=REQUIRED_REQUIREMENTS,
+        tests=tests,
+        decisions=REQUIRED_DECISIONS,
+        digest_algorithm="SHA-256",
+    )
+    ledger = SprintEvidenceLedger()
+    ledger.append(evidence_set)
+    evidence_path = "evidence/sprint-evidence-set.json"
+    _write(repository, evidence_path, canonical_json_bytes(evidence_set))
+    evidence_revision = _commit(repository, "immutable sprint evidence")
+    closure = {
+        "record_type": "SPRINT_CLOSURE",
+        "closure_id": "SPRINT-001-CLOSURE-CANONICAL",
+        "sprint_id": "SPRINT-001",
+        "closure_basis": "EVIDENCE",
+        "evidence_set": _reference(repository, evidence_revision, evidence_path),
+        **_authority_payload(
+            role="QA",
+            task_id="TASK-9901",
+            issue_id="ISSUE-9901",
+            story_id="STORY-9901",
+            candidate=evidence_revision,
+        ),
+    }
+    closure_path = "evidence/qa/sprint-closure.json"
+    _write(repository, closure_path, canonical_json_bytes(closure))
+    closure_revision = _commit(repository, "governed sprint closure")
+    return (
+        repository,
+        evidence_set,
+        ledger,
+        _reference(repository, closure_revision, closure_path),
+        evidence_revision,
+    )
+
+
+def _install_authority(
+    repository: Path,
+    *,
+    role: str,
+    task_id: str,
+    issue_id: str,
+    story_id: str,
+    references: list[str],
+    allow_paths: list[str],
+) -> None:
+    _write(
+        repository,
+        ".codex/policies/file-scopes.yaml",
+        (ROOT / ".codex/policies/file-scopes.yaml")
+        .read_bytes()
+        .replace(b"role: Architect", b"role: Arquiteto"),
+    )
+    task = json.loads((ROOT / ".codex/tasks/TASK-0689.json").read_text(encoding="utf-8"))
+    task.update(
+        {
+            "task_id": task_id,
+            "issue_id": issue_id,
+            "story_id": story_id,
+            "role": role,
+            "references": references,
+            "allow_paths": allow_paths,
+            "deny_paths": [],
+            "dependencies": references,
+        }
+    )
+    task["phase_f_review"]["files"] = {
+        "status": "PASS",
+        "allow_paths": allow_paths,
+        "deny_paths": [],
+    }
+    _write(
+        repository,
+        f".codex/tasks/{task_id}.json",
+        canonical_json_bytes(task),
+    )
+
+
+def _authority_payload(
+    *,
+    role: str,
+    task_id: str,
+    issue_id: str,
+    story_id: str,
+    candidate: str,
+) -> dict[str, str]:
+    return {
+        "authority_role": role,
+        "task_id": task_id,
+        "issue_id": issue_id,
+        "story_id": story_id,
+        "reviewed_candidate_commit": candidate,
+    }
+
+
+def _govern_record(
+    repository: Path,
+    record: dict[str, Any],
+    *,
+    path: str,
+    record_type: str,
+    digest_field: str,
+    authority: dict[str, str],
+) -> dict[str, str]:
+    projection = {key: value for key, value in record.items() if key != "authority"}
+    payload = {
+        "record_type": record_type,
+        digest_field: hashlib.sha256(canonical_json_bytes(projection)).hexdigest(),
+        **authority,
+    }
+    _write(repository, path, canonical_json_bytes(payload))
+    revision = _commit(repository, f"governed {record_type}")
+    return _reference(repository, revision, path)
+
+
+def _sprint_evidence_inputs(
+    repository: Path,
+) -> tuple[str, list[dict[str, Any]], list[dict[str, Any]]]:
+    qa_identity = {
+        "role": "QA",
+        "task_id": "TASK-9901",
+        "issue_id": "ISSUE-9901",
+        "story_id": "STORY-9901",
+    }
+    devops_identity = {
+        "role": "DevOps",
+        "task_id": "TASK-9900",
+        "issue_id": "ISSUE-9900",
+        "story_id": "STORY-9900",
+    }
+    _install_authority(
+        repository,
+        **qa_identity,
+        references=[
+            "STORY-0689",
+            "REQ-SPRINT-001-009",
+            "REQ-TOOL-001",
+        ],
+        allow_paths=["evidence/qa/**"],
+    )
+    _install_authority(
+        repository,
+        **devops_identity,
+        references=["STORY-0689", "REQ-TOOL-001"],
+        allow_paths=["evidence/operations/**"],
+    )
+    _commit(repository, "pre-existing execution and QA control plane")
+    validator_root = (
+        "tools/governance/governanca-de-decisoes-arquiteturais-e-"
+        "manutencao-da-b/sprint-001-tool-parte-2"
+    )
+    validator_by_kind = {
+        "AP008_DECISION_03_WAVE": "sprint_graph.py",
+        "AP008_DECISION_05_CONTRACTS": "sprint_decisions.py",
+        "AP008_DECISION_06_DIAGNOSTIC": "sprint_decisions.py",
+        "AP008_DECISION_07_CI": "sprint_decisions.py",
+        "AP008_DECISION_08_EVIDENCE_SET": "sprint_evidence.py",
+        "AP008_DECISION_09_CLOSURE_EXTENSION": "sprint_decisions.py",
+        "AP008_DECISION_10_CUTOVER": "sprint_decisions.py",
+        "REQ_TOOL_MAKE_CI_PARITY": "toolchain_validation.py",
+        "REQ_TOOL_PYTHON_RUNTIME": "toolchain_validation.py",
+        "REQ_TOOL_UV_LOCK_FROZEN": "toolchain_validation.py",
+    }
+    for validator in sorted(set(validator_by_kind.values())):
+        _write(repository, f"{validator_root}/{validator}", b"# governed validator\n")
+    _write(repository, "evidence/subjects/repository-state.json", b'{"governed":true}\n')
+    candidate = _commit(repository, "reviewed validator candidate")
+    subject = _reference(
+        repository, candidate, "evidence/subjects/repository-state.json"
+    )
+    validation_report_paths: dict[str, str] = {}
+    for index, kind in enumerate(REQUIRED_EVIDENCE_KINDS):
+        path = f"evidence/operations/reports/validation-{index:02d}.txt"
+        _write(repository, path, f"{kind}: PASS\n".encode())
+        validation_report_paths[kind] = path
+    for index, test_id in enumerate(REQUIRED_TESTS):
+        _write(
+            repository,
+            f"evidence/operations/reports/test-{index:02d}.txt",
+            f"{test_id}: PASS\n".encode(),
+        )
+    report_revision = _commit(repository, "independent QA execution reports")
+    authority = _authority_payload(candidate=candidate, **qa_identity)
+    execution_authority = _authority_payload(
+        candidate=candidate, **devops_identity
+    )
+    artifact_paths: list[tuple[str, str]] = []
+    for index, kind in enumerate(REQUIRED_EVIDENCE_KINDS):
+        path = f"evidence/qa/validation/{index:02d}.json"
+        payload = {
+            "record_type": "SPRINT_VALIDATION_EVIDENCE",
+            "evidence_type": kind,
+            "subject": subject,
+            "validator": _reference(
+                repository,
+                candidate,
+                f"{validator_root}/{validator_by_kind[kind]}",
+            ),
+            "finding_codes": [],
+            "execution_report": _reference(
+                repository, report_revision, validation_report_paths[kind]
+            ),
+            "execution_authority": execution_authority,
+            **authority,
+        }
+        _write(repository, path, canonical_json_bytes(payload))
+        artifact_paths.append((kind, path))
+    test_paths: list[tuple[str, str]] = []
+    for index, test_id in enumerate(REQUIRED_TESTS):
+        path = f"evidence/qa/tests/{index:02d}.json"
+        payload = {
+            "record_type": "SPRINT_TEST_EVIDENCE",
+            "test_id": test_id,
+            "report": _reference(
+                repository,
+                report_revision,
+                f"evidence/operations/reports/test-{index:02d}.txt",
+            ),
+            "execution_authority": execution_authority,
+            **authority,
+        }
+        _write(repository, path, canonical_json_bytes(payload))
+        test_paths.append((test_id, path))
+    source_revision = _commit(repository, "governed sprint validation inputs")
+    artifacts = [
+        {"kind": kind, **_reference(repository, source_revision, path)}
+        for kind, path in artifact_paths
+    ]
+    tests = [
+        {
+            "test_id": test_id,
+            "result": "PASS",
+            "artifact": _reference(repository, source_revision, path),
+        }
+        for test_id, path in test_paths
+    ]
+    return source_revision, artifacts, tests
+
+
+def _build_sprint_evidence_at(
+    repository: Path,
+    source_revision: str,
+    artifacts: list[dict[str, Any]],
+    tests: list[dict[str, Any]],
+) -> dict[str, Any]:
+    return build_sprint_evidence_set(
+        repository,
+        schema_version="1.0.0",
+        evidence_set_id="SPRINT-001-EVIDENCE-CANONICAL",
+        sprint_id="SPRINT-001",
+        source_revision=source_revision,
+        artifacts=artifacts,
+        requirements=REQUIRED_REQUIREMENTS,
+        tests=tests,
+        decisions=REQUIRED_DECISIONS,
+        digest_algorithm="SHA-256",
+    )
+
+
+def _canonical_graph() -> tuple[str, dict[str, Any], tuple[str, str]]:
+    revision = _revision()
+    graph = json.loads(
+        _git(
+            ROOT,
+            "show",
+            f"{revision}:docs/06-delivery/STORY_DEPENDENCY_GRAPH.json",
+        )
+    )
+    selected = set(derive_canonical_sprint_selection(ROOT))
+    edge = next(
+        (item["from"], item["to"])
+        for item in graph["edges"]
+        if item["from"] in selected and item["to"] in selected
+    )
+    return revision, graph, edge
+
+
+def _governed_graph_fixture() -> tuple[
+    Path, str, dict[str, str], dict[str, str], dict[str, str]
+]:
+    repository = _fixture_directory("governed-wave")
+    _init_repository(repository)
+    authorities = (
+        ("QA", "TASK-9902", "ISSUE-9902", "STORY-9902", ["STORY-9001", "STORY-9002"], ["evidence/qa/**"]),
+        ("Reviewer", "TASK-9903", "ISSUE-9903", "STORY-9903", ["STORY-9001"], ["evidence/reviews/**"]),
+        ("Product Owner", "TASK-9904", "ISSUE-9904", "STORY-9904", ["REQ-SPRINT-001-009"], ["docs/01-product/**"]),
+        ("Tech Lead", "TASK-9905", "ISSUE-9905", "STORY-9905", ["REQ-SPRINT-001-003"], ["docs/06-delivery/**"]),
+    )
+    for role, task_id, issue_id, story_id, references, allow_paths in authorities:
+        _install_authority(
+            repository,
+            role=role,
+            task_id=task_id,
+            issue_id=issue_id,
+            story_id=story_id,
+            references=references,
+            allow_paths=allow_paths,
+        )
+    _commit(repository, "pre-existing wave authority control plane")
+    graph_path = "docs/06-delivery/STORY_DEPENDENCY_GRAPH.json"
+    graph = {
+        "semantics": "Only hard blockers; edge from prerequisite to dependent.",
+        "nodes": [
+            {"id": "STORY-9001", "task_id": "TASK-9001"},
+            {"id": "STORY-9002", "task_id": "TASK-9002"},
+        ],
+        "edges": [
+            {"from": "STORY-9001", "to": "STORY-9002", "relation": "blocks"}
+        ],
+    }
+    _write(repository, graph_path, canonical_json_bytes(graph))
+    _write(
+        repository,
+        "docs/03-engineering/application-profiles/AP-008-sprint-001-execution-profile.md",
+        b"# AP-008 \xe2\x80\x94 SPRINT-001 execution profile\n",
+    )
+    _write(
+        repository,
+        "docs/06-delivery/sprint-backlogs/SPRINT-001-BACKLOG.md",
+        b"- **Sprint:** `SPRINT-001`\n\n| `STORY-9002` | selected |\n",
+    )
+    for suffix in ("1", "2"):
+        task = {
+            "task_id": f"TASK-900{suffix}",
+            "story_id": f"STORY-900{suffix}",
+            "sprint_id": "SPRINT-001",
+            "requirements_review_status": "PASS",
+            "phase_f_review": {
+                "dependencies": {"status": "PASS"},
+                "review": {"required_roles": ["QA", "Reviewer"]},
+            },
+            "phase_g_review": {"status": "PASS"},
+        }
+        _write(
+            repository,
+            f".codex/tasks/TASK-900{suffix}.json",
+            canonical_json_bytes(task),
+        )
+    candidate = _commit(repository, "candidate with canonical graph")
+    assurance_paths: list[str] = []
+    for index, role in enumerate(("QA", "Reviewer")):
+        identity = authorities[index]
+        prefix = "qa" if role == "QA" else "reviews"
+        path = f"evidence/{prefix}/{index:02d}-{role.lower()}.json"
+        _write(
+            repository,
+            path,
+            canonical_json_bytes(
+                {
+                    "record_type": "CANDIDATE_ASSURANCE_EVIDENCE",
+                    "authority_role": role,
+                    "task_id": identity[1],
+                    "issue_id": identity[2],
+                    "story_id": identity[3],
+                    "reviewed_story_id": "STORY-9001",
+                    "reviewed_candidate_commit": candidate,
+                    "result": "PASS",
+                }
+            ),
+        )
+        assurance_paths.append(path)
+    assurance_revision = _commit(repository, "governed candidate assurances")
+    completion_path = "evidence/completions/STORY-9001.json"
+    completion = {
+        "record_type": "STORY_COMPLETION_EVIDENCE",
+        "story_id": "STORY-9001",
+        "task_id": "TASK-9001",
+        "state": "COMPLETED",
+        "candidate_revision": candidate,
+        "assurance_evidence": [
+            _reference(repository, assurance_revision, path)
+            for path in assurance_paths
+        ],
+    }
+    _write(repository, completion_path, canonical_json_bytes(completion))
+    completion_revision = _commit(repository, "governed story completion")
+    observation_path = "evidence/qa/STORY-9002-observation.json"
+    observation = {
+        "record_type": "BLOCKER_OBSERVATION_EVIDENCE",
+        "blocked_story_id": "STORY-9002",
+        "blocker_story_id": "STORY-9001",
+        "observed_revision": completion_revision,
+        "status": "ACTIVE",
+        **_authority_payload(
+            role="QA",
+            task_id="TASK-9902",
+            issue_id="ISSUE-9902",
+            story_id="STORY-9902",
+            candidate=completion_revision,
+        ),
+    }
+    _write(repository, observation_path, canonical_json_bytes(observation))
+    observation_revision = _commit(repository, "governed blocker observation")
+    blocker_path = "evidence/blockers/STORY-9002.json"
+    blocker = {
+        "record_type": "SPRINT_BLOCKER_EVIDENCE",
+        "blocked_story_id": "STORY-9002",
+        "blocker_story_id": "STORY-9001",
+        "state": "ACTIVE",
+        "reason": "The direct predecessor remains blocked at the observed revision.",
+        "observed_revision": completion_revision,
+        "observation": _reference(
+            repository, observation_revision, observation_path
+        ),
+    }
+    _write(repository, blocker_path, canonical_json_bytes(blocker))
+    blocker_revision = _commit(repository, "governed direct blocker")
+    return (
+        repository,
+        completion_revision,
+        _reference(repository, completion_revision, completion_path),
+        _reference(repository, completion_revision, graph_path),
+        _reference(repository, blocker_revision, blocker_path),
+    )
+
+
+def test_daa_operational_trust_boundary() -> None:
+    assert inspect.signature(daa_adapter.DeliveryApprovalGate).parameters == {}
+    assert inspect.signature(daa_adapter._trusted_operational_context).parameters == {}
+    assert "verification_time" not in inspect.signature(
+        daa_adapter.DeliveryApprovalGate.verify
+    ).parameters
+    forbidden = {
+        "repository",
+        "revision",
+        "verifier",
+        "trust_profile",
+        "trust_anchors",
+        "anchors",
+    }
+    assert forbidden.isdisjoint(
+        inspect.signature(daa_adapter.verify_delivery_approval).parameters
+    )
+    task = json.loads((ROOT / ".codex/tasks/TASK-0689.json").read_text(encoding="utf-8"))
+    verdict = daa_adapter.verify_delivery_approval(
+        task_envelope=task,
+        expected_candidate_sha=_revision(repository=ROOT),
+        verification_time="2026-08-22T12:30:00Z",
+        evidence={
+            "bindings": [],
+            "attestations": [],
+            "trust_profile": daa_test_profile(_DAA_TEST_KEYS),
+            "trust_anchors": copy.deepcopy(_DAA_TEST_ANCHORS),
+        },
+    )
+    assert verdict["status"] == "FAIL"
+    assert verdict["validated_roles"] == []
+    source = inspect.getsource(daa_adapter)
+    assert "test_delivery_approval_authority_contract" not in source
+    assert "test-vectors" not in source
+    assert "%cI" not in source
+    try:
+        daa_adapter.DeliveryApprovalGate("2026-08-23T13:00:00Z")  # type: ignore[call-arg]
+    except TypeError:
+        pass
+    else:
+        raise AssertionError("caller-controlled verification_time was accepted")
+
+
+def test_daa_trusted_operational_time() -> None:
+    task = json.loads((ROOT / ".codex/tasks/TASK-0689.json").read_text(encoding="utf-8"))
+    candidate = _revision(repository=ROOT)
+
+    def evidence_at(issued_at: str) -> dict[str, Any]:
+        evidence = _signed_daa_evidence(task, candidate)
+        for attestation in evidence["attestations"]:
+            attestation["issued_at"] = issued_at
+            daa_test_sign(
+                attestation,
+                _DAA_TEST_KEYS[attestation["role"].lower()],
+                DAA_ATTESTATION_DOMAIN,
+            )
+        return evidence
+
+    issued_after_commit = "2026-08-23T12:00:00Z"
+    commit_time = datetime.fromisoformat(
+        _git(ROOT, "show", "-s", "--format=%cI", candidate).strip()
+    )
+    assert datetime.fromisoformat(issued_after_commit.replace("Z", "+00:00")) > commit_time
+    valid = evidence_at(issued_after_commit)
+    gate = _daa_gate_at("2026-08-23T13:00:00Z")
+    with mock.patch.object(
+        daa_adapter, "verify_delivery_approval", _operational_test_verdict
+    ):
+        approval, findings = gate.verify(
+            evidence=valid,
+            task_envelope=task,
+            candidate_sha=candidate,
+        )
+    assert approval is not None and findings == []
+
+    for issued_at in ("2026-08-23T14:00:00Z", "2026-08-21T23:00:00Z"):
+        with mock.patch.object(
+            daa_adapter, "verify_delivery_approval", _operational_test_verdict
+        ):
+            approval, findings = _daa_gate_at("2026-08-23T13:00:00Z").verify(
+                evidence=evidence_at(issued_at),
+                task_envelope=task,
+                candidate_sha=candidate,
+            )
+        assert approval is None
+        assert any("TEMPORAL_INVALID" in finding.detail for finding in findings)
+
+    with mock.patch.object(
+        daa_adapter, "verify_delivery_approval", _operational_test_verdict
+    ):
+        approval, findings = _daa_gate_at("2027-08-23T00:00:00Z").verify(
+            evidence=valid,
+            task_envelope=task,
+            candidate_sha=candidate,
+        )
+    assert approval is None
+    assert any("TEMPORAL_INVALID" in finding.detail for finding in findings)
+
+    revoked_verifier = _new_operational_test_verifier(
+        task["task_id"], revoked_at="2026-08-23T12:30:00Z"
+    )
+
+    def revoked_verdict(**context: Any) -> dict[str, Any]:
+        return revoked_verifier.verify(
+            evidence=context["evidence"],
+            task_envelope=context["task_envelope"],
+            candidate_sha=context["expected_candidate_sha"],
+            verification_time=context["verification_time"],
+        )
+
+    with mock.patch.object(daa_adapter, "verify_delivery_approval", revoked_verdict):
+        approval, findings = _daa_gate_at("2026-08-23T13:00:00Z").verify(
+            evidence=valid,
+            task_envelope=task,
+            candidate_sha=candidate,
+        )
+    assert approval is None
+    assert any("REVOKED" in finding.detail for finding in findings)
+
+
+def test_sprint_zero_baseline_decision_03() -> None:
+    repository, revision, completion, _graph, _blocker = _governed_graph_fixture()
+    wave = {
+        "wave_id": "SPRINT-001-WAVE-CANONICAL",
+        "graph_revision": revision,
+        "story_ids": ["STORY-9002"],
+        "completion_evidence": [completion],
+        "evidence_oriented": True,
+    }
+    wave["authority"] = _govern_record(
+        repository,
+        wave,
+        path="docs/06-delivery/waves/wave-9002.json",
+        record_type="SPRINT_WAVE_AUTHORIZATION",
+        digest_field="wave_sha256",
+        authority=_authority_payload(
+            role="Tech Lead",
+            task_id="TASK-9905",
+            issue_id="ISSUE-9905",
+            story_id="STORY-9905",
+            candidate=revision,
+        ),
+    )
+    assert validate_wave(repository, wave) == []
+    incompatible = copy.deepcopy(wave)
+    incompatible["completion_evidence"] = []
+    assert "WAVE_GRAPH_MISMATCH" in _codes(
+        validate_wave(repository, incompatible)
+    )
+    oversized = dict(wave)
+    oversized["story_ids"] = ["STORY-9001", "STORY-9002"]
+    oversized["completion_evidence"] = []
+    assert {"WAVE_GRAPH_MISMATCH", "WAVE_NOT_SMALL"} <= _codes(
+        validate_wave(repository, oversized)
+    )
+    autodeclared = dict(wave)
+    autodeclared.pop("completion_evidence")
+    autodeclared["completed_story_ids"] = ["STORY-9001"]
+    assert {"FIELD_MISSING", "FIELD_UNKNOWN"} <= _codes(
+        validate_wave(repository, autodeclared)
+    )
+    completion_payload = json.loads(
+        _git(
+            repository,
+            "show",
+            f"{completion['source_revision']}:{completion['path']}",
+        )
+    )
+    completion_payload["assurance_evidence"] = [
+        completion_payload["assurance_evidence"][0],
+        completion_payload["assurance_evidence"][0],
+    ]
+    forged_path = "evidence/completions/STORY-9001-forged.json"
+    _write(repository, forged_path, canonical_json_bytes(completion_payload))
+    forged_revision = _commit(repository, "single-actor assurance probe")
+    forged_wave = dict(wave)
+    forged_wave["completion_evidence"] = [
+        _reference(repository, forged_revision, forged_path)
+    ]
+    forged_wave["authority"] = _govern_record(
+        repository,
+        forged_wave,
+        path="docs/06-delivery/waves/forged-wave.json",
+        record_type="SPRINT_WAVE_AUTHORIZATION",
+        digest_field="wave_sha256",
+        authority=_authority_payload(
+            role="Tech Lead",
+            task_id="TASK-9905",
+            issue_id="ISSUE-9905",
+            story_id="STORY-9905",
+            candidate=revision,
+        ),
+    )
+    assert "EVIDENCE_AUTHORITY_INVALID" in _codes(
+        validate_wave(repository, forged_wave)
+    )
+    authority_payload = json.loads(
+        _git(
+            repository,
+            "show",
+            f"{wave['authority']['source_revision']}:{wave['authority']['path']}",
+        )
+    )
+    daa_path = (
+        "evidence/delivery-approval-authority/TASK-9905/"
+        f"{revision}.json"
+    )
+    forged_daa = json.loads(_git(repository, "show", f"HEAD:{daa_path}"))
+    executor_subject = next(
+        item["accountable_subject"]
+        for item in forged_daa["bindings"]
+        if item["role"] == "Executor"
+    )
+    qa_binding = next(
+        item for item in forged_daa["bindings"] if item["role"] == "QA"
+    )
+    qa_binding["accountable_subject"] = executor_subject
+    daa_test_sign(qa_binding, _DAA_TEST_KEYS["binding"], DAA_BINDING_DOMAIN)
+    qa_attestation = next(
+        item for item in forged_daa["attestations"] if item["role"] == "QA"
+    )
+    qa_attestation["accountable_subject"] = executor_subject
+    qa_attestation["binding"]["digest_sha256"] = hashlib.sha256(
+        canonical_json_bytes(qa_binding)
+    ).hexdigest()
+    daa_test_sign(
+        qa_attestation,
+        _DAA_TEST_KEYS["qa"],
+        DAA_ATTESTATION_DOMAIN,
+    )
+    single_actor_authority_path = "docs/06-delivery/waves/single-actor.json"
+    _write(repository, daa_path, canonical_json_bytes(forged_daa))
+    _write(
+        repository,
+        single_actor_authority_path,
+        canonical_json_bytes(authority_payload),
+    )
+    _git(repository, "add", ".")
+    _git(repository, "commit", "-q", "-m", "single accountable subject DAA probe")
+    single_actor_revision = _revision(repository=repository)
+    single_actor_wave = dict(wave)
+    single_actor_wave["authority"] = _reference(
+        repository, single_actor_revision, single_actor_authority_path
+    )
+    assert "DELIVERY_APPROVAL_INVALID" in _codes(
+        validate_wave(repository, single_actor_wave)
+    )
+
+    class CallerVerifier:
+        def verify(self, **_kwargs: Any) -> tuple[object, list[object]]:
+            return object(), []
+
+    assert "DELIVERY_APPROVAL_INVALID" in _codes(
+        validate_wave(repository, wave, delivery_gate=CallerVerifier())
+    )
+
+
+def test_sprint_zero_baseline_decision_05() -> None:
+    repository = _fixture_directory("essential-contract")
+    _init_repository(repository)
+    _install_authority(
+        repository,
+        role="Arquiteto",
+        task_id="TASK-9910",
+        issue_id="ISSUE-9910",
+        story_id="STORY-9910",
+        references=["REQ-SPRINT-001-005"],
+        allow_paths=["contracts/**"],
+    )
+    _install_authority(
+        repository,
+        role="QA",
+        task_id="TASK-9911",
+        issue_id="ISSUE-9911",
+        story_id="STORY-9911",
+        references=["REQ-SPRINT-001-005"],
+        allow_paths=["evidence/qa/**"],
+    )
+    _install_authority(
+        repository,
+        role="DevOps",
+        task_id="TASK-9912",
+        issue_id="ISSUE-9912",
+        story_id="STORY-9912",
+        references=["REQ-SPRINT-001-005"],
+        allow_paths=["evidence/operations/**"],
+    )
+    _commit(repository, "pre-existing contract authorities")
+    _write(repository, "contracts/essential.json", b'{"schema_version":"1.0.0"}')
+    contract_revision = _commit(repository, "essential contract")
+    contract = _reference(
+        repository, contract_revision, "contracts/essential.json"
+    )
+    manifest_path = "contracts/governance/essential-contracts.json"
+    manifest = {
+        "record_type": "ESSENTIAL_CONTRACT_MANIFEST",
+        "contracts": [contract],
+        **_authority_payload(
+            role="Arquiteto",
+            task_id="TASK-9910",
+            issue_id="ISSUE-9910",
+            story_id="STORY-9910",
+            candidate=contract_revision,
+        ),
+    }
+    _write(repository, manifest_path, canonical_json_bytes(manifest))
+    manifest_revision = _commit(repository, "governed essential contract manifest")
+    manifest_reference = _reference(repository, manifest_revision, manifest_path)
+    report_path = "evidence/operations/reports/contract-exercise.txt"
+    _write(repository, report_path, f"{contract['sha256']}: PASS\n".encode())
+    report_revision = _commit(repository, "independent contract execution report")
+    exercise_record = {
+        "record_type": "CONTRACT_EXERCISE_EVIDENCE",
+        "contract_sha256": contract["sha256"],
+        "result": "PASS",
+        "execution_report": _reference(repository, report_revision, report_path),
+        "execution_authority": _authority_payload(
+            role="DevOps",
+            task_id="TASK-9912",
+            issue_id="ISSUE-9912",
+            story_id="STORY-9912",
+            candidate=contract_revision,
+        ),
+        **_authority_payload(
+            role="QA",
+            task_id="TASK-9911",
+            issue_id="ISSUE-9911",
+            story_id="STORY-9911",
+            candidate=contract_revision,
+        ),
+    }
+    _write(
+        repository,
+        "evidence/qa/contract-exercise.json",
+        canonical_json_bytes(exercise_record),
+    )
+    evidence_revision = _commit(repository, "contract exercise evidence")
+    evidence = _reference(
+        repository, evidence_revision, "evidence/qa/contract-exercise.json"
+    )
+    exercises = [{"contract": contract, "evidence": evidence}]
+    assert validate_contract_exercises(repository, manifest_reference, exercises) == []
+    assert "CONTRACT_EXERCISE_MISMATCH" in _codes(
+        validate_contract_exercises(repository, manifest_reference, [])
+    )
+    forged = copy.deepcopy(exercises)
+    forged[0]["contract"]["sha256"] = "a" * 64
+    assert {
+        "CONTRACT_EVIDENCE_INVALID",
+        "GOVERNED_ARTIFACT_INVALID",
+    } <= _codes(validate_contract_exercises(repository, manifest_reference, forged))
+
+
+def test_sprint_zero_baseline_decision_06() -> None:
+    repository = _fixture_directory("diagnostic-evidence")
+    _init_repository(repository)
+    _install_authority(
+        repository,
+        role="QA",
+        task_id="TASK-9920",
+        issue_id="ISSUE-9920",
+        story_id="STORY-9920",
+        references=["REQ-SPRINT-001-006"],
+        allow_paths=["evidence/qa/**"],
+    )
+    _install_authority(
+        repository,
+        role="DevOps",
+        task_id="TASK-9921",
+        issue_id="ISSUE-9921",
+        story_id="STORY-9921",
+        references=["REQ-SPRINT-001-006"],
+        allow_paths=["evidence/operations/**"],
+    )
+    _commit(repository, "pre-existing diagnostic QA authority")
+    _write(repository, "diagnostic/candidate.txt", b"synthetic diagnostic candidate\n")
+    candidate = _commit(repository, "diagnostic candidate")
+    report_path = "evidence/operations/reports/diagnostic.txt"
+    _write(repository, report_path, b"REQ-SPRINT-001-006: PASS\n")
+    report_revision = _commit(repository, "independent diagnostic execution report")
+    diagnostic = {
+        "record_type": "SYNTHETIC_DIAGNOSTIC_EVIDENCE",
+        "synthetic": True,
+        "end_to_end": True,
+        "functional_georeferencing_claimed": False,
+        "result": "PASS",
+        "execution_report": _reference(repository, report_revision, report_path),
+        "execution_authority": _authority_payload(
+            role="DevOps",
+            task_id="TASK-9921",
+            issue_id="ISSUE-9921",
+            story_id="STORY-9921",
+            candidate=candidate,
+        ),
+        **_authority_payload(
+            role="QA",
+            task_id="TASK-9920",
+            issue_id="ISSUE-9920",
+            story_id="STORY-9920",
+            candidate=candidate,
+        ),
+    }
+    _write(
+        repository,
+        "evidence/qa/diagnostic.json",
+        canonical_json_bytes(diagnostic),
+    )
+    revision = _commit(repository, "governed diagnostic evidence")
+    reference = _reference(repository, revision, "evidence/qa/diagnostic.json")
+    assert validate_diagnostic_claim(repository, reference) == []
+    dishonest = dict(diagnostic)
+    dishonest["functional_georeferencing_claimed"] = True
+    _write(
+        repository,
+        "evidence/qa/dishonest-diagnostic.json",
+        canonical_json_bytes(dishonest),
+    )
+    dishonest_revision = _commit(repository, "dishonest diagnostic claim")
+    dishonest_reference = _reference(
+        repository,
+        dishonest_revision,
+        "evidence/qa/dishonest-diagnostic.json",
+    )
+    assert "FUNCTIONAL_GEOREFERENCE_CLAIMED" in _codes(
+        validate_diagnostic_claim(repository, dishonest_reference)
+    )
+
+
+def test_sprint_zero_baseline_decision_07() -> None:
+    repository = _fixture_directory("repository-bound-capabilities")
+    _init_repository(repository)
+    _write(repository, "src/contracts/schema.py", b"SCHEMA_VERSION = '1.0.0'\n")
+    _write(repository, "tests/contracts/test_schema.py", b"def test_schema(): assert True\n")
+    _write(repository, "Makefile", b"verify:\n\tpytest\n")
+    _write(
+        repository,
+        ".github/workflows/ci.yml",
+        b"jobs:\n  quality:\n    steps:\n      - run: make verify\n",
+    )
+    revision = _commit(repository, "repository-bound capability")
+    assert validate_ci_capabilities(repository, revision) == []
+    _write(
+        repository,
+        "evidence/caller-capabilities.json",
+        b'{"capabilities":["fictitious"]}\n',
+    )
+    assertion_revision = _commit(repository, "caller capability assertion probe")
+    assert validate_ci_capabilities(repository, assertion_revision) == []
+    _write(repository, "src/runtime/engine.py", b"PRESENT = True\n")
+    divergent_revision = _commit(repository, "capability without governed tests")
+    assert "CI_CAPABILITY_MISMATCH" in _codes(
+        validate_ci_capabilities(repository, divergent_revision)
+    )
+    _write(repository, "tests/runtime/test_engine.py", b"def test_fake(): assert True\n")
+    _write(repository, "Makefile", b"verify:\n\t@echo verified\n")
+    fake_surface_revision = _commit(
+        repository, "fictitious capability and empty Make target probe"
+    )
+    assert "MAKE_TARGET_NOT_SUBSTANTIVE" in _codes(
+        validate_ci_capabilities(repository, fake_surface_revision)
+    )
+
+
+def test_sprint_zero_baseline_decision_08() -> None:
+    repository, evidence_set, ledger, _closure, evidence_revision = (
+        _sprint_evidence_fixture()
+    )
+    assert validate_sprint_evidence_set(repository, evidence_set) == []
+    assert "10 passing tests" in sprint_evidence_human_summary(evidence_set)
+    assert ledger.contains_exactly(evidence_set)
+
+    incomplete = copy.deepcopy(evidence_set)
+    incomplete["tests"] = []
+    _recompute_evidence_digest(incomplete)
+    assert "EVIDENCE_INCOMPLETE" in _codes(
+        validate_sprint_evidence_set(repository, incomplete)
+    )
+    mutated = copy.deepcopy(evidence_set)
+    mutated["decisions"] = list(reversed(mutated["decisions"]))
+    _recompute_evidence_digest(mutated)
+    try:
+        ledger.append(mutated)
+    except ValueError as error:
+        assert "silent replacement" in str(error)
+    else:
+        raise AssertionError("mutable SprintEvidenceSet was accepted")
+
+    forged = copy.deepcopy(evidence_set)
+    forged["artifacts"][0]["sha256"] = "a" * 64
+    _recompute_evidence_digest(forged)
+    assert "GOVERNED_ARTIFACT_INVALID" in _codes(
+        validate_sprint_evidence_set(repository, forged)
+    )
+    arbitrary = copy.deepcopy(evidence_set)
+    arbitrary["artifacts"][0].update(arbitrary["tests"][0]["artifact"])
+    _recompute_evidence_digest(arbitrary)
+    assert "EVIDENCE_PAYLOAD_INVALID" in _codes(
+        validate_sprint_evidence_set(repository, arbitrary)
+    )
+    original_artifact = evidence_set["artifacts"][0]
+    fabricated_payload = json.loads(
+        _git(
+            repository,
+            "show",
+            f"{original_artifact['source_revision']}:{original_artifact['path']}",
+        )
+    )
+    fabricated_payload.update(
+        {"task_id": "TASK-CALLER", "issue_id": "ISSUE-CALLER", "story_id": "STORY-CALLER"}
+    )
+    fabricated_path = "evidence/qa/validation/fabricated.json"
+    _write(
+        repository,
+        fabricated_path,
+        canonical_json_bytes(fabricated_payload),
+    )
+    fabricated_revision = _commit(repository, "self-declared pass probe")
+    fabricated = copy.deepcopy(evidence_set)
+    fabricated["source_revision"] = fabricated_revision
+    fabricated["artifacts"][0].update(
+        _reference(repository, fabricated_revision, fabricated_path)
+    )
+    _recompute_evidence_digest(fabricated)
+    assert "DELIVERY_APPROVAL_INVALID" in _codes(
+        validate_sprint_evidence_set(repository, fabricated)
+    )
+    single_actor_payload = json.loads(
+        _git(
+            repository,
+            "show",
+            f"{original_artifact['source_revision']}:{original_artifact['path']}",
+        )
+    )
+    single_actor_payload["execution_authority"] = {
+        field: single_actor_payload[field]
+        for field in (
+            "authority_role",
+            "task_id",
+            "issue_id",
+            "story_id",
+            "reviewed_candidate_commit",
+        )
+    }
+    single_actor_path = "evidence/qa/validation/single-actor.json"
+    _write(
+        repository,
+        single_actor_path,
+        canonical_json_bytes(single_actor_payload),
+    )
+    single_actor_revision = _commit(repository, "single-actor execution probe")
+    single_actor = copy.deepcopy(evidence_set)
+    single_actor["source_revision"] = single_actor_revision
+    single_actor["artifacts"][0].update(
+        _reference(repository, single_actor_revision, single_actor_path)
+    )
+    _recompute_evidence_digest(single_actor)
+    assert "EVIDENCE_AUTHORITY_INVALID" in _codes(
+        validate_sprint_evidence_set(repository, single_actor)
+    )
+    divergent = copy.deepcopy(evidence_set)
+    divergent["artifacts"] = [
+        {
+            "kind": "sprint-evidence",
+            **_reference(
+                repository,
+                evidence_revision,
+                "evidence/sprint-evidence-set.json",
+            ),
+        }
+    ]
+    _recompute_evidence_digest(divergent)
+    assert "EVIDENCE_REVISION_DIVERGENT" in _codes(
+        validate_sprint_evidence_set(repository, divergent)
+    )
+
+
+def test_sprint_zero_baseline_decision_09() -> None:
+    repository, evidence_set, _ledger, closure_reference, _revision_value = (
+        _sprint_evidence_fixture()
+    )
+    assert validate_sprint_closure(repository, closure_reference) == []
+    closure = json.loads(
+        _git(
+            repository,
+            "show",
+            f"{closure_reference['source_revision']}:{closure_reference['path']}",
+        )
+    )
+    rebuilt_evidence_path = "evidence/qa/rebuilt-sprint-evidence.json"
+    _write(
+        repository,
+        rebuilt_evidence_path,
+        canonical_json_bytes(evidence_set),
+    )
+    rebuilt_evidence_revision = _commit(
+        repository, "artificial evidence history reconstruction probe"
+    )
+    rebuilt_closure = copy.deepcopy(closure)
+    rebuilt_closure["closure_id"] = "SPRINT-001-CLOSURE-REBUILT"
+    rebuilt_closure["evidence_set"] = _reference(
+        repository, rebuilt_evidence_revision, rebuilt_evidence_path
+    )
+    rebuilt_closure.update(
+        _authority_payload(
+            role="QA",
+            task_id="TASK-9901",
+            issue_id="ISSUE-9901",
+            story_id="STORY-9901",
+            candidate=rebuilt_evidence_revision,
+        )
+    )
+    rebuilt_closure_path = "evidence/qa/rebuilt-sprint-closure.json"
+    _write(
+        repository,
+        rebuilt_closure_path,
+        canonical_json_bytes(rebuilt_closure),
+    )
+    rebuilt_closure_revision = _commit(
+        repository, "artificial closure history reconstruction probe"
+    )
+    assert "EVIDENCE_HISTORY_INVALID" in _codes(
+        validate_sprint_closure(
+            repository,
+            _reference(
+                repository, rebuilt_closure_revision, rebuilt_closure_path
+            ),
+        )
+    )
+    calendar = dict(closure)
+    calendar["closure_basis"] = "CALENDAR"
+    calendar_path = "evidence/calendar-closure.json"
+    _write(repository, calendar_path, canonical_json_bytes(calendar))
+    calendar_revision = _commit(repository, "calendar closure probe")
+    assert "CLOSURE_NOT_EVIDENCE_BASED" in _codes(
+        validate_sprint_closure(
+            repository, _reference(repository, calendar_revision, calendar_path)
+        )
+    )
+
+    mutated = copy.deepcopy(evidence_set)
+    mutated["decisions"] = list(reversed(mutated["decisions"]))
+    _recompute_evidence_digest(mutated)
+    _write(
+        repository,
+        "evidence/sprint-evidence-set.json",
+        canonical_json_bytes(mutated),
+    )
+    mutated_revision = _commit(repository, "mutated historical evidence probe")
+    mutated_closure = dict(closure)
+    mutated_closure["evidence_set"] = _reference(
+        repository, mutated_revision, "evidence/sprint-evidence-set.json"
+    )
+    mutated_closure_path = "evidence/mutated-closure.json"
+    _write(repository, mutated_closure_path, canonical_json_bytes(mutated_closure))
+    mutated_closure_revision = _commit(repository, "closure over recreated ledger")
+    assert "EVIDENCE_HISTORY_INVALID" in _codes(
+        validate_sprint_closure(
+            repository,
+            _reference(
+                repository, mutated_closure_revision, mutated_closure_path
+            ),
+        )
+    )
+
+    graph_repository, graph_revision, _completion, graph, blocker = (
+        _governed_graph_fixture()
+    )
+    extension = {
+        "record_type": "SPRINT_EXTENSION",
+        "extension_id": "SPRINT-001-EXTENSION-CANONICAL",
+        "sprint_id": "SPRINT-001",
+        "blocker_evidence": blocker,
+        "graph": graph,
+    }
+    extension["authority"] = _govern_record(
+        graph_repository,
+        extension,
+        path="docs/01-product/sprint-extensions/extension-9002.json",
+        record_type="SPRINT_EXTENSION_AUTHORIZATION",
+        digest_field="extension_sha256",
+        authority=_authority_payload(
+            role="Product Owner",
+            task_id="TASK-9904",
+            issue_id="ISSUE-9904",
+            story_id="STORY-9904",
+            candidate=blocker["source_revision"],
+        ),
+    )
+    assert validate_sprint_extension(graph_repository, extension) == []
+    autodeclared = {
+        "record_type": "SPRINT_EXTENSION",
+        "extension_id": "SPRINT-001-EXTENSION-AUTODECLARED",
+        "sprint_id": "SPRINT-001",
+        "blocker": {"reason": "caller text"},
+        "evidence": graph,
+    }
+    assert {"FIELD_MISSING", "FIELD_UNKNOWN"} <= _codes(
+        validate_sprint_extension(graph_repository, autodeclared)
+    )
+
+
+def test_sprint_zero_baseline_decision_10() -> None:
+    repository, baseline, foundation_evidence, foundation_closure, _reopening = (
+        _closure_fixture()
+    )
+    foundation_closure_revision = str(
+        _git(
+            repository,
+            "log",
+            "-1",
+            "--format=%H",
+            "--",
+            "evidence/foundation-closure.json",
+        )
+    ).strip()
+    foundation_reference = _reference(
+        repository,
+        foundation_closure_revision,
+        "evidence/foundation-closure.json",
+    )
+    source_revision, artifacts, tests = _sprint_evidence_inputs(repository)
+    evidence_set = _build_sprint_evidence_at(
+        repository, source_revision, artifacts, tests
+    )
+    evidence_path = "evidence/cutover/sprint-evidence-set.json"
+    _write(repository, evidence_path, canonical_json_bytes(evidence_set))
+    evidence_revision = _commit(repository, "governed cutover sprint evidence")
+    evidence_reference = _reference(
+        repository, evidence_revision, evidence_path
+    )
+    closure = {
+        "record_type": "SPRINT_CLOSURE",
+        "closure_id": "SPRINT-001-CUTOVER-CLOSURE",
+        "sprint_id": "SPRINT-001",
+        "closure_basis": "EVIDENCE",
+        "evidence_set": evidence_reference,
+        **_authority_payload(
+            role="QA",
+            task_id="TASK-9901",
+            issue_id="ISSUE-9901",
+            story_id="STORY-9901",
+            candidate=evidence_revision,
+        ),
+    }
+    closure_path = "evidence/qa/cutover/sprint-closure.json"
+    _write(repository, closure_path, canonical_json_bytes(closure))
+    closure_revision = _commit(repository, "governed cutover closure")
+    closure_reference = _reference(repository, closure_revision, closure_path)
+    assert validate_cutover_preconditions(
+        repository,
+        closure_reference,
+        foundation_reference,
+        baseline,
+    ) == []
+    no_g1 = copy.deepcopy(foundation_evidence)
+    no_g1["proofs"].pop("G1_FOUNDATION_GATE_RESULT")
+    no_g1_path = "evidence/closure-set-no-g1.json"
+    _write(repository, no_g1_path, canonical_json_bytes(no_g1))
+    no_g1_revision = _commit(repository, "foundation evidence without G1 probe")
+    no_g1_closure = copy.deepcopy(foundation_closure)
+    no_g1_closure["evidence_set"] = _reference(
+        repository, no_g1_revision, no_g1_path
+    )
+    no_g1_closure_path = "evidence/foundation-closure-no-g1.json"
+    _write(repository, no_g1_closure_path, canonical_json_bytes(no_g1_closure))
+    no_g1_closure_revision = _commit(repository, "foundation closure without G1 probe")
+    no_g1_codes = _codes(
+        validate_cutover_preconditions(
+            repository,
+            closure_reference,
+            _reference(
+                repository, no_g1_closure_revision, no_g1_closure_path
+            ),
+            baseline,
+        )
+    )
+    assert {
+        "CUTOVER_FOUNDATION_EVIDENCE_INVALID",
+        "CUTOVER_G1_NOT_APPROVED",
+    } <= no_g1_codes
+    no_authorization = copy.deepcopy(foundation_evidence)
+    no_authorization["proofs"].pop("FIRST_SLICE_AUTHORIZATION")
+    no_authorization_path = "evidence/closure-set-no-authorization.json"
+    _write(repository, no_authorization_path, canonical_json_bytes(no_authorization))
+    no_authorization_revision = _commit(
+        repository, "foundation evidence without authorization probe"
+    )
+    no_authorization_closure = copy.deepcopy(foundation_closure)
+    no_authorization_closure["evidence_set"] = _reference(
+        repository, no_authorization_revision, no_authorization_path
+    )
+    no_authorization_closure_path = (
+        "evidence/foundation-closure-no-authorization.json"
+    )
+    _write(
+        repository,
+        no_authorization_closure_path,
+        canonical_json_bytes(no_authorization_closure),
+    )
+    no_authorization_closure_revision = _commit(
+        repository, "foundation closure without authorization probe"
+    )
+    no_authorization_codes = _codes(
+        validate_cutover_preconditions(
+            repository,
+            closure_reference,
+            _reference(
+                repository,
+                no_authorization_closure_revision,
+                no_authorization_closure_path,
+            ),
+            baseline,
+        )
+    )
+    assert {
+        "CUTOVER_FOUNDATION_EVIDENCE_INVALID",
+        "CUTOVER_NOT_AUTHORIZED",
+    } <= no_authorization_codes
+
+
+def _runtime_gate_results(
+    repository: Path, revision: str, version: str
+) -> list[dict[str, Any]]:
+    return [
+        {
+            "gate": gate,
+            "result": "PASS",
+            "artifact": _reference(
+                repository,
+                revision,
+                f"evidence/qa/runtime/gates/{version}-{index:02d}.json",
+            ),
+        }
+        for index, gate in enumerate(sorted(RUNTIME_GATES))
+    ]
+
+
+def test_python_312_primary_and_upgrade_gates() -> None:
+    repository = _fixture_directory("repository-bound-runtime")
+    _init_repository(repository)
+    runtime_authorities = (
+        ("QA", "TASK-9930", "ISSUE-9930", "STORY-9930", ["evidence/qa/**"]),
+        ("DevOps", "TASK-9931", "ISSUE-9931", "STORY-9931", ["evidence/operations/**"]),
+        ("Arquiteto", "TASK-9932", "ISSUE-9932", "STORY-9932", ["contracts/**"]),
+        ("Reviewer", "TASK-9933", "ISSUE-9933", "STORY-9933", ["evidence/reviews/**"]),
+    )
+    for role, task_id, issue_id, story_id, allow_paths in runtime_authorities:
+        _install_authority(
+            repository,
+            role=role,
+            task_id=task_id,
+            issue_id=issue_id,
+            story_id=story_id,
+            references=["REQ-TOOL-001"],
+            allow_paths=allow_paths,
+        )
+    _commit(repository, "pre-existing runtime authorities")
+    _write(repository, ".python-version", b"3.12.13\n")
+    _write(
+        repository,
+        "pyproject.toml",
+        b'[project]\nname="fixture"\nversion="0.0.0"\n'
+        b'requires-python=">=3.12,<3.13"\n'
+        b'[tool.ruff]\ntarget-version="py312"\n'
+        b'[tool.mypy]\npython_version="3.12"\n',
+    )
+    baseline_revision = _commit(repository, "Python 3.12 repository baseline")
+    assert validate_python_runtime(repository, baseline_revision) == []
+    _write(repository, "evidence/caller-runtime.json", b'{"runtime":"3.14"}\n')
+    assertion_revision = _commit(repository, "caller runtime assertion probe")
+    assert validate_python_runtime(repository, assertion_revision) == []
+    report_paths: dict[tuple[str, str], str] = {}
+    for version in ("3.13", "3.14"):
+        for index, gate in enumerate(sorted(RUNTIME_GATES)):
+            report_path = (
+                f"evidence/operations/runtime/reports/{version}-{index:02d}.txt"
+            )
+            _write(
+                repository,
+                report_path,
+                f"{version}:{gate}: PASS\n".encode(),
+            )
+            report_paths[(version, gate)] = report_path
+    approval_paths: dict[tuple[str, str], str] = {}
+    for version in ("3.13", "3.14"):
+        for role in ("Arquiteto", "Reviewer"):
+            identity = next(item for item in runtime_authorities if item[0] == role)
+            prefix = "contracts/runtime" if role == "Arquiteto" else "evidence/reviews"
+            path = f"{prefix}/python-{version}-{role.lower()}-approval.json"
+            approval_paths[(version, role)] = path
+            _write(
+                repository,
+                path,
+                canonical_json_bytes(
+                    {
+                        "record_type": "PYTHON_RUNTIME_GATE_APPROVAL",
+                        "version": version,
+                        "gate": "ARCHITECT_AND_REVIEWER_APPROVAL",
+                        "result": "PASS",
+                        **_authority_payload(
+                            role=role,
+                            task_id=identity[1],
+                            issue_id=identity[2],
+                            story_id=identity[3],
+                            candidate=baseline_revision,
+                        ),
+                    }
+                ),
+            )
+    proof_revision = _commit(repository, "independent runtime reports and approvals")
+    for version in ("3.13", "3.14"):
+        for index, gate in enumerate(sorted(RUNTIME_GATES)):
+            approvals: list[dict[str, str]] = []
+            if gate == "ARCHITECT_AND_REVIEWER_APPROVAL":
+                approvals = [
+                    _reference(repository, proof_revision, approval_paths[(version, role)])
+                    for role in ("Arquiteto", "Reviewer")
+                ]
+            _write(
+                repository,
+                f"evidence/qa/runtime/gates/{version}-{index:02d}.json",
+                canonical_json_bytes(
+                    {
+                        "record_type": "PYTHON_RUNTIME_GATE_EVIDENCE",
+                        "version": version,
+                        "gate": gate,
+                        "result": "PASS",
+                        "approvals": approvals,
+                        "execution_report": _reference(
+                            repository,
+                            proof_revision,
+                            report_paths[(version, gate)],
+                        ),
+                        "execution_authority": _authority_payload(
+                            role="DevOps",
+                            task_id="TASK-9931",
+                            issue_id="ISSUE-9931",
+                            story_id="STORY-9931",
+                            candidate=baseline_revision,
+                        ),
+                        **_authority_payload(
+                            role="QA",
+                            task_id="TASK-9930",
+                            issue_id="ISSUE-9930",
+                            story_id="STORY-9930",
+                            candidate=baseline_revision,
+                        ),
+                    }
+                ),
+            )
+    gate_revision = _commit(repository, "governed runtime gate evidence")
+    lane_313 = {
+        "record_type": "PYTHON_RUNTIME_LANE_EVIDENCE",
+        "version": "3.13",
+        "state": "STABLE",
+        "stable": True,
+        "gates": _runtime_gate_results(repository, gate_revision, "3.13"),
+        **_authority_payload(
+            role="DevOps",
+            task_id="TASK-9931",
+            issue_id="ISSUE-9931",
+            story_id="STORY-9931",
+            candidate=baseline_revision,
+        ),
+    }
+    lane_314 = {
+        "record_type": "PYTHON_RUNTIME_LANE_EVIDENCE",
+        "version": "3.14",
+        "state": "PROMOTED",
+        "stable": False,
+        "gates": _runtime_gate_results(repository, gate_revision, "3.14"),
+        **_authority_payload(
+            role="DevOps",
+            task_id="TASK-9931",
+            issue_id="ISSUE-9931",
+            story_id="STORY-9931",
+            candidate=baseline_revision,
+        ),
+    }
+    _write(
+        repository,
+        "evidence/operations/runtime/python-3.13.json",
+        canonical_json_bytes(lane_313),
+    )
+    _write(
+        repository,
+        "evidence/operations/runtime/python-3.14.json",
+        canonical_json_bytes(lane_314),
+    )
+    promoted_revision = _commit(repository, "governed promoted runtime lanes")
+    assert validate_python_runtime(repository, promoted_revision) == []
+    forged_gate = next(
+        item for item in lane_313["gates"]
+        if item["gate"] != "ARCHITECT_AND_REVIEWER_APPROVAL"
+    )
+    forged_payload = json.loads(
+        _git(
+            repository,
+            "show",
+            f"{forged_gate['artifact']['source_revision']}:{forged_gate['artifact']['path']}",
+        )
+    )
+    forged_payload.update(
+        {"task_id": "TASK-CALLER", "issue_id": "ISSUE-CALLER", "story_id": "STORY-CALLER"}
+    )
+    forged_gate_path = "evidence/qa/runtime/gates/caller-pass.json"
+    _write(repository, forged_gate_path, canonical_json_bytes(forged_payload))
+    forged_gate_revision = _commit(repository, "caller runtime PASS probe")
+    forged_lane = copy.deepcopy(lane_313)
+    gate_index = next(
+        index for index, item in enumerate(forged_lane["gates"])
+        if item["gate"] == forged_gate["gate"]
+    )
+    forged_lane["gates"][gate_index]["artifact"] = _reference(
+        repository, forged_gate_revision, forged_gate_path
+    )
+    _write(
+        repository,
+        "evidence/operations/runtime/python-3.13.json",
+        canonical_json_bytes(forged_lane),
+    )
+    forged_lane_revision = _commit(repository, "unauthorized runtime lane probe")
+    assert "DELIVERY_APPROVAL_INVALID" in _codes(
+        validate_python_runtime(repository, forged_lane_revision)
+    )
+    incomplete = copy.deepcopy(lane_313)
+    incomplete["gates"] = incomplete["gates"][:-1]
+    _write(
+        repository,
+        "evidence/operations/runtime/python-3.13.json",
+        canonical_json_bytes(incomplete),
+    )
+    incomplete_revision = _commit(repository, "incomplete runtime gate probe")
+    assert "PYTHON_RUNTIME_GATE_INCOMPLETE" in _codes(
+        validate_python_runtime(repository, incomplete_revision)
+    )
+    premature = copy.deepcopy(lane_313)
+    premature["state"] = "PROMOTED"
+    premature["stable"] = False
+    _write(
+        repository,
+        "evidence/operations/runtime/python-3.13.json",
+        canonical_json_bytes(premature),
+    )
+    premature_revision = _commit(repository, "premature 3.14 probe")
+    assert "PYTHON_314_PRECONDITION_MISSING" in _codes(
+        validate_python_runtime(repository, premature_revision)
+    )
+
+
+def test_uv_lock_frozen() -> None:
+    repository = _fixture_directory("uv-workspace")
+    _init_repository(repository)
+    _write(
+        repository,
+        "pyproject.toml",
+        b'[project]\nname="fixture"\nversion="0.0.0"\n'
+        b'[tool.uv.workspace]\nmembers=["packages/*"]\n',
+    )
+    _write(
+        repository,
+        "packages/member/pyproject.toml",
+        b'[project]\nname="member"\nversion="0.1.0"\n',
+    )
+    lock_content = (
+        b"version = 1\nrevision = 1\n"
+        b'[[package]]\nname = "fixture"\nversion = "0.0.0"\n'
+        b'source = { virtual = "." }\n'
+        b'[[package]]\nname = "member"\nversion = "0.1.0"\n'
+        b'source = { virtual = "packages/member" }\n'
+    )
+    _write(repository, "uv.lock", lock_content)
+    _write(repository, "Makefile", b"sync:\n\tuv sync --frozen\n")
+    _write(
+        repository,
+        ".github/workflows/ci.yml",
+        b"jobs:\n  sync:\n    steps:\n      - run: make sync\n",
+    )
+    frozen_revision = _commit(repository, "repository-bound frozen uv baseline")
+    assert validate_uv_lock_baseline(repository, frozen_revision) == []
+    _write(
+        repository,
+        "evidence/caller-lock-declaration.json",
+        b'{"lock_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}\n',
+    )
+    assertion_revision = _commit(repository, "caller lock declaration probe")
+    assert validate_uv_lock_baseline(repository, assertion_revision) == []
+    _write(
+        repository,
+        "packages/member/pyproject.toml",
+        b'[project]\nname="member"\nversion="0.2.0"\n',
+    )
+    divergent_revision = _commit(repository, "divergent workspace lock probe")
+    assert "UV_LOCK_DIVERGENT" in _codes(
+        validate_uv_lock_baseline(repository, divergent_revision)
+    )
+    _write(
+        repository,
+        "packages/member/pyproject.toml",
+        b'[project]\nname="member"\nversion="0.1.0"\n',
+    )
+    _commit(repository, "restore governed workspace manifest")
+    _write(repository, "Makefile", b"sync:\n\tuv sync\n")
+    not_frozen_revision = _commit(repository, "non-frozen uv probe")
+    assert "UV_NOT_FROZEN" in _codes(
+        validate_uv_lock_baseline(repository, not_frozen_revision)
+    )
+    _write(repository, "Makefile", b"sync:\n\tuv sync --frozen --upgrade\n")
+    implicit_revision = _commit(repository, "implicit lock update probe")
+    assert "UV_IMPLICIT_LOCK_UPDATE" in _codes(
+        validate_uv_lock_baseline(repository, implicit_revision)
+    )
+    _write(
+        repository,
+        "Makefile",
+        b"sync:\n\tuv sync --frozen \\\n\t  --upgrade\n",
+    )
+    multiline_update_revision = _commit(
+        repository, "multiline implicit lock update probe"
+    )
+    assert "UV_IMPLICIT_LOCK_UPDATE" in _codes(
+        validate_uv_lock_baseline(repository, multiline_update_revision)
+    )
+    _write(repository, "Makefile", b"sync:\n\t# uv sync --frozen\n")
+    comment_only_revision = _commit(repository, "comment-only uv probe")
+    assert "UV_SYNC_COMMAND_INVALID" in _codes(
+        validate_uv_lock_baseline(repository, comment_only_revision)
+    )
+    _git(repository, "rm", "-q", "uv.lock")
+    missing_revision = _commit(repository, "missing lock probe")
+    assert "UV_LOCK_MISSING" in _codes(
+        validate_uv_lock_baseline(repository, missing_revision)
+    )
+
+
+def test_make_ci_parity() -> None:
+    repository = _fixture_directory("make-ci-parity")
+    _init_repository(repository)
+    _write(repository, "Makefile", b"test:\n\tpytest\nverify:\n\tpython tools/validate_repository.py\n")
+    _write(
+        repository,
+        ".github/workflows/ci.yml",
+        b"jobs:\n  quality:\n    steps:\n      - run: make test\n      - run: make verify\n",
+    )
+    revision = _commit(repository, "repository-bound Make and CI")
+    assert validate_make_ci_parity(repository, revision) == []
+    _write(
+        repository,
+        ".github/workflows/ci.yml",
+        b"jobs:\n  quality:\n    steps:\n      - run: pytest\n      - run: make verify\n",
+    )
+    direct_revision = _commit(repository, "direct pytest bypass probe")
+    codes = _codes(validate_make_ci_parity(repository, direct_revision))
+    assert "MAKE_CI_BYPASS" in codes
+    _write(
+        repository,
+        ".github/workflows/ci.yml",
+        b"jobs:\n  quality:\n    steps:\n      - run: make test\n"
+        b"      - run: echo prep && pytest\n      - run: make verify\n",
+    )
+    chained_revision = _commit(repository, "chained pytest bypass probe")
+    assert "MAKE_CI_BYPASS" in _codes(
+        validate_make_ci_parity(repository, chained_revision)
+    )
+    _write(
+        repository,
+        ".github/workflows/ci.yml",
+        b"jobs:\n  quality:\n    steps:\n      - run: make test\n"
+        b"      - run: |\n          echo prep && pytest\n"
+        b"      - run: make verify\n",
+    )
+    multiline_revision = _commit(repository, "multiline pytest bypass probe")
+    assert "MAKE_CI_BYPASS" in _codes(
+        validate_make_ci_parity(repository, multiline_revision)
+    )
+    _write(
+        repository,
+        ".github/workflows/ci.yml",
+        b"jobs:\n  quality:\n    steps:\n      - run: make test\n"
+        b"      - run: bash -c \"pytest\"\n      - run: make verify\n",
+    )
+    nested_shell_revision = _commit(repository, "nested shell bypass probe")
+    assert "MAKE_CI_BYPASS" in _codes(
+        validate_make_ci_parity(repository, nested_shell_revision)
+    )
+    _write(
+        repository,
+        ".github/workflows/ci.yml",
+        b"jobs:\n  quality:\n    steps:\n      - run: make verify\n"
+        b"      - uses: ./.github/actions/hidden-quality\n",
+    )
+    _write(
+        repository,
+        ".github/actions/hidden-quality/action.yml",
+        b"name: hidden quality\nruns:\n  using: composite\n  steps:\n"
+        b"    - run: pytest\n      shell: bash\n",
+    )
+    local_action_revision = _commit(repository, "local action bypass probe")
+    assert "MAKE_CI_BYPASS" in _codes(
+        validate_make_ci_parity(repository, local_action_revision)
+    )
+    _write(
+        repository,
+        ".github/workflows/ci.yml",
+        b"jobs:\n  quality:\n    steps:\n      - run: make test\n      - run: make verify\n",
+    )
+    _write(
+        repository,
+        ".github/workflows/omitted.yml",
+        b"jobs:\n  hidden:\n    steps:\n      - run: pytest\n",
+    )
+    omitted_revision = _commit(repository, "omitted workflow inventory probe")
+    assert "MAKE_CI_BYPASS" in _codes(
+        validate_make_ci_parity(repository, omitted_revision)
+    )
+    _write(repository, "Makefile", b"verify:\n\t@echo verified\n")
+    _write(
+        repository,
+        ".github/workflows/ci.yml",
+        b"jobs:\n  quality:\n    steps:\n      - run: make verify\n",
+    )
+    empty_target_revision = _commit(repository, "empty Make target probe")
+    assert "MAKE_TARGET_NOT_SUBSTANTIVE" in _codes(
+        validate_make_ci_parity(repository, empty_target_revision)
+    )
