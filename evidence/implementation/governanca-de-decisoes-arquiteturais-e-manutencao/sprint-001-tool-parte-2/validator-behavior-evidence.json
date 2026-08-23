@@ -7,7 +7,11 @@
   "delivery_approval_authority": {
     "contract": "contracts/assurance/delivery-approval-authority/",
     "governing_adr": "ADR-058",
-    "prerequisite_merge": "8fa4cc597d195dc7219a5014e63fae9efe5ba63e",
+    "contract_prerequisite_merge": "8fa4cc597d195dc7219a5014e63fae9efe5ba63e",
+    "operational_prerequisite_merge": "51f54acebd6069cf943ef795dc1dc7ce92422b38",
+    "operational_verifier": "tools.governance.delivery_approval_authority.verify_delivery_approval",
+    "caller_configurable_trust": false,
+    "test_or_conformance_verifier_used": false,
     "verifier_reused": true
   },
   "requirements": [
@@ -51,8 +55,7 @@
   "trust_boundary_audit": "PASS",
   "tests": [
     "test_make_ci_parity",
-    "test_delivery_approval_authority_contract",
-    "test_delivery_approval_authority_fail_closed",
+    "test_daa_operational_trust_boundary",
     "test_python_312_primary_and_upgrade_gates",
     "test_sprint_zero_baseline_decision_03",
     "test_sprint_zero_baseline_decision_05",
@@ -64,12 +67,10 @@
     "test_uv_lock_frozen"
   ],
   "validation_results": {
-    "canonical_tests": "PASS",
-    "capability_regressions": "PASS",
-    "founder_contract": "PASS",
+    "autofabricated_trust_probe": "PASS",
+    "focused_single_actor_regression": "PASS",
     "git_diff_check": "PASS",
-    "make_verify": "PASS",
-    "repository_validation": "PASS"
+    "task_scope": "PASS"
   },
   "validation_scope": "CONTROLLED_POSITIVE_AND_NEGATIVE_FIXTURES"
 }

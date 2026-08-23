@@ -1,21 +1,15 @@
 from __future__ import annotations
 
-import copy
 import hashlib
-import importlib.util
 from collections.abc import Mapping
 from dataclasses import dataclass
-from pathlib import Path
-from types import ModuleType
 from typing import Any
+
+from tools.governance.delivery_approval_authority import verify_delivery_approval
 
 from slice_one import Finding, canonical_json_bytes
 
 
-VERIFIER_PATH = (
-    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/"
-    "test_delivery_approval_authority_contract.py"
-)
 REQUIRED_ROLES = frozenset({"Executor", "QA", "Reviewer"})
 
 
@@ -27,25 +21,14 @@ class VerifiedDeliveryApproval:
 
 
 class DeliveryApprovalGate:
-    """Trusted adapter to the verifier published by ISSUE-0870.
+    """Adapter to the operational verifier published by ISSUE-0871.
 
-    Trust anchors and the profile are gate configuration, never evidence fields.
-    Records passed to ``verify`` remain untrusted until the canonical verifier
-    returns its complete fail-closed verdict.
+    The operational boundary resolves its repository, revision, anchors and profile
+    internally. This adapter accepts only untrusted records plus trusted decision
+    context and cannot be configured with a caller-selected verifier or trust set.
     """
 
-    def __init__(
-        self,
-        authority_repository: Path,
-        *,
-        trust_anchors: Mapping[str, Any],
-        trust_profile: Mapping[str, Any],
-        verification_time: str,
-    ) -> None:
-        self._module = _load_contract_verifier(authority_repository)
-        self._trust_anchors = copy.deepcopy(dict(trust_anchors))
-        self._trust_profile = copy.deepcopy(dict(trust_profile))
-        self._verification_time = verification_time
+    def __init__(self) -> None:
         self._cache: dict[
             str, tuple[VerifiedDeliveryApproval | None, tuple[Finding, ...]]
         ] = {}
@@ -56,6 +39,7 @@ class DeliveryApprovalGate:
         evidence: Mapping[str, Any],
         task_envelope: Mapping[str, Any],
         candidate_sha: str,
+        verification_time: str,
     ) -> tuple[VerifiedDeliveryApproval | None, list[Finding]]:
         cache_key = hashlib.sha256(
             canonical_json_bytes(
@@ -63,23 +47,19 @@ class DeliveryApprovalGate:
                     "candidate_sha": candidate_sha,
                     "evidence": evidence,
                     "task_envelope": task_envelope,
+                    "verification_time": verification_time,
                 }
             )
         ).hexdigest()
         cached = self._cache.get(cache_key)
         if cached is not None:
             return cached[0], list(cached[1])
-        verifier = getattr(self._module, "_verify", None)
-        if not callable(verifier):
-            return None, [_finding("canonical DAA verifier is unavailable")]
         try:
-            verdict = verifier(
-                copy.deepcopy(dict(evidence)),
-                copy.deepcopy(self._trust_anchors),
-                copy.deepcopy(self._trust_profile),
-                copy.deepcopy(dict(task_envelope)),
-                candidate_sha,
-                self._verification_time,
+            verdict = verify_delivery_approval(
+                evidence=dict(evidence),
+                task_envelope=dict(task_envelope),
+                expected_candidate_sha=candidate_sha,
+                verification_time=verification_time,
             )
         except (AssertionError, KeyError, TypeError, ValueError) as error:
             return None, [_finding(f"DAA verification failed closed: {error}")]
@@ -97,19 +77,6 @@ class DeliveryApprovalGate:
             )
         self._cache[cache_key] = (approval, ())
         return approval, []
-
-
-def _load_contract_verifier(authority_repository: Path) -> ModuleType:
-    path = authority_repository / VERIFIER_PATH
-    if not path.is_file():
-        raise ValueError("ISSUE-0870 DAA verifier is absent")
-    spec = importlib.util.spec_from_file_location("dsgeorref_daa_verifier", path)
-    if spec is None or spec.loader is None:
-        raise ValueError("ISSUE-0870 DAA verifier cannot be loaded")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
 
 def _complete_verdict(
     verdict: object, expected_task: object, candidate_sha: str

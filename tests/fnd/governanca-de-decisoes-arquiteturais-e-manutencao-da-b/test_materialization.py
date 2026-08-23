@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import inspect
 import itertools
 import json
 import os
 import subprocess
 import sys
 import tempfile
+from unittest import mock
 from pathlib import Path
 from typing import Any
 
@@ -21,8 +23,11 @@ MODULE_ROOT_2 = ROOT / (
     "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/"
     "sprint-001-tool-parte-2"
 )
+SECURITY_TEST_ROOT = ROOT / "tests/security"
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(MODULE_ROOT))
 sys.path.insert(0, str(MODULE_ROOT_2))
+sys.path.insert(0, str(SECURITY_TEST_ROOT))
 
 from baseline_lifecycle import (  # noqa: E402
     AppendOnlyRecordLedger,
@@ -34,6 +39,24 @@ from baseline_lifecycle import (  # noqa: E402
     validate_transition,
 )
 import delivery_approval as daa_adapter  # noqa: E402
+from delivery_approval_authority.fixture import (  # noqa: E402
+    ATTESTATION_DOMAIN as DAA_ATTESTATION_DOMAIN,
+    BINDING_DOMAIN as DAA_BINDING_DOMAIN,
+    PROFILE_DOMAIN as DAA_PROFILE_DOMAIN,
+    _anchors as daa_test_anchors,
+    _attestation as daa_test_attestation,
+    _binding as daa_test_binding,
+    _key as daa_test_key,
+    _profile as daa_test_profile,
+    _sign as daa_test_sign,
+)
+from tools.governance.delivery_approval_authority.repository import (  # noqa: E402
+    GovernedTrust,
+)
+from tools.governance.delivery_approval_authority.schemas import SchemaSet  # noqa: E402
+from tools.governance.delivery_approval_authority.verifier import (  # noqa: E402
+    OperationalVerifier,
+)
 from canonical_json import canonical_json_bytes  # noqa: E402
 from decision_governance import (  # noqa: E402
     DECISION_CLASSIFICATIONS,
@@ -90,12 +113,16 @@ SCHEMA_PATH = (
 )
 _FIXTURE_SEQUENCE = itertools.count()
 _DAA_GATES: dict[Path, daa_adapter.DeliveryApprovalGate] = {}
-_DAA_MODULE = daa_adapter._load_contract_verifier(ROOT)
-_DAA_SUITE = json.loads(
-    (ROOT / "contracts/assurance/delivery-approval-authority/test-vectors/conformance-suite.json").read_text(
-        encoding="utf-8"
-    )
-)
+_DAA_TEST_KEYS = {
+    label: daa_test_key(label)
+    for label in ("root", "binding", "executor", "qa", "reviewer")
+}
+_DAA_TEST_ANCHORS = daa_test_anchors(_DAA_TEST_KEYS["root"])
+_DAA_TEST_VALID_UNTIL = "2027-08-23T00:00:00Z"
+for _daa_anchor in _DAA_TEST_ANCHORS["anchors"]:
+    _daa_anchor["valid_until"] = _DAA_TEST_VALID_UNTIL
+_DAA_TEST_SCHEMAS: SchemaSet | None = None
+_DAA_TEST_VERIFIERS: dict[str, OperationalVerifier] = {}
 
 
 def _revision(name: str = "HEAD", repository: Path = ROOT) -> str:
@@ -179,48 +206,78 @@ def _collect_authority_claims(value: object, claims: set[tuple[str, str]]) -> No
 
 
 def _signed_daa_evidence(task: dict[str, Any], candidate: str) -> dict[str, Any]:
-    evidence = {
-        "bindings": copy.deepcopy(_DAA_SUITE["bindings"]),
-        "attestations": copy.deepcopy(_DAA_SUITE["attestations"]),
-    }
     task_id = task["task_id"]
-    task_digest = hashlib.sha256(canonical_json_bytes(task)).hexdigest()
-    for binding in evidence["bindings"]:
+    bindings = [
+        daa_test_binding(role, _DAA_TEST_KEYS["binding"])
+        for role in ("Executor", "QA", "Reviewer")
+    ]
+    for binding in bindings:
         binding["task_envelope_ids"] = [task_id]
-        _DAA_MODULE._resign(binding, "binding", _DAA_MODULE.DOMAINS["binding"])
-    by_role = {item["role"]: item for item in evidence["bindings"]}
-    for attestation in evidence["attestations"]:
-        role = attestation["role"]
-        attestation["candidate_sha"] = candidate
-        attestation["task_envelope"] = {
-            "task_id": task_id,
-            "digest_sha256": task_digest,
-        }
-        attestation["binding"]["digest_sha256"] = _DAA_MODULE._digest(by_role[role])
-        _DAA_MODULE._resign(
-            attestation, role.lower(), _DAA_MODULE.DOMAINS["attestation"]
+        binding["valid_until"] = _DAA_TEST_VALID_UNTIL
+        daa_test_sign(
+            binding,
+            _DAA_TEST_KEYS["binding"],
+            DAA_BINDING_DOMAIN,
         )
-    return evidence
+    attestations = [
+        daa_test_attestation(
+            role,
+            binding,
+            task,
+            candidate,
+            _DAA_TEST_KEYS[role.lower()],
+        )
+        for role, binding in zip(
+            ("Executor", "QA", "Reviewer"), bindings, strict=True
+        )
+    ]
+    return {"bindings": bindings, "attestations": attestations}
+
+
+def _operational_test_verdict(
+    *,
+    task_envelope: Any,
+    expected_candidate_sha: Any,
+    verification_time: Any,
+    evidence: Any,
+) -> dict[str, Any]:
+    global _DAA_TEST_SCHEMAS
+    task_id = task_envelope.get("task_id") if isinstance(task_envelope, dict) else None
+    if not isinstance(task_id, str):
+        task_id = "INVALID"
+    verifier = _DAA_TEST_VERIFIERS.get(task_id)
+    if verifier is None:
+        profile = daa_test_profile(_DAA_TEST_KEYS)
+        profile["valid_until"] = _DAA_TEST_VALID_UNTIL
+        for issuer in profile["identity_issuers"]:
+            issuer["valid_until"] = _DAA_TEST_VALID_UNTIL
+        for signer in profile["keys"]:
+            signer["valid_until"] = _DAA_TEST_VALID_UNTIL
+            signer["task_envelope_ids"] = [task_id]
+        daa_test_sign(profile, _DAA_TEST_KEYS["root"], DAA_PROFILE_DOMAIN)
+        revision = _revision(repository=ROOT)
+        if _DAA_TEST_SCHEMAS is None:
+            _DAA_TEST_SCHEMAS = SchemaSet(ROOT, revision)
+        trust = GovernedTrust(
+            revision=revision,
+            anchors=copy.deepcopy(_DAA_TEST_ANCHORS),
+            profile=profile,
+            digests={},
+        )
+        verifier = OperationalVerifier(trust, _DAA_TEST_SCHEMAS)
+        _DAA_TEST_VERIFIERS[task_id] = verifier
+    return verifier.verify(
+        evidence=evidence,
+        task_envelope=task_envelope,
+        candidate_sha=expected_candidate_sha,
+        verification_time=verification_time,
+    )
 
 
 def _daa_gate(repository: Path) -> daa_adapter.DeliveryApprovalGate:
     key = repository.resolve()
     if key not in _DAA_GATES:
-        profile = copy.deepcopy(
-            _DAA_SUITE["trusted_configuration"]["trust_profile"]
-        )
-        task_ids = sorted(
-            path.stem for path in (repository / ".codex/tasks").glob("TASK-*.json")
-        )
-        for signer in profile["keys"]:
-            signer["task_envelope_ids"] = task_ids
-        _DAA_MODULE._resign(profile, "root", _DAA_MODULE.DOMAINS["profile"])
-        _DAA_GATES[key] = daa_adapter.DeliveryApprovalGate(
-            ROOT,
-            trust_anchors=_DAA_SUITE["trusted_configuration"]["trust_anchors"],
-            trust_profile=profile,
-            verification_time=_DAA_SUITE["verification_time"],
-        )
+        _DAA_GATES[key] = daa_adapter.DeliveryApprovalGate()
     return _DAA_GATES[key]
 
 
@@ -237,7 +294,12 @@ _VALIDATE_WAVE = validate_wave
 
 def _with_daa(function: Any, repository: Path, *args: Any, **kwargs: Any) -> Any:
     kwargs.setdefault("delivery_gate", _daa_gate(repository))
-    return function(repository, *args, **kwargs)
+    with mock.patch.object(
+        daa_adapter,
+        "verify_delivery_approval",
+        _operational_test_verdict,
+    ):
+        return function(repository, *args, **kwargs)
 
 
 def build_sprint_evidence_set(repository: Path, **kwargs: Any) -> dict[str, Any]:
@@ -1565,6 +1627,38 @@ def _governed_graph_fixture() -> tuple[
     )
 
 
+def test_daa_operational_trust_boundary() -> None:
+    assert inspect.signature(daa_adapter.DeliveryApprovalGate).parameters == {}
+    forbidden = {
+        "repository",
+        "revision",
+        "verifier",
+        "trust_profile",
+        "trust_anchors",
+        "anchors",
+    }
+    assert forbidden.isdisjoint(
+        inspect.signature(daa_adapter.verify_delivery_approval).parameters
+    )
+    task = json.loads((ROOT / ".codex/tasks/TASK-0689.json").read_text(encoding="utf-8"))
+    verdict = daa_adapter.verify_delivery_approval(
+        task_envelope=task,
+        expected_candidate_sha=_revision(repository=ROOT),
+        verification_time="2026-08-22T12:30:00Z",
+        evidence={
+            "bindings": [],
+            "attestations": [],
+            "trust_profile": daa_test_profile(_DAA_TEST_KEYS),
+            "trust_anchors": copy.deepcopy(_DAA_TEST_ANCHORS),
+        },
+    )
+    assert verdict["status"] == "FAIL"
+    assert verdict["validated_roles"] == []
+    source = inspect.getsource(daa_adapter)
+    assert "test_delivery_approval_authority_contract" not in source
+    assert "test-vectors" not in source
+
+
 def test_sprint_zero_baseline_decision_03() -> None:
     repository, revision, completion, _graph, _blocker = _governed_graph_fixture()
     wave = {
@@ -1662,14 +1756,18 @@ def test_sprint_zero_baseline_decision_03() -> None:
         item for item in forged_daa["bindings"] if item["role"] == "QA"
     )
     qa_binding["accountable_subject"] = executor_subject
-    _DAA_MODULE._resign(qa_binding, "binding", _DAA_MODULE.DOMAINS["binding"])
+    daa_test_sign(qa_binding, _DAA_TEST_KEYS["binding"], DAA_BINDING_DOMAIN)
     qa_attestation = next(
         item for item in forged_daa["attestations"] if item["role"] == "QA"
     )
     qa_attestation["accountable_subject"] = executor_subject
-    qa_attestation["binding"]["digest_sha256"] = _DAA_MODULE._digest(qa_binding)
-    _DAA_MODULE._resign(
-        qa_attestation, "qa", _DAA_MODULE.DOMAINS["attestation"]
+    qa_attestation["binding"]["digest_sha256"] = hashlib.sha256(
+        canonical_json_bytes(qa_binding)
+    ).hexdigest()
+    daa_test_sign(
+        qa_attestation,
+        _DAA_TEST_KEYS["qa"],
+        DAA_ATTESTATION_DOMAIN,
     )
     single_actor_authority_path = "docs/06-delivery/waves/single-actor.json"
     _write(repository, daa_path, canonical_json_bytes(forged_daa))

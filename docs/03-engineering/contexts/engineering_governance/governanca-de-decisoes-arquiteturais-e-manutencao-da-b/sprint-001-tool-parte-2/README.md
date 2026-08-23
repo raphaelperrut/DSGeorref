@@ -8,9 +8,9 @@ Its normative authorities are `AP-008`, `AP-001`, `RELEASE_GATES`, the applicabl
 ADRs. It does not replace those authorities or publish a shared contract.
 
 Identity, role binding, candidate approval, and independence are delegated to the
-Delivery Approval Authority contract from `ADR-058` and
-`contracts/assurance/delivery-approval-authority/`. The slice consumes its
-published verifier; it does not copy or reinterpret that trust boundary.
+Delivery Approval Authority from `ADR-058`. The slice calls the operational entry
+point `tools.governance.delivery_approval_authority.verify_delivery_approval`
+published by `STORY-0761`; it does not copy or reinterpret that trust boundary.
 
 The slice validates AP-008 decisions 03 and 05–10: graph-derived waves, exercised
 essential contracts, honest synthetic diagnostics, capability-proportional CI,
@@ -36,12 +36,14 @@ caller-provided inventories are not authoritative. Record inputs use governed
 references containing the revision, repository-relative path, and SHA-256 digest.
 Unknown fields and absent normative fields fail closed. Findings are deterministic.
 
-The DAA gate receives locally pinned trust anchors/profile as trusted composition
-configuration. Untrusted records contain only bindings and attestations. The
-verifier binds them to the validated TaskEnvelope digest and exact candidate SHA,
-and requires pairwise-disjoint accountable subjects for Executor, QA, and Reviewer.
-Git authors, labels, roles, task IDs, or caller-supplied verdicts never establish
-identity or independence. Deterministic DAA keys used by tests remain fixture-only.
+The DAA gate accepts no repository, verifier, profile, anchor, issuer, key, or
+policy configuration. The operational verifier resolves its own governed checkout,
+pinned anchor, manifest, and signed profile. Untrusted records contain only bindings
+and attestations. It binds them to the validated TaskEnvelope digest and exact
+candidate SHA, and requires pairwise-disjoint accountable subjects for Executor,
+QA, and Reviewer. Git authors, labels, task IDs, caller-supplied trust, and test or
+conformance verifiers never establish identity or independence. Synthetic keys used
+by unit tests remain fixture-only and never enter the production adapter.
 
 `SprintEvidenceSet` is canonical JSON bound to a source revision and governed
 artifacts. Its digest covers the complete record through a zero-digest projection.
