@@ -57,3 +57,39 @@ class CandidateView:
         if completed.returncode != 0:
             raise ValueError("candidate revision is not readable")
         return tuple(path for path in completed.stdout.splitlines() if path)
+
+    def is_ancestor(self, ancestor: str) -> bool:
+        completed = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(self.repository_root),
+                "merge-base",
+                "--is-ancestor",
+                ancestor,
+                self.revision,
+            ],
+            check=False,
+            capture_output=True,
+        )
+        return completed.returncode == 0
+
+    def parent_count(self) -> int:
+        completed = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(self.repository_root),
+                "rev-list",
+                "--parents",
+                "-n",
+                "1",
+                self.revision,
+            ],
+            check=False,
+            capture_output=True,
+            encoding="ascii",
+        )
+        if completed.returncode != 0:
+            return 0
+        return max(0, len(completed.stdout.split()) - 1)

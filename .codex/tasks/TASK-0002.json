@@ -35,9 +35,7 @@
   ],
   "allow_paths": [
     "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/consolidacao/**",
-    "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/consolidacao/**",
-    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/consolidacao/test_slice_consolidation.py",
-    "evidence/implementation/governanca-de-decisoes-arquiteturais-e-manutencao/consolidacao/**"
+    "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/consolidacao/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -53,7 +51,7 @@
     "test_story_0002_slice_consolidation"
   ],
   "evidence": [
-    "evidence/implementation/governanca-de-decisoes-arquiteturais-e-manutencao/consolidacao/",
+    "evidence/implementation/epic-001/story-0002/",
     "commit candidato e relatório de testes"
   ],
   "dependencies": [
@@ -106,9 +104,7 @@
       "status": "PASS",
       "allow_paths": [
         "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/consolidacao/**",
-        "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/consolidacao/**",
-        "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/consolidacao/test_slice_consolidation.py",
-        "evidence/implementation/governanca-de-decisoes-arquiteturais-e-manutencao/consolidacao/**"
+        "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/consolidacao/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
@@ -155,7 +151,7 @@
       "status": "PASS",
       "kinds": [],
       "evidence": [
-        "evidence/implementation/governanca-de-decisoes-arquiteturais-e-manutencao/consolidacao/",
+        "evidence/implementation/epic-001/story-0002/",
         "commit candidato e relatório de testes"
       ],
       "contract": null
