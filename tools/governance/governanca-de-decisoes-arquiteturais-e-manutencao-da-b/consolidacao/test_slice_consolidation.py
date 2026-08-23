@@ -39,17 +39,13 @@ def _candidate() -> str:
     return completed.stdout.strip()
 
 
-def _completion_proof(story_id: str) -> dict[str, object]:
+def _completion_reference(story_id: str) -> dict[str, object]:
     revision = SLICE_MERGES[story_id]
-    task_id, evidence_path = SLICE_EVIDENCE[story_id]
+    _task_id, evidence_path = SLICE_EVIDENCE[story_id]
     content = CandidateView(ROOT, revision).blob(evidence_path)
     return {
-        "record_type": "STORY_COMPLETION_EVIDENCE",
-        "story_id": story_id,
-        "task_id": task_id,
-        "state": "COMPLETED",
-        "candidate_revision": revision,
-        "evidence_path": evidence_path,
+        "source_revision": revision,
+        "path": evidence_path,
         "sha256": hashlib.sha256(content).hexdigest(),
     }
 
@@ -65,20 +61,22 @@ def _review(candidate: str) -> dict[str, object]:
         "result": "PASS",
         "residual_risks": [],
         "released_dependents": ["STORY-0004"],
-        "slice_completion": [
-            _completion_proof("STORY-0688"),
-            _completion_proof("STORY-0689"),
+        "completion_evidence": [
+            _completion_reference("STORY-0688"),
+            _completion_reference("STORY-0689"),
         ],
     }
 
 
-def _without_proof(review: dict[str, object], story_id: str) -> None:
-    proofs = review["slice_completion"]
-    assert isinstance(proofs, list)
-    review["slice_completion"] = [
-        proof for proof in proofs
-        if isinstance(proof, dict) and proof.get("story_id") != story_id
-    ]
+def _canonical_completion(
+    story_ids: tuple[str, ...] = ("STORY-0688", "STORY-0689"),
+    findings: tuple[consolidation.Finding, ...] = (),
+):
+    return patch.object(
+        consolidation,
+        "validate_governed_completion",
+        return_value=(list(story_ids), list(findings)),
+    )
 
 
 def _story_state(story_id: str, state: str | None):
@@ -106,11 +104,12 @@ def _story_state(story_id: str, state: str | None):
 
 def test_story_0002_slice_consolidation() -> None:
     candidate = _candidate()
-    result = consolidation.validate_slice_consolidation(
-        ROOT,
-        candidate,
-        _review(candidate),
-    )
+    with _canonical_completion():
+        result = consolidation.validate_slice_consolidation(
+            ROOT,
+            candidate,
+            _review(candidate),
+        )
 
     assert result.ready, result.findings
     assert result.dependency_story_ids == ("STORY-0688", "STORY-0689")
@@ -121,9 +120,8 @@ def test_story_0002_slice_consolidation() -> None:
 def test_canonical_done_slice_is_accepted_without_equivalent_evidence() -> None:
     candidate = _candidate()
     review = _review(candidate)
-    _without_proof(review, "STORY-0688")
 
-    with _story_state("STORY-0688", "Done"):
+    with _story_state("STORY-0688", "Done"), _canonical_completion(("STORY-0689",)):
         result = consolidation.validate_slice_consolidation(ROOT, candidate, review)
 
     assert result.ready, result.findings
@@ -142,8 +140,7 @@ def test_non_terminal_states_are_rejected_without_completion_evidence() -> None:
     )
     for state in states:
         review = _review(candidate)
-        _without_proof(review, "STORY-0688")
-        with _story_state("STORY-0688", state):
+        with _story_state("STORY-0688", state), _canonical_completion(("STORY-0689",)):
             result = consolidation.validate_slice_consolidation(ROOT, candidate, review)
         assert not result.ready, state
         assert "SLICE_COMPLETION_UNPROVEN" in {
@@ -155,9 +152,8 @@ def test_non_terminal_states_are_rejected_without_completion_evidence() -> None:
 def test_missing_canonical_state_and_completion_evidence_is_rejected() -> None:
     candidate = _candidate()
     review = _review(candidate)
-    _without_proof(review, "STORY-0688")
 
-    with _story_state("STORY-0688", None):
+    with _story_state("STORY-0688", None), _canonical_completion(("STORY-0689",)):
         result = consolidation.validate_slice_consolidation(ROOT, candidate, review)
 
     assert not result.ready
@@ -167,12 +163,20 @@ def test_missing_canonical_state_and_completion_evidence_is_rejected() -> None:
     assert result.released_dependents == ()
 
 
-def test_unknown_completion_evidence_is_rejected() -> None:
+def test_local_path_hash_completion_authority_is_rejected() -> None:
     candidate = _candidate()
     review = _review(candidate)
-    proofs = review["slice_completion"]
-    assert isinstance(proofs, list) and isinstance(proofs[0], dict)
-    proofs[0]["state"] = "UNKNOWN"
+    review["completion_evidence"] = [
+        {
+            "record_type": "STORY_COMPLETION_EVIDENCE",
+            "story_id": "STORY-0688",
+            "task_id": "TASK-0688",
+            "state": "COMPLETED",
+            "candidate_revision": SLICE_MERGES["STORY-0688"],
+            "evidence_path": SLICE_EVIDENCE["STORY-0688"][1],
+            "sha256": "0" * 64,
+        }
+    ]
 
     result = consolidation.validate_slice_consolidation(ROOT, candidate, review)
 
@@ -186,9 +190,8 @@ def test_unknown_completion_evidence_is_rejected() -> None:
 def test_missing_slice_completion_proof_rejects_blocked_slice() -> None:
     candidate = _candidate()
     review = _review(candidate)
-    _without_proof(review, "STORY-0689")
 
-    with _story_state("STORY-0689", "Blocked"):
+    with _story_state("STORY-0689", "Blocked"), _canonical_completion(("STORY-0688",)):
         result = consolidation.validate_slice_consolidation(ROOT, candidate, review)
 
     assert not result.ready
@@ -202,7 +205,10 @@ def test_no_dependent_release_when_any_other_finding_remains() -> None:
     candidate = _candidate()
     forced = consolidation.Finding("FORCED_BLOCKER", "baseline", "incomplete")
 
-    with patch.object(consolidation, "_baseline_findings", return_value=[forced]):
+    with (
+        patch.object(consolidation, "_baseline_findings", return_value=[forced]),
+        _canonical_completion(),
+    ):
         result = consolidation.validate_slice_consolidation(
             ROOT,
             candidate,
@@ -229,10 +235,47 @@ def test_slice_consolidation_rejects_review_for_another_candidate() -> None:
     review = _review(candidate)
     review["reviewed_candidate_commit"] = "0" * 40
 
-    result = consolidation.validate_slice_consolidation(ROOT, candidate, review)
+    with _canonical_completion():
+        result = consolidation.validate_slice_consolidation(ROOT, candidate, review)
 
     assert not result.ready
     assert "REVIEW_EVIDENCE_INVALID" in {
         finding.code for finding in result.findings
     }
     assert result.released_dependents == ()
+
+
+def _assert_canonical_rejection(code: str, detail: str) -> None:
+    candidate = _candidate()
+    canonical = consolidation.Finding(code, "$.completion_evidence[0]", detail)
+    with _canonical_completion(("STORY-0689",), (canonical,)):
+        result = consolidation.validate_slice_consolidation(
+            ROOT, candidate, _review(candidate)
+        )
+    assert not result.ready
+    assert canonical in result.findings
+    assert result.released_dependents == ()
+
+
+def test_missing_qa_assurance_is_rejected() -> None:
+    _assert_canonical_rejection(
+        "COMPLETION_EVIDENCE_INVALID", "QA and Reviewer evidence required"
+    )
+
+
+def test_missing_reviewer_assurance_is_rejected() -> None:
+    _assert_canonical_rejection(
+        "EVIDENCE_AUTHORITY_INVALID", "Reviewer assurance proof mismatch"
+    )
+
+
+def test_missing_daa_is_rejected() -> None:
+    _assert_canonical_rejection(
+        "DELIVERY_APPROVAL_INVALID", "trusted DAA approval is required"
+    )
+
+
+def test_mismatched_or_stale_governed_reference_is_rejected() -> None:
+    _assert_canonical_rejection(
+        "COMPLETION_EVIDENCE_INVALID", "assurance proof mismatch"
+    )

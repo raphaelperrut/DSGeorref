@@ -10,8 +10,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from canonical_completion import validate_governed_completion
 from candidate_repository import CandidateView
-from completion_evidence import completion_findings, index_completion_proofs
 
 
 PARENT_STORY = "STORY-0002"
@@ -72,11 +72,16 @@ def validate_slice_consolidation(
     findings.extend(_identity_findings(parent, tasks, graph, dependencies))
     scopes = tuple(_production_scopes(task) for task in tasks)
     findings.extend(_baseline_findings(parent, tasks, scopes, paths))
-    proof_value = reviewer_record.get("slice_completion") if reviewer_record else None
-    proofs, proof_findings = index_completion_proofs(proof_value)
-    findings.extend(Finding(*finding) for finding in proof_findings)
-    requirements, coverage_findings = _coverage(view, tasks, proofs)
+    requirements, coverage_findings = _coverage(view, tasks)
     findings.extend(coverage_findings)
+    findings.extend(
+        _completion_findings(
+            view,
+            tasks,
+            reviewer_record.get("completion_evidence") if reviewer_record else None,
+            repository_root,
+        )
+    )
     findings.extend(_integration_findings(view, scopes, paths))
     downstream = _graph_edges(graph, source=PARENT_STORY)
     findings.extend(_review_findings(reviewer_record, candidate_revision, downstream))
@@ -208,7 +213,6 @@ def _baseline_findings(
 def _coverage(
     view: CandidateView,
     tasks: tuple[Mapping[str, Any], ...],
-    proofs: Mapping[str, Mapping[str, Any]],
 ) -> tuple[tuple[str, ...], list[Finding]]:
     text = view.blob(REVIEW_PATH).decode("utf-8")
     rows = {row["issue_id"]: row for row in csv.DictReader(io.StringIO(text))}
@@ -231,11 +235,6 @@ def _coverage(
             )
             continue
         story = view.blob(story_paths[0]).decode("utf-8")
-        story_id = str(task.get("story_id"))
-        findings.extend(
-            Finding(*finding)
-            for finding in completion_findings(view, task, story, proofs.get(story_id))
-        )
         section = re.search(r"## Requisitos\s+(.*?)\s+## ADRs", story, re.DOTALL)
         section_text = section.group(1) if section else ""
         declared = tuple(sorted(set(re.findall(r"REQ-[A-Z0-9-]+", section_text))))
@@ -260,6 +259,49 @@ def _coverage(
             )
         seen.update(declared)
     return tuple(sorted(seen)), findings
+
+
+def _completion_findings(
+    view: CandidateView,
+    tasks: tuple[Mapping[str, Any], ...],
+    references: object,
+    repository_root: Path,
+) -> list[Finding]:
+    completed_from_state: set[str] = set()
+    expected: set[str] = set()
+    findings: list[Finding] = []
+    for task in tasks:
+        story_id = str(task.get("story_id"))
+        expected.add(story_id)
+        story_paths = [
+            item
+            for item in task.get("references") or []
+            if isinstance(item, str) and "/stories/STORY-" in item
+        ]
+        if len(story_paths) != 1:
+            continue
+        story = view.blob(story_paths[0]).decode("utf-8")
+        state = re.search(r"^- \*\*Estado:\*\* `([^`]+)`", story, re.MULTILINE)
+        if state is not None and state.group(1) == "Done":
+            completed_from_state.add(story_id)
+
+    completed_from_evidence, governed_findings = validate_governed_completion(
+        repository_root, references
+    )
+    findings.extend(
+        Finding(finding.code, finding.field, finding.detail)
+        for finding in governed_findings
+    )
+    proven = completed_from_state | set(completed_from_evidence)
+    for story_id in sorted(expected - proven):
+        findings.append(
+            Finding(
+                "SLICE_COMPLETION_UNPROVEN",
+                story_id,
+                "canonical Done state or governed completion evidence is required",
+            )
+        )
+    return findings
 
 
 def _integration_findings(
@@ -320,7 +362,7 @@ def _review_findings(
         "result",
         "residual_risks",
         "released_dependents",
-        "slice_completion",
+        "completion_evidence",
     }
     if not isinstance(record, Mapping) or set(record) != required:
         return [
@@ -343,7 +385,7 @@ def _review_findings(
         and record.get("executor_subject") != record.get("reviewer_subject")
         and record.get("result") == "PASS"
         and valid_risks
-        and isinstance(record.get("slice_completion"), list)
+        and isinstance(record.get("completion_evidence"), list)
         and record.get("released_dependents") == list(downstream)
     )
     if valid:

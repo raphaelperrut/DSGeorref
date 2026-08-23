@@ -11,13 +11,13 @@ requirement ownership, byte-identical Python implementations, invalid Python,
 and the absence of the established Slice 2 reuse of the Slice 1 boundary.
 
 A slice is complete only when its canonical state is `Done`, or when the
-Reviewer supplies a `STORY_COMPLETION_EVIDENCE` record bound to immutable
-evidence already recognized by that slice's TaskEnvelope. Equivalent evidence
-must bind `COMPLETED`, the exact child story and task, a full ancestor merge
-commit, and a hash-matching artifact below the TaskEnvelope's declared evidence
-root. The merge must contain every governed slice output. Ready,
-Ready-after-authorization, Planned, In Progress, Blocked, unknown, and missing
-states are never completion by themselves.
+Reviewer supplies governed completion artifact references accepted by the
+existing Sprint graph completion validator. The consolidation package delegates
+those references without redefining them. That canonical validator enforces the
+completed story/task/candidate binding, immutable reference lineage, QA and
+Reviewer assurance, and Delivery Approval Authority verification. Ready,
+Ready-after-authorization, Planned, In Progress, Blocked, unknown, missing, and
+locally asserted path/hash records are never completion by themselves.
 
 Dependent stories are never released implicitly. A reviewer record must bind the
 exact candidate, list residual risks (an empty list is explicit), name the exact
