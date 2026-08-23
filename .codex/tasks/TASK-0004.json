@@ -37,7 +37,10 @@
   ],
   "allow_paths": [
     "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
-    "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**"
+    "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_integration.py",
+    ".github/workflows/governanca-de-decisoes-arquiteturais-e-manutencao-da-b.yaml",
+    "evidence/implementation/epic-001/story-0004/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -106,7 +109,10 @@
       "status": "PASS",
       "allow_paths": [
         "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
-        "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**"
+        "docs/03-engineering/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**",
+        "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_integration.py",
+        ".github/workflows/governanca-de-decisoes-arquiteturais-e-manutencao-da-b.yaml",
+        "evidence/implementation/epic-001/story-0004/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
