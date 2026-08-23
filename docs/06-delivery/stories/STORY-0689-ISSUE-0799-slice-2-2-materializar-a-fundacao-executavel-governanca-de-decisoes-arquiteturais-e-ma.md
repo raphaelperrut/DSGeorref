@@ -1,7 +1,7 @@
 # STORY-0689 / ISSUE-0799 — Slice 2/2 — Materializar a fundação executável: governança de decisões arquiteturais e manutenção da baseline normativa [REQ-SPRINT-001, REQ-TOOL]
 
 - **Tipo:** `História implementável`
-- **Estado:** `Blocked`
+- **Estado:** `Done`
 - **Épico pai:** `EPIC-001`
 - **Sprint:** `SPRINT-001`
 - **Domínio:** `FND`

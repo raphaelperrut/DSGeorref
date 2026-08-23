@@ -3,6 +3,7 @@ from __future__ import annotations
 import subprocess
 import sys
 from pathlib import Path
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[4]
@@ -12,7 +13,11 @@ MODULE_ROOT = ROOT / (
 )
 sys.path.insert(0, str(MODULE_ROOT))
 
-from slice_consolidation import validate_slice_consolidation  # noqa: E402
+import slice_consolidation as consolidation  # noqa: E402
+from candidate_repository import CandidateView  # noqa: E402
+
+
+validate_slice_consolidation = consolidation.validate_slice_consolidation
 
 
 def _candidate() -> str:
@@ -66,4 +71,36 @@ def test_slice_consolidation_rejects_review_for_another_candidate() -> None:
 
     assert not result.ready
     assert [finding.code for finding in result.findings] == ["REVIEW_EVIDENCE_INVALID"]
+    assert result.released_dependents == ()
+
+
+def test_ac01_rejects_canonically_blocked_slice() -> None:
+    candidate = _candidate()
+    original_blob = CandidateView.blob
+
+    def blocked_story(view: CandidateView, path: str) -> bytes:
+        content = original_blob(view, path)
+        if "STORY-0689-ISSUE-0799" in path:
+            return content.replace(b"**Estado:** `Done`", b"**Estado:** `Blocked`")
+        return content
+
+    with patch.object(CandidateView, "blob", blocked_story):
+        result = validate_slice_consolidation(ROOT, candidate, _review(candidate))
+
+    assert not result.ready
+    assert "SLICE_COMPLETION_STATE_INVALID" in {
+        finding.code for finding in result.findings
+    }
+    assert result.released_dependents == ()
+
+
+def test_ac04_never_releases_when_any_finding_remains() -> None:
+    candidate = _candidate()
+    forced = consolidation.Finding("FORCED_BLOCKER", "baseline", "incomplete")
+
+    with patch.object(consolidation, "_baseline_findings", return_value=[forced]):
+        result = validate_slice_consolidation(ROOT, candidate, _review(candidate))
+
+    assert not result.ready
+    assert forced in result.findings
     assert result.released_dependents == ()

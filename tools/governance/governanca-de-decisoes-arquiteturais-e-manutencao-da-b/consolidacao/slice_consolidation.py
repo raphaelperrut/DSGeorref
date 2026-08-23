@@ -76,7 +76,7 @@ def validate_slice_consolidation(
     findings.extend(_integration_findings(view, scopes, paths))
     downstream = _graph_edges(graph, source=PARENT_STORY)
     findings.extend(_review_findings(reviewer_record, candidate_revision, downstream))
-    released = downstream if not any(f.code.startswith("REVIEW_") for f in findings) else ()
+    released = downstream if not findings else ()
     return ConsolidationResult(
         candidate_revision,
         tuple(sorted(dependencies)),
@@ -225,6 +225,15 @@ def _coverage(
             )
             continue
         story = view.blob(story_paths[0]).decode("utf-8")
+        state = re.search(r"^- \*\*Estado:\*\* `([^`]+)`", story, re.MULTILINE)
+        if state is None or state.group(1) == "Blocked":
+            findings.append(
+                Finding(
+                    "SLICE_COMPLETION_STATE_INVALID",
+                    str(task.get("story_id")),
+                    "linked slice must not remain canonically Blocked",
+                )
+            )
         section = re.search(r"## Requisitos\s+(.*?)\s+## ADRs", story, re.DOTALL)
         section_text = section.group(1) if section else ""
         declared = tuple(sorted(set(re.findall(r"REQ-[A-Z0-9-]+", section_text))))
