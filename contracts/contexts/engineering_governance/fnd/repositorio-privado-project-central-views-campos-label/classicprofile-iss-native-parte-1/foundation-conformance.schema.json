@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/foundation-conformance/1.0.0",
+  "title": "Engineering Foundation Conformance Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "profile_id",
+    "profile_version",
+    "owner",
+    "status",
+    "controls"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "profile_id": { "const": "ENGINEERING-FOUNDATION-CONFORMANCE" },
+    "profile_version": { "const": "1.0.0" },
+    "owner": { "const": "BC-001" },
+    "status": { "const": "FROZEN" },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classic_profile",
+        "acceptance_evidence",
+        "crs_operations",
+        "integration_checkpoints",
+        "workflow",
+        "application_boundaries",
+        "domain_errors",
+        "typescript_client",
+        "capability_registry",
+        "foundation_boundaries"
+      ],
+      "properties": {
+        "classic_profile": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "descriptor",
+            "numeric_representation",
+            "versioning",
+            "ann",
+            "calibration_oracle",
+            "execution_order"
+          ],
+          "properties": {
+            "descriptor": { "const": "ROOTSIFT" },
+            "numeric_representation": { "const": "FLOAT32" },
+            "versioning": { "const": "PROFILE_PINNED" },
+            "ann": { "const": "FLANN_KD_TREE" },
+            "calibration_oracle": { "const": "BF" },
+            "execution_order": { "const": "CLASSIC_BEFORE_ELIGIBLE_AI" }
+          }
+        },
+        "acceptance_evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["derivation_source", "contract_change_review", "missing_evidence"],
+          "properties": {
+            "derivation_source": { "const": "PUBLISHED_CONTRACT" },
+            "contract_change_review": { "const": "EXPLICIT_REQUIRED" },
+            "missing_evidence": { "const": "REJECT" }
+          }
+        },
+        "crs_operations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "library",
+            "typed_crs",
+            "always_xy",
+            "precision",
+            "missing_crs",
+            "ambiguous_crs",
+            "incompatible_crs",
+            "implausible_crs"
+          ],
+          "properties": {
+            "library": { "const": "PYPROJ" },
+            "typed_crs": { "const": "REQUIRED" },
+            "always_xy": { "const": true },
+            "precision": { "const": "FLOAT64" },
+            "missing_crs": { "const": "REJECT" },
+            "ambiguous_crs": { "const": "REJECT" },
+            "incompatible_crs": { "const": "REJECT" },
+            "implausible_crs": { "const": "REJECT" }
+          }
+        },
+        "integration_checkpoints": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["producer_contract", "consumer_contract", "compatibility"],
+          "properties": {
+            "producer_contract": { "const": "REQUIRED" },
+            "consumer_contract": { "const": "REQUIRED" },
+            "compatibility": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["schema", "inputs", "versions", "hashes"],
+              "properties": {
+                "schema": { "const": "EXACT_OR_COMPATIBLE" },
+                "inputs": { "const": "EXACT" },
+                "versions": { "const": "EXACT_OR_COMPATIBLE" },
+                "hashes": { "const": "EXACT" }
+              }
+            }
+          }
+        },
+        "workflow": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state_catalog",
+            "transition_policy",
+            "unknown_state",
+            "invalid_transition"
+          ],
+          "properties": {
+            "state_catalog": { "const": "VERSIONED_CANONICAL" },
+            "transition_policy": { "const": "REGISTERED_ONLY" },
+            "unknown_state": { "const": "REJECT" },
+            "invalid_transition": { "const": "REJECT" }
+          }
+        },
+        "application_boundaries": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["namespace", "application_services", "surfaces"],
+          "properties": {
+            "namespace": { "const": "dsgeorref" },
+            "application_services": { "const": "SHARED" },
+            "surfaces": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["cli", "api", "worker"],
+              "properties": {
+                "cli": { "const": "THIN_ADAPTER" },
+                "api": { "const": "THIN_ADAPTER" },
+                "worker": { "const": "THIN_ADAPTER" }
+              }
+            }
+          }
+        },
+        "domain_errors": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["typed", "mapping", "schema", "unmapped_error"],
+          "properties": {
+            "typed": { "const": "REQUIRED" },
+            "mapping": { "const": "VERSIONED_PROBLEM_DETAILS" },
+            "schema": { "const": "contracts/errors/problem-details.schema.json" },
+            "unmapped_error": { "const": "REJECT" }
+          }
+        },
+        "typescript_client": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "generation", "semantic_diff_gate", "manual_dto_duplication"],
+          "properties": {
+            "source": { "const": "contracts/http/openapi.yaml" },
+            "generation": { "const": "EXCLUSIVE" },
+            "semantic_diff_gate": { "const": "DETERMINISTIC_REQUIRED" },
+            "manual_dto_duplication": { "const": "PROHIBITED" }
+          }
+        },
+        "capability_registry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["scope", "versioned", "auditable", "fail_closed", "bypass"],
+          "properties": {
+            "scope": { "const": "LOCAL" },
+            "versioned": { "const": true },
+            "auditable": { "const": true },
+            "fail_closed": { "const": true },
+            "bypass": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "authorization",
+                "contract",
+                "compatibility",
+                "quality_gate",
+                "scientific_gate"
+              ],
+              "properties": {
+                "authorization": { "const": false },
+                "contract": { "const": false },
+                "compatibility": { "const": false },
+                "quality_gate": { "const": false },
+                "scientific_gate": { "const": false }
+              }
+            }
+          }
+        },
+        "foundation_boundaries": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["contract", "required", "separation", "runtime_materialization"],
+          "properties": {
+            "contract": {
+              "const": "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/foundation-boundaries.schema.json"
+            },
+            "required": {
+              "type": "array",
+              "prefixItems": [
+                { "const": "CORE" },
+                { "const": "API" },
+                { "const": "RUNNERS" }
+              ],
+              "items": false,
+              "minItems": 3
+            },
+            "separation": { "const": "MANDATORY" },
+            "runtime_materialization": { "const": "DECLARATIVE_ONLY" }
+          }
+        }
+      }
+    }
+  }
+}

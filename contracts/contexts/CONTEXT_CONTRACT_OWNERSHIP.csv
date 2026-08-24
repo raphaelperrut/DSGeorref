@@ -43,6 +43,9 @@ contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquitetura
 contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/foundation-boundaries.schema.json,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/issue-forecast.schema.json,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/portfolio-snapshot.schema.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/examples/foundation-conformance.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/foundation-conformance.schema.json,BC-001,contexts,VERSIONED,NO
 contracts/domain/asset.schema.json,BC-003,domain,VERSIONED,NO
 contracts/domain/attempt.schema.json,BC-013,domain,VERSIONED,NO
 contracts/domain/backup-set.schema.json,BC-013,domain,VERSIONED,NO

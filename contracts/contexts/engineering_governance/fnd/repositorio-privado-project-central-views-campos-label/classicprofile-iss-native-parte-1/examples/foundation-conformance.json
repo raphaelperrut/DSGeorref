@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "ENGINEERING-FOUNDATION-CONFORMANCE",
+  "profile_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "FROZEN",
+  "controls": {
+    "classic_profile": {
+      "descriptor": "ROOTSIFT",
+      "numeric_representation": "FLOAT32",
+      "versioning": "PROFILE_PINNED",
+      "ann": "FLANN_KD_TREE",
+      "calibration_oracle": "BF",
+      "execution_order": "CLASSIC_BEFORE_ELIGIBLE_AI"
+    },
+    "acceptance_evidence": {
+      "derivation_source": "PUBLISHED_CONTRACT",
+      "contract_change_review": "EXPLICIT_REQUIRED",
+      "missing_evidence": "REJECT"
+    },
+    "crs_operations": {
+      "library": "PYPROJ",
+      "typed_crs": "REQUIRED",
+      "always_xy": true,
+      "precision": "FLOAT64",
+      "missing_crs": "REJECT",
+      "ambiguous_crs": "REJECT",
+      "incompatible_crs": "REJECT",
+      "implausible_crs": "REJECT"
+    },
+    "integration_checkpoints": {
+      "producer_contract": "REQUIRED",
+      "consumer_contract": "REQUIRED",
+      "compatibility": {
+        "schema": "EXACT_OR_COMPATIBLE",
+        "inputs": "EXACT",
+        "versions": "EXACT_OR_COMPATIBLE",
+        "hashes": "EXACT"
+      }
+    },
+    "workflow": {
+      "state_catalog": "VERSIONED_CANONICAL",
+      "transition_policy": "REGISTERED_ONLY",
+      "unknown_state": "REJECT",
+      "invalid_transition": "REJECT"
+    },
+    "application_boundaries": {
+      "namespace": "dsgeorref",
+      "application_services": "SHARED",
+      "surfaces": {
+        "cli": "THIN_ADAPTER",
+        "api": "THIN_ADAPTER",
+        "worker": "THIN_ADAPTER"
+      }
+    },
+    "domain_errors": {
+      "typed": "REQUIRED",
+      "mapping": "VERSIONED_PROBLEM_DETAILS",
+      "schema": "contracts/errors/problem-details.schema.json",
+      "unmapped_error": "REJECT"
+    },
+    "typescript_client": {
+      "source": "contracts/http/openapi.yaml",
+      "generation": "EXCLUSIVE",
+      "semantic_diff_gate": "DETERMINISTIC_REQUIRED",
+      "manual_dto_duplication": "PROHIBITED"
+    },
+    "capability_registry": {
+      "scope": "LOCAL",
+      "versioned": true,
+      "auditable": true,
+      "fail_closed": true,
+      "bypass": {
+        "authorization": false,
+        "contract": false,
+        "compatibility": false,
+        "quality_gate": false,
+        "scientific_gate": false
+      }
+    },
+    "foundation_boundaries": {
+      "contract": "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/foundation-boundaries.schema.json",
+      "required": ["CORE", "API", "RUNNERS"],
+      "separation": "MANDATORY",
+      "runtime_materialization": "DECLARATIVE_ONLY"
+    }
+  }
+}

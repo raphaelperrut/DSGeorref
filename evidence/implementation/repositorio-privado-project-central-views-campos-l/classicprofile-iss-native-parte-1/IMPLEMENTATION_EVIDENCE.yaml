@@ -1,0 +1,83 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-002
+  story_id: STORY-0690
+  issue_id: ISSUE-0800
+  task_id: TASK-0690
+candidate:
+  base_commit: f8029d7
+  state: UNCOMMITTED_WORKTREE_PENDING_HUMAN_REVIEW
+  owner_context: BC-001
+  implementation_role: Arquiteto
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  status: CORRECTED
+  reason: registry, targeted test, evidence, and TaskEnvelope control-plane paths were required by the issue itself
+contract_artifacts:
+- contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/contract-manifest.yaml
+- contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/foundation-conformance.schema.json
+- contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/examples/foundation-conformance.json
+supporting_artifacts:
+- .codex/tasks/TASK-0690.json
+- contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+- docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/DESIGN-REVIEW.md
+- tests/fnd/repositorio-privado-project-central-views-campos-label/test_foundation_conformance.py
+coverage:
+- requirement: REQ-CLASSICPROFILE-004
+  test: test_req_classicprofile_004
+- requirement: REQ-ISS-007
+  test: test_acceptance_evidence_derivation_and_contract_change_review
+- requirement: REQ-NATIVE-002
+  test: test_req_native_002
+- requirement: REQ-PLN-009
+  test: test_cross_domain_contract_checkpoint_and_walking_skeleton_integration
+- requirement: REQ-PRJ-004
+  test: test_canonical_workflow_transitions
+- requirement: REQ-RUN-001
+  test: test_req_run_001
+- requirement: REQ-RUN-006
+  test: test_req_run_006
+- requirement: REQ-RUN-008
+  test: test_req_run_008
+- requirement: REQ-RUN-010
+  test: test_req_run_0010
+- requirement: REQ-SPRINT-001-004
+  test: test_sprint_zero_baseline_decision_04
+tests_first:
+  red_observed: true
+  red_result: EXPECTED_MISSING_CONTRACT_ARTIFACTS
+  harness_errors: false
+  green_result: PASS
+fail_closed_coverage:
+- unknown or missing control
+- non-RootSIFT or non-float32 classic profile
+- acceptance evidence not derived from a published contract
+- contract change without explicit review
+- untyped or invalid CRS operation
+- incompatible producer/consumer checkpoint
+- unknown workflow state or transition
+- multiple namespace or fat adapter
+- generic domain-error fallback
+- manually maintained TypeScript DTO
+- capability or feature-flag gate bypass
+- collapsed core, API, and runner boundaries
+contract_impact:
+  kind: NEW_PUBLIC_CONFORMANCE_CONTRACT
+  existing_frozen_contract_changed: false
+  http_changed: false
+  persistence_changed: false
+  migration_required: false
+rollback:
+  operational: NOT_APPLICABLE
+  contract: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+validation:
+  targeted_tests: PASS
+  sentinel_test: PASS
+  mandatory_checks: PASS
+  git_diff_check: PASS
+  commands:
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/repositorio-privado-project-central-views-campos-label/test_foundation_conformance.py tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py::test_sprint_zero_baseline_decision_04 -q
+  - make verify with Python 3.12 and PYTHONUTF8=1
+  - git diff --check
