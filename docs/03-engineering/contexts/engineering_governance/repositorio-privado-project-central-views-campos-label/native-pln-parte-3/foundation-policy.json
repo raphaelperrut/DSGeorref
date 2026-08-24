@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "ENGINEERING-FOUNDATION-NATIVE-PLANNING",
+  "owner": "BC-001",
+  "status": "CANDIDATE",
+  "controls": {
+    "classic_descriptor": {
+      "descriptor": "ROOTSIFT",
+      "numeric_representation": "FLOAT32",
+      "promotion": "CANONICAL"
+    },
+    "classic_matcher": {
+      "ann": "FLANN_KD_TREE",
+      "ann_status": "REQUIRED",
+      "calibration_oracle": "BF_EXACT",
+      "oracle_mode": "CONTROLLED"
+    },
+    "robust_estimator": {
+      "library": "OPENCV",
+      "estimator": "USAC_MAGSAC",
+      "versioning": "OCI_DIGEST_PINNED",
+      "boundary": "ENCAPSULATED",
+      "silent_fallback": "PROHIBITED"
+    },
+    "cog": {
+      "writer": "GDAL_NATIVE_STACK",
+      "validation_path": "INDEPENDENT",
+      "validation_dimensions": [
+        "STRUCTURAL",
+        "SPATIAL",
+        "CONTENT"
+      ],
+      "invalid_output": "REJECT"
+    },
+    "native_stack": {
+      "promotion_unit": "OCI_ABI",
+      "members": [
+        "GDAL",
+        "PROJ",
+        "GEOS",
+        "OPENCV",
+        "GRIDS",
+        "BINDINGS"
+      ],
+      "pin": "NATIVE_OCI_STACK_DIGEST",
+      "abi_smoke": "REQUIRED"
+    },
+    "native_io": {
+      "drivers": "ALLOWLIST",
+      "vsi": "ALLOWLIST",
+      "network_vsi": "DISABLED_BY_DEFAULT",
+      "external_files": "HOSTILE",
+      "dataset_handles": "WORK_UNIT_LOCAL",
+      "process_isolation": "REQUIRED"
+    },
+    "roadmap": {
+      "structure": [
+        "HORIZON",
+        "OUTCOME",
+        "GATE"
+      ],
+      "dates": "EXCEPTION_ONLY",
+      "date_justification": "REAL_COMMITMENT_REQUIRED",
+      "unjustified_date": "REJECT"
+    },
+    "milestones": {
+      "outcome_gate": "SEPARATE_LAYER",
+      "release": "SEPARATE_LAYER",
+      "iteration": "SEPARATE_LAYER",
+      "mapping": "EXPLICIT_REQUIRED"
+    },
+    "sequencing": {
+      "order_by": [
+        "BLOCKER",
+        "GATE",
+        "DEPENDENCY",
+        "EXPLAINABLE_PRIORITY"
+      ],
+      "priority_override": "AUDIT_REQUIRED",
+      "unaudited_override": "REJECT"
+    },
+    "critical_dependencies": {
+      "classifications": [
+        "ENABLER",
+        "HIGH_FAN_OUT",
+        "SINGLE_POINT_OF_FAILURE",
+        "UNCERTAIN_DEPENDENCY"
+      ],
+      "uncertain_dependency": "RISK_BUFFER_REQUIRED",
+      "unclassified_critical_dependency": "REJECT"
+    }
+  },
+  "requirement_evidence": {
+    "REQ-NATIVE-005": "test_req_native_005",
+    "REQ-NATIVE-006": "test_req_native_006",
+    "REQ-NATIVE-007": "test_req_native_007",
+    "REQ-NATIVE-008": "test_req_native_008",
+    "REQ-NATIVE-009": "test_req_native_009",
+    "REQ-NATIVE-010": "test_req_native_0010",
+    "REQ-PLN-001": "test_roadmap_horizons_outcomes_gates_and_date_exception",
+    "REQ-PLN-002": "test_layered_milestones_gate_release_mapping",
+    "REQ-PLN-003": "test_sequence_gates_dependencies_priority_override_audit",
+    "REQ-PLN-004": "test_critical_enablers_uncertain_dependencies_and_risk_buffers"
+  }
+}
