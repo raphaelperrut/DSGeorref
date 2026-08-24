@@ -44,6 +44,10 @@
     "docs/02-architecture/adrs/ADR-005-layout-context-first-e-direcao-de-dependencias.md",
     "docs/02-architecture/adrs/ADR-025-result-snapshots-lineage-e-visao-corrente.md",
     "docs/02-architecture/adrs/ADR-055-audit-ledger-privacidade-redaction-e-support-bundles.md",
+    "docs/03-engineering/application-profiles/AP-002-application-composition-configuration-observability.md",
+    "contracts/errors/problem-details.schema.json",
+    "contracts/http/openapi.yaml",
+    "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/foundation-boundaries.schema.json",
     "contracts/operations/external-dependency-register.csv",
     "contracts/operations/vendor-exit-matrix.csv",
     "contracts/operations/cost-model.yaml",
@@ -63,8 +67,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0690.json",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
     "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/**",
-    "docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/**"
+    "docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/**",
+    "tests/fnd/repositorio-privado-project-central-views-campos-label/test_foundation_conformance.py",
+    "evidence/implementation/repositorio-privado-project-central-views-campos-l/classicprofile-iss-native-parte-1/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -152,8 +160,12 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0690.json",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
         "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/**",
-        "docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/**"
+        "docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/**",
+        "tests/fnd/repositorio-privado-project-central-views-campos-label/test_foundation_conformance.py",
+        "evidence/implementation/repositorio-privado-project-central-views-campos-l/classicprofile-iss-native-parte-1/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

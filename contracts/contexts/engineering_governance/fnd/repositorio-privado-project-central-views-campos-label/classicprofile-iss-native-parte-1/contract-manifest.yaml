@@ -1,0 +1,114 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-002
+  story_id: STORY-0690
+  issue_id: ISSUE-0800
+  task_id: TASK-0690
+contract:
+  id: engineering-foundation-conformance
+  schema: contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/foundation-conformance.schema.json
+  example: contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/examples/foundation-conformance.json
+compatibility:
+  policy: SEMVER
+  compatible_change: OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR
+  breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
+  unknown_properties: REJECT
+runtime:
+  implementation: NOT_INCLUDED
+  http: NOT_APPLICABLE
+  persistence: NOT_APPLICABLE
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+  contract_rollback: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+acceptance_criteria:
+- AC-ISSUE-0800-01
+- AC-ISSUE-0800-02
+- AC-ISSUE-0800-03
+- AC-ISSUE-0800-04
+requirements:
+- id: REQ-CLASSICPROFILE-004
+  control: /controls/classic_profile
+  test: test_req_classicprofile_004
+  failure_modes:
+  - NON_ROOTSIFT_DESCRIPTOR
+  - NON_FLOAT32_DESCRIPTOR
+  - UNPINNED_CLASSIC_PROFILE
+  - AI_BEFORE_CLASSIC_BASELINE
+- id: REQ-ISS-007
+  control: /controls/acceptance_evidence
+  test: test_acceptance_evidence_derivation_and_contract_change_review
+  failure_modes:
+  - ACCEPTANCE_NOT_DERIVED_FROM_CONTRACT
+  - EVIDENCE_MISSING
+  - UNREVIEWED_CONTRACT_CHANGE
+- id: REQ-NATIVE-002
+  control: /controls/crs_operations
+  test: test_req_native_002
+  failure_modes:
+  - UNTYPED_CRS
+  - NON_PYPROJ_OPERATION
+  - AXIS_ORDER_NOT_ALWAYS_XY
+  - CRS_MISSING_AMBIGUOUS_INCOMPATIBLE_OR_IMPLAUSIBLE
+- id: REQ-PLN-009
+  control: /controls/integration_checkpoints
+  test: test_cross_domain_contract_checkpoint_and_walking_skeleton_integration
+  failure_modes:
+  - PRODUCER_CONTRACT_MISSING
+  - CONSUMER_CONTRACT_MISSING
+  - CHECKPOINT_SCHEMA_INPUT_VERSION_OR_HASH_INCOMPATIBLE
+- id: REQ-PRJ-004
+  control: /controls/workflow
+  test: test_canonical_workflow_transitions
+  failure_modes:
+  - STATE_NOT_REGISTERED
+  - TRANSITION_NOT_REGISTERED
+- id: REQ-RUN-001
+  control: /controls/application_boundaries
+  test: test_req_run_001
+  failure_modes:
+  - MULTIPLE_APPLICATION_NAMESPACES
+  - FAT_SURFACE_ADAPTER
+  - DUPLICATED_APPLICATION_SERVICE
+- id: REQ-RUN-006
+  control: /controls/domain_errors
+  test: test_req_run_006
+  failure_modes:
+  - UNTYPED_DOMAIN_ERROR
+  - UNVERSIONED_PROBLEM_DETAILS_MAPPING
+  - UNMAPPED_ERROR_FALLBACK
+- id: REQ-RUN-008
+  control: /controls/typescript_client
+  test: test_req_run_008
+  failure_modes:
+  - NON_OPENAPI_CLIENT_SOURCE
+  - NONDETERMINISTIC_GENERATED_DIFF
+  - MANUAL_DTO_DUPLICATION
+- id: REQ-RUN-010
+  control: /controls/capability_registry
+  test: test_req_run_0010
+  failure_modes:
+  - REMOTE_OR_UNVERSIONED_REGISTRY
+  - CAPABILITY_DEFAULT_OPEN
+  - AUTHORIZATION_CONTRACT_COMPATIBILITY_OR_GATE_BYPASS
+- id: REQ-SPRINT-001-004
+  control: /controls/foundation_boundaries
+  test: test_sprint_zero_baseline_decision_04
+  failure_modes:
+  - CORE_API_OR_RUNNERS_MISSING
+  - BOUNDARY_COLLAPSED
+  - UNAUTHORIZED_RUNTIME_MATERIALIZATION
+proof:
+  required_tests:
+  - test_req_classicprofile_004
+  - test_acceptance_evidence_derivation_and_contract_change_review
+  - test_req_native_002
+  - test_cross_domain_contract_checkpoint_and_walking_skeleton_integration
+  - test_canonical_workflow_transitions
+  - test_req_run_001
+  - test_req_run_006
+  - test_req_run_008
+  - test_req_run_0010
+  - test_sprint_zero_baseline_decision_04
