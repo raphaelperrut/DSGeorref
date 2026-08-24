@@ -58,8 +58,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0692.json",
     "tools/governance/repositorio-privado-project-central-views-campos-label/classicprofile-gov-gov-adr-parte-1/**",
-    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/classicprofile-gov-gov-adr-parte-1/**"
+    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/classicprofile-gov-gov-adr-parte-1/**",
+    "tests/fnd/repositorio-privado-project-central-views-campos-label/test_classicprofile_governance.py",
+    "evidence/implementation/repositorio-privado-project-central-views-campos-l/classicprofile-gov-gov-adr-parte-1/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -143,8 +146,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0692.json",
         "tools/governance/repositorio-privado-project-central-views-campos-label/classicprofile-gov-gov-adr-parte-1/**",
-        "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/classicprofile-gov-gov-adr-parte-1/**"
+        "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/classicprofile-gov-gov-adr-parte-1/**",
+        "tests/fnd/repositorio-privado-project-central-views-campos-label/test_classicprofile_governance.py",
+        "evidence/implementation/repositorio-privado-project-central-views-campos-l/classicprofile-gov-gov-adr-parte-1/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
