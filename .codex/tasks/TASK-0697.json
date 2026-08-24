@@ -56,8 +56,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0697.json",
     "tools/governance/repositorio-privado-project-central-views-campos-label/prm-run-parte-6/**",
-    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/prm-run-parte-6/**"
+    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/prm-run-parte-6/**",
+    "tests/fnd/repositorio-privado-project-central-views-campos-label/test_portfolio_runtime_foundation.py",
+    "evidence/implementation/repositorio-privado-project-central-views-campos-l/prm-run-parte-6/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -140,8 +143,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0697.json",
         "tools/governance/repositorio-privado-project-central-views-campos-label/prm-run-parte-6/**",
-        "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/prm-run-parte-6/**"
+        "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/prm-run-parte-6/**",
+        "tests/fnd/repositorio-privado-project-central-views-campos-label/test_portfolio_runtime_foundation.py",
+        "evidence/implementation/repositorio-privado-project-central-views-campos-l/prm-run-parte-6/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

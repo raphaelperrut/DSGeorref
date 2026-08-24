@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "ENGINEERING-FOUNDATION-PORTFOLIO-RUNTIME",
+  "owner": "BC-001",
+  "status": "CANDIDATE",
+  "controls": {
+    "materialization_evidence": {
+      "evidence_type": "PortfolioMaterializationEvidenceSet",
+      "before_operational_convergence": "REQUIRED",
+      "missing_evidence": "REJECT"
+    },
+    "sync_run_record": {
+      "record_type": "PortfolioSyncRunRecord",
+      "every_execution": "REQUIRED",
+      "immutability": "REQUIRED",
+      "sanitization": "REQUIRED",
+      "missing_or_mutable_record": "REJECT"
+    },
+    "wave_recovery": {
+      "snapshot": "REQUIRED",
+      "safe_compensations": "REQUIRED",
+      "reconciliation": "FORWARD",
+      "unsafe_recovery": "REJECT"
+    },
+    "service_identity": {
+      "identity": "DEDICATED",
+      "privileges": "LEAST_PRIVILEGE",
+      "credentials": "SHORT_LIVED",
+      "shared_or_long_lived_credentials": "REJECT"
+    },
+    "domain_io_boundary": {
+      "domain_core": "SYNCHRONOUS",
+      "asynchronous_io": "BOUNDARIES_ONLY",
+      "asynchronous_domain_core": "REJECT"
+    },
+    "composition": {
+      "composition_roots": "EXPLICIT",
+      "dependency_injection": "CONSTRUCTOR",
+      "implicit_composition": "REJECT"
+    },
+    "settings": {
+      "typing": "TYPED",
+      "sources": "STRATIFIED",
+      "required_values": "FAIL_CLOSED",
+      "missing_required_value": "REJECT"
+    },
+    "command_transactions": {
+      "unit_of_work": "EXPLICIT",
+      "transactions": "SHORT",
+      "implicit_or_long_transaction": "REJECT"
+    },
+    "repeatable_mutations": {
+      "idempotency": "PERSISTENT",
+      "volatile_idempotency": "REJECT"
+    },
+    "logging": {
+      "envelope": "STRUCTURED",
+      "correlation_ids": "REQUIRED",
+      "redaction": "CENTRALIZED",
+      "uncorrelated_or_unredacted": "REJECT"
+    }
+  },
+  "requirement_evidence": {
+    "REQ-PRM-007": "test_portfolio_materialization_decision_07",
+    "REQ-PRM-008": "test_portfolio_materialization_decision_08",
+    "REQ-PRM-009": "test_portfolio_materialization_decision_09",
+    "REQ-PRM-010": "test_portfolio_materialization_decision_10",
+    "REQ-RUN-002": "test_req_run_002",
+    "REQ-RUN-003": "test_req_run_003",
+    "REQ-RUN-004": "test_req_run_004",
+    "REQ-RUN-005": "test_req_run_005",
+    "REQ-RUN-007": "test_req_run_007",
+    "REQ-RUN-009": "test_req_run_009"
+  }
+}
