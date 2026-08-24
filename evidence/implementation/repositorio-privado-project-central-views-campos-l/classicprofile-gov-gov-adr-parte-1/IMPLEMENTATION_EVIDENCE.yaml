@@ -1,0 +1,61 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-002
+  story_id: STORY-0692
+  issue_id: ISSUE-0802
+  task_id: TASK-0692
+candidate:
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  status: CORRECTED
+  reason: targeted test, evidence, and TaskEnvelope control-plane paths are mandatory for this issue
+artifacts:
+- tools/governance/repositorio-privado-project-central-views-campos-label/classicprofile-gov-gov-adr-parte-1/policy_validation.py
+- docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/classicprofile-gov-gov-adr-parte-1/foundation-policy.json
+- docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/classicprofile-gov-gov-adr-parte-1/README.md
+digests:
+  policy_validation_sha256: 688efdf75b7b9ed549a6f9b9fc4f405e6b48bb7a6aacdf5e31b40f0e7a03494d
+  foundation_policy_sha256: 62ef549037562843f01ec0f81e5e9f935302eb88c06a6e425ba3c46b50e22e12
+coverage:
+- REQ-CLASSICPROFILE-001
+- REQ-CLASSICPROFILE-002
+- REQ-CLASSICPROFILE-003
+- REQ-CLASSICPROFILE-005
+- REQ-CLASSICPROFILE-007
+- REQ-CLASSICPROFILE-009
+- REQ-GOV-001
+- REQ-GOV-002
+- REQ-GOV-003
+- REQ-GOV-ADR-002
+fail_closed_coverage:
+- missing, unknown, mistyped, or changed controls
+- caller defaults for photometric preparation
+- missing coordinate lineage or quota redistribution
+- ungoverned FLANN recall floor
+- optional analysis mask or non-soft priors
+- reduced calibration gate
+- multiple Projects or duplicate Project items
+- incomplete work-item fields or discarded history
+- velocity as productivity target
+- ADR without independent boundary, durable impact, high reversal cost, or overlap check
+contract_impact:
+  frozen_contract_changed: false
+  adr_changed: false
+  http_changed: false
+  persistence_changed: false
+  migration_required: false
+rollback: REVERT_CANDIDATE_COMMIT
+validation:
+  targeted_tests: PASS
+  governing_sentinel: PASS
+  repository_checks: PASS
+  git_diff_check: PASS
+  commands:
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/repositorio-privado-project-central-views-campos-label/test_classicprofile_governance.py
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/repositorio-privado-project-central-views-campos-label/test_classicprofile_governance.py tests/fnd/repositorio-privado-project-central-views-campos-label/test_foundation_conformance.py tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_adr_governance_overlap
+  - make verify with Python 3.12 and PYTHONUTF8=1
+  - git diff --check

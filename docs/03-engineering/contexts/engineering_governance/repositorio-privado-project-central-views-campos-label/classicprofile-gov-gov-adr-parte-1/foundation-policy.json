@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "ENGINEERING-FOUNDATION-CLASSICPROFILE-GOVERNANCE",
+  "owner": "BC-001",
+  "status": "CANDIDATE",
+  "controls": {
+    "classic_matching": {
+      "photometric_preparation": {
+        "parameters_source": "PROFILE",
+        "implicit_defaults": "REJECT"
+      },
+      "pyramid_and_tiles": {
+        "order": "COARSE_TO_FINE",
+        "coordinate_lineage": "REQUIRED",
+        "tile_source_transform": "REQUIRED"
+      },
+      "spatial_quotas": {
+        "adaptive": true,
+        "redistribution": "REQUIRED"
+      },
+      "flann_calibration": {
+        "ann": "FLANN_KD_TREE",
+        "oracle": "BF_EXACT",
+        "recall_floor": "BENCHMARK_PROFILE_DERIVED",
+        "abstract_owner_threshold": "PROHIBITED"
+      },
+      "mask_and_priors": {
+        "analysis_mask": "REQUIRED",
+        "priors": "SOFT"
+      },
+      "calibration_gate": {
+        "kind": "MULTIDIMENSIONAL",
+        "dimensions": [
+          "RECALL_FLANN_VS_BF",
+          "FALSE_ACCEPT_AND_REJECT",
+          "COVERAGE_AND_CONDITIONING",
+          "TIME_RAM_AND_DISK",
+          "ENVIRONMENT_STABILITY"
+        ]
+      }
+    },
+    "delivery_governance": {
+      "central_project": {
+        "count": "ONE",
+        "views": [
+          "ROADMAP",
+          "BACKLOG",
+          "SPRINT",
+          "RISKS",
+          "ADRS",
+          "RELEASES",
+          "GEO_AND_AI"
+        ],
+        "item_identity": "SINGLE",
+        "duplicate_items": "REJECT"
+      },
+      "work_items": {
+        "epic_semantics": "CLOSABLE_OUTCOME",
+        "implementable_story_required_fields": [
+          "ACCEPTANCE_CRITERIA",
+          "ADRS",
+          "RISKS",
+          "TESTS",
+          "EVIDENCE",
+          "MIGRATION_APPLICABILITY",
+          "ROLLBACK"
+        ]
+      },
+      "flow": {
+        "wip": "LIMITED",
+        "incomplete_item_history": "PRESERVED",
+        "velocity_as_productivity_target": "PROHIBITED"
+      }
+    },
+    "adr_governance": {
+      "independent_boundary": "REQUIRED",
+      "durable_impact": "REQUIRED",
+      "high_reversal_cost": "REQUIRED",
+      "overlap_check": "REQUIRED",
+      "validator": "decision_governance.validate_new_adr_eligibility"
+    }
+  },
+  "requirement_evidence": {
+    "REQ-CLASSICPROFILE-001": "test_req_classicprofile_001",
+    "REQ-CLASSICPROFILE-002": "test_req_classicprofile_002",
+    "REQ-CLASSICPROFILE-003": "test_req_classicprofile_003",
+    "REQ-CLASSICPROFILE-005": "test_req_classicprofile_005",
+    "REQ-CLASSICPROFILE-007": "test_req_classicprofile_007",
+    "REQ-CLASSICPROFILE-009": "test_req_classicprofile_009",
+    "REQ-GOV-001": "test_single_project_views_fields_and_no_duplicate_backlog",
+    "REQ-GOV-002": "test_issue_form_required_acceptance_risk_test_rollback_fields",
+    "REQ-GOV-003": "test_iteration_wip_limits_and_incomplete_item_history",
+    "REQ-GOV-ADR-002": "test_adr_governance_overlap"
+  }
+}
