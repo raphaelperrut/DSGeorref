@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import importlib.util
 import sys
 from functools import cache
 from pathlib import Path
@@ -14,18 +15,25 @@ MODULE_ROOT = ROOT / (
     "tools/governance/repositorio-privado-project-central-views-campos-label/"
     "gov-adr-ism-iss-parte-2"
 )
+VALIDATOR_PATH = MODULE_ROOT / "policy_validation.py"
+VALIDATOR_MODULE_NAME = "ism_issue_native_policy_validation"
 POLICY_PATH = ROOT / (
     "docs/03-engineering/contexts/engineering_governance/"
     "repositorio-privado-project-central-views-campos-label/"
     "gov-adr-ism-iss-parte-2/foundation-policy.json"
 )
-sys.path.insert(0, str(MODULE_ROOT))
-
-from policy_validation import (  # noqa: E402
-    PolicyValidationError,
-    load_policy,
-    validate_policy,
+_validator_spec = importlib.util.spec_from_file_location(
+    VALIDATOR_MODULE_NAME, VALIDATOR_PATH
 )
+if _validator_spec is None or _validator_spec.loader is None:
+    raise ImportError(f"cannot load validator from {VALIDATOR_PATH}")
+_validator = importlib.util.module_from_spec(_validator_spec)
+sys.modules[VALIDATOR_MODULE_NAME] = _validator
+_validator_spec.loader.exec_module(_validator)
+
+PolicyValidationError = _validator.PolicyValidationError
+load_policy = _validator.load_policy
+validate_policy = _validator.validate_policy
 
 
 @cache
