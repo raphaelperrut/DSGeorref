@@ -1,0 +1,53 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-002
+  story_id: STORY-0691
+  issue_id: ISSUE-0801
+  task_id: TASK-0691
+contract:
+  id: worker-governance-conformance
+  schema: contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/worker-parte-2/worker-governance-conformance.schema.json
+  example: contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/worker-parte-2/examples/worker-governance-conformance.json
+compatibility:
+  policy: SEMVER
+  compatible_change: OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR
+  breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
+  unknown_properties: REJECT
+runtime:
+  implementation: NOT_INCLUDED
+  http: NOT_APPLICABLE
+  persistence: NOT_APPLICABLE
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+  contract_rollback: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+acceptance_criteria:
+- AC-ISSUE-0801-01
+- AC-ISSUE-0801-02
+- AC-ISSUE-0801-03
+- AC-ISSUE-0801-04
+requirements:
+- id: REQ-WORKER-001
+  control: /controls/task_envelope
+  test: test_req_worker_001
+  failure_modes:
+  - TASK_ENVELOPE_CONTRACT_MISSING
+  - UNVERSIONED_TASK_ENVELOPE
+  - ENVELOPE_CONTAINS_NONESSENTIAL_CONTENT
+  - UNKNOWN_ENVELOPE_PROPERTY
+- id: REQ-WORKER-010
+  control: /controls/worker_lifecycle
+  test: test_req_worker_0010
+  failure_modes:
+  - READINESS_DEPENDENCY_UNVERIFIED
+  - DRAIN_ACCEPTS_NEW_WORK
+  - SHUTDOWN_ABANDONS_IN_FLIGHT_WORK
+  - RESUME_USES_INCOMPATIBLE_CHECKPOINT
+  - FAULT_INJECTION_SCENARIO_MISSING
+  - SILENT_LIFECYCLE_FALLBACK
+proof:
+  required_tests:
+  - test_req_worker_001
+  - test_req_worker_0010

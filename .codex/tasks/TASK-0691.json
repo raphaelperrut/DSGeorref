@@ -40,8 +40,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0691.json",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
     "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/worker-parte-2/**",
-    "docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/worker-parte-2/**"
+    "docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/worker-parte-2/**",
+    "tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_governance.py",
+    "evidence/implementation/repositorio-privado-project-central-views-campos-l/worker-parte-2/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -111,8 +115,12 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0691.json",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
         "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/worker-parte-2/**",
-        "docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/worker-parte-2/**"
+        "docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/worker-parte-2/**",
+        "tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_governance.py",
+        "evidence/implementation/repositorio-privado-project-central-views-campos-l/worker-parte-2/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

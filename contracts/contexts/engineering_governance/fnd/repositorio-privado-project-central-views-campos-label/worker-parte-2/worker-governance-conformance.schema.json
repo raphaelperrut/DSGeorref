@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/worker-governance-conformance/1.0.0",
+  "title": "Worker Governance Conformance Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "profile_id",
+    "profile_version",
+    "owner",
+    "status",
+    "controls"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "profile_id": { "const": "WORKER-GOVERNANCE-CONFORMANCE" },
+    "profile_version": { "const": "1.0.0" },
+    "owner": { "const": "BC-001" },
+    "status": { "const": "FROZEN" },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task_envelope", "worker_lifecycle"],
+      "properties": {
+        "task_envelope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "contract",
+            "versioning",
+            "content_policy",
+            "unknown_content",
+            "contradiction"
+          ],
+          "properties": {
+            "contract": { "const": ".codex/tasks/TASK_ENVELOPE.schema.json" },
+            "versioning": { "const": "EXPLICIT" },
+            "content_policy": {
+              "const": "IDS_VERSION_AND_INDISPENSABLE_TECHNICAL_CONTEXT_ONLY"
+            },
+            "unknown_content": { "const": "REJECT" },
+            "contradiction": { "const": "STOP" }
+          }
+        },
+        "worker_lifecycle": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "readiness",
+            "drain",
+            "shutdown",
+            "resume",
+            "fault_injection"
+          ],
+          "properties": {
+            "readiness": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["dependencies", "unverified_dependency"],
+              "properties": {
+                "dependencies": {
+                  "type": "array",
+                  "prefixItems": [
+                    { "const": "DATABASE" },
+                    { "const": "BROKER" },
+                    { "const": "WORKSPACE_ROOTS" },
+                    { "const": "MIGRATIONS" },
+                    { "const": "ABI" },
+                    { "const": "CAPABILITIES" },
+                    { "const": "CONFIGURATION" }
+                  ],
+                  "items": false,
+                  "minItems": 7
+                },
+                "unverified_dependency": { "const": "NOT_READY" }
+              }
+            },
+            "drain": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["new_work", "in_flight_work_units"],
+              "properties": {
+                "new_work": { "const": "REJECT" },
+                "in_flight_work_units": { "const": "RECONCILE" }
+              }
+            },
+            "shutdown": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["mode", "in_flight_work_units"],
+              "properties": {
+                "mode": { "const": "COOPERATIVE" },
+                "in_flight_work_units": { "const": "CHECKPOINT_AND_RECONCILE" }
+              }
+            },
+            "resume": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["checkpoint", "compatibility"],
+              "properties": {
+                "checkpoint": { "const": "COMPATIBLE_ONLY" },
+                "compatibility": {
+                  "type": "array",
+                  "prefixItems": [
+                    { "const": "HASHES" },
+                    { "const": "SCHEMAS" },
+                    { "const": "INPUTS" },
+                    { "const": "VERSIONS" }
+                  ],
+                  "items": false,
+                  "minItems": 4
+                }
+              }
+            },
+            "fault_injection": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["required_scenarios", "silent_fallback"],
+              "properties": {
+                "required_scenarios": {
+                  "type": "array",
+                  "prefixItems": [
+                    { "const": "READINESS_DEPENDENCY_LOSS" },
+                    { "const": "DRAIN_WITH_IN_FLIGHT_WORK" },
+                    { "const": "SHUTDOWN_DURING_WORK_UNIT" },
+                    { "const": "RESUME_WITH_INCOMPATIBLE_CHECKPOINT" }
+                  ],
+                  "items": false,
+                  "minItems": 4
+                },
+                "silent_fallback": { "const": "PROHIBITED" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
