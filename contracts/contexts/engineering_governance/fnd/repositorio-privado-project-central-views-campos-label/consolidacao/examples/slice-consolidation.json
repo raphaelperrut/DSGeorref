@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0.0",
+  "consolidation_id": "ENGINEERING-FOUNDATION-SLICE-CONSOLIDATION",
+  "contract_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "FROZEN",
+  "baseline": {
+    "candidate_commit": "3d7581b07dacf84db0a55f53a0f30cf8ff9be372",
+    "sprint_review": "SAR-v2.9-PHASE-F",
+    "specification": "SAR-v2.9-PHASE-F"
+  },
+  "slices": [
+    {
+      "story_id": "STORY-0690",
+      "issue_id": "ISSUE-0800",
+      "task_id": "TASK-0690",
+      "merge_commit": "1cc26f1d3abbfbc1b9322335fd31d88948e966df",
+      "contract_id": "engineering-foundation-conformance",
+      "requirements": [
+        "REQ-CLASSICPROFILE-004",
+        "REQ-ISS-007",
+        "REQ-NATIVE-002",
+        "REQ-PLN-009",
+        "REQ-PRJ-004",
+        "REQ-RUN-001",
+        "REQ-RUN-006",
+        "REQ-RUN-008",
+        "REQ-RUN-010",
+        "REQ-SPRINT-001-004"
+      ],
+      "artifacts": [
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/contract-manifest.yaml",
+          "sha256": "83d07bd3271b63e1d42b10de0b32350038643aff7cce80055cbadc3e65ca35e5"
+        },
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/foundation-conformance.schema.json",
+          "sha256": "d85355a9e21c153b3989696dd6d806fedcfdee128dd7d803175c30ead6e7cf85"
+        },
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/examples/foundation-conformance.json",
+          "sha256": "30345bacc72b3836b7ff3300a6b1987812b3ee4a48596ff573dacfb4ead072c9"
+        }
+      ]
+    },
+    {
+      "story_id": "STORY-0691",
+      "issue_id": "ISSUE-0801",
+      "task_id": "TASK-0691",
+      "merge_commit": "3d7581b07dacf84db0a55f53a0f30cf8ff9be372",
+      "contract_id": "worker-governance-conformance",
+      "requirements": [
+        "REQ-WORKER-001",
+        "REQ-WORKER-010"
+      ],
+      "artifacts": [
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/worker-parte-2/contract-manifest.yaml",
+          "sha256": "42cb3a703ce0de0f70e5c31216f0580e41fc8456c66c2e7add89006e2e1244fe"
+        },
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/worker-parte-2/worker-governance-conformance.schema.json",
+          "sha256": "fd925047c044fd918d6e437f18cca414ff5df3b5f2f6934c9a36ce6e82fb3c95"
+        },
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/worker-parte-2/examples/worker-governance-conformance.json",
+          "sha256": "a7ca0fd6dc062d1244c40a5f07738aca427184ab88f148fa43ac57bcd6992231"
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "source": "docs/07-assurance/ISSUE_REQUIREMENTS_REVIEW.csv",
+    "requirement_ids": [
+      "REQ-CLASSICPROFILE-004",
+      "REQ-ISS-007",
+      "REQ-NATIVE-002",
+      "REQ-PLN-009",
+      "REQ-PRJ-004",
+      "REQ-RUN-001",
+      "REQ-RUN-006",
+      "REQ-RUN-008",
+      "REQ-RUN-010",
+      "REQ-SPRINT-001-004",
+      "REQ-WORKER-001",
+      "REQ-WORKER-010"
+    ],
+    "duplicates": [],
+    "unassigned": []
+  },
+  "integration": {
+    "composition": "SIDE_BY_SIDE_PUBLISHED_CONTRACTS",
+    "control_namespaces": [
+      "ENGINEERING-FOUNDATION-CONFORMANCE",
+      "WORKER-GOVERNANCE-CONFORMANCE"
+    ],
+    "contract_collisions": [],
+    "redundant_implementations": [],
+    "runtime_materialization": "DOWNSTREAM_STORIES_ONLY"
+  },
+  "review_gate": {
+    "authority_role": "Reviewer",
+    "same_candidate_commit": true,
+    "residual_risks_required": true,
+    "self_approval": "PROHIBITED",
+    "candidate_state": "READY_FOR_INDEPENDENT_REVIEW",
+    "eligible_dependents": [
+      "STORY-0008",
+      "STORY-0692",
+      "STORY-0693",
+      "STORY-0694",
+      "STORY-0695",
+      "STORY-0696",
+      "STORY-0697",
+      "STORY-0698",
+      "STORY-0699",
+      "STORY-0700"
+    ],
+    "released_dependents": []
+  }
+}
