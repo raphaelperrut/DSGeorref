@@ -1,0 +1,59 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-002
+  story_id: STORY-0693
+  issue_id: ISSUE-0803
+  task_id: TASK-0693
+candidate:
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  status: CORRECTED
+  reason: targeted test, evidence, and TaskEnvelope control-plane paths are mandatory for this issue
+artifacts:
+- tools/governance/repositorio-privado-project-central-views-campos-label/gov-adr-ism-iss-parte-2/policy_validation.py
+- docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/gov-adr-ism-iss-parte-2/foundation-policy.json
+- docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/gov-adr-ism-iss-parte-2/README.md
+digests:
+  policy_validation_sha256: 360c70731eeb4ad6496411d980508dc57bcbe2ab0fff3b798a95b54059994dfa
+  foundation_policy_sha256: 4ca2342e6e4cd9723e372eebe2a5733afa21a0620a8659d4afcc1945ca38dd4b
+coverage:
+- REQ-GOV-ADR-003
+- REQ-GOV-ADR-018
+- REQ-ISM-001
+- REQ-ISM-006
+- REQ-ISM-008
+- REQ-ISS-001
+- REQ-ISS-004
+- REQ-ISS-006
+- REQ-ISS-009
+- REQ-NATIVE-003
+fail_closed_coverage:
+- ADR local-detail promotion, overlap, owner, and Owner-gate bypass
+- missing, unknown, mistyped, or changed policy controls
+- unknown, duplicated, or conflicting domain assignments
+- non-dry-run default, dry-run writes, unmanaged-field mutation, or non-convergent sync
+- duplicated cross-domain issues or missing primary domain
+- missing epic issue, slice skeleton, traceability, or progressive detailing
+- unbounded spike or missing decision and objective exit
+- non-Shapely domain geometry or implicit I/O boundary
+contract_impact:
+  frozen_contract_changed: false
+  adr_changed: false
+  http_changed: false
+  persistence_changed: false
+  migration_required: false
+rollback: REVERT_CANDIDATE_COMMIT
+validation:
+  targeted_tests: PASS
+  governing_sentinel: PASS
+  repository_checks: PASS
+  git_diff_check: PASS
+  commands:
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/repositorio-privado-project-central-views-campos-label/test_ism_issue_native_governance.py
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/repositorio-privado-project-central-views-campos-label/test_ism_issue_native_governance.py tests/fnd/repositorio-privado-project-central-views-campos-label/test_foundation_conformance.py tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_adr_governance_overlap
+  - make verify with Python 3.12 and PYTHONUTF8=1
+  - git diff --check
