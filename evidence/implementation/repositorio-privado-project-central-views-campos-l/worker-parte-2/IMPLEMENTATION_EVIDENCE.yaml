@@ -27,8 +27,22 @@ supporting_artifacts:
 coverage:
 - requirement: REQ-WORKER-001
   test: test_req_worker_001
+  negative_tests:
+  - failure: TASK_ENVELOPE_CONTRACT_MISSING
+    test: test_task_envelope_contract_missing_is_fail_closed
+  - failure: UNVERSIONED_TASK_ENVELOPE
+    test: test_unversioned_task_envelope_is_fail_closed
 - requirement: REQ-WORKER-010
   test: test_req_worker_0010
+  negative_tests:
+  - failure: SHUTDOWN_ABANDONS_IN_FLIGHT_WORK
+    test: test_shutdown_abandoning_in_flight_work_is_fail_closed
+qa_fix:
+  base_qa_sha: e829a054e085d2ae348429dab3f7c545effcc0dc
+  acceptance_criterion: AC-ISSUE-0801-03
+  scope: THREE_NEGATIVE_CASES_ONLY
+  negative_cases_result: PASS
+  targeted_and_sentinel_result: 7_PASSED
 fail_closed_coverage:
 - missing or unversioned TaskEnvelope contract
 - nonessential or unknown TaskEnvelope content

@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
+import pytest
 from jsonschema import Draft202012Validator
 
 
@@ -55,6 +56,21 @@ def _assert_rejected(profile: dict[str, Any]) -> None:
     assert list(_validator().iter_errors(profile)), "invalid profile was silently accepted"
 
 
+def _validate_task_envelope_schema(envelope_schema: dict[str, Any] | None) -> None:
+    assert envelope_schema is not None, "TASK_ENVELOPE_CONTRACT_MISSING"
+    assert envelope_schema.get("$id", "").endswith(
+        "/task-envelope/1.6.0"
+    ), "UNVERSIONED_TASK_ENVELOPE"
+    Draft202012Validator.check_schema(envelope_schema)
+
+
+def _validate_task_envelope_reference(profile: dict[str, Any], root: Path) -> None:
+    contract = profile["controls"]["task_envelope"]["contract"]
+    contract_path = root / contract
+    envelope_schema = _load_json(contract_path) if contract_path.is_file() else None
+    _validate_task_envelope_schema(envelope_schema)
+
+
 def _manifest_entry(requirement: str, test: str) -> dict[str, Any]:
     entries = [item for item in _manifest()["requirements"] if item["id"] == requirement]
     assert len(entries) == 1
@@ -75,9 +91,7 @@ def test_req_worker_001() -> None:
         "contradiction": "STOP",
     }
 
-    envelope_schema = _load_json(ROOT / control["contract"])
-    Draft202012Validator.check_schema(envelope_schema)
-    assert envelope_schema["$id"].endswith("/task-envelope/1.6.0")
+    _validate_task_envelope_reference(profile, ROOT)
     assert _manifest()["status"] == "FROZEN"
     assert {item["id"] for item in _manifest()["requirements"]} == {
         "REQ-WORKER-001",
@@ -105,6 +119,31 @@ def test_req_worker_001() -> None:
             if row["owner_context"] == "BC-001" and row["status"] == "VERSIONED"
         }
     assert published <= registered
+
+
+def test_task_envelope_contract_missing_is_fail_closed() -> None:
+    entry = _manifest_entry("REQ-WORKER-001", "test_req_worker_001")
+    assert "TASK_ENVELOPE_CONTRACT_MISSING" in entry["failure_modes"]
+    with pytest.raises(AssertionError) as error:
+        _validate_task_envelope_schema(None)
+    assert str(error.value).splitlines()[0] == "TASK_ENVELOPE_CONTRACT_MISSING"
+
+
+@pytest.mark.parametrize("schema_id", [None, "https://dsgeorref.local/task-envelope/1.5.0"])
+def test_unversioned_task_envelope_is_fail_closed(
+    schema_id: str | None,
+) -> None:
+    entry = _manifest_entry("REQ-WORKER-001", "test_req_worker_001")
+    assert "UNVERSIONED_TASK_ENVELOPE" in entry["failure_modes"]
+    envelope_schema = _load_json(ROOT / ".codex/tasks/TASK_ENVELOPE.schema.json")
+    if schema_id is None:
+        envelope_schema.pop("$id")
+    else:
+        envelope_schema["$id"] = schema_id
+
+    with pytest.raises(AssertionError) as error:
+        _validate_task_envelope_schema(envelope_schema)
+    assert str(error.value).splitlines()[0] == "UNVERSIONED_TASK_ENVELOPE"
 
 
 def test_req_worker_0010() -> None:
@@ -147,3 +186,23 @@ def test_req_worker_0010() -> None:
         "required_scenarios"
     ].pop()
     _assert_rejected(missing_scenario)
+
+
+def test_shutdown_abandoning_in_flight_work_is_fail_closed() -> None:
+    entry = _manifest_entry("REQ-WORKER-010", "test_req_worker_0010")
+    assert "SHUTDOWN_ABANDONS_IN_FLIGHT_WORK" in entry["failure_modes"]
+    abandoning = copy.deepcopy(_profile())
+    abandoning["controls"]["worker_lifecycle"]["shutdown"][
+        "in_flight_work_units"
+    ] = "ABANDON"
+
+    errors = list(_validator().iter_errors(abandoning))
+    assert len(errors) == 1
+    assert list(errors[0].absolute_path) == [
+        "controls",
+        "worker_lifecycle",
+        "shutdown",
+        "in_flight_work_units",
+    ]
+    assert errors[0].validator == "const"
+    assert errors[0].validator_value == "CHECKPOINT_AND_RECONCILE"
