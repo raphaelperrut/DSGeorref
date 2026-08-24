@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "ENGINEERING-FOUNDATION-PROJECT-MATERIALIZATION",
+  "owner": "BC-001",
+  "status": "CANDIDATE",
+  "controls": {
+    "typed_dependencies": {
+      "edge_type": "REQUIRED",
+      "material_cycle_detection": "REQUIRED",
+      "material_cycle": "REJECT"
+    },
+    "priority": {
+      "dimensions": [
+        "IMPACT",
+        "URGENCY",
+        "RISK",
+        "GATE"
+      ],
+      "derivation": "EXPLICIT",
+      "collapsed_dimension": "REJECT"
+    },
+    "relative_size": {
+      "estimate": "RELATIVE_BAND",
+      "confidence": "REQUIRED",
+      "split_rule": "REQUIRED",
+      "uncertain_without_split_rule": "REJECT"
+    },
+    "guarded_automation": {
+      "integrity_preservation": "REQUIRED",
+      "material_decision_approval": "PROHIBITED",
+      "material_decision_gate": "HUMAN_REQUIRED",
+      "silent_approval": "REJECT"
+    },
+    "staging_materialization": {
+      "first_target": "REPRESENTATIVE_STAGING",
+      "operational_project_after_staging": "REQUIRED",
+      "direct_first_operational_materialization": "REJECT"
+    },
+    "bounded_waves": {
+      "dependency_bound": "REQUIRED",
+      "gate_bound": "REQUIRED",
+      "risk_bound": "REQUIRED",
+      "unbounded_import": "REJECT"
+    },
+    "field_sync": {
+      "authority_per_field": "REQUIRED",
+      "direction_per_field": "REQUIRED",
+      "undefined_field_governance": "REJECT"
+    },
+    "drift_reconciliation": {
+      "comparison": "THREE_WAY",
+      "conflict_classification": "REQUIRED",
+      "silent_conflict_overwrite": "REJECT"
+    },
+    "destructive_changes": {
+      "approved_changeset": "REQUIRED",
+      "tombstones": "REQUIRED",
+      "direct_destructive_mutation": "REJECT"
+    },
+    "resumable_operations": {
+      "idempotency": "REQUIRED",
+      "checkpoints": "REQUIRED",
+      "backoff": "REQUIRED",
+      "safe_resume": "REQUIRED",
+      "incompatible_resume": "REJECT"
+    }
+  },
+  "requirement_evidence": {
+    "REQ-PRJ-007": "test_typed_dependency_cycle_detection",
+    "REQ-PRJ-008": "test_derived_priority_dimensions",
+    "REQ-PRJ-009": "test_relative_size_uncertainty_split",
+    "REQ-PRJ-010": "test_guarded_project_automation",
+    "REQ-PRM-001": "test_portfolio_materialization_decision_01",
+    "REQ-PRM-002": "test_portfolio_materialization_decision_02",
+    "REQ-PRM-003": "test_portfolio_materialization_decision_03",
+    "REQ-PRM-004": "test_portfolio_materialization_decision_04",
+    "REQ-PRM-005": "test_portfolio_materialization_decision_05",
+    "REQ-PRM-006": "test_portfolio_materialization_decision_06"
+  }
+}
