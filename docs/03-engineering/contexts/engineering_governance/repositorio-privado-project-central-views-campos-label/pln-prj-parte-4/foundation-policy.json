@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "ENGINEERING-FOUNDATION-PLANNING-PROJECT",
+  "owner": "BC-001",
+  "status": "CANDIDATE",
+  "controls": {
+    "wip_limits": {
+      "scopes": [
+        "CLASS",
+        "GLOBAL"
+      ],
+      "reservations": [
+        "P0",
+        "SECURITY",
+        "MAINTENANCE"
+      ],
+      "over_limit": "REJECT"
+    },
+    "capacity": {
+      "estimate": "RANGE",
+      "categories": [
+        "AVAILABILITY",
+        "THROUGHPUT"
+      ],
+      "confidence": "REQUIRED",
+      "automatic_deadline_conversion": "PROHIBITED",
+      "invalid_range": "REJECT"
+    },
+    "pull_flow": {
+      "system": "PULL",
+      "iteration_objective": "REQUIRED",
+      "carryover_reason": "CLASSIFICATION_REQUIRED",
+      "unclassified_carryover": "REJECT"
+    },
+    "roles": {
+      "accountable_owner": "EXACTLY_ONE",
+      "collaborator": "SEPARATE",
+      "reviewer": "SEPARATE",
+      "gate_approver": "SEPARATE",
+      "self_approval": "PROHIBITED"
+    },
+    "reforecast": {
+      "snapshots": "VERSIONED_IMMUTABLE",
+      "material_variance": "CLASSIFICATION_REQUIRED",
+      "delta_report": "REQUIRED",
+      "overwrite": "REJECT",
+      "unclassified_material_variance": "REJECT"
+    },
+    "issue_types": {
+      "taxonomy": "VERSIONED_CANONICAL",
+      "form_per_registered_type": "REQUIRED",
+      "unknown_type": "REJECT"
+    },
+    "mandatory_fields": {
+      "core": "REQUIRED",
+      "per_type_extensions": "REQUIRED",
+      "missing_applicable_field": "REJECT"
+    },
+    "hierarchy": {
+      "primary_parent": "EXACTLY_ONE",
+      "operational_hierarchy": "LIMITED",
+      "multiple_primary_parents": "REJECT"
+    },
+    "ready_gate": {
+      "definition": "docs/00-governance/DEFINITION_OF_READY.md",
+      "applicability": "PROPORTIONAL",
+      "unsatisfied": "REJECT"
+    },
+    "done_gate": {
+      "definition": "docs/00-governance/DEFINITION_OF_DONE.md",
+      "evidence": "REQUIRED",
+      "applicable_checks": "REQUIRED",
+      "unsatisfied": "REJECT"
+    }
+  },
+  "requirement_evidence": {
+    "REQ-PLN-005": "test_wip_class_limits_global_cap_and_emergency_reserve",
+    "REQ-PLN-006": "test_capacity_ranges_availability_throughput_and_no_deadline_conversion",
+    "REQ-PLN-007": "test_pull_iteration_objective_and_carryover_reason_classification",
+    "REQ-PLN-008": "test_accountable_owner_collaborator_reviewer_and_gate_approver",
+    "REQ-PLN-010": "test_versioned_reforecast_snapshot_variance_classification_and_delta_report",
+    "REQ-PRJ-001": "test_issue_type_forms",
+    "REQ-PRJ-002": "test_mandatory_core_type_fields",
+    "REQ-PRJ-003": "test_single_parent_limited_hierarchy",
+    "REQ-PRJ-005": "test_definition_of_ready_gate",
+    "REQ-PRJ-006": "test_evidence_based_definition_of_done"
+  }
+}

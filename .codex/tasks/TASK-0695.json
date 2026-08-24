@@ -57,8 +57,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0695.json",
     "tools/governance/repositorio-privado-project-central-views-campos-label/pln-prj-parte-4/**",
-    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/pln-prj-parte-4/**"
+    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/pln-prj-parte-4/**",
+    "tests/fnd/repositorio-privado-project-central-views-campos-label/test_planning_project_governance.py",
+    "evidence/implementation/repositorio-privado-project-central-views-campos-l/pln-prj-parte-4/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -142,8 +145,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0695.json",
         "tools/governance/repositorio-privado-project-central-views-campos-label/pln-prj-parte-4/**",
-        "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/pln-prj-parte-4/**"
+        "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/pln-prj-parte-4/**",
+        "tests/fnd/repositorio-privado-project-central-views-campos-label/test_planning_project_governance.py",
+        "evidence/implementation/repositorio-privado-project-central-views-campos-l/pln-prj-parte-4/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

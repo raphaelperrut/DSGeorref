@@ -1,0 +1,67 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-002
+  story_id: STORY-0695
+  issue_id: ISSUE-0805
+  task_id: TASK-0695
+candidate:
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  status: CORRECTED
+  reason: targeted test, evidence, and TaskEnvelope control-plane paths are mandatory for this issue
+artifacts:
+- tools/governance/repositorio-privado-project-central-views-campos-label/pln-prj-parte-4/policy_validation.py
+- docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/pln-prj-parte-4/foundation-policy.json
+- docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/pln-prj-parte-4/README.md
+digests:
+  policy_validation_sha256: ccd79d5f45a35917a15e25aa91dc6791d724d6e1c0cfa059d8daeec98cdb4780
+  foundation_policy_sha256: 83ee93bc1cbeb40596137fca3d40abaad1b91d6907d0f49b3e0d38680ca55539
+coverage:
+- REQ-PLN-005
+- REQ-PLN-006
+- REQ-PLN-007
+- REQ-PLN-008
+- REQ-PLN-010
+- REQ-PRJ-001
+- REQ-PRJ-002
+- REQ-PRJ-003
+- REQ-PRJ-005
+- REQ-PRJ-006
+fail_closed_coverage:
+- absent class/global WIP limits, named emergency reserves, or over-limit rejection
+- capacity without ranges, availability/throughput categories, confidence, or deadline-conversion prohibition
+- push flow, missing iteration objective, or unclassified carryover
+- multiple accountable owners, collapsed authorities, or self-approval
+- mutable reforecast history, missing delta report, or unclassified material variance
+- non-canonical/unknown issue type or missing form for a registered type
+- missing core or applicable type-specific field
+- missing/multiple primary parent or unrestricted operational hierarchy
+- Ready transition without proportional Definition of Ready satisfaction
+- Done transition without evidence or applicable checks
+- missing, unknown, mistyped, changed, or unreadable policy controls
+contract_impact:
+  frozen_contract_changed: false
+  adr_changed: false
+  http_changed: false
+  persistence_changed: false
+  migration_required: false
+limitations:
+- declarative foundation only; live GitHub mutation and Project provisioning are not included
+- quantitative WIP/capacity values and concrete registered type/field catalogs are not invented by this slice
+- independent QA and Reviewer validation remain required on the exact candidate commit
+risks:
+- downstream repository integration must consume the candidate policy without weakening fail-closed gates
+- operational configuration must supply concrete values only from its authorized owner
+rollback: REVERT_CANDIDATE_COMMIT
+validation:
+  targeted_tests: PASS
+  make_verify: PASS
+  git_diff_check: PASS
+  commands:
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/repositorio-privado-project-central-views-campos-label/test_planning_project_governance.py
+  - make verify with Python 3.12 and PYTHONUTF8=1
+  - git diff --check
