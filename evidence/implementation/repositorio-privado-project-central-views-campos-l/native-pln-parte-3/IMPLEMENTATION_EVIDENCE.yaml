@@ -1,0 +1,66 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-002
+  story_id: STORY-0694
+  issue_id: ISSUE-0804
+  task_id: TASK-0694
+candidate:
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  status: CORRECTED
+  reason: targeted test, evidence, and TaskEnvelope control-plane paths are mandatory for this issue
+artifacts:
+- tools/governance/repositorio-privado-project-central-views-campos-label/native-pln-parte-3/policy_validation.py
+- docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/native-pln-parte-3/foundation-policy.json
+- docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/native-pln-parte-3/README.md
+digests:
+  policy_validation_sha256: 8ef3a558ec0a6fffefcbf71b58282832bf32a4c9263b1bc72a2ee902df8ae49f
+  foundation_policy_sha256: 1b9fce7e2a1b1fc56415a1f4177a99e2b83826cb6fbfb68d5a584bd5d2d66888
+coverage:
+- REQ-NATIVE-005
+- REQ-NATIVE-006
+- REQ-NATIVE-007
+- REQ-NATIVE-008
+- REQ-NATIVE-009
+- REQ-NATIVE-010
+- REQ-PLN-001
+- REQ-PLN-002
+- REQ-PLN-003
+- REQ-PLN-004
+fail_closed_coverage:
+- non-RootSIFT descriptors and non-canonical promotion
+- non-FLANN matcher or uncontrolled exact BF oracle
+- unpinned or unencapsulated OpenCV/USAC_MAGSAC and silent estimator fallback
+- COG writer self-validation or invalid output acceptance
+- split or unpinned native OCI/ABI promotion without smoke validation
+- non-allowlisted driver/VSI access or shared dataset handles
+- roadmap dates without a real-commitment justification
+- collapsed milestone layers or implicit gate/release/iteration mapping
+- unexplained sequencing or unaudited priority override
+- unclassified critical dependencies or uncertain dependency without risk buffer
+- missing, unknown, mistyped, changed, or unreadable policy controls
+contract_impact:
+  frozen_contract_changed: false
+  adr_changed: false
+  http_changed: false
+  persistence_changed: false
+  migration_required: false
+limitations:
+- declarative foundation only; native runtime, live GitHub mutation, OCI/ABI publication, and benchmark claims are not included
+- independent QA and Reviewer validation remain required on the exact candidate commit
+rollback: REVERT_CANDIDATE_COMMIT
+validation:
+  targeted_tests: PASS
+  governing_sentinel: PASS
+  repository_checks: PASS
+  git_diff_check: PASS
+  optional_ruff: NOT_AVAILABLE
+  commands:
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/repositorio-privado-project-central-views-campos-label/test_native_planning_governance.py
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/repositorio-privado-project-central-views-campos-label/test_native_planning_governance.py tests/fnd/repositorio-privado-project-central-views-campos-label/test_foundation_conformance.py
+  - make verify with Python 3.12 and PYTHONUTF8=1
+  - git diff --check

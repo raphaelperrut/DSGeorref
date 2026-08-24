@@ -61,8 +61,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0694.json",
     "tools/governance/repositorio-privado-project-central-views-campos-label/native-pln-parte-3/**",
-    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/native-pln-parte-3/**"
+    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/native-pln-parte-3/**",
+    "tests/fnd/repositorio-privado-project-central-views-campos-label/test_native_planning_governance.py",
+    "evidence/implementation/repositorio-privado-project-central-views-campos-l/native-pln-parte-3/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -149,8 +152,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0694.json",
         "tools/governance/repositorio-privado-project-central-views-campos-label/native-pln-parte-3/**",
-        "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/native-pln-parte-3/**"
+        "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/native-pln-parte-3/**",
+        "tests/fnd/repositorio-privado-project-central-views-campos-label/test_native_planning_governance.py",
+        "evidence/implementation/repositorio-privado-project-central-views-campos-l/native-pln-parte-3/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
