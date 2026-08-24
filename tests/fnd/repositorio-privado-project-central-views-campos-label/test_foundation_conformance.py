@@ -85,7 +85,9 @@ def _manifest_entry(requirement: str) -> dict[str, Any]:
 
 
 def test_req_classicprofile_004() -> None:
-    control = _profile()["controls"]["classic_profile"]
+    profile = _profile()
+    control = profile["controls"]["classic_profile"]
+    assert profile["profile_version"] == _load_manifest()["contract_version"] == "1.0.0"
     assert control == {
         "descriptor": "ROOTSIFT",
         "numeric_representation": "FLOAT32",
@@ -97,6 +99,15 @@ def test_req_classicprofile_004() -> None:
     assert "NON_FLOAT32_DESCRIPTOR" in _manifest_entry("REQ-CLASSICPROFILE-004")[
         "failure_modes"
     ]
+
+    noncanonical = copy.deepcopy(profile)
+    noncanonical["profile_version"] = "999.0.0"
+    errors = list(_validator().iter_errors(noncanonical))
+    assert len(errors) == 1
+    assert list(errors[0].absolute_path) == ["profile_version"]
+    assert errors[0].validator == "const"
+    assert errors[0].validator_value == "1.0.0"
+
     _assert_control_rejected("classic_profile", "numeric_representation", "FLOAT64")
 
 
