@@ -1,0 +1,67 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-002
+  story_id: STORY-0696
+  issue_id: ISSUE-0806
+  task_id: TASK-0696
+candidate:
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  status: CORRECTED
+  reason: targeted test, evidence, and TaskEnvelope control-plane paths are mandatory for this issue
+artifacts:
+- tools/governance/repositorio-privado-project-central-views-campos-label/prj-prm-parte-5/policy_validation.py
+- docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/prj-prm-parte-5/foundation-policy.json
+- docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/prj-prm-parte-5/README.md
+digests:
+  policy_validation_sha256: b89bc08e38e6a33a3480194ed529b717bf74183b6b21148d6c922c8499dd9e4b
+  foundation_policy_sha256: f75c6457712bb9e149a83a4077e016d15e31e3aa0a2c61d52c2028524c6afe8f
+coverage:
+- REQ-PRJ-007
+- REQ-PRJ-008
+- REQ-PRJ-009
+- REQ-PRJ-010
+- REQ-PRM-001
+- REQ-PRM-002
+- REQ-PRM-003
+- REQ-PRM-004
+- REQ-PRM-005
+- REQ-PRM-006
+fail_closed_coverage:
+- untyped dependencies or undetected/accepted material dependency cycles
+- collapsed impact, urgency, risk, or gate priority dimensions
+- non-relative sizing without confidence or a required split rule
+- automation that can silently approve a material decision
+- first materialization that bypasses representative staging
+- import waves not bounded by dependency, gate, and risk
+- fields without explicit authority and synchronization direction
+- drift handled without three-way reconciliation and conflict classification
+- destructive mutation without an approved ChangeSet and tombstones
+- non-idempotent operation or unsafe resume without checkpoints and backoff
+- missing, unknown, mistyped, changed, or unreadable policy controls
+contract_impact:
+  frozen_contract_changed: false
+  adr_changed: false
+  http_changed: false
+  persistence_changed: false
+  migration_required: false
+limitations:
+- declarative foundation only; live GitHub mutation and operational Project provisioning are not included
+- concrete edge types, relative bands, authorities, directions, wave sizes, timings, and checkpoint formats are not invented by this slice
+- independent QA and Reviewer validation remain required on the exact candidate commit
+risks:
+- downstream repository integration must consume every control without weakening fail-closed gates
+- operational values must be supplied only by their authorized owners
+rollback: REVERT_CANDIDATE_COMMIT
+validation:
+  targeted_tests: PASS
+  make_verify: PASS
+  git_diff_check: PASS
+  commands:
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/repositorio-privado-project-central-views-campos-label/test_project_portfolio_materialization.py
+  - make verify with Python 3.12 and PYTHONUTF8=1
+  - git diff --check
