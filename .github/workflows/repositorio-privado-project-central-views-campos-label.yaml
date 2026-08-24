@@ -1,0 +1,37 @@
+name: engineering-foundation-contract-validation
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-frozen-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12.13'
+          cache: 'pip'
+          cache-dependency-path: requirements-validation.txt
+
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-validation.txt
+
+      - name: Validate frozen engineering foundation contracts
+        run: >-
+          python
+          tools/quality/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/validator.py
+          --dry-run
+
+      - name: Prove deterministic and fail-closed automation
+        run: >-
+          python -c
+          "import runpy;
+          runpy.run_path('tests/fnd/repositorio-privado-project-central-views-campos-label/test_automation.py')['test_epic_002_automacao']()"
