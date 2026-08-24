@@ -1,0 +1,73 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-002
+  story_id: STORY-0691
+  issue_id: ISSUE-0801
+  task_id: TASK-0691
+candidate:
+  base_commit: 1cc26f1
+  state: UNCOMMITTED_WORKTREE_PENDING_HUMAN_REVIEW
+  owner_context: BC-001
+  implementation_role: Arquiteto
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  status: CORRECTED
+  reason: registry, targeted test, evidence, and TaskEnvelope control-plane paths were required by the issue itself
+contract_artifacts:
+- contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/worker-parte-2/contract-manifest.yaml
+- contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/worker-parte-2/worker-governance-conformance.schema.json
+- contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/worker-parte-2/examples/worker-governance-conformance.json
+supporting_artifacts:
+- .codex/tasks/TASK-0691.json
+- contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+- docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/worker-parte-2/DESIGN-REVIEW.md
+- tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_governance.py
+coverage:
+- requirement: REQ-WORKER-001
+  test: test_req_worker_001
+  negative_tests:
+  - failure: TASK_ENVELOPE_CONTRACT_MISSING
+    test: test_task_envelope_contract_missing_is_fail_closed
+  - failure: UNVERSIONED_TASK_ENVELOPE
+    test: test_unversioned_task_envelope_is_fail_closed
+- requirement: REQ-WORKER-010
+  test: test_req_worker_0010
+  negative_tests:
+  - failure: SHUTDOWN_ABANDONS_IN_FLIGHT_WORK
+    test: test_shutdown_abandoning_in_flight_work_is_fail_closed
+qa_fix:
+  base_qa_sha: e829a054e085d2ae348429dab3f7c545effcc0dc
+  acceptance_criterion: AC-ISSUE-0801-03
+  scope: THREE_NEGATIVE_CASES_ONLY
+  negative_cases_result: PASS
+  targeted_and_sentinel_result: 7_PASSED
+fail_closed_coverage:
+- missing or unversioned TaskEnvelope contract
+- nonessential or unknown TaskEnvelope content
+- unverified readiness dependency
+- drain accepting new work
+- non-cooperative shutdown or abandoned in-flight work
+- resume from incompatible checkpoint
+- missing fault-injection scenario
+- silent lifecycle fallback
+contract_impact:
+  kind: NEW_PUBLIC_CONFORMANCE_CONTRACT
+  existing_frozen_contract_changed: false
+  http_changed: false
+  persistence_changed: false
+  migration_required: false
+rollback:
+  operational: NOT_APPLICABLE
+  contract: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+validation:
+  targeted_tests: PASS
+  sentinel_tests: PASS
+  mandatory_checks: PASS
+  git_diff_check: PASS
+  commands:
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_governance.py -q
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_governance.py tests/fnd/repositorio-privado-project-central-views-campos-label/test_foundation_conformance.py::test_acceptance_evidence_derivation_and_contract_change_review -q
+  - make verify with Python 3.12 and PYTHONUTF8=1
+  - git diff --check

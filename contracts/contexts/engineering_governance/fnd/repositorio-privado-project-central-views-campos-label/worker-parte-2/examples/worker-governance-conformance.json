@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "WORKER-GOVERNANCE-CONFORMANCE",
+  "profile_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "FROZEN",
+  "controls": {
+    "task_envelope": {
+      "contract": ".codex/tasks/TASK_ENVELOPE.schema.json",
+      "versioning": "EXPLICIT",
+      "content_policy": "IDS_VERSION_AND_INDISPENSABLE_TECHNICAL_CONTEXT_ONLY",
+      "unknown_content": "REJECT",
+      "contradiction": "STOP"
+    },
+    "worker_lifecycle": {
+      "readiness": {
+        "dependencies": [
+          "DATABASE",
+          "BROKER",
+          "WORKSPACE_ROOTS",
+          "MIGRATIONS",
+          "ABI",
+          "CAPABILITIES",
+          "CONFIGURATION"
+        ],
+        "unverified_dependency": "NOT_READY"
+      },
+      "drain": {
+        "new_work": "REJECT",
+        "in_flight_work_units": "RECONCILE"
+      },
+      "shutdown": {
+        "mode": "COOPERATIVE",
+        "in_flight_work_units": "CHECKPOINT_AND_RECONCILE"
+      },
+      "resume": {
+        "checkpoint": "COMPATIBLE_ONLY",
+        "compatibility": ["HASHES", "SCHEMAS", "INPUTS", "VERSIONS"]
+      },
+      "fault_injection": {
+        "required_scenarios": [
+          "READINESS_DEPENDENCY_LOSS",
+          "DRAIN_WITH_IN_FLIGHT_WORK",
+          "SHUTDOWN_DURING_WORK_UNIT",
+          "RESUME_WITH_INCOMPATIBLE_CHECKPOINT"
+        ],
+        "silent_fallback": "PROHIBITED"
+      }
+    }
+  }
+}
