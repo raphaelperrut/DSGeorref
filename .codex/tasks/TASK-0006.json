@@ -37,8 +37,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0006.json",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
     "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/consolidacao/**",
-    "docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/consolidacao/**"
+    "docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/consolidacao/**",
+    "tests/fnd/repositorio-privado-project-central-views-campos-label/test_slice_consolidation.py",
+    "evidence/implementation/epic-002/story-0006/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -108,8 +112,12 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0006.json",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
         "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/consolidacao/**",
-        "docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/consolidacao/**"
+        "docs/02-architecture/design-reviews/repositorio-privado-project-central-views-campos-label/consolidacao/**",
+        "tests/fnd/repositorio-privado-project-central-views-campos-label/test_slice_consolidation.py",
+        "evidence/implementation/epic-002/story-0006/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
