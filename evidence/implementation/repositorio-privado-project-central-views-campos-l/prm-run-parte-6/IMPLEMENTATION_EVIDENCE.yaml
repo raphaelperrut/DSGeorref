@@ -1,0 +1,69 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-002
+  story_id: STORY-0697
+  issue_id: ISSUE-0807
+  task_id: TASK-0697
+candidate:
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  status: CORRECTED
+  reason: targeted test, evidence, and TaskEnvelope control-plane paths are mandatory for this issue
+artifacts:
+- tools/governance/repositorio-privado-project-central-views-campos-label/prm-run-parte-6/policy_validation.py
+- docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/prm-run-parte-6/foundation-policy.json
+- docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/prm-run-parte-6/README.md
+digests:
+  policy_validation_sha256: 28a10c9e0437e2219271ec59dae64090c36ef46d919a8f3cdf345da74f74ca39
+  foundation_policy_sha256: 4a11242e41bb6ddc77b97a94490318bdb3f4d76792703055821b0c4bcaaa0fe7
+coverage:
+- REQ-PRM-007
+- REQ-PRM-008
+- REQ-PRM-009
+- REQ-PRM-010
+- REQ-RUN-002
+- REQ-RUN-003
+- REQ-RUN-004
+- REQ-RUN-005
+- REQ-RUN-007
+- REQ-RUN-009
+fail_closed_coverage:
+- operational convergence without PortfolioMaterializationEvidenceSet
+- missing, mutable, or unsanitized PortfolioSyncRunRecord
+- recovery without snapshot, safe compensation, or forward reconciliation
+- shared, over-privileged, or long-lived service credentials
+- asynchronous I/O leaking into the synchronous domain core
+- implicit composition or dependency injection outside constructors
+- untyped or unstratified settings and permissive missing required values
+- implicit or long-running command transactions without explicit Unit of Work
+- repeatable mutation protected only by volatile idempotency
+- unstructured, uncorrelated, or non-centrally-redacted logs
+- missing, unknown, mistyped, changed, or unreadable policy controls
+contract_impact:
+  frozen_contract_changed: false
+  adr_changed: false
+  http_changed: false
+  persistence_changed: false
+  migration_required: false
+limitations:
+- declarative foundation only; live GitHub mutation and operational Project provisioning are not included
+- evidence schemas, record fields, snapshots, compensations, credential lifetimes, storage adapters, and logging field catalogs are not invented by this slice
+- independent QA and Reviewer validation remain required on the exact candidate commit
+risks:
+- downstream repository integration must consume every control without weakening fail-closed gates
+- operational details must be supplied only by their authorized owners
+rollback: REVERT_CANDIDATE_COMMIT
+validation:
+  targeted_tests: PASS
+  sentinel_tests: PASS
+  make_verify: PASS
+  git_diff_check: PASS
+  commands:
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/repositorio-privado-project-central-views-campos-label/test_portfolio_runtime_foundation.py
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/repositorio-privado-project-central-views-campos-label
+  - make verify with Python 3.12 and PYTHONUTF8=1
+  - git diff --check
