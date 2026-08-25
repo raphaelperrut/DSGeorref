@@ -48,8 +48,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0698.json",
     "tools/governance/repositorio-privado-project-central-views-campos-label/runtime-sprint-001-parte-7/**",
-    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/runtime-sprint-001-parte-7/**"
+    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/runtime-sprint-001-parte-7/**",
+    "tests/fnd/repositorio-privado-project-central-views-campos-label/test_runtime_sprint_foundation.py",
+    "evidence/implementation/repositorio-privado-project-central-views-campos-l/runtime-sprint-001-parte-7/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -128,8 +131,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0698.json",
         "tools/governance/repositorio-privado-project-central-views-campos-label/runtime-sprint-001-parte-7/**",
-        "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/runtime-sprint-001-parte-7/**"
+        "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/runtime-sprint-001-parte-7/**",
+        "tests/fnd/repositorio-privado-project-central-views-campos-label/test_runtime_sprint_foundation.py",
+        "evidence/implementation/repositorio-privado-project-central-views-campos-l/runtime-sprint-001-parte-7/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

@@ -1,0 +1,102 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-002
+  story_id: STORY-0698
+  issue_id: ISSUE-0808
+  task_id: TASK-0698
+candidate:
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  status: CORRECTED
+  reason: exact TaskEnvelope, focused-test, and evidence paths are required by ISSUE-0808
+artifacts:
+- tools/governance/repositorio-privado-project-central-views-campos-label/runtime-sprint-001-parte-7/evidence_map_validation.py
+- docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/runtime-sprint-001-parte-7/foundation-evidence-map.json
+- docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/runtime-sprint-001-parte-7/README.md
+- tests/fnd/repositorio-privado-project-central-views-campos-label/test_runtime_sprint_foundation.py
+digests:
+  evidence_map_validation_sha256: 76970bfbc85c58ccdc8f73762b6fcadb09155181d0412a94a7815b4db8df6cfd
+  foundation_evidence_map_sha256: 2f000df1f42366dd91eecf617ba78c5abae105d5c58a9a0614d5937aa583badc
+  focused_test_sha256: c336f77d0bacf6b99e3e2e80147b7d4b69320221c2e45a53fc77beae37144399
+requirement_evidence:
+- requirement: REQ-RUNTIME-001
+  primitive: foundation-conformance/application_boundaries
+  checkpoint: test_foundation_conformance.py::test_req_run_001
+  test: test_runtime_decision_1
+- requirement: REQ-RUNTIME-002
+  primitive: prm-run-parte-6/foundation-policy.json::domain_io_boundary
+  checkpoint: test_portfolio_runtime_foundation.py::test_req_run_002
+  test: test_runtime_decision_2
+- requirement: REQ-SPRINT-001-001
+  primitive: frz-gov-adr-gov-dec-parte-1/sprint_validation.py
+  checkpoint: test_sprint_zero_baseline_decision_01
+  test: test_sprint_zero_baseline_decision_01
+- requirement: REQ-SPRINT-001-002
+  primitive: frz-gov-adr-gov-dec-parte-1/sprint_validation.py
+  checkpoint: test_sprint_zero_baseline_decision_02
+  test: test_sprint_zero_baseline_decision_02
+- requirement: REQ-SPRINT-001-003
+  primitive: sprint-001-tool-parte-2/sprint_graph.py
+  checkpoint: test_sprint_zero_baseline_decision_03
+  test: test_sprint_zero_baseline_decision_03
+- requirement: REQ-SPRINT-001-005
+  primitive: sprint-001-tool-parte-2/decision_evidence_validation.py
+  checkpoint: test_sprint_zero_baseline_decision_05
+  test: test_sprint_zero_baseline_decision_05
+- requirement: REQ-SPRINT-001-006
+  primitive: sprint-001-tool-parte-2/decision_evidence_validation.py
+  checkpoint: test_sprint_zero_baseline_decision_06
+  test: test_sprint_zero_baseline_decision_06
+- requirement: REQ-SPRINT-001-007
+  primitive: sprint-001-tool-parte-2/sprint_decisions.py
+  checkpoint: test_sprint_zero_baseline_decision_07
+  test: test_sprint_zero_baseline_decision_07
+- requirement: REQ-SPRINT-001-008
+  primitive: sprint-001-tool-parte-2/sprint_evidence.py
+  checkpoint: test_sprint_zero_baseline_decision_08
+  test: test_sprint_zero_baseline_decision_08
+- requirement: REQ-SPRINT-001-009
+  primitive: sprint-001-tool-parte-2/sprint_decisions.py
+  checkpoint: test_sprint_zero_baseline_decision_09
+  test: test_sprint_zero_baseline_decision_09
+hardening:
+- missing or invalid requirement evidence is rejected
+- invalid or unsafe references receive no fallback
+- incomplete ten-requirement coverage is rejected
+- TaskEnvelope scope must be exact, stable, and disjoint
+contract_impact:
+  frozen_contract_changed: false
+  adr_changed: false
+  registry_changed: false
+  http_changed: false
+  persistence_changed: false
+  migration_required: false
+limitations:
+- declarative evidence materialization only; no live GitHub mutation or sprint-semantic duplication
+- SPRINT-001 and G1 completion are not claimed by this candidate
+risks:
+- downstream integration must retain the referenced fail-closed checkpoints
+- independent QA and Reviewer validation remain required on the exact candidate commit
+rollback: REVERT_CANDIDATE_COMMIT
+containment:
+  in_scope_refinements: evidence map, validator, focused tests, and handoff evidence
+  task_envelope_omissions: corrected in TASK-0698
+  backlog_non_blocking: canonical SPRINT-001 selector 02 has a pre-existing count assertion drift
+  true_architectural_blockers: NONE
+  new_prerequisite_created: false
+known_findings:
+- id: CANONICAL_SPRINT_SELECTION_COUNT_DRIFT
+  classification: BACKLOG_NON_BLOCKING
+  delta_caused: false
+  detail: test_sprint_zero_baseline_decision_02 expects 93 stories while the unchanged graph and backlog derive 94
+validation:
+  focused_runtime_tests: PASS
+  eight_sprint_tests: FAIL
+  sprint_failure: test_sprint_zero_baseline_decision_02
+  qa_sentinels: PASS
+  git_diff_check: PASS
+  make_verify: PASS
