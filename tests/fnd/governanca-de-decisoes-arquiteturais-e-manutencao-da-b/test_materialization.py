@@ -1178,7 +1178,7 @@ def test_sprint_zero_baseline_decision_01() -> None:
 
 def test_sprint_zero_baseline_decision_02() -> None:
     expected = derive_canonical_sprint_selection(ROOT)
-    assert len(expected) == 93
+    assert len(expected) == 94
     assert "STORY-0688" in expected
     assert "STORY-0760" in expected
     assert expected == derive_canonical_sprint_selection(ROOT)
