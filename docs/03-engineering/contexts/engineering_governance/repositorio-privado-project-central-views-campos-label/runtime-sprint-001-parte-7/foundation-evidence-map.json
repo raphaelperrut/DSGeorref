@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "map_id": "ENGINEERING-FOUNDATION-RUNTIME-SPRINT-EVIDENCE",
+  "owner": "BC-001",
+  "status": "CANDIDATE",
+  "coverage": [
+    "REQ-RUNTIME-001",
+    "REQ-RUNTIME-002",
+    "REQ-SPRINT-001-001",
+    "REQ-SPRINT-001-002",
+    "REQ-SPRINT-001-003",
+    "REQ-SPRINT-001-005",
+    "REQ-SPRINT-001-006",
+    "REQ-SPRINT-001-007",
+    "REQ-SPRINT-001-008",
+    "REQ-SPRINT-001-009"
+  ],
+  "write_scope": [
+    ".codex/tasks/TASK-0698.json",
+    "tools/governance/repositorio-privado-project-central-views-campos-label/runtime-sprint-001-parte-7/**",
+    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/runtime-sprint-001-parte-7/**",
+    "tests/fnd/repositorio-privado-project-central-views-campos-label/test_runtime_sprint_foundation.py",
+    "evidence/implementation/repositorio-privado-project-central-views-campos-l/runtime-sprint-001-parte-7/**"
+  ],
+  "requirements": {
+    "REQ-RUNTIME-001": {
+      "primitive_path": "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/examples/foundation-conformance.json",
+      "checkpoint": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_foundation_conformance.py::test_req_run_001",
+      "test_path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_runtime_sprint_foundation.py",
+      "test_id": "test_runtime_decision_1"
+    },
+    "REQ-RUNTIME-002": {
+      "primitive_path": "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/prm-run-parte-6/foundation-policy.json",
+      "checkpoint": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_portfolio_runtime_foundation.py::test_req_run_002",
+      "test_path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_runtime_sprint_foundation.py",
+      "test_id": "test_runtime_decision_2"
+    },
+    "REQ-SPRINT-001-001": {
+      "primitive_path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/sprint_validation.py",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_01",
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_01"
+    },
+    "REQ-SPRINT-001-002": {
+      "primitive_path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/sprint_validation.py",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_02",
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_02"
+    },
+    "REQ-SPRINT-001-003": {
+      "primitive_path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/sprint_graph.py",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_03",
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_03"
+    },
+    "REQ-SPRINT-001-005": {
+      "primitive_path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/decision_evidence_validation.py",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_05",
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_05"
+    },
+    "REQ-SPRINT-001-006": {
+      "primitive_path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/decision_evidence_validation.py",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_06",
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_06"
+    },
+    "REQ-SPRINT-001-007": {
+      "primitive_path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/sprint_decisions.py",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_07",
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_07"
+    },
+    "REQ-SPRINT-001-008": {
+      "primitive_path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/sprint_evidence.py",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_08",
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_08"
+    },
+    "REQ-SPRINT-001-009": {
+      "primitive_path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/sprint_decisions.py",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09",
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_09"
+    }
+  }
+}
