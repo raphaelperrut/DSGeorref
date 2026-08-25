@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0810",
+  "task_id": "TASK-0700",
+  "story_id": "STORY-0700",
+  "candidate": "the commit containing this evidence",
+  "requirements": [
+    {
+      "id": "REQ-WORKER-008",
+      "evidence": "foundation-policy.json requires PostgreSQL-authoritative, typed, monotonic work-unit progress with persisted SSE delivery and polling reconciliation",
+      "test": "test_req_worker_008"
+    },
+    {
+      "id": "REQ-WORKER-009",
+      "evidence": "foundation-policy.json requires persisted-token cooperative cancellation at safe points with lease validation and atomic publication",
+      "test": "test_req_worker_009"
+    }
+  ],
+  "verification": {
+    "canonical_tests": {
+      "result": "PASS",
+      "command": "py -3.12 -m pytest tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_progress_cancellation_foundation.py::test_req_worker_008 tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_progress_cancellation_foundation.py::test_req_worker_009 -q",
+      "summary": "2 passed"
+    },
+    "targeted_hardening_tests": {
+      "result": "PASS",
+      "command": "py -3.12 -m pytest tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_progress_cancellation_foundation.py -q",
+      "summary": "11 passed; positive, negative, authority, checkpoint, scope, and fail-closed cases",
+      "runner": "CPython 3.12"
+    },
+    "make_verify": {
+      "result": "PASS",
+      "command": "$env:PYTHONUTF8='1'; make verify",
+      "summary": "repository, architecture, requirements, DDD, ADR, specification, sprint, and Python architecture gates passed"
+    },
+    "full_qa_matrix_run": false
+  },
+  "confirmations": {
+    "requirements_evidenced": "2/2",
+    "fail_closed": true,
+    "silent_fallback": false,
+    "incomplete_configuration_accepted": false,
+    "task_envelope_adjusted_for_mandatory_checkpoints": true,
+    "frozen_contracts_changed": false,
+    "adrs_changed": false,
+    "runtime_changed": false,
+    "github_functional_state_changed": false,
+    "deny_paths_preserved": true
+  },
+  "write_scope": [
+    ".codex/tasks/TASK-0700.json",
+    "tools/governance/repositorio-privado-project-central-views-campos-label/worker-parte-9/**",
+    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/worker-parte-9/**",
+    "tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_progress_cancellation_foundation.py",
+    "evidence/implementation/repositorio-privado-project-central-views-campos-l/worker-parte-9/**"
+  ],
+  "handoff": {
+    "CONTRACT_IMPACT": "NONE; frozen ADRs and application profiles are consumed read-only.",
+    "RISKS": "Operational progress and cancellation behavior remains owned by downstream runtime stories; this candidate proves only the ISSUE-0810 governance foundation.",
+    "ROLLBACK": "Revert the candidate commit; there is no migration, external runtime mutation, or destructive rollback.",
+    "NEXT_GATE": "Independent Sentinel QA and final review on the exact candidate commit."
+  }
+}

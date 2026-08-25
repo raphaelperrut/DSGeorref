@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "ENGINEERING-FOUNDATION-WORKER-PROGRESS-CANCELLATION",
+  "owner": "BC-001",
+  "status": "CANDIDATE",
+  "coverage": [
+    "REQ-WORKER-008",
+    "REQ-WORKER-009"
+  ],
+  "write_scope": [
+    ".codex/tasks/TASK-0700.json",
+    "tools/governance/repositorio-privado-project-central-views-campos-label/worker-parte-9/**",
+    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/worker-parte-9/**",
+    "tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_progress_cancellation_foundation.py",
+    "evidence/implementation/repositorio-privado-project-central-views-campos-l/worker-parte-9/**"
+  ],
+  "controls": {
+    "progress": {
+      "authority": "PostgreSQL",
+      "granularity": "WORK_UNIT",
+      "typed": "REQUIRED",
+      "monotonic": "REQUIRED",
+      "regression": "REJECT",
+      "sse": "PERSISTED_PROGRESS_ONLY",
+      "polling": "RECONCILIATION_REQUIRED",
+      "transport_state_authority": "REJECT"
+    },
+    "cancellation": {
+      "request_token": "PERSISTED",
+      "mode": "COOPERATIVE",
+      "application": "SAFE_POINTS_ONLY",
+      "lease_validation": "REQUIRED_BEFORE_COMMIT_CHECKPOINT_OR_PUBLICATION",
+      "publication": "ATOMIC_ONLY",
+      "partial_result_current": "REJECT"
+    },
+    "failure_handling": {
+      "mode": "FAIL_CLOSED",
+      "silent_fallback": "PROHIBITED",
+      "incomplete_configuration": "REJECT"
+    }
+  },
+  "requirements": {
+    "REQ-WORKER-008": {
+      "requirement_path": "docs/01-product/requirements/REQ-WORKER-008-progresso-e-persistente-monotonico-e-reconciliavel-entre-sse-e-polling.md",
+      "authority_paths": [
+        "docs/02-architecture/adrs/ADR-012-modelo-de-interacao-rest-sse-e-polling.md",
+        "docs/02-architecture/adrs/ADR-018-postgresql-postgis-como-system-of-record.md",
+        "docs/02-architecture/adrs/ADR-040-progresso-event-ledger-replay-e-eta.md",
+        "docs/03-engineering/application-profiles/AP-007-worker-runtime-application-profile.md"
+      ],
+      "checkpoint": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_progress_cancellation_foundation.py::test_req_worker_008",
+      "test_path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_progress_cancellation_foundation.py",
+      "test_id": "test_req_worker_008"
+    },
+    "REQ-WORKER-009": {
+      "requirement_path": "docs/01-product/requirements/REQ-WORKER-009-cancelamento-atua-somente-em-safe-points-e-preserva-consistencia-publica.md",
+      "authority_paths": [
+        "docs/02-architecture/adrs/ADR-024-publicacao-atomica-checksums-e-content-addressing.md",
+        "docs/02-architecture/adrs/ADR-037-workers-duraveis-leases-e-fencing.md",
+        "docs/02-architecture/adrs/ADR-038-retry-quarantine-checkpoints-cancelamento-e-drain.md",
+        "docs/03-engineering/application-profiles/AP-007-worker-runtime-application-profile.md"
+      ],
+      "checkpoint": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_progress_cancellation_foundation.py::test_req_worker_009",
+      "test_path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_progress_cancellation_foundation.py",
+      "test_id": "test_req_worker_009"
+    }
+  }
+}

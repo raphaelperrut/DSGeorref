@@ -41,8 +41,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0700.json",
     "tools/governance/repositorio-privado-project-central-views-campos-label/worker-parte-9/**",
-    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/worker-parte-9/**"
+    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/worker-parte-9/**",
+    "tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_progress_cancellation_foundation.py",
+    "evidence/implementation/repositorio-privado-project-central-views-campos-l/worker-parte-9/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -113,8 +116,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0700.json",
         "tools/governance/repositorio-privado-project-central-views-campos-label/worker-parte-9/**",
-        "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/worker-parte-9/**"
+        "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/worker-parte-9/**",
+        "tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_progress_cancellation_foundation.py",
+        "evidence/implementation/repositorio-privado-project-central-views-campos-l/worker-parte-9/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
