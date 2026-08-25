@@ -4,6 +4,15 @@
   "task_id": "TASK-0699",
   "story_id": "STORY-0699",
   "candidate": "the commit containing this evidence",
+  "qa_correction": {
+    "finding": "HIGH: executable tooling coupled write-scope validation to a specific Task identifier",
+    "cause": "the exact TaskEnvelope path was duplicated as an executable constant and lookup path",
+    "correction": "the validator now receives the contextual TaskEnvelope path from the governed policy, validates its generic versioned shape, and compares the remaining scope to stable capability paths",
+    "regression_test": "test_executable_code_has_no_ticket_identifiers",
+    "result": "PASS: restricted search found no specific Task, Issue, or Story identifier in executable tooling; 16 focused tests and make verify passed",
+    "contract_impact": "NONE",
+    "rollback": "revert the correction commit together with its evidence update"
+  },
   "requirements": [
     {
       "id": "REQ-SPRINT-001-010",
@@ -60,7 +69,7 @@
     "targeted_tests": {
       "result": "PASS",
       "command": "py -3.12 -m pytest <three canonical selectors> tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py",
-      "summary": "all three canonical selectors passed; corrected affected rerun passed 16 tests, including 15 local positive/negative sentinels",
+      "summary": "all three canonical selectors passed previously; the HIGH correction rerun passed all 16 local positive, negative, scope, model-boundary, and ticket-coupling sentinels",
       "runner": "CPython 3.12.10",
       "repository_python_pin": "3.12.13"
     },

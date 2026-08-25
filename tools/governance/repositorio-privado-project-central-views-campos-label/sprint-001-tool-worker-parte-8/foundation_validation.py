@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ast
 import json
+import re
 import tomllib
 from dataclasses import dataclass
 from pathlib import Path
@@ -27,8 +28,7 @@ class FoundationValidationError(ValueError):
         super().__init__(message)
 
 
-EXPECTED_WRITE_SCOPE = (
-    ".codex/tasks/TASK-0699.json",
+EXPECTED_CAPABILITY_SCOPE = (
     "tools/governance/repositorio-privado-project-central-views-campos-label/"
     "sprint-001-tool-worker-parte-8/**",
     "docs/03-engineering/contexts/engineering_governance/"
@@ -39,12 +39,13 @@ EXPECTED_WRITE_SCOPE = (
     "evidence/implementation/repositorio-privado-project-central-views-campos-l/"
     "sprint-001-tool-worker-parte-8/**",
 )
+TASK_ENVELOPE_PATH = re.compile(r"\.codex/tasks/TASK-[0-9]{4}\.json\Z")
 EXPECTED_DENY_PATHS = ("src/**/epic-*", "src/**/issue-*")
 CENTRAL_TEST = (
     "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/"
     "test_materialization.py"
 )
-LOCAL_TEST = EXPECTED_WRITE_SCOPE[3]
+LOCAL_TEST = EXPECTED_CAPABILITY_SCOPE[2]
 REQUIREMENT_ROOT = "docs/01-product/requirements/"
 
 
@@ -131,7 +132,6 @@ EXPECTED_POLICY: dict[str, Any] = {
     "owner": "BC-001",
     "status": "CANDIDATE",
     "coverage": list(EXPECTED_REQUIREMENTS),
-    "write_scope": list(EXPECTED_WRITE_SCOPE),
     "controls": {
         "cutover": {
             "mode": "EXPLICIT",
@@ -283,19 +283,43 @@ def _reference_findings(policy: dict[str, Any], repository_root: Path) -> list[F
     return findings
 
 
-def _task_findings(repository_root: Path) -> list[Finding]:
+def _task_findings(
+    repository_root: Path, task_path: str, expected_scope: list[str]
+) -> list[Finding]:
     try:
-        task = json.loads((repository_root / ".codex/tasks/TASK-0699.json").read_text(encoding="utf-8"))
+        task = json.loads((repository_root / task_path).read_text(encoding="utf-8"))
     except (OSError, UnicodeError, json.JSONDecodeError) as error:
         return [Finding("TASK_ENVELOPE_INVALID", "$.write_scope", str(error))]
     allow_paths = task.get("allow_paths")
     review_paths = task.get("phase_f_review", {}).get("files", {}).get("allow_paths")
     findings: list[Finding] = []
-    if allow_paths != list(EXPECTED_WRITE_SCOPE) or review_paths != allow_paths:
+    if allow_paths != expected_scope or review_paths != allow_paths:
         findings.append(Finding("WRITE_SCOPE_INVALID", "$.write_scope", "TaskEnvelope scope mismatch"))
     if task.get("deny_paths") != list(EXPECTED_DENY_PATHS):
         findings.append(Finding("DENY_PATHS_INVALID", "$.deny_paths", "deny paths changed"))
     return findings
+
+
+def _scope_findings(policy: dict[str, Any], repository_root: Path) -> list[Finding]:
+    scope = policy.get("write_scope")
+    if not isinstance(scope, list) or not all(isinstance(path, str) for path in scope):
+        return [Finding("WRITE_SCOPE_INVALID", "$.write_scope", "expected path list")]
+    if (
+        len(scope) != len(EXPECTED_CAPABILITY_SCOPE) + 1
+        or TASK_ENVELOPE_PATH.fullmatch(scope[0]) is None
+        or scope[1:] != list(EXPECTED_CAPABILITY_SCOPE)
+    ):
+        return [Finding("WRITE_SCOPE_INVALID", "$.write_scope", "capability scope mismatch")]
+    roots = [path.removesuffix("/**").rstrip("/") for path in scope]
+    if len(roots) != len(set(roots)) or any(
+        left.startswith(f"{right}/") or right.startswith(f"{left}/")
+        for index, left in enumerate(roots)
+        for right in roots[index + 1 :]
+    ):
+        return [Finding("WRITE_SCOPE_INVALID", "$.write_scope", "overlapping paths")]
+    if _safe_file(repository_root, scope[0]) is None:
+        return [Finding("TASK_ENVELOPE_INVALID", "$.write_scope[0]", "missing or unsafe envelope")]
+    return _task_findings(repository_root, scope[0], scope)
 
 
 def _authority_findings(repository_root: Path) -> list[Finding]:
@@ -330,11 +354,12 @@ def _authority_findings(repository_root: Path) -> list[Finding]:
 
 
 def validate_policy(policy: object, repository_root: Path) -> list[Finding]:
-    findings = _compare(policy, EXPECTED_POLICY, "$")
     if not isinstance(policy, dict):
-        return sorted(findings)
+        return sorted(_compare(policy, EXPECTED_POLICY, "$"))
+    comparable_policy = {key: value for key, value in policy.items() if key != "write_scope"}
+    findings = _compare(comparable_policy, EXPECTED_POLICY, "$")
     findings.extend(_reference_findings(policy, repository_root.resolve()))
-    findings.extend(_task_findings(repository_root.resolve()))
+    findings.extend(_scope_findings(policy, repository_root.resolve()))
     findings.extend(_authority_findings(repository_root.resolve()))
     return sorted(set(findings))
 

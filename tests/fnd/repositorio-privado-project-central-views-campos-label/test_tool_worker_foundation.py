@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import importlib.util
 import json
+import re
 import sys
 from functools import cache
 from pathlib import Path
@@ -192,8 +193,9 @@ def test_unsafe_or_out_of_domain_reference_is_rejected(unsafe_reference: str) ->
 
 def test_scope_is_exact_disjoint_and_preserves_deny_paths() -> None:
     policy = _policy()
-    task = json.loads((ROOT / ".codex/tasks/TASK-0699.json").read_text(encoding="utf-8"))
     scope = policy["write_scope"]
+    task_path = next(path for path in scope if path.startswith(".codex/tasks/"))
+    task = json.loads((ROOT / task_path).read_text(encoding="utf-8"))
     assert scope == task["allow_paths"] == task["phase_f_review"]["files"]["allow_paths"]
     assert task["deny_paths"] == ["src/**/epic-*", "src/**/issue-*"]
     roots = [path.removesuffix("/**").rstrip("/") for path in scope]
@@ -203,6 +205,11 @@ def test_scope_is_exact_disjoint_and_preserves_deny_paths() -> None:
         for index, left in enumerate(roots)
         for right in roots[index + 1 :]
     )
+
+
+def test_executable_code_has_no_ticket_identifiers() -> None:
+    source = MODULE_PATH.read_text(encoding="utf-8")
+    assert re.search(r"(?:TASK|ISSUE|STORY)-[0-9]{4}", source) is None
 
 
 def test_incomplete_configuration_and_silent_fallback_are_rejected() -> None:
