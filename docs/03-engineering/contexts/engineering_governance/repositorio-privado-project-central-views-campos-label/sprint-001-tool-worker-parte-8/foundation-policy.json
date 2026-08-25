@@ -1,0 +1,159 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "ENGINEERING-FOUNDATION-TOOL-WORKER",
+  "owner": "BC-001",
+  "status": "CANDIDATE",
+  "coverage": [
+    "REQ-SPRINT-001-010",
+    "REQ-TOOL-001",
+    "REQ-TOOL-002",
+    "REQ-TOOL-005",
+    "REQ-WORKER-002",
+    "REQ-WORKER-003",
+    "REQ-WORKER-004",
+    "REQ-WORKER-005",
+    "REQ-WORKER-006",
+    "REQ-WORKER-007"
+  ],
+  "write_scope": [
+    ".codex/tasks/TASK-0699.json",
+    "tools/governance/repositorio-privado-project-central-views-campos-label/sprint-001-tool-worker-parte-8/**",
+    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/sprint-001-tool-worker-parte-8/**",
+    "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py",
+    "evidence/implementation/repositorio-privado-project-central-views-campos-l/sprint-001-tool-worker-parte-8/**"
+  ],
+  "controls": {
+    "cutover": {
+      "mode": "EXPLICIT",
+      "foundation_gate": "APPROVED_REQUIRED",
+      "missing_authorization": "REJECT"
+    },
+    "python_runtime": {
+      "primary": "3.12.13",
+      "requires_python": ">=3.12,<3.13",
+      "future_versions": "GATED_NON_BLOCKING"
+    },
+    "python_dependencies": {
+      "manager": "uv",
+      "workspace": "REQUIRED",
+      "lock": "FROZEN_REQUIRED"
+    },
+    "model_boundaries": {
+      "domain": "SEPARATE",
+      "transport": "SEPARATE",
+      "persistence": "SEPARATE",
+      "cross_layer_model_reuse": "REJECT"
+    },
+    "worker": {
+      "queue": {
+        "classes": ["interactive", "batch", "ai-gpu", "maintenance"],
+        "dynamic_per_job": "REJECT"
+      },
+      "ack_prefetch": {
+        "ack": "AFTER_AUTHORITATIVE_COMMIT",
+        "initial_prefetch": 1,
+        "promotion_owner": "BP-004",
+        "premature_ack": "REJECT"
+      },
+      "isolation": {
+        "pool": "PREFORK",
+        "process_isolation": "REQUIRED",
+        "recycling": "REQUIRED",
+        "missing_isolation_or_recycling": "REJECT"
+      },
+      "leases": {
+        "authority": "PostgreSQL",
+        "fencing_token": "REQUIRED",
+        "expiration": "VERIFIABLE",
+        "stale_owner_commit_or_publish": "REJECT"
+      },
+      "retry": {
+        "taxonomy": "CLASSIFIED_TECHNICAL_ONLY",
+        "poison_message": "AUDITABLE_QUARANTINE",
+        "unclassified_or_unquarantined": "REJECT"
+      },
+      "dispatch": {
+        "authority": "SCHEDULER_AND_OUTBOX",
+        "direct_fanout": "REJECT",
+        "redelivery": "OUTBOX_RECONCILED"
+      }
+    },
+    "failure_handling": {
+      "mode": "FAIL_CLOSED",
+      "silent_fallback": "PROHIBITED",
+      "incomplete_configuration": "REJECT"
+    }
+  },
+  "requirements": {
+    "REQ-SPRINT-001-010": {
+      "requirement_path": "docs/01-product/requirements/REQ-SPRINT-001-010-liberar-primeira-fatia-funcional-somente-por-cutover-explicito-apos-foun.md",
+      "authority_path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/sprint_decisions.py",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_10",
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_10"
+    },
+    "REQ-TOOL-001": {
+      "requirement_path": "docs/01-product/requirements/REQ-TOOL-001-python-3-12-runtime-primario-com-upgrade-controlado-para-3-13-e-3-14.md",
+      "authority_path": "docs/03-engineering/PYTHON_312_RUNTIME_POLICY.md",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_python_312_primary_and_upgrade_gates",
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_python_312_primary_and_upgrade_gates"
+    },
+    "REQ-TOOL-002": {
+      "requirement_path": "docs/01-product/requirements/REQ-TOOL-002-dependencias-python-usam-uv-workspace-e-lock-frozen.md",
+      "authority_path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/uv_validation.py",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_uv_lock_frozen",
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_uv_lock_frozen"
+    },
+    "REQ-TOOL-005": {
+      "requirement_path": "docs/01-product/requirements/REQ-TOOL-005-dominio-transporte-e-persistencia-possuem-modelos-separados.md",
+      "authority_path": "contracts/architecture/python-module-boundaries.yaml",
+      "checkpoint": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py::test_model_boundary_architecture",
+      "test_path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py",
+      "test_id": "test_model_boundary_architecture"
+    },
+    "REQ-WORKER-002": {
+      "requirement_path": "docs/01-product/requirements/REQ-WORKER-002-existem-poucas-filas-duraveis-por-classe-de-workload-sem-fila-dinamica-p.md",
+      "authority_path": "contracts/operations/lock-and-queue-policy.yaml",
+      "checkpoint": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py::test_req_worker_002",
+      "test_path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py",
+      "test_id": "test_req_worker_002"
+    },
+    "REQ-WORKER-003": {
+      "requirement_path": "docs/01-product/requirements/REQ-WORKER-003-ack-ocorre-somente-apos-commit-autoritativo-e-prefetch-e-calibrado-por-w.md",
+      "authority_path": "contracts/operations/lock-and-queue-policy.yaml",
+      "checkpoint": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py::test_req_worker_003",
+      "test_path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py",
+      "test_id": "test_req_worker_003"
+    },
+    "REQ-WORKER-004": {
+      "requirement_path": "docs/01-product/requirements/REQ-WORKER-004-workers-usam-prefork-reciclavel-e-isolamento-explicito-de-processos-subp.md",
+      "authority_path": "docs/03-engineering/application-profiles/AP-007-worker-runtime-application-profile.md",
+      "checkpoint": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py::test_req_worker_004",
+      "test_path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py",
+      "test_id": "test_req_worker_004"
+    },
+    "REQ-WORKER-005": {
+      "requirement_path": "docs/01-product/requirements/REQ-WORKER-005-leases-persistem-em-postgresql-com-fencing-token-e-expiracao-verificavel.md",
+      "authority_path": "contracts/operations/lock-and-queue-policy.yaml",
+      "checkpoint": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py::test_req_worker_005",
+      "test_path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py",
+      "test_id": "test_req_worker_005"
+    },
+    "REQ-WORKER-006": {
+      "requirement_path": "docs/01-product/requirements/REQ-WORKER-006-retry-segue-taxonomia-de-dominio-poison-messages-entram-em-quarantine-au.md",
+      "authority_path": "contracts/operations/lock-and-queue-policy.yaml",
+      "checkpoint": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py::test_req_worker_006",
+      "test_path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py",
+      "test_id": "test_req_worker_006"
+    },
+    "REQ-WORKER-007": {
+      "requirement_path": "docs/01-product/requirements/REQ-WORKER-007-scheduler-e-outbox-sao-autoritativos-para-dag-despacho-e-redelivery.md",
+      "authority_path": "docs/03-engineering/application-profiles/AP-007-worker-runtime-application-profile.md",
+      "checkpoint": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py::test_req_worker_007",
+      "test_path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py",
+      "test_id": "test_req_worker_007"
+    }
+  }
+}

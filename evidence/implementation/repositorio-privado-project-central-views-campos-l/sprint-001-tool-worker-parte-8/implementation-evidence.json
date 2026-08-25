@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0809",
+  "task_id": "TASK-0699",
+  "story_id": "STORY-0699",
+  "candidate": "the commit containing this evidence",
+  "qa_correction": {
+    "finding": "HIGH: executable tooling coupled write-scope validation to a specific Task identifier",
+    "cause": "the exact TaskEnvelope path was duplicated as an executable constant and lookup path",
+    "correction": "the validator now receives the contextual TaskEnvelope path from the governed policy, validates its generic versioned shape, and compares the remaining scope to stable capability paths",
+    "regression_test": "test_executable_code_has_no_ticket_identifiers",
+    "result": "PASS: restricted search found no specific Task, Issue, or Story identifier in executable tooling; 16 focused tests and make verify passed",
+    "contract_impact": "NONE",
+    "rollback": "revert the correction commit together with its evidence update"
+  },
+  "requirements": [
+    {
+      "id": "REQ-SPRINT-001-010",
+      "evidence": "foundation-policy.json cutover control",
+      "test": "test_sprint_zero_baseline_decision_10"
+    },
+    {
+      "id": "REQ-TOOL-001",
+      "evidence": "Python 3.12.13 repository policy and gated future lanes",
+      "test": "test_python_312_primary_and_upgrade_gates"
+    },
+    {
+      "id": "REQ-TOOL-002",
+      "evidence": "frozen uv workspace validation authority",
+      "test": "test_uv_lock_frozen"
+    },
+    {
+      "id": "REQ-TOOL-005",
+      "evidence": "separate domain, transport, and persistence controls",
+      "test": "test_model_boundary_architecture"
+    },
+    {
+      "id": "REQ-WORKER-002",
+      "evidence": "bounded durable queue classes; dynamic per-job queues rejected",
+      "test": "test_req_worker_002"
+    },
+    {
+      "id": "REQ-WORKER-003",
+      "evidence": "ack after authoritative commit and BP-004-owned prefetch",
+      "test": "test_req_worker_003"
+    },
+    {
+      "id": "REQ-WORKER-004",
+      "evidence": "prefork isolation and recycling required",
+      "test": "test_req_worker_004"
+    },
+    {
+      "id": "REQ-WORKER-005",
+      "evidence": "PostgreSQL lease authority, fencing, expiration, and stale-owner rejection",
+      "test": "test_req_worker_005"
+    },
+    {
+      "id": "REQ-WORKER-006",
+      "evidence": "classified technical retry and auditable quarantine",
+      "test": "test_req_worker_006"
+    },
+    {
+      "id": "REQ-WORKER-007",
+      "evidence": "scheduler/outbox dispatch authority and reconciled redelivery",
+      "test": "test_req_worker_007"
+    }
+  ],
+  "verification": {
+    "targeted_tests": {
+      "result": "PASS",
+      "command": "py -3.12 -m pytest <three canonical selectors> tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py",
+      "summary": "all three canonical selectors passed previously; the HIGH correction rerun passed all 16 local positive, negative, scope, model-boundary, and ticket-coupling sentinels",
+      "runner": "CPython 3.12.10",
+      "repository_python_pin": "3.12.13"
+    },
+    "make_verify": {
+      "result": "PASS",
+      "command": "$env:PYTHONUTF8='1'; make verify",
+      "summary": "repository, architecture, requirements, DDD, ADR, specification, sprint, and Python architecture gates passed"
+    },
+    "diagnostics": [
+      "The first targeted attempt exposed a missing uv authority reference and a stale PID-named external test fixture; the reference was corrected and only affected tests were rerun.",
+      "The first make verify attempt used Windows cp1252 and failed decoding an existing task; the UTF-8 invocation passed without source changes."
+    ],
+    "full_qa_matrix_run": false
+  },
+  "confirmations": {
+    "requirements_evidenced": "10/10",
+    "fail_closed": true,
+    "silent_fallback": false,
+    "incomplete_configuration_accepted": false,
+    "frozen_contracts_changed": false,
+    "adrs_changed": false,
+    "runtime_changed": false,
+    "github_functional_state_changed": false,
+    "deny_paths_preserved": true
+  },
+  "write_scope": [
+    ".codex/tasks/TASK-0699.json",
+    "tools/governance/repositorio-privado-project-central-views-campos-label/sprint-001-tool-worker-parte-8/**",
+    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/sprint-001-tool-worker-parte-8/**",
+    "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py",
+    "evidence/implementation/repositorio-privado-project-central-views-campos-l/sprint-001-tool-worker-parte-8/**"
+  ],
+  "handoff": {
+    "CONTRACT_IMPACT": "NONE; frozen contracts and ADRs were consumed read-only.",
+    "RISKS": "Future worker tuning remains evidence-bound to BP-004; this candidate does not promote tuning or claim runtime deployment.",
+    "ROLLBACK": "Revert the candidate commit; there is no migration, external runtime mutation, or destructive rollback."
+  }
+}
