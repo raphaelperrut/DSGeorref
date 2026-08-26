@@ -101,6 +101,41 @@ def test_consolidation_requires_independent_reviewer() -> None:
     assert result.released_dependents == ()
 
 
+def _assert_invalid_identity(identity: str) -> None:
+    candidate = _candidate()
+    for field in ("executor_subject", "reviewer_subject"):
+        review = _review(candidate)
+        review[field] = identity
+        with _completion():
+            result = consolidation.validate_slice_consolidation(ROOT, candidate, review)
+
+        assert not result.ready, field
+        assert "REVIEW_EVIDENCE_INVALID" in {
+            finding.code for finding in result.findings
+        }
+        assert result.released_dependents == (), field
+
+
+def test_consolidation_rejects_empty_identity() -> None:
+    _assert_invalid_identity("")
+
+
+def test_consolidation_rejects_whitespace_identity() -> None:
+    _assert_invalid_identity(" \t\r\n")
+
+
+def test_consolidation_rejects_same_normalized_identity() -> None:
+    candidate = _candidate()
+    review = _review(candidate)
+    review["reviewer_subject"] = "  executor-fixture\t"
+    with _completion():
+        result = consolidation.validate_slice_consolidation(ROOT, candidate, review)
+
+    assert not result.ready
+    assert "REVIEW_EVIDENCE_INVALID" in {finding.code for finding in result.findings}
+    assert result.released_dependents == ()
+
+
 def test_consolidation_rejects_review_for_another_candidate() -> None:
     candidate = _candidate()
     review = _review(candidate)

@@ -268,14 +268,21 @@ def _review_findings(
     valid_risks = isinstance(risks, list) and all(
         isinstance(item, str) and item.strip() for item in risks
     )
+    executor_subject = record.get("executor_subject")
+    reviewer_subject = record.get("reviewer_subject")
+    valid_subjects = (
+        isinstance(executor_subject, str)
+        and bool(executor_subject.strip())
+        and isinstance(reviewer_subject, str)
+        and bool(reviewer_subject.strip())
+        and executor_subject.strip() != reviewer_subject.strip()
+    )
     valid = (
         record.get("record_type") == "SLICE_CONSOLIDATION_REVIEW"
         and record.get("authority_role") == "Reviewer"
         and record.get("reviewed_story_id") == PARENT_STORY
         and record.get("reviewed_candidate_commit") == candidate_revision
-        and isinstance(record.get("executor_subject"), str)
-        and isinstance(record.get("reviewer_subject"), str)
-        and record.get("executor_subject") != record.get("reviewer_subject")
+        and valid_subjects
         and record.get("result") == "PASS"
         and valid_risks
         and record.get("released_dependents") == list(downstream)
