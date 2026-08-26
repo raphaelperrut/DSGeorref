@@ -35,3 +35,18 @@ jobs:
           python -c
           "import runpy;
           runpy.run_path('tests/fnd/repositorio-privado-project-central-views-campos-label/test_automation.py')['test_epic_002_automacao']()"
+
+      - name: Validate repository integration
+        run: >-
+          python
+          tools/governance/repositorio-privado-project-central-views-campos-label/repository_integration.py
+
+      - name: Prove requirement traceability and fail-closed integration
+        run: >-
+          python -c
+          "import runpy;
+          tests = runpy.run_path('tests/fnd/repositorio-privado-project-central-views-campos-label/test_integration.py');
+          [tests[name]() for name in
+          ('test_req_classicprofile_006', 'test_req_classicprofile_008',
+          'test_req_classicprofile_0010', 'test_req_native_001',
+          'test_req_native_004', 'test_epic_002_integracao')]"
