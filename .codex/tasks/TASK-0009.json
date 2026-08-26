@@ -47,7 +47,10 @@
   ],
   "allow_paths": [
     "tools/governance/repositorio-privado-project-central-views-campos-label/**",
-    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/**"
+    "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/**",
+    "tests/fnd/repositorio-privado-project-central-views-campos-label/test_integration.py",
+    ".github/workflows/repositorio-privado-project-central-views-campos-label.yaml",
+    "evidence/implementation/epic-002/story-0009/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -125,7 +128,10 @@
       "status": "PASS",
       "allow_paths": [
         "tools/governance/repositorio-privado-project-central-views-campos-label/**",
-        "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/**"
+        "docs/03-engineering/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/**",
+        "tests/fnd/repositorio-privado-project-central-views-campos-label/test_integration.py",
+        ".github/workflows/repositorio-privado-project-central-views-campos-label.yaml",
+        "evidence/implementation/epic-002/story-0009/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
