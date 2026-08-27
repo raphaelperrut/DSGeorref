@@ -1,0 +1,231 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/monorepo-foundation/1.0.0",
+  "title": "DSGeorref Monorepo Foundation Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "contract_version",
+    "owner",
+    "status",
+    "requirement_ids",
+    "architecture",
+    "contract_sources",
+    "compatibility",
+    "failure_policy",
+    "validation",
+    "review_gate"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "contract_id": { "const": "MONOREPO-FOUNDATION-CONTRACT" },
+    "contract_version": { "const": "1.0.0" },
+    "owner": { "const": "BC-001" },
+    "status": { "const": "FROZEN" },
+    "requirement_ids": {
+      "type": "array",
+      "prefixItems": [{ "const": "REQ-TOP-001" }],
+      "items": false,
+      "minItems": 1
+    },
+    "architecture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["topology", "application_core", "interface_flow", "data_authority"],
+      "properties": {
+        "topology": { "const": "SINGLE_INSTANCE_MODULAR_MONOLITH" },
+        "application_core": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["authority", "implementation_policy"],
+          "properties": {
+            "authority": { "const": "APPLICATION_SERVICES" },
+            "implementation_policy": { "const": "SINGLE_SHARED_IMPLEMENTATION" }
+          }
+        },
+        "interface_flow": {
+          "type": "array",
+          "prefixItems": [
+            { "$ref": "#/$defs/cli_surface" },
+            { "$ref": "#/$defs/http_surface" },
+            { "$ref": "#/$defs/web_surface" }
+          ],
+          "items": false,
+          "minItems": 3
+        },
+        "data_authority": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state", "published_binaries", "broker", "telemetry"],
+          "properties": {
+            "state": { "const": "POSTGRESQL_POSTGIS" },
+            "published_binaries": { "const": "MANAGED_FILESYSTEM" },
+            "broker": { "const": "TRANSPORT_ONLY" },
+            "telemetry": { "const": "DERIVED_NON_AUTHORITATIVE" }
+          }
+        }
+      }
+    },
+    "contract_sources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["http", "operation_catalog", "foundation"],
+      "properties": {
+        "http": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "specification", "version", "status"],
+          "properties": {
+            "path": { "const": "contracts/http/openapi.yaml" },
+            "specification": { "const": "OpenAPI 3.1.0" },
+            "version": { "const": "2.6.0" },
+            "status": { "const": "FROZEN" }
+          }
+        },
+        "operation_catalog": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "schema_version", "status"],
+          "properties": {
+            "path": { "const": "contracts/http/OPERATION_CATALOG.json" },
+            "schema_version": { "const": "2.0.0" },
+            "status": { "const": "FROZEN" }
+          }
+        },
+        "foundation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["manifest", "schema"],
+          "properties": {
+            "manifest": {
+              "const": "contracts/contexts/engineering_governance/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/contract-manifest.yaml"
+            },
+            "schema": {
+              "const": "contracts/contexts/engineering_governance/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/monorepo-foundation.schema.json"
+            }
+          }
+        }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy", "current_major", "breaking_change", "unknown_properties"],
+      "properties": {
+        "policy": { "const": "SEMVER" },
+        "current_major": { "const": 1 },
+        "breaking_change": { "const": "NEW_MAJOR_AND_ARCHITECT_REVIEW" },
+        "unknown_properties": { "const": "REJECT" }
+      }
+    },
+    "failure_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "silent_fallback", "publication_on_error", "error_states"],
+      "properties": {
+        "mode": { "const": "FAIL_CLOSED" },
+        "silent_fallback": { "const": false },
+        "publication_on_error": { "const": "PROHIBITED" },
+        "error_states": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "SEMANTIC_MAPPING_MISSING" },
+            { "const": "CONTRACT_VERSION_UNSUPPORTED" },
+            { "const": "AUTHORITY_VIOLATION" }
+          ],
+          "items": false,
+          "minItems": 3
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_checks", "deterministic", "idempotent"],
+      "properties": {
+        "required_checks": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "cli_api_semantic_contract" },
+            { "const": "test_epic_003_contrato" }
+          ],
+          "items": false,
+          "minItems": 2
+        },
+        "deterministic": { "const": true },
+        "idempotent": { "const": true }
+      }
+    },
+    "review_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_state",
+        "executor_role",
+        "independent_authority_role",
+        "self_approval",
+        "eligible_dependents",
+        "released_dependents"
+      ],
+      "properties": {
+        "candidate_state": { "const": "READY_FOR_INDEPENDENT_REVIEW" },
+        "executor_role": { "const": "Arquiteto" },
+        "independent_authority_role": { "const": "Reviewer" },
+        "self_approval": { "const": "PROHIBITED" },
+        "eligible_dependents": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "STORY-0012" },
+            { "const": "STORY-0013" }
+          ],
+          "items": false,
+          "minItems": 2
+        },
+        "released_dependents": { "type": "array", "maxItems": 0 }
+      }
+    }
+  },
+  "$defs": {
+    "cli_surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surface", "adapter", "invocation", "contract_source", "semantic_authority", "direct_authoritative_store"],
+      "properties": {
+        "surface": { "const": "CLI" },
+        "adapter": { "const": "CLI_ADAPTER" },
+        "invocation": { "const": "APPLICATION_SERVICE_PORT" },
+        "contract_source": { "const": "monorepo-foundation-contract" },
+        "semantic_authority": { "const": "APPLICATION_SERVICES" },
+        "direct_authoritative_store": { "const": false }
+      }
+    },
+    "http_surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surface", "adapter", "invocation", "contract_source", "semantic_authority", "direct_authoritative_store"],
+      "properties": {
+        "surface": { "const": "HTTP_API" },
+        "adapter": { "const": "FASTAPI_PYDANTIC_ADAPTER" },
+        "invocation": { "const": "APPLICATION_SERVICE_PORT" },
+        "contract_source": { "const": "contracts/http/openapi.yaml" },
+        "semantic_authority": { "const": "APPLICATION_SERVICES" },
+        "direct_authoritative_store": { "const": false }
+      }
+    },
+    "web_surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surface", "adapter", "invocation", "contract_source", "semantic_authority", "direct_authoritative_store"],
+      "properties": {
+        "surface": { "const": "WEB" },
+        "adapter": { "const": "REACT_TYPESCRIPT_ADAPTER" },
+        "invocation": { "const": "HTTP_API_OPENAPI_CLIENT" },
+        "contract_source": { "const": "contracts/http/openapi.yaml" },
+        "semantic_authority": { "const": "APPLICATION_SERVICES" },
+        "direct_authoritative_store": { "const": false }
+      }
+    }
+  }
+}

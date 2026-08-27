@@ -46,8 +46,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0011.json",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
     "contracts/contexts/engineering_governance/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**",
-    "docs/02-architecture/design-reviews/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**"
+    "docs/02-architecture/design-reviews/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**",
+    "tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation_contract.py",
+    "evidence/implementation/epic-003/story-0011/**"
   ],
   "deny_paths": [
     "src/**",
@@ -118,8 +122,12 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0011.json",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
         "contracts/contexts/engineering_governance/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**",
-        "docs/02-architecture/design-reviews/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**"
+        "docs/02-architecture/design-reviews/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**",
+        "tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation_contract.py",
+        "evidence/implementation/epic-003/story-0011/**"
       ],
       "deny_paths": [
         "src/**",
