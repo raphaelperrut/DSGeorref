@@ -12,8 +12,6 @@ from functools import cache
 from pathlib import Path
 from typing import Any
 
-import pytest
-
 
 ROOT = Path(__file__).resolve().parents[3]
 MODULE_ROOT = ROOT / (
@@ -51,13 +49,12 @@ def _codes(plan: object, contract: object | None = None) -> set[str]:
     return {finding.code for finding in validate_foundation(plan, effective_contract)}
 
 
-@pytest.mark.skipif(
-    os.environ.get("FOUNDATION_INTEGRATION") != "1",
-    reason="requires the pinned PostgreSQL and RabbitMQ services",
-)
 def test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done(
     tmp_path: Path,
 ) -> None:
+    assert os.environ.get("FOUNDATION_INTEGRATION") == "1", (
+        "FOUNDATION_INTEGRATION=1 and the pinned PostgreSQL/RabbitMQ services are required"
+    )
     environment = {
         **os.environ,
         "FOUNDATION_ARTIFACT_DIR": str(tmp_path),
