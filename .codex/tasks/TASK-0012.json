@@ -14,6 +14,9 @@
     "docs/01-product/requirements/REQ-DEL-001-o-walking-skeleton-deve-executar-ponta-a-ponta-frontend-ou-cli-api-postgresql-rabbitmq-celer.md",
     "docs/01-product/requirements/REQ-DEV-001-ambiente-de-desenvolvimento-hibrido-mantem-paridade-verificavel-entre-ho.md",
     "contracts/README.md",
+    "contracts/contexts/engineering_governance/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/contract-manifest.yaml",
+    "contracts/contexts/engineering_governance/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/monorepo-foundation.schema.json",
+    "contracts/contexts/engineering_governance/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/examples/monorepo-foundation.json",
     "docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md",
     "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
     "docs/02-architecture/ddd/bounded-contexts/BC-001-engineering-governance.md",
@@ -42,8 +45,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0012.json",
     "tools/governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**",
-    "docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**"
+    "docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**",
+    "tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation.py",
+    "evidence/implementation/epic-003/story-0012/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -115,8 +121,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0012.json",
         "tools/governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**",
-        "docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**"
+        "docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**",
+        "tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation.py",
+        "evidence/implementation/epic-003/story-0012/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
