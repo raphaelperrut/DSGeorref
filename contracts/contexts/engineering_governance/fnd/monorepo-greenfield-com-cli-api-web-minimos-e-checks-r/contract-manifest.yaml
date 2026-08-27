@@ -1,0 +1,43 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-003
+  story_id: STORY-0011
+  issue_id: ISSUE-0121
+  task_id: TASK-0011
+contract:
+  id: monorepo-foundation-contract
+  schema: contracts/contexts/engineering_governance/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/monorepo-foundation.schema.json
+  example: contracts/contexts/engineering_governance/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/examples/monorepo-foundation.json
+requirements:
+- REQ-TOP-001
+compatibility:
+  policy: SEMVER
+  compatible_change: OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR
+  breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
+  unknown_properties: REJECT
+runtime:
+  implementation: DOWNSTREAM_STORIES_ONLY
+  http: CONTRACT_REFERENCE_ONLY
+  persistence: NOT_APPLICABLE
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+  contract_rollback: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+acceptance_criteria:
+- AC-ISSUE-0121-01
+- AC-ISSUE-0121-02
+- AC-ISSUE-0121-03
+- AC-ISSUE-0121-04
+proof:
+  required_tests:
+  - cli_api_semantic_contract
+  - test_epic_003_contrato
+  failure_mode_tested: true
+  deterministic: true
+review:
+  executor_role: Arquiteto
+  independent_authority_role: Reviewer
+  same_candidate_commit: true
+  self_approval: PROHIBITED

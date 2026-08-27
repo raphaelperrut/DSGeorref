@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "MONOREPO-FOUNDATION-CONTRACT",
+  "contract_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "FROZEN",
+  "requirement_ids": [
+    "REQ-TOP-001"
+  ],
+  "architecture": {
+    "topology": "SINGLE_INSTANCE_MODULAR_MONOLITH",
+    "application_core": {
+      "authority": "APPLICATION_SERVICES",
+      "implementation_policy": "SINGLE_SHARED_IMPLEMENTATION"
+    },
+    "interface_flow": [
+      {
+        "surface": "CLI",
+        "adapter": "CLI_ADAPTER",
+        "invocation": "APPLICATION_SERVICE_PORT",
+        "contract_source": "monorepo-foundation-contract",
+        "semantic_authority": "APPLICATION_SERVICES",
+        "direct_authoritative_store": false
+      },
+      {
+        "surface": "HTTP_API",
+        "adapter": "FASTAPI_PYDANTIC_ADAPTER",
+        "invocation": "APPLICATION_SERVICE_PORT",
+        "contract_source": "contracts/http/openapi.yaml",
+        "semantic_authority": "APPLICATION_SERVICES",
+        "direct_authoritative_store": false
+      },
+      {
+        "surface": "WEB",
+        "adapter": "REACT_TYPESCRIPT_ADAPTER",
+        "invocation": "HTTP_API_OPENAPI_CLIENT",
+        "contract_source": "contracts/http/openapi.yaml",
+        "semantic_authority": "APPLICATION_SERVICES",
+        "direct_authoritative_store": false
+      }
+    ],
+    "data_authority": {
+      "state": "POSTGRESQL_POSTGIS",
+      "published_binaries": "MANAGED_FILESYSTEM",
+      "broker": "TRANSPORT_ONLY",
+      "telemetry": "DERIVED_NON_AUTHORITATIVE"
+    }
+  },
+  "contract_sources": {
+    "http": {
+      "path": "contracts/http/openapi.yaml",
+      "specification": "OpenAPI 3.1.0",
+      "version": "2.6.0",
+      "status": "FROZEN"
+    },
+    "operation_catalog": {
+      "path": "contracts/http/OPERATION_CATALOG.json",
+      "schema_version": "2.0.0",
+      "status": "FROZEN"
+    },
+    "foundation": {
+      "manifest": "contracts/contexts/engineering_governance/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/contract-manifest.yaml",
+      "schema": "contracts/contexts/engineering_governance/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/monorepo-foundation.schema.json"
+    }
+  },
+  "compatibility": {
+    "policy": "SEMVER",
+    "current_major": 1,
+    "breaking_change": "NEW_MAJOR_AND_ARCHITECT_REVIEW",
+    "unknown_properties": "REJECT"
+  },
+  "failure_policy": {
+    "mode": "FAIL_CLOSED",
+    "silent_fallback": false,
+    "publication_on_error": "PROHIBITED",
+    "error_states": [
+      "SEMANTIC_MAPPING_MISSING",
+      "CONTRACT_VERSION_UNSUPPORTED",
+      "AUTHORITY_VIOLATION"
+    ]
+  },
+  "validation": {
+    "required_checks": [
+      "cli_api_semantic_contract",
+      "test_epic_003_contrato"
+    ],
+    "deterministic": true,
+    "idempotent": true
+  },
+  "review_gate": {
+    "candidate_state": "READY_FOR_INDEPENDENT_REVIEW",
+    "executor_role": "Arquiteto",
+    "independent_authority_role": "Reviewer",
+    "self_approval": "PROHIBITED",
+    "eligible_dependents": [
+      "STORY-0012",
+      "STORY-0013"
+    ],
+    "released_dependents": []
+  }
+}
