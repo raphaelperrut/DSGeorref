@@ -12,7 +12,7 @@ jobs:
       FOUNDATION_DATABASE_URL: postgresql://foundation:foundation@127.0.0.1:5432/foundation
       FOUNDATION_BROKER_URL: amqp://guest:guest@127.0.0.1:5672//
       FOUNDATION_API_URL: http://127.0.0.1:8765
-      FOUNDATION_ARTIFACT_DIR: ${{ runner.temp }}/issue-0122-artifacts
+      FOUNDATION_ARTIFACT_DIR: /tmp/issue-0122-artifacts
     services:
       postgres:
         image: postgres:18.4
