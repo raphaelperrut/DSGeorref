@@ -7,6 +7,35 @@ on:
 jobs:
   verify-foundation:
     runs-on: ubuntu-latest
+    env:
+      FOUNDATION_INTEGRATION: "1"
+      FOUNDATION_DATABASE_URL: postgresql://foundation:foundation@127.0.0.1:5432/foundation
+      FOUNDATION_BROKER_URL: amqp://guest:guest@127.0.0.1:5672//
+      FOUNDATION_API_URL: http://127.0.0.1:8765
+      FOUNDATION_ARTIFACT_DIR: /tmp/issue-0122-artifacts
+    services:
+      postgres:
+        image: postgres:18.4
+        env:
+          POSTGRES_USER: foundation
+          POSTGRES_PASSWORD: foundation
+          POSTGRES_DB: foundation
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U foundation -d foundation"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+      rabbitmq:
+        image: rabbitmq:4.3.4
+        ports:
+          - 5672:5672
+        options: >-
+          --health-cmd "rabbitmq-diagnostics -q ping"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - uses: actions/checkout@v7
 

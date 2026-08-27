@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "foundation_id": "DSGEOREF-MONOREPO-FOUNDATION",
+  "contract_id": "MONOREPO-FOUNDATION-CONTRACT",
+  "contract_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "CANDIDATE",
+  "topology": {
+    "kind": "SINGLE_INSTANCE_MODULAR_MONOLITH",
+    "semantic_authority": "APPLICATION_SERVICES",
+    "surfaces": [
+      {
+        "surface": "CLI",
+        "invocation": "APPLICATION_SERVICE_PORT",
+        "contract_source": "monorepo-foundation-contract"
+      },
+      {
+        "surface": "HTTP_API",
+        "invocation": "APPLICATION_SERVICE_PORT",
+        "contract_source": "contracts/http/openapi.yaml"
+      },
+      {
+        "surface": "WEB",
+        "invocation": "HTTP_API_OPENAPI_CLIENT",
+        "contract_source": "contracts/http/openapi.yaml"
+      }
+    ]
+  },
+  "walking_skeleton": {
+    "stages": [
+      "CLI_OR_WEB_INPUT",
+      "HTTP_API",
+      "POSTGRESQL_POSTGIS",
+      "RABBITMQ_CELERY",
+      "WORKER",
+      "DIAGNOSTIC_ARTIFACT"
+    ],
+    "state_authority": "POSTGRESQL_POSTGIS",
+    "broker_role": "TRANSPORT_ONLY",
+    "artifact_policy": "DIAGNOSTIC_ONLY_UNTIL_PRODUCT_GATES",
+    "definition_of_done": [
+      "ALL_STAGES_OBSERVED_IN_ORDER",
+      "STATE_COMMITTED_BEFORE_BROKER_ACK",
+      "ARTIFACT_HAS_DETERMINISTIC_DIGEST",
+      "FAILURE_IS_EXPLICIT"
+    ]
+  },
+  "reproducibility": {
+    "dependency_resolution": "REPOSITORY_PINNED_ONLY",
+    "implicit_downloads": "PROHIBITED",
+    "network_required": false,
+    "local_commands": [
+      "make verify"
+    ],
+    "container_commands": [
+      "make verify"
+    ],
+    "ci_commands": [
+      "make verify"
+    ]
+  },
+  "failure_policy": {
+    "mode": "FAIL_CLOSED",
+    "silent_fallback": false,
+    "publication_on_error": "PROHIBITED",
+    "error_states": [
+      "SEMANTIC_MAPPING_MISSING",
+      "CONTRACT_VERSION_UNSUPPORTED",
+      "AUTHORITY_VIOLATION"
+    ]
+  },
+  "requirement_evidence": {
+    "REQ-DEL-001": "test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done",
+    "REQ-DEV-001": "test_host_container_ci_contract_and_no_implicit_downloads"
+  },
+  "acceptance_evidence": {
+    "AC-ISSUE-0122-01": "test_epic_003_fundacao",
+    "AC-ISSUE-0122-02": "test_epic_003_fundacao",
+    "AC-ISSUE-0122-03": "test_foundation_rejects_contract_drift_and_silent_fallback",
+    "AC-ISSUE-0122-04": "test_host_container_ci_contract_and_no_implicit_downloads"
+  }
+}
