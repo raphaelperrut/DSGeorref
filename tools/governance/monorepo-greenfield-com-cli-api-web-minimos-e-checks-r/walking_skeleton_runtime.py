@@ -36,6 +36,7 @@ celery_app.conf.update(
     task_default_queue=QUEUE,
     task_ignore_result=True,
     task_serializer="json",
+    worker_enable_remote_control=False,
 )
 
 
@@ -249,7 +250,16 @@ def main(argv: list[str] | None = None) -> int:
         run_api(args.host, args.port)
     elif args.command == "worker":
         celery_app.worker_main(
-            ["worker", "--pool=solo", "--concurrency=1", "--loglevel=WARNING", f"--queues={QUEUE}"]
+            [
+                "worker",
+                "--pool=solo",
+                "--concurrency=1",
+                "--loglevel=WARNING",
+                "--without-gossip",
+                "--without-mingle",
+                "--without-heartbeat",
+                f"--queues={QUEUE}",
+            ]
         )
     else:
         print(json.dumps(run_cli(args.request_id, args.timeout), sort_keys=True))
