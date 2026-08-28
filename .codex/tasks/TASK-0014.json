@@ -39,7 +39,10 @@
   ],
   "allow_paths": [
     "tools/governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**",
-    "docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**"
+    "docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**",
+    "tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_integration.py",
+    ".github/workflows/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r.yaml",
+    "evidence/implementation/epic-003/story-0014/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -110,7 +113,10 @@
       "status": "PASS",
       "allow_paths": [
         "tools/governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**",
-        "docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**"
+        "docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/**",
+        "tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_integration.py",
+        ".github/workflows/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r.yaml",
+        "evidence/implementation/epic-003/story-0014/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
