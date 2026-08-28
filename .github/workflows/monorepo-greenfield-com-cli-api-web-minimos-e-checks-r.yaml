@@ -34,3 +34,13 @@ jobs:
         run: >-
           python -m pytest -q -p no:cacheprovider
           tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_automation.py::test_epic_003_automacao
+
+      - name: Validate repository integration
+        run: >-
+          python
+          tools/governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/repository_integration.py
+
+      - name: Prove deterministic and fail-closed integration
+        run: >-
+          python -m pytest -q -p no:cacheprovider
+          tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_integration.py::test_epic_003_integracao

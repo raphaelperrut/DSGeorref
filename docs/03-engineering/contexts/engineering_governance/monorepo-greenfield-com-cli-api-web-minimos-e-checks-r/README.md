@@ -33,3 +33,27 @@ ADR is changed here.
   this candidate commit.
 - Residual risk: independent QA and Reviewer must validate the same candidate
   SHA before any approval or merge claim.
+
+## Repository integration
+
+`STORY-0014` composes the already merged foundation and automation surfaces
+without restating their rules. Run the deterministic read-only entry point:
+
+```text
+python tools/governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/repository_integration.py
+```
+
+The JSON report exposes the four `ISSUE-0124` acceptance criteria, the declared
+`STORY-0012`/`STORY-0013` dependencies, and explicit evidence coverage for
+`REQ-DEL-001`, `REQ-DEV-001`, and `REQ-TOP-001`. It succeeds only when the
+existing `STORY-0013` validator passes in dry-run mode, the TaskEnvelope and
+story graph agree, the read-only workflow invokes both validation layers, and
+the local Python modules contain neither a dependency cycle nor an exact rule
+duplicate.
+
+Missing or drifted upstream evidence, a disconnected workflow, scope drift,
+silent fallback, dependency drift, import cycles, and duplicated rule modules
+produce sorted findings and a non-zero exit. The integration adds no API,
+database, broker, frontend, geospatial, AI, migration, or public contract.
+Rollback is a revert of the candidate commit. Independent QA and Reviewer must
+still validate the same candidate SHA.
