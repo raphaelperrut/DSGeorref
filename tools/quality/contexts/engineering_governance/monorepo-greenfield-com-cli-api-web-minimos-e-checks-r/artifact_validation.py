@@ -93,8 +93,10 @@ def _schema_findings(
 
 
 def _foundation_findings(root: Path) -> list[Finding]:
-    required = (FOUNDATION_REL, CONTRACT_REL, FOUNDATION_VALIDATOR_REL)
-    if any(not (root / relative).is_file() for relative in required):
+    if not (root / FOUNDATION_VALIDATOR_REL).is_file():
+        detail = "mandatory foundation validator is missing"
+        return [_finding("FOUNDATION_VALIDATOR_MISSING", FOUNDATION_VALIDATOR_REL, detail)]
+    if any(not (root / relative).is_file() for relative in (FOUNDATION_REL, CONTRACT_REL)):
         return []
     environment = os.environ.copy()
     environment["PYTHONDONTWRITEBYTECODE"] = "1"

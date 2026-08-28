@@ -111,6 +111,10 @@ def _missing_foundation(root: Path) -> None:
     (root / FOUNDATION_REL).unlink()
 
 
+def _missing_mandatory_validator(root: Path) -> None:
+    (root / FOUNDATION_TOOL_DIR_REL / "foundation_validation.py").unlink()
+
+
 def _silent_fallback(root: Path) -> None:
     plan = _read_json(root, FOUNDATION_REL)
     policy = plan["failure_policy"]
@@ -182,6 +186,11 @@ def test_epic_003_automacao() -> None:
 
     cases: tuple[tuple[str, str, Mutation], ...] = (
         ("missing_foundation", "FOUNDATION_UNREADABLE", _missing_foundation),
+        (
+            "missing_mandatory_validator",
+            "FOUNDATION_VALIDATOR_MISSING",
+            _missing_mandatory_validator,
+        ),
         ("silent_fallback", "FAILURE_POLICY_INVALID", _silent_fallback),
         ("missing_requirement_test", "REQUIREMENT_TEST_MISSING", _missing_requirement_test),
         ("invalid_task", "TASK_CONTROL_INVALID", _invalid_task),
