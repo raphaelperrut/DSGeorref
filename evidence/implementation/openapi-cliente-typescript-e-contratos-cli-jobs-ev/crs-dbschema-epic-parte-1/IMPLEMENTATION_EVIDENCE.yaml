@@ -1,0 +1,80 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-004
+  story_id: STORY-0701
+  issue_id: ISSUE-0811
+  task_id: TASK-0701
+candidate:
+  base_commit: c3b954e7334772b5af76c397d24263ec7e6998ac
+  state: READY_FOR_INDEPENDENT_QA
+  owner_context: BC-001
+  implementation_role: Arquiteto
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  status: CORRECTED
+  reason: registry, targeted test, evidence, and TaskEnvelope control-plane paths are required by the issue itself
+contract_artifacts:
+- contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/contract-manifest.yaml
+- contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/contract-foundation.schema.json
+- contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/examples/contract-foundation.json
+supporting_artifacts:
+- .codex/tasks/TASK-0701.json
+- contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+- docs/02-architecture/design-reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/DESIGN-REVIEW.md
+- tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_contract_foundation.py
+coverage:
+- requirement: REQ-CRS-002
+  test: test_explicit_axis_order_and_adapter_normalization
+- requirement: REQ-DBSCHEMA-007
+  test: test_req_dbschema_007
+- requirement: REQ-DBSCHEMA-008
+  test: test_req_dbschema_008
+- requirement: REQ-EPIC-031
+  test: generated_client_component_accessibility_e2e
+- requirement: REQ-FS1-001
+  test: test_first_functional_slice_decision_01
+- requirement: REQ-FS1-004
+  test: test_first_functional_slice_decision_04
+- requirement: REQ-RUN-001
+  test: test_req_run_001
+- requirement: REQ-RUN-006
+  test: test_req_run_006
+- requirement: REQ-RUN-008
+  test: test_req_run_008
+- requirement: REQ-RUN-010
+  test: test_req_run_0010
+fail_closed_coverage:
+- missing or unknown control
+- CRS or axis convention missing, ambiguous, incompatible, or implausible
+- JSONB replacing a relational invariant
+- unknown state or unregistered transition
+- missing component, accessibility, or E2E gate
+- first-slice scope expansion or non-batch-compatible contract
+- missing, mutable, unversioned, or unexplainable ProcessingPlan
+- multiple namespace or fat adapter
+- unmapped domain-error fallback
+- manually maintained TypeScript DTO or nondeterministic diff
+- capability or feature-flag gate bypass
+contract_impact:
+  kind: NEW_PUBLIC_CONFORMANCE_CONTRACT
+  existing_frozen_contract_changed: false
+  http_changed: false
+  persistence_changed: false
+  migration_required: false
+rollback:
+  operational: NOT_APPLICABLE
+  contract: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+validation:
+  targeted_tests: PASS
+  focused_checks: PASS
+  repository_static_gates: PASS
+  local_make_verify: STATIC_GATES_PASS_INTEGRATION_REQUIRES_PINNED_CI_SERVICES
+  git_diff_check: PASS
+  commands:
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_contract_foundation.py -q
+  - TASK-0701 validation against .codex/tasks/TASK_ENVELOPE.schema.json
+  - make PYTHON="py -3.12" verify
+  - git diff --check
+  local_integration_limitation: FOUNDATION_INTEGRATION, PostgreSQL, and RabbitMQ are unavailable on this host; PR CI owns the pinned integration run

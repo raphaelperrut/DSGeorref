@@ -1,0 +1,118 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-004
+  story_id: STORY-0701
+  issue_id: ISSUE-0811
+  task_id: TASK-0701
+contract:
+  id: openapi-contract-foundation-conformance
+  schema: contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/contract-foundation.schema.json
+  example: contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/examples/contract-foundation.json
+compatibility:
+  policy: SEMVER
+  compatible_change: OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR
+  breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
+  unknown_properties: REJECT
+runtime:
+  implementation: NOT_INCLUDED
+  http: REFERENCED_NOT_CHANGED
+  persistence: DECLARATIVE_REQUIREMENT_ONLY
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+  contract_rollback: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+acceptance_criteria:
+- AC-ISSUE-0811-01
+- AC-ISSUE-0811-02
+- AC-ISSUE-0811-03
+- AC-ISSUE-0811-04
+requirements:
+- id: REQ-CRS-002
+  control: /controls/coordinate_boundary
+  test: test_explicit_axis_order_and_adapter_normalization
+  failure_modes:
+  - CRS_OR_AXIS_CONVENTION_MISSING
+  - UNIT_OR_PRECISION_MISSING
+  - ADAPTER_AXIS_ORDER_NOT_ALWAYS_XY
+  - AMBIGUOUS_INCOMPATIBLE_OR_IMPLAUSIBLE_CRS
+- id: REQ-DBSCHEMA-007
+  control: /controls/versioned_extensions
+  test: test_req_dbschema_007
+  failure_modes:
+  - UNVERSIONED_JSONB_EXTENSION
+  - RELATIONAL_INVARIANT_REPLACED_BY_JSONB
+  - UNKNOWN_EXTENSION_ACCEPTED
+- id: REQ-DBSCHEMA-008
+  control: /controls/state_transitions
+  test: test_req_dbschema_008
+  failure_modes:
+  - UNTYPED_STATE
+  - UNREGISTERED_TRANSITION
+  - UNKNOWN_STATE_ACCEPTED
+  - INVALID_TRANSITION_ACCEPTED
+- id: REQ-EPIC-031
+  control: /controls/generated_client_quality
+  test: generated_client_component_accessibility_e2e
+  failure_modes:
+  - CLIENT_NOT_GENERATED_FROM_OPENAPI
+  - COMPONENT_GATE_MISSING
+  - ACCESSIBILITY_GATE_MISSING
+  - E2E_GATE_MISSING
+- id: REQ-FS1-001
+  control: /controls/first_functional_slice
+  test: test_first_functional_slice_decision_01
+  failure_modes:
+  - MULTIPLE_IMAGE_SCOPE
+  - NON_END_TO_END_SLICE
+  - CONTRACT_NOT_BATCH_COMPATIBLE
+  - IMPLICIT_SCOPE_EXPANSION
+- id: REQ-FS1-004
+  control: /controls/processing_plan
+  test: test_first_functional_slice_decision_04
+  failure_modes:
+  - PROCESSING_PLAN_NOT_PERSISTED
+  - MUTABLE_PROCESSING_PLAN
+  - UNVERSIONED_PROCESSING_PLAN
+  - UNEXPLAINABLE_PROCESSING_PLAN
+- id: REQ-RUN-001
+  control: /controls/application_boundaries
+  test: test_req_run_001
+  failure_modes:
+  - MULTIPLE_APPLICATION_NAMESPACES
+  - FAT_SURFACE_ADAPTER
+  - DUPLICATED_APPLICATION_SERVICE
+- id: REQ-RUN-006
+  control: /controls/domain_errors
+  test: test_req_run_006
+  failure_modes:
+  - UNTYPED_DOMAIN_ERROR
+  - UNVERSIONED_PROBLEM_DETAILS_MAPPING
+  - UNMAPPED_ERROR_FALLBACK
+- id: REQ-RUN-008
+  control: /controls/typescript_client
+  test: test_req_run_008
+  failure_modes:
+  - NON_OPENAPI_CLIENT_SOURCE
+  - NONDETERMINISTIC_GENERATED_DIFF
+  - MANUAL_DTO_DUPLICATION
+- id: REQ-RUN-010
+  control: /controls/capability_registry
+  test: test_req_run_0010
+  failure_modes:
+  - REMOTE_OR_UNVERSIONED_REGISTRY
+  - CAPABILITY_DEFAULT_OPEN
+  - AUTHORIZATION_CONTRACT_COMPATIBILITY_OR_GATE_BYPASS
+proof:
+  required_tests:
+  - test_explicit_axis_order_and_adapter_normalization
+  - test_req_dbschema_007
+  - test_req_dbschema_008
+  - generated_client_component_accessibility_e2e
+  - test_first_functional_slice_decision_01
+  - test_first_functional_slice_decision_04
+  - test_req_run_001
+  - test_req_run_006
+  - test_req_run_008
+  - test_req_run_0010

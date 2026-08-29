@@ -45,6 +45,11 @@
     "docs/02-architecture/adrs/ADR-021-filesystem-gerenciado-roots-e-resolucao-segura.md",
     "docs/02-architecture/adrs/ADR-023-artifactset-manifest-e-bundles-imutaveis.md",
     "docs/02-architecture/adrs/ADR-055-audit-ledger-privacidade-redaction-e-support-bundles.md",
+    "docs/03-engineering/application-profiles/AP-002-application-composition-configuration-observability.md",
+    "contracts/domain/processing-plan.schema.json",
+    "contracts/errors/problem-details.schema.json",
+    "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/foundation-conformance.schema.json",
+    "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/examples/foundation-conformance.json",
     "contracts/http/openapi.yaml",
     "contracts/http/OPERATION_CATALOG.json",
     "contracts/http/API_CONTRACT_INDEX.csv",
@@ -68,8 +73,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0701.json",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
     "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/**",
-    "docs/02-architecture/design-reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/**"
+    "docs/02-architecture/design-reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/**",
+    "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_contract_foundation.py",
+    "evidence/implementation/openapi-cliente-typescript-e-contratos-cli-jobs-ev/crs-dbschema-epic-parte-1/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -158,8 +167,12 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0701.json",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
         "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/**",
-        "docs/02-architecture/design-reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/**"
+        "docs/02-architecture/design-reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/**",
+        "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_contract_foundation.py",
+        "evidence/implementation/openapi-cliente-typescript-e-contratos-cli-jobs-ev/crs-dbschema-epic-parte-1/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
