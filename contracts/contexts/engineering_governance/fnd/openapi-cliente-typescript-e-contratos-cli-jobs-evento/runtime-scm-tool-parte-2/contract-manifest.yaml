@@ -1,0 +1,82 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-004
+  story_id: STORY-0702
+  issue_id: ISSUE-0812
+  task_id: TASK-0702
+contract:
+  id: runtime-schema-conformance
+  schema: contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/runtime-schema-conformance.schema.json
+  example: contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/examples/runtime-schema-conformance.json
+  extends: contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/examples/contract-foundation.json
+compatibility:
+  policy: SEMVER
+  compatible_change: OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR
+  breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
+  reader_writer_window: EXPLICIT_SUPPORTED_MAJORS_PER_CONTRACT
+  unknown_major: REJECT
+  unknown_properties: REJECT
+runtime:
+  implementation: NOT_INCLUDED
+  http: REFERENCED_NOT_CHANGED
+  persistence: NOT_CHANGED
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+  contract_rollback: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+acceptance_criteria:
+- AC-ISSUE-0812-01
+- AC-ISSUE-0812-02
+- AC-ISSUE-0812-03
+- AC-ISSUE-0812-04
+requirements:
+- id: REQ-RUNTIME-008
+  control: /controls/surface_semantics
+  test: test_runtime_decision_8
+  failure_modes:
+  - DUPLICATED_APPLICATION_SERVICE
+  - DIVERGENT_SURFACE_SEMANTICS
+  - FRONTEND_REINTERPRETS_PUBLISHED_CONTRACT
+  - SURFACE_SPECIFIC_BUSINESS_RULE
+- id: REQ-SCM-001
+  control: /controls/schema_compatibility
+  test: test_versioned_schema_registry_reader_writer_compatibility_window_and_unknown_major_rejection
+  failure_modes:
+  - UNVERSIONED_SCHEMA
+  - CATEGORY_MISSING_FROM_REGISTRY
+  - READER_WRITER_MATRIX_MISSING
+  - COMPATIBILITY_WINDOW_IMPLICIT
+  - UNKNOWN_MAJOR_ACCEPTED
+- id: REQ-TOOL-003
+  control: /controls/http_adapter
+  test: test_fastapi_openapi_contract
+  failure_modes:
+  - FASTAPI_OR_PYDANTIC_OUTSIDE_HTTP_ADAPTER
+  - FAT_HTTP_ADAPTER
+  - TRANSPORT_DOMAIN_OR_PERSISTENCE_MODEL_SHARED
+  - ROUTE_ACCESSES_ORM_FILESYSTEM_BROKER_OR_GEO_ALGORITHM
+- id: REQ-TOP-001
+  control: /controls/surface_semantics
+  test: cli_api_semantic_contract
+  failure_modes:
+  - ALTERNATIVE_USE_CASE_IMPLEMENTATION
+  - CLI_API_CONTRACT_DIVERGENCE
+  - INCOMPATIBLE_ERROR_OR_IDEMPOTENCY_SEMANTICS
+- id: REQ-UX-002
+  control: /controls/processing_plan_composition
+  test: test_no_duplicate_modes_processing_plan_roundtrip
+  failure_modes:
+  - DUPLICATE_CAPABILITY_OR_MODE
+  - UNVERSIONED_PROCESSING_PLAN
+  - LOSSY_PROCESSING_PLAN_ROUND_TRIP
+  - UNREGISTERED_CAPABILITY_ACCEPTED
+  - AUTHORIZATION_COMPATIBILITY_OR_SCIENTIFIC_GATE_BYPASS
+proof:
+  required_tests:
+  - test_runtime_decision_8
+  - test_versioned_schema_registry_reader_writer_compatibility_window_and_unknown_major_rejection
+  - test_fastapi_openapi_contract
+  - cli_api_semantic_contract
+  - test_no_duplicate_modes_processing_plan_roundtrip

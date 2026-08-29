@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/runtime-schema-conformance/1.0.0",
+  "title": "Runtime and Schema Conformance Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "profile_id",
+    "profile_version",
+    "owner",
+    "status",
+    "controls"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "profile_id": { "const": "RUNTIME-SCHEMA-CONFORMANCE" },
+    "profile_version": { "const": "1.0.0" },
+    "owner": { "const": "BC-001" },
+    "status": { "const": "FROZEN" },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "surface_semantics",
+        "schema_compatibility",
+        "http_adapter",
+        "processing_plan_composition",
+        "versioned_artifacts"
+      ],
+      "properties": {
+        "surface_semantics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "application_services",
+            "contract_source",
+            "cli",
+            "api",
+            "frontend",
+            "semantic_equivalence",
+            "surface_specific_business_rule"
+          ],
+          "properties": {
+            "application_services": { "const": "SHARED" },
+            "contract_source": { "const": "contracts/http/openapi.yaml" },
+            "cli": { "const": "THIN_ADAPTER" },
+            "api": { "const": "THIN_ADAPTER" },
+            "frontend": { "const": "PUBLISHED_CONTRACT_CONSUMER" },
+            "semantic_equivalence": { "const": "REQUIRED" },
+            "surface_specific_business_rule": { "const": "REJECT" }
+          }
+        },
+        "schema_compatibility": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "registry",
+            "categories",
+            "schema_version",
+            "reader_writer_matrix",
+            "compatibility_window",
+            "reader_policy",
+            "writer_policy",
+            "unknown_major"
+          ],
+          "properties": {
+            "registry": { "const": "VERSIONED" },
+            "categories": {
+              "type": "array",
+              "prefixItems": [
+                { "const": "DATABASE" },
+                { "const": "API" },
+                { "const": "EVENT" },
+                { "const": "MANIFEST" },
+                { "const": "ARTIFACT" }
+              ],
+              "items": false,
+              "minItems": 5,
+              "maxItems": 5
+            },
+            "schema_version": { "const": "REQUIRED" },
+            "reader_writer_matrix": { "const": "EXPLICIT_PER_CONTRACT" },
+            "compatibility_window": { "const": "DECLARED_SUPPORTED_MAJORS" },
+            "reader_policy": { "const": "REGISTERED_MAJOR_ONLY" },
+            "writer_policy": { "const": "CURRENT_REGISTERED_MAJOR_ONLY" },
+            "unknown_major": { "const": "REJECT" }
+          }
+        },
+        "http_adapter": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "framework",
+            "transport_models",
+            "contract",
+            "adapter_role",
+            "mapping",
+            "forbidden_direct_dependencies",
+            "framework_outside_adapter"
+          ],
+          "properties": {
+            "framework": { "const": "FASTAPI_PYDANTIC" },
+            "transport_models": { "const": "HTTP_ADAPTER_ONLY" },
+            "contract": { "const": "OPENAPI_3_1" },
+            "adapter_role": { "const": "THIN" },
+            "mapping": { "const": "EXPLICIT_TRANSPORT_DOMAIN_PERSISTENCE" },
+            "forbidden_direct_dependencies": {
+              "type": "array",
+              "prefixItems": [
+                { "const": "ORM" },
+                { "const": "FILESYSTEM" },
+                { "const": "BROKER" },
+                { "const": "GEOSPATIAL_ALGORITHM" }
+              ],
+              "items": false,
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "framework_outside_adapter": { "const": "REJECT" }
+          }
+        },
+        "processing_plan_composition": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "contract",
+            "composition_field",
+            "capability_source",
+            "capability_identity",
+            "duplicate_mode",
+            "round_trip",
+            "unregistered_capability",
+            "gate_bypass"
+          ],
+          "properties": {
+            "contract": { "const": "contracts/domain/processing-plan.schema.json" },
+            "composition_field": { "const": "capabilities" },
+            "capability_source": { "const": "VERSIONED_LOCAL_REGISTRY" },
+            "capability_identity": { "const": "UNIQUE" },
+            "duplicate_mode": { "const": "PROHIBITED" },
+            "round_trip": { "const": "LOSSLESS_CANONICAL" },
+            "unregistered_capability": { "const": "REJECT" },
+            "gate_bypass": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["authorization", "compatibility", "scientific_gate"],
+              "properties": {
+                "authorization": { "const": false },
+                "compatibility": { "const": false },
+                "scientific_gate": { "const": false }
+              }
+            }
+          }
+        },
+        "versioned_artifacts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "processing_plan",
+            "quality_report",
+            "failure_diagnostic",
+            "version_source",
+            "immutable_published_version",
+            "unknown_or_unversioned_contract"
+          ],
+          "properties": {
+            "processing_plan": { "const": "contracts/domain/processing-plan.schema.json" },
+            "quality_report": { "const": "contracts/domain/quality-report.schema.json" },
+            "failure_diagnostic": { "const": "contracts/domain/failure-diagnostic.schema.json" },
+            "version_source": { "const": "SCHEMA_ID_SEMVER" },
+            "immutable_published_version": { "const": true },
+            "unknown_or_unversioned_contract": { "const": "REJECT" }
+          }
+        }
+      }
+    }
+  }
+}

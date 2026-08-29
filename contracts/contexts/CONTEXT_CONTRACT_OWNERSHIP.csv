@@ -58,6 +58,9 @@ contracts/contexts/engineering_governance/fnd/repositorio-privado-project-centra
 contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/examples/contract-foundation.json,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/contract-foundation.schema.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/examples/runtime-schema-conformance.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/runtime-schema-conformance.schema.json,BC-001,contexts,VERSIONED,NO
 contracts/domain/asset.schema.json,BC-003,domain,VERSIONED,NO
 contracts/domain/attempt.schema.json,BC-013,domain,VERSIONED,NO
 contracts/domain/backup-set.schema.json,BC-013,domain,VERSIONED,NO
