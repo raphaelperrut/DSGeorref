@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "OPENAPI-CONTRACT-FOUNDATION-CONFORMANCE",
+  "profile_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "FROZEN",
+  "controls": {
+    "coordinate_boundary": {
+      "scope": "COORDINATES_OUTSIDE_CLOSED_SPACE",
+      "crs": "EXPLICIT",
+      "axis_convention": "EXPLICIT",
+      "unit": "EXPLICIT",
+      "precision": "FLOAT64",
+      "adapter_normalization": "ALWAYS_XY",
+      "invalid_crs": "REJECT"
+    },
+    "versioned_extensions": {
+      "jsonb_usage": "VERSIONED_EXTENSIBILITY_ONLY",
+      "relational_invariants": "REQUIRED",
+      "unknown_extension": "REJECT"
+    },
+    "state_transitions": {
+      "state_catalog": "VERSIONED_TYPED",
+      "transition_policy": "REGISTERED_ONLY",
+      "unknown_state": "REJECT",
+      "invalid_transition": "REJECT"
+    },
+    "generated_client_quality": {
+      "source": "contracts/http/openapi.yaml",
+      "generation": "EXCLUSIVE",
+      "critical_flow_gates": ["COMPONENT", "ACCESSIBILITY", "E2E"],
+      "missing_gate": "REJECT"
+    },
+    "first_functional_slice": {
+      "input_scope": "EXACTLY_ONE_IMAGE",
+      "execution": "END_TO_END",
+      "contract_shape": "BATCH_COMPATIBLE",
+      "scope_expansion": "REJECT"
+    },
+    "processing_plan": {
+      "contract": "contracts/domain/processing-plan.schema.json",
+      "persistence": "REQUIRED",
+      "authority": "POSTGRESQL",
+      "immutability": "REQUIRED",
+      "versioning": "SCHEMA_AND_DIGEST",
+      "explainability": "EXPLICIT_FIELDS_REQUIRED_BY_CONTRACT",
+      "invalid_plan": "REJECT"
+    },
+    "application_boundaries": {
+      "namespace": "dsgeorref",
+      "application_services": "SHARED",
+      "surfaces": {
+        "cli": "THIN_ADAPTER",
+        "api": "THIN_ADAPTER",
+        "worker": "THIN_ADAPTER"
+      }
+    },
+    "domain_errors": {
+      "typed": "REQUIRED",
+      "mapping": "VERSIONED_PROBLEM_DETAILS",
+      "schema": "contracts/errors/problem-details.schema.json",
+      "unmapped_error": "REJECT"
+    },
+    "typescript_client": {
+      "source": "contracts/http/openapi.yaml",
+      "generation": "EXCLUSIVE",
+      "semantic_diff_gate": "DETERMINISTIC_REQUIRED",
+      "manual_dto_duplication": "PROHIBITED"
+    },
+    "capability_registry": {
+      "scope": "LOCAL",
+      "versioned": true,
+      "auditable": true,
+      "fail_closed": true,
+      "bypass": {
+        "authorization": false,
+        "contract": false,
+        "compatibility": false,
+        "quality_gate": false,
+        "scientific_gate": false
+      }
+    }
+  }
+}

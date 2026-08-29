@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/openapi-contract-foundation-conformance/1.0.0",
+  "title": "OpenAPI Contract Foundation Conformance Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "profile_id",
+    "profile_version",
+    "owner",
+    "status",
+    "controls"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "profile_id": { "const": "OPENAPI-CONTRACT-FOUNDATION-CONFORMANCE" },
+    "profile_version": { "const": "1.0.0" },
+    "owner": { "const": "BC-001" },
+    "status": { "const": "FROZEN" },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "coordinate_boundary",
+        "versioned_extensions",
+        "state_transitions",
+        "generated_client_quality",
+        "first_functional_slice",
+        "processing_plan",
+        "application_boundaries",
+        "domain_errors",
+        "typescript_client",
+        "capability_registry"
+      ],
+      "properties": {
+        "coordinate_boundary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "scope",
+            "crs",
+            "axis_convention",
+            "unit",
+            "precision",
+            "adapter_normalization",
+            "invalid_crs"
+          ],
+          "properties": {
+            "scope": { "const": "COORDINATES_OUTSIDE_CLOSED_SPACE" },
+            "crs": { "const": "EXPLICIT" },
+            "axis_convention": { "const": "EXPLICIT" },
+            "unit": { "const": "EXPLICIT" },
+            "precision": { "const": "FLOAT64" },
+            "adapter_normalization": { "const": "ALWAYS_XY" },
+            "invalid_crs": { "const": "REJECT" }
+          }
+        },
+        "versioned_extensions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["jsonb_usage", "relational_invariants", "unknown_extension"],
+          "properties": {
+            "jsonb_usage": { "const": "VERSIONED_EXTENSIBILITY_ONLY" },
+            "relational_invariants": { "const": "REQUIRED" },
+            "unknown_extension": { "const": "REJECT" }
+          }
+        },
+        "state_transitions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state_catalog",
+            "transition_policy",
+            "unknown_state",
+            "invalid_transition"
+          ],
+          "properties": {
+            "state_catalog": { "const": "VERSIONED_TYPED" },
+            "transition_policy": { "const": "REGISTERED_ONLY" },
+            "unknown_state": { "const": "REJECT" },
+            "invalid_transition": { "const": "REJECT" }
+          }
+        },
+        "generated_client_quality": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "generation", "critical_flow_gates", "missing_gate"],
+          "properties": {
+            "source": { "const": "contracts/http/openapi.yaml" },
+            "generation": { "const": "EXCLUSIVE" },
+            "critical_flow_gates": {
+              "type": "array",
+              "prefixItems": [
+                { "const": "COMPONENT" },
+                { "const": "ACCESSIBILITY" },
+                { "const": "E2E" }
+              ],
+              "items": false,
+              "minItems": 3
+            },
+            "missing_gate": { "const": "REJECT" }
+          }
+        },
+        "first_functional_slice": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["input_scope", "execution", "contract_shape", "scope_expansion"],
+          "properties": {
+            "input_scope": { "const": "EXACTLY_ONE_IMAGE" },
+            "execution": { "const": "END_TO_END" },
+            "contract_shape": { "const": "BATCH_COMPATIBLE" },
+            "scope_expansion": { "const": "REJECT" }
+          }
+        },
+        "processing_plan": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "contract",
+            "persistence",
+            "authority",
+            "immutability",
+            "versioning",
+            "explainability",
+            "invalid_plan"
+          ],
+          "properties": {
+            "contract": { "const": "contracts/domain/processing-plan.schema.json" },
+            "persistence": { "const": "REQUIRED" },
+            "authority": { "const": "POSTGRESQL" },
+            "immutability": { "const": "REQUIRED" },
+            "versioning": { "const": "SCHEMA_AND_DIGEST" },
+            "explainability": { "const": "EXPLICIT_FIELDS_REQUIRED_BY_CONTRACT" },
+            "invalid_plan": { "const": "REJECT" }
+          }
+        },
+        "application_boundaries": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["namespace", "application_services", "surfaces"],
+          "properties": {
+            "namespace": { "const": "dsgeorref" },
+            "application_services": { "const": "SHARED" },
+            "surfaces": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["cli", "api", "worker"],
+              "properties": {
+                "cli": { "const": "THIN_ADAPTER" },
+                "api": { "const": "THIN_ADAPTER" },
+                "worker": { "const": "THIN_ADAPTER" }
+              }
+            }
+          }
+        },
+        "domain_errors": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["typed", "mapping", "schema", "unmapped_error"],
+          "properties": {
+            "typed": { "const": "REQUIRED" },
+            "mapping": { "const": "VERSIONED_PROBLEM_DETAILS" },
+            "schema": { "const": "contracts/errors/problem-details.schema.json" },
+            "unmapped_error": { "const": "REJECT" }
+          }
+        },
+        "typescript_client": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "generation", "semantic_diff_gate", "manual_dto_duplication"],
+          "properties": {
+            "source": { "const": "contracts/http/openapi.yaml" },
+            "generation": { "const": "EXCLUSIVE" },
+            "semantic_diff_gate": { "const": "DETERMINISTIC_REQUIRED" },
+            "manual_dto_duplication": { "const": "PROHIBITED" }
+          }
+        },
+        "capability_registry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["scope", "versioned", "auditable", "fail_closed", "bypass"],
+          "properties": {
+            "scope": { "const": "LOCAL" },
+            "versioned": { "const": true },
+            "auditable": { "const": true },
+            "fail_closed": { "const": true },
+            "bypass": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "authorization",
+                "contract",
+                "compatibility",
+                "quality_gate",
+                "scientific_gate"
+              ],
+              "properties": {
+                "authorization": { "const": false },
+                "contract": { "const": false },
+                "compatibility": { "const": false },
+                "quality_gate": { "const": false },
+                "scientific_gate": { "const": false }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
