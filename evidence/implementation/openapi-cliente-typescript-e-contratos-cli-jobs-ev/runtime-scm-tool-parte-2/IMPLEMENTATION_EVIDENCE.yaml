@@ -1,0 +1,76 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-004
+  story_id: STORY-0702
+  issue_id: ISSUE-0812
+  task_id: TASK-0702
+candidate:
+  base_commit: 6c4bd80ef239c6c2fb62c43f16095fb638641aff
+  state: READY_FOR_INDEPENDENT_QA
+  owner_context: BC-001
+  implementation_role: Arquiteto
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+correction:
+  previous_qa_sha: c680228446e2a3f50d932b710f354a874b75abb2
+  previous_final_review_sha: 1773ae1995f51b170846b4262f7641a26a8edb3b
+  finding: HIGH-01 - API major 1 checkpoint referenced a MANIFEST schema instead of the canonical frozen OpenAPI contract
+  resolution: API major 1 reader, writer, and checkpoint now bind to contracts/http/openapi.yaml and the canonical test verifies its identity and family
+task_envelope:
+  status: CORRECTED
+  reason: registry, targeted test, evidence, and TaskEnvelope control-plane paths are required by the issue itself
+contract_artifacts:
+- contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/contract-manifest.yaml
+- contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/runtime-schema-conformance.schema.json
+- contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/examples/runtime-schema-conformance.json
+- contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/schema-compatibility-checkpoint.json
+supporting_artifacts:
+- .codex/tasks/TASK-0702.json
+- contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+- docs/02-architecture/design-reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/DESIGN-REVIEW.md
+- tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_runtime_schema_contract.py
+coverage:
+- requirement: REQ-RUNTIME-008
+  test: test_runtime_decision_8
+- requirement: REQ-SCM-001
+  test: test_versioned_schema_registry_reader_writer_compatibility_window_and_unknown_major_rejection
+- requirement: REQ-TOOL-003
+  test: test_fastapi_openapi_contract
+- requirement: REQ-TOP-001
+  test: cli_api_semantic_contract
+- requirement: REQ-UX-002
+  test: test_no_duplicate_modes_processing_plan_roundtrip
+fail_closed_coverage:
+- missing, unknown, or permissive conformance control
+- duplicated application service or divergent surface semantics
+- unversioned schema or missing category in the compatibility registry
+- implicit reader/writer compatibility window or unknown major
+- FastAPI or Pydantic outside the HTTP adapter
+- fat HTTP adapter or forbidden direct dependency
+- duplicate capability presented as a separate mode
+- lossy ProcessingPlan round-trip
+- unregistered capability or authorization, compatibility, or scientific-gate bypass
+contract_impact:
+  kind: NEW_PUBLIC_CONFORMANCE_CONTRACT
+  existing_frozen_contract_changed: false
+  http_changed: false
+  persistence_changed: false
+  migration_required: false
+risks:
+  residual: operational implementation, generated client, and end-to-end surface equivalence remain owned by descendant EPIC-004 stories
+rollback:
+  operational: NOT_APPLICABLE
+  contract: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+validation:
+  targeted_tests: PASS
+  targeted_test_count: 7
+  task_envelope_schema: PASS
+  focused_checks: PASS
+  repository_static_gates: REUSED_FROM_PREVIOUS_QA_SHA
+  local_make_verify: NOT_RERUN_FOR_SENTINEL_CORRECTION
+  git_diff_check: PASS
+  commands:
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_runtime_schema_contract.py -q
+  - git diff --check
+  local_integration_limitation: FOUNDATION_INTEGRATION, PostgreSQL, and RabbitMQ are unavailable on this host; PR CI owns the pinned integration run

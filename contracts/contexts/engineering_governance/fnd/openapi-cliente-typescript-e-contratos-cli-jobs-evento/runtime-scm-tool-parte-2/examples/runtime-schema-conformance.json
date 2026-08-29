@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "RUNTIME-SCHEMA-CONFORMANCE",
+  "profile_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "FROZEN",
+  "controls": {
+    "surface_semantics": {
+      "application_services": "SHARED",
+      "contract_source": "contracts/http/openapi.yaml",
+      "cli": "THIN_ADAPTER",
+      "api": "THIN_ADAPTER",
+      "frontend": "PUBLISHED_CONTRACT_CONSUMER",
+      "semantic_equivalence": "REQUIRED",
+      "surface_specific_business_rule": "REJECT"
+    },
+    "schema_compatibility": {
+      "registry": "VERSIONED",
+      "categories": ["DATABASE", "API", "EVENT", "MANIFEST", "ARTIFACT"],
+      "schema_version": "REQUIRED",
+      "reader_writer_matrix": "EXPLICIT_PER_CONTRACT",
+      "compatibility_window": "DECLARED_SUPPORTED_MAJORS",
+      "reader_policy": "REGISTERED_MAJOR_ONLY",
+      "writer_policy": "CURRENT_REGISTERED_MAJOR_ONLY",
+      "unknown_major": "REJECT"
+    },
+    "http_adapter": {
+      "framework": "FASTAPI_PYDANTIC",
+      "transport_models": "HTTP_ADAPTER_ONLY",
+      "contract": "OPENAPI_3_1",
+      "adapter_role": "THIN",
+      "mapping": "EXPLICIT_TRANSPORT_DOMAIN_PERSISTENCE",
+      "forbidden_direct_dependencies": ["ORM", "FILESYSTEM", "BROKER", "GEOSPATIAL_ALGORITHM"],
+      "framework_outside_adapter": "REJECT"
+    },
+    "processing_plan_composition": {
+      "contract": "contracts/domain/processing-plan.schema.json",
+      "composition_field": "capabilities",
+      "capability_source": "VERSIONED_LOCAL_REGISTRY",
+      "capability_identity": "UNIQUE",
+      "duplicate_mode": "PROHIBITED",
+      "round_trip": "LOSSLESS_CANONICAL",
+      "unregistered_capability": "REJECT",
+      "gate_bypass": {
+        "authorization": false,
+        "compatibility": false,
+        "scientific_gate": false
+      }
+    },
+    "versioned_artifacts": {
+      "processing_plan": "contracts/domain/processing-plan.schema.json",
+      "quality_report": "contracts/domain/quality-report.schema.json",
+      "failure_diagnostic": "contracts/domain/failure-diagnostic.schema.json",
+      "version_source": "SCHEMA_ID_SEMVER",
+      "immutable_published_version": true,
+      "unknown_or_unversioned_contract": "REJECT"
+    }
+  }
+}

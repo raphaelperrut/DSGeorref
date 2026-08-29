@@ -38,6 +38,10 @@
     "docs/02-architecture/adrs/ADR-021-filesystem-gerenciado-roots-e-resolucao-segura.md",
     "docs/02-architecture/adrs/ADR-023-artifactset-manifest-e-bundles-imutaveis.md",
     "docs/02-architecture/adrs/ADR-055-audit-ledger-privacidade-redaction-e-support-bundles.md",
+    "contracts/domain/processing-plan.schema.json",
+    "contracts/domain/quality-report.schema.json",
+    "contracts/domain/failure-diagnostic.schema.json",
+    "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/examples/contract-foundation.json",
     "contracts/http/openapi.yaml",
     "contracts/http/OPERATION_CATALOG.json",
     "contracts/http/API_CONTRACT_INDEX.csv",
@@ -60,8 +64,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0702.json",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
     "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/**",
-    "docs/02-architecture/design-reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/**"
+    "docs/02-architecture/design-reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/**",
+    "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_runtime_schema_contract.py",
+    "evidence/implementation/openapi-cliente-typescript-e-contratos-cli-jobs-ev/runtime-scm-tool-parte-2/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -143,8 +151,12 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0702.json",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
         "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/**",
-        "docs/02-architecture/design-reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/**"
+        "docs/02-architecture/design-reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/**",
+        "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_runtime_schema_contract.py",
+        "evidence/implementation/openapi-cliente-typescript-e-contratos-cli-jobs-ev/runtime-scm-tool-parte-2/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
