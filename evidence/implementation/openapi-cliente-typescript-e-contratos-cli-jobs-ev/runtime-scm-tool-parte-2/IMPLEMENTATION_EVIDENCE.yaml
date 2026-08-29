@@ -14,7 +14,9 @@ candidate:
   approval_claimed: false
 correction:
   previous_qa_sha: c680228446e2a3f50d932b710f354a874b75abb2
-  finding: REQ-SCM-001 requires a real versioned reader/writer compatibility checkpoint
+  previous_final_review_sha: 1773ae1995f51b170846b4262f7641a26a8edb3b
+  finding: HIGH-01 - API major 1 checkpoint referenced a MANIFEST schema instead of the canonical frozen OpenAPI contract
+  resolution: API major 1 reader, writer, and checkpoint now bind to contracts/http/openapi.yaml and the canonical test verifies its identity and family
 task_envelope:
   status: CORRECTED
   reason: registry, targeted test, evidence, and TaskEnvelope control-plane paths are required by the issue itself

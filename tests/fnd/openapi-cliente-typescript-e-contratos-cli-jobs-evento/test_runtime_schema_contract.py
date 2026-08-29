@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import csv
 import json
+import re
 from functools import cache
 from pathlib import Path
 from typing import Any
@@ -122,6 +123,15 @@ def _semver_from_schema_id(schema: dict[str, Any]) -> str:
     return version
 
 
+def _openapi_major(openapi: dict[str, Any]) -> int:
+    server_urls = [server["url"] for server in openapi["servers"]]
+    matches = [re.fullmatch(r"/api/v(\d+)", url) for url in server_urls]
+    assert all(matches), "OpenAPI server URL must identify its API major"
+    majors = {int(match.group(1)) for match in matches if match is not None}
+    assert len(majors) == 1
+    return majors.pop()
+
+
 def test_runtime_decision_8() -> None:
     control = _profile()["controls"]["surface_semantics"]
     foundation = _load_json(FOUNDATION_PROFILE_PATH)["controls"][
@@ -179,17 +189,17 @@ def test_versioned_schema_registry_reader_writer_compatibility_window_and_unknow
             if contract_path.suffix == ".yaml"
             else _load_json(contract_path)
         )
-        version = (
-            contract["info"]["version"]
-            if contract_path == OPENAPI_PATH
-            else _semver_from_schema_id(contract)
+        contract_major = (
+            _openapi_major(contract)
+            if entry["category"] == "API"
+            else int(_semver_from_schema_id(contract).split(".", maxsplit=1)[0])
         )
         writer_major = entry["writer"]["major"]
         supported_majors = entry["reader"]["supported_majors"]
         assert entry["reader"]["policy"] == "REGISTERED_MAJOR_ONLY"
         assert entry["writer"]["policy"] == "CURRENT_REGISTERED_MAJOR_ONLY"
         assert supported_majors == sorted(set(supported_majors))
-        assert writer_major == int(version.split(".", maxsplit=1)[0])
+        assert writer_major == contract_major
         compatibility_checkpoints = entry["reader"].get(
             "compatibility_checkpoints", {}
         )
@@ -198,10 +208,19 @@ def test_versioned_schema_registry_reader_writer_compatibility_window_and_unknow
             *(int(major) for major in compatibility_checkpoints),
         }
         for major, checkpoint in compatibility_checkpoints.items():
-            checkpoint_contract = _load_json(ROOT / checkpoint)
-            assert int(_semver_from_schema_id(checkpoint_contract).split(".")[0]) == int(
-                major
-            )
+            checkpoint_path = ROOT / checkpoint
+            if entry["category"] == "API":
+                assert contract_path == checkpoint_path == OPENAPI_PATH
+                checkpoint_contract = _load_yaml(checkpoint_path)
+                assert checkpoint_contract["openapi"] == "3.1.0"
+                assert checkpoint_contract["info"]["title"] == "DSGeorref API"
+                checkpoint_major = _openapi_major(checkpoint_contract)
+            else:
+                checkpoint_contract = _load_json(checkpoint_path)
+                checkpoint_major = int(
+                    _semver_from_schema_id(checkpoint_contract).split(".")[0]
+                )
+            assert checkpoint_major == int(major)
         _require_registered_major(entry["contract"], writer_major)
         with pytest.raises(ValueError, match="UNKNOWN_SCHEMA_MAJOR"):
             _require_registered_major(entry["contract"], max(supported_majors) + 1)

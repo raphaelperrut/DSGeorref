@@ -22,14 +22,14 @@
       "category": "API",
       "reader": {
         "policy": "REGISTERED_MAJOR_ONLY",
-        "supported_majors": [1, 2],
+        "supported_majors": [1],
         "compatibility_checkpoints": {
-          "1": "contracts/artifacts/compatibility/artifact-set-manifest-1.0.0.schema.json"
+          "1": "contracts/http/openapi.yaml"
         }
       },
       "writer": {
         "policy": "CURRENT_REGISTERED_MAJOR_ONLY",
-        "major": 2
+        "major": 1
       }
     },
     {
