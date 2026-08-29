@@ -55,6 +55,9 @@ contracts/contexts/engineering_governance/fnd/repositorio-privado-project-centra
 contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/worker-parte-2/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/worker-parte-2/examples/worker-governance-conformance.json,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/worker-parte-2/worker-governance-conformance.schema.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/consolidacao/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/consolidacao/examples/slice-consolidation.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/consolidacao/slice-consolidation.schema.json,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/examples/contract-foundation.json,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/contract-foundation.schema.json,BC-001,contexts,VERSIONED,NO

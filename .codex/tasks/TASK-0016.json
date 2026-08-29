@@ -52,8 +52,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0016.json",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
     "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/consolidacao/**",
-    "docs/02-architecture/design-reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/consolidacao/**"
+    "docs/02-architecture/design-reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/consolidacao/**",
+    "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_slice_consolidation.py",
+    "evidence/implementation/epic-004/story-0016/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -130,8 +134,12 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0016.json",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
         "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/consolidacao/**",
-        "docs/02-architecture/design-reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/consolidacao/**"
+        "docs/02-architecture/design-reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/consolidacao/**",
+        "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_slice_consolidation.py",
+        "evidence/implementation/epic-004/story-0016/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

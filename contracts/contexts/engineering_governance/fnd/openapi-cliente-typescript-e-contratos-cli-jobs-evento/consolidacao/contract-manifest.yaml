@@ -1,0 +1,45 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-004
+  story_id: STORY-0016
+  issue_id: ISSUE-0126
+  task_id: TASK-0016
+contract:
+  id: openapi-runtime-slice-consolidation
+  schema: contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/consolidacao/slice-consolidation.schema.json
+  example: contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/consolidacao/examples/slice-consolidation.json
+compatibility:
+  policy: SEMVER
+  compatible_change: OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR
+  breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
+  unknown_properties: REJECT
+runtime:
+  implementation: NOT_INCLUDED
+  http: REFERENCED_NOT_CHANGED
+  persistence: NOT_CHANGED
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+  contract_rollback: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+acceptance_criteria:
+- AC-ISSUE-0126-01
+- AC-ISSUE-0126-02
+- AC-ISSUE-0126-03
+- AC-ISSUE-0126-04
+slices:
+- story_id: STORY-0701
+  issue_id: ISSUE-0811
+  task_id: TASK-0701
+- story_id: STORY-0702
+  issue_id: ISSUE-0812
+  task_id: TASK-0702
+proof:
+  required_tests:
+  - test_story_0016_slice_consolidation
+  independent_review:
+    authority_role: Reviewer
+    same_candidate_commit: true
+    residual_risks_required: true
+    self_approval: PROHIBITED
