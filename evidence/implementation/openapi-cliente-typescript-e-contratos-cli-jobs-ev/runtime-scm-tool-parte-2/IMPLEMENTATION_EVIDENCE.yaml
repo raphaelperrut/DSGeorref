@@ -12,6 +12,9 @@ candidate:
   implementation_role: Arquiteto
   independent_review: NOT_PERFORMED
   approval_claimed: false
+correction:
+  previous_qa_sha: c680228446e2a3f50d932b710f354a874b75abb2
+  finding: REQ-SCM-001 requires a real versioned reader/writer compatibility checkpoint
 task_envelope:
   status: CORRECTED
   reason: registry, targeted test, evidence, and TaskEnvelope control-plane paths are required by the issue itself
@@ -19,6 +22,7 @@ contract_artifacts:
 - contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/contract-manifest.yaml
 - contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/runtime-schema-conformance.schema.json
 - contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/examples/runtime-schema-conformance.json
+- contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/schema-compatibility-checkpoint.json
 supporting_artifacts:
 - .codex/tasks/TASK-0702.json
 - contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
@@ -58,15 +62,13 @@ rollback:
   contract: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
 validation:
   targeted_tests: PASS
-  targeted_test_count: 19
+  targeted_test_count: 7
   task_envelope_schema: PASS
   focused_checks: PASS
-  repository_static_gates: PASS
-  local_make_verify: STATIC_GATES_PASS_INTEGRATION_REQUIRES_PINNED_CI_SERVICES
+  repository_static_gates: REUSED_FROM_PREVIOUS_QA_SHA
+  local_make_verify: NOT_RERUN_FOR_SENTINEL_CORRECTION
   git_diff_check: PASS
   commands:
-  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_runtime_schema_contract.py tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_contract_foundation.py -q
-  - TASK-0702 validation against .codex/tasks/TASK_ENVELOPE.schema.json
-  - make PYTHON="py -3.12" verify
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_runtime_schema_contract.py -q
   - git diff --check
   local_integration_limitation: FOUNDATION_INTEGRATION, PostgreSQL, and RabbitMQ are unavailable on this host; PR CI owns the pinned integration run

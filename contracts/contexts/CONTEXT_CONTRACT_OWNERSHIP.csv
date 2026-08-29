@@ -61,6 +61,7 @@ contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contr
 contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/examples/runtime-schema-conformance.json,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/runtime-schema-conformance.schema.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/schema-compatibility-checkpoint.json,BC-001,contexts,VERSIONED,NO
 contracts/domain/asset.schema.json,BC-003,domain,VERSIONED,NO
 contracts/domain/attempt.schema.json,BC-013,domain,VERSIONED,NO
 contracts/domain/backup-set.schema.json,BC-013,domain,VERSIONED,NO

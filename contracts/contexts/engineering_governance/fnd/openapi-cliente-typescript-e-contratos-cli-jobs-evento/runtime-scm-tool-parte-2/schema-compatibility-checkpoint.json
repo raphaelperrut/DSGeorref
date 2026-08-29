@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0.0",
+  "checkpoint_id": "RUNTIME-SCHEMA-COMPATIBILITY",
+  "checkpoint_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "FROZEN",
+  "entries": [
+    {
+      "contract": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/contract-foundation.schema.json",
+      "category": "DATABASE",
+      "reader": {
+        "policy": "REGISTERED_MAJOR_ONLY",
+        "supported_majors": [1]
+      },
+      "writer": {
+        "policy": "CURRENT_REGISTERED_MAJOR_ONLY",
+        "major": 1
+      }
+    },
+    {
+      "contract": "contracts/http/openapi.yaml",
+      "category": "API",
+      "reader": {
+        "policy": "REGISTERED_MAJOR_ONLY",
+        "supported_majors": [1, 2],
+        "compatibility_checkpoints": {
+          "1": "contracts/artifacts/compatibility/artifact-set-manifest-1.0.0.schema.json"
+        }
+      },
+      "writer": {
+        "policy": "CURRENT_REGISTERED_MAJOR_ONLY",
+        "major": 2
+      }
+    },
+    {
+      "contract": "contracts/events/job-event.schema.json",
+      "category": "EVENT",
+      "reader": {
+        "policy": "REGISTERED_MAJOR_ONLY",
+        "supported_majors": [1]
+      },
+      "writer": {
+        "policy": "CURRENT_REGISTERED_MAJOR_ONLY",
+        "major": 1
+      }
+    },
+    {
+      "contract": "contracts/artifacts/artifact-set-manifest.schema.json",
+      "category": "MANIFEST",
+      "reader": {
+        "policy": "REGISTERED_MAJOR_ONLY",
+        "supported_majors": [2]
+      },
+      "writer": {
+        "policy": "CURRENT_REGISTERED_MAJOR_ONLY",
+        "major": 2
+      }
+    },
+    {
+      "contract": "contracts/domain/processing-plan.schema.json",
+      "category": "ARTIFACT",
+      "reader": {
+        "policy": "REGISTERED_MAJOR_ONLY",
+        "supported_majors": [1]
+      },
+      "writer": {
+        "policy": "CURRENT_REGISTERED_MAJOR_ONLY",
+        "major": 1
+      }
+    },
+    {
+      "contract": "contracts/domain/quality-report.schema.json",
+      "category": "ARTIFACT",
+      "reader": {
+        "policy": "REGISTERED_MAJOR_ONLY",
+        "supported_majors": [1]
+      },
+      "writer": {
+        "policy": "CURRENT_REGISTERED_MAJOR_ONLY",
+        "major": 1
+      }
+    },
+    {
+      "contract": "contracts/domain/failure-diagnostic.schema.json",
+      "category": "ARTIFACT",
+      "reader": {
+        "policy": "REGISTERED_MAJOR_ONLY",
+        "supported_majors": [1]
+      },
+      "writer": {
+        "policy": "CURRENT_REGISTERED_MAJOR_ONLY",
+        "major": 1
+      }
+    }
+  ]
+}

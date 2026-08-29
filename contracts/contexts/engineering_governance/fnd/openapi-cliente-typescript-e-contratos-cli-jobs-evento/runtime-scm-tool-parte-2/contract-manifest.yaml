@@ -11,9 +11,11 @@ contract:
   id: runtime-schema-conformance
   schema: contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/runtime-schema-conformance.schema.json
   example: contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/examples/runtime-schema-conformance.json
+  registry_checkpoint: contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/schema-compatibility-checkpoint.json
   extends: contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/examples/contract-foundation.json
 compatibility:
   policy: SEMVER
+  checkpoint_version: 1.0.0
   compatible_change: OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR
   breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
   reader_writer_window: EXPLICIT_SUPPORTED_MAJORS_PER_CONTRACT

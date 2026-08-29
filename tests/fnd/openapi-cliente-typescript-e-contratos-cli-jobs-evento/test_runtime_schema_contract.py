@@ -22,9 +22,12 @@ CONTRACT_ROOT = (
 SCHEMA_PATH = CONTRACT_ROOT / "runtime-schema-conformance.schema.json"
 EXAMPLE_PATH = CONTRACT_ROOT / "examples/runtime-schema-conformance.json"
 MANIFEST_PATH = CONTRACT_ROOT / "contract-manifest.yaml"
+REGISTRY_PATH = CONTRACT_ROOT / "schema-compatibility-checkpoint.json"
 OWNERSHIP_PATH = ROOT / "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv"
 TASK_PATH = ROOT / ".codex/tasks/TASK-0702.json"
 OPENAPI_PATH = ROOT / "contracts/http/openapi.yaml"
+JOB_EVENT_PATH = ROOT / "contracts/events/job-event.schema.json"
+ARTIFACT_MANIFEST_PATH = ROOT / "contracts/artifacts/artifact-set-manifest.schema.json"
 PROCESSING_PLAN_PATH = ROOT / "contracts/domain/processing-plan.schema.json"
 QUALITY_REPORT_PATH = ROOT / "contracts/domain/quality-report.schema.json"
 FAILURE_DIAGNOSTIC_PATH = ROOT / "contracts/domain/failure-diagnostic.schema.json"
@@ -93,8 +96,20 @@ def _manifest_entry(requirement: str) -> dict[str, Any]:
     return entry
 
 
-def _require_registered_major(writer_major: int, reader_majors: frozenset[int]) -> None:
-    if writer_major not in reader_majors:
+@cache
+def _registry() -> dict[str, Any]:
+    return _load_json(REGISTRY_PATH)
+
+
+def _registry_entry(contract: str) -> dict[str, Any]:
+    entries = [item for item in _registry()["entries"] if item["contract"] == contract]
+    assert len(entries) == 1
+    return entries[0]
+
+
+def _require_registered_major(contract: str, major: int) -> None:
+    entry = _registry_entry(contract)
+    if major not in entry["reader"]["supported_majors"]:
         raise ValueError("UNKNOWN_SCHEMA_MAJOR")
 
 
@@ -137,9 +152,59 @@ def test_versioned_schema_registry_reader_writer_compatibility_window_and_unknow
     assert control["writer_policy"] == "CURRENT_REGISTERED_MAJOR_ONLY"
     assert control["unknown_major"] == "REJECT"
 
-    _require_registered_major(1, frozenset({1}))
-    with pytest.raises(ValueError, match="UNKNOWN_SCHEMA_MAJOR"):
-        _require_registered_major(2, frozenset({1}))
+    registry = _registry()
+    assert registry["schema_version"] == "1.0.0"
+    assert registry["checkpoint_version"] == "1.0.0"
+    assert registry["status"] == "FROZEN"
+    expected_contracts = {
+        FOUNDATION_PROFILE_PATH.parent.parent / "contract-foundation.schema.json": "DATABASE",
+        OPENAPI_PATH: "API",
+        JOB_EVENT_PATH: "EVENT",
+        ARTIFACT_MANIFEST_PATH: "MANIFEST",
+        PROCESSING_PLAN_PATH: "ARTIFACT",
+        QUALITY_REPORT_PATH: "ARTIFACT",
+        FAILURE_DIAGNOSTIC_PATH: "ARTIFACT",
+    }
+    assert {
+        ROOT / entry["contract"]: entry["category"] for entry in registry["entries"]
+    } == expected_contracts
+
+    registered_contracts = [entry["contract"] for entry in registry["entries"]]
+    assert len(registered_contracts) == len(set(registered_contracts))
+    for entry in registry["entries"]:
+        contract_path = ROOT / entry["contract"]
+        assert contract_path.is_file()
+        contract = (
+            _load_yaml(contract_path)
+            if contract_path.suffix == ".yaml"
+            else _load_json(contract_path)
+        )
+        version = (
+            contract["info"]["version"]
+            if contract_path == OPENAPI_PATH
+            else _semver_from_schema_id(contract)
+        )
+        writer_major = entry["writer"]["major"]
+        supported_majors = entry["reader"]["supported_majors"]
+        assert entry["reader"]["policy"] == "REGISTERED_MAJOR_ONLY"
+        assert entry["writer"]["policy"] == "CURRENT_REGISTERED_MAJOR_ONLY"
+        assert supported_majors == sorted(set(supported_majors))
+        assert writer_major == int(version.split(".", maxsplit=1)[0])
+        compatibility_checkpoints = entry["reader"].get(
+            "compatibility_checkpoints", {}
+        )
+        assert set(supported_majors) == {
+            writer_major,
+            *(int(major) for major in compatibility_checkpoints),
+        }
+        for major, checkpoint in compatibility_checkpoints.items():
+            checkpoint_contract = _load_json(ROOT / checkpoint)
+            assert int(_semver_from_schema_id(checkpoint_contract).split(".")[0]) == int(
+                major
+            )
+        _require_registered_major(entry["contract"], writer_major)
+        with pytest.raises(ValueError, match="UNKNOWN_SCHEMA_MAJOR"):
+            _require_registered_major(entry["contract"], max(supported_majors) + 1)
 
     for path in (PROCESSING_PLAN_PATH, QUALITY_REPORT_PATH, FAILURE_DIAGNOSTIC_PATH):
         schema = _load_json(path)
@@ -227,11 +292,18 @@ def test_contract_package_is_registered_and_envelope_is_contained() -> None:
     assert manifest["contract_version"] == _profile()["profile_version"] == "1.0.0"
     assert {item["id"] for item in manifest["requirements"]} == set(REQUIREMENT_TESTS)
     assert manifest["proof"]["required_tests"] == list(REQUIREMENT_TESTS.values())
+    assert manifest["contract"]["registry_checkpoint"] == REGISTRY_PATH.relative_to(
+        ROOT
+    ).as_posix()
+    assert manifest["compatibility"]["checkpoint_version"] == _registry()[
+        "checkpoint_version"
+    ]
 
     published = {
         MANIFEST_PATH.relative_to(ROOT).as_posix(),
         SCHEMA_PATH.relative_to(ROOT).as_posix(),
         EXAMPLE_PATH.relative_to(ROOT).as_posix(),
+        REGISTRY_PATH.relative_to(ROOT).as_posix(),
     }
     with OWNERSHIP_PATH.open(encoding="utf-8", newline="") as registry_file:
         registered = {
