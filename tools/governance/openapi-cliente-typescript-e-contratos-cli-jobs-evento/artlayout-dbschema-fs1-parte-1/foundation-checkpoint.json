@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "checkpoint_id": "FOUNDATION-MATERIALIZATION-CHECKPOINT",
+  "owner": "BC-001",
+  "dependency": {
+    "consolidation": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/consolidacao/examples/slice-consolidation.json",
+    "eligible_story": "STORY-0703",
+    "required_state": "READY_FOR_INDEPENDENT_REVIEW"
+  },
+  "canonical_contracts": {
+    "artifact_kind_registry": "contracts/artifacts/artifact-kind-registry.yaml",
+    "artifact_set_manifest": "contracts/artifacts/artifact-set-manifest.schema.json",
+    "failure_diagnostic": "contracts/domain/failure-diagnostic.schema.json",
+    "processing_plan": "contracts/domain/processing-plan.schema.json",
+    "quality_report": "contracts/domain/quality-report.schema.json"
+  },
+  "requirements": [
+    {"id": "REQ-ARTLAYOUT-010", "test": "test_req_artlayout_0010"},
+    {"id": "REQ-DBSCHEMA-002", "test": "test_req_dbschema_002"},
+    {"id": "REQ-DBSCHEMA-004", "test": "test_req_dbschema_004"},
+    {"id": "REQ-FS1-002", "test": "test_first_functional_slice_decision_02"},
+    {"id": "REQ-FS1-003", "test": "test_first_functional_slice_decision_03"},
+    {"id": "REQ-FS1-005", "test": "test_first_functional_slice_decision_05"},
+    {"id": "REQ-FS1-007", "test": "test_first_functional_slice_decision_07"},
+    {"id": "REQ-FS1-008", "test": "test_first_functional_slice_decision_08"},
+    {"id": "REQ-FS1-009", "test": "test_first_functional_slice_decision_09"},
+    {"id": "REQ-FS1-010", "test": "test_first_functional_slice_decision_10"}
+  ],
+  "controls": {
+    "artifact_serving": {
+      "authorization": "REQUIRED",
+      "locator_resolution": "SAFE_REGISTERED_ROOT_ONLY",
+      "unauthorized_or_unsafe": "REJECT"
+    },
+    "identity": {
+      "logical_id": "UUIDV7_APPLICATION_GENERATED",
+      "stable": true,
+      "ordered_when_required": true,
+      "invalid_id": "REJECT"
+    },
+    "time_and_concurrency": {
+      "timestamp": "TIMESTAMPTZ",
+      "locking": "OPTIMISTIC_REVISION_OR_EXPLICIT_LOCK",
+      "concurrency_policy": "EXPLICIT",
+      "implicit_last_write_wins": "REJECT"
+    },
+    "local_inputs": {
+      "source": "LOCAL_AUTHORIZED_REGISTERED_ROOT",
+      "locator": "RELATIVE_OPAQUE",
+      "root_escape": "REJECT"
+    },
+    "ingestion": {
+      "originals": "IMMUTABLE",
+      "sha256": "REQUIRED",
+      "source_identity": "REQUIRED",
+      "metadata": "REQUIRED",
+      "invalid_or_incomplete": "REJECT"
+    },
+    "classic_pipeline": {
+      "execution_order": "CLASSIC_BEFORE_OPTIONAL_AI",
+      "deterministic": true,
+      "replaceable": true,
+      "correspondence_audit": "REQUIRED",
+      "untracked_correspondence": "REJECT"
+    },
+    "sgv": {
+      "mandatory": true,
+      "verdicts": ["accepted", "reviewable", "rejected"],
+      "hard_gate_override": "PROHIBITED",
+      "missing_invalid_or_inconsistent_metric": "REJECT"
+    },
+    "artifact_set": {
+      "immutable": true,
+      "required_kinds": ["COG_RASTER", "PROVENANCE_MANIFEST", "QUALITY_REPORT"],
+      "manifest": "REQUIRED",
+      "lineage": "REQUIRED",
+      "root_digest": "SHA256",
+      "publication": "ATOMIC_AFTER_SGV_ACCEPTED",
+      "partial_or_nonaccepted": "REJECT"
+    },
+    "shared_core": {
+      "application_services": "SHARED",
+      "surfaces": ["REST", "CLI", "DIRECT_RUNNER", "CELERY"],
+      "semantic_equivalence": "REQUIRED",
+      "surface_specific_rule": "REJECT"
+    },
+    "promotion": {
+      "corpus": "VERSIONED_STRATIFIED_INITIAL_CORPUS",
+      "dimensions": ["FALSE_ACCEPTANCE", "QUALITY", "RUNTIME", "SECURITY"],
+      "evidence": "REQUIRED",
+      "failed_or_missing_dimension": "REJECT"
+    }
+  }
+}

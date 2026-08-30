@@ -1,0 +1,84 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-004
+  story_id: STORY-0703
+  issue_id: ISSUE-0813
+  task_id: TASK-0703
+candidate:
+  base_commit: 65e66b2259f9a7a8dd8ab923c9c93c1b66ad099f
+  state: READY_FOR_INDEPENDENT_QA
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+correction:
+  previous_qa_sha: 587aaba8862198fba01cc45e5b134a6e3402350c
+  finding: HIGH-01 - TASK_CONTROL_PLANE_UNAUTHORIZED and PATH_OUTSIDE_EFFECTIVE_SCOPE
+  authority_checkpoint: 8ff480d96d65243d6dcc61d6eff2153bcb2b81d1
+  resolution: TaskEnvelope mutation now derives authority from the frozen checkpoint and Tech Lead role policy; only the exact focused test and implementation evidence paths were added to payload scope
+task_envelope:
+  status: CORRECTED
+  reason: focused test and exact evidence paths are required by AC-ISSUE-0813-01 through AC-ISSUE-0813-04; TaskEnvelope control-plane authority is separate and not self-allowlisted
+implementation_artifacts:
+- tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/foundation-checkpoint.json
+- tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/validate_foundation.py
+supporting_artifacts:
+- .codex/tasks/TASK-0703.json
+- docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/FOUNDATION_MATERIALIZATION.md
+- tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_foundation_materialization.py
+coverage:
+- requirement: REQ-ARTLAYOUT-010
+  test: test_req_artlayout_0010
+- requirement: REQ-DBSCHEMA-002
+  test: test_req_dbschema_002
+- requirement: REQ-DBSCHEMA-004
+  test: test_req_dbschema_004
+- requirement: REQ-FS1-002
+  test: test_first_functional_slice_decision_02
+- requirement: REQ-FS1-003
+  test: test_first_functional_slice_decision_03
+- requirement: REQ-FS1-005
+  test: test_first_functional_slice_decision_05
+- requirement: REQ-FS1-007
+  test: test_first_functional_slice_decision_07
+- requirement: REQ-FS1-008
+  test: test_first_functional_slice_decision_08
+- requirement: REQ-FS1-009
+  test: test_first_functional_slice_decision_09
+- requirement: REQ-FS1-010
+  test: test_first_functional_slice_decision_10
+fail_closed_coverage:
+- unauthorized serving or unsafe locator resolution
+- unstable identifier or implicit concurrency policy
+- arbitrary root, root escape, mutable original, or incomplete ingest evidence
+- nondeterministic classic pipeline or unaudited correspondence
+- optional SGV, invalid tri-state, or hard-gate override
+- partial, mutable, or non-accepted ArtifactSet publication
+- surface-specific business rule or missing shared-core surface
+- promotion without all stratified multidimensional evidence
+- missing or unknown control and canonical contract divergence
+contract_impact:
+  kind: EXECUTABLE_CONFORMANCE_CHECKPOINT
+  existing_frozen_contract_changed: false
+  http_changed: false
+  persistence_changed: false
+  migration_required: false
+risks:
+  residual: runtime materialization and promoted corpus evidence remain owned by explicit downstream EPIC-004 stories and gates
+rollback:
+  operational: REVERT_CANDIDATE_BEFORE_DOWNSTREAM_CONSUMPTION
+  checkpoint: PRESERVE_PINNED_VERSION_AND_PUBLISH_SUCCESSOR_AFTER_CONSUMPTION
+validation:
+  targeted_tests: PASS
+  targeted_test_count: 13
+  task_envelope_schema: PASS
+  scope_authority_validator: PASS
+  repository_verify: NOT_RERUN_CONTROL_PLANE_ONLY
+  related_contract_regression: NOT_RERUN_CONTROL_PLANE_ONLY
+  git_diff_check: PASS
+  commands:
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_foundation_materialization.py -q
+  - make PYTHON="py -3.12" verify
+  - git diff --check
+  local_integration_limitation: FOUNDATION_INTEGRATION=1 and pinned PostgreSQL/RabbitMQ services are unavailable on this host; PR CI owns the integration test

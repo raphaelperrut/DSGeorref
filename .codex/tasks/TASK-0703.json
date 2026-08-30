@@ -69,7 +69,9 @@
   ],
   "allow_paths": [
     "tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/**",
-    "docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/**"
+    "docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/**",
+    "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_foundation_materialization.py",
+    "evidence/implementation/openapi-cliente-typescript-e-contratos-cli-jobs-ev/artlayout-dbschema-fs1-parte-1/IMPLEMENTATION_EVIDENCE.yaml"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -159,7 +161,9 @@
       "status": "PASS",
       "allow_paths": [
         "tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/**",
-        "docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/**"
+        "docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/**",
+        "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_foundation_materialization.py",
+        "evidence/implementation/openapi-cliente-typescript-e-contratos-cli-jobs-ev/artlayout-dbschema-fs1-parte-1/IMPLEMENTATION_EVIDENCE.yaml"
       ],
       "deny_paths": [
         "src/**/epic-*",
