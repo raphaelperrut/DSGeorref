@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0.0",
+  "consolidation_id": "OPENAPI-RUNTIME-SLICE-CONSOLIDATION",
+  "contract_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "FROZEN",
+  "baseline": {
+    "candidate_commit": "94d72f3b324ea48891597e0db4cebdf78676f999",
+    "sprint_review": "SAR-v2.9-PHASE-F",
+    "specification": "SAR-v2.9-PHASE-F"
+  },
+  "slices": [
+    {
+      "story_id": "STORY-0701",
+      "issue_id": "ISSUE-0811",
+      "task_id": "TASK-0701",
+      "merge_commit": "6c4bd80ef239c6c2fb62c43f16095fb638641aff",
+      "contract_id": "openapi-contract-foundation-conformance",
+      "requirements": [
+        "REQ-CRS-002",
+        "REQ-DBSCHEMA-007",
+        "REQ-DBSCHEMA-008",
+        "REQ-EPIC-031",
+        "REQ-FS1-001",
+        "REQ-FS1-004",
+        "REQ-RUN-001",
+        "REQ-RUN-006",
+        "REQ-RUN-008",
+        "REQ-RUN-010"
+      ],
+      "artifacts": [
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/contract-manifest.yaml",
+          "sha256": "e27c7fd1a7fa9994aea3e166099e1c88f3651bf997f2e12c24879f55f2e975bd"
+        },
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/contract-foundation.schema.json",
+          "sha256": "4b9b1431a88e839505ac70c5e8e7708e88bd4b7afcef327a06363d6c3cdd0d08"
+        },
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/examples/contract-foundation.json",
+          "sha256": "414a1510f7e3d403ad16d22dafce67356049108953d7b071d2e1f1249a99f387"
+        }
+      ]
+    },
+    {
+      "story_id": "STORY-0702",
+      "issue_id": "ISSUE-0812",
+      "task_id": "TASK-0702",
+      "merge_commit": "94d72f3b324ea48891597e0db4cebdf78676f999",
+      "contract_id": "runtime-schema-conformance",
+      "requirements": [
+        "REQ-RUNTIME-008",
+        "REQ-SCM-001",
+        "REQ-TOOL-003",
+        "REQ-TOP-001",
+        "REQ-UX-002"
+      ],
+      "artifacts": [
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/contract-manifest.yaml",
+          "sha256": "824e2fff47266968ef7cb2a7359043395d62a4c93f912675e2908b10192a701a"
+        },
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/runtime-schema-conformance.schema.json",
+          "sha256": "625eae016c8d15fe2403d9320affe8f4c9ec4a6d34739852a3887be4f4792511"
+        },
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/examples/runtime-schema-conformance.json",
+          "sha256": "e2effa4efbc5e224c5714b2ba8efeed5df39e9e8aebcf003ffd9929830ee38b4"
+        },
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/schema-compatibility-checkpoint.json",
+          "sha256": "2a544c818c9ba36da38a87707e417ef485834494940676ae1d4602fe9e1395a4"
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "source": "docs/07-assurance/ISSUE_REQUIREMENTS_REVIEW.csv",
+    "requirement_ids": [
+      "REQ-CRS-002",
+      "REQ-DBSCHEMA-007",
+      "REQ-DBSCHEMA-008",
+      "REQ-EPIC-031",
+      "REQ-FS1-001",
+      "REQ-FS1-004",
+      "REQ-RUN-001",
+      "REQ-RUN-006",
+      "REQ-RUN-008",
+      "REQ-RUN-010",
+      "REQ-RUNTIME-008",
+      "REQ-SCM-001",
+      "REQ-TOOL-003",
+      "REQ-TOP-001",
+      "REQ-UX-002"
+    ],
+    "duplicates": [],
+    "unassigned": []
+  },
+  "integration": {
+    "composition": "ORDERED_PUBLISHED_CONTRACT_EXTENSION",
+    "profile_namespaces": [
+      "OPENAPI-CONTRACT-FOUNDATION-CONFORMANCE",
+      "RUNTIME-SCHEMA-CONFORMANCE"
+    ],
+    "extension_relationship": {
+      "base_profile": "OPENAPI-CONTRACT-FOUNDATION-CONFORMANCE",
+      "extension_profile": "RUNTIME-SCHEMA-CONFORMANCE",
+      "declared_by": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/contract-manifest.yaml"
+    },
+    "contract_collisions": [],
+    "redundant_implementations": [],
+    "runtime_materialization": "DOWNSTREAM_STORIES_ONLY"
+  },
+  "review_gate": {
+    "authority_role": "Reviewer",
+    "same_candidate_commit": true,
+    "residual_risks_required": true,
+    "self_approval": "PROHIBITED",
+    "candidate_state": "READY_FOR_INDEPENDENT_REVIEW",
+    "eligible_dependents": [
+      "STORY-0018",
+      "STORY-0703",
+      "STORY-0704",
+      "STORY-0705"
+    ],
+    "released_dependents": []
+  }
+}
