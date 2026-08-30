@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "checkpoint_id": "RUN-RUNTIME-FOUNDATION-CHECKPOINT",
+  "owner": "BC-001",
+  "dependency": {
+    "consolidation": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/consolidacao/examples/slice-consolidation.json",
+    "eligible_story": "STORY-0704",
+    "required_state": "READY_FOR_INDEPENDENT_REVIEW"
+  },
+  "canonical_contracts": {
+    "foundation_profile": {
+      "path": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/examples/contract-foundation.json",
+      "sha256": "414a1510f7e3d403ad16d22dafce67356049108953d7b071d2e1f1249a99f387"
+    },
+    "runtime_profile": {
+      "path": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/examples/runtime-schema-conformance.json",
+      "sha256": "e2effa4efbc5e224c5714b2ba8efeed5df39e9e8aebcf003ffd9929830ee38b4"
+    }
+  },
+  "requirements": [
+    {"id": "REQ-RUN-002", "test": "test_req_run_002"},
+    {"id": "REQ-RUN-003", "test": "test_req_run_003"},
+    {"id": "REQ-RUN-004", "test": "test_req_run_004"},
+    {"id": "REQ-RUN-005", "test": "test_req_run_005"},
+    {"id": "REQ-RUN-007", "test": "test_req_run_007"},
+    {"id": "REQ-RUN-009", "test": "test_req_run_009"},
+    {"id": "REQ-RUNTIME-001", "test": "test_runtime_decision_1"},
+    {"id": "REQ-RUNTIME-002", "test": "test_runtime_decision_2"},
+    {"id": "REQ-RUNTIME-003", "test": "test_runtime_decision_3"},
+    {"id": "REQ-RUNTIME-004", "test": "test_runtime_decision_4"}
+  ],
+  "controls": {
+    "application_boundaries": {
+      "namespace": "dsgeorref",
+      "application_services": "SHARED",
+      "surfaces": {
+        "cli": "THIN_ADAPTER",
+        "api": "THIN_ADAPTER",
+        "worker": "THIN_ADAPTER"
+      }
+    },
+    "domain_io_boundary": {
+      "domain_core": "SYNCHRONOUS",
+      "asynchronous_io": "BOUNDARIES_ONLY",
+      "asynchronous_domain_core": "REJECT"
+    },
+    "composition": {
+      "composition_roots": "EXPLICIT",
+      "dependency_injection": "CONSTRUCTOR",
+      "implicit_composition": "REJECT"
+    },
+    "settings": {
+      "typing": "TYPED",
+      "sources": "STRATIFIED",
+      "required_values": "FAIL_CLOSED",
+      "missing_required_value": "REJECT"
+    },
+    "command_transactions": {
+      "unit_of_work": "EXPLICIT",
+      "transactions": "SHORT",
+      "implicit_or_long_transaction": "REJECT"
+    },
+    "repeatable_mutations": {
+      "idempotency": "PERSISTENT",
+      "volatile_idempotency": "REJECT"
+    },
+    "logging": {
+      "envelope": "STRUCTURED",
+      "correlation_ids": "REQUIRED",
+      "redaction": "CENTRALIZED",
+      "uncorrelated_or_unredacted": "REJECT"
+    },
+    "domain_errors": {
+      "typed": "REQUIRED",
+      "mapping": "VERSIONED_PROBLEM_DETAILS",
+      "schema": "contracts/errors/problem-details.schema.json",
+      "unmapped_error": "REJECT"
+    },
+    "state_authority": {
+      "system_of_record": "POSTGRESQL_POSTGIS",
+      "broker": "TRANSPORT_ONLY",
+      "logs": "DERIVED_NOT_AUTHORITATIVE",
+      "filesystem": "BINARY_STORAGE_NOT_STATE_AUTHORITY"
+    }
+  }
+}

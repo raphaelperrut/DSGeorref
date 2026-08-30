@@ -1,0 +1,85 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-004
+  story_id: STORY-0704
+  issue_id: ISSUE-0814
+  task_id: TASK-0704
+candidate:
+  base_commit: 4146a6da9be5a404c90d7a3bd024f233d1bcfbf3
+  authority_checkpoint: 5bb80df2ae4b648d9528a3cc0a8dc104dbbe8134
+  state: READY_FOR_INDEPENDENT_QA
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  status: CORRECTED
+  reason: focused test and exact implementation evidence paths are required by AC-ISSUE-0814-01 through AC-ISSUE-0814-04
+  control_plane_authority: frozen checkpoint plus Tech Lead role policy
+  self_allowlisted: false
+implementation_artifacts:
+- tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/run-runtime-parte-2/runtime-foundation-checkpoint.json
+- tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/run-runtime-parte-2/validate_runtime_foundation.py
+supporting_artifacts:
+- .codex/tasks/TASK-0704.json
+- docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/run-runtime-parte-2/RUNTIME_FOUNDATION.md
+- tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_run_runtime_foundation.py
+coverage:
+- requirement: REQ-RUN-002
+  test: test_req_run_002
+- requirement: REQ-RUN-003
+  test: test_req_run_003
+- requirement: REQ-RUN-004
+  test: test_req_run_004
+- requirement: REQ-RUN-005
+  test: test_req_run_005
+- requirement: REQ-RUN-007
+  test: test_req_run_007
+- requirement: REQ-RUN-009
+  test: test_req_run_009
+- requirement: REQ-RUNTIME-001
+  test: test_runtime_decision_1
+- requirement: REQ-RUNTIME-002
+  test: test_runtime_decision_2
+- requirement: REQ-RUNTIME-003
+  test: test_runtime_decision_3
+- requirement: REQ-RUNTIME-004
+  test: test_runtime_decision_4
+fail_closed_coverage:
+- async or framework-dependent domain core
+- implicit composition or non-constructor dependency injection
+- untyped, unstratified, best-effort, or silently defaulted required settings
+- implicit Unit of Work or unbounded transaction
+- volatile or in-memory idempotency
+- uncorrelated structured logging or locally optional redaction
+- alternate namespace, fat surface adapter, or duplicated application service
+- broker promoted from transport to state authority
+- untyped or unmapped domain-error fallback
+- missing or unknown control, invalid dependency, contract digest divergence, or unreadable checkpoint
+contract_impact:
+  kind: EXECUTABLE_CONFORMANCE_CHECKPOINT
+  existing_frozen_contract_changed: false
+  frozen_contract_digests_verified: true
+  http_changed: false
+  generated_typescript_client_changed: false
+  persistence_changed: false
+  migration_required: false
+risks:
+  residual: runtime and data-plane implementation remain owned by explicitly assigned downstream EPIC-004 stories and gates
+rollback:
+  operational: REVERT_CANDIDATE_BEFORE_DOWNSTREAM_CONSUMPTION
+  checkpoint: PRESERVE_PINNED_VERSION_AND_PUBLISH_SUCCESSOR_AFTER_CONSUMPTION
+validation:
+  targeted_tests: PASS
+  targeted_test_count: 15
+  python_syntax: PASS
+  task_envelope_json: PASS
+  scope_authority_validator: RUN_ON_FINAL_CANDIDATE
+  repository_verify: RUN_ON_FINAL_CANDIDATE
+  git_diff_check: PASS
+  commands:
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_run_runtime_foundation.py -q
+  - py -3.12 -m py_compile tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/run-runtime-parte-2/validate_runtime_foundation.py tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_run_runtime_foundation.py
+  - make verify
+  - git diff --check
