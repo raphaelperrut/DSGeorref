@@ -67,7 +67,9 @@
   ],
   "allow_paths": [
     "tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/run-runtime-parte-2/**",
-    "docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/run-runtime-parte-2/**"
+    "docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/run-runtime-parte-2/**",
+    "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_run_runtime_foundation.py",
+    "evidence/implementation/openapi-cliente-typescript-e-contratos-cli-jobs-ev/run-runtime-parte-2/IMPLEMENTATION_EVIDENCE.yaml"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -155,7 +157,9 @@
       "status": "PASS",
       "allow_paths": [
         "tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/run-runtime-parte-2/**",
-        "docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/run-runtime-parte-2/**"
+        "docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/run-runtime-parte-2/**",
+        "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_run_runtime_foundation.py",
+        "evidence/implementation/openapi-cliente-typescript-e-contratos-cli-jobs-ev/run-runtime-parte-2/IMPLEMENTATION_EVIDENCE.yaml"
       ],
       "deny_paths": [
         "src/**/epic-*",
