@@ -12,9 +12,14 @@ candidate:
   implementation_role: Tech Lead
   independent_review: NOT_PERFORMED
   approval_claimed: false
+correction:
+  previous_qa_sha: 587aaba8862198fba01cc45e5b134a6e3402350c
+  finding: HIGH-01 - TASK_CONTROL_PLANE_UNAUTHORIZED and PATH_OUTSIDE_EFFECTIVE_SCOPE
+  authority_checkpoint: 8ff480d96d65243d6dcc61d6eff2153bcb2b81d1
+  resolution: TaskEnvelope mutation now derives authority from the frozen checkpoint and Tech Lead role policy; only the exact focused test and implementation evidence paths were added to payload scope
 task_envelope:
   status: CORRECTED
-  reason: focused test, evidence, and TaskEnvelope control-plane paths are required by the issue itself
+  reason: focused test and exact evidence paths are required by AC-ISSUE-0813-01 through AC-ISSUE-0813-04; TaskEnvelope control-plane authority is separate and not self-allowlisted
 implementation_artifacts:
 - tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/foundation-checkpoint.json
 - tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/validate_foundation.py
@@ -68,8 +73,9 @@ validation:
   targeted_tests: PASS
   targeted_test_count: 13
   task_envelope_schema: PASS
-  repository_verify: STATIC_GATES_PASS_INTEGRATION_REQUIRES_PINNED_CI_SERVICES
-  related_contract_regression: PASS_36_TESTS
+  scope_authority_validator: PASS
+  repository_verify: NOT_RERUN_CONTROL_PLANE_ONLY
+  related_contract_regression: NOT_RERUN_CONTROL_PLANE_ONLY
   git_diff_check: PASS
   commands:
   - py -3.12 -m pytest -p no:cacheprovider tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_foundation_materialization.py -q

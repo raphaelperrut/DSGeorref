@@ -182,10 +182,15 @@ def test_checkpoint_requirements_and_task_envelope_are_contained() -> None:
 
     task = json.loads(TASK_PATH.read_text(encoding="utf-8"))
     allow_paths = set(task["allow_paths"])
-    assert ".codex/tasks/TASK-0703.json" in allow_paths
+    assert ".codex/tasks/TASK-0703.json" not in allow_paths
     assert any(path.startswith("tools/governance/openapi-") for path in allow_paths)
     assert str(Path(__file__).relative_to(ROOT)).replace("\\", "/") in allow_paths
-    assert any(path.startswith("evidence/implementation/openapi-") for path in allow_paths)
+    assert (
+        "evidence/implementation/openapi-cliente-typescript-e-contratos-cli-jobs-ev/"
+        "artlayout-dbschema-fs1-parte-1/IMPLEMENTATION_EVIDENCE.yaml"
+        in allow_paths
+    )
+    assert task["allow_paths"] == task["phase_f_review"]["files"]["allow_paths"]
 
 
 def test_checkpoint_cli_reports_pass() -> None:

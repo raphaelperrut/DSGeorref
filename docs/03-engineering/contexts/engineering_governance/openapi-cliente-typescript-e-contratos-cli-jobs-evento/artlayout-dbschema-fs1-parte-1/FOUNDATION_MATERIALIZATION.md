@@ -42,9 +42,11 @@ COG/provenance/quality artifact kinds.
 ## Ownership and containment
 
 The stable production path is capability-based and contains no issue identifier. The
-TaskEnvelope correction adds only its own control-plane file, the focused test, and the
-evidence path already required by the story. No shared registry or frozen contract is
-modified, and no data-plane implementation is introduced into `BC-001`.
+frozen control-plane checkpoint authorizes the TaskEnvelope mutation through the
+canonical Tech Lead role policy, without a self-authorizing allowlist entry. The
+payload allowlist adds only the focused test and exact evidence file already required
+by the story. No shared registry or frozen contract is modified, and no data-plane
+implementation is introduced into `BC-001`.
 
 ## Contract impact, risks, and rollback
 
