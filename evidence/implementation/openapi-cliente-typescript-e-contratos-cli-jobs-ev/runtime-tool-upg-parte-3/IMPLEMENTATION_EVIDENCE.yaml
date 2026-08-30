@@ -1,0 +1,90 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-004
+  story_id: STORY-0705
+  issue_id: ISSUE-0815
+  github_issue: 90
+  task_id: TASK-0705
+candidate:
+  base_commit: a5758ed90f058b061d87a5d74c26ca890675b0b0
+  sha_source: PR_HEAD_AND_FINAL_HANDOFF
+  state: READY_FOR_INDEPENDENT_QA
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  status: CORRECTED
+  reason: the exact focused test and implementation evidence paths are required by AC-ISSUE-0815-01 through AC-ISSUE-0815-04
+  control_plane_authority: approved TaskEnvelope correction plus Tech Lead role policy
+  self_allowlisted: false
+implementation_artifacts:
+- tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-tool-upg-parte-3/runtime-tool-upgrade-foundation-checkpoint.json
+- tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-tool-upg-parte-3/validate_runtime_tool_upgrade_foundation.py
+supporting_artifacts:
+- .codex/tasks/TASK-0705.json
+- docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-tool-upg-parte-3/RUNTIME_TOOL_UPGRADE_FOUNDATION.md
+- tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_runtime_tool_upgrade_foundation.py
+coverage:
+- requirement: REQ-RUNTIME-006
+  test: test_runtime_decision_6
+  controls: published browser contract; no host path, raw broker payload, or direct persistence
+- requirement: REQ-RUNTIME-007
+  test: test_runtime_decision_7
+  controls: authorized registered roots and opaque root/entry identifiers
+- requirement: REQ-TOOL-005
+  test: test_model_boundary_architecture
+  controls: separate domain, transport, and persistence models with explicit mapping
+- requirement: REQ-UPG-005
+  test: test_phased_rollout_limited_mixed_version_window_drain_and_long_job_pinning
+  controls: one-operation mixed-version window, explicit writer drain, and compatible-version long-job pinning
+fail_closed_coverage:
+- missing, unknown, duplicated, mistyped, or permissive requirement/control configuration
+- unreadable, root-escaping, missing, invalid, or digest-divergent dependency/binding
+- browser host-path exposure, raw broker-payload forwarding, or direct persistence access
+- arbitrary/unknown roots, non-opaque selectors, or absolute host paths
+- implicit model mapping or shared model across domain, transport, and persistence boundaries
+- unbounded mixed-version window, implicit writer drain, or unpinned/in-place-migrated long job
+contract_impact:
+  kind: EXECUTABLE_CONFORMANCE_CHECKPOINT
+  new_public_contract: false
+  existing_frozen_contract_changed: false
+  frozen_contract_digests_verified: true
+  openapi_changed: false
+  generated_typescript_client_changed: false
+  domain_event_artifact_schemas_changed: false
+  persistence_changed: false
+  migration_required: false
+limitations:
+- no browser, API, filesystem, broker, persistence, job, or rollout data plane is implemented
+- no UpgradeController, writer-drain executor, long-job migration, new primitive, or new prerequisite is implemented
+- operational mixed-version behavior remains assigned to downstream implementation and independent gates
+- local make verify reached its final pytest target but the sandbox denied pytest temporary-directory setup before one test body; all preceding aggregate validators passed
+risks:
+  residual: checkpoint conformance does not replace live upgrade, drain, compatibility, or long-running-job integration evidence
+rollback:
+  operational: REVERT_CANDIDATE_BEFORE_DOWNSTREAM_CONSUMPTION
+  checkpoint: PRESERVE_PINNED_VERSION_AND_PUBLISH_SUCCESSOR_AFTER_CONSUMPTION
+handoff:
+  contract_impact_recorded: true
+  risks_recorded: true
+  rollback_recorded: true
+  qa_next: independent sentinel QA on exactly the PR-head SHA
+validation:
+  targeted_test_file: PASS
+  targeted_test_count: 4
+  validator_cli: PASS
+  validator_output: '{"status":"PASS","errors":[]}'
+  repository_verify: FAIL
+  repository_verify_failure: ENVIRONMENTAL_PYTEST_BASETEMP_PERMISSION
+  repository_verify_completed_checks: repository, architecture, requirements, DDD, ADR, specification, sprint, Python architecture, and foundation validator all PASS; final pytest had 4 PASS and 1 setup ERROR
+  recovery_check: BLOCKED_BEFORE_TEST_BODY_BY_SANDBOX_TEMP_DIRECTORY_ACCESS
+  git_diff_check: PASS
+  commands:
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_runtime_tool_upgrade_foundation.py -q
+  - py -3.12 tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-tool-upg-parte-3/validate_runtime_tool_upgrade_foundation.py --repo-root .
+  - make verify PYTHON="py -3.12"
+  - py -3.12 -m pytest -p no:cacheprovider --basetemp C:/Users/rapha/AppData/Local/Temp/codex-issue0815-verify-recovery-a5758ed tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation.py::test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done -q
+  - py -3.12 -m pytest -p no:cacheprovider --basetemp .pytest-tmp/issue0815-make-verify-recovery tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation.py::test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done -q
+  - git diff --check

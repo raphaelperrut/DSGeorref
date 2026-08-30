@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "checkpoint_id": "RUNTIME-TOOL-UPGRADE-FOUNDATION-CHECKPOINT",
+  "owner": "BC-001",
+  "dependency": {
+    "consolidation": {
+      "path": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/consolidacao/examples/slice-consolidation.json",
+      "sha256": "d585db2b6d62a807ed55aa2d5c150329a721363ab63ca5a53eb9fb47d4bb0ce3"
+    },
+    "eligible_story": "STORY-0705",
+    "required_state": "READY_FOR_INDEPENDENT_REVIEW"
+  },
+  "canonical_bindings": {
+    "foundation_profile": {
+      "path": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/examples/contract-foundation.json",
+      "sha256": "414a1510f7e3d403ad16d22dafce67356049108953d7b071d2e1f1249a99f387"
+    },
+    "runtime_profile": {
+      "path": "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-scm-tool-parte-2/examples/runtime-schema-conformance.json",
+      "sha256": "e2effa4efbc5e224c5714b2ba8efeed5df39e9e8aebcf003ffd9929830ee38b4"
+    },
+    "http_api": {
+      "path": "contracts/http/openapi.yaml",
+      "sha256": "0f236a4937a5226b1c57cf8c6731750153b5d4cd9d6381c88a6bd2fceca30d52"
+    },
+    "version_and_rollback": {
+      "path": "contracts/operations/version-and-rollback-matrix.yaml",
+      "sha256": "511a2d613773cae3b59edb96a9c065d0a03eee390a0e65b36321a306c4c28a96"
+    },
+    "queue_policy": {
+      "path": "contracts/operations/lock-and-queue-policy.yaml",
+      "sha256": "3b4c2760dc570e3b570db17b236a9e226e58b62eb3b9586f712aaa60b01a8131"
+    }
+  },
+  "requirements": [
+    {"id": "REQ-RUNTIME-006", "test": "test_runtime_decision_6"},
+    {"id": "REQ-RUNTIME-007", "test": "test_runtime_decision_7"},
+    {"id": "REQ-TOOL-005", "test": "test_model_boundary_architecture"},
+    {"id": "REQ-UPG-005", "test": "test_phased_rollout_limited_mixed_version_window_drain_and_long_job_pinning"}
+  ],
+  "controls": {
+    "browser_boundary": {
+      "surface": "PUBLISHED_HTTP_CONTRACT_ONLY",
+      "host_paths": "PROHIBITED",
+      "broker_payloads": "PROHIBITED",
+      "direct_persistence": "PROHIBITED",
+      "violation": "REJECT"
+    },
+    "authorized_selection": {
+      "roots": "AUTHORIZED_REGISTERED_ONLY",
+      "root_identifier": "OPAQUE_UUID",
+      "entry_identifier": "OPAQUE_STRING",
+      "absolute_host_path": "REJECT",
+      "unknown_root_or_entry": "REJECT"
+    },
+    "model_boundaries": {
+      "domain_models": "SEPARATE",
+      "transport_models": "SEPARATE_HTTP_ADAPTER_ONLY",
+      "persistence_models": "SEPARATE_ADAPTER_ONLY",
+      "mapping": "EXPLICIT_TRANSPORT_DOMAIN_PERSISTENCE",
+      "shared_boundary_model": "REJECT"
+    },
+    "upgrade_rollout": {
+      "mixed_version_window": "ONE_UPGRADE_OPERATION",
+      "writers": "SINGLE_VERSION",
+      "writer_drain": "EXPLICIT_REQUIRED_BEFORE_CUTOVER",
+      "long_jobs": "PINNED_TO_COMPATIBLE_VERSION_UNTIL_COMPLETION",
+      "incompatible_or_unpinned": "REJECT"
+    }
+  }
+}
