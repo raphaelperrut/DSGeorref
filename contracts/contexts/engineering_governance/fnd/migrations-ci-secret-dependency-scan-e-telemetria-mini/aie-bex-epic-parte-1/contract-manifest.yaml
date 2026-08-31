@@ -1,0 +1,124 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-005
+  story_id: STORY-0706
+  issue_id: ISSUE-0816
+  task_id: TASK-0706
+contract:
+  id: migrations-ci-observability-foundation
+  schema: contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-epic-parte-1/contract-foundation.schema.json
+  example: contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-epic-parte-1/examples/contract-foundation.json
+compatibility:
+  policy: SEMVER
+  compatible_change: OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR
+  breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
+  unknown_properties: REJECT
+runtime:
+  implementation: NOT_INCLUDED
+  http: REFERENCED_NOT_CHANGED
+  persistence: DECLARATIVE_REQUIREMENT_ONLY
+  migration: DECLARATIVE_UPGRADE_ROLLBACK_REQUIRED
+  operational_rollback: BEFORE_CONTRACT_OR_FORWARD_FIX_RESTORE
+  contract_rollback: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+acceptance_criteria:
+- AC-ISSUE-0816-01
+- AC-ISSUE-0816-02
+- AC-ISSUE-0816-03
+- AC-ISSUE-0816-04
+requirements:
+- id: REQ-AIE-001
+  control: /controls/ai_escalation
+  test: test_ai_escalation_decision_01
+  failure_modes:
+  - UNCLASSIFIED_CLASSIC_FAILURE
+  - UNVERSIONED_NEURAL_ELIGIBILITY
+  - CLASSIC_EVIDENCE_MISSING
+  - ELIGIBILITY_BYPASS
+- id: REQ-AIE-005
+  control: /controls/canonical_reuse
+  test: test_ai_escalation_decision_05
+  failure_modes:
+  - NONCANONICAL_CHECKPOINT_REUSED
+  - NONCANONICAL_ARTIFACT_REUSED
+  - COMPATIBILITY_EVIDENCE_MISSING
+  - DIGEST_MISMATCH_ACCEPTED
+- id: REQ-BEX-003
+  control: /controls/batch_execution
+  test: test_batch_execution_decision_03
+  failure_modes:
+  - IMAGE_VERDICT_DISCARDED
+  - PARTIAL_SUCCESS_COLLAPSED
+  - AGGREGATE_OVERWRITES_IMAGE_RESULT
+- id: REQ-BEX-005
+  control: /controls/retry_boundary
+  test: test_batch_execution_decision_05
+  failure_modes:
+  - TECHNICAL_RETRY_RECORDED_AS_ALGORITHMIC_ATTEMPT
+  - ALGORITHMIC_ATTEMPT_NOT_VERSIONED
+  - PROCESSING_PLAN_DIGEST_MISSING
+  - AMBIGUOUS_RETRY_ACCEPTED
+- id: REQ-EPIC-012
+  control: /controls/schema_migrations
+  test: migration_upgrade_rollback
+  failure_modes:
+  - UNVERSIONED_SCHEMA_CHANGE
+  - IMPLICIT_RESTART_MIGRATION
+  - PREFLIGHT_MISSING
+  - CUTOVER_WITHOUT_ROLLBACK_DECISION
+- id: REQ-FS1-001
+  control: /controls/first_functional_slice
+  test: test_first_functional_slice_decision_01
+  failure_modes:
+  - MULTIPLE_IMAGE_SCOPE
+  - NON_END_TO_END_SLICE
+  - CONTRACT_NOT_BATCH_COMPATIBLE
+  - IMPLICIT_SCOPE_EXPANSION
+- id: REQ-FS1-004
+  control: /controls/processing_plan
+  test: test_first_functional_slice_decision_04
+  failure_modes:
+  - PROCESSING_PLAN_NOT_PERSISTED
+  - MUTABLE_PROCESSING_PLAN
+  - UNVERSIONED_PROCESSING_PLAN
+  - UNEXPLAINABLE_PROCESSING_PLAN
+- id: REQ-INS-003
+  control: /controls/installation_readiness
+  test: test_installation_evidence_set_synthetic_canary_offline_readiness_and_failure_codes
+  failure_modes:
+  - STAGE_EVIDENCE_MISSING_OR_STALE
+  - SYNTHETIC_CANARY_FAILED
+  - OFFLINE_EVIDENCE_MISSING
+  - UNTYPED_FAILURE_CODE
+  - READINESS_SILENT_FALLBACK
+- id: REQ-ISS-007
+  control: /controls/acceptance_evidence
+  test: test_acceptance_evidence_derivation_and_contract_change_review
+  failure_modes:
+  - ACCEPTANCE_NOT_DERIVED_FROM_CONTRACT
+  - REQUIREMENT_EVIDENCE_MAPPING_MISSING
+  - CONTRACT_CHANGED_WITHOUT_EXPLICIT_REVIEW
+  - IMPLICIT_APPROVAL
+- id: REQ-OBS-002
+  control: /controls/telemetry
+  test: test_opentelemetry_context_propagation_exporter_outage
+  failure_modes:
+  - NON_OPENTELEMETRY_PROTOCOL
+  - BACKEND_LOCK_IN
+  - CORRELATION_CHAIN_BROKEN
+  - TELEMETRY_USED_AS_STATE_AUTHORITY
+  - EXPORTER_OUTAGE_SILENT
+proof:
+  required_tests:
+  - test_ai_escalation_decision_01
+  - test_ai_escalation_decision_05
+  - test_batch_execution_decision_03
+  - test_batch_execution_decision_05
+  - migration_upgrade_rollback
+  - test_first_functional_slice_decision_01
+  - test_first_functional_slice_decision_04
+  - test_installation_evidence_set_synthetic_canary_offline_readiness_and_failure_codes
+  - test_acceptance_evidence_derivation_and_contract_change_review
+  - test_opentelemetry_context_propagation_exporter_outage

@@ -1,0 +1,87 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-005
+  story_id: STORY-0706
+  issue_id: ISSUE-0816
+  task_id: TASK-0706
+candidate:
+  base_commit: d450a78d221813860af7d547fc88675ffcfb29c9
+  state: READY_FOR_INDEPENDENT_QA
+  owner_context: BC-001
+  implementation_role: Arquiteto
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  status: CORRECTED
+  reason: registry, targeted test, evidence, and TaskEnvelope control-plane paths are required by the issue itself
+contract_artifacts:
+- contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-epic-parte-1/contract-manifest.yaml
+- contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-epic-parte-1/contract-foundation.schema.json
+- contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-epic-parte-1/examples/contract-foundation.json
+supporting_artifacts:
+- .codex/tasks/TASK-0706.json
+- contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+- docs/02-architecture/design-reviews/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-epic-parte-1/DESIGN-REVIEW.md
+- tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_contract_foundation.py
+coverage:
+- requirement: REQ-AIE-001
+  test: test_ai_escalation_decision_01
+- requirement: REQ-AIE-005
+  test: test_ai_escalation_decision_05
+- requirement: REQ-BEX-003
+  test: test_batch_execution_decision_03
+- requirement: REQ-BEX-005
+  test: test_batch_execution_decision_05
+- requirement: REQ-EPIC-012
+  test: migration_upgrade_rollback
+- requirement: REQ-FS1-001
+  test: test_first_functional_slice_decision_01
+- requirement: REQ-FS1-004
+  test: test_first_functional_slice_decision_04
+- requirement: REQ-INS-003
+  test: test_installation_evidence_set_synthetic_canary_offline_readiness_and_failure_codes
+- requirement: REQ-ISS-007
+  test: test_acceptance_evidence_derivation_and_contract_change_review
+- requirement: REQ-OBS-002
+  test: test_opentelemetry_context_propagation_exporter_outage
+acceptance_evidence:
+- criterion: AC-ISSUE-0816-01
+  evidence: contract manifest maps all ten requirements to passing canonical tests
+- criterion: AC-ISSUE-0816-02
+  evidence: ownership registry and TaskEnvelope containment test pass; no src path is allowed
+- criterion: AC-ISSUE-0816-03
+  evidence: negative schema tests reject missing, unknown, permissive, or silent-fallback controls
+- criterion: AC-ISSUE-0816-04
+  evidence: DESIGN-REVIEW.md records contract impact, residual risk, limitations, and rollback
+fail_closed_coverage:
+- unclassified classic failure or implicit neural eligibility
+- noncanonical or incompatible checkpoint and artifact reuse
+- discarded image verdict or collapsed partial success
+- ambiguous retry boundary or unversioned algorithmic attempt
+- unversioned or implicit schema migration without rollback decision
+- first-slice scope expansion or invalid ProcessingPlan
+- readiness without stage evidence, synthetic canary, offline evidence, or typed failure code
+- acceptance not derived from contracts or contract change without review
+- broken correlation, backend lock-in, exporter outage, or telemetry used as state authority
+contract_impact:
+  kind: NEW_PUBLIC_CONFORMANCE_CONTRACT
+  existing_frozen_contract_changed: false
+  http_changed: false
+  persistence_changed: false
+  migration_required: false
+rollback:
+  operational: NOT_APPLICABLE_FOR_DECLARATIVE_SLICE
+  contract: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+validation:
+  targeted_tests: PASS
+  focused_checks: PASS
+  mandatory_make_verify: STATIC_GATES_PASS_INTEGRATION_REQUIRES_PINNED_SERVICES
+  git_diff_check: PASS
+  optional_ruff: NOT_AVAILABLE_ON_HOST
+  commands:
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_contract_foundation.py -q
+  - TASK-0706 validation against .codex/tasks/TASK_ENVELOPE.schema.json
+  - make PYTHON="py -3.12" verify
+  - git diff --check
+  local_integration_limitation: FOUNDATION_INTEGRATION, PostgreSQL, and RabbitMQ are unavailable on this host; PR CI owns the pinned integration run

@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "MIGRATIONS-CI-OBSERVABILITY-FOUNDATION",
+  "profile_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "FROZEN",
+  "controls": {
+    "ai_escalation": {
+      "failure_diagnostic_contract": "contracts/domain/failure-diagnostic.schema.json",
+      "failure_classification": "TYPED_VERSIONED",
+      "neural_eligibility": "VERSIONED_EXPLICIT_DECISION",
+      "classic_evidence": "REQUIRED",
+      "unclassified_failure": "REJECT",
+      "eligibility_bypass": "REJECT"
+    },
+    "canonical_reuse": {
+      "checkpoints": "CANONICAL_ONLY",
+      "artifacts": "CANONICAL_ONLY",
+      "compatibility_evidence": "REQUIRED_BEFORE_REUSE",
+      "digest_verification": "REQUIRED",
+      "incompatible_reuse": "REJECT"
+    },
+    "batch_execution": {
+      "job_contract": "contracts/domain/job.schema.json",
+      "image_verdicts": "PRESERVE_EACH_IMAGE",
+      "partial_success_state": "partially_succeeded",
+      "missing_image_verdict": "REJECT",
+      "aggregate_overwrite": "REJECT"
+    },
+    "retry_boundary": {
+      "attempt_contract": "contracts/domain/attempt.schema.json",
+      "technical_retry": "DISTINCT_FROM_ALGORITHMIC_ATTEMPT",
+      "algorithmic_attempt": "NEW_VERSIONED_ATTEMPT",
+      "processing_plan_digest": "REQUIRED",
+      "ambiguous_retry": "REJECT"
+    },
+    "schema_migrations": {
+      "authority": "POSTGRESQL",
+      "evolution": "VERSIONED_MIGRATIONS_ONLY",
+      "flow": "EXPAND_MIGRATE_CONTRACT",
+      "implicit_restart_migration": "PROHIBITED",
+      "preflight": "REQUIRED",
+      "rollback": "BEFORE_CONTRACT_OR_FORWARD_FIX_RESTORE",
+      "version_matrix": "contracts/operations/version-and-rollback-matrix.yaml",
+      "failed_cutover": "REJECT"
+    },
+    "first_functional_slice": {
+      "input_scope": "EXACTLY_ONE_IMAGE",
+      "execution": "END_TO_END",
+      "contract_shape": "BATCH_COMPATIBLE",
+      "scope_expansion": "REJECT"
+    },
+    "processing_plan": {
+      "contract": "contracts/domain/processing-plan.schema.json",
+      "persistence": "REQUIRED",
+      "authority": "POSTGRESQL",
+      "immutability": "REQUIRED",
+      "versioning": "SCHEMA_AND_DIGEST",
+      "explainability": "EXPLICIT_FIELDS_REQUIRED_BY_CONTRACT",
+      "invalid_plan": "REJECT"
+    },
+    "installation_readiness": {
+      "endpoint_contract": "contracts/http/operations/get_admin_readiness.md",
+      "ready_requires": "ALL_STAGE_EVIDENCE_AND_SYNTHETIC_CANARY",
+      "offline_evidence": "REQUIRED",
+      "failure_codes": "TYPED_REQUIRED",
+      "missing_or_stale_evidence": "NOT_READY",
+      "failed_canary": "NOT_READY",
+      "silent_fallback": "PROHIBITED"
+    },
+    "acceptance_evidence": {
+      "source": "CONTRACTS",
+      "requirement_mapping": "EXPLICIT",
+      "contract_change": "EXPLICIT_ARCHITECT_REVIEW",
+      "missing_evidence": "REJECT",
+      "implicit_approval": "PROHIBITED"
+    },
+    "telemetry": {
+      "protocol": "OPENTELEMETRY",
+      "backend": "REPLACEABLE",
+      "correlation_scope": "REQUEST_JOB_ATTEMPT_WORKER_ARTIFACT_SET",
+      "authority": "NON_AUTHORITATIVE",
+      "audit_channel": "APPEND_ONLY_SEPARATE",
+      "exporter_outage": "KEEP_LOCAL_MINIMUM_SIGNALS",
+      "missing_correlation": "REJECT",
+      "telemetry_as_state_authority": "PROHIBITED"
+    }
+  }
+}
