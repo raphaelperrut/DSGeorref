@@ -1,0 +1,93 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-005
+  story_id: STORY-0708
+  issue_id: ISSUE-0818
+  task_id: TASK-0708
+candidate:
+  base_commit: 4ed28fa5f90f3fc30ec09e2f317f49c7f876e46a
+  state: READY_FOR_SENTINEL_QA
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+  sha_evidence: immutable Git commit and PR handoff
+task_envelope:
+  status: CORRECTED
+  reason: TaskEnvelope control-plane path, focused test, and mandatory evidence were omitted
+implementation_artifacts:
+- tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-parte-1/decision_controls.py
+- docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-parte-1/IMPLEMENTATION.md
+- tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_aie_bex_part_1.py
+- .codex/tasks/TASK-0708.json
+coverage:
+- requirement: REQ-AIE-002
+  test: test_ai_escalation_decision_02
+- requirement: REQ-AIE-003
+  test: test_ai_escalation_decision_03
+- requirement: REQ-AIE-004
+  test: test_ai_escalation_decision_04
+- requirement: REQ-AIE-006
+  test: test_ai_escalation_decision_06
+- requirement: REQ-AIE-007
+  test: test_ai_escalation_decision_07
+- requirement: REQ-AIE-008
+  test: test_ai_escalation_decision_08
+- requirement: REQ-AIE-009
+  test: test_ai_escalation_decision_09
+- requirement: REQ-AIE-010
+  test: test_ai_escalation_decision_10
+- requirement: REQ-BEX-002
+  test: test_batch_execution_decision_02
+- requirement: REQ-BEX-004
+  test: test_batch_execution_decision_04
+acceptance_evidence:
+- criterion: AC-ISSUE-0818-01
+  evidence: all ten requirements map one-to-one to canonical passing tests
+- criterion: AC-ISSUE-0818-02
+  evidence: stable BC-001 tool path; no ticket identifier in production code
+- criterion: AC-ISSUE-0818-03
+  evidence: malformed, missing, contradictory, coercible, and out-of-order evidence is rejected
+- criterion: AC-ISSUE-0818-04
+  evidence: IMPLEMENTATION.md records contract impact, risks, limitations, and rollback
+fail_closed_coverage:
+- classic baseline, checkpoint, or controlled trigger missing
+- nondeterministic or capability-incompatible ModelPack recommendation
+- attempt, time, memory, device, or priority budget not satisfied
+- implicit AI availability failure or nonfunctional classic CPU baseline
+- privileged SGV path or consensus/review inconsistent with risk
+- unsigned, unpinned, unlicensed, non-opt-in, online-only, or implicitly downloaded ModelPack
+- incomplete explanation or attempted quality-gate bypass
+- promotion without corpus, shadow/dual-run, canary, multidimensional gate, or rollback
+- admission before preflight and adaptive chunking, including missing or duplicate stages
+- scheduler evidence without class, fairness version, aging, or audited override
+contract_impact:
+  kind: LOCAL_EXECUTABLE_CONTROL_PLANE
+  existing_frozen_contract_changed: false
+  new_public_contract: false
+  http_changed: false
+  persistence_changed: false
+migration:
+  required: false
+  justification: no schema, table, authoritative state, or persistence path changes in this slice
+rollback:
+  operational: revert the candidate before consumption
+  compatibility: replace with a compatible implementation and rerun the canonical tests after consumption
+scope:
+  sister_slices_anticipated: false
+  issue_0819_changed: false
+  issue_0820_changed: false
+  issue_0821_changed: false
+limitations:
+- validates decision evidence but does not execute AI, SGV, scheduler, migration, CI, scans, or telemetry
+- treats artifact references as inputs; cryptographic verification remains with artifact owners
+- does not claim scientific efficacy or independent QA/review
+validation:
+  targeted_tests: PASS
+  focused_diff_check: PASS
+  repository_required_gate: result recorded in PR handoff against the immutable candidate SHA
+  commands:
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_aie_bex_part_1.py
+  - git diff --check
+  - make PYTHON="py -3.12" verify

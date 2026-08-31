@@ -65,8 +65,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0708.json",
     "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-parte-1/**",
-    "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-parte-1/**"
+    "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-parte-1/**",
+    "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_aie_bex_part_1.py",
+    "evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/aie-bex-parte-1/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -155,8 +158,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0708.json",
         "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-parte-1/**",
-        "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-parte-1/**"
+        "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-parte-1/**",
+        "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_aie_bex_part_1.py",
+        "evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/aie-bex-parte-1/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
