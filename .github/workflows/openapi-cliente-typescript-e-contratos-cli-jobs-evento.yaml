@@ -1,0 +1,36 @@
+name: epic-004-versioned-contract-controls
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-versioned-contract-controls:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12.13'
+          cache: 'pip'
+          cache-dependency-path: requirements-validation.txt
+
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-validation.txt
+
+      - name: Validate EPIC-004 versioned contracts read-only
+        run: >-
+          python
+          tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/validator.py
+          --dry-run
+
+      - name: Prove deterministic and fail-closed automation
+        run: >-
+          python -m pytest -q -p no:cacheprovider
+          tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_automation.py::test_epic_004_automacao
