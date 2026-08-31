@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "SGVCAL-CONFORMANCE",
+  "profile_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "FROZEN",
+  "controls": {
+    "profile_immutability": {
+      "scope": "PER_STRATUM",
+      "hard_invariants": "IMMUTABLE",
+      "sgv_profile": "IMMUTABLE_VERSIONED",
+      "evidence": "IMMUTABLE_CONTENT_ADDRESSED",
+      "digest_algorithm": "SHA-256",
+      "change_policy": "NEW_VERSION_REQUIRED",
+      "missing_or_mutable": "REJECT"
+    },
+    "metric_declaration": {
+      "required_dimensions": [
+        "space",
+        "unit",
+        "direction",
+        "normalization"
+      ],
+      "missing_or_invalid": "REJECT"
+    },
+    "robust_error_distribution": {
+      "transfer_error": "SYMMETRIC",
+      "distribution": "ROBUST",
+      "missing_or_invalid": "REJECT"
+    },
+    "multidimensional_coverage": {
+      "required_dimensions": [
+        "leverage",
+        "spatial_support"
+      ],
+      "missing_or_invalid": "REJECT"
+    },
+    "stability_gates": {
+      "required_checks": [
+        "conditioning",
+        "degeneracy",
+        "leave_one_out_stability"
+      ],
+      "missing_or_invalid": "REJECT"
+    },
+    "local_deformation": {
+      "measurement": "ADAPTIVE_JACOBIAN",
+      "missing_or_invalid": "REJECT"
+    },
+    "contextual_validity": {
+      "required_checks": [
+        "footprint",
+        "topology",
+        "crs",
+        "contextual_plausibility"
+      ],
+      "all_checks_required": true,
+      "missing_or_invalid": "REJECT",
+      "silent_fallback": "PROHIBITED"
+    },
+    "calibration_governance": {
+      "calibration": "STRATIFIED",
+      "holdout": "BLIND_SEPARATE",
+      "false_acceptance_budget": "BLOCKING",
+      "missing_or_exceeded": "REJECT"
+    },
+    "gray_zone": {
+      "outcome": "REVIEWABLE",
+      "hard_gate_override": "PROHIBITED",
+      "failed_hard_gate": "REJECTED"
+    },
+    "promotion_and_rollback": {
+      "stages": [
+        "shadow",
+        "canary"
+      ],
+      "profile_evidence": "IMMUTABLE_CONTENT_ADDRESSED",
+      "rollback": "REQUIRED",
+      "missing_stage_evidence_or_rollback": "REJECT"
+    }
+  }
+}

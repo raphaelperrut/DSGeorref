@@ -1,0 +1,115 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-005
+  story_id: STORY-0707
+  issue_id: ISSUE-0817
+  github_issue: 92
+  task_id: TASK-0707
+candidate:
+  base_commit: 71a984ce30042400ea09dbafeaceddeeb6099604
+  state: READY_FOR_INDEPENDENT_QA
+  owner_context: BC-001
+  implementation_role: Arquiteto
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+  candidate_sha_source: git rev-parse HEAD after candidate commit
+task_envelope:
+  status: CORRECTED
+  reason: exact registry, targeted test, evidence, and TaskEnvelope control-plane paths are required by the issue itself
+  deny_paths_preserved:
+  - src/**/epic-*
+  - src/**/issue-*
+contract_artifacts:
+- contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/contract-manifest.yaml
+- contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/sgvcal-conformance.schema.json
+- contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/examples/sgvcal-conformance.json
+supporting_artifacts:
+- .codex/tasks/TASK-0707.json
+- contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+- docs/02-architecture/design-reviews/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/DESIGN-REVIEW.md
+- tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_conformance.py
+acceptance_evidence:
+- criterion: AC-ISSUE-0817-01
+  evidence: manifest maps REQ-SGVCAL-007 to test_req_sgvcal_007 and the closed contextual_validity control
+- criterion: AC-ISSUE-0817-02
+  evidence: ownership registry and containment test prove stable disjoint paths with no src ownership
+- criterion: AC-ISSUE-0817-03
+  evidence: negative schema tests reject missing checks, unknown controls, permissive values, and silent fallback
+- criterion: AC-ISSUE-0817-04
+  evidence: DESIGN-REVIEW.md records contract impact, residual risk, limitations, migration N/A, and rollback
+requirement_coverage:
+- requirement: REQ-SGVCAL-001
+  contract: /controls/profile_immutability
+  test: test_req_sgvcal_001
+- requirement: REQ-SGVCAL-002
+  contract: /controls/metric_declaration
+  test: test_req_sgvcal_002
+- requirement: REQ-SGVCAL-003
+  contract: /controls/robust_error_distribution
+  test: test_req_sgvcal_003
+- requirement: REQ-SGVCAL-004
+  contract: /controls/multidimensional_coverage
+  test: test_req_sgvcal_004
+- requirement: REQ-SGVCAL-005
+  contract: /controls/stability_gates
+  test: test_req_sgvcal_005
+- requirement: REQ-SGVCAL-006
+  contract: /controls/local_deformation
+  test: test_req_sgvcal_006
+- requirement: REQ-SGVCAL-007
+  contract: /controls/contextual_validity
+  test: test_req_sgvcal_007
+- requirement: REQ-SGVCAL-008
+  contract: /controls/calibration_governance
+  test: test_req_sgvcal_008
+- requirement: REQ-SGVCAL-009
+  contract: /controls/gray_zone
+  test: test_req_sgvcal_009
+- requirement: REQ-SGVCAL-010
+  contract: /controls/promotion_and_rollback
+  test: test_req_sgvcal_0010
+changed_files_justification:
+- path: .codex/tasks/TASK-0707.json
+  justification: exact control-plane allow paths required for the issue's own proof
+- path: contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+  justification: register the three published contract artifacts under BC-001
+- path: contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/**
+  justification: versioned manifest, closed schema, and valid example owned by this slice
+- path: docs/02-architecture/design-reviews/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/DESIGN-REVIEW.md
+  justification: required impact, risk, limitation, and rollback handoff
+- path: tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_conformance.py
+  justification: mandatory and directly targeted deterministic contract validation
+- path: evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/sgvcal-parte-2/IMPLEMENTATION_EVIDENCE.yaml
+  justification: issue-required candidate evidence and traceability
+contract_impact:
+  kind: NEW_PUBLIC_CONFORMANCE_CONTRACT
+  existing_frozen_contract_changed: false
+  http_changed: false
+  persistence_changed: false
+  runtime_changed: false
+migration:
+  required: false
+  applicability: NOT_APPLICABLE_DECLARATIVE_SLICE
+rollback:
+  operational: NOT_APPLICABLE_DECLARATIVE_SLICE
+  contract: REVERT_BEFORE_CONSUMPTION_OR_PRESERVE_1_0_0_AND_PUBLISH_SUCCESSOR
+limitations_and_residual_risks:
+- no Strong Geometric Verifier runtime or pipeline is implemented
+- no empirical threshold, corpus, benchmark result, or scientific efficacy claim is produced
+- no migration, CI, scanner, telemetry runtime, shadow, canary, or operational rollback is executed
+- independent Sentinel QA and Reviewer approval remain pending for the exact candidate commit
+validation:
+  mandatory_test: PASS
+  additional_targeted_tests: PASS
+  task_envelope_schema: PASS
+  scope_inspection: PASS
+  git_diff_check: PASS
+  mandatory_make_verify: STATIC_GATES_PASS_INTEGRATION_REQUIRES_PINNED_SERVICES
+  make_verify_limitation: FOUNDATION_INTEGRATION=1 with pinned PostgreSQL and RabbitMQ is unavailable on this host; this is unchanged predecessor infrastructure
+  commands:
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_conformance.py::test_req_sgvcal_007 -q
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_conformance.py -q
+  - TASK-0707 validation against .codex/tasks/TASK_ENVELOPE.schema.json
+  - make PYTHON="py -3.12" PYTEST_ADDOPTS="--basetemp=.pytest-tmp/issue-0817" verify
+  - git diff --check

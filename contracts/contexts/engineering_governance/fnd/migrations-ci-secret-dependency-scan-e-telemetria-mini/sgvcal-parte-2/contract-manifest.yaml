@@ -1,0 +1,115 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-005
+  story_id: STORY-0707
+  issue_id: ISSUE-0817
+  task_id: TASK-0707
+contract:
+  id: sgvcal-conformance
+  schema: contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/sgvcal-conformance.schema.json
+  example: contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/examples/sgvcal-conformance.json
+compatibility:
+  policy: SEMVER
+  compatible_change: OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR
+  breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
+  unknown_properties: REJECT
+boundaries:
+  purpose: DECLARATIVE_CONFORMANCE_ONLY
+  runtime_implementation: NOT_INCLUDED
+  sgv_pipeline: NOT_INCLUDED
+  persistence: NOT_INCLUDED
+  migration: NOT_APPLICABLE
+  ci_scanners_telemetry_runtime: NOT_INCLUDED
+  quantitative_parameters: docs/04-quality/benchmark-profiles/BP-002-sgv-calibration.md
+  verdict_contract: contracts/domain/sgv-verdict.schema.json
+acceptance_criteria:
+- AC-ISSUE-0817-01
+- AC-ISSUE-0817-02
+- AC-ISSUE-0817-03
+- AC-ISSUE-0817-04
+requirements:
+- id: REQ-SGVCAL-001
+  control: /controls/profile_immutability
+  test: test_req_sgvcal_001
+  failure_modes:
+  - MUTABLE_PROFILE_OR_HARD_INVARIANT
+  - UNVERSIONED_STRATUM
+  - MISSING_EVIDENCE_DIGEST
+- id: REQ-SGVCAL-002
+  control: /controls/metric_declaration
+  test: test_req_sgvcal_002
+  failure_modes:
+  - METRIC_SPACE_MISSING
+  - METRIC_UNIT_MISSING
+  - METRIC_DIRECTION_MISSING
+  - METRIC_NORMALIZATION_MISSING
+- id: REQ-SGVCAL-003
+  control: /controls/robust_error_distribution
+  test: test_req_sgvcal_003
+  failure_modes:
+  - ASYMMETRIC_TRANSFER_ERROR
+  - NON_ROBUST_DISTRIBUTION
+- id: REQ-SGVCAL-004
+  control: /controls/multidimensional_coverage
+  test: test_req_sgvcal_004
+  failure_modes:
+  - LEVERAGE_MISSING
+  - SPATIAL_SUPPORT_MISSING
+- id: REQ-SGVCAL-005
+  control: /controls/stability_gates
+  test: test_req_sgvcal_005
+  failure_modes:
+  - CONDITIONING_MISSING
+  - DEGENERACY_MISSING
+  - LEAVE_ONE_OUT_STABILITY_MISSING
+- id: REQ-SGVCAL-006
+  control: /controls/local_deformation
+  test: test_req_sgvcal_006
+  failure_modes:
+  - ADAPTIVE_JACOBIAN_MISSING
+- id: REQ-SGVCAL-007
+  control: /controls/contextual_validity
+  test: test_req_sgvcal_007
+  failure_modes:
+  - FOOTPRINT_INVALID_OR_MISSING
+  - TOPOLOGY_INVALID_OR_MISSING
+  - CRS_INVALID_OR_MISSING
+  - CONTEXTUAL_PLAUSIBILITY_INVALID_OR_MISSING
+  - SILENT_CONTEXT_FALLBACK
+- id: REQ-SGVCAL-008
+  control: /controls/calibration_governance
+  test: test_req_sgvcal_008
+  failure_modes:
+  - NON_STRATIFIED_CALIBRATION
+  - BLIND_HOLDOUT_MISSING
+  - FALSE_ACCEPTANCE_BUDGET_MISSING_OR_EXCEEDED
+- id: REQ-SGVCAL-009
+  control: /controls/gray_zone
+  test: test_req_sgvcal_009
+  failure_modes:
+  - HARD_GATE_OVERRIDE
+  - GRAY_ZONE_ACCEPTED
+- id: REQ-SGVCAL-010
+  control: /controls/promotion_and_rollback
+  test: test_req_sgvcal_0010
+  failure_modes:
+  - SHADOW_EVIDENCE_MISSING
+  - CANARY_EVIDENCE_MISSING
+  - ROLLBACK_MISSING
+  - MUTABLE_PROMOTION_EVIDENCE
+proof:
+  mandatory_story_test: test_req_sgvcal_007
+  required_tests:
+  - test_req_sgvcal_001
+  - test_req_sgvcal_002
+  - test_req_sgvcal_003
+  - test_req_sgvcal_004
+  - test_req_sgvcal_005
+  - test_req_sgvcal_006
+  - test_req_sgvcal_007
+  - test_req_sgvcal_008
+  - test_req_sgvcal_009
+  - test_req_sgvcal_0010
