@@ -1,0 +1,45 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-005
+  story_id: STORY-0021
+  issue_id: ISSUE-0131
+  task_id: TASK-0021
+contract:
+  id: migrations-ci-security-observability-slice-consolidation
+  schema: contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/slice-consolidation.schema.json
+  example: contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/examples/slice-consolidation.json
+compatibility:
+  policy: SEMVER
+  compatible_change: OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR
+  breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
+  unknown_properties: REJECT
+runtime:
+  implementation: NOT_INCLUDED
+  http: NOT_APPLICABLE
+  persistence: NOT_APPLICABLE
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+  contract_rollback: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+acceptance_criteria:
+- AC-ISSUE-0131-01
+- AC-ISSUE-0131-02
+- AC-ISSUE-0131-03
+- AC-ISSUE-0131-04
+slices:
+- story_id: STORY-0706
+  issue_id: ISSUE-0816
+  task_id: TASK-0706
+- story_id: STORY-0707
+  issue_id: ISSUE-0817
+  task_id: TASK-0707
+proof:
+  required_tests:
+  - test_story_0021_slice_consolidation
+  independent_review:
+    authority_role: Reviewer
+    same_candidate_commit: true
+    residual_risks_required: true
+    self_approval: PROHIBITED

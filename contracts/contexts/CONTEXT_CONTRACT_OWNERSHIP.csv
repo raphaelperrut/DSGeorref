@@ -194,4 +194,7 @@ contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-sc
 contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/examples/sgvcal-conformance.json,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/sgvcal-conformance.schema.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/examples/slice-consolidation.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/slice-consolidation.schema.json,BC-001,contexts,VERSIONED,NO
 contracts/templates/test-vectors/render-cases.json,BC-001,templates,VERSIONED,NO
