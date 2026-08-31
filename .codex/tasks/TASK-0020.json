@@ -73,7 +73,7 @@
     "test_epic_004_aceite_negative_paths"
   ],
   "evidence": [
-    "evidence/reviews/epic-004/story-0020/",
+    "evidence/reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/story-0020/",
     "commit candidato e relatório de testes"
   ],
   "dependencies": [
@@ -197,7 +197,7 @@
         "Audit"
       ],
       "evidence": [
-        "evidence/reviews/epic-004/story-0020/",
+        "evidence/reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/story-0020/",
         "commit candidato e relatório de testes"
       ],
       "contract": "SPEC-005"
