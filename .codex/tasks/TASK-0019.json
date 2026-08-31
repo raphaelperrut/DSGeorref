@@ -56,7 +56,8 @@
   ],
   "allow_paths": [
     "tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/**",
-    "docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/**"
+    "docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/**",
+    "evidence/implementation/epic-004/story-0019/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -136,7 +137,8 @@
       "status": "PASS",
       "allow_paths": [
         "tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/**",
-        "docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/**"
+        "docs/03-engineering/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/**",
+        "evidence/implementation/epic-004/story-0019/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
