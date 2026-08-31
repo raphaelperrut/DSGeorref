@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "consolidation_id": "MIGRATIONS-CI-SECURITY-OBSERVABILITY-SLICE-CONSOLIDATION",
+  "contract_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "FROZEN",
+  "baseline": {
+    "candidate_commit": "6b442137d2cca3c51d073cc1c46b65a4675a65f1",
+    "sprint_review": "SAR-v2.9-PHASE-F",
+    "specification": "SAR-v2.9-PHASE-F"
+  },
+  "slices": [
+    {
+      "story_id": "STORY-0706",
+      "issue_id": "ISSUE-0816",
+      "task_id": "TASK-0706",
+      "merge_commit": "807c071136340029e02fec5033ffb89d6f3e05cf",
+      "contract_id": "migrations-ci-observability-foundation",
+      "requirements": [
+        "REQ-AIE-001",
+        "REQ-AIE-005",
+        "REQ-BEX-003",
+        "REQ-BEX-005",
+        "REQ-EPIC-012",
+        "REQ-FS1-001",
+        "REQ-FS1-004",
+        "REQ-INS-003",
+        "REQ-ISS-007",
+        "REQ-OBS-002"
+      ],
+      "artifacts": [
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-epic-parte-1/contract-manifest.yaml",
+          "sha256": "1b65919f73e6fe1b1abd2b321578c9463b5c05a4ed4add7404f3060040ecf2ef"
+        },
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-epic-parte-1/contract-foundation.schema.json",
+          "sha256": "0ff0e9778bb97f6349f97fc5452d051d1d12dafae17f0a7abf8e15244f760006"
+        },
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-epic-parte-1/examples/contract-foundation.json",
+          "sha256": "1d06d648d43a7dfeb5c901ddc8954137d0c1aeb89aa638989127f70520be388e"
+        }
+      ]
+    },
+    {
+      "story_id": "STORY-0707",
+      "issue_id": "ISSUE-0817",
+      "task_id": "TASK-0707",
+      "merge_commit": "af5691a3d54ccbf6f259233511e2e0ef63fb5077",
+      "contract_id": "sgvcal-conformance",
+      "requirements": [
+        "REQ-SGVCAL-007"
+      ],
+      "artifacts": [
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/contract-manifest.yaml",
+          "sha256": "cbcdb304bae2dca9c7706548a2e2a3bb42708ced9396389c80a91506024e44e0"
+        },
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/sgvcal-conformance.schema.json",
+          "sha256": "62f2852b738ead79424fcc53100085bb9462147e124ed560ac629f8f66071eec"
+        },
+        {
+          "path": "contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/examples/sgvcal-conformance.json",
+          "sha256": "baa75bb47919b14771c532468ea391c4112eb982c0c35d88b9acaf886c8820e3"
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "source": "docs/07-assurance/ISSUE_REQUIREMENTS_REVIEW.csv",
+    "requirement_ids": [
+      "REQ-AIE-001",
+      "REQ-AIE-005",
+      "REQ-BEX-003",
+      "REQ-BEX-005",
+      "REQ-EPIC-012",
+      "REQ-FS1-001",
+      "REQ-FS1-004",
+      "REQ-INS-003",
+      "REQ-ISS-007",
+      "REQ-OBS-002",
+      "REQ-SGVCAL-007"
+    ],
+    "duplicates": [],
+    "unassigned": []
+  },
+  "integration": {
+    "composition": "SIDE_BY_SIDE_PUBLISHED_CONTRACTS",
+    "control_namespaces": [
+      "MIGRATIONS-CI-OBSERVABILITY-FOUNDATION",
+      "SGVCAL-CONFORMANCE"
+    ],
+    "contract_collisions": [],
+    "redundant_implementations": [],
+    "runtime_materialization": "DOWNSTREAM_STORIES_ONLY"
+  },
+  "review_gate": {
+    "authority_role": "Reviewer",
+    "same_candidate_commit": true,
+    "residual_risks_required": true,
+    "self_approval": "PROHIBITED",
+    "candidate_state": "READY_FOR_INDEPENDENT_REVIEW",
+    "eligible_dependents": [
+      "STORY-0023",
+      "STORY-0708",
+      "STORY-0709",
+      "STORY-0710",
+      "STORY-0711"
+    ],
+    "released_dependents": []
+  }
+}

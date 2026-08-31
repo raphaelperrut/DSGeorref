@@ -1,0 +1,96 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-005
+  story_id: STORY-0021
+  issue_id: ISSUE-0131
+  github_issue: 33
+  task_id: TASK-0021
+candidate:
+  baseline_commit: 6b442137d2cca3c51d073cc1c46b65a4675a65f1
+  state: READY_FOR_INDEPENDENT_REVIEW
+  owner_context: BC-001
+  implementation_role: Writer
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+  candidate_sha_source: git rev-parse HEAD after candidate commit
+task_envelope:
+  status: CORRECTED
+  reason: exact TaskEnvelope, ownership registry, mandatory test, and evidence paths are required by the issue itself
+  deny_paths_preserved:
+  - src/**/epic-*
+  - src/**/issue-*
+slice_baseline:
+  candidate_commit: 6b442137d2cca3c51d073cc1c46b65a4675a65f1
+  slices:
+  - story_id: STORY-0706
+    issue_id: ISSUE-0816
+    github_issue: 91
+    merge_commit: 807c071136340029e02fec5033ffb89d6f3e05cf
+  - story_id: STORY-0707
+    issue_id: ISSUE-0817
+    github_issue: 92
+    merge_commit: af5691a3d54ccbf6f259233511e2e0ef63fb5077
+contract_artifacts:
+- contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/contract-manifest.yaml
+- contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/slice-consolidation.schema.json
+- contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/examples/slice-consolidation.json
+supporting_artifacts:
+- .codex/tasks/TASK-0021.json
+- contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+- docs/02-architecture/design-reviews/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/DESIGN-REVIEW.md
+- tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_slice_consolidation.py
+acceptance_evidence:
+- criterion: AC-ISSUE-0131-01
+  evidence: both slice merge commits are ancestors of the shared immutable baseline and all six artifact digests match that baseline
+- criterion: AC-ISSUE-0131-02
+  evidence: canonical review rows assign eleven unique requirements across the two linked stories with no conflict, redundancy, missing, or impossible result
+- criterion: AC-ISSUE-0131-03
+  evidence: child contract IDs, profile IDs, controls, and artifact paths are distinct; composition remains side by side without runtime duplication
+- criterion: AC-ISSUE-0131-04
+  evidence: candidate is fail-closed for an independent Reviewer to record residual risks and release exactly the five graph-derived dependents on the same commit
+changed_files_justification:
+- path: .codex/tasks/TASK-0021.json
+  justification: include exact control-plane paths required for the issue's own proof
+- path: contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+  justification: register the three published consolidation artifacts under BC-001
+- path: contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/**
+  justification: publish the versioned manifest, closed schema, and immutable baseline example
+- path: docs/02-architecture/design-reviews/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/DESIGN-REVIEW.md
+  justification: record integration decision, limitations, residual risks, and rollback
+- path: tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_slice_consolidation.py
+  justification: provide the mandatory deterministic consolidation and hardening proof
+- path: evidence/implementation/epic-005/story-0021/IMPLEMENTATION_EVIDENCE.yaml
+  justification: provide the issue-required candidate evidence and scope handoff
+contract_impact:
+  kind: NEW_PUBLIC_CONSOLIDATION_CONTRACT
+  existing_frozen_contract_changed: false
+  http_changed: false
+  persistence_changed: false
+  runtime_changed: false
+migration:
+  required: false
+  applicability: NOT_APPLICABLE_CONTROL_PLANE_CONSOLIDATION
+rollback:
+  operational: NOT_APPLICABLE_CONTROL_PLANE_CONSOLIDATION
+  contract: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+limitations_and_residual_risks:
+- the consolidation proves declarative compatibility, not runtime execution of migrations, CI, scans, telemetry, or SGV
+- pinned artifact digests require a new consolidation version when a frozen slice contract is superseded
+- the SGVCAL predecessor profile is family-wide while canonical ownership for STORY-0707 remains limited to REQ-SGVCAL-007
+- independent Reviewer risk registration and dependent release remain pending for the exact candidate commit
+validation:
+  mandatory_test: PASS_1_TEST
+  targeted_suite: PASS_3_TESTS
+  task_envelope_schema: PASS
+  scope_inspection: PASS
+  git_diff_check: PASS
+  mandatory_make_verify: STATIC_GATES_PASS_INTEGRATION_REQUIRES_PINNED_SERVICES
+  make_verify_limitation: FOUNDATION_INTEGRATION=1 with pinned PostgreSQL and RabbitMQ is unavailable on this host; the mandatory integration test cannot enter its body locally
+  commands:
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_slice_consolidation.py::test_story_0021_slice_consolidation -q
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_slice_consolidation.py -q
+  - TASK-0021 validation against .codex/tasks/TASK_ENVELOPE.schema.json
+  - git diff --check
+  - make PYTHON="py -3.12" verify
+  - make PYTHON="py -3.12" PYTEST_ADDOPTS="--basetemp=.pytest-tmp/issue-0131" verify
