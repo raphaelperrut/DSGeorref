@@ -188,4 +188,7 @@ contracts/templates/render-request.schema.json,BC-001,templates,VERSIONED,NO
 contracts/templates/render-result.schema.json,BC-001,templates,VERSIONED,NO
 contracts/templates/template-catalog.schema.json,BC-001,templates,VERSIONED,NO
 contracts/templates/template.schema.json,BC-001,templates,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-epic-parte-1/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-epic-parte-1/examples/contract-foundation.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/aie-bex-epic-parte-1/contract-foundation.schema.json,BC-001,contexts,VERSIONED,NO
 contracts/templates/test-vectors/render-cases.json,BC-001,templates,VERSIONED,NO

@@ -1,0 +1,235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/migrations-ci-observability-foundation/1.0.0",
+  "title": "Migrations CI and Observability Foundation Conformance Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "profile_id",
+    "profile_version",
+    "owner",
+    "status",
+    "controls"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "profile_id": { "const": "MIGRATIONS-CI-OBSERVABILITY-FOUNDATION" },
+    "profile_version": { "const": "1.0.0" },
+    "owner": { "const": "BC-001" },
+    "status": { "const": "FROZEN" },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ai_escalation",
+        "canonical_reuse",
+        "batch_execution",
+        "retry_boundary",
+        "schema_migrations",
+        "first_functional_slice",
+        "processing_plan",
+        "installation_readiness",
+        "acceptance_evidence",
+        "telemetry"
+      ],
+      "properties": {
+        "ai_escalation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "failure_diagnostic_contract",
+            "failure_classification",
+            "neural_eligibility",
+            "classic_evidence",
+            "unclassified_failure",
+            "eligibility_bypass"
+          ],
+          "properties": {
+            "failure_diagnostic_contract": { "const": "contracts/domain/failure-diagnostic.schema.json" },
+            "failure_classification": { "const": "TYPED_VERSIONED" },
+            "neural_eligibility": { "const": "VERSIONED_EXPLICIT_DECISION" },
+            "classic_evidence": { "const": "REQUIRED" },
+            "unclassified_failure": { "const": "REJECT" },
+            "eligibility_bypass": { "const": "REJECT" }
+          }
+        },
+        "canonical_reuse": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "checkpoints",
+            "artifacts",
+            "compatibility_evidence",
+            "digest_verification",
+            "incompatible_reuse"
+          ],
+          "properties": {
+            "checkpoints": { "const": "CANONICAL_ONLY" },
+            "artifacts": { "const": "CANONICAL_ONLY" },
+            "compatibility_evidence": { "const": "REQUIRED_BEFORE_REUSE" },
+            "digest_verification": { "const": "REQUIRED" },
+            "incompatible_reuse": { "const": "REJECT" }
+          }
+        },
+        "batch_execution": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "job_contract",
+            "image_verdicts",
+            "partial_success_state",
+            "missing_image_verdict",
+            "aggregate_overwrite"
+          ],
+          "properties": {
+            "job_contract": { "const": "contracts/domain/job.schema.json" },
+            "image_verdicts": { "const": "PRESERVE_EACH_IMAGE" },
+            "partial_success_state": { "const": "partially_succeeded" },
+            "missing_image_verdict": { "const": "REJECT" },
+            "aggregate_overwrite": { "const": "REJECT" }
+          }
+        },
+        "retry_boundary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "attempt_contract",
+            "technical_retry",
+            "algorithmic_attempt",
+            "processing_plan_digest",
+            "ambiguous_retry"
+          ],
+          "properties": {
+            "attempt_contract": { "const": "contracts/domain/attempt.schema.json" },
+            "technical_retry": { "const": "DISTINCT_FROM_ALGORITHMIC_ATTEMPT" },
+            "algorithmic_attempt": { "const": "NEW_VERSIONED_ATTEMPT" },
+            "processing_plan_digest": { "const": "REQUIRED" },
+            "ambiguous_retry": { "const": "REJECT" }
+          }
+        },
+        "schema_migrations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "authority",
+            "evolution",
+            "flow",
+            "implicit_restart_migration",
+            "preflight",
+            "rollback",
+            "version_matrix",
+            "failed_cutover"
+          ],
+          "properties": {
+            "authority": { "const": "POSTGRESQL" },
+            "evolution": { "const": "VERSIONED_MIGRATIONS_ONLY" },
+            "flow": { "const": "EXPAND_MIGRATE_CONTRACT" },
+            "implicit_restart_migration": { "const": "PROHIBITED" },
+            "preflight": { "const": "REQUIRED" },
+            "rollback": { "const": "BEFORE_CONTRACT_OR_FORWARD_FIX_RESTORE" },
+            "version_matrix": { "const": "contracts/operations/version-and-rollback-matrix.yaml" },
+            "failed_cutover": { "const": "REJECT" }
+          }
+        },
+        "first_functional_slice": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["input_scope", "execution", "contract_shape", "scope_expansion"],
+          "properties": {
+            "input_scope": { "const": "EXACTLY_ONE_IMAGE" },
+            "execution": { "const": "END_TO_END" },
+            "contract_shape": { "const": "BATCH_COMPATIBLE" },
+            "scope_expansion": { "const": "REJECT" }
+          }
+        },
+        "processing_plan": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "contract",
+            "persistence",
+            "authority",
+            "immutability",
+            "versioning",
+            "explainability",
+            "invalid_plan"
+          ],
+          "properties": {
+            "contract": { "const": "contracts/domain/processing-plan.schema.json" },
+            "persistence": { "const": "REQUIRED" },
+            "authority": { "const": "POSTGRESQL" },
+            "immutability": { "const": "REQUIRED" },
+            "versioning": { "const": "SCHEMA_AND_DIGEST" },
+            "explainability": { "const": "EXPLICIT_FIELDS_REQUIRED_BY_CONTRACT" },
+            "invalid_plan": { "const": "REJECT" }
+          }
+        },
+        "installation_readiness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "endpoint_contract",
+            "ready_requires",
+            "offline_evidence",
+            "failure_codes",
+            "missing_or_stale_evidence",
+            "failed_canary",
+            "silent_fallback"
+          ],
+          "properties": {
+            "endpoint_contract": { "const": "contracts/http/operations/get_admin_readiness.md" },
+            "ready_requires": { "const": "ALL_STAGE_EVIDENCE_AND_SYNTHETIC_CANARY" },
+            "offline_evidence": { "const": "REQUIRED" },
+            "failure_codes": { "const": "TYPED_REQUIRED" },
+            "missing_or_stale_evidence": { "const": "NOT_READY" },
+            "failed_canary": { "const": "NOT_READY" },
+            "silent_fallback": { "const": "PROHIBITED" }
+          }
+        },
+        "acceptance_evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source",
+            "requirement_mapping",
+            "contract_change",
+            "missing_evidence",
+            "implicit_approval"
+          ],
+          "properties": {
+            "source": { "const": "CONTRACTS" },
+            "requirement_mapping": { "const": "EXPLICIT" },
+            "contract_change": { "const": "EXPLICIT_ARCHITECT_REVIEW" },
+            "missing_evidence": { "const": "REJECT" },
+            "implicit_approval": { "const": "PROHIBITED" }
+          }
+        },
+        "telemetry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "protocol",
+            "backend",
+            "correlation_scope",
+            "authority",
+            "audit_channel",
+            "exporter_outage",
+            "missing_correlation",
+            "telemetry_as_state_authority"
+          ],
+          "properties": {
+            "protocol": { "const": "OPENTELEMETRY" },
+            "backend": { "const": "REPLACEABLE" },
+            "correlation_scope": { "const": "REQUEST_JOB_ATTEMPT_WORKER_ARTIFACT_SET" },
+            "authority": { "const": "NON_AUTHORITATIVE" },
+            "audit_channel": { "const": "APPEND_ONLY_SEPARATE" },
+            "exporter_outage": { "const": "KEEP_LOCAL_MINIMUM_SIGNALS" },
+            "missing_correlation": { "const": "REJECT" },
+            "telemetry_as_state_authority": { "const": "PROHIBITED" }
+          }
+        }
+      }
+    }
+  }
+}
