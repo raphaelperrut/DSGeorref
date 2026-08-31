@@ -64,8 +64,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0709.json",
     "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/bex-epic-frz-parte-2/**",
-    "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/bex-epic-frz-parte-2/**"
+    "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/bex-epic-frz-parte-2/**",
+    "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_bex_epic_frz_part_2.py",
+    "evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/bex-epic-frz-parte-2/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -153,8 +156,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0709.json",
         "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/bex-epic-frz-parte-2/**",
-        "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/bex-epic-frz-parte-2/**"
+        "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/bex-epic-frz-parte-2/**",
+        "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_bex_epic_frz_part_2.py",
+        "evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/bex-epic-frz-parte-2/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
