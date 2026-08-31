@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/sgvcal-conformance/1.0.0",
+  "title": "SGVCAL Declarative Conformance Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "profile_id",
+    "profile_version",
+    "owner",
+    "status",
+    "controls"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "profile_id": { "const": "SGVCAL-CONFORMANCE" },
+    "profile_version": { "const": "1.0.0" },
+    "owner": { "const": "BC-001" },
+    "status": { "const": "FROZEN" },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_immutability",
+        "metric_declaration",
+        "robust_error_distribution",
+        "multidimensional_coverage",
+        "stability_gates",
+        "local_deformation",
+        "contextual_validity",
+        "calibration_governance",
+        "gray_zone",
+        "promotion_and_rollback"
+      ],
+      "properties": {
+        "profile_immutability": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "scope",
+            "hard_invariants",
+            "sgv_profile",
+            "evidence",
+            "digest_algorithm",
+            "change_policy",
+            "missing_or_mutable"
+          ],
+          "properties": {
+            "scope": { "const": "PER_STRATUM" },
+            "hard_invariants": { "const": "IMMUTABLE" },
+            "sgv_profile": { "const": "IMMUTABLE_VERSIONED" },
+            "evidence": { "const": "IMMUTABLE_CONTENT_ADDRESSED" },
+            "digest_algorithm": { "const": "SHA-256" },
+            "change_policy": { "const": "NEW_VERSION_REQUIRED" },
+            "missing_or_mutable": { "const": "REJECT" }
+          }
+        },
+        "metric_declaration": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["required_dimensions", "missing_or_invalid"],
+          "properties": {
+            "required_dimensions": {
+              "const": ["space", "unit", "direction", "normalization"]
+            },
+            "missing_or_invalid": { "const": "REJECT" }
+          }
+        },
+        "robust_error_distribution": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["transfer_error", "distribution", "missing_or_invalid"],
+          "properties": {
+            "transfer_error": { "const": "SYMMETRIC" },
+            "distribution": { "const": "ROBUST" },
+            "missing_or_invalid": { "const": "REJECT" }
+          }
+        },
+        "multidimensional_coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["required_dimensions", "missing_or_invalid"],
+          "properties": {
+            "required_dimensions": { "const": ["leverage", "spatial_support"] },
+            "missing_or_invalid": { "const": "REJECT" }
+          }
+        },
+        "stability_gates": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["required_checks", "missing_or_invalid"],
+          "properties": {
+            "required_checks": {
+              "const": ["conditioning", "degeneracy", "leave_one_out_stability"]
+            },
+            "missing_or_invalid": { "const": "REJECT" }
+          }
+        },
+        "local_deformation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["measurement", "missing_or_invalid"],
+          "properties": {
+            "measurement": { "const": "ADAPTIVE_JACOBIAN" },
+            "missing_or_invalid": { "const": "REJECT" }
+          }
+        },
+        "contextual_validity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "required_checks",
+            "all_checks_required",
+            "missing_or_invalid",
+            "silent_fallback"
+          ],
+          "properties": {
+            "required_checks": {
+              "const": ["footprint", "topology", "crs", "contextual_plausibility"]
+            },
+            "all_checks_required": { "const": true },
+            "missing_or_invalid": { "const": "REJECT" },
+            "silent_fallback": { "const": "PROHIBITED" }
+          }
+        },
+        "calibration_governance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "calibration",
+            "holdout",
+            "false_acceptance_budget",
+            "missing_or_exceeded"
+          ],
+          "properties": {
+            "calibration": { "const": "STRATIFIED" },
+            "holdout": { "const": "BLIND_SEPARATE" },
+            "false_acceptance_budget": { "const": "BLOCKING" },
+            "missing_or_exceeded": { "const": "REJECT" }
+          }
+        },
+        "gray_zone": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["outcome", "hard_gate_override", "failed_hard_gate"],
+          "properties": {
+            "outcome": { "const": "REVIEWABLE" },
+            "hard_gate_override": { "const": "PROHIBITED" },
+            "failed_hard_gate": { "const": "REJECTED" }
+          }
+        },
+        "promotion_and_rollback": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "stages",
+            "profile_evidence",
+            "rollback",
+            "missing_stage_evidence_or_rollback"
+          ],
+          "properties": {
+            "stages": { "const": ["shadow", "canary"] },
+            "profile_evidence": { "const": "IMMUTABLE_CONTENT_ADDRESSED" },
+            "rollback": { "const": "REQUIRED" },
+            "missing_stage_evidence_or_rollback": { "const": "REJECT" }
+          }
+        }
+      }
+    }
+  }
+}

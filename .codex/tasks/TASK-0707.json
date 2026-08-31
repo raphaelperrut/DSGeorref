@@ -45,8 +45,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0707.json",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
     "contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/**",
-    "docs/02-architecture/design-reviews/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/**"
+    "docs/02-architecture/design-reviews/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-parte-2/**",
+    "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_conformance.py",
+    "evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/sgvcal-parte-2/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
