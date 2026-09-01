@@ -1,0 +1,97 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-005
+  story_id: STORY-0709
+  issue_id: ISSUE-0819
+  task_id: TASK-0709
+candidate:
+  base_commit: f0fa8bdf7b883c6f76f2c0158fa9571077c8051a
+  state: READY_FOR_SENTINEL_QA
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+  sha_evidence: immutable Git commit and PR handoff
+task_envelope:
+  status: CORRECTED
+  reason: TaskEnvelope control-plane path, focused test, and mandatory evidence were omitted
+implementation_artifacts:
+- tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/bex-epic-frz-parte-2/decision_controls.py
+- docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/bex-epic-frz-parte-2/IMPLEMENTATION.md
+- tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_bex_epic_frz_part_2.py
+- .codex/tasks/TASK-0709.json
+coverage:
+- requirement: REQ-BEX-007
+  test: test_batch_execution_decision_07
+- requirement: REQ-BEX-008
+  test: test_batch_execution_decision_08
+- requirement: REQ-BEX-009
+  test: test_batch_execution_decision_09
+- requirement: REQ-BEX-010
+  test: test_batch_execution_decision_10
+- requirement: REQ-EPIC-041
+  test: test_malicious_file_suite
+- requirement: REQ-FRZ-002
+  test: test_sprint_zero_authorization_and_functional_foundation_gate_blocking
+- requirement: REQ-FS1-002
+  test: test_first_functional_slice_decision_02
+- requirement: REQ-FS1-003
+  test: test_first_functional_slice_decision_03
+- requirement: REQ-FS1-005
+  test: test_first_functional_slice_decision_05
+- requirement: REQ-FS1-007
+  test: test_first_functional_slice_decision_07
+acceptance_evidence:
+- criterion: AC-ISSUE-0819-01
+  evidence: all ten linked requirements map one-to-one to canonical focused tests
+- criterion: AC-ISSUE-0819-02
+  evidence: stable BC-001 paths; control-plane correction is separate; no ticket ID in production code
+- criterion: AC-ISSUE-0819-03
+  evidence: malformed, missing, coercible, unsafe, inconsistent, and out-of-scope evidence is rejected
+- criterion: AC-ISSUE-0819-04
+  evidence: IMPLEMENTATION.md records contract and migration impact, risks, limits, and rollback
+fail_closed_coverage:
+- cancel or pause without matching scope, persistent token, or safe point
+- non-PostgreSQL lease authority, stale fencing/revision, exhausted budget, or absent backpressure
+- non-monotonic or unpersisted work units and ETA without valid confidence
+- invalid scale ladder, absent fault injection, or fewer than two passing invariant dimensions
+- path outside a registered root, traversal, symlink, unsafe type or limit violation
+- scanner unavailable, scanner finding, or invalid SHA-256
+- approval beyond Sprint 001 or functional execution before the executable Foundation Gate passes
+- unpreserved originals, missing metadata, unsafe ingest, or invalid input hashes
+- nondeterministic/non-substitutable classic pipeline or correspondence without audit reference
+- SGV absent, unknown tri-state, accepted with missing metrics, or hard-gate/grey-zone inconsistency
+contract_impact:
+  kind: LOCAL_EXECUTABLE_CONTROL_PLANE
+  existing_frozen_contract_changed: false
+  new_public_contract: false
+  http_changed: false
+  persistence_changed: false
+migration:
+  required_for_this_diff: false
+  epic_applicability_preserved: true
+  justification: no schema, table, authoritative state, or persistence path changes in this slice
+rollback:
+  operational: revert the candidate before consumption
+  compatibility: replace compatibly and rerun all canonical tests after consumption
+  database: not applicable because this diff has no persisted state or schema change
+scope:
+  sister_slices_anticipated: false
+  issue_0820_changed: false
+  issue_0821_changed: false
+limitations:
+- validates evidence but does not execute workers, migrations, scanners, matching, or SGV
+- treats digests and references as inputs whose production and verification remain with their owners
+- does not claim scientific efficacy or independent QA/review
+validation:
+  targeted_tests: PASS
+  direct_regression: PASS
+  task_envelope_schema: PASS
+  file_scope_audit: PASS
+  git_diff_check: PASS
+  commands:
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_bex_epic_frz_part_2.py
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_aie_bex_part_1.py
+  - py -3.12 -X utf8 tools/validate_repository.py
+  - git diff --check
