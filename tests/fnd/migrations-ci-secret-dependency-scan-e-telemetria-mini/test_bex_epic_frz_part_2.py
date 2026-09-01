@@ -4,7 +4,7 @@ import importlib.util
 import json
 import sys
 from dataclasses import replace
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from types import ModuleType
 from typing import Any
 
@@ -203,7 +203,7 @@ def test_sprint_zero_authorization_and_functional_foundation_gate_blocking() -> 
         assert rejected.value.failed_requirements == ("REQ-FRZ-002",)
 
 
-def test_first_functional_slice_decision_02() -> None:
+def test_first_functional_slice_decision_02(monkeypatch: pytest.MonkeyPatch) -> None:
     evidence = _functional_slice()
     CONTROLS.validate_first_functional_slice(evidence)
     traversal = replace(
@@ -216,6 +216,27 @@ def test_first_functional_slice_decision_02() -> None:
     _assert_slice_rejected(replace(evidence, reference=unregistered), "REQ-FS1-002")
     symlink = replace(evidence.target, symlink_free=False)
     _assert_slice_rejected(replace(evidence, target=symlink), "REQ-FS1-002")
+
+    unc_root = r"\\server\share\registered"
+    remote_target = replace(
+        evidence.target,
+        file_path=rf"{unc_root}\target.tif",
+        registered_root=unc_root,
+        registered_roots=(unc_root,),
+    )
+    remote_reference = replace(
+        evidence.reference,
+        file_path=rf"{unc_root}\reference.tif",
+        registered_root=unc_root,
+        registered_roots=(unc_root,),
+    )
+    local_path_factory = CONTROLS.Path
+    monkeypatch.setattr(CONTROLS, "Path", PureWindowsPath)
+    assert remote_target.path_is_authorized() is False
+    assert remote_reference.path_is_authorized() is False
+    monkeypatch.setattr(CONTROLS, "Path", local_path_factory)
+    _assert_slice_rejected(replace(evidence, target=remote_target), "REQ-FS1-002")
+    _assert_slice_rejected(replace(evidence, reference=remote_reference), "REQ-FS1-002")
 
 
 def test_first_functional_slice_decision_03() -> None:

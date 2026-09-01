@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from math import isfinite
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 
 def _has_text(value: object) -> bool:
@@ -24,6 +24,8 @@ def _path_is_authorized(path: object, root: object, roots: object) -> bool:
     if not (_has_text(path) and _has_text(root) and type(roots) is tuple):
         return False
     if not roots or not all(_has_text(item) for item in roots):
+        return False
+    if any(PureWindowsPath(value).drive.startswith("\\\\") for value in (path, root)):
         return False
     candidate = Path(path)
     registered_root = Path(root)
