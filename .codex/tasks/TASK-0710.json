@@ -61,8 +61,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0710.json",
     "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/fs1-gov-sgvcal-parte-3/**",
-    "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/fs1-gov-sgvcal-parte-3/**"
+    "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/fs1-gov-sgvcal-parte-3/**",
+    "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_fs1_gov_sgvcal_part_3.py",
+    "evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/fs1-gov-sgvcal-parte-3/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -147,8 +150,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0710.json",
         "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/fs1-gov-sgvcal-parte-3/**",
-        "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/fs1-gov-sgvcal-parte-3/**"
+        "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/fs1-gov-sgvcal-parte-3/**",
+        "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_fs1_gov_sgvcal_part_3.py",
+        "evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/fs1-gov-sgvcal-parte-3/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

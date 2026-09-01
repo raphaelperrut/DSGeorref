@@ -1,0 +1,101 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-005
+  story_id: STORY-0710
+  issue_id: ISSUE-0820
+  task_id: TASK-0710
+candidate:
+  base_commit: 89b363ef404438d050dda863ca6fbc0dffc8154e
+  state: READY_FOR_QA
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+  sha_evidence: immutable Git commit, PR head, and GitHub Actions check
+task_envelope:
+  status: CORRECTED
+  reason: self, focused test, and mandatory evidence paths were omitted
+implementation_artifacts:
+- tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/fs1-gov-sgvcal-parte-3/decision_controls.py
+- docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/fs1-gov-sgvcal-parte-3/IMPLEMENTATION.md
+- tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_fs1_gov_sgvcal_part_3.py
+- .codex/tasks/TASK-0710.json
+coverage:
+- requirement: REQ-FS1-008
+  test: test_first_functional_slice_decision_08
+- requirement: REQ-FS1-009
+  test: test_first_functional_slice_decision_09
+- requirement: REQ-FS1-010
+  test: test_first_functional_slice_decision_10
+- requirement: REQ-GOV-004
+  test: test_codex_issue_scope_required_pr_no_direct_main_or_automerge
+- requirement: REQ-SGVCAL-001
+  test: test_req_sgvcal_001
+- requirement: REQ-SGVCAL-002
+  test: test_req_sgvcal_002
+- requirement: REQ-SGVCAL-003
+  test: test_req_sgvcal_003
+- requirement: REQ-SGVCAL-004
+  test: test_req_sgvcal_004
+- requirement: REQ-SGVCAL-005
+  test: test_req_sgvcal_005
+- requirement: REQ-SGVCAL-006
+  test: test_req_sgvcal_006
+acceptance_evidence:
+- criterion: AC-ISSUE-0820-01
+  evidence: all ten linked requirements map one-to-one to passing focused tests
+- criterion: AC-ISSUE-0820-02
+  evidence: stable BC-001 paths; exact control-plane correction; no ticket ID in production code
+- criterion: AC-ISSUE-0820-03
+  evidence: missing, malformed, coercible, incomplete, mutable, inconsistent, and permissive evidence is rejected
+- criterion: AC-ISSUE-0820-04
+  evidence: IMPLEMENTATION.md records contract and migration impact, limits, risks, and rollback
+fail_closed_coverage:
+- mutable, incomplete, non-content-addressed, non-atomic, or non-accepted ArtifactSet
+- missing surface, different application service, or divergent surface semantics
+- unversioned or non-stratified corpus and missing, failed, or unevidenced promotion dimension
+- unauthorized delivery, main direct write, automerge, or executor decision on a sensitive gate
+- mutable or unpinned SGV profile and hard invariants without a stratum
+- metric without space, unit, direction, or normalization
+- asymmetric transfer error or non-robust distribution
+- missing leverage, spatial support, conditioning, degeneracy, or leave-one-out stability
+- local deformation without adaptive Jacobian
+- missing, malformed, or WARN evidence without silent fallback
+contract_impact:
+  kind: LOCAL_EXECUTABLE_CONTROL_PLANE
+  existing_frozen_contract_changed: false
+  new_public_contract: false
+  http_changed: false
+  persistence_changed: false
+migration:
+  required_for_this_diff: false
+  epic_applicability_preserved: true
+  justification: no schema, table, authoritative state, or persistence path changes in this slice
+rollback:
+  operational: revert the candidate before consumption
+  compatibility: replace compatibly and rerun all ten mandatory tests after consumption
+  database: not applicable because this diff has no persisted state or schema change
+scope:
+  sister_slices_anticipated: false
+  issue_0821_changed: false
+limitations:
+- validates admission evidence but does not execute REST, CLI, direct runner, Celery, COG publication, matching, or SGV
+- treats digests and runtime outcomes as inputs whose production and verification remain with their owners
+- does not claim scientific efficacy or independent QA/review
+validation:
+  mandatory_and_targeted_tests: PASS
+  targeted_regression: PASS
+  task_envelope_schema: PASS
+  python_compilation: PASS
+  python_architecture: PASS
+  repository_offline_validators: PASS
+  repository_integration_gate_local: ENVIRONMENT_BLOCKED
+  repository_integration_gate_reason: Docker and pinned PostgreSQL 18.4/RabbitMQ 4.3.4 services are unavailable on this host
+  repository_integration_gate_ci: PENDING
+  commands:
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_fs1_gov_sgvcal_part_3.py
+  - py -3.12 -m py_compile tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/fs1-gov-sgvcal-parte-3/decision_controls.py
+  - py -3.12 -X utf8 tools/check_python_architecture.py
+  - make verify PYTHON="py -3.12"
+  - git diff --check
