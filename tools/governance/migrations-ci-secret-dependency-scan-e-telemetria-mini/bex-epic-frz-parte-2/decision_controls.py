@@ -25,7 +25,17 @@ def _path_is_authorized(path: object, root: object, roots: object) -> bool:
         return False
     if not roots or not all(_has_text(item) for item in roots):
         return False
-    if any(PureWindowsPath(value).drive.startswith("\\\\") for value in (path, root)):
+    windows_drives = tuple(PureWindowsPath(value).drive for value in (path, root))
+    if any(
+        drive.startswith("\\\\")
+        and not (
+            len(drive) == 6
+            and drive.startswith("\\\\?\\")
+            and drive[4].isalpha()
+            and drive[5] == ":"
+        )
+        for drive in windows_drives
+    ):
         return False
     candidate = Path(path)
     registered_root = Path(root)

@@ -205,6 +205,8 @@ def test_sprint_zero_authorization_and_functional_foundation_gate_blocking() -> 
 
 def test_first_functional_slice_decision_02(monkeypatch: pytest.MonkeyPatch) -> None:
     evidence = _functional_slice()
+    assert evidence.target.path_is_authorized() is True
+    assert evidence.reference.path_is_authorized() is True
     CONTROLS.validate_first_functional_slice(evidence)
     traversal = replace(
         evidence.target, file_path=str(Path(LOCAL_ROOT) / ".." / "escaped.tif")
@@ -230,13 +232,40 @@ def test_first_functional_slice_decision_02(monkeypatch: pytest.MonkeyPatch) -> 
         registered_root=unc_root,
         registered_roots=(unc_root,),
     )
+    extended_root = r"\\?\C:\registered"
+    extended_target = replace(
+        evidence.target,
+        file_path=rf"{extended_root}\target.tif",
+        registered_root=extended_root,
+        registered_roots=(extended_root,),
+    )
+    extended_reference = replace(
+        evidence.reference,
+        file_path=rf"{extended_root}\reference.tif",
+        registered_root=extended_root,
+        registered_roots=(extended_root,),
+    )
+    extended_unc_root = r"\\?\UNC\server\share\registered"
+    extended_unc_target = replace(
+        evidence.target,
+        file_path=rf"{extended_unc_root}\target.tif",
+        registered_root=extended_unc_root,
+        registered_roots=(extended_unc_root,),
+    )
     local_path_factory = CONTROLS.Path
     monkeypatch.setattr(CONTROLS, "Path", PureWindowsPath)
+    assert extended_target.path_is_authorized() is True
+    assert extended_reference.path_is_authorized() is True
+    CONTROLS.validate_first_functional_slice(
+        replace(evidence, target=extended_target, reference=extended_reference)
+    )
     assert remote_target.path_is_authorized() is False
     assert remote_reference.path_is_authorized() is False
+    assert extended_unc_target.path_is_authorized() is False
     monkeypatch.setattr(CONTROLS, "Path", local_path_factory)
     _assert_slice_rejected(replace(evidence, target=remote_target), "REQ-FS1-002")
     _assert_slice_rejected(replace(evidence, reference=remote_reference), "REQ-FS1-002")
+    _assert_slice_rejected(replace(evidence, target=extended_unc_target), "REQ-FS1-002")
 
 
 def test_first_functional_slice_decision_03() -> None:
