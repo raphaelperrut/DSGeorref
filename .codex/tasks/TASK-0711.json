@@ -66,8 +66,22 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0711.json",
+    ".github/workflows/ci.yml",
+    ".gitignore",
+    "Makefile",
+    "requirements-validation.txt",
+    "tools/validate_repository.py",
+    "package.json",
+    "pnpm-workspace.yaml",
+    "pnpm-lock.yaml",
+    "src/frontend/package.json",
+    "src/frontend/tsconfig.json",
+    "src/frontend/tests/tooling/**",
     "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/**",
-    "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/**"
+    "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/**",
+    "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_srg_srp_part_4.py",
+    "evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/sgvcal-srg-srp-parte-4/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -157,8 +171,22 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0711.json",
+        ".github/workflows/ci.yml",
+        ".gitignore",
+        "Makefile",
+        "requirements-validation.txt",
+        "tools/validate_repository.py",
+        "package.json",
+        "pnpm-workspace.yaml",
+        "pnpm-lock.yaml",
+        "src/frontend/package.json",
+        "src/frontend/tsconfig.json",
+        "src/frontend/tests/tooling/**",
         "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/**",
-        "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/**"
+        "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/**",
+        "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_srg_srp_part_4.py",
+        "evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/sgvcal-srg-srp-parte-4/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

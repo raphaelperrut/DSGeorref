@@ -1,0 +1,118 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-005
+  story_id: STORY-0711
+  issue_id: ISSUE-0821
+  task_id: TASK-0711
+candidate:
+  base_commit: 51ae5720127b377f1e56ebc596ea259c418afe6f
+  state: READY_FOR_QA
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+  sha_evidence: immutable Git commit, PR head, and GitHub Actions check
+task_envelope:
+  status: CORRECTED
+  reason: minimal allow-path expansion for the issue-owned executable gate wiring, pinned tooling, generated-dependency exclusion, tests, and evidence
+implementation_artifacts:
+- tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/decision_controls.py
+- tools/validate_repository.py
+- docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/IMPLEMENTATION.md
+- tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_srg_srp_part_4.py
+- .github/workflows/ci.yml
+- .gitignore
+- Makefile
+- requirements-validation.txt
+- package.json
+- pnpm-workspace.yaml
+- pnpm-lock.yaml
+- src/frontend/package.json
+- src/frontend/tsconfig.json
+- src/frontend/tests/tooling/testing-library.unit.test.ts
+- src/frontend/tests/tooling/playwright.browser.spec.ts
+- .codex/tasks/TASK-0711.json
+coverage:
+- requirement: REQ-SGVCAL-008
+  test: test_req_sgvcal_008
+- requirement: REQ-SGVCAL-009
+  test: test_req_sgvcal_009
+- requirement: REQ-SGVCAL-010
+  test: test_req_sgvcal_0010
+- requirement: REQ-SRG-002
+  test: test_change_impact_graph_mandatory_tiers_and_full_promotion_matrix
+- requirement: REQ-SRP-002
+  test: test_offline_scheduler_decision_replay_without_scientific_workload_or_providers
+- requirement: REQ-SUP-001
+  test: test_release_sbom_signature_provenance_immutable_pins
+- requirement: REQ-TOOL-006
+  test: test_ruff_mypy_gate executes the wired Ruff/mypy gate plus failing canaries
+- requirement: REQ-TOOL-007
+  test: test_pytest_real_services
+- requirement: REQ-TOOL-009
+  test: test_frontend_strict_and_browser executes TypeScript strict, Vitest, Testing Library, Playwright, and a failing TypeScript canary
+- requirement: REQ-UPG-003
+  test: test_post_migration_multidimensional_evidence_gate_canary_and_atomic_cutover
+acceptance_evidence:
+- criterion: AC-ISSUE-0821-01
+  evidence: all ten linked requirements map one-to-one to passing focused tests
+- criterion: AC-ISSUE-0821-02
+  evidence: stable BC-001 paths; exact envelope correction; no ticket ID in production code
+- criterion: AC-ISSUE-0821-03
+  evidence: missing, malformed, incomplete, mutable, failed, and permissive evidence is rejected
+- criterion: AC-ISSUE-0821-04
+  evidence: IMPLEMENTATION.md records contract impact, risks, limitations, and rollback
+fail_closed_coverage:
+- non-stratified calibration, missing blind holdout, or exceeded false-acceptance budget
+- accepted gray zone, hard-gate override, missing shadow/canary evidence, or missing rollback
+- missing impact graph or tier and promotion candidate without full test matrix
+- incomplete or online scheduler replay, scientific workload execution, or provider call
+- mutable release pins or missing lock, SBOM, scan, checksum, OCI signature, or provenance
+- missing or failing Ruff/mypy executable, fake integration service, or missing/failing TypeScript/Vitest/Testing Library/Playwright executable
+- failed or unevidenced invariant, historical-reader, health, or canary cutover dimension
+- missing, malformed, or WARN evidence without silent fallback
+contract_impact:
+  kind: LOCAL_EXECUTABLE_CONTROL_PLANE
+  existing_frozen_contract_changed: false
+  new_public_contract: false
+  http_changed: false
+  persistence_changed: false
+migration:
+  required_for_this_diff: false
+  epic_applicability_preserved: true
+  justification: no schema, table, authoritative state, or persistence path changes in this slice
+rollback:
+  operational: revert the candidate before consumption
+  compatibility: replace compatibly and rerun all ten mandatory tests after consumption
+  database: not applicable because this diff has no persisted state or schema change
+scope:
+  future_slices_anticipated: false
+  unrelated_owners_changed: false
+limitations:
+- executes tooling gates but does not execute scientific workloads or external providers
+- attestation production and cryptographic verification for other requirements remain with their owning boundaries
+- frontend content is limited to gate configuration and sentinel tests; no product capability is implemented
+- does not claim runtime service availability, scientific efficacy, or independent QA/review
+validation:
+  mandatory_and_targeted_tests: PASS
+  sgv_contract_regression: PASS
+  task_envelope_schema: PASS
+  python_compilation: PASS
+  python_architecture: PASS
+  repository_offline_validators: PASS
+  repository_integration_gate_local: ENVIRONMENT_BLOCKED
+  repository_integration_gate_reason: FOUNDATION_INTEGRATION=1 and the pinned PostgreSQL/RabbitMQ services required by the pre-existing foundation test are unavailable locally
+  make_verify_local: ENVIRONMENT_BLOCKED
+  make_verify_local_reason: all new tooling gates and all offline repository gates passed before the pre-existing foundation integration test rejected the absent external services
+  ruff_static_analysis: PASS
+  mypy_static_analysis: PASS
+  typescript_strict: PASS
+  vitest_testing_library: PASS
+  playwright_chromium: PASS
+  negative_gate_canaries: PASS
+  commands:
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_srg_srp_part_4.py
+  - make python-quality PYTHON="py -3.12"
+  - pnpm run frontend:verify
+  - make verify PYTHON="py -3.12"

@@ -6,6 +6,21 @@ from jsonschema import Draft202012Validator
 
 ROOT=Path(__file__).resolve().parents[1]
 errors=[]
+GENERATED_DIRS=frozenset({
+    '.npm-cache',
+    '.playwright-browsers',
+    '.pnpm-store',
+    'node_modules',
+    'playwright-report',
+    'test-results',
+})
+
+def repo_rglob(pattern):
+    return (
+        path
+        for path in ROOT.rglob(pattern)
+        if GENERATED_DIRS.isdisjoint(path.relative_to(ROOT).parts)
+    )
 
 def check_sequence(paths, pattern, prefix, start=1):
     ids=[]; rx=re.compile(pattern)
@@ -39,10 +54,10 @@ for rel in phase_d_required:
 if counts.get('adrs') != 58: errors.append('Phase D ADR count drift')
 
 # JSON/YAML syntax.
-for p in ROOT.rglob('*.json'):
+for p in repo_rglob('*.json'):
     try: json.loads(p.read_text(encoding='utf-8'))
     except Exception as e: errors.append(f'invalid JSON {p.relative_to(ROOT)}: {e}')
-for p in list(ROOT.rglob('*.yaml'))+list(ROOT.rglob('*.yml')):
+for p in list(repo_rglob('*.yaml'))+list(repo_rglob('*.yml')):
     try: yaml.safe_load(p.read_text(encoding='utf-8'))
     except Exception as e: errors.append(f'invalid YAML {p.relative_to(ROOT)}: {e}')
 
@@ -96,7 +111,7 @@ for p in ROOT.glob('.codex/tasks/TASK-*.json'):
         if not (ROOT/ref).exists(): errors.append(f'{p.name}: missing reference {ref}')
 
 # Markdown relative links.
-for p in ROOT.rglob('*.md'):
+for p in repo_rglob('*.md'):
     text=p.read_text(encoding='utf-8',errors='ignore')
     for target in re.findall(r'\[[^\]]*\]\(([^)]+)\)',text):
         if target.startswith(('http://','https://','#','mailto:')): continue
@@ -105,7 +120,7 @@ for p in ROOT.rglob('*.md'):
 
 # No obsolete project-history IDs/artifacts in active tree.
 forbidden_names={'CHANGELOG.md','DECISION_LOG.md','DECISION_PACKAGE_HISTORY.csv','LEGACY_ADR_CONSOLIDATION_MAP.csv','BROWNFIELD_ADOPTION_REGISTER.md','IMPLEMENTATION_ISSUE_CATALOG.md'}
-for p in ROOT.rglob('*'):
+for p in repo_rglob('*'):
     if p.name in forbidden_names: errors.append(f'forbidden artifact: {p.relative_to(ROOT)}')
     if p.is_file() and p.suffix.lower() in {'.md','.csv','.json','.yaml','.yml','.txt'}:
         text=p.read_text(encoding='utf-8',errors='ignore')
@@ -172,7 +187,7 @@ if ar.get('runtime',{}).get('primary') != 'CPython 3.12.13': errors.append('Phas
 if ar.get('implementation_readiness') not in {'READY','CONDITIONAL','READY_FOR_PHASE_B'}: errors.append('invalid implementation readiness state')
 
 # No unresolved legacy issue IDs or empty required sections.
-for p in ROOT.rglob('*'):
+for p in repo_rglob('*'):
     if 'exports' in p.parts or p.name in {'manifest.json','SHA256SUMS.txt','VALIDATION_RESULT.txt'}: continue
     if p.is_file() and p.suffix.lower() in {'.md','.csv','.json','.yaml','.yml','.txt'}:
         t=p.read_text(encoding='utf-8',errors='ignore')
