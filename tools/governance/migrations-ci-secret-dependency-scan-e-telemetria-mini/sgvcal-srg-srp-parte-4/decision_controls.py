@@ -24,7 +24,9 @@ def _unique_text_tuple(values: object) -> bool:
 
 
 def _has_exact_names(values: object, required: tuple[str, ...]) -> bool:
-    return _unique_text_tuple(values) and set(values) == set(required)
+    if not _unique_text_tuple(values) or not isinstance(values, tuple):
+        return False
+    return set(values) == set(required)
 
 
 def _digested_items_are_valid(items: object) -> bool:
@@ -181,50 +183,18 @@ class ReleaseEvidence:
 
 
 @dataclass(frozen=True)
-class ToolingEvidence:
-    local_python_gates: tuple[str, ...]
-    ci_python_gates: tuple[str, ...]
-    configurations_versioned: bool
-    violations_block_candidate: bool
+class IntegrationServiceEvidence:
     integration_services: tuple[str, ...]
     integration_services_real: bool
     authoritative_state_store: str
     broker_role: str
-    frontend_typescript_strict: bool
-    frontend_test_tools: tuple[str, ...]
-    frontend_failures_block_candidate: bool
 
-    def failed_requirements(self) -> tuple[str, ...]:
-        checks = (
-            ("REQ-TOOL-006", self._python_gates_are_valid()),
-            ("REQ-TOOL-007", self._integration_services_are_valid()),
-            ("REQ-TOOL-009", self._frontend_gate_is_valid()),
-        )
-        return tuple(requirement for requirement, passed in checks if not passed)
-
-    def _python_gates_are_valid(self) -> bool:
-        expected = ("ruff", "mypy")
-        return bool(
-            _has_exact_names(self.local_python_gates, expected)
-            and _has_exact_names(self.ci_python_gates, expected)
-            and _strict_true((self.configurations_versioned, self.violations_block_candidate))
-        )
-
-    def _integration_services_are_valid(self) -> bool:
+    def is_valid(self) -> bool:
         return bool(
             _has_exact_names(self.integration_services, ("POSTGIS", "RABBITMQ"))
             and self.integration_services_real is True
             and self.authoritative_state_store == "POSTGRESQL_POSTGIS"
             and self.broker_role == "TRANSPORT_ONLY"
-        )
-
-    def _frontend_gate_is_valid(self) -> bool:
-        return bool(
-            self.frontend_typescript_strict is True
-            and _has_exact_names(
-                self.frontend_test_tools, ("VITEST", "TESTING_LIBRARY", "PLAYWRIGHT")
-            )
-            and self.frontend_failures_block_candidate is True
         )
 
 
@@ -299,14 +269,10 @@ def validate_release(evidence: ReleaseEvidence) -> None:
         raise DecisionRejected(("REQ-SUP-001",))
 
 
-def validate_tooling(evidence: ToolingEvidence) -> None:
-    """Require Python, real-service, and frontend integration gates."""
-    failed = (
-        evidence.failed_requirements()
-        if isinstance(evidence, ToolingEvidence)
-        else ("REQ-TOOL-006", "REQ-TOOL-007", "REQ-TOOL-009")
-    )
-    _reject_if_failed(failed)
+def validate_real_services(evidence: IntegrationServiceEvidence) -> None:
+    """Require real PostGIS/RabbitMQ integration evidence."""
+    if not isinstance(evidence, IntegrationServiceEvidence) or not evidence.is_valid():
+        raise DecisionRejected(("REQ-TOOL-007",))
 
 
 def validate_cutover(evidence: CutoverEvidence) -> None:

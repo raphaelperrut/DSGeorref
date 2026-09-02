@@ -45,6 +45,16 @@ jobs:
           cache: 'pip'
           cache-dependency-path: requirements-validation.txt
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.26.1
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24.20.0'
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
+
       - name: Show Python version
         run: python --version
 
@@ -52,6 +62,12 @@ jobs:
         run: |
           python -m pip install --disable-pip-version-check \
             -r requirements-validation.txt
+
+      - name: Install frontend validation dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install pinned Playwright browser
+        run: pnpm --filter @dsgeorref/frontend-tooling exec playwright install --with-deps chromium
 
       - name: Verify repository
         run: make verify

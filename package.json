@@ -1,0 +1,15 @@
+{
+  "name": "dsgeorref-workspace",
+  "private": true,
+  "packageManager": "pnpm@10.26.1",
+  "engines": {
+    "node": "24.20.0",
+    "pnpm": "10.26.1"
+  },
+  "scripts": {
+    "frontend:typecheck": "pnpm --filter @dsgeorref/frontend-tooling typecheck",
+    "frontend:test:unit": "pnpm --filter @dsgeorref/frontend-tooling test:unit",
+    "frontend:test:browser": "pnpm --filter @dsgeorref/frontend-tooling test:browser",
+    "frontend:verify": "pnpm run frontend:typecheck && pnpm run frontend:test:unit && pnpm run frontend:test:browser"
+  }
+}

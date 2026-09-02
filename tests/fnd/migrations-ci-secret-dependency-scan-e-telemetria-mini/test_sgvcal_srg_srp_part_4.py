@@ -2,7 +2,10 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import shutil
+import subprocess
 import sys
+import tomllib
 from dataclasses import replace
 from pathlib import Path
 from types import ModuleType
@@ -11,7 +14,6 @@ from typing import Any
 import pytest
 from jsonschema import Draft202012Validator
 
-
 ROOT = Path(__file__).resolve().parents[3]
 MODULE_PATH = (
     ROOT
@@ -19,6 +21,13 @@ MODULE_PATH = (
     / "sgvcal-srg-srp-parte-4/decision_controls.py"
 )
 TASK_PATH = ROOT / ".codex/tasks/TASK-0711.json"
+MAKEFILE_PATH = ROOT / "Makefile"
+WORKFLOW_PATH = ROOT / ".github/workflows/ci.yml"
+REQUIREMENTS_PATH = ROOT / "requirements-validation.txt"
+PYPROJECT_PATH = ROOT / "pyproject.toml"
+PACKAGE_PATH = ROOT / "package.json"
+FRONTEND_PACKAGE_PATH = ROOT / "src/frontend/package.json"
+TSCONFIG_PATH = ROOT / "src/frontend/tsconfig.json"
 SGVCAL_PATH = (
     ROOT
     / "contracts/contexts/engineering_governance/fnd"
@@ -103,19 +112,12 @@ def _release_evidence() -> Any:
     )
 
 
-def _tooling_evidence() -> Any:
-    return CONTROLS.ToolingEvidence(
-        local_python_gates=("ruff", "mypy"),
-        ci_python_gates=("ruff", "mypy"),
-        configurations_versioned=True,
-        violations_block_candidate=True,
+def _integration_evidence() -> Any:
+    return CONTROLS.IntegrationServiceEvidence(
         integration_services=("POSTGIS", "RABBITMQ"),
         integration_services_real=True,
         authoritative_state_store="POSTGRESQL_POSTGIS",
         broker_role="TRANSPORT_ONLY",
-        frontend_typescript_strict=True,
-        frontend_test_tools=("VITEST", "TESTING_LIBRARY", "PLAYWRIGHT"),
-        frontend_failures_block_candidate=True,
     )
 
 
@@ -245,24 +247,50 @@ def test_release_sbom_signature_provenance_immutable_pins() -> None:
 
 
 def test_ruff_mypy_gate() -> None:
-    evidence = _tooling_evidence()
-    CONTROLS.validate_tooling(evidence)
-    for changes in (
-        {"local_python_gates": ("ruff",)},
-        {"ci_python_gates": ("mypy",)},
-        {"configurations_versioned": False},
-        {"violations_block_candidate": False},
-    ):
-        _assert_rejected(
-            CONTROLS.validate_tooling,
-            replace(evidence, **changes),
-            "REQ-TOOL-006",
-        )
+    requirements = REQUIREMENTS_PATH.read_text(encoding="utf-8").splitlines()
+    pyproject = tomllib.loads(PYPROJECT_PATH.read_text(encoding="utf-8"))
+    makefile = MAKEFILE_PATH.read_text(encoding="utf-8")
+    workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
+    assert "ruff==0.16.5" in requirements
+    assert "mypy==2.3.1" in requirements
+    assert pyproject["tool"]["ruff"]["target-version"] == "py312"
+    assert pyproject["tool"]["mypy"]["python_version"] == "3.12"
+    assert pyproject["tool"]["mypy"]["strict"] is True
+    assert "verify: python-quality frontend-quality" in makefile
+    assert "$(PYTHON) -m ruff check $(RUFF_PATHS)" in makefile
+    assert "$(PYTHON) -m mypy $(MYPY_PATHS)" in makefile
+    assert "-r requirements-validation.txt" in workflow
+    assert "run: make verify" in workflow
+
+    gate = subprocess.run(
+        ["make", "python-quality", f"PYTHON={sys.executable}"],
+        cwd=ROOT,
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+    assert gate.returncode == 0, gate.stdout + gate.stderr
+
+    ruff_failure = subprocess.run(
+        [sys.executable, "-m", "ruff", "check", "--stdin-filename", "broken.py", "-"],
+        input="import os\n",
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+    assert ruff_failure.returncode != 0
+    mypy_failure = subprocess.run(
+        [sys.executable, "-m", "mypy", "--strict", "-c", "def f() -> int:\n return 'x'"],
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+    assert mypy_failure.returncode != 0
 
 
 def test_pytest_real_services() -> None:
-    evidence = _tooling_evidence()
-    CONTROLS.validate_tooling(evidence)
+    evidence = _integration_evidence()
+    CONTROLS.validate_real_services(evidence)
     for changes in (
         {"integration_services": ("POSTGIS",)},
         {"integration_services_real": False},
@@ -271,31 +299,78 @@ def test_pytest_real_services() -> None:
         {"broker_role": "STATE_STORE"},
     ):
         _assert_rejected(
-            CONTROLS.validate_tooling,
+            CONTROLS.validate_real_services,
             replace(evidence, **changes),
             "REQ-TOOL-007",
         )
 
 
-def test_frontend_strict_and_browser() -> None:
-    evidence = _tooling_evidence()
-    CONTROLS.validate_tooling(evidence)
-    for changes in (
-        {"frontend_typescript_strict": False},
-        {"frontend_test_tools": ("VITEST", "PLAYWRIGHT")},
-        {"frontend_failures_block_candidate": False},
-    ):
-        _assert_rejected(
-            CONTROLS.validate_tooling,
-            replace(evidence, **changes),
-            "REQ-TOOL-009",
-        )
+def test_frontend_strict_and_browser(tmp_path: Path) -> None:
+    package = json.loads(PACKAGE_PATH.read_text(encoding="utf-8"))
+    frontend = json.loads(FRONTEND_PACKAGE_PATH.read_text(encoding="utf-8"))
+    tsconfig = json.loads(TSCONFIG_PATH.read_text(encoding="utf-8"))
+    makefile = MAKEFILE_PATH.read_text(encoding="utf-8")
+    workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
+    assert package["packageManager"] == "pnpm@10.26.1"
+    assert package["engines"]["node"] == "24.20.0"
+    assert tsconfig["compilerOptions"]["strict"] is True
+    assert tsconfig["compilerOptions"]["noEmit"] is True
+    assert set(frontend["devDependencies"]) >= {
+        "typescript",
+        "vitest",
+        "@testing-library/dom",
+        "@playwright/test",
+    }
+    assert frontend["scripts"] == {
+        "typecheck": "tsc --noEmit",
+        "test:unit": (
+            "vitest run tests/tooling/testing-library.unit.test.ts --environment jsdom"
+        ),
+        "test:browser": (
+            "playwright test tests/tooling/playwright.browser.spec.ts --browser=chromium"
+        ),
+    }
+    assert "$(PNPM) run frontend:verify" in makefile
+    assert "node-version: '24.20.0'" in workflow
+    assert "pnpm install --frozen-lockfile" in workflow
+    assert "playwright install --with-deps chromium" in workflow
+
+    pnpm = shutil.which("pnpm")
+    assert pnpm is not None
+    gate = subprocess.run(
+        [pnpm, "run", "frontend:verify"],
+        cwd=ROOT,
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+    assert gate.returncode == 0, gate.stdout + gate.stderr
+
+    invalid_typescript = tmp_path / "invalid.ts"
+    invalid_typescript.write_text("const value: number = 'invalid';\n", encoding="utf-8")
+    strict_failure = subprocess.run(
+        [
+            pnpm,
+            "--dir",
+            "src/frontend",
+            "exec",
+            "tsc",
+            "--noEmit",
+            "--strict",
+            str(invalid_typescript),
+        ],
+        cwd=ROOT,
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+    assert strict_failure.returncode != 0
 
 
 def test_post_migration_multidimensional_evidence_gate_canary_and_atomic_cutover() -> None:
     evidence = _cutover_evidence()
     CONTROLS.validate_cutover(evidence)
-    failed_canary = evidence.gate_results[:-1] + (("CANARY", False, DIGESTS[3]),)
+    failed_canary = (*evidence.gate_results[:-1], ("CANARY", False, DIGESTS[3]))
     for changes in (
         {"gate_results": evidence.gate_results[:-1]},
         {"gate_results": failed_canary},
@@ -320,8 +395,8 @@ def test_missing_malformed_or_permissive_evidence_is_rejected_without_fallback()
         (CONTROLS.replay_scheduler_decisions, ("REQ-SRP-002",)),
         (CONTROLS.validate_release, ("REQ-SUP-001",)),
         (
-            CONTROLS.validate_tooling,
-            ("REQ-TOOL-006", "REQ-TOOL-007", "REQ-TOOL-009"),
+            CONTROLS.validate_real_services,
+            ("REQ-TOOL-007",),
         ),
         (CONTROLS.validate_cutover, ("REQ-UPG-003",)),
     )
@@ -350,6 +425,9 @@ def test_task_envelope_contains_only_the_final_slice_paths() -> None:
     assert ".codex/tasks/TASK-0711.json" in allowed
     assert str(Path(__file__).relative_to(ROOT)).replace("\\", "/") in allowed
     assert any(path.startswith("evidence/implementation/migrations-ci-") for path in allowed)
+    assert "Makefile" in allowed
+    assert ".github/workflows/ci.yml" in allowed
+    assert "pnpm-lock.yaml" in allowed
     assert task["allow_paths"] == task["phase_f_review"]["files"]["allow_paths"]
     source = MODULE_PATH.read_text(encoding="utf-8")
     assert "ISSUE-" not in source

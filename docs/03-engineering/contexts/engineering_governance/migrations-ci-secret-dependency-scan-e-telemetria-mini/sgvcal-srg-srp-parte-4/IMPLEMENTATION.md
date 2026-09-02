@@ -29,9 +29,9 @@ schema ou segunda autoridade é criado.
 | REQ-SRG-002 | grafo de impacto, tiers obrigatórios e full matrix | `test_change_impact_graph_mandatory_tiers_and_full_promotion_matrix` |
 | REQ-SRP-002 | replay completo offline sem workload ou provider | `test_offline_scheduler_decision_replay_without_scientific_workload_or_providers` |
 | REQ-SUP-001 | locks, pins, SBOM, scan, checksums, assinatura OCI e provenance | `test_release_sbom_signature_provenance_immutable_pins` |
-| REQ-TOOL-006 | Ruff e mypy locais/CI, configurados e bloqueantes | `test_ruff_mypy_gate` |
+| REQ-TOOL-006 | `make python-quality` executa Ruff e mypy versionados; `make verify` e CI bloqueiam falhas | `test_ruff_mypy_gate` |
 | REQ-TOOL-007 | PostGIS autoritativo e RabbitMQ somente transporte | `test_pytest_real_services` |
-| REQ-TOOL-009 | TypeScript strict e trio de testes frontend bloqueante | `test_frontend_strict_and_browser` |
+| REQ-TOOL-009 | workspace mínimo executa TypeScript strict, Vitest + Testing Library e Playwright; `make verify` e CI bloqueiam falhas | `test_frontend_strict_and_browser` |
 | REQ-UPG-003 | quatro dimensões evidenciadas antes do cutover atômico | `test_post_migration_multidimensional_evidence_gate_canary_and_atomic_cutover` |
 
 ## Compatibilidade, determinismo e erros
@@ -44,18 +44,20 @@ schema ou segunda autoridade é criado.
   provider/workload e cutover sem qualquer gate falham explicitamente.
 - Evidência ausente ou de tipo incorreto gera `DecisionRejected` com todos os requisitos afetados,
   sem default permissivo ou fallback silencioso.
+- REQ-TOOL-006 e REQ-TOOL-009 não aceitam DTO, booleano ou lista declarativa: sua prova é a
+  execução dos comandos versionados conectados ao mesmo `make verify` chamado pelo CI.
 
 ## Contratos, migrations, riscos e rollback
 
 O diff não altera contrato congelado, endpoint, schema, tabela, migration ou estado persistente.
-A aplicabilidade de banco do épico permanece preservada, mas esta slice valida a admissão das
-evidências; os producers de CI, serviços reais, frontend, release e upgrade continuam nos owners
-de seus boundaries. PostgreSQL/PostGIS permanece autoritativo e RabbitMQ somente transporte.
+A aplicabilidade de banco do épico permanece preservada. O frontend acrescentado é somente o
+tooling mínimo de validação, sem produto, rota, componente, endpoint ou estado. PostgreSQL/PostGIS
+permanece autoritativo e RabbitMQ somente transporte.
 
-Risco residual: o control plane recebe attestations cujos producers e verificadores precisam
-preservar identidade, digest e provenance. Ele não reivindica execução de workload científico,
-provider externo, scanner, browser, banco ou broker neste processo local, nem aprovação de QA,
-Arquiteto ou Reviewer.
+Risco residual: attestations das demais capacidades ainda dependem de seus producers e
+verificadores preservarem identidade, digest e provenance. Ruff, mypy, TypeScript, Vitest,
+Testing Library e Playwright, porém, são executados diretamente e falham de forma bloqueante.
+Não se reivindica aprovação de QA, Arquiteto ou Reviewer.
 
 Rollback antes de consumo é a reversão do commit. Após consumo, uma substituição deve aceitar as
 mesmas evidências conformes ou ser versionada, repetir os dez testes canônicos e preservar a
