@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "identity": {
+    "epic_id": "EPIC-005",
+    "story_id": "STORY-0022",
+    "issue_id": "ISSUE-0132",
+    "task_id": "TASK-0022",
+    "owner_context": "BC-001"
+  },
+  "integration_base_commit": "0774ff091102fc91f75fa39009b3bf3f6c285ca6",
+  "predecessors": [
+    {
+      "story_id": "STORY-0708",
+      "issue_id": "ISSUE-0818",
+      "task_id": "TASK-0708",
+      "merge_commit": "f0fa8bdf7b883c6f76f2c0158fa9571077c8051a",
+      "evidence_commit": "74eade1ada0081dd37ca004822153c7db1cab103",
+      "evidence_path": "evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/aie-bex-parte-1/IMPLEMENTATION_EVIDENCE.yaml",
+      "evidence_sha256": "f51376ba4f62778c198f6d2519d8d54d71dc42e31bf16629e34fdba4819834c6"
+    },
+    {
+      "story_id": "STORY-0709",
+      "issue_id": "ISSUE-0819",
+      "task_id": "TASK-0709",
+      "merge_commit": "89b363ef404438d050dda863ca6fbc0dffc8154e",
+      "evidence_commit": "ef6fc9e080a16185ca89411edc03ceb385a97553",
+      "evidence_path": "evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/bex-epic-frz-parte-2/IMPLEMENTATION_EVIDENCE.yaml",
+      "evidence_sha256": "f39ce2b361c34c6d7d7103f43a6b4f2999611c5861e852c0297e40c89808d297"
+    },
+    {
+      "story_id": "STORY-0710",
+      "issue_id": "ISSUE-0820",
+      "task_id": "TASK-0710",
+      "merge_commit": "51ae5720127b377f1e56ebc596ea259c418afe6f",
+      "evidence_commit": "10db614524ff0f150552c66b4c5350e4aa86b0ce",
+      "evidence_path": "evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/fs1-gov-sgvcal-parte-3/IMPLEMENTATION_EVIDENCE.yaml",
+      "evidence_sha256": "f19e969252fd81b104ea3aafc587fd24de2befe69a15603e07ee4ed5ce042d02"
+    },
+    {
+      "story_id": "STORY-0711",
+      "issue_id": "ISSUE-0821",
+      "task_id": "TASK-0711",
+      "merge_commit": "0774ff091102fc91f75fa39009b3bf3f6c285ca6",
+      "evidence_commit": "44e9f2784208ba7b9e41b41f00727550e6033f25",
+      "evidence_path": "evidence/implementation/migrations-ci-secret-dependency-scan-e-telemetria/sgvcal-srg-srp-parte-4/IMPLEMENTATION_EVIDENCE.yaml",
+      "evidence_sha256": "e7d3ed60598fd8dc80194eb88cf5f8ee8d3c0f6d4586bd00e6400b281ee4744c"
+    }
+  ],
+  "coverage": {
+    "requirement_count": 40,
+    "duplicates": [],
+    "unassigned": []
+  },
+  "integration": {
+    "predecessor_outputs_reused_unchanged": true,
+    "artifact_path_collisions": [],
+    "normative_requirement_overlaps": [],
+    "duplicate_test_proofs": [],
+    "shared_contract_changes": [],
+    "redundant_implementations": [],
+    "runtime_materialization": "DOWNSTREAM_STORY_0024_ONLY",
+    "migration_required_for_this_diff": false
+  },
+  "review_gate": {
+    "candidate_state": "READY_FOR_SENTINEL_QA",
+    "authority_role": "Reviewer",
+    "residual_risks_required": true,
+    "self_approval": "PROHIBITED",
+    "eligible_dependents": [
+      "STORY-0024"
+    ],
+    "released_dependents": []
+  }
+}

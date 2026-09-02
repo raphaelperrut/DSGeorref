@@ -1,0 +1,107 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-005
+  story_id: STORY-0022
+  issue_id: ISSUE-0132
+  github_issue: 34
+  task_id: TASK-0022
+candidate:
+  integration_base_commit: 0774ff091102fc91f75fa39009b3bf3f6c285ca6
+  state: READY_FOR_SENTINEL_QA
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+  candidate_sha_binding: exact PR head recorded in the PR handoff after final validation
+task_envelope:
+  changed: true
+  control_plane_separated: true
+  reason: the self path, mandatory focused test, and mandatory evidence path were omitted
+implementation_artifacts:
+- .codex/tasks/TASK-0022.json
+- docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/CONSOLIDATION.json
+- docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/IMPLEMENTATION.md
+- tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_story_0022_slice_consolidation.py
+- evidence/implementation/epic-005/story-0022/IMPLEMENTATION_EVIDENCE.yaml
+predecessor_evidence:
+- story_id: STORY-0708
+  merge_commit: f0fa8bdf7b883c6f76f2c0158fa9571077c8051a
+  evidence_commit: 74eade1ada0081dd37ca004822153c7db1cab103
+  evidence_sha256: f51376ba4f62778c198f6d2519d8d54d71dc42e31bf16629e34fdba4819834c6
+- story_id: STORY-0709
+  merge_commit: 89b363ef404438d050dda863ca6fbc0dffc8154e
+  evidence_commit: ef6fc9e080a16185ca89411edc03ceb385a97553
+  evidence_sha256: f39ce2b361c34c6d7d7103f43a6b4f2999611c5861e852c0297e40c89808d297
+- story_id: STORY-0710
+  merge_commit: 51ae5720127b377f1e56ebc596ea259c418afe6f
+  evidence_commit: 10db614524ff0f150552c66b4c5350e4aa86b0ce
+  evidence_sha256: f19e969252fd81b104ea3aafc587fd24de2befe69a15603e07ee4ed5ce042d02
+- story_id: STORY-0711
+  merge_commit: 0774ff091102fc91f75fa39009b3bf3f6c285ca6
+  evidence_commit: 44e9f2784208ba7b9e41b41f00727550e6033f25
+  evidence_sha256: e7d3ed60598fd8dc80194eb88cf5f8ee8d3c0f6d4586bd00e6400b281ee4744c
+acceptance_evidence:
+- criterion: AC-ISSUE-0132-01
+  proof: all four direct predecessor merge commits are ancestors of the shared integration baseline
+- criterion: AC-ISSUE-0132-02
+  proof: 40 canonically reviewed requirements and their test proofs are pairwise disjoint across the slices
+- criterion: AC-ISSUE-0132-03
+  proof: 28 declared artifacts have unique paths, exist unchanged at the baseline, and declare no shared contract or persistence change
+- criterion: AC-ISSUE-0132-04
+  proof: the checkpoint keeps STORY-0024 unreleased and requires the independent Reviewer to record residual risks before release
+contract_impact:
+  kind: CONSOLIDATION_CHECKPOINT_ONLY
+  existing_frozen_contract_changed: false
+  new_public_contract: false
+  http_changed: false
+  persistence_changed: false
+migration:
+  required_for_this_diff: false
+  justification: no schema, authoritative state, deployment, or persisted artifact is changed
+rollback:
+  operational: revert the ISSUE-0132 commits before downstream consumption
+  compatibility: preserve predecessor identities and the Reviewer-only release gate, then rerun the mandatory test
+  database: not applicable because this diff has no database change
+scope:
+  predecessor_outputs_reimplemented: false
+  issue_0133_anticipated: false
+  issue_0134_anticipated: false
+  issue_0135_anticipated: false
+  shared_contracts_changed: false
+limitations:
+- predecessor test suites were not rerun; their committed evidence and immutable Git lineage were reused
+- this consolidation does not produce migrations, scans, attestations, telemetry, or scientific runtime results
+- independent Sentinel QA and Reviewer approval remain pending and are not claimed
+residual_risks:
+- evidence producers and cryptographic verification remain under the predecessor artifact owners
+- the local aggregate gate requires the pinned PostgreSQL and RabbitMQ integration environment
+validation:
+  task_envelope_schema: PASS
+  mandatory_test: PASS
+  targeted_ruff: PASS
+  targeted_python_compile: PASS
+  git_diff_check: PASS
+  aggregate_gate_run: true
+  aggregate_gate: ENVIRONMENT_BLOCKED
+  aggregate_gate_reason: FOUNDATION_INTEGRATION is unset and the pinned PostgreSQL/RabbitMQ services are unavailable locally
+  aggregate_completed_before_block:
+  - Ruff
+  - mypy
+  - TypeScript strict
+  - Vitest and Testing Library
+  - Playwright Chromium
+  - repository validation
+  - architecture review
+  - requirements review
+  - DDD review
+  - ADR review
+  - specification review
+  - sprint review
+  - Python architecture check
+  commands:
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_story_0022_slice_consolidation.py
+  - py -3.12 -m ruff check tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_story_0022_slice_consolidation.py
+  - py -3.12 -m py_compile tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_story_0022_slice_consolidation.py
+  - git diff --check
+  - make verify PYTHON="py -3.12"
