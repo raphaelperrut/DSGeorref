@@ -44,7 +44,10 @@
   ],
   "allow_paths": [
     "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/**",
-    "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/**"
+    "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/**",
+    "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_story_0022_slice_consolidation.py",
+    "evidence/implementation/epic-005/story-0022/**",
+    ".codex/tasks/TASK-0022.json"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -121,7 +124,10 @@
       "status": "PASS",
       "allow_paths": [
         "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/**",
-        "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/**"
+        "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/consolidacao/**",
+        "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_story_0022_slice_consolidation.py",
+        "evidence/implementation/epic-005/story-0022/**",
+        ".codex/tasks/TASK-0022.json"
       ],
       "deny_paths": [
         "src/**/epic-*",
