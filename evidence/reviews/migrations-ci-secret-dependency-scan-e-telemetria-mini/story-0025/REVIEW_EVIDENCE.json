@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "issue_id": "ISSUE-0135",
+  "github_issue": 37,
+  "reviewed_issue_id": "ISSUE-0134",
+  "candidate_sha": "780f45410d237f43b2658254fbe9742df96b9c28",
+  "merge_sha": "82cb629a929bf5664206eb77a4d653d2b3b0ffc9",
+  "candidate_artifacts": [
+    {
+      "path": ".codex/tasks/TASK-0024.json",
+      "sha256": "298cf9f80bafb71bf950ef371a2c88b11d7aa58f7be09245d6db2696997d730d"
+    },
+    {
+      "path": "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/REPOSITORY_INTEGRATION.md",
+      "sha256": "91348865e8181a7d2cf2132bf13ff8b743d1f6709d2bf6fb18a9413a2e6b635c"
+    },
+    {
+      "path": "evidence/implementation/epic-005/story-0024/IMPLEMENTATION_EVIDENCE.md",
+      "sha256": "065a5a4180654adabd02532e94ecddd7f49d092ef0eaf45965c984bddca26f26"
+    },
+    {
+      "path": "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/repository_integration.py",
+      "sha256": "98b4e6a0cc97ee3c5691f24252cf8c574f37a4e6628c93c8d2b2fe705e587d4b"
+    },
+    {
+      "path": "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_repository_integration.py",
+      "sha256": "56ede40c6ee3c3140407f93fa7e32f880e2ff6f039c331465fd0851d50940c1a"
+    }
+  ],
+  "acceptance_criteria": [
+    "AC-ISSUE-0135-01",
+    "AC-ISSUE-0135-02",
+    "AC-ISSUE-0135-03",
+    "AC-ISSUE-0135-04"
+  ],
+  "acceptance_tests": [
+    "test_epic_005_aceite_happy_path",
+    "test_epic_005_aceite_negative_paths"
+  ],
+  "coordination": [
+    {
+      "role": "Reviewer",
+      "decision": "PASS",
+      "candidate_sha": "780f45410d237f43b2658254fbe9742df96b9c28",
+      "evidence_paths": [
+        "evidence/implementation/epic-005/story-0024/IMPLEMENTATION_EVIDENCE.md",
+        "evidence/reviews/migrations-ci-secret-dependency-scan-e-telemetria-mini/story-0025/REVIEW_EVIDENCE.json"
+      ],
+      "residual_risk_ids": [
+        "RR-ISSUE-0135-01"
+      ]
+    },
+    {
+      "role": "QA",
+      "decision": "PENDING",
+      "candidate_sha": "780f45410d237f43b2658254fbe9742df96b9c28",
+      "evidence_paths": [
+        "evidence/implementation/epic-005/story-0024/IMPLEMENTATION_EVIDENCE.md",
+        "evidence/reviews/migrations-ci-secret-dependency-scan-e-telemetria-mini/story-0025/REVIEW_EVIDENCE.json"
+      ],
+      "residual_risk_ids": [
+        "RR-ISSUE-0135-01"
+      ]
+    }
+  ],
+  "implicit_approval": false,
+  "residual_risks": [
+    {
+      "id": "RR-ISSUE-0135-01",
+      "severity": "LOW",
+      "description": "Secret and dependency scan outcomes are produced by hosted GitHub Actions; this review proves their pinned fail-closed wiring but does not replace the hosted run.",
+      "disposition": "Require the hosted checks for the review commit before merge."
+    }
+  ],
+  "contract_impact": "NONE",
+  "migration_required": false,
+  "rollback": "Revert the ISSUE-0135 evidence commit; no schema or persistent state changes are present."
+}
