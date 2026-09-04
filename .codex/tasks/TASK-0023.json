@@ -47,9 +47,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0023.json",
     "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/**",
     "tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/**",
-    ".github/workflows/migrations-ci-secret-dependency-scan-e-telemetria-mini.yaml"
+    ".github/workflows/migrations-ci-secret-dependency-scan-e-telemetria-mini.yaml",
+    "evidence/operations/epic-005/story-0023/**"
   ],
   "deny_paths": [
     "src/geo/**",
@@ -124,9 +126,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0023.json",
         "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/**",
         "tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/**",
-        ".github/workflows/migrations-ci-secret-dependency-scan-e-telemetria-mini.yaml"
+        ".github/workflows/migrations-ci-secret-dependency-scan-e-telemetria-mini.yaml",
+        "evidence/operations/epic-005/story-0023/**"
       ],
       "deny_paths": [
         "src/geo/**",

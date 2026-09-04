@@ -1,0 +1,92 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-005
+  story_id: STORY-0023
+  issue_id: ISSUE-0133
+  github_issue: 35
+  task_id: TASK-0023
+candidate:
+  base_commit: 653701acbf65a0add948ec5ec1fb2d6314ef4544
+  state: READY_FOR_INDEPENDENT_REVIEW
+  owner_context: BC-001
+  implementation_role: DevOps
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+  sha_binding: exact PR head recorded after final validation
+task_envelope:
+  changed: true
+  control_plane_separated: true
+  reason: the issue-owned TaskEnvelope and mandatory evidence paths were omitted
+implementation_artifacts:
+- .codex/tasks/TASK-0023.json
+- .github/workflows/migrations-ci-secret-dependency-scan-e-telemetria-mini.yaml
+- tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/artifact_validation.py
+- tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/repository_validation.py
+- tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/validation_types.py
+- tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/validator.py
+- tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_automation.py
+- evidence/operations/epic-005/story-0023/IMPLEMENTATION_EVIDENCE.yaml
+acceptance_evidence:
+- criterion: AC-ISSUE-0133-01
+  proof: the deterministic validator emits a structured JSON report for contracts, 51 requirements, migrations, telemetry, CI, and scans
+- criterion: AC-ISSUE-0133-02
+  proof: 51 unique linked requirements resolve to versioned contract or implementation evidence and executable test functions
+- criterion: AC-ISSUE-0133-03
+  proof: eight negative cases prove missing, permissive, incomplete, or drifted inputs fail with stable actionable finding codes
+- criterion: AC-ISSUE-0133-04
+  proof: repeated read-only and dry-run executions are byte-identical, report zero destructive actions, and preserve every input digest
+ci_controls:
+  secret_scan: gitleaks action pinned to an immutable commit
+  python_dependency_scan: pip-audit action pinned to an immutable commit
+  dependency_change_review: dependency-review action pinned to an immutable commit
+  failure_policy: fail closed without continue-on-error
+  telemetry: structured low-cardinality JSON with no repository content or secrets
+contract_impact:
+  existing_frozen_contract_changed: false
+  new_public_contract: false
+  http_changed: false
+  persistence_changed: false
+migration:
+  required_for_this_diff: false
+  justification: the diff validates the frozen migration policy but changes no schema, state, artifact, or deployment
+rollback:
+  operational: revert the ISSUE-0133 candidate before downstream integration
+  database: not applicable because this diff has no database change
+limitations:
+- external secret and advisory databases are exercised by the pull-request workflow, not synthesized by the local validator
+- independent QA and Reviewer approval for the exact candidate commit remain pending and are not claimed
+residual_risks:
+- advisory feeds and hosted Actions availability remain external dependencies and fail the workflow when unavailable
+- local Node is 22 rather than the repository pin 24.20.0; the hosted workflow uses the repository-declared runtime path
+validation:
+  mandatory_test: PASS_1_TEST
+  negative_cases: PASS_8_CASES
+  direct_validator: PASS
+  targeted_ruff: PASS
+  python_architecture: PASS
+  task_envelope_schema: PASS_VIA_REPOSITORY_VALIDATOR
+  make_verify: ENVIRONMENT_BLOCKED
+  make_verify_completed_before_block:
+  - Ruff
+  - mypy
+  - TypeScript strict
+  - Vitest and Testing Library
+  - Playwright Chromium
+  - repository validation
+  - architecture review
+  - requirements review
+  - DDD review
+  - ADR review
+  - specification review
+  - sprint review
+  - Python architecture check
+  - foundation contract validation
+  - four offline foundation tests
+  make_verify_block_reason: FOUNDATION_INTEGRATION is unset and pinned PostgreSQL/RabbitMQ services are unavailable in the local run
+  commands:
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_automation.py::test_epic_005_automacao
+  - py -3.12 -X utf8 tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/validator.py --dry-run
+  - py -3.12 -m ruff check tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_automation.py
+  - py -3.12 -X utf8 tools/check_python_architecture.py
+  - make verify PYTHON="py -3.12"
