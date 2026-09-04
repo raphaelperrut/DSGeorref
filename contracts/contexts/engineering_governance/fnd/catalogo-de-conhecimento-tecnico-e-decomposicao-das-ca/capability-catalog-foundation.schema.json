@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/capability-catalog-foundation/1.0.0",
+  "title": "DSGeorref Technical Knowledge and Capability Catalog Foundation Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "contract_version",
+    "owner",
+    "status",
+    "requirement_ids",
+    "public_interface",
+    "catalog_contract",
+    "knowledge_boundary",
+    "corpus_contract",
+    "authority",
+    "compatibility",
+    "failure_policy",
+    "review_gate"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "contract_id": { "const": "CAPABILITY-CATALOG-FOUNDATION-CONTRACT" },
+    "contract_version": { "const": "1.0.0" },
+    "owner": { "const": "BC-001" },
+    "status": { "const": "FROZEN" },
+    "requirement_ids": {
+      "type": "array",
+      "prefixItems": [
+        { "const": "REQ-AI-007" },
+        { "const": "REQ-TST-001" }
+      ],
+      "items": false,
+      "minItems": 2
+    },
+    "public_interface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract", "operation_id", "path", "projection"],
+      "properties": {
+        "contract": { "const": "contracts/http/operations/get_capabilities.md" },
+        "operation_id": { "const": "get_capabilities" },
+        "path": { "const": "/capabilities" },
+        "projection": { "const": "RUNTIME_AVAILABILITY_ONLY" }
+      }
+    },
+    "catalog_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["descriptor_required_fields", "decomposition", "runtime_materialization"],
+      "properties": {
+        "descriptor_required_fields": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "stable_name" },
+            { "const": "stage" },
+            { "const": "inputs" },
+            { "const": "outputs" },
+            { "const": "hardware_requirements" },
+            { "const": "budget" },
+            { "const": "determinism_level" },
+            { "const": "limitations" },
+            { "const": "operator_explanation" },
+            { "const": "owner" },
+            { "const": "contract" }
+          ],
+          "items": false,
+          "minItems": 11
+        },
+        "decomposition": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["unit", "owner_per_capability", "contract_per_capability", "duplicate_authority"],
+          "properties": {
+            "unit": { "const": "PROCESSING_CAPABILITY" },
+            "owner_per_capability": { "const": "REQUIRED" },
+            "contract_per_capability": { "const": "REQUIRED" },
+            "duplicate_authority": { "const": "REJECT" }
+          }
+        },
+        "runtime_materialization": { "const": "DOWNSTREAM_STORIES_ONLY" }
+      }
+    },
+    "knowledge_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["prior_system_use", "code_import", "plugin_import", "runtime_import", "provenance"],
+      "properties": {
+        "prior_system_use": { "const": "REQUIREMENTS_AND_ATTRIBUTED_CORPUS_ONLY" },
+        "code_import": { "const": "PROHIBITED" },
+        "plugin_import": { "const": "PROHIBITED" },
+        "runtime_import": { "const": "PROHIBITED" },
+        "provenance": { "const": "REQUIRED" }
+      }
+    },
+    "corpus_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["splits", "origin", "license", "sha256", "access_integrity", "split_overlap"],
+      "properties": {
+        "splits": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "DEVELOPMENT" },
+            { "const": "VALIDATION_PROTECTED" },
+            { "const": "HOLDOUT_BLIND" }
+          ],
+          "items": false,
+          "minItems": 3
+        },
+        "origin": { "const": "REQUIRED" },
+        "license": { "const": "REQUIRED" },
+        "sha256": { "const": "REQUIRED" },
+        "access_integrity": { "const": "FAIL_CLOSED" },
+        "split_overlap": { "const": "REJECT" }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract", "runtime_state", "published_binaries", "broker", "telemetry"],
+      "properties": {
+        "contract": { "const": "VERSIONED_REPOSITORY" },
+        "runtime_state": { "const": "POSTGRESQL_POSTGIS" },
+        "published_binaries": { "const": "MANAGED_FILESYSTEM" },
+        "broker": { "const": "TRANSPORT_ONLY" },
+        "telemetry": { "const": "DERIVED_NON_AUTHORITATIVE" }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy", "compatible_change", "breaking_change", "unknown_properties"],
+      "properties": {
+        "policy": { "const": "SEMVER" },
+        "compatible_change": { "const": "OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR" },
+        "breaking_change": { "const": "NEW_MAJOR_AND_ARCHITECT_REVIEW" },
+        "unknown_properties": { "const": "REJECT" }
+      }
+    },
+    "failure_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "silent_fallback", "invalid_descriptor", "missing_corpus_evidence", "legacy_runtime_detected"],
+      "properties": {
+        "mode": { "const": "FAIL_CLOSED" },
+        "silent_fallback": { "const": false },
+        "invalid_descriptor": { "const": "REJECT" },
+        "missing_corpus_evidence": { "const": "REJECT" },
+        "legacy_runtime_detected": { "const": "REJECT" }
+      }
+    },
+    "review_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["executor_role", "independent_role", "self_approval", "eligible_dependents", "released_dependents"],
+      "properties": {
+        "executor_role": { "const": "Arquiteto" },
+        "independent_role": { "const": "Reviewer" },
+        "self_approval": { "const": "PROHIBITED" },
+        "eligible_dependents": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "STORY-0027" },
+            { "const": "STORY-0028" }
+          ],
+          "items": false,
+          "minItems": 2
+        },
+        "released_dependents": {
+          "type": "array",
+          "maxItems": 0
+        }
+      }
+    }
+  }
+}
