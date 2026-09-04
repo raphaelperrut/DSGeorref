@@ -39,7 +39,7 @@ acceptance_evidence:
 ci_controls:
   secret_scan: gitleaks action pinned to an immutable commit
   python_dependency_scan: pip-audit action pinned to an immutable commit
-  dependency_change_review: dependency-review action pinned to an immutable commit
+  node_dependency_scan: pnpm audit with pinned Node and pnpm setup actions
   failure_policy: fail closed without continue-on-error
   telemetry: structured low-cardinality JSON with no repository content or secrets
 contract_impact:

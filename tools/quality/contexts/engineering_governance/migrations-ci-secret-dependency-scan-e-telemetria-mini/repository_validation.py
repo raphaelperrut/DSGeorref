@@ -26,7 +26,8 @@ EXPECTED_ALLOW_PATHS = [
 ]
 GITLEAKS_SHA = "e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e"
 PIP_AUDIT_SHA = "1220774d901786e6f652ae159f7b6bc8fea6d266"
-DEPENDENCY_REVIEW_SHA = "a1d282b36b6f3519aa1f3fc636f609c47dddb294"
+PNPM_SETUP_SHA = "b906affcce14559ad1aafd4ab0e942779e9f58b1"
+SETUP_NODE_SHA = "249970729cb0ef3589644e2896645e5dc5ba9c38"
 
 
 def _finding(code: str, artifact: Path, detail: str) -> Finding:
@@ -104,11 +105,15 @@ def _workflow_findings(root: Path) -> list[Finding]:
             for command in commands
         ),
         "pinned Python": "python-version: '3.12.13'" in text,
-        "read-only permissions": workflow.get("permissions") == {"contents": "read"},
+        "read-only permissions": workflow.get("permissions")
+        == {"contents": "read", "pull-requests": "read"},
         "pinned secret scan": f"gitleaks/gitleaks-action@{GITLEAKS_SHA}" in uses,
         "pinned Python dependency scan": f"pypa/gh-action-pip-audit@{PIP_AUDIT_SHA}" in uses,
-        "pinned dependency review": (
-            f"actions/dependency-review-action@{DEPENDENCY_REVIEW_SHA}" in uses
+        "pinned Node setup": f"actions/setup-node@{SETUP_NODE_SHA}" in uses,
+        "pinned pnpm setup": f"pnpm/action-setup@{PNPM_SETUP_SHA}" in uses,
+        "Node dependency scan": any(
+            "pnpm audit" in command and "--audit-level high" in command
+            for command in commands
         ),
         "fail-closed scans": "continue-on-error: true" not in text,
     }
