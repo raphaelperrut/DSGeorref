@@ -50,8 +50,10 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0024.json",
     "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/**",
-    "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/**"
+    "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/**",
+    "evidence/implementation/epic-005/story-0024/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -129,8 +131,10 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0024.json",
         "tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/**",
-        "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/**"
+        "docs/03-engineering/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/**",
+        "evidence/implementation/epic-005/story-0024/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
