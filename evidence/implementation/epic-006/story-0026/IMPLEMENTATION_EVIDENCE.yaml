@@ -1,0 +1,90 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-006
+  story_id: STORY-0026
+  issue_id: ISSUE-0136
+  github_issue: 38
+  task_id: TASK-0026
+candidate:
+  implementation_sha: 4be44ed3a65ae12da38000318e3a551c215e083b
+  state: READY_FOR_INDEPENDENT_REVIEW
+  owner_context: BC-001
+  implementation_role: Arquiteto
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+  evidence_scope: implementation_sha_and_unchanged_contract_files
+task_envelope:
+  status: CORRECTED
+  reason: the issue's own TaskEnvelope, ownership registry, mandatory test, and evidence paths are required to prove its explicit acceptance criteria
+  control_plane_separate_from_capability: true
+  deny_paths_preserved:
+  - src/**
+  - src/**/epic-*
+  - src/**/issue-*
+contract_artifacts:
+- contracts/contexts/engineering_governance/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/contract-manifest.yaml
+- contracts/contexts/engineering_governance/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/capability-catalog-foundation.schema.json
+- contracts/contexts/engineering_governance/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/examples/capability-catalog-foundation.json
+supporting_artifacts:
+- .codex/tasks/TASK-0026.json
+- contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+- docs/02-architecture/design-reviews/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/DESIGN-REVIEW.md
+- tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_contract.py
+acceptance_evidence:
+- criterion: AC-ISSUE-0136-01
+  evidence: frozen manifest, closed JSON Schema, conforming example, and reference to the existing frozen GET /capabilities projection
+- criterion: AC-ISSUE-0136-02
+  evidence: REQ-AI-007 and REQ-TST-001 are explicit in the manifest and example and asserted by test_epic_006_contrato
+- criterion: AC-ISSUE-0136-03
+  evidence: negative validation rejects silent fallback, legacy runtime import, missing corpus license evidence, and unknown extension
+- criterion: AC-ISSUE-0136-04
+  evidence: version 1.0.0, FROZEN state, SemVer compatibility, BC-001 ownership, runtime data authorities, and independent review gate are explicit and tested
+changed_files_justification:
+- path: .codex/tasks/TASK-0026.json
+  justification: contain the exact control-plane, registry, mandatory test, and evidence paths required by ISSUE-0136
+- path: contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+  justification: register all three public contract artifacts under their existing BC-001 owner
+- path: contracts/contexts/engineering_governance/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**
+  justification: publish the smallest versioned foundation contract, closed schema, and example
+- path: docs/02-architecture/design-reviews/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**
+  justification: record boundaries, authority, compatibility, failure policy, rollback, limitations, and AC traceability
+- path: tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_contract.py
+  justification: prove the mandatory contract path and directly touched fail-closed invariants
+- path: evidence/implementation/epic-006/story-0026/**
+  justification: bind implementation and validation evidence to the exact implementation SHA
+contract_impact:
+  kind: NEW_PUBLIC_FOUNDATION_CONTRACT
+  existing_frozen_contract_changed: false
+  http_changed: false
+  persistence_changed: false
+  runtime_changed: false
+migration:
+  required: false
+  applicability: NOT_APPLICABLE_CONTRACT_ONLY
+rollback:
+  operational: NOT_APPLICABLE_CONTRACT_ONLY
+  contract: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+limitations_and_residual_risks:
+- the contract proves shape and invariants, not materialization of the executable capability inventory
+- corpus segregation and no-legacy-runtime enforcement remain downstream implementation claims
+- independent Reviewer approval for the candidate is pending and is not claimed by this evidence
+findings:
+  blocker: NONE
+  high: NONE
+  medium_low_nonblocking: NONE
+validation:
+  sentinel_qa: PASS
+  mandatory_test: PASS
+  targeted_suite: PASS_3_TESTS
+  task_envelope_schema: PASS
+  ruff: PASS
+  git_diff_check: PASS
+  mandatory_make_verify: STATIC_AND_FRONTEND_GATES_PASS_EXTERNAL_INTEGRATION_PRECONDITION_UNAVAILABLE
+  environmental_classification: the unchanged walking skeleton requires FOUNDATION_INTEGRATION=1 plus pinned PostgreSQL and RabbitMQ; it failed before entering the integration body and is outside the ISSUE-0136 contract-only diff
+  commands:
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_contract.py -q --basetemp .pytest-tmp/issue-0136-final
+  - py -3.12 -m ruff check tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_contract.py
+  - TASK-0026 validation against .codex/tasks/TASK_ENVELOPE.schema.json
+  - git diff --check
+  - make PYTHON="py -3.12" verify

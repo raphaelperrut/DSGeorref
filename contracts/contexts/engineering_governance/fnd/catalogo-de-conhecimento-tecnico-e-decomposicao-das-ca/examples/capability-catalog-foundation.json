@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "CAPABILITY-CATALOG-FOUNDATION-CONTRACT",
+  "contract_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "FROZEN",
+  "requirement_ids": ["REQ-AI-007", "REQ-TST-001"],
+  "public_interface": {
+    "contract": "contracts/http/operations/get_capabilities.md",
+    "operation_id": "get_capabilities",
+    "path": "/capabilities",
+    "projection": "RUNTIME_AVAILABILITY_ONLY"
+  },
+  "catalog_contract": {
+    "descriptor_required_fields": [
+      "stable_name",
+      "stage",
+      "inputs",
+      "outputs",
+      "hardware_requirements",
+      "budget",
+      "determinism_level",
+      "limitations",
+      "operator_explanation",
+      "owner",
+      "contract"
+    ],
+    "decomposition": {
+      "unit": "PROCESSING_CAPABILITY",
+      "owner_per_capability": "REQUIRED",
+      "contract_per_capability": "REQUIRED",
+      "duplicate_authority": "REJECT"
+    },
+    "runtime_materialization": "DOWNSTREAM_STORIES_ONLY"
+  },
+  "knowledge_boundary": {
+    "prior_system_use": "REQUIREMENTS_AND_ATTRIBUTED_CORPUS_ONLY",
+    "code_import": "PROHIBITED",
+    "plugin_import": "PROHIBITED",
+    "runtime_import": "PROHIBITED",
+    "provenance": "REQUIRED"
+  },
+  "corpus_contract": {
+    "splits": ["DEVELOPMENT", "VALIDATION_PROTECTED", "HOLDOUT_BLIND"],
+    "origin": "REQUIRED",
+    "license": "REQUIRED",
+    "sha256": "REQUIRED",
+    "access_integrity": "FAIL_CLOSED",
+    "split_overlap": "REJECT"
+  },
+  "authority": {
+    "contract": "VERSIONED_REPOSITORY",
+    "runtime_state": "POSTGRESQL_POSTGIS",
+    "published_binaries": "MANAGED_FILESYSTEM",
+    "broker": "TRANSPORT_ONLY",
+    "telemetry": "DERIVED_NON_AUTHORITATIVE"
+  },
+  "compatibility": {
+    "policy": "SEMVER",
+    "compatible_change": "OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR",
+    "breaking_change": "NEW_MAJOR_AND_ARCHITECT_REVIEW",
+    "unknown_properties": "REJECT"
+  },
+  "failure_policy": {
+    "mode": "FAIL_CLOSED",
+    "silent_fallback": false,
+    "invalid_descriptor": "REJECT",
+    "missing_corpus_evidence": "REJECT",
+    "legacy_runtime_detected": "REJECT"
+  },
+  "review_gate": {
+    "executor_role": "Arquiteto",
+    "independent_role": "Reviewer",
+    "self_approval": "PROHIBITED",
+    "eligible_dependents": ["STORY-0027", "STORY-0028"],
+    "released_dependents": []
+  }
+}
