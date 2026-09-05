@@ -1,0 +1,94 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-006
+  story_id: STORY-0027
+  issue_id: ISSUE-0137
+  github_issue: 39
+  task_id: TASK-0027
+candidate:
+  implementation_sha: 96f4fe1f76269e89312b90fea1db627bdad54ecc
+  state: READY_FOR_INDEPENDENT_REVIEW
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+  evidence_scope: implementation_sha_and_unchanged_implementation_files
+task_envelope:
+  status: CORRECTED
+  reason: the issue's own TaskEnvelope, focused test, and mandatory evidence paths were required to prove its explicit acceptance criteria
+  control_plane_separate_from_capability: true
+  deny_paths_preserved:
+  - src/**/epic-*
+  - src/**/issue-*
+artifacts:
+- tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/foundation-checkpoint.json
+- tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/catalog_contract.py
+- tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/catalog_validation.py
+- tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/validate_catalog.py
+- docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/capability-catalog.json
+- docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/capability-catalog.schema.json
+- docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test-corpus-manifest.json
+- docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test-corpus-manifest.schema.json
+acceptance_evidence:
+- criterion: AC-ISSUE-0137-01
+  evidence: versioned catalog, schemas, checkpoint, offline validator, and deterministic JSON report
+- criterion: AC-ISSUE-0137-02
+  evidence: test_reference_capability_inventory_no_code_import and test_corpus_license_hash_split_and_access_integrity pass on the candidate SHA
+- criterion: AC-ISSUE-0137-03
+  evidence: negative tests reject contract drift, unknown descriptors, silent fallback, missing catalog, corpus tampering, and split overlap
+- criterion: AC-ISSUE-0137-04
+  evidence: checkpoint declares the identical Python 3.12 offline command for local and CI, and the command passes on the candidate SHA
+changed_files_justification:
+- path: .codex/tasks/TASK-0027.json
+  justification: authorize only the issue's control-plane file, focused test, and mandatory evidence path
+- path: tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**
+  justification: provide the issue-local frozen projection, validation rules, checkpoint, and executable entry point
+- path: docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**
+  justification: publish the versioned capability catalog, schemas, integrity sentinels, and limitations
+- path: tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_foundation.py
+  justification: prove all mandatory tests and fail-closed regressions introduced by the foundation
+- path: evidence/implementation/epic-006/story-0027/**
+  justification: bind implementation and sentinel results to the exact candidate SHA
+contract_impact:
+  kind: READ_ONLY_CONSUMER_OF_FROZEN_1_0_0_CONTRACT
+  frozen_contract_changed: false
+  http_changed: false
+  persistence_changed: false
+  runtime_changed: false
+migration:
+  required: false
+  applicability: NOT_APPLICABLE_ENGINEERING_ARTIFACT_ONLY
+rollback:
+  operational: NOT_APPLICABLE_ENGINEERING_ARTIFACT_ONLY
+  implementation: REVERT_CANDIDATE_BEFORE_DOWNSTREAM_CONSUMPTION
+limitations_and_residual_risks:
+- all capabilities remain DOWNSTREAM_STORIES_ONLY; no product runtime or GET /capabilities implementation is claimed
+- corpus files are synthetic control-path sentinels, not promoted scientific data or evidence of operational access control
+- no cost, scale, latency, GPU, RPO/RTO, security, quality, or production claim is made
+- independent QA and Reviewer approval for the candidate SHA remain pending and are not claimed
+findings:
+  blocker: NONE
+  high: NONE
+  medium_low_nonblocking:
+  - pytest emitted the repository-global pytest-asyncio default-scope deprecation warning; it is unrelated to this diff
+  - git maintenance could not prune metadata for two unrelated stale worktrees after commit; candidate creation succeeded
+validation:
+  sentinel_qa: PASS
+  acceptance_criteria: PASS
+  implementation_evidence_valid_for_sha: true
+  sentinel_qa_valid_for_sha: true
+  mandatory_tests: PASS_3_OF_3
+  focused_suite: PASS_5_TESTS
+  predecessor_contract: PASS_1_TEST
+  task_envelope_schema: PASS
+  ruff: PASS
+  git_diff_check: PASS
+  global_gates: NOT_RUN_BY_EXPLICIT_ISSUE_SCOPE
+  commands:
+  - py -3.12 tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/validate_catalog.py
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_foundation.py
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_contract.py::test_epic_006_contrato
+  - py -3.12 -m ruff check tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/*.py tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_foundation.py
+  - TASK-0027 validation against .codex/tasks/TASK_ENVELOPE.schema.json and allow-path parity
+  - git diff --check HEAD^ HEAD
