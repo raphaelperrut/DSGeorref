@@ -26,6 +26,7 @@ CATALOG_REL = DOC_ROOT_REL / "capability-catalog.json"
 CORPUS_REL = DOC_ROOT_REL / "test-corpus-manifest.json"
 CHECKPOINT_REL = FOUNDATION_ROOT_REL / "foundation-checkpoint.json"
 MANIFEST_REL = CONTRACT_ROOT_REL / "contract-manifest.yaml"
+CONTRACT_EXAMPLE_REL = CONTRACT_ROOT_REL / "examples/capability-catalog-foundation.json"
 SENTINEL_REL = Path("unrelated-sentinel.bin")
 SENTINEL_BYTES = b"ISSUE-0138 unrelated sentinel\x00\xff\n"
 
@@ -134,6 +135,21 @@ def _invalid_requirement_evidence(root: Path) -> None:
     (root / MANIFEST_REL).write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
 
 
+def _allowed_self_approval(root: Path) -> None:
+    manifest = yaml.safe_load((root / MANIFEST_REL).read_text(encoding="utf-8"))
+    manifest["review"]["self_approval"] = "ALLOWED"
+    (root / MANIFEST_REL).write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
+
+
+def _permissive_corpus_policy(root: Path) -> None:
+    contract = _read_json(root, CONTRACT_EXAMPLE_REL)
+    corpus = contract["corpus_contract"]
+    assert isinstance(corpus, dict)
+    corpus["split_overlap"] = "ALLOW"
+    corpus["access_integrity"] = "WARN"
+    _write_json(root, CONTRACT_EXAMPLE_REL, contract)
+
+
 def _invalid_catalog(root: Path) -> None:
     catalog = _read_json(root, CATALOG_REL)
     catalog["source_policy"] = {"runtime_import": "ALLOWED"}
@@ -145,6 +161,30 @@ def _tampered_corpus(root: Path) -> None:
     fixtures = corpus["fixtures"]
     assert isinstance(fixtures, list) and isinstance(fixtures[0], dict)
     fixtures[0]["sha256"] = "0" * 64
+    _write_json(root, CORPUS_REL, corpus)
+
+
+def _duplicate_fixture_id(root: Path) -> None:
+    corpus = _read_json(root, CORPUS_REL)
+    fixtures = corpus["fixtures"]
+    assert isinstance(fixtures, list) and all(isinstance(item, dict) for item in fixtures)
+    fixtures[2]["fixture_id"] = fixtures[0]["fixture_id"]
+    _write_json(root, CORPUS_REL, corpus)
+
+
+def _duplicate_fixture_path(root: Path) -> None:
+    corpus = _read_json(root, CORPUS_REL)
+    fixtures = corpus["fixtures"]
+    assert isinstance(fixtures, list) and all(isinstance(item, dict) for item in fixtures)
+    fixtures[2]["path"] = fixtures[0]["path"]
+    _write_json(root, CORPUS_REL, corpus)
+
+
+def _invalid_split_access(root: Path) -> None:
+    corpus = _read_json(root, CORPUS_REL)
+    fixtures = corpus["fixtures"]
+    assert isinstance(fixtures, list) and isinstance(fixtures[3], dict)
+    fixtures[3]["access"] = "QA_PROTECTED"
     _write_json(root, CORPUS_REL, corpus)
 
 
@@ -220,9 +260,14 @@ def test_epic_006_automacao() -> None:
 
     cases: tuple[tuple[str, str, Mutation], ...] = (
         ("missing_contract", "CONTRACT_UNREADABLE", _missing_contract),
-        ("requirement_drift", "REQUIREMENT_EVIDENCE_INVALID", _invalid_requirement_evidence),
+        ("requirement_drift", "CONTRACT_MANIFEST_INVALID", _invalid_requirement_evidence),
+        ("self_approval", "SELF_APPROVAL_INVALID", _allowed_self_approval),
+        ("corpus_policy", "CORPUS_POLICY_INVALID", _permissive_corpus_policy),
         ("invalid_catalog", "CATALOG_SCHEMA_INVALID", _invalid_catalog),
         ("tampered_corpus", "CORPUS_HASH_MISMATCH", _tampered_corpus),
+        ("duplicate_fixture_id", "CORPUS_SPLIT_OVERLAP", _duplicate_fixture_id),
+        ("duplicate_fixture_path", "CORPUS_SPLIT_OVERLAP", _duplicate_fixture_path),
+        ("split_access", "CORPUS_ACCESS_INVALID", _invalid_split_access),
         ("silent_fallback", "FAILURE_POLICY_INVALID", _silent_fallback),
         ("unsafe_source", "SOURCE_PATH_INVALID", _unsafe_source),
         ("invalid_task", "TASK_CONTROL_INVALID", _invalid_task),

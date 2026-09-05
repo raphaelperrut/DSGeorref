@@ -51,6 +51,13 @@ EXPECTED_SOURCES = {
 }
 CHECKOUT_SHA = "3d3c42e5aac5ba805825da76410c181273ba90b1"
 SETUP_PYTHON_SHA = "5fda3b95a4ea91299a34e894583c3862153e4b97"
+EXPECTED_MANIFEST_SHA256 = "472092ed06c8e9ce07b5af85be23af67a4aaa019a3171d646ab843fd06792495"
+EXPECTED_CORPUS_POLICY = {"access_integrity": "FAIL_CLOSED", "split_overlap": "REJECT"}
+EXPECTED_ACCESS_BY_SPLIT = {
+    "DEVELOPMENT": "DEVELOPMENT",
+    "VALIDATION_PROTECTED": "QA_PROTECTED",
+    "HOLDOUT_BLIND": "INDEPENDENT_QA_BLIND",
+}
 
 
 @dataclass(frozen=True, order=True)
@@ -113,6 +120,13 @@ def _canonical_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
+def _semantic_sha256(value: object) -> str:
+    encoded = json.dumps(
+        value, ensure_ascii=False, separators=(",", ":"), sort_keys=True
+    ).encode()
+    return hashlib.sha256(encoded).hexdigest()
+
+
 def _defined_tests(root: Path) -> tuple[set[str], list[Finding]]:
     try:
         tree = ast.parse((root / TEST_REL).read_text(encoding="utf-8"), TEST_REL.as_posix())
@@ -142,40 +156,32 @@ def _contract_findings(root: Path) -> list[Finding]:
                 "CONTRACT_SCHEMA_INVALID",
             )
         )
+        corpus_policy = (
+            contract_example.get("corpus_contract")
+            if isinstance(contract_example, dict)
+            else None
+        )
+        if not isinstance(corpus_policy, dict) or {
+            key: corpus_policy.get(key) for key in EXPECTED_CORPUS_POLICY
+        } != EXPECTED_CORPUS_POLICY:
+            findings.append(
+                _finding(
+                    "CORPUS_POLICY_INVALID",
+                    CONTRACT_EXAMPLE_REL,
+                    "split_overlap=REJECT and access_integrity=FAIL_CLOSED required",
+                )
+            )
     if not isinstance(manifest, dict):
         return findings
-    identity = manifest.get("identity") if isinstance(manifest.get("identity"), dict) else {}
-    contract = manifest.get("contract") if isinstance(manifest.get("contract"), dict) else {}
-    actual = {
-        "schema_version": manifest.get("schema_version"),
-        "contract_version": manifest.get("contract_version"),
-        "status": manifest.get("status"),
-        "owner": manifest.get("owner"),
-        "identity": identity,
-        "contract": contract,
-        "requirements": manifest.get("requirements"),
-    }
-    expected = {
-        "schema_version": "1.0.0",
-        "contract_version": "1.0.0",
-        "status": "FROZEN",
-        "owner": "BC-001",
-        "identity": {
-            "epic_id": "EPIC-006",
-            "story_id": "STORY-0026",
-            "issue_id": "ISSUE-0136",
-            "task_id": "TASK-0026",
-        },
-        "contract": {
-            "id": "capability-catalog-foundation-contract",
-            "schema": CONTRACT_SCHEMA_REL.as_posix(),
-            "example": CONTRACT_EXAMPLE_REL.as_posix(),
-        },
-        "requirements": list(REQUIREMENT_EVIDENCE),
-    }
-    if actual != expected:
+    review = manifest.get("review")
+    if not isinstance(review, dict) or review.get("self_approval") != "PROHIBITED":
         findings.append(
-            _finding("REQUIREMENT_EVIDENCE_INVALID", MANIFEST_REL, "frozen requirement set drift")
+            _finding("SELF_APPROVAL_INVALID", MANIFEST_REL, "self_approval must be PROHIBITED")
+        )
+    # Pin every semantic key/value while allowing harmless YAML formatting and key ordering.
+    if _semantic_sha256(manifest) != EXPECTED_MANIFEST_SHA256:
+        findings.append(
+            _finding("CONTRACT_MANIFEST_INVALID", MANIFEST_REL, "frozen manifest drift")
         )
     return findings
 
@@ -236,15 +242,57 @@ def _source_and_corpus_findings(root: Path, loaded: dict[str, Any]) -> list[Find
     corpus = loaded.get("corpus")
     fixtures = corpus.get("fixtures") if isinstance(corpus, dict) else None
     if isinstance(fixtures, list):
+        seen_fixture_ids: set[str] = set()
+        seen_paths: set[str] = set()
         for index, fixture in enumerate(fixtures):
             if not isinstance(fixture, dict):
                 continue
-            path = _safe_path(root, fixture.get("path"))
+            fixture_id = fixture.get("fixture_id")
+            path_value = fixture.get("path")
+            split = fixture.get("split")
+            access = fixture.get("access")
+            if isinstance(fixture_id, str):
+                if fixture_id in seen_fixture_ids:
+                    findings.append(
+                        _finding(
+                            "CORPUS_SPLIT_OVERLAP",
+                            CORPUS_REL,
+                            f"duplicate fixture_id: {fixture_id}",
+                        )
+                    )
+                seen_fixture_ids.add(fixture_id)
+            if isinstance(path_value, str):
+                if path_value in seen_paths:
+                    findings.append(
+                        _finding(
+                            "CORPUS_SPLIT_OVERLAP",
+                            CORPUS_REL,
+                            f"duplicate path: {path_value}",
+                        )
+                    )
+                seen_paths.add(path_value)
+            if EXPECTED_ACCESS_BY_SPLIT.get(split) != access:
+                findings.append(
+                    _finding(
+                        "CORPUS_ACCESS_INVALID",
+                        CORPUS_REL,
+                        f"fixtures.{index}: split/access mismatch",
+                    )
+                )
+            path = _safe_path(root, path_value)
             if path is None:
                 findings.append(
                     _finding("CORPUS_PATH_INVALID", CORPUS_REL, f"fixtures.{index}.path")
                 )
                 continue
+            if isinstance(fixture_id, str) and path.stem != fixture_id:
+                findings.append(
+                    _finding(
+                        "CORPUS_ASSOCIATION_INVALID",
+                        CORPUS_REL,
+                        f"fixtures.{index}: fixture_id/path mismatch",
+                    )
+                )
             try:
                 digest = _canonical_sha256(path)
             except OSError as error:
