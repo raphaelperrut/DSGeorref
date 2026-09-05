@@ -35,6 +35,7 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0030.json",
     "evidence/reviews/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**"
   ],
   "deny_paths": [
@@ -55,7 +56,7 @@
     "test_epic_006_aceite_negative_paths"
   ],
   "evidence": [
-    "evidence/reviews/epic-006/story-0030/",
+    "evidence/reviews/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/",
     "commit candidato e relatório de testes"
   ],
   "dependencies": [
@@ -105,6 +106,7 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0030.json",
         "evidence/reviews/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**"
       ],
       "deny_paths": [
@@ -158,7 +160,7 @@
         "Audit"
       ],
       "evidence": [
-        "evidence/reviews/epic-006/story-0030/",
+        "evidence/reviews/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/",
         "commit candidato e relatório de testes"
       ],
       "contract": null
