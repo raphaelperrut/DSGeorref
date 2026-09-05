@@ -82,6 +82,10 @@ def _safe_repository_path(value: object) -> Path | None:
     return resolved if resolved.is_relative_to(ROOT.resolve()) else None
 
 
+def _canonical_sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
+
 def _validate_sources(capability: dict[str, Any], index: int) -> list[Finding]:
     findings: list[Finding] = []
     knowledge_sources = capability.get("knowledge_sources")
@@ -186,7 +190,7 @@ def _validate_fixture(fixture: dict[str, Any], index: int) -> list[Finding]:
     findings.extend(_fixture_payload_findings(fixture, path))
     if path.is_file():
         try:
-            actual_hash = hashlib.sha256(path.read_bytes()).hexdigest()
+            actual_hash = _canonical_sha256(path)
         except OSError as error:
             findings.append(_finding("CORPUS_FIXTURE_UNREADABLE", path.as_posix(), str(error)))
         else:

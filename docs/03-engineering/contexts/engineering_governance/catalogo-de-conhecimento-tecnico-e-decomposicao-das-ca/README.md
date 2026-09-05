@@ -21,6 +21,19 @@ drift do contrato congelado, source ausente ou executável, owner duplicado,
 hash inválido, sobreposição de split ou checkpoint com fallback silencioso
 produz finding estável e exit code `2`.
 
+A integração com o control plane automatizado das histórias predecessoras é
+verificada, sem importar nem duplicar suas regras, por:
+
+```text
+python tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/repository_integration.py --repository-root .
+```
+
+Esse comando executa os dois validadores versionados em subprocessos read-only,
+confere o TaskEnvelope da `ISSUE-0139` e publica um relatório JSON que vincula
+os quatro critérios de aceite e `REQ-AI-007`/`REQ-TST-001` ao teste
+`test_epic_006_integracao`. Falha, saída malformada ou modo destrutivo em
+qualquer predecessor é rejeitado.
+
 ## Limites e rollback
 
 - O `GET /capabilities` continua sendo apenas a projeção pública congelada; a

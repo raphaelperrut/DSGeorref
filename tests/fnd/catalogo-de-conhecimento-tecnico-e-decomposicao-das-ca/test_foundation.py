@@ -82,7 +82,9 @@ def test_corpus_license_hash_split_and_access_integrity() -> None:
     assert corpus["scientific_claim"] == "PROHIBITED"
     for fixture in corpus["fixtures"]:
         payload_path = ROOT / fixture["path"]
-        actual_hash = hashlib.sha256(payload_path.read_bytes()).hexdigest()
+        actual_hash = hashlib.sha256(
+            payload_path.read_bytes().replace(b"\r\n", b"\n")
+        ).hexdigest()
         assert fixture["origin"] == "GENERATED_DSGEOREF_CONTROL_SENTINEL"
         assert fixture["license"] == "CC-BY-4.0"
         assert fixture["access"] == expected_access[fixture["split"]]
