@@ -1,0 +1,116 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-006
+  story_id: STORY-0029
+  issue_id: ISSUE-0139
+  github_issue: 41
+  task_id: TASK-0029
+candidate:
+  implementation_sha: 364fbc96650f5c207cd39716b669df0c58f69d97
+  base_commit: 88330a8c0c8df6cde1f0b6fbb035212bcff85aa8
+  state: READY_FOR_INDEPENDENT_REVIEW
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+  evidence_scope: implementation_sha_and_unchanged_implementation_files
+task_envelope:
+  changed: true
+  reason: the issue-owned TaskEnvelope, focused regression test, and mandatory evidence path were omitted from its allow-paths
+  control_plane_separated: true
+  deny_paths_preserved:
+  - src/**/epic-*
+  - src/**/issue-*
+artifacts:
+- .codex/tasks/TASK-0029.json
+- tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/repository_integration.py
+- tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_repository_integration.py
+- tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/catalog_validation.py
+- tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_foundation.py
+- docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/README.md
+- evidence/implementation/epic-006/story-0029/IMPLEMENTATION_EVIDENCE.yaml
+acceptance_evidence:
+- criterion: AC-ISSUE-0139-01
+  proof: repository_integration.py emits deterministic JSON over the versioned foundation and read-only automation control plane
+- criterion: AC-ISSUE-0139-02
+  proof: REQ-AI-007 and REQ-TST-001 are present in the catalog and predecessor report and map explicitly to test_epic_006_integracao
+- criterion: AC-ISSUE-0139-03
+  proof: focused negative tests reject failed or malformed predecessor reports, destructive automation, TaskEnvelope drift, and missing requirement evidence
+- criterion: AC-ISSUE-0139-04
+  proof: the integration runner uses only standard-library orchestration and subprocess boundaries, with no cross-module imports or copied processing rules
+changed_files_justification:
+- path: .codex/tasks/TASK-0029.json
+  justification: authorize the issue-owned envelope, directly related hash regression test, and mandatory implementation evidence
+- path: tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**
+  justification: add the issue-local read-only integration runner and its focused tests, and align local hashes with the existing canonical CI behavior
+- path: docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**
+  justification: document the executable integration entry point and fail-closed behavior
+- path: tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_foundation.py
+  justification: make the existing corpus-integrity assertion portable across LF and CRLF checkouts
+- path: evidence/implementation/epic-006/story-0029/**
+  justification: bind acceptance and validation results to the exact implementation SHA
+contract_impact:
+  existing_frozen_contract_changed: false
+  new_public_contract: false
+  http_changed: false
+  persistence_changed: false
+  runtime_changed: false
+migration:
+  required: false
+  applicability: NOT_APPLICABLE_READ_ONLY_ENGINEERING_INTEGRATION
+rollback:
+  operational: NOT_APPLICABLE_READ_ONLY_ENGINEERING_INTEGRATION
+  implementation: REVERT_CANDIDATE_BEFORE_DOWNSTREAM_CONSUMPTION
+limitations_and_residual_risks:
+- independent QA and Reviewer approval for the exact candidate SHA remain pending and are not claimed
+- the corpus remains synthetic control-path sentinel data and makes no scientific or production claim
+- hosted Actions and package-index availability remain external dependencies
+- make verify requires FOUNDATION_INTEGRATION=1 plus pinned PostgreSQL and RabbitMQ for its preexisting walking-skeleton test
+findings:
+  blocker: NONE
+  high: NONE
+  medium_low_nonblocking:
+  - pytest emitted the repository-global pytest-asyncio default-scope deprecation warning
+  - local Node is 22.14.0 while the repository requests 24.20.0; typecheck, Vitest, and Playwright still passed
+  - git maintenance could not prune metadata for two unrelated stale worktrees after commit; candidate creation succeeded
+validation:
+  acceptance_criteria: PASS
+  implementation_evidence_valid_for_sha: true
+  sentinel_evidence_sufficient: true
+  mandatory_test: PASS
+  focused_suite: PASS_9_TESTS
+  predecessor_automation: PASS_1_TEST
+  direct_integration_runner: PASS
+  targeted_ruff: PASS
+  targeted_mypy_strict: PASS
+  task_envelope_schema: PASS
+  git_diff_check: PASS
+  make_verify: ENVIRONMENT_BLOCKED
+  make_verify_completed_before_block:
+  - Ruff
+  - mypy
+  - TypeScript strict
+  - Vitest and Testing Library
+  - Playwright Chromium
+  - repository validation
+  - architecture review
+  - requirements review
+  - DDD review
+  - ADR review
+  - specification review
+  - sprint review
+  - Python architecture check
+  - foundation contract validation
+  make_verify_block_reason: FOUNDATION_INTEGRATION is unset and pinned PostgreSQL/RabbitMQ services are unavailable for the preexisting walking-skeleton test
+  commands:
+  - py -3.12 -m pytest -q -p no:cacheprovider tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_repository_integration.py tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_foundation.py
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_automation.py::test_epic_006_automacao
+  - py -3.12 -X utf8 tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/repository_integration.py --repository-root .
+  - py -3.12 -m ruff check tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/catalog_validation.py tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/repository_integration.py tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_repository_integration.py tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_foundation.py
+  - py -3.12 -m mypy --strict tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/repository_integration.py
+  - TASK-0029 validation against .codex/tasks/TASK_ENVELOPE.schema.json and allow-path parity
+  - git diff --check
+  - make verify PYTHON="py -3.12"
+new_prerequisite_created: false
+architectural_blocker_requires_decision: false
