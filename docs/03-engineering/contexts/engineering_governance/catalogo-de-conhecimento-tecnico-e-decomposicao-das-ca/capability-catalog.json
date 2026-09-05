@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "catalog_id": "DSGEOREF-PROCESSING-CAPABILITY-CATALOG",
+  "catalog_version": "1.0.0",
+  "contract_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "CANDIDATE",
+  "source_policy": {
+    "prior_system_use": "REQUIREMENTS_AND_ATTRIBUTED_CORPUS_ONLY",
+    "code_import": "PROHIBITED",
+    "plugin_import": "PROHIBITED",
+    "runtime_import": "PROHIBITED",
+    "provenance": "REQUIRED"
+  },
+  "capabilities": [
+    {
+      "stable_name": "dsgeorref.processing.geospatial_pipeline",
+      "stage": "DOWNSTREAM_STORIES_ONLY",
+      "inputs": ["ProcessingPlan"],
+      "outputs": ["geometric candidates", "governed provider escalation", "relative mosaic graph"],
+      "hardware_requirements": "APPLICATION_PROFILE_REQUIRED",
+      "budget": "APPLICATION_OR_BENCHMARK_PROFILE_REQUIRED",
+      "determinism_level": "DETERMINISM_PROFILE_REQUIRED",
+      "limitations": [
+        "does not accept its own geometric candidates",
+        "does not bypass governed provider access"
+      ],
+      "operator_explanation": "Runs the governed geospatial pipeline and submits candidates to the independent SGV.",
+      "owner": {
+        "module": "MOD-005",
+        "bounded_contexts": ["BC-005", "BC-006", "BC-008"]
+      },
+      "contract": "contracts/contexts/engineering_governance/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/contract-manifest.yaml",
+      "knowledge_sources": [
+        "docs/02-architecture/modules/MOD-005-pipeline-geoespacial.md"
+      ]
+    },
+    {
+      "stable_name": "dsgeorref.processing.strong_geometric_verifier",
+      "stage": "DOWNSTREAM_STORIES_ONLY",
+      "inputs": ["geometric candidates"],
+      "outputs": ["fail-closed acceptance decision", "geometric metrics", "Image Deformation Profile"],
+      "hardware_requirements": "APPLICATION_PROFILE_REQUIRED",
+      "budget": "APPLICATION_OR_BENCHMARK_PROFILE_REQUIRED",
+      "determinism_level": "DETERMINISM_PROFILE_REQUIRED",
+      "limitations": [
+        "rejects insufficient geometric evidence",
+        "does not delegate final acceptance to AI"
+      ],
+      "operator_explanation": "Independently evaluates geometric evidence and is the fail-closed acceptance authority.",
+      "owner": {
+        "module": "MOD-006",
+        "bounded_contexts": ["BC-007"]
+      },
+      "contract": "contracts/contexts/engineering_governance/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/contract-manifest.yaml",
+      "knowledge_sources": [
+        "docs/02-architecture/modules/MOD-006-strong-geometric-verifier.md"
+      ]
+    },
+    {
+      "stable_name": "dsgeorref.processing.governed_ai_recovery",
+      "stage": "DOWNSTREAM_STORIES_ONLY",
+      "inputs": ["typed classic failure", "preconditions", "budgets", "evidence", "capability profile"],
+      "outputs": ["AI_CANDIDATE_ONLY"],
+      "hardware_requirements": "APPLICATION_PROFILE_REQUIRED",
+      "budget": "APPLICATION_OR_BENCHMARK_PROFILE_REQUIRED",
+      "determinism_level": "DETERMINISM_PROFILE_REQUIRED",
+      "limitations": [
+        "optional and classic-first only",
+        "cannot download models implicitly",
+        "every candidate requires independent SGV"
+      ],
+      "operator_explanation": "May recover candidates after an eligible checkpointed classic failure but never accepts a result.",
+      "owner": {
+        "module": "MOD-007",
+        "bounded_contexts": ["BC-009"]
+      },
+      "contract": "contracts/contexts/engineering_governance/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/contract-manifest.yaml",
+      "knowledge_sources": [
+        "docs/02-architecture/adrs/ADR-051-ai-router-planner-e-escalonamento-classic-first.md",
+        "docs/02-architecture/modules/MOD-007-ia-governada.md",
+        "docs/02-architecture/specifications/SPEC-003-AI-BACKEND-PROTOCOL-CONTRACT.md"
+      ]
+    }
+  ],
+  "requirement_evidence": {
+    "REQ-AI-007": "test_reference_capability_inventory_no_code_import",
+    "REQ-TST-001": "test_corpus_license_hash_split_and_access_integrity"
+  }
+}

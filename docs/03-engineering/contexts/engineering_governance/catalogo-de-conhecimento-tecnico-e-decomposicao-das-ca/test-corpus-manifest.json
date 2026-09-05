@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "DSGEOREF-CORPUS-INTEGRITY-SENTINELS",
+  "manifest_version": "1.0.0",
+  "purpose": "CONTROL_PATH_SENTINELS_ONLY",
+  "scientific_claim": "PROHIBITED",
+  "splits": ["DEVELOPMENT", "VALIDATION_PROTECTED", "HOLDOUT_BLIND"],
+  "fixtures": [
+    {
+      "fixture_id": "unit-smoke",
+      "layer": "UNIT_FIXTURE",
+      "split": "DEVELOPMENT",
+      "path": "docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/fixtures/unit-smoke.json",
+      "origin": "GENERATED_DSGEOREF_CONTROL_SENTINEL",
+      "license": "CC-BY-4.0",
+      "sha256": "9d8f183d45f53309ff4ada83ca2e3d0c18bddd765bf6974878b1f151c2d0733f",
+      "access": "DEVELOPMENT"
+    },
+    {
+      "fixture_id": "external-integration",
+      "layer": "EXTERNAL_INTEGRATION",
+      "split": "DEVELOPMENT",
+      "path": "docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/fixtures/external-integration.json",
+      "origin": "GENERATED_DSGEOREF_CONTROL_SENTINEL",
+      "license": "CC-BY-4.0",
+      "sha256": "bbfe9b2786f02ff005e18533a9054e0cc960f2329e779d59123398f53613956b",
+      "access": "DEVELOPMENT"
+    },
+    {
+      "fixture_id": "protected-validation",
+      "layer": "PROTECTED_VALIDATION",
+      "split": "VALIDATION_PROTECTED",
+      "path": "docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/fixtures/protected-validation.json",
+      "origin": "GENERATED_DSGEOREF_CONTROL_SENTINEL",
+      "license": "CC-BY-4.0",
+      "sha256": "232c7311b8e0ee11cf5f4ce68d93ede637ef9ad9183dbf73a2d6f9e11f9fe6b5",
+      "access": "QA_PROTECTED"
+    },
+    {
+      "fixture_id": "blind-holdout",
+      "layer": "BLIND_HOLDOUT",
+      "split": "HOLDOUT_BLIND",
+      "path": "docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/fixtures/blind-holdout.json",
+      "origin": "GENERATED_DSGEOREF_CONTROL_SENTINEL",
+      "license": "CC-BY-4.0",
+      "sha256": "9e0e919fd0c6f47a4b012c46c09588989f2f96a6abe094e13590f59fc31924c0",
+      "access": "INDEPENDENT_QA_BLIND"
+    }
+  ]
+}

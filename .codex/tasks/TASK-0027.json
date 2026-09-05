@@ -41,8 +41,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0027.json",
     "tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**",
-    "docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**"
+    "docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**",
+    "tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_foundation.py",
+    "evidence/implementation/epic-006/story-0027/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -113,8 +116,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0027.json",
         "tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**",
-        "docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**"
+        "docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**",
+        "tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_foundation.py",
+        "evidence/implementation/epic-006/story-0027/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

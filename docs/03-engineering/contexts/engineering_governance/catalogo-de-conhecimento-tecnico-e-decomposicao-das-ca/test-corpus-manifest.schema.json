@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/engineering-governance/test-corpus-manifest/1.0.0",
+  "title": "DSGeorref test corpus integrity sentinel manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "manifest_version",
+    "purpose",
+    "scientific_claim",
+    "splits",
+    "fixtures"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "manifest_id": { "const": "DSGEOREF-CORPUS-INTEGRITY-SENTINELS" },
+    "manifest_version": { "const": "1.0.0" },
+    "purpose": { "const": "CONTROL_PATH_SENTINELS_ONLY" },
+    "scientific_claim": { "const": "PROHIBITED" },
+    "splits": {
+      "type": "array",
+      "prefixItems": [
+        { "const": "DEVELOPMENT" },
+        { "const": "VALIDATION_PROTECTED" },
+        { "const": "HOLDOUT_BLIND" }
+      ],
+      "items": false,
+      "minItems": 3
+    },
+    "fixtures": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "$ref": "#/$defs/fixture" }
+    }
+  },
+  "$defs": {
+    "fixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fixture_id", "layer", "split", "path", "origin", "license", "sha256", "access"],
+      "properties": {
+        "fixture_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]+$" },
+        "layer": {
+          "enum": ["UNIT_FIXTURE", "EXTERNAL_INTEGRATION", "PROTECTED_VALIDATION", "BLIND_HOLDOUT"]
+        },
+        "split": { "enum": ["DEVELOPMENT", "VALIDATION_PROTECTED", "HOLDOUT_BLIND"] },
+        "path": {
+          "type": "string",
+          "pattern": "^docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/fixtures/[a-z0-9-]+\\.json$"
+        },
+        "origin": { "const": "GENERATED_DSGEOREF_CONTROL_SENTINEL" },
+        "license": { "const": "CC-BY-4.0" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "access": { "enum": ["DEVELOPMENT", "QA_PROTECTED", "INDEPENDENT_QA_BLIND"] }
+      }
+    }
+  }
+}
