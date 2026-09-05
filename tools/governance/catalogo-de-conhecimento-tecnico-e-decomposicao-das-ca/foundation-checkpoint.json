@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "checkpoint_id": "EPIC-006-CAPABILITY-CATALOG-FOUNDATION",
+  "story_id": "STORY-0027",
+  "issue_id": "ISSUE-0137",
+  "task_id": "TASK-0027",
+  "contract_version": "1.0.0",
+  "python_runtime": ">=3.12,<3.13",
+  "sources": {
+    "contract": "contracts/contexts/engineering_governance/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/contract-manifest.yaml",
+    "catalog": "docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/capability-catalog.json",
+    "catalog_schema": "docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/capability-catalog.schema.json",
+    "corpus": "docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test-corpus-manifest.json",
+    "corpus_schema": "docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test-corpus-manifest.schema.json"
+  },
+  "commands": {
+    "local": [
+      "python tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/validate_catalog.py"
+    ],
+    "ci": [
+      "python tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/validate_catalog.py"
+    ]
+  },
+  "failure_policy": {
+    "mode": "FAIL_CLOSED",
+    "silent_fallback": false,
+    "invalid_descriptor": "REJECT",
+    "missing_corpus_evidence": "REJECT",
+    "legacy_runtime_detected": "REJECT"
+  },
+  "required_tests": [
+    "test_reference_capability_inventory_no_code_import",
+    "test_corpus_license_hash_split_and_access_integrity",
+    "test_epic_006_fundacao"
+  ],
+  "acceptance_evidence": {
+    "AC-ISSUE-0137-01": "test_epic_006_fundacao",
+    "AC-ISSUE-0137-02": "test_reference_capability_inventory_no_code_import and test_corpus_license_hash_split_and_access_integrity",
+    "AC-ISSUE-0137-03": "test_foundation_rejects_contract_drift_silent_fallback_and_corpus_tampering",
+    "AC-ISSUE-0137-04": "test_epic_006_fundacao"
+  }
+}

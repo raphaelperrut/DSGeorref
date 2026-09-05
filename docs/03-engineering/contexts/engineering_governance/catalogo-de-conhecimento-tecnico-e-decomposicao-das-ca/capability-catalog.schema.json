@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/engineering-governance/capability-catalog/1.0.0",
+  "title": "DSGeorref processing capability catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "catalog_id",
+    "catalog_version",
+    "contract_version",
+    "owner",
+    "status",
+    "source_policy",
+    "capabilities",
+    "requirement_evidence"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "catalog_id": { "const": "DSGEOREF-PROCESSING-CAPABILITY-CATALOG" },
+    "catalog_version": { "const": "1.0.0" },
+    "contract_version": { "const": "1.0.0" },
+    "owner": { "const": "BC-001" },
+    "status": { "const": "CANDIDATE" },
+    "source_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prior_system_use",
+        "code_import",
+        "plugin_import",
+        "runtime_import",
+        "provenance"
+      ],
+      "properties": {
+        "prior_system_use": { "const": "REQUIREMENTS_AND_ATTRIBUTED_CORPUS_ONLY" },
+        "code_import": { "const": "PROHIBITED" },
+        "plugin_import": { "const": "PROHIBITED" },
+        "runtime_import": { "const": "PROHIBITED" },
+        "provenance": { "const": "REQUIRED" }
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "$ref": "#/$defs/capability" }
+    },
+    "requirement_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["REQ-AI-007", "REQ-TST-001"],
+      "properties": {
+        "REQ-AI-007": { "const": "test_reference_capability_inventory_no_code_import" },
+        "REQ-TST-001": { "const": "test_corpus_license_hash_split_and_access_integrity" }
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stable_name",
+        "stage",
+        "inputs",
+        "outputs",
+        "hardware_requirements",
+        "budget",
+        "determinism_level",
+        "limitations",
+        "operator_explanation",
+        "owner",
+        "contract",
+        "knowledge_sources"
+      ],
+      "properties": {
+        "stable_name": {
+          "type": "string",
+          "pattern": "^dsgeorref\\.processing\\.[a-z][a-z0-9_]*$"
+        },
+        "stage": { "const": "DOWNSTREAM_STORIES_ONLY" },
+        "inputs": { "$ref": "#/$defs/nonEmptyStrings" },
+        "outputs": { "$ref": "#/$defs/nonEmptyStrings" },
+        "hardware_requirements": { "const": "APPLICATION_PROFILE_REQUIRED" },
+        "budget": { "const": "APPLICATION_OR_BENCHMARK_PROFILE_REQUIRED" },
+        "determinism_level": { "const": "DETERMINISM_PROFILE_REQUIRED" },
+        "limitations": { "$ref": "#/$defs/nonEmptyStrings" },
+        "operator_explanation": { "type": "string", "minLength": 1 },
+        "owner": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["module", "bounded_contexts"],
+          "properties": {
+            "module": { "type": "string", "pattern": "^MOD-[0-9]{3}$" },
+            "bounded_contexts": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "type": "string", "pattern": "^BC-[0-9]{3}$" }
+            }
+          }
+        },
+        "contract": {
+          "const": "contracts/contexts/engineering_governance/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/contract-manifest.yaml"
+        },
+        "knowledge_sources": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(contracts|docs)/[A-Za-z0-9_./-]+\\.(json|md|yaml)$"
+          }
+        }
+      }
+    }
+  }
+}
