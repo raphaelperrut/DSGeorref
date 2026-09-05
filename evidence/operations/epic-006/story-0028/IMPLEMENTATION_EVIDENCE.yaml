@@ -1,0 +1,83 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-006
+  story_id: STORY-0028
+  issue_id: ISSUE-0138
+  github_issue: 40
+  task_id: TASK-0028
+candidate:
+  base_commit: b64a4b39869fc7250331e0efd9e1b323e457207e
+  state: READY_FOR_INDEPENDENT_REVIEW
+  owner_context: BC-001
+  implementation_role: DevOps
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+  sha_binding: exact PR head recorded after final validation
+task_envelope:
+  changed: true
+  control_plane_separated: true
+  reason: the issue-owned TaskEnvelope and mandatory evidence paths were omitted
+implementation_artifacts:
+- .codex/tasks/TASK-0028.json
+- .github/workflows/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca.yaml
+- tools/quality/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/automation_validation.py
+- tools/quality/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/validator.py
+- tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_automation.py
+- evidence/operations/epic-006/story-0028/IMPLEMENTATION_EVIDENCE.yaml
+acceptance_evidence:
+- criterion: AC-ISSUE-0138-01
+  proof: the read-only validator emits a stable JSON report over the frozen contract, catalog, corpus, checkpoint, TaskEnvelope, and workflow
+- criterion: AC-ISSUE-0138-02
+  proof: REQ-AI-007 and REQ-TST-001 are read from the frozen manifest and mapped to test_epic_006_automacao in the executable report
+- criterion: AC-ISSUE-0138-03
+  proof: eight negative cases reject missing, drifted, permissive, tampered, unsafe, and untracked inputs with actionable finding codes
+- criterion: AC-ISSUE-0138-04
+  proof: repeated read-only and dry-run executions are byte-identical, report zero destructive actions, and preserve every input digest
+contract_impact:
+  existing_frozen_contract_changed: false
+  new_public_contract: false
+  http_changed: false
+  persistence_changed: false
+migration:
+  required_for_this_diff: false
+  justification: the diff validates versioned artifacts and changes no schema, state, deployment, or published binary
+rollback:
+  operational: revert the ISSUE-0138 candidate before downstream integration
+  database: not applicable because this diff has no database change
+limitations:
+- independent QA and Reviewer approval for the exact candidate commit remain pending and are not claimed
+- make verify requires FOUNDATION_INTEGRATION=1 plus pinned PostgreSQL and RabbitMQ for its preexisting walking-skeleton test
+- local Node is 22 rather than the repository pin 24.20.0; the hosted workflow pins Python 3.12.13 and has no Node dependency
+residual_risks:
+- hosted Actions and package-index availability remain external dependencies and fail the workflow when unavailable
+- the STORY-0027 validator hashes raw checkout bytes and reports CRLF drift on Windows; this automation verifies canonical LF bytes so Git content is portable
+validation:
+  mandatory_test: PASS_1_TEST
+  negative_cases: PASS_8_CASES
+  direct_validator: PASS
+  targeted_ruff: PASS
+  task_envelope_schema: PASS_VIA_AUTOMATION_VALIDATOR
+  make_verify: ENVIRONMENT_BLOCKED
+  make_verify_completed_before_block:
+  - Ruff
+  - mypy
+  - TypeScript strict
+  - Vitest and Testing Library
+  - Playwright Chromium
+  - repository validation
+  - architecture review
+  - requirements review
+  - DDD review
+  - ADR review
+  - specification review
+  - sprint review
+  - Python architecture check
+  - foundation contract validation
+  make_verify_block_reason: FOUNDATION_INTEGRATION is unset and pinned PostgreSQL/RabbitMQ services are unavailable for the preexisting walking-skeleton test
+  commands:
+  - py -3.12 -m pytest -q -p no:cacheprovider tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_automation.py::test_epic_006_automacao
+  - py -3.12 -X utf8 tools/quality/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/validator.py --dry-run
+  - py -3.12 -m ruff check tools/quality/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_automation.py
+  - git diff --check
+  - make verify PYTHON="py -3.12"
