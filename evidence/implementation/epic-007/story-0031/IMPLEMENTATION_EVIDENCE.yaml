@@ -1,0 +1,96 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-007
+  story_id: STORY-0031
+  issue_id: ISSUE-0141
+  github_issue: 43
+  task_id: TASK-0031
+candidate:
+  implementation_sha: f8c81be9355b36de03b517c9492bb3bf27d6ea5c
+  state: READY_FOR_INDEPENDENT_REVIEW
+  owner_context: BC-001
+  implementation_role: Arquiteto
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+  evidence_scope: implementation_sha_and_unchanged_contract_files
+task_envelope:
+  status: CORRECTED
+  reason: the issue's own TaskEnvelope, ownership registry, mandatory test, and evidence paths are required to prove its explicit acceptance criteria
+  control_plane_separate_from_capability: true
+  deny_paths_preserved:
+  - src/**
+  - src/**/epic-*
+  - src/**/issue-*
+contract_artifacts:
+- contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/contract-manifest.yaml
+- contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/license-publication-governance.schema.json
+- contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/examples/license-publication-governance.json
+supporting_artifacts:
+- .codex/tasks/TASK-0031.json
+- contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+- docs/02-architecture/design-reviews/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/DESIGN-REVIEW.md
+- tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_contract.py
+acceptance_evidence:
+- criterion: AC-ISSUE-0141-01
+  evidence: frozen manifest, closed JSON Schema, and conforming versioned example expose the declarative governance contract
+- criterion: AC-ISSUE-0141-02
+  evidence: REQ-CIT-001, REQ-EPIC-042, REQ-OSS-001, and REQ-PUB-002 are explicit in the manifest and example and asserted by test_epic_007_contrato
+- criterion: AC-ISSUE-0141-03
+  evidence: negative validation rejects silent fallback, incompatible license, optional citation, CLA substitution, permissive publication, authoritative broker, and unknown extension
+- criterion: AC-ISSUE-0141-04
+  evidence: version 1.0.0, FROZEN state, SemVer, BC-001 and data authorities, and independent review gate are explicit and tested
+changed_files_justification:
+- path: .codex/tasks/TASK-0031.json
+  justification: contain the exact control-plane, registry, mandatory test, and evidence paths required by ISSUE-0141
+- path: contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+  justification: register all three public contract artifacts under their existing BC-001 owner
+- path: contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**
+  justification: publish the smallest versioned foundation contract, closed schema, and example
+- path: docs/02-architecture/design-reviews/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**
+  justification: record boundaries, authority, compatibility, failure policy, rollback, limitations, and AC traceability
+- path: tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_contract.py
+  justification: prove the mandatory contract path and directly touched fail-closed invariants
+- path: evidence/implementation/epic-007/story-0031/**
+  justification: bind implementation and validation evidence to the exact implementation SHA
+contract_impact:
+  kind: NEW_PUBLIC_FOUNDATION_CONTRACT
+  existing_frozen_contract_changed: false
+  http_changed: false
+  persistence_changed: false
+  runtime_changed: false
+migration:
+  required: false
+  applicability: NOT_APPLICABLE_CONTRACT_ONLY
+rollback:
+  operational: NOT_APPLICABLE_CONTRACT_ONLY
+  contract: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+limitations_and_residual_risks:
+- the contract proves scope and invariants, not materialization of CITATION.cff, complete license texts, notices, inventories, automation, or release gates
+- public distribution remains blocked until downstream materialization, automation, integration, legal review, and applicable G0/G6 evidence pass
+- independent Reviewer approval for the candidate is pending and is not claimed by this evidence
+findings:
+  blocker: NONE
+  high: NONE
+  medium_low_nonblocking: NONE
+validation:
+  mandatory_test: PASS
+  targeted_suite: PASS_3_TESTS
+  task_envelope_schema: PASS
+  ruff: PASS
+  specification_review: PASS
+  domain_driven_design_review: PASS
+  git_diff_check: PASS
+  mandatory_make_verify: ENVIRONMENTAL_PRECONDITION_UNAVAILABLE_AFTER_ALL_PRIOR_GATES_PASS
+  environmental_classification: the unchanged walking skeleton requires FOUNDATION_INTEGRATION=1 plus pinned PostgreSQL and RabbitMQ; it failed before entering the integration body and is outside the ISSUE-0141 contract-only diff
+  nonblocking_environment_warnings:
+  - local Node v22.14.0 differs from the pinned v24.20.0 but frontend typecheck, unit test, and browser test passed outside the sandbox
+  - the first sandboxed Vitest attempt could not spawn a worker with EPERM; the identical unsandboxed run passed
+  commands:
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_contract.py -q --basetemp .pytest-tmp/issue-0141-targeted
+  - py -3.12 -m ruff check tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_contract.py
+  - TASK-0031 validation against .codex/tasks/TASK_ENVELOPE.schema.json
+  - py -3.12 -X utf8 tools/run_specification_review.py
+  - py -3.12 -X utf8 tools/run_domain_driven_design_review.py
+  - git diff --check
+  - make PYTHON="py -3.12" verify
