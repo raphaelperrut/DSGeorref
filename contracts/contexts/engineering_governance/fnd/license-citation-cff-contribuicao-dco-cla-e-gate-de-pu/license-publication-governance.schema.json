@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/license-publication-governance/1.0.0",
+  "title": "DSGeorref License, Citation, Contribution and Publication Governance Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "contract_version",
+    "owner",
+    "status",
+    "requirement_ids",
+    "scope",
+    "license_policy",
+    "citation_policy",
+    "contribution_policy",
+    "publication_gate",
+    "authority",
+    "compatibility",
+    "failure_policy",
+    "review_gate"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "contract_id": { "const": "LICENSE-PUBLICATION-GOVERNANCE-CONTRACT" },
+    "contract_version": { "const": "1.0.0" },
+    "owner": { "const": "BC-001" },
+    "status": { "const": "FROZEN" },
+    "requirement_ids": {
+      "type": "array",
+      "prefixItems": [
+        { "const": "REQ-CIT-001" },
+        { "const": "REQ-EPIC-042" },
+        { "const": "REQ-OSS-001" },
+        { "const": "REQ-PUB-002" }
+      ],
+      "items": false,
+      "minItems": 4
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "runtime_materialization", "publication_readiness_claim"],
+      "properties": {
+        "kind": { "const": "DECLARATIVE_FOUNDATION_CONTRACT" },
+        "runtime_materialization": { "const": "DOWNSTREAM_STORIES_ONLY" },
+        "publication_readiness_claim": { "const": "PROHIBITED" }
+      }
+    },
+    "license_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "application_code",
+        "reusable_sdks_schemas_examples",
+        "original_documentation",
+        "datasets_fixtures_corpora_models_assets",
+        "spdx",
+        "reuse_inventory",
+        "notice",
+        "dependency_inventory"
+      ],
+      "properties": {
+        "application_code": { "const": "AGPL-3.0-or-later" },
+        "reusable_sdks_schemas_examples": { "const": "Apache-2.0" },
+        "original_documentation": { "const": "CC-BY-4.0" },
+        "datasets_fixtures_corpora_models_assets": { "const": "EXPLICIT_PER_ASSET" },
+        "spdx": { "const": "REQUIRED" },
+        "reuse_inventory": { "const": "REQUIRED" },
+        "notice": { "const": "REQUIRED_WHEN_APPLICABLE" },
+        "dependency_inventory": { "const": "REQUIRED" }
+      }
+    },
+    "citation_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact",
+        "public_release",
+        "metadata_validation",
+        "version_digest_consistency",
+        "persistent_identifier"
+      ],
+      "properties": {
+        "artifact": { "const": "CITATION.cff" },
+        "public_release": { "const": "REQUIRED" },
+        "metadata_validation": { "const": "REQUIRED" },
+        "version_digest_consistency": { "const": "REQUIRED" },
+        "persistent_identifier": { "const": "REQUIRED_WHEN_APPLICABLE" }
+      }
+    },
+    "contribution_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "external_contribution_gate",
+        "origin_certification",
+        "signoff",
+        "inbound_outbound",
+        "automated_verification",
+        "cla",
+        "cla_introduction"
+      ],
+      "properties": {
+        "external_contribution_gate": { "const": "CLOSED_UNTIL_PUBLICATION_GATE" },
+        "origin_certification": { "const": "DCO-1.1" },
+        "signoff": { "const": "REQUIRED_FOR_EXTERNAL_CONTRIBUTIONS" },
+        "inbound_outbound": { "const": "INBOUND_EQUALS_OUTBOUND" },
+        "automated_verification": { "const": "REQUIRED" },
+        "cla": { "const": "NOT_REQUIRED_INITIAL_BASELINE" },
+        "cla_introduction": { "const": "LEGAL_DECISION_REQUIRED" }
+      }
+    },
+    "publication_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_gates", "decision", "required_evidence"],
+      "properties": {
+        "required_gates": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "G0" },
+            { "const": "G6" }
+          ],
+          "items": false,
+          "minItems": 2
+        },
+        "decision": { "const": "BLOCK_UNLESS_ALL_APPLICABLE_EVIDENCE_PASSES" },
+        "required_evidence": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "LICENSE_TEXTS" },
+            { "const": "SPDX_REUSE_INVENTORY" },
+            { "const": "THIRD_PARTY_NOTICES" },
+            { "const": "DEPENDENCY_INVENTORY_AND_SBOM" },
+            { "const": "CITATION_CFF" },
+            { "const": "DCO_AUTOMATED_CHECK" },
+            { "const": "LEGAL_REVIEW_BEFORE_G6" },
+            { "const": "SECURITY_LICENSE_RESTORE_COMPATIBILITY_SCIENTIFIC_GATES" }
+          ],
+          "items": false,
+          "minItems": 8
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract",
+        "license_decision",
+        "pre_publication_legal_review",
+        "runtime_state",
+        "published_artifacts",
+        "broker",
+        "telemetry"
+      ],
+      "properties": {
+        "contract": { "const": "VERSIONED_REPOSITORY" },
+        "license_decision": { "const": "PRODUCT_OWNER" },
+        "pre_publication_legal_review": { "const": "REQUIRED" },
+        "runtime_state": { "const": "POSTGRESQL_POSTGIS" },
+        "published_artifacts": { "const": "MANAGED_FILESYSTEM" },
+        "broker": { "const": "TRANSPORT_ONLY" },
+        "telemetry": { "const": "DERIVED_NON_AUTHORITATIVE" }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy", "compatible_change", "breaking_change", "unknown_properties"],
+      "properties": {
+        "policy": { "const": "SEMVER" },
+        "compatible_change": { "const": "OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR" },
+        "breaking_change": { "const": "NEW_MAJOR_AND_ARCHITECT_REVIEW" },
+        "unknown_properties": { "const": "REJECT" }
+      }
+    },
+    "failure_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "silent_fallback",
+        "unknown_or_ambiguous_license",
+        "incompatible_license",
+        "missing_spdx_or_notice",
+        "invalid_citation_metadata",
+        "unsigned_external_contribution",
+        "incomplete_gate_evidence"
+      ],
+      "properties": {
+        "mode": { "const": "FAIL_CLOSED" },
+        "silent_fallback": { "const": false },
+        "unknown_or_ambiguous_license": { "const": "REJECT" },
+        "incompatible_license": { "const": "REJECT" },
+        "missing_spdx_or_notice": { "const": "BLOCK_PUBLICATION" },
+        "invalid_citation_metadata": { "const": "BLOCK_PUBLICATION" },
+        "unsigned_external_contribution": { "const": "REJECT" },
+        "incomplete_gate_evidence": { "const": "BLOCK_PUBLICATION" }
+      }
+    },
+    "review_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["executor_role", "independent_role", "same_candidate_commit", "self_approval"],
+      "properties": {
+        "executor_role": { "const": "Arquiteto" },
+        "independent_role": { "const": "Reviewer" },
+        "same_candidate_commit": { "const": true },
+        "self_approval": { "const": "PROHIBITED" }
+      }
+    }
+  }
+}

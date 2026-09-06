@@ -1,0 +1,50 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-007
+  story_id: STORY-0031
+  issue_id: ISSUE-0141
+  task_id: TASK-0031
+contract:
+  id: license-publication-governance-contract
+  schema: contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/license-publication-governance.schema.json
+  example: contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/examples/license-publication-governance.json
+requirements:
+- REQ-CIT-001
+- REQ-EPIC-042
+- REQ-OSS-001
+- REQ-PUB-002
+governing_decisions:
+- ADR-002
+- ADR-033
+- ADR-056
+- ADR-057
+compatibility:
+  policy: SEMVER
+  compatible_change: OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR
+  breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
+  unknown_properties: REJECT
+runtime:
+  implementation: DOWNSTREAM_STORIES_ONLY
+  http_contract: NOT_APPLICABLE
+  persistence_change: NOT_APPLICABLE
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+  contract_rollback: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+acceptance_criteria:
+- AC-ISSUE-0141-01
+- AC-ISSUE-0141-02
+- AC-ISSUE-0141-03
+- AC-ISSUE-0141-04
+proof:
+  required_tests:
+  - test_epic_007_contrato
+  failure_mode_tested: true
+  deterministic: true
+review:
+  executor_role: Arquiteto
+  independent_authority_role: Reviewer
+  same_candidate_commit: true
+  self_approval: PROHIBITED

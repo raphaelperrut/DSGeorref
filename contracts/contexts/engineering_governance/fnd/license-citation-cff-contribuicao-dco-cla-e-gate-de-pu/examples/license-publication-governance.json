@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "LICENSE-PUBLICATION-GOVERNANCE-CONTRACT",
+  "contract_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "FROZEN",
+  "requirement_ids": ["REQ-CIT-001", "REQ-EPIC-042", "REQ-OSS-001", "REQ-PUB-002"],
+  "scope": {
+    "kind": "DECLARATIVE_FOUNDATION_CONTRACT",
+    "runtime_materialization": "DOWNSTREAM_STORIES_ONLY",
+    "publication_readiness_claim": "PROHIBITED"
+  },
+  "license_policy": {
+    "application_code": "AGPL-3.0-or-later",
+    "reusable_sdks_schemas_examples": "Apache-2.0",
+    "original_documentation": "CC-BY-4.0",
+    "datasets_fixtures_corpora_models_assets": "EXPLICIT_PER_ASSET",
+    "spdx": "REQUIRED",
+    "reuse_inventory": "REQUIRED",
+    "notice": "REQUIRED_WHEN_APPLICABLE",
+    "dependency_inventory": "REQUIRED"
+  },
+  "citation_policy": {
+    "artifact": "CITATION.cff",
+    "public_release": "REQUIRED",
+    "metadata_validation": "REQUIRED",
+    "version_digest_consistency": "REQUIRED",
+    "persistent_identifier": "REQUIRED_WHEN_APPLICABLE"
+  },
+  "contribution_policy": {
+    "external_contribution_gate": "CLOSED_UNTIL_PUBLICATION_GATE",
+    "origin_certification": "DCO-1.1",
+    "signoff": "REQUIRED_FOR_EXTERNAL_CONTRIBUTIONS",
+    "inbound_outbound": "INBOUND_EQUALS_OUTBOUND",
+    "automated_verification": "REQUIRED",
+    "cla": "NOT_REQUIRED_INITIAL_BASELINE",
+    "cla_introduction": "LEGAL_DECISION_REQUIRED"
+  },
+  "publication_gate": {
+    "required_gates": ["G0", "G6"],
+    "decision": "BLOCK_UNLESS_ALL_APPLICABLE_EVIDENCE_PASSES",
+    "required_evidence": [
+      "LICENSE_TEXTS",
+      "SPDX_REUSE_INVENTORY",
+      "THIRD_PARTY_NOTICES",
+      "DEPENDENCY_INVENTORY_AND_SBOM",
+      "CITATION_CFF",
+      "DCO_AUTOMATED_CHECK",
+      "LEGAL_REVIEW_BEFORE_G6",
+      "SECURITY_LICENSE_RESTORE_COMPATIBILITY_SCIENTIFIC_GATES"
+    ]
+  },
+  "authority": {
+    "contract": "VERSIONED_REPOSITORY",
+    "license_decision": "PRODUCT_OWNER",
+    "pre_publication_legal_review": "REQUIRED",
+    "runtime_state": "POSTGRESQL_POSTGIS",
+    "published_artifacts": "MANAGED_FILESYSTEM",
+    "broker": "TRANSPORT_ONLY",
+    "telemetry": "DERIVED_NON_AUTHORITATIVE"
+  },
+  "compatibility": {
+    "policy": "SEMVER",
+    "compatible_change": "OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR",
+    "breaking_change": "NEW_MAJOR_AND_ARCHITECT_REVIEW",
+    "unknown_properties": "REJECT"
+  },
+  "failure_policy": {
+    "mode": "FAIL_CLOSED",
+    "silent_fallback": false,
+    "unknown_or_ambiguous_license": "REJECT",
+    "incompatible_license": "REJECT",
+    "missing_spdx_or_notice": "BLOCK_PUBLICATION",
+    "invalid_citation_metadata": "BLOCK_PUBLICATION",
+    "unsigned_external_contribution": "REJECT",
+    "incomplete_gate_evidence": "BLOCK_PUBLICATION"
+  },
+  "review_gate": {
+    "executor_role": "Arquiteto",
+    "independent_role": "Reviewer",
+    "same_candidate_commit": true,
+    "self_approval": "PROHIBITED"
+  }
+}
