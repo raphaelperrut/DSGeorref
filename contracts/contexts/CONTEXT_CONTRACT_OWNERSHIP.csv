@@ -200,4 +200,7 @@ contracts/contexts/engineering_governance/fnd/migrations-ci-secret-dependency-sc
 contracts/contexts/engineering_governance/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/examples/capability-catalog-foundation.json,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/capability-catalog-foundation.schema.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/examples/license-publication-governance.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/license-publication-governance.schema.json,BC-001,contexts,VERSIONED,NO
 contracts/templates/test-vectors/render-cases.json,BC-001,templates,VERSIONED,NO
