@@ -44,8 +44,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0031.json",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
     "contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**",
-    "docs/02-architecture/design-reviews/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**"
+    "docs/02-architecture/design-reviews/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**",
+    "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_contract.py",
+    "evidence/implementation/epic-007/story-0031/**"
   ],
   "deny_paths": [
     "src/**",
@@ -114,8 +118,12 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0031.json",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
         "contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**",
-        "docs/02-architecture/design-reviews/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**"
+        "docs/02-architecture/design-reviews/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**",
+        "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_contract.py",
+        "evidence/implementation/epic-007/story-0031/**"
       ],
       "deny_paths": [
         "src/**",
