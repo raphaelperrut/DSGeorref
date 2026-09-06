@@ -1,0 +1,91 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-007
+  story_id: STORY-0032
+  issue_id: ISSUE-0142
+  github_issue: 44
+  task_id: TASK-0032
+candidate:
+  state: READY_FOR_INDEPENDENT_REVIEW
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+  sha_binding: PR_HEAD_SHA_DECLARED_IN_PULL_REQUEST
+task_envelope:
+  status: CORRECTED
+  reason: root licensing and citation artifacts, the issue checkpoint, the mandatory test, and implementation evidence are indispensable to the explicit acceptance criteria
+  control_plane_separate_from_capability: true
+  deny_paths_preserved:
+  - src/**/epic-*
+  - src/**/issue-*
+artifacts:
+- LICENSE
+- LICENSES/AGPL-3.0-or-later.txt
+- LICENSES/Apache-2.0.txt
+- LICENSES/CC-BY-4.0.txt
+- .reuse/dep5
+- NOTICE
+- THIRD_PARTY_NOTICES.md
+- CITATION.cff
+- CONTRIBUTING.md
+- docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/license-inventory.json
+- docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/dependency-inventory.json
+- tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation-checkpoint.json
+- tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py
+acceptance_evidence:
+- criterion: AC-ISSUE-0142-01
+  evidence: versioned artifacts, inventories, checkpoint, and deterministic JSON verifier output make the foundation observable
+- criterion: AC-ISSUE-0142-02
+  evidence: all four requirement IDs are fixed in the checkpoint and proven by the five mandatory tests
+- criterion: AC-ISSUE-0142-03
+  evidence: negative tests reject invalid CFF licensing, unclassified files, unlicensed assets, malformed or absent DCO sign-off, unsafe revision ranges, and incomplete publication evidence
+- criterion: AC-ISSUE-0142-04
+  evidence: checkpoint local_command, ci_command, and reproducible_command are identical; CLI execution passes locally
+contract_impact:
+  governing_frozen_contract_changed: false
+  implementation_of_contract: license-publication-governance-contract@1.0.0
+  http_changed: false
+  persistence_changed: false
+  runtime_changed: false
+migration:
+  required: false
+  applicability: NOT_APPLICABLE_GOVERNANCE_ARTIFACTS_ONLY
+rollback:
+  operational: NOT_APPLICABLE_GOVERNANCE_ARTIFACTS_ONLY
+  artifact: REVERT_BEFORE_PUBLIC_DISTRIBUTION
+publication:
+  current_decision: BLOCKED
+  fail_closed: true
+  blockers:
+  - DEPENDENCY_INVENTORY_AND_SBOM
+  - DCO_AUTOMATED_CHECK_FOR_CANDIDATE_RANGE
+  - LEGAL_REVIEW_BEFORE_G6
+  - SECURITY_LICENSE_RESTORE_COMPATIBILITY_SCIENTIFIC_GATES
+validation:
+  mandatory_tests: PASS_5_TESTS
+  ruff: PASS
+  task_envelope_schema: PASS
+  foundation_cli: PASS
+  publication_gate_negative_path: PASS_BLOCKED_EXIT_1
+  git_diff_check: PASS
+  mandatory_make_verify: ENVIRONMENTAL_PRECONDITION_UNAVAILABLE_AFTER_PRIOR_GATES
+  mandatory_make_verify_detail: sandboxed frontend worker failed with spawn EPERM; outside sandbox frontend typecheck/unit/browser and repository governance validators passed, then the unchanged walking-skeleton test stopped because FOUNDATION_INTEGRATION=1 and pinned PostgreSQL/RabbitMQ services were unavailable
+  nonblocking_environment_warning: local Node v22.14.0 differs from pinned v24.20.0 used by CI
+  commands:
+  - py -3.12 -m pytest -p no:cacheprovider tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py -q
+  - py -3.12 -m ruff check tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py
+  - py -3.12 -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py
+  - py -3.12 -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py --publication-gate
+  - TASK-0032 validation against .codex/tasks/TASK_ENVELOPE.schema.json
+  - git diff --check
+  - make PYTHON="py -3.12" verify
+limitations_and_residual_risks:
+- public distribution remains blocked until a complete release-candidate SBOM, candidate DCO check, legal review, and the remaining composite publication gates pass
+- workflow automation and repository-flow integration belong to subsequent approved issues and are intentionally absent from this diff
+- independent QA and Reviewer approval for the candidate remain pending and are not claimed
+findings:
+  blocker: NONE
+  high: NONE
+  medium_low_nonblocking: NONE

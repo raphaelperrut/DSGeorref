@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata from this file."
+title: DSGeorref
+type: software
+authors:
+  - family-names: Perrut
+    given-names: Raphael
+repository-code: "https://github.com/raphaelperrut/DSGeorref"
+version: 0.0.0
+license: AGPL-3.0-or-later

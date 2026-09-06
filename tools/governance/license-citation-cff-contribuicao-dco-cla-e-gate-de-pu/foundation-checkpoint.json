@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "identity": {
+    "epic_id": "EPIC-007",
+    "story_id": "STORY-0032",
+    "issue_id": "ISSUE-0142",
+    "task_id": "TASK-0032"
+  },
+  "requirements": [
+    "REQ-CIT-001",
+    "REQ-EPIC-042",
+    "REQ-OSS-001",
+    "REQ-PUB-002"
+  ],
+  "governing_contract": "contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/examples/license-publication-governance.json",
+  "foundation_state": "MATERIALIZED",
+  "artifacts": [
+    "LICENSE",
+    "LICENSES/AGPL-3.0-or-later.txt",
+    "LICENSES/Apache-2.0.txt",
+    "LICENSES/CC-BY-4.0.txt",
+    ".reuse/dep5",
+    "NOTICE",
+    "THIRD_PARTY_NOTICES.md",
+    "CITATION.cff",
+    "CONTRIBUTING.md",
+    "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/license-inventory.json",
+    "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/dependency-inventory.json"
+  ],
+  "reproducible_command": "py -3.12 -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
+  "local_command": "py -3.12 -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
+  "ci_command": "py -3.12 -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
+  "contribution_policy": {
+    "origin_certification": "DCO-1.1",
+    "signoff": "REQUIRED_FOR_EXTERNAL_CONTRIBUTIONS",
+    "inbound_outbound": "INBOUND_EQUALS_OUTBOUND",
+    "cla": "NOT_REQUIRED_INITIAL_BASELINE",
+    "cla_introduction": "LEGAL_DECISION_REQUIRED"
+  },
+  "publication_gate": {
+    "decision": "BLOCK_UNLESS_ALL_APPLICABLE_EVIDENCE_PASSES",
+    "failure_mode": "FAIL_CLOSED",
+    "foundation_evidence": {
+      "LICENSE_TEXTS": "PRESENT",
+      "SPDX_REUSE_INVENTORY": "PRESENT",
+      "THIRD_PARTY_NOTICES": "PRESENT",
+      "DEPENDENCY_INVENTORY": "PRESENT",
+      "CITATION_CFF": "PRESENT"
+    },
+    "candidate_evidence": {
+      "DEPENDENCY_INVENTORY_AND_SBOM": "REQUIRED_AT_RELEASE_CANDIDATE",
+      "DCO_AUTOMATED_CHECK": "REQUIRES_CANDIDATE_COMMIT_RANGE",
+      "LEGAL_REVIEW_BEFORE_G6": "NOT_PROVIDED",
+      "SECURITY_LICENSE_RESTORE_COMPATIBILITY_SCIENTIFIC_GATES": "NOT_PROVIDED"
+    },
+    "current_decision": "BLOCKED"
+  }
+}

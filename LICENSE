@@ -1,9 +1,19 @@
 
 DSGeorref uses a layered licensing policy.
 
-Application code: AGPL-3.0-or-later.
-Reusable SDKs, schemas and integration examples: Apache-2.0.
-Original documentation: CC-BY-4.0.
-Datasets, fixtures, corpora, models and other assets: the explicit license declared with each asset.
+Application code is licensed under AGPL-3.0-or-later. Reusable SDKs,
+schemas and integration examples are licensed under Apache-2.0. Original
+documentation is licensed under CC-BY-4.0. Datasets, fixtures, corpora,
+models and other assets require an explicit license record before they can
+be distributed.
 
-See LICENSING.md and per-directory REUSE/SPDX metadata. This notice does not replace the full license texts that must be materialized before public distribution.
+The complete license texts are versioned in:
+
+- LICENSES/AGPL-3.0-or-later.txt
+- LICENSES/Apache-2.0.txt
+- LICENSES/CC-BY-4.0.txt
+
+File-class assignments are declared in .reuse/dep5. Third-party dependency
+licenses and redistribution status are recorded in THIRD_PARTY_NOTICES.md
+and in the versioned dependency inventory. See LICENSING.md for the
+governing policy.
