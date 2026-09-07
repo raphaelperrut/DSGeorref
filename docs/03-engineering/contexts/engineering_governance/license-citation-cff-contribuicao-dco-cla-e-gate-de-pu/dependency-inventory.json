@@ -37,7 +37,7 @@
     {
       "ecosystem": "pypi",
       "name": "psycopg[binary]",
-      "version": "3.3.4",
+      "version": "3.3.5",
       "license": "LGPL-3.0-only"
     },
     {
@@ -49,7 +49,7 @@
     {
       "ecosystem": "pypi",
       "name": "ruff",
-      "version": "0.16.5",
+      "version": "0.16.6",
       "license": "MIT"
     },
     {
