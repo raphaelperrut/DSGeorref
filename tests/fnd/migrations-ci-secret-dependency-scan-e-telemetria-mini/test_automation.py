@@ -301,3 +301,41 @@ def test_pnpm_setup_pin_is_fail_closed() -> None:
             assert "missing pinned pnpm setup" in {
                 finding["detail"] for finding in report["findings"]
             }
+
+
+def test_setup_node_pin_is_fail_closed() -> None:
+    with tempfile.TemporaryDirectory(prefix="issue-0133-setup-node-approved-") as temporary:
+        approved_sandbox = Path(temporary)
+        _copy_sources(approved_sandbox)
+        approved = _execute(approved_sandbox, dry_run=True)
+        assert approved.returncode == 0
+        assert json.loads(approved.stdout)["status"] == "PASS"
+
+    mutations = {
+        "missing": ("replace", "name: setup-node intentionally absent"),
+        "unapproved": ("replace", f"uses: actions/setup-node@{'0' * 40}"),
+        "approved-plus-unapproved": ("append", f"uses: actions/setup-node@{'0' * 40}"),
+        "approved-plus-floating": ("append", "uses: actions/setup-node@v7"),
+    }
+    for name, (operation, replacement) in mutations.items():
+        with tempfile.TemporaryDirectory(prefix=f"issue-0133-setup-node-{name}-") as temporary:
+            sandbox = Path(temporary)
+            _copy_sources(sandbox)
+            path = sandbox / WORKFLOW_REL
+            source = path.read_text(encoding="utf-8")
+            lines = [
+                line for line in source.splitlines() if "uses: actions/setup-node@" in line
+            ]
+            assert len(lines) == 1
+            line = lines[0]
+            indent = line[: len(line) - len(line.lstrip())]
+            mutation = f"{indent}- {replacement}"
+            if operation == "append":
+                mutation = f"{line}\n{mutation}"
+            path.write_text(source.replace(line, mutation, 1), encoding="utf-8")
+            execution = _execute(sandbox, dry_run=True)
+            _assert_failure(execution, "WORKFLOW_INVALID")
+            report = json.loads(execution.stdout)
+            assert "missing pinned Node setup" in {
+                finding["detail"] for finding in report["findings"]
+            }

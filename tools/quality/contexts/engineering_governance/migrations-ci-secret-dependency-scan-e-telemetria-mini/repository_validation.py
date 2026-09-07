@@ -27,7 +27,7 @@ EXPECTED_ALLOW_PATHS = [
 GITLEAKS_SHA = "e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e"
 PIP_AUDIT_SHA = "1220774d901786e6f652ae159f7b6bc8fea6d266"
 PNPM_SETUP_SHA = "0977fd99725f1db4007ccb2928dbb4e90d06cc86"
-SETUP_NODE_SHA = "249970729cb0ef3589644e2896645e5dc5ba9c38"
+SETUP_NODE_SHA = "820762786026740c76f36085b0efc47a31fe5020"
 
 
 def _finding(code: str, artifact: Path, detail: str) -> Finding:
@@ -104,6 +104,14 @@ def _workflow_findings(root: Path) -> list[Finding]:
     pnpm_setup_uses = [
         use for use in uses if use == pnpm_setup or use.startswith(f"{pnpm_setup}@")
     ]
+    setup_node = "actions/setup-node"
+    approved_setup_node = f"{setup_node}@{SETUP_NODE_SHA}"
+    approved_setup_node_is_full_sha = len(SETUP_NODE_SHA) == 40 and all(
+        character in "0123456789abcdef" for character in SETUP_NODE_SHA
+    )
+    setup_node_uses = [
+        use for use in uses if use == setup_node or use.startswith(f"{setup_node}@")
+    ]
     checks = {
         "validator dry-run": any(
             VALIDATOR_REL.as_posix() in command and "--dry-run" in command for command in commands
@@ -117,7 +125,9 @@ def _workflow_findings(root: Path) -> list[Finding]:
         == {"contents": "read", "pull-requests": "read"},
         "pinned secret scan": f"gitleaks/gitleaks-action@{GITLEAKS_SHA}" in uses,
         "pinned Python dependency scan": f"pypa/gh-action-pip-audit@{PIP_AUDIT_SHA}" in uses,
-        "pinned Node setup": f"actions/setup-node@{SETUP_NODE_SHA}" in uses,
+        "pinned Node setup": approved_setup_node_is_full_sha
+        and bool(setup_node_uses)
+        and all(use == approved_setup_node for use in setup_node_uses),
         "pinned pnpm setup": approved_pnpm_setup_is_full_sha
         and bool(pnpm_setup_uses)
         and all(use == approved_pnpm_setup for use in pnpm_setup_uses),
