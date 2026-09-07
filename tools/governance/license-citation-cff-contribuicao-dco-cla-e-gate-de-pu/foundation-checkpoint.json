@@ -24,12 +24,13 @@
     "THIRD_PARTY_NOTICES.md",
     "CITATION.cff",
     "CONTRIBUTING.md",
+    "Makefile",
     "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/license-inventory.json",
     "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/dependency-inventory.json"
   ],
-  "reproducible_command": "py -3.12 -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
-  "local_command": "py -3.12 -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
-  "ci_command": "py -3.12 -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
+  "reproducible_command": "python -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
+  "local_command": "python -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
+  "ci_command": "python -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
   "contribution_policy": {
     "origin_certification": "DCO-1.1",
     "signoff": "REQUIRED_FOR_EXTERNAL_CONTRIBUTIONS",

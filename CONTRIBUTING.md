@@ -37,7 +37,7 @@ publicação. Quando uma faixa de commits externa estiver sob avaliação, o mes
 comando reproduzível deve ser usado localmente e em CI:
 
 ```text
-py -3.12 -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py --commit-range <base>..<head>
+python -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py --commit-range <base>..<head>
 ```
 
 ## Após a publicação

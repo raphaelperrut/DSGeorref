@@ -8,6 +8,7 @@ identity:
   task_id: TASK-0032
 candidate:
   state: READY_FOR_INDEPENDENT_REVIEW
+  previous_review_sha: 149ec1034fe36363c102feb17d51565928ebf1a4
   owner_context: BC-001
   implementation_role: Tech Lead
   independent_review: NOT_PERFORMED
@@ -15,7 +16,7 @@ candidate:
   sha_binding: PR_HEAD_SHA_DECLARED_IN_PULL_REQUEST
 task_envelope:
   status: CORRECTED
-  reason: root licensing and citation artifacts, the issue checkpoint, the mandatory test, and implementation evidence are indispensable to the explicit acceptance criteria
+  reason: root licensing and citation artifacts, Makefile integration, the issue checkpoint, the mandatory test, and implementation evidence are indispensable to the explicit acceptance criteria
   control_plane_separate_from_capability: true
   deny_paths_preserved:
   - src/**/epic-*
@@ -30,6 +31,7 @@ artifacts:
 - THIRD_PARTY_NOTICES.md
 - CITATION.cff
 - CONTRIBUTING.md
+- Makefile
 - docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/license-inventory.json
 - docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/dependency-inventory.json
 - tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation-checkpoint.json
@@ -40,9 +42,9 @@ acceptance_evidence:
 - criterion: AC-ISSUE-0142-02
   evidence: all four requirement IDs are fixed in the checkpoint and proven by the five mandatory tests
 - criterion: AC-ISSUE-0142-03
-  evidence: negative tests reject invalid CFF licensing, unclassified files, unlicensed assets, malformed or absent DCO sign-off, unsafe revision ranges, and incomplete publication evidence
+  evidence: closed candidate evidence, canonical license digests, exact DEP5/inventory assignments, dependency-license mappings, and negative tests reject omissions, malformed values, tampering, unknown expressions, mismatches, invalid CFF, unlicensed assets, and invalid DCO
 - criterion: AC-ISSUE-0142-04
-  evidence: checkpoint local_command, ci_command, and reproducible_command are identical; CLI execution passes locally
+  evidence: make verify executes the ISSUE-0142 validator and focused tests with the environment-selected PYTHON before service-dependent integration; checkpoint commands are identical and portable
 contract_impact:
   governing_frozen_contract_changed: false
   implementation_of_contract: license-publication-governance-contract@1.0.0
@@ -64,20 +66,25 @@ publication:
   - LEGAL_REVIEW_BEFORE_G6
   - SECURITY_LICENSE_RESTORE_COMPATIBILITY_SCIENTIFIC_GATES
 validation:
-  mandatory_tests: PASS_5_TESTS
+  mandatory_tests: PASS_5_CANONICAL_PLUS_1_HARDENING_TEST
   ruff: PASS
   task_envelope_schema: PASS
   foundation_cli: PASS
+  make_verify_issue_0142_gate_reached: PASS_VALIDATOR_AND_6_TESTS
+  mandatory_evidence_set: PASS_CLOSED_EXACT_AND_TYPED
+  license_text_digest_validation: PASS_3_CANONICAL_TEXTS
+  dep5_inventory_coherence: PASS_3_FILE_CLASSES
+  dependency_license_mapping: PASS_14_DIRECT_DEPENDENCIES
   publication_gate_negative_path: PASS_BLOCKED_EXIT_1
   git_diff_check: PASS
   mandatory_make_verify: ENVIRONMENTAL_PRECONDITION_UNAVAILABLE_AFTER_PRIOR_GATES
-  mandatory_make_verify_detail: sandboxed frontend worker failed with spawn EPERM; outside sandbox frontend typecheck/unit/browser and repository governance validators passed, then the unchanged walking-skeleton test stopped because FOUNDATION_INTEGRATION=1 and pinned PostgreSQL/RabbitMQ services were unavailable
+  mandatory_make_verify_detail: outside sandbox frontend typecheck/unit/browser and repository governance validators passed; the newly integrated ISSUE-0142 validator and all 6 focused tests then passed before the unchanged walking-skeleton test stopped because FOUNDATION_INTEGRATION=1 and pinned PostgreSQL/RabbitMQ services were unavailable
   nonblocking_environment_warning: local Node v22.14.0 differs from pinned v24.20.0 used by CI
   commands:
   - py -3.12 -m pytest -p no:cacheprovider tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py -q
   - py -3.12 -m ruff check tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py
-  - py -3.12 -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py
-  - py -3.12 -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py --publication-gate
+  - python -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py
+  - python -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py --publication-gate
   - TASK-0032 validation against .codex/tasks/TASK_ENVELOPE.schema.json
   - git diff --check
   - make PYTHON="py -3.12" verify
@@ -89,3 +96,8 @@ findings:
   blocker: NONE
   high: NONE
   medium_low_nonblocking: NONE
+review_corrections:
+  HIGH-01: RESOLVED_MAKE_VERIFY_INTEGRATION_AND_PORTABLE_COMMAND
+  HIGH-02: RESOLVED_CLOSED_MANDATORY_CANDIDATE_EVIDENCE
+  HIGH-03: RESOLVED_DIGEST_DEP5_AND_LICENSE_COHERENCE
+  MEDIUM_LOW_README: RESOLVED_ISSUE_0142

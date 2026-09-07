@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import fnmatch
+import hashlib
 import json
 import re
 import subprocess
@@ -25,17 +26,68 @@ EXPECTED_REQUIREMENTS = [
     "REQ-OSS-001",
     "REQ-PUB-002",
 ]
-EXPECTED_LICENSES = {
-    "AGPL-3.0-or-later": (
-        "LICENSES/AGPL-3.0-or-later.txt",
-        "GNU AFFERO GENERAL PUBLIC LICENSE",
-    ),
-    "Apache-2.0": ("LICENSES/Apache-2.0.txt", "Apache License"),
-    "CC-BY-4.0": (
-        "LICENSES/CC-BY-4.0.txt",
-        "Creative Commons Attribution 4.0 International",
-    ),
+EXPECTED_FILE_CLASSES = {
+    "application-code": ("AGPL-3.0-or-later", "LICENSES/AGPL-3.0-or-later.txt"),
+    "reusable-contracts": ("Apache-2.0", "LICENSES/Apache-2.0.txt"),
+    "original-documentation": ("CC-BY-4.0", "LICENSES/CC-BY-4.0.txt"),
 }
+EXPECTED_LICENSE_DIGESTS = {
+    "LICENSES/AGPL-3.0-or-later.txt": (
+        "d8a6cc31abc16b6748c7a21f21611f5a1ec33f67d22ca23d7da1c19b95496bee"
+    ),
+    "LICENSES/Apache-2.0.txt": ("074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"),
+    "LICENSES/CC-BY-4.0.txt": ("d557539df68e771cc1eedcc91d13f70fca930e508d11eedcafa4b15db49e3744"),
+}
+EXPECTED_DEPENDENCY_LICENSES = {
+    ("pypi", "PyYAML"): "MIT",
+    ("pypi", "jsonschema"): "MIT",
+    ("pypi", "cryptography"): "Apache-2.0 OR BSD-3-Clause",
+    ("pypi", "celery"): "BSD-3-Clause",
+    ("pypi", "psycopg[binary]"): "LGPL-3.0-only",
+    ("pypi", "pytest"): "MIT",
+    ("pypi", "ruff"): "MIT",
+    ("pypi", "mypy"): "MIT",
+    ("npm", "@playwright/test"): "Apache-2.0",
+    ("npm", "@testing-library/dom"): "MIT",
+    ("npm", "@types/node"): "MIT",
+    ("npm", "jsdom"): "MIT",
+    ("npm", "typescript"): "Apache-2.0",
+    ("npm", "vitest"): "MIT",
+}
+ALLOWED_DEPENDENCY_LICENSES = frozenset(EXPECTED_DEPENDENCY_LICENSES.values())
+EXPECTED_ASSET_EXTENSIONS = frozenset(
+    {
+        ".bin",
+        ".dat",
+        ".dbf",
+        ".gif",
+        ".gpkg",
+        ".jpeg",
+        ".jpg",
+        ".onnx",
+        ".pdf",
+        ".png",
+        ".pt",
+        ".pth",
+        ".shp",
+        ".shx",
+        ".tif",
+        ".tiff",
+        ".webp",
+        ".zip",
+    }
+)
+EXPECTED_CANDIDATE_EVIDENCE = {
+    "DEPENDENCY_INVENTORY_AND_SBOM": frozenset({"REQUIRED_AT_RELEASE_CANDIDATE", "PASS"}),
+    "DCO_AUTOMATED_CHECK": frozenset({"REQUIRES_CANDIDATE_COMMIT_RANGE", "PASS"}),
+    "LEGAL_REVIEW_BEFORE_G6": frozenset({"NOT_PROVIDED", "PASS"}),
+    "SECURITY_LICENSE_RESTORE_COMPATIBILITY_SCIENTIFIC_GATES": frozenset({"NOT_PROVIDED", "PASS"}),
+}
+PORTABLE_COMMAND = f"python -X utf8 tools/governance/{SLUG}/foundation_validation.py"
+MAKE_VALIDATION_COMMAND = f"$(PYTHON) -X utf8 tools/governance/{SLUG}/foundation_validation.py"
+MAKE_TEST_COMMAND = (
+    f"$(PYTHON) -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/{SLUG}/test_foundation.py"
+)
 SIGNOFF_PATTERN = re.compile(
     r"^Signed-off-by:\s+[^<>\r\n]+\s+<[^<>\s]+@[^<>\s]+>\s*$",
     re.IGNORECASE | re.MULTILINE,
@@ -134,29 +186,96 @@ def _matches(path: str, pattern: str) -> bool:
     return fnmatch.fnmatchcase(path, pattern)
 
 
-def classify_paths(inventory: dict[str, Any], paths: list[str]) -> dict[str, str]:
+def _validated_inventory_classes(inventory: dict[str, Any]) -> list[dict[str, Any]]:
     classes = inventory.get("classes")
     _require(isinstance(classes, list) and classes, "license classes are missing")
+    validated: list[dict[str, Any]] = []
+    for item in classes:
+        _require(isinstance(item, dict), "license class must be an object")
+        _require(
+            set(item) == {"id", "license", "license_text", "patterns"},
+            "license class fields are incomplete or unknown",
+        )
+        class_id = item["id"]
+        _require(
+            isinstance(class_id, str) and class_id in EXPECTED_FILE_CLASSES,
+            f"unknown license class: {class_id}",
+        )
+        expected_license, expected_text = EXPECTED_FILE_CLASSES[class_id]
+        license_id = item["license"]
+        _require(
+            isinstance(license_id, str)
+            and license_id in {item[0] for item in EXPECTED_FILE_CLASSES.values()},
+            f"unknown file license expression: {license_id}",
+        )
+        _require(license_id == expected_license, f"license class mismatch: {class_id}")
+        _require(item["license_text"] == expected_text, f"license text mismatch: {class_id}")
+        patterns = item["patterns"]
+        _require(
+            isinstance(patterns, list)
+            and bool(patterns)
+            and all(isinstance(pattern, str) and pattern for pattern in patterns),
+            f"invalid license patterns: {class_id}",
+        )
+        _require(len(patterns) == len(set(patterns)), f"duplicate license pattern: {class_id}")
+        validated.append(item)
+    _require(
+        {item["id"] for item in validated} == set(EXPECTED_FILE_CLASSES),
+        "layered license classes are incomplete",
+    )
+    return validated
+
+
+def _validated_asset_records(inventory: dict[str, Any]) -> dict[str, dict[str, str]]:
+    extensions = inventory.get("asset_extensions")
+    _require(
+        isinstance(extensions, list)
+        and all(isinstance(extension, str) for extension in extensions)
+        and set(extensions) == EXPECTED_ASSET_EXTENSIONS,
+        "asset extension set is incomplete or unknown",
+    )
+    raw_records = inventory.get("asset_records")
+    _require(isinstance(raw_records, list), "asset records must be a list")
+    records: dict[str, dict[str, str]] = {}
+    for record in raw_records:
+        _require(isinstance(record, dict), "asset record must be an object")
+        _require(set(record) == {"path", "license"}, "asset record fields are invalid")
+        path = record["path"]
+        license_id = record["license"]
+        _require(
+            isinstance(path, str)
+            and bool(path)
+            and "\\" not in path
+            and not path.startswith("/")
+            and ".." not in Path(path).parts,
+            "asset record path is invalid",
+        )
+        _require(
+            isinstance(license_id, str)
+            and license_id in {item[0] for item in EXPECTED_FILE_CLASSES.values()},
+            f"unknown asset license expression: {license_id}",
+        )
+        _require(path not in records, f"duplicate asset record: {path}")
+        records[path] = record
+    return records
+
+
+def classify_paths(inventory: dict[str, Any], paths: list[str]) -> dict[str, str]:
+    classes = _validated_inventory_classes(inventory)
     license_patterns = inventory.get("license_file_patterns")
-    _require(isinstance(license_patterns, list), "license file patterns are missing")
-    asset_extensions = set(inventory.get("asset_extensions", []))
-    asset_records = {
-        record["path"]: record
-        for record in inventory.get("asset_records", [])
-        if isinstance(record, dict) and isinstance(record.get("path"), str)
-    }
+    _require(
+        license_patterns == ["LICENSE", "LICENSES/**"],
+        "license file patterns are incomplete or unknown",
+    )
+    asset_records = _validated_asset_records(inventory)
 
     assignments: dict[str, str] = {}
     for path in paths:
         suffix = Path(path).suffix.lower()
-        if suffix in asset_extensions:
+        if suffix in EXPECTED_ASSET_EXTENSIONS:
             record = asset_records.get(path)
             _require(record is not None, f"asset has no explicit license record: {path}")
-            license_id = record.get("license")
-            _require(
-                isinstance(license_id, str) and license_id, f"asset license is missing: {path}"
-            )
-            assignments[path] = license_id
+            assignments[path] = record["license"]
             continue
 
         if any(_matches(path, pattern) for pattern in license_patterns):
@@ -164,16 +283,12 @@ def classify_paths(inventory: dict[str, Any], paths: list[str]) -> dict[str, str
             continue
 
         matching_classes = [
-            item
-            for item in classes
-            if any(_matches(path, pattern) for pattern in item.get("patterns", []))
+            item for item in classes if any(_matches(path, pattern) for pattern in item["patterns"])
         ]
         _require(matching_classes, f"tracked path has no license class: {path}")
-        license_ids = {item.get("license") for item in matching_classes}
+        license_ids = {item["license"] for item in matching_classes}
         _require(len(license_ids) == 1, f"tracked path has ambiguous license classes: {path}")
-        license_id = next(iter(license_ids))
-        _require(isinstance(license_id, str), f"invalid license class for path: {path}")
-        assignments[path] = license_id
+        assignments[path] = next(iter(license_ids))
     return assignments
 
 
@@ -190,6 +305,86 @@ def _tracked_files(root: Path) -> list[str]:
     return [line.strip().replace("\\", "/") for line in completed.stdout.splitlines() if line]
 
 
+def _normalized_sha256(path: Path) -> str:
+    try:
+        content = path.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    except OSError as exc:
+        raise FoundationValidationError(f"missing license text: {path.as_posix()}") from exc
+    return hashlib.sha256(content).hexdigest()
+
+
+def validate_license_texts(root: Path = ROOT) -> dict[str, str]:
+    observed: dict[str, str] = {}
+    for relative_path, expected_digest in EXPECTED_LICENSE_DIGESTS.items():
+        digest = _normalized_sha256(root / relative_path)
+        _require(digest == expected_digest, f"license text digest mismatch: {relative_path}")
+        observed[relative_path] = digest
+    return observed
+
+
+def _parse_dep5(path: Path) -> list[dict[str, str]]:
+    try:
+        text = path.read_text(encoding="utf-8").replace("\r\n", "\n").replace("\r", "\n")
+    except OSError as exc:
+        raise FoundationValidationError(".reuse/dep5 is missing") from exc
+    paragraphs: list[dict[str, str]] = []
+    for raw_paragraph in text.split("\n\n"):
+        if not raw_paragraph.strip():
+            continue
+        fields: dict[str, str] = {}
+        previous_field: str | None = None
+        for line in raw_paragraph.splitlines():
+            if line.startswith((" ", "\t")):
+                _require(previous_field is not None, "DEP5 continuation has no field")
+                fields[previous_field] = f"{fields[previous_field]} {line.strip()}"
+                continue
+            _require(":" in line, f"malformed DEP5 line: {line}")
+            name, value = line.split(":", 1)
+            _require(name not in fields, f"duplicate DEP5 field: {name}")
+            _require(bool(name) and bool(value.strip()), f"empty DEP5 field: {name}")
+            fields[name] = value.strip()
+            previous_field = name
+        paragraphs.append(fields)
+    return paragraphs
+
+
+def validate_dep5_inventory(root: Path, inventory: dict[str, Any]) -> dict[str, list[str]]:
+    classes = _validated_inventory_classes(inventory)
+    dep5_by_license: dict[str, list[str]] = {}
+    for paragraph in _parse_dep5(root / ".reuse/dep5"):
+        if "Files" not in paragraph:
+            continue
+        _require(
+            set(paragraph) == {"Files", "Copyright", "License"},
+            "DEP5 license paragraph fields are invalid",
+        )
+        license_id = paragraph["License"]
+        _require(
+            license_id in {item[0] for item in EXPECTED_FILE_CLASSES.values()},
+            f"unknown DEP5 license expression: {license_id}",
+        )
+        _require(license_id not in dep5_by_license, f"duplicate DEP5 license: {license_id}")
+        _require(
+            paragraph["Copyright"] == "2026 Raphael Perrut",
+            f"DEP5 copyright mismatch: {license_id}",
+        )
+        patterns = paragraph["Files"].split()
+        _require(len(patterns) == len(set(patterns)), f"duplicate DEP5 pattern: {license_id}")
+        dep5_by_license[license_id] = patterns
+
+    inventory_by_license = {item["license"]: item["patterns"] for item in classes}
+    _require(
+        set(dep5_by_license) == set(inventory_by_license),
+        "DEP5 and license inventory cover different license expressions",
+    )
+    for license_id, patterns in inventory_by_license.items():
+        _require(
+            set(dep5_by_license[license_id]) == set(patterns),
+            f"DEP5 patterns diverge from license inventory: {license_id}",
+        )
+    return dep5_by_license
+
+
 def validate_license_inventory(
     root: Path = ROOT,
     *,
@@ -197,27 +392,23 @@ def validate_license_inventory(
 ) -> dict[str, Any]:
     inventory_path = root / LICENSE_INVENTORY_PATH.relative_to(ROOT)
     inventory = _load_json(inventory_path)
+    _require(inventory.get("schema_version") == "1.0.0", "invalid license inventory version")
+    _require(
+        inventory.get("requirements") == ["REQ-EPIC-042", "REQ-OSS-001"],
+        "license inventory requirements diverge",
+    )
     _require(inventory.get("unknown_or_ambiguous") == "REJECT", "license fallback must reject")
 
-    class_map = {item.get("license"): item for item in inventory.get("classes", [])}
-    _require(set(class_map) == set(EXPECTED_LICENSES), "layered license classes are incomplete")
-    for license_id, (relative_path, marker) in EXPECTED_LICENSES.items():
-        item = class_map[license_id]
-        _require(item.get("license_text") == relative_path, f"wrong license text for {license_id}")
-        license_path = root / relative_path
-        try:
-            license_text = license_path.read_text(encoding="utf-8")
-        except OSError as exc:
-            raise FoundationValidationError(f"missing license text: {relative_path}") from exc
-        _require(
-            len(license_text) > 5_000 and marker in license_text,
-            f"invalid license text: {relative_path}",
-        )
-
-    assignments = classify_paths(inventory, tracked_files or _tracked_files(root))
-    reuse_text = (root / ".reuse/dep5").read_text(encoding="utf-8")
-    for license_id in EXPECTED_LICENSES:
-        _require(f"License: {license_id}" in reuse_text, f"REUSE metadata misses {license_id}")
+    classes = _validated_inventory_classes(inventory)
+    license_digests = validate_license_texts(root)
+    dep5_assignments = validate_dep5_inventory(root, inventory)
+    repository_paths = tracked_files if tracked_files is not None else _tracked_files(root)
+    assignments = classify_paths(inventory, repository_paths)
+    recorded_assets = set(_validated_asset_records(inventory))
+    tracked_assets = {
+        path for path in repository_paths if Path(path).suffix.lower() in EXPECTED_ASSET_EXTENSIONS
+    }
+    _require(recorded_assets == tracked_assets, "asset records diverge from tracked assets")
 
     notice = (root / "NOTICE").read_text(encoding="utf-8")
     third_party = (root / "THIRD_PARTY_NOTICES.md").read_text(encoding="utf-8")
@@ -225,7 +416,9 @@ def validate_license_inventory(
     _require("complete SBOM" in third_party, "third-party notice omits release SBOM policy")
     return {
         "assigned_paths": len(assignments),
-        "license_classes": sorted(class_map),
+        "dep5_license_classes": len(dep5_assignments),
+        "license_classes": sorted(item["license"] for item in classes),
+        "license_text_digests": license_digests,
         "status": "PASS",
     }
 
@@ -243,24 +436,93 @@ def _parse_pinned_requirements(path: Path) -> dict[str, str]:
     return dependencies
 
 
-def validate_dependency_inventory(root: Path = ROOT) -> dict[str, Any]:
-    inventory_path = root / DEPENDENCY_INVENTORY_PATH.relative_to(ROOT)
-    inventory = _load_json(inventory_path)
-    _require(inventory.get("requirement") == "REQ-OSS-001", "dependency requirement is missing")
-    _require(inventory.get("unknown_or_unpinned_dependency") == "REJECT", "dependency fallback")
-    _require(inventory.get("runtime") == [], "foundation declares unexpected runtime dependencies")
-
-    records = inventory.get("development_and_validation")
-    _require(isinstance(records, list), "dependency records are missing")
+def _index_dependency_records(records: Any) -> dict[tuple[str, str], dict[str, Any]]:
+    _require(isinstance(records, list) and records, "dependency records are missing")
     keyed: dict[tuple[str, str], dict[str, Any]] = {}
     for record in records:
         _require(isinstance(record, dict), "dependency record must be an object")
-        key = (record.get("ecosystem"), record.get("name"))
-        _require(all(isinstance(value, str) and value for value in key), "invalid dependency key")
+        _require(
+            set(record) == {"ecosystem", "name", "version", "license"},
+            "dependency record fields are incomplete or unknown",
+        )
+        ecosystem = record.get("ecosystem")
+        name = record.get("name")
+        _require(
+            isinstance(ecosystem, str) and ecosystem and isinstance(name, str) and name,
+            "invalid dependency key",
+        )
+        key = (ecosystem, name)
         _require(key not in keyed, f"duplicate inventory dependency: {key}")
-        _require(isinstance(record.get("version"), str), f"missing dependency version: {key}")
-        _require(isinstance(record.get("license"), str), f"missing dependency license: {key}")
+        _require(key in EXPECTED_DEPENDENCY_LICENSES, f"unknown dependency: {key}")
+        _require(
+            isinstance(record.get("version"), str) and bool(record["version"]),
+            f"missing dependency version: {key}",
+        )
+        license_expression = record.get("license")
+        _require(
+            isinstance(license_expression, str)
+            and license_expression in ALLOWED_DEPENDENCY_LICENSES,
+            f"unknown dependency license expression: {license_expression}",
+        )
+        _require(
+            license_expression == EXPECTED_DEPENDENCY_LICENSES[key],
+            f"dependency license mismatch: {key}",
+        )
         keyed[key] = record
+    _require(
+        set(keyed) == set(EXPECTED_DEPENDENCY_LICENSES),
+        "dependency license inventory is incomplete",
+    )
+    return keyed
+
+
+def validate_dependency_inventory(root: Path = ROOT) -> dict[str, Any]:
+    inventory_path = root / DEPENDENCY_INVENTORY_PATH.relative_to(ROOT)
+    inventory = _load_json(inventory_path)
+    _require(
+        set(inventory)
+        == {
+            "schema_version",
+            "requirement",
+            "inventory_scope",
+            "source_manifests",
+            "runtime",
+            "development_and_validation",
+            "redistribution",
+            "release_sbom",
+            "unknown_or_unpinned_dependency",
+        },
+        "dependency inventory fields are incomplete or unknown",
+    )
+    _require(inventory.get("schema_version") == "1.0.0", "invalid dependency inventory version")
+    _require(inventory.get("requirement") == "REQ-OSS-001", "dependency requirement is missing")
+    _require(
+        inventory.get("inventory_scope") == "DIRECT_DECLARED_DEPENDENCIES",
+        "dependency inventory scope diverges",
+    )
+    _require(
+        inventory.get("source_manifests")
+        == [
+            "pyproject.toml",
+            "requirements-validation.txt",
+            "src/frontend/package.json",
+            "pnpm-lock.yaml",
+        ],
+        "dependency source manifests diverge",
+    )
+    _require(inventory.get("unknown_or_unpinned_dependency") == "REJECT", "dependency fallback")
+    _require(inventory.get("runtime") == [], "foundation declares unexpected runtime dependencies")
+    _require(
+        inventory.get("redistribution") == "NONE_IN_FOUNDATION_0.0.0",
+        "dependency redistribution policy diverges",
+    )
+    _require(
+        inventory.get("release_sbom") == "REQUIRED_AT_RELEASE_CANDIDATE",
+        "release SBOM policy diverges",
+    )
+
+    records = inventory.get("development_and_validation")
+    keyed = _index_dependency_records(records)
 
     expected_python = _parse_pinned_requirements(root / "requirements-validation.txt")
     with (root / "pyproject.toml").open("rb") as pyproject_file:
@@ -344,6 +606,50 @@ def validate_dco_commit_range(commit_range: str, root: Path = ROOT) -> dict[str,
     return validate_dco_messages(messages)
 
 
+def _validated_candidate_evidence(checkpoint: dict[str, Any]) -> dict[str, str]:
+    publication_gate = checkpoint.get("publication_gate")
+    _require(isinstance(publication_gate, dict), "publication gate must be an object")
+    candidate_evidence = publication_gate.get("candidate_evidence")
+    _require(
+        isinstance(candidate_evidence, dict) and bool(candidate_evidence),
+        "candidate evidence must be a non-empty object",
+    )
+    missing = set(EXPECTED_CANDIDATE_EVIDENCE) - set(candidate_evidence)
+    unknown = set(candidate_evidence) - set(EXPECTED_CANDIDATE_EVIDENCE)
+    _require(not missing, f"candidate evidence is missing: {', '.join(sorted(missing))}")
+    _require(not unknown, f"candidate evidence is unknown: {', '.join(sorted(unknown))}")
+    for evidence_name, allowed_statuses in EXPECTED_CANDIDATE_EVIDENCE.items():
+        status = candidate_evidence[evidence_name]
+        _require(
+            isinstance(status, str) and status in allowed_statuses,
+            f"candidate evidence is malformed: {evidence_name}",
+        )
+    return candidate_evidence
+
+
+def validate_ci_integration(root: Path = ROOT) -> dict[str, Any]:
+    makefile_lines = (root / "Makefile").read_text(encoding="utf-8").splitlines()
+    validation_line = f"\t{MAKE_VALIDATION_COMMAND}"
+    test_line = f"\t{MAKE_TEST_COMMAND}"
+    _require(validation_line in makefile_lines, "make verify omits ISSUE-0142 validator")
+    _require(test_line in makefile_lines, "make verify omits ISSUE-0142 tests")
+    legacy_integration = next(
+        (
+            index
+            for index, line in enumerate(makefile_lines)
+            if "monorepo-greenfield" in line and "foundation_validation.py" in line
+        ),
+        None,
+    )
+    _require(legacy_integration is not None, "canonical integration gate is missing")
+    _require(
+        makefile_lines.index(validation_line) < legacy_integration
+        and makefile_lines.index(test_line) < legacy_integration,
+        "ISSUE-0142 gate must run before service-dependent integration",
+    )
+    return {"mechanism": "make verify", "python": "$(PYTHON)", "status": "PASS"}
+
+
 def validate_checkpoint(root: Path = ROOT) -> dict[str, Any]:
     checkpoint_path = root / CHECKPOINT_PATH.relative_to(ROOT)
     checkpoint = _load_json(checkpoint_path)
@@ -354,12 +660,21 @@ def validate_checkpoint(root: Path = ROOT) -> dict[str, Any]:
     _require(
         checkpoint.get("local_command")
         == checkpoint.get("ci_command")
-        == checkpoint.get("reproducible_command"),
+        == checkpoint.get("reproducible_command")
+        == PORTABLE_COMMAND,
         "local and CI commands diverge",
     )
-    for artifact in checkpoint.get("artifacts", []):
+    artifacts = checkpoint.get("artifacts")
+    _require(
+        isinstance(artifacts, list)
+        and bool(artifacts)
+        and all(isinstance(artifact, str) and artifact for artifact in artifacts),
+        "checkpoint artifacts must be a non-empty string list",
+    )
+    for artifact in artifacts:
         _require((root / artifact).is_file(), f"checkpoint artifact is missing: {artifact}")
-    publication_gate = checkpoint.get("publication_gate", {})
+    publication_gate = checkpoint.get("publication_gate")
+    _require(isinstance(publication_gate, dict), "publication gate must be an object")
     _require(
         publication_gate.get("failure_mode") == "FAIL_CLOSED", "publication gate is not fail-closed"
     )
@@ -370,6 +685,7 @@ def validate_checkpoint(root: Path = ROOT) -> dict[str, Any]:
     _require(
         publication_gate.get("current_decision") == "BLOCKED", "publication readiness is unproven"
     )
+    _validated_candidate_evidence(checkpoint)
     return checkpoint
 
 
@@ -378,11 +694,13 @@ def evaluate_publication_gate(
     *,
     dco_verified: bool,
 ) -> dict[str, Any]:
-    candidate_evidence = checkpoint["publication_gate"]["candidate_evidence"]
+    _require(isinstance(dco_verified, bool), "DCO verification state must be boolean")
+    candidate_evidence = _validated_candidate_evidence(checkpoint)
     blockers = [
         name
         for name, status in candidate_evidence.items()
-        if status != "PASS" and not (name == "DCO_AUTOMATED_CHECK" and dco_verified)
+        if (name == "DCO_AUTOMATED_CHECK" and not dco_verified)
+        or (name != "DCO_AUTOMATED_CHECK" and status != "PASS")
     ]
     if blockers:
         return {"decision": "BLOCKED", "blockers": sorted(blockers), "status": "PASS"}
@@ -397,6 +715,7 @@ def validate_foundation(
     checkpoint = validate_checkpoint(root)
     checks: dict[str, Any] = {
         "checkpoint": {"status": "PASS"},
+        "ci_integration": validate_ci_integration(root),
         "citation": validate_citation(root),
         "licensing": validate_license_inventory(root),
         "dependencies": validate_dependency_inventory(root),
