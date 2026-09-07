@@ -264,11 +264,20 @@ def test_epic_005_automacao() -> None:
 
 
 def test_pnpm_setup_pin_is_fail_closed() -> None:
-    replacements = {
-        "missing": "name: pnpm setup intentionally absent",
-        "unapproved": f"uses: pnpm/action-setup@{'0' * 40}",
+    with tempfile.TemporaryDirectory(prefix="issue-0133-pnpm-approved-") as temporary:
+        approved_sandbox = Path(temporary)
+        _copy_sources(approved_sandbox)
+        approved = _execute(approved_sandbox, dry_run=True)
+        assert approved.returncode == 0
+        assert json.loads(approved.stdout)["status"] == "PASS"
+
+    mutations = {
+        "missing": ("replace", "name: pnpm setup intentionally absent"),
+        "unapproved": ("replace", f"uses: pnpm/action-setup@{'0' * 40}"),
+        "approved-plus-unapproved": ("append", f"uses: pnpm/action-setup@{'0' * 40}"),
+        "approved-plus-floating": ("append", "uses: pnpm/action-setup@v6"),
     }
-    for name, replacement in replacements.items():
+    for name, (operation, replacement) in mutations.items():
         with tempfile.TemporaryDirectory(prefix=f"issue-0133-pnpm-{name}-") as temporary:
             sandbox = Path(temporary)
             _copy_sources(sandbox)
@@ -280,8 +289,11 @@ def test_pnpm_setup_pin_is_fail_closed() -> None:
             assert len(lines) == 1
             line = lines[0]
             indent = line[: len(line) - len(line.lstrip())]
+            mutation = f"{indent}- {replacement}"
+            if operation == "append":
+                mutation = f"{line}\n{mutation}"
             path.write_text(
-                source.replace(line, f"{indent}- {replacement}", 1), encoding="utf-8"
+                source.replace(line, mutation, 1), encoding="utf-8"
             )
             execution = _execute(sandbox, dry_run=True)
             _assert_failure(execution, "WORKFLOW_INVALID")
