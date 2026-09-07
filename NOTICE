@@ -1,0 +1,11 @@
+DSGeorref
+Copyright 2026 Raphael Perrut
+
+Reusable SDKs, schemas and integration examples in this repository are
+licensed under Apache License 2.0. Application code and original
+documentation remain governed by the file-class assignments in
+.reuse/dep5 and by the complete license texts in LICENSES/.
+
+No third-party code is bundled for redistribution by the current 0.0.0
+foundation. Development and validation dependencies are listed in
+THIRD_PARTY_NOTICES.md.

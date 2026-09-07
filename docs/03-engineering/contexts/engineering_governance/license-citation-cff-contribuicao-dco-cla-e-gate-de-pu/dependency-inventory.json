@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "requirement": "REQ-OSS-001",
+  "inventory_scope": "DIRECT_DECLARED_DEPENDENCIES",
+  "source_manifests": [
+    "pyproject.toml",
+    "requirements-validation.txt",
+    "src/frontend/package.json",
+    "pnpm-lock.yaml"
+  ],
+  "runtime": [],
+  "development_and_validation": [
+    {
+      "ecosystem": "pypi",
+      "name": "PyYAML",
+      "version": "6.0.3",
+      "license": "MIT"
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "jsonschema",
+      "version": "4.26.0",
+      "license": "MIT"
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "cryptography",
+      "version": "50.0.1",
+      "license": "Apache-2.0 OR BSD-3-Clause"
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "celery",
+      "version": "5.6.3",
+      "license": "BSD-3-Clause"
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "psycopg[binary]",
+      "version": "3.3.4",
+      "license": "LGPL-3.0-only"
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "pytest",
+      "version": "9.1.1",
+      "license": "MIT"
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "ruff",
+      "version": "0.16.5",
+      "license": "MIT"
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "mypy",
+      "version": "2.3.1",
+      "license": "MIT"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@playwright/test",
+      "version": "1.62.1",
+      "license": "Apache-2.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@testing-library/dom",
+      "version": "10.4.1",
+      "license": "MIT"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@types/node",
+      "version": "24.13.3",
+      "license": "MIT"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "jsdom",
+      "version": "30.0.1",
+      "license": "MIT"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "typescript",
+      "version": "6.0.3",
+      "license": "Apache-2.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "vitest",
+      "version": "4.1.11",
+      "license": "MIT"
+    }
+  ],
+  "redistribution": "NONE_IN_FOUNDATION_0.0.0",
+  "release_sbom": "REQUIRED_AT_RELEASE_CANDIDATE",
+  "unknown_or_unpinned_dependency": "REJECT"
+}

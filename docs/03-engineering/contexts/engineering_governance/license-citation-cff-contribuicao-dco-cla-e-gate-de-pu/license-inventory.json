@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "requirements": [
+    "REQ-EPIC-042",
+    "REQ-OSS-001"
+  ],
+  "classes": [
+    {
+      "id": "application-code",
+      "license": "AGPL-3.0-or-later",
+      "license_text": "LICENSES/AGPL-3.0-or-later.txt",
+      "patterns": [
+        ".codex/**",
+        ".github/**",
+        ".reuse/**",
+        "config/**",
+        "infra/**",
+        "src/**",
+        "tests/**",
+        "tools/**",
+        ".dockerignore",
+        ".editorconfig",
+        ".env.example",
+        ".gitignore",
+        ".pre-commit-config.yaml",
+        ".python-version",
+        "Makefile",
+        "manifest.json",
+        "package.json",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml",
+        "pyproject.toml",
+        "requirements-validation.txt",
+        "SHA256SUMS.txt",
+        "VALIDATION_RESULT.txt"
+      ]
+    },
+    {
+      "id": "reusable-contracts",
+      "license": "Apache-2.0",
+      "license_text": "LICENSES/Apache-2.0.txt",
+      "patterns": [
+        "contracts/**"
+      ]
+    },
+    {
+      "id": "original-documentation",
+      "license": "CC-BY-4.0",
+      "license_text": "LICENSES/CC-BY-4.0.txt",
+      "patterns": [
+        "docs/**",
+        "evidence/**",
+        "exports/**",
+        "AGENTS.md",
+        "CONTRIBUTING.md",
+        "GOVERNANCE.md",
+        "LICENSING.md",
+        "README.md",
+        "README_GITHUB_GOVERNANCE_PACKAGE.md",
+        "SECURITY.md",
+        "SUPPORT.md",
+        "THIRD_PARTY_NOTICES.md",
+        "CITATION.cff",
+        "NOTICE"
+      ]
+    }
+  ],
+  "license_file_patterns": [
+    "LICENSE",
+    "LICENSES/**"
+  ],
+  "asset_extensions": [
+    ".bin",
+    ".dat",
+    ".dbf",
+    ".gif",
+    ".gpkg",
+    ".jpeg",
+    ".jpg",
+    ".onnx",
+    ".pdf",
+    ".png",
+    ".pt",
+    ".pth",
+    ".shp",
+    ".shx",
+    ".tif",
+    ".tiff",
+    ".webp",
+    ".zip"
+  ],
+  "asset_records": [],
+  "unknown_or_ambiguous": "REJECT"
+}

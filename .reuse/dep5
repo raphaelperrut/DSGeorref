@@ -1,0 +1,22 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: DSGeorref
+Upstream-Contact: Raphael Perrut <110496238+raphaelperrut@users.noreply.github.com>
+Source: https://github.com/raphaelperrut/DSGeorref
+
+Files: .codex/** .github/** .reuse/** config/** infra/** src/** tests/** tools/**
+ .dockerignore .editorconfig .env.example .gitignore .pre-commit-config.yaml
+ .python-version Makefile manifest.json package.json pnpm-lock.yaml
+ pnpm-workspace.yaml pyproject.toml requirements-validation.txt SHA256SUMS.txt
+ VALIDATION_RESULT.txt
+Copyright: 2026 Raphael Perrut
+License: AGPL-3.0-or-later
+
+Files: contracts/**
+Copyright: 2026 Raphael Perrut
+License: Apache-2.0
+
+Files: docs/** evidence/** exports/** AGENTS.md CONTRIBUTING.md GOVERNANCE.md
+ LICENSING.md README.md README_GITHUB_GOVERNANCE_PACKAGE.md SECURITY.md
+ SUPPORT.md THIRD_PARTY_NOTICES.md CITATION.cff NOTICE
+Copyright: 2026 Raphael Perrut
+License: CC-BY-4.0
