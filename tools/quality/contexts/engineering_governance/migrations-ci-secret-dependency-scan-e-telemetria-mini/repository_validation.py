@@ -26,7 +26,7 @@ EXPECTED_ALLOW_PATHS = [
 ]
 GITLEAKS_SHA = "e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e"
 PIP_AUDIT_SHA = "1220774d901786e6f652ae159f7b6bc8fea6d266"
-PNPM_SETUP_SHA = "b906affcce14559ad1aafd4ab0e942779e9f58b1"
+PNPM_SETUP_SHA = "0977fd99725f1db4007ccb2928dbb4e90d06cc86"
 SETUP_NODE_SHA = "249970729cb0ef3589644e2896645e5dc5ba9c38"
 
 
@@ -96,6 +96,14 @@ def _workflow_findings(root: Path) -> list[Finding]:
     ]
     commands = [step["run"] for step in steps if isinstance(step.get("run"), str)]
     uses = [step["uses"] for step in steps if isinstance(step.get("uses"), str)]
+    pnpm_setup = "pnpm/action-setup"
+    approved_pnpm_setup = f"{pnpm_setup}@{PNPM_SETUP_SHA}"
+    approved_pnpm_setup_is_full_sha = len(PNPM_SETUP_SHA) == 40 and all(
+        character in "0123456789abcdef" for character in PNPM_SETUP_SHA
+    )
+    pnpm_setup_uses = [
+        use for use in uses if use == pnpm_setup or use.startswith(f"{pnpm_setup}@")
+    ]
     checks = {
         "validator dry-run": any(
             VALIDATOR_REL.as_posix() in command and "--dry-run" in command for command in commands
@@ -110,7 +118,9 @@ def _workflow_findings(root: Path) -> list[Finding]:
         "pinned secret scan": f"gitleaks/gitleaks-action@{GITLEAKS_SHA}" in uses,
         "pinned Python dependency scan": f"pypa/gh-action-pip-audit@{PIP_AUDIT_SHA}" in uses,
         "pinned Node setup": f"actions/setup-node@{SETUP_NODE_SHA}" in uses,
-        "pinned pnpm setup": f"pnpm/action-setup@{PNPM_SETUP_SHA}" in uses,
+        "pinned pnpm setup": approved_pnpm_setup_is_full_sha
+        and bool(pnpm_setup_uses)
+        and all(use == approved_pnpm_setup for use in pnpm_setup_uses),
         "Node dependency scan": any(
             "pnpm audit" in command and "--audit-level high" in command
             for command in commands

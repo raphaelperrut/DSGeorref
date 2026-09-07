@@ -261,3 +261,43 @@ def test_epic_005_automacao() -> None:
             _assert_failure(first, code)
             assert first == second
             assert before == first.snapshot
+
+
+def test_pnpm_setup_pin_is_fail_closed() -> None:
+    with tempfile.TemporaryDirectory(prefix="issue-0133-pnpm-approved-") as temporary:
+        approved_sandbox = Path(temporary)
+        _copy_sources(approved_sandbox)
+        approved = _execute(approved_sandbox, dry_run=True)
+        assert approved.returncode == 0
+        assert json.loads(approved.stdout)["status"] == "PASS"
+
+    mutations = {
+        "missing": ("replace", "name: pnpm setup intentionally absent"),
+        "unapproved": ("replace", f"uses: pnpm/action-setup@{'0' * 40}"),
+        "approved-plus-unapproved": ("append", f"uses: pnpm/action-setup@{'0' * 40}"),
+        "approved-plus-floating": ("append", "uses: pnpm/action-setup@v6"),
+    }
+    for name, (operation, replacement) in mutations.items():
+        with tempfile.TemporaryDirectory(prefix=f"issue-0133-pnpm-{name}-") as temporary:
+            sandbox = Path(temporary)
+            _copy_sources(sandbox)
+            path = sandbox / WORKFLOW_REL
+            source = path.read_text(encoding="utf-8")
+            lines = [
+                line for line in source.splitlines() if "uses: pnpm/action-setup@" in line
+            ]
+            assert len(lines) == 1
+            line = lines[0]
+            indent = line[: len(line) - len(line.lstrip())]
+            mutation = f"{indent}- {replacement}"
+            if operation == "append":
+                mutation = f"{line}\n{mutation}"
+            path.write_text(
+                source.replace(line, mutation, 1), encoding="utf-8"
+            )
+            execution = _execute(sandbox, dry_run=True)
+            _assert_failure(execution, "WORKFLOW_INVALID")
+            report = json.loads(execution.stdout)
+            assert "missing pinned pnpm setup" in {
+                finding["detail"] for finding in report["findings"]
+            }
