@@ -39,9 +39,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0033.json",
     "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**",
     "tools/quality/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**",
-    ".github/workflows/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu.yaml"
+    ".github/workflows/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu.yaml",
+    "evidence/operations/epic-007/story-0033/**"
   ],
   "deny_paths": [
     "src/geo/**",
@@ -112,9 +114,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0033.json",
         "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**",
         "tools/quality/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**",
-        ".github/workflows/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu.yaml"
+        ".github/workflows/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu.yaml",
+        "evidence/operations/epic-007/story-0033/**"
       ],
       "deny_paths": [
         "src/geo/**",
