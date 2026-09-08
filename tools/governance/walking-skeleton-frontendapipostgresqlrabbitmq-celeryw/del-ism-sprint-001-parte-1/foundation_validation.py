@@ -45,8 +45,13 @@ def _load_json(path: Path) -> dict[str, Any]:
     return loaded
 
 
+def _canonical_json_sha256(loaded: dict[str, Any]) -> str:
+    encoded = json.dumps(loaded, ensure_ascii=False, separators=(",", ":"), sort_keys=True).encode()
+    return hashlib.sha256(encoded).hexdigest()
+
+
 def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return _canonical_json_sha256(_load_json(path))
 
 
 def _safe_file(root: Path, value: object) -> Path | None:

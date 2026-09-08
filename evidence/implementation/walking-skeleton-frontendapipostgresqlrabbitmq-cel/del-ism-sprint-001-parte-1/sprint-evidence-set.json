@@ -24,7 +24,7 @@
     ],
     "contract": {
       "version": "1.0.0",
-      "sha256": "388f8f26ff409d9bdd7e42e5d5c92a2584ff5096f06be1907b1458badf28dfae"
+      "sha256": "ebfbc1399de4053cd97eddf5e195a297872219c1390c9f570b02dc56862d7dbf"
     },
     "failure_policy": "FAIL_CLOSED",
     "limitations": [
@@ -34,5 +34,5 @@
     ],
     "review_gate": "INDEPENDENT_QA_AND_REVIEWER_SAME_CANDIDATE"
   },
-  "payload_sha256": "60e9d6f6b62c66ef21a05e6a9af9b475abf35c414fe0b4c5ee3d96fef7a2295d"
+  "payload_sha256": "92dd069df10f52590006f671656e4ee626024da3141adba6ed52710405bb4e03"
 }

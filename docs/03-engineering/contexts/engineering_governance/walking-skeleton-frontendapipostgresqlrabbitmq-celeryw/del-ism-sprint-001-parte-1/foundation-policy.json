@@ -25,7 +25,7 @@
   "contract": {
     "path": "contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/examples/walking-skeleton.json",
     "version": "1.0.0",
-    "sha256": "388f8f26ff409d9bdd7e42e5d5c92a2584ff5096f06be1907b1458badf28dfae",
+    "sha256": "ebfbc1399de4053cd97eddf5e195a297872219c1390c9f570b02dc56862d7dbf",
     "exercise": "ESSENTIAL_ONLY"
   },
   "private_baseline": {

@@ -17,7 +17,7 @@ skeleton contract without duplicating runtime or changing application surfaces.
 ## Contract impact
 
 No frozen contract was changed. The materialization binds to contract version
-`1.0.0` and its SHA-256 digest, exercises only essential walking-skeleton
+`1.0.0` and its canonical JSON SHA-256 digest, exercises only essential walking-skeleton
 contracts, and fails closed if the version, digest, authority, or failure policy
 drifts. No API, event, state, table, or migration was introduced.
 

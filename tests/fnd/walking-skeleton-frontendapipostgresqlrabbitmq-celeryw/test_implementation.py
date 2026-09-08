@@ -26,6 +26,7 @@ from foundation_expectations import (  # noqa: E402
     EXPECTED_REQUIREMENTS,
 )
 from foundation_validation import (  # noqa: E402
+    _canonical_json_sha256,
     load_policy,
     validate_policy,
 )
@@ -107,6 +108,17 @@ def test_materialization_rejects_drift_and_silent_fallback() -> None:
     expanded = copy.deepcopy(_policy())
     expanded["future_capability"] = "OUT_OF_SCOPE"
     assert "POLICY_STRUCTURE_INVALID" in _codes(expanded)
+
+
+def test_contract_digest_is_independent_of_json_line_endings() -> None:
+    contract = json.loads((ROOT / _policy()["contract"]["path"]).read_text(encoding="utf-8"))
+    compact = json.loads(json.dumps(contract, separators=(",", ":")))
+    crlf = json.loads(json.dumps(contract, indent=2).replace("\n", "\r\n"))
+    assert (
+        _canonical_json_sha256(compact)
+        == _canonical_json_sha256(crlf)
+        == _policy()["contract"]["sha256"]
+    )
 
 
 def test_validator_cli_is_deterministic_and_fails_closed() -> None:
