@@ -1,0 +1,38 @@
+{
+  "payload": {
+    "schema_version": "1.0.0",
+    "evidence_set_id": "EXECUTABLE-FOUNDATION-SLICE-1",
+    "owner": "BC-001",
+    "status": "CANDIDATE",
+    "requirements": [
+      "REQ-DEL-001",
+      "REQ-DEL-002",
+      "REQ-ISM-003",
+      "REQ-SPRINT-001-001",
+      "REQ-SPRINT-001-002",
+      "REQ-SPRINT-001-003",
+      "REQ-SPRINT-001-005",
+      "REQ-SPRINT-001-006",
+      "REQ-SPRINT-001-007",
+      "REQ-SPRINT-001-008"
+    ],
+    "acceptance_criteria": [
+      "AC-ISSUE-0862-01",
+      "AC-ISSUE-0862-02",
+      "AC-ISSUE-0862-03",
+      "AC-ISSUE-0862-04"
+    ],
+    "contract": {
+      "version": "1.0.0",
+      "sha256": "ebfbc1399de4053cd97eddf5e195a297872219c1390c9f570b02dc56862d7dbf"
+    },
+    "failure_policy": "FAIL_CLOSED",
+    "limitations": [
+      "PRIVATE_CPU_ONLY",
+      "SYNTHETIC_JOB_WITHOUT_FUNCTIONAL_GEOREFERENCING",
+      "NO_PUBLIC_OPERATIONAL_CLAIMS"
+    ],
+    "review_gate": "INDEPENDENT_QA_AND_REVIEWER_SAME_CANDIDATE"
+  },
+  "payload_sha256": "92dd069df10f52590006f671656e4ee626024da3141adba6ed52710405bb4e03"
+}
