@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0143",
+  "github_issue": 45,
+  "task_id": "TASK-0033",
+  "candidate_binding": "This evidence is versioned in the candidate tree; the immutable SHA is recorded in the pull request handoff.",
+  "acceptance_criteria": {
+    "AC-ISSUE-0143-01": "PASS: deterministic JSON CLI exposes contract, requirement, gate, and finding evidence.",
+    "AC-ISSUE-0143-02": "PASS: all four EPIC-007 requirement IDs map to executable evidence.",
+    "AC-ISSUE-0143-03": "PASS: missing, invalid, permissive, unsigned, and unsafe inputs fail closed with finding codes.",
+    "AC-ISSUE-0143-04": "PASS: repeated read-only and dry-run executions are byte-stable and preserve the filesystem snapshot."
+  },
+  "validations": [
+    {
+      "command": "py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_automation.py::test_epic_007_automacao",
+      "result": "PASS: 1 passed in 27.84s"
+    },
+    {
+      "command": "py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_contract.py tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py",
+      "result": "PASS: 9 passed in 2.38s"
+    },
+    {
+      "command": "py -3.12 -m ruff check <ISSUE-0143 tool and test paths>",
+      "result": "PASS"
+    },
+    {
+      "command": "py -3.12 -m mypy <ISSUE-0143 validator modules>",
+      "result": "PASS: no issues found in 2 source files"
+    },
+    {
+      "command": "make verify PYTHON=\"py -3.12\"",
+      "result": "ENVIRONMENTAL_FAIL: all preceding gates passed; the unrelated EPIC-003 walking-skeleton test requires FOUNDATION_INTEGRATION=1 plus PostgreSQL/RabbitMQ services."
+    }
+  ],
+  "changed_scope": {
+    ".codex/tasks/TASK-0033.json": "Adds the envelope and required evidence path to both synchronized allow-path lists.",
+    ".github/workflows/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu.yaml": "Runs pinned, read-only control validation and external-contribution DCO verification.",
+    "tools/quality/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**": "Implements deterministic fail-closed validation and actionable JSON diagnostics.",
+    "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_automation.py": "Proves acceptance, idempotency, no mutation, failure modes, and DCO behavior.",
+    "evidence/operations/epic-007/story-0033/sentinel-qa.json": "Records candidate evidence and scope justification."
+  },
+  "contract_impact": "NONE: consumes and validates the frozen EPIC-007 contract without changing it.",
+  "migration": "NOT_APPLICABLE: no persistent schema, state, artifact format, or deployment changed.",
+  "rollback": "Revert the candidate commit; no data rollback is required.",
+  "limitations": [
+    "Local pytest emitted the pre-existing pytest-asyncio default-loop-scope deprecation warning.",
+    "The first sandboxed sentinel attempt was blocked by Windows temporary-directory permissions before assertions; the authorized rerun completed successfully.",
+    "The mandatory make verify rerun passed repository, architecture, requirements, DDD, ADR, specification, sprint, frontend, licensing, and relevant foundation checks, then stopped on an unrelated integration test because FOUNDATION_INTEGRATION and its PostgreSQL/RabbitMQ services were unavailable.",
+    "The host reports Node 22.14.0 while the repository requests Node 24.20.0; frontend typecheck, unit, and browser checks nevertheless passed on the host version."
+  ],
+  "independent_review": "PENDING: QA and Reviewer must review the immutable candidate SHA; this implementation evidence is not self-approval."
+}
