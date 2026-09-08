@@ -56,8 +56,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0752.json",
+    "Makefile",
     "tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/**",
-    "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/**"
+    "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/**",
+    "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_implementation.py",
+    "evidence/implementation/walking-skeleton-frontendapipostgresqlrabbitmq-cel/del-ism-sprint-001-parte-1/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -137,8 +141,12 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0752.json",
+        "Makefile",
         "tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/**",
-        "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/**"
+        "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/**",
+        "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_implementation.py",
+        "evidence/implementation/walking-skeleton-frontendapipostgresqlrabbitmq-cel/del-ism-sprint-001-parte-1/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

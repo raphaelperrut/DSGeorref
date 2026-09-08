@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0.0",
+  "foundation_id": "EXECUTABLE-FOUNDATION-WALKING-SKELETON",
+  "owner": "BC-001",
+  "status": "CANDIDATE",
+  "slice": {
+    "number": 1,
+    "total": 2,
+    "dependency_story_ids": ["STORY-0534"],
+    "requirement_ids": [
+      "REQ-DEL-001",
+      "REQ-DEL-002",
+      "REQ-ISM-003",
+      "REQ-SPRINT-001-001",
+      "REQ-SPRINT-001-002",
+      "REQ-SPRINT-001-003",
+      "REQ-SPRINT-001-005",
+      "REQ-SPRINT-001-006",
+      "REQ-SPRINT-001-007",
+      "REQ-SPRINT-001-008"
+    ],
+    "boundary": "CURRENT_SLICE_ONLY",
+    "next_slice": "SEPARATE_AUTHORIZATION_REQUIRED"
+  },
+  "contract": {
+    "path": "contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/examples/walking-skeleton.json",
+    "version": "1.0.0",
+    "sha256": "388f8f26ff409d9bdd7e42e5d5c92a2584ff5096f06be1907b1458badf28dfae",
+    "exercise": "ESSENTIAL_ONLY"
+  },
+  "private_baseline": {
+    "visibility": "PRIVATE",
+    "installation": "CLEAN_REPOSITORY_PINNED",
+    "compute": "CPU_ONLY",
+    "flow": "APPROVED_WALKING_SKELETON",
+    "evidence": "REPRODUCIBLE",
+    "public_claims": false
+  },
+  "diagnostic_job": {
+    "kind": "SYNTHETIC",
+    "functional_georeferencing": false
+  },
+  "ci_gate": {
+    "mode": "PROGRESSIVE",
+    "scope": "CAPABILITIES_PRESENT",
+    "command": "make verify"
+  },
+  "failure_policy": {
+    "mode": "FAIL_CLOSED",
+    "silent_fallback": false,
+    "publication_on_error": "PROHIBITED"
+  },
+  "requirement_evidence": {
+    "REQ-DEL-001": {
+      "test_path": "tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation.py",
+      "test_id": "test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done",
+      "checkpoint": "tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation.py::test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done"
+    },
+    "REQ-DEL-002": {
+      "test_path": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_implementation.py",
+      "test_id": "test_private_operational_baseline_scope_cpu_only_clean_install",
+      "checkpoint": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_implementation.py::test_private_operational_baseline_scope_cpu_only_clean_install"
+    },
+    "REQ-ISM-003": {
+      "test_path": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_implementation.py",
+      "test_id": "test_thin_vertical_integrable_slices_and_pr_sequence",
+      "checkpoint": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_implementation.py::test_thin_vertical_integrable_slices_and_pr_sequence"
+    },
+    "REQ-SPRINT-001-001": {
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_01",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_01"
+    },
+    "REQ-SPRINT-001-002": {
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_02",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_02"
+    },
+    "REQ-SPRINT-001-003": {
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_03",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_03"
+    },
+    "REQ-SPRINT-001-005": {
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_05",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_05"
+    },
+    "REQ-SPRINT-001-006": {
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_06",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_06"
+    },
+    "REQ-SPRINT-001-007": {
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_07",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_07"
+    },
+    "REQ-SPRINT-001-008": {
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_08",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_08"
+    }
+  },
+  "write_scope": [
+    ".codex/tasks/TASK-0752.json",
+    "Makefile",
+    "tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/**",
+    "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/**",
+    "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_implementation.py",
+    "evidence/implementation/walking-skeleton-frontendapipostgresqlrabbitmq-cel/del-ism-sprint-001-parte-1/**"
+  ],
+  "evidence_set": {
+    "path": "evidence/implementation/walking-skeleton-frontendapipostgresqlrabbitmq-cel/del-ism-sprint-001-parte-1/sprint-evidence-set.json",
+    "digest_algorithm": "sha256",
+    "immutable": true,
+    "machine_readable": true,
+    "human_summary": "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/README.md"
+  }
+}
