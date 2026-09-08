@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "issue_id": "ISSUE-0145",
+  "github_issue": 47,
+  "reviewed_issue_id": "ISSUE-0144",
+  "candidate_sha": "8cd5884ec495b6e23a57d22eccba25e30a7d6d53",
+  "merge_sha": "dbe1341abae1bddeecd82d28de2f93f15182f2d4",
+  "candidate_artifacts": [
+    {
+      "path": ".codex/tasks/TASK-0034.json",
+      "sha256": "c265219fc66142ea1616aadb6f430fb9379695fc51e1474d64071d126185675a"
+    },
+    {
+      "path": "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/README.md",
+      "sha256": "52e4c512a3e47504a096804e552449ff831be4e9ad42159dbe9034a685fe458d"
+    },
+    {
+      "path": "evidence/implementation/epic-007/story-0034/IMPLEMENTATION_EVIDENCE.json",
+      "sha256": "7955725c4be2691a01486a2624a81b0368f69b7563d838fb934fd5278a5cedb4"
+    },
+    {
+      "path": "tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/repository_integration.py",
+      "sha256": "95273a6727b7af9336cc5e1655a68490ba23275a03b4f52b5d6cf299fb00b9c4"
+    },
+    {
+      "path": "tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_repository_integration.py",
+      "sha256": "4941ebd5e9762ea699b21857952783dc4a114dd613e80ee1e1ce0db22210a547"
+    }
+  ],
+  "requirements_evidence": {
+    "REQ-CIT-001": "test_epic_007_aceite_happy_path",
+    "REQ-EPIC-042": "test_epic_007_aceite_happy_path",
+    "REQ-OSS-001": "test_epic_007_aceite_happy_path",
+    "REQ-PUB-002": "test_epic_007_aceite_happy_path"
+  },
+  "acceptance_criteria": [
+    "AC-ISSUE-0145-01",
+    "AC-ISSUE-0145-02",
+    "AC-ISSUE-0145-03",
+    "AC-ISSUE-0145-04"
+  ],
+  "acceptance_tests": [
+    "test_epic_007_aceite_happy_path",
+    "test_epic_007_aceite_negative_paths"
+  ],
+  "coordination": [
+    {
+      "role": "Reviewer",
+      "decision": "PASS",
+      "candidate_sha": "8cd5884ec495b6e23a57d22eccba25e30a7d6d53",
+      "evidence_paths": [
+        "evidence/implementation/epic-007/story-0034/IMPLEMENTATION_EVIDENCE.json",
+        "evidence/reviews/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/story-0035/REVIEW_EVIDENCE.json"
+      ],
+      "residual_risk_ids": [
+        "RR-ISSUE-0145-01"
+      ]
+    },
+    {
+      "role": "QA",
+      "decision": "PENDING",
+      "candidate_sha": "8cd5884ec495b6e23a57d22eccba25e30a7d6d53",
+      "evidence_paths": [
+        "evidence/implementation/epic-007/story-0034/IMPLEMENTATION_EVIDENCE.json",
+        "evidence/reviews/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/story-0035/REVIEW_EVIDENCE.json"
+      ],
+      "residual_risk_ids": [
+        "RR-ISSUE-0145-01"
+      ]
+    }
+  ],
+  "implicit_approval": false,
+  "publication": {
+    "decision": "BLOCKED",
+    "failure_mode": "FAIL_CLOSED",
+    "distribution_readiness_claimed": false
+  },
+  "hosted_validation": {
+    "pull_request": 947,
+    "head_sha": "8cd5884ec495b6e23a57d22eccba25e30a7d6d53",
+    "required_checks": "PASS"
+  },
+  "validation": {
+    "acceptance_tests": "PASS: 2 passed",
+    "targeted_ruff": "PASS",
+    "json_parse_candidate_blob_digests_and_git_diff_check": "PASS",
+    "make_verify": "ENVIRONMENTAL_FAIL: unrelated frontend Vitest worker could not spawn with EPERM under host Node 22.14.0; preceding Ruff, mypy, and frontend TypeScript checks passed. The gate was executed once and not retried."
+  },
+  "residual_risks": [
+    {
+      "id": "RR-ISSUE-0145-01",
+      "severity": "LOW",
+      "description": "Independent QA approval for the reviewed candidate is still pending; this Reviewer record must not be interpreted as that approval.",
+      "disposition": "Require QA to reference the same candidate SHA, evidence paths, and residual risk before merge."
+    }
+  ],
+  "contract_impact": "NONE",
+  "migration_required": false,
+  "rollback": "Revert the ISSUE-0145 evidence commit; no contract, schema, persistent state, deployment, or runtime changes are present."
+}
