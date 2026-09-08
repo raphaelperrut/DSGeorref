@@ -23,7 +23,7 @@ impedindo reutilização da auditoria após drift entre plataformas.
 | `AC-ISSUE-0145-01` | relatório de integração determinístico, contratos versionados, artifacts públicos e `test_epic_007_aceite_happy_path` |
 | `AC-ISSUE-0145-02` | digests do candidato e rastreio explícito de `REQ-CIT-001`, `REQ-EPIC-042`, `REQ-OSS-001` e `REQ-PUB-002` |
 | `AC-ISSUE-0145-03` | mutações de contrato/automação, relatórios predecessores falhos ou malformados, timeout, drift de ownership/SHA/digest e aprovação implícita |
-| `AC-ISSUE-0145-04` | QA e Reviewer referenciam o mesmo SHA, evidence set e risco residual; QA permanece explicitamente `PENDING` |
+| `AC-ISSUE-0145-04` | QA e Reviewer referenciam o mesmo SHA, evidence set e risco residual; QA independente concluiu `PASS` |
 
 Os entrypoints públicos obrigatórios são:
 
@@ -47,16 +47,17 @@ citação, contribuição, DCO/CLA ou publicação foi copiada para este bundle.
 ## Independência, limites e risco residual
 
 O Reviewer audita o commit produzido pela `ISSUE-0144`; esta evidência não
-aprova a própria implementação da `ISSUE-0145`. A entrada de QA referencia o
-mesmo candidato, evidence set e risco, mas permanece explicitamente pendente.
-Nenhuma aprovação de QA é inventada ou inferida.
+aprova a própria implementação da `ISSUE-0145`. A decisão independente de QA
+referencia o mesmo candidato, evidence set e risco e conclui `PASS`. Nenhuma
+aprovação de publicação é inventada ou inferida.
 
 O gate de publicação permanece `BLOCKED` e fail-closed. A auditoria não declara
 prontidão para distribuição e não substitui as evidências de release candidate,
 DCO, revisão jurídica, segurança, licenças, restore, compatibilidade ou ciência.
 
-O único risco residual é `LOW`: a decisão independente de QA ainda deve ser
-registrada para o mesmo candidato antes do merge da auditoria.
+O risco `LOW` registrado no handoff do Reviewer era a decisão independente de
+QA ainda pendente. A decisão `PASS` para o mesmo candidato resolve esse risco
+sem alterar o gate de publicação.
 
 O diff é somente evidência executável. Não altera contrato, schema, estado
 persistido, deployment ou runtime; migration não se aplica. O rollback é

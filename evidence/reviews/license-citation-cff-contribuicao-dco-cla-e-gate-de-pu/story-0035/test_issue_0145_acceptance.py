@@ -120,7 +120,7 @@ def _assert_review_evidence(evidence: Mapping[str, Any]) -> None:
     reviewer = by_role["Reviewer"]
     qa = by_role["QA"]
     assert reviewer.get("decision") == "PASS"
-    assert qa.get("decision") == "PENDING"
+    assert qa.get("decision") == "PASS"
     assert reviewer.get("candidate_sha") == qa.get("candidate_sha") == EXPECTED_CANDIDATE
     assert reviewer.get("evidence_paths") == qa.get("evidence_paths")
     assert reviewer.get("residual_risk_ids") == qa.get("residual_risk_ids")
@@ -169,7 +169,7 @@ def test_epic_007_aceite_negative_paths() -> None:
     with pytest.raises(AssertionError):
         _assert_review_evidence(implicit_approval)
 
-    invented_qa_approval = copy.deepcopy(_load_evidence())
-    invented_qa_approval["coordination"][1]["decision"] = "PASS"
+    missing_qa_approval = copy.deepcopy(_load_evidence())
+    missing_qa_approval["coordination"][1]["decision"] = "PENDING"
     with pytest.raises(AssertionError):
-        _assert_review_evidence(invented_qa_approval)
+        _assert_review_evidence(missing_qa_approval)

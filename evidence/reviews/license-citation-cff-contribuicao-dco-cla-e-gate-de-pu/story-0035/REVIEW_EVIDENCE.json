@@ -58,7 +58,7 @@
     },
     {
       "role": "QA",
-      "decision": "PENDING",
+      "decision": "PASS",
       "candidate_sha": "8cd5884ec495b6e23a57d22eccba25e30a7d6d53",
       "evidence_paths": [
         "evidence/implementation/epic-007/story-0034/IMPLEMENTATION_EVIDENCE.json",
@@ -90,8 +90,8 @@
     {
       "id": "RR-ISSUE-0145-01",
       "severity": "LOW",
-      "description": "Independent QA approval for the reviewed candidate is still pending; this Reviewer record must not be interpreted as that approval.",
-      "disposition": "Require QA to reference the same candidate SHA, evidence paths, and residual risk before merge."
+      "description": "Independent QA approval for the reviewed candidate was pending at Reviewer handoff.",
+      "disposition": "RESOLVED: independent QA concluded PASS for the same candidate SHA, evidence paths, and reviewed risk."
     }
   ],
   "contract_impact": "NONE",
