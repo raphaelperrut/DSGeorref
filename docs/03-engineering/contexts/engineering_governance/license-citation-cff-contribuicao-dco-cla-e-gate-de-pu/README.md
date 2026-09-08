@@ -32,3 +32,23 @@ gates compostos ainda não foram fornecidos. Ausência de evidência nunca vira 
 
 Não há mudança de persistência, migração, API ou runtime de produto. O rollback é
 reverter estes artefatos antes de qualquer distribuição pública.
+
+## Integração ao fluxo do repositório
+
+A `ISSUE-0144` integra a fundação e a automação sem importar ou copiar suas
+regras. O entry point executa ambos os validadores em subprocessos read-only,
+verifica o TaskEnvelope e emite evidência JSON determinística para os quatro
+critérios e requisitos do épico:
+
+```text
+python tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/repository_integration.py --repository-root .
+```
+
+O teste canônico é `test_epic_007_integracao`. Falha, timeout, saída malformada,
+modo destrutivo, drift de ownership ou decisão permissiva de publicação são
+rejeitados. O gate de publicação continua `BLOCKED_FAIL_CLOSED`; esta integração
+não declara aprovação jurídica, SBOM de release nem prontidão para distribuição.
+
+Não há mudança de contrato, API, persistência ou migration. O rollback é reverter
+o commit candidato antes de consumo downstream. QA e Reviewer independentes ainda
+devem validar o mesmo SHA candidato.

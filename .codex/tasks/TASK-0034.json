@@ -36,8 +36,10 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0034.json",
     "tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**",
-    "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**"
+    "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**",
+    "evidence/implementation/epic-007/story-0034/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -105,8 +107,10 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0034.json",
         "tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**",
-        "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**"
+        "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**",
+        "evidence/implementation/epic-007/story-0034/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
