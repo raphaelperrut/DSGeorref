@@ -204,3 +204,6 @@ contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-
 contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/examples/license-publication-governance.json,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/license-publication-governance.schema.json,BC-001,contexts,VERSIONED,NO
 contracts/templates/test-vectors/render-cases.json,BC-001,templates,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/examples/walking-skeleton.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/walking-skeleton.schema.json,BC-001,contexts,VERSIONED,NO

@@ -53,7 +53,10 @@
   ],
   "allow_paths": [
     "contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**",
-    "docs/02-architecture/design-reviews/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**"
+    "docs/02-architecture/design-reviews/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**",
+    "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_contract.py",
+    "evidence/implementation/epic-086/story-0534/**",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv"
   ],
   "deny_paths": [
     "src/**",
@@ -134,7 +137,10 @@
       "status": "PASS",
       "allow_paths": [
         "contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**",
-        "docs/02-architecture/design-reviews/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**"
+        "docs/02-architecture/design-reviews/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**",
+        "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_contract.py",
+        "evidence/implementation/epic-086/story-0534/**",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv"
       ],
       "deny_paths": [
         "src/**",

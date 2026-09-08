@@ -1,0 +1,61 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-086
+  story_id: STORY-0534
+  issue_id: ISSUE-0644
+  task_id: TASK-0534
+contract:
+  id: walking-skeleton-foundation-contract
+  schema: contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/walking-skeleton.schema.json
+  example: contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/examples/walking-skeleton.json
+compatibility:
+  policy: SEMVER
+  compatible_change: OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR
+  breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
+  unknown_properties: REJECT
+runtime:
+  implementation: DOWNSTREAM_STORIES_ONLY
+  http: FROZEN_CONTRACT_REFERENCED_NOT_CHANGED
+  persistence: POSTGRESQL_POSTGIS_AUTHORITATIVE
+  migration: DOWNSTREAM_VERSIONED_UPGRADE_AND_ROLLBACK_REQUIRED
+  operational_rollback: BEFORE_CONTRACT_OR_FORWARD_FIX_RESTORE
+  contract_rollback: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+traceability:
+  requirements:
+  - id: REQ-EPIC-001
+    evidence: test_executable_foundation_gate_clean_room_end_to_end
+  - id: REQ-SPRINT-001-004
+    evidence: test_sprint_zero_baseline_decision_04
+  acceptance_criteria:
+  - AC-ISSUE-0644-01
+  - AC-ISSUE-0644-02
+  - AC-ISSUE-0644-03
+  - AC-ISSUE-0644-04
+governing_adrs:
+- ADR-002
+- ADR-010
+- ADR-011
+- ADR-012
+- ADR-014
+- ADR-018
+- ADR-020
+- ADR-026
+- ADR-034
+- ADR-036
+- ADR-054
+proof:
+  required_tests:
+  - test_executable_foundation_gate_clean_room_end_to_end
+  - test_sprint_zero_baseline_decision_04
+  - test_epic_086_contrato
+  - test_walking_skeleton_fail_closed_paths
+  failure_mode_tested: true
+  deterministic: true
+review:
+  executor_role: Arquiteto
+  independent_authority_role: Reviewer
+  same_candidate_commit: true
+  self_approval: PROHIBITED

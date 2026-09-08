@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/walking-skeleton/1.0.0",
+  "title": "DSGeorref Executable Foundation Walking Skeleton Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "contract_version",
+    "owner",
+    "status",
+    "requirement_ids",
+    "flow",
+    "contract_sources",
+    "state_model",
+    "data_authority",
+    "public_observation",
+    "compatibility",
+    "failure_policy",
+    "delivery_gate"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "contract_id": { "const": "WALKING-SKELETON-FOUNDATION-CONTRACT" },
+    "contract_version": { "const": "1.0.0" },
+    "owner": { "const": "BC-001" },
+    "status": { "const": "FROZEN" },
+    "requirement_ids": {
+      "type": "array",
+      "prefixItems": [
+        { "const": "REQ-EPIC-001" },
+        { "const": "REQ-SPRINT-001-004" }
+      ],
+      "items": false,
+      "minItems": 2
+    },
+    "flow": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": {
+            "order": 1,
+            "stage": "FRONTEND",
+            "boundary": "REACT_TYPESCRIPT_ADAPTER",
+            "action": "SUBMIT_JOB_VIA_OPENAPI_CLIENT"
+          }
+        },
+        {
+          "const": {
+            "order": 2,
+            "stage": "API",
+            "boundary": "FASTAPI_PYDANTIC_ADAPTER",
+            "action": "INVOKE_APPLICATION_SERVICE"
+          }
+        },
+        {
+          "const": {
+            "order": 3,
+            "stage": "POSTGRESQL",
+            "boundary": "SYSTEM_OF_RECORD",
+            "action": "COMMIT_JOB_STATE_AND_OUTBOX"
+          }
+        },
+        {
+          "const": {
+            "order": 4,
+            "stage": "RABBITMQ_CELERY",
+            "boundary": "TRANSPORT_ONLY",
+            "action": "DELIVER_MINIMAL_TASK_ENVELOPE"
+          }
+        },
+        {
+          "const": {
+            "order": 5,
+            "stage": "WORKER",
+            "boundary": "EXECUTION_ADAPTER",
+            "action": "LOAD_AUTHORITATIVE_STATE_AND_EXECUTE"
+          }
+        },
+        {
+          "const": {
+            "order": 6,
+            "stage": "DIAGNOSTIC_ARTIFACT",
+            "boundary": "MANAGED_FILESYSTEM",
+            "action": "PUBLISH_HASHED_MANIFEST_AND_PERSIST_REFERENCE"
+          }
+        }
+      ],
+      "items": false,
+      "minItems": 6
+    },
+    "contract_sources": {
+      "const": {
+        "http": "contracts/http/openapi.yaml",
+        "operations": [
+          "post_projects_projectid_jobs",
+          "get_jobs_jobid",
+          "get_attempts_attemptid_diagnostics",
+          "get_artifact_sets_artifactsetid_manifest"
+        ],
+        "job": "contracts/domain/job.schema.json",
+        "attempt": "contracts/domain/attempt.schema.json",
+        "task_event": "contracts/events/job-event.schema.json",
+        "diagnostic": "contracts/domain/failure-diagnostic.schema.json",
+        "artifact_manifest": "contracts/artifacts/artifact-set-manifest.schema.json",
+        "artifact_publication": "contracts/artifacts/artifact-publication-record.schema.json"
+      }
+    },
+    "state_model": {
+      "const": {
+        "job_schema_version": "1.0.0",
+        "http_contract_version": "2.6.0",
+        "walking_skeleton_job_states": ["queued", "running", "succeeded", "failed"],
+        "initial_state": "queued",
+        "active_state": "running",
+        "terminal_states": ["succeeded", "failed"],
+        "other_states": "NOT_EXERCISED_AND_NOT_IMPLICITLY_MAPPED",
+        "transition_authority": "POSTGRESQL_POSTGIS"
+      }
+    },
+    "data_authority": {
+      "const": {
+        "state": "POSTGRESQL_POSTGIS",
+        "published_binaries": "MANAGED_FILESYSTEM",
+        "broker": "TRANSPORT_ONLY",
+        "telemetry": "DERIVED_NON_AUTHORITATIVE",
+        "outbox": "TRANSACTIONAL_WITH_AUTHORITATIVE_STATE",
+        "consumer": "IDEMPOTENT_AND_DEDUPLICATED",
+        "redelivery": "SUPPORTED",
+        "message_content": "IDS_REVISIONS_IDEMPOTENCY_RESOURCE_CLASS_TRACE_CONTEXT_ONLY",
+        "serialized_objects": "PROHIBITED",
+        "raster_bytes": "PROHIBITED",
+        "secrets": "PROHIBITED"
+      }
+    },
+    "public_observation": {
+      "const": {
+        "submission": "post_projects_projectid_jobs",
+        "persisted_job": "get_jobs_jobid",
+        "failure_diagnostic": "get_attempts_attemptid_diagnostics",
+        "artifact_manifest": "get_artifact_sets_artifactsetid_manifest",
+        "progress": "PERSISTED_MONOTONIC_STATE",
+        "correlation": "JOB_ATTEMPT_ARTIFACT_SET_IDS",
+        "telemetry_is_authority": false
+      }
+    },
+    "compatibility": {
+      "const": {
+        "policy": "SEMVER",
+        "current_major": 1,
+        "compatible_change": "OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR",
+        "breaking_change": "NEW_MAJOR_AND_ARCHITECT_REVIEW",
+        "unknown_properties": "REJECT",
+        "mixed_version_consumer": "REJECT_UNSUPPORTED_MESSAGE_VERSION",
+        "schema_migration": "EXPAND_MIGRATE_CONTRACT",
+        "implicit_restart_migration": "PROHIBITED",
+        "rollback": "BEFORE_CONTRACT_OR_FORWARD_FIX_RESTORE"
+      }
+    },
+    "failure_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "silent_fallback", "publication_on_error", "paths"],
+      "properties": {
+        "mode": { "const": "FAIL_CLOSED" },
+        "silent_fallback": { "const": false },
+        "publication_on_error": { "const": "PROHIBITED" },
+        "paths": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": {
+                "failure": "DATABASE_COMMIT_FAILED",
+                "required_outcome": "NO_DISPATCH_NO_ARTIFACT"
+              }
+            },
+            {
+              "const": {
+                "failure": "OUTBOX_DISPATCH_FAILED",
+                "required_outcome": "PERSISTED_AND_RECONCILABLE"
+              }
+            },
+            {
+              "const": {
+                "failure": "TASK_ENVELOPE_INVALID_OR_UNSUPPORTED",
+                "required_outcome": "QUARANTINE_WITHOUT_EXECUTION"
+              }
+            },
+            {
+              "const": {
+                "failure": "WORKER_EXECUTION_FAILED",
+                "required_outcome": "PERSIST_EXPLICIT_FAILURE_AND_DIAGNOSTIC_REFERENCE"
+              }
+            },
+            {
+              "const": {
+                "failure": "ARTIFACT_VALIDATION_OR_HASH_FAILED",
+                "required_outcome": "DO_NOT_PUBLISH_AND_PERSIST_FAILURE"
+              }
+            },
+            {
+              "const": {
+                "failure": "UNSUPPORTED_OR_UNMAPPED_STATE",
+                "required_outcome": "REJECT_WITHOUT_TRANSITION"
+              }
+            }
+          ],
+          "items": false,
+          "minItems": 6
+        }
+      }
+    },
+    "delivery_gate": {
+      "const": {
+        "runtime_implementation": "DOWNSTREAM_STORIES_ONLY",
+        "migration_required_for_persistent_runtime": true,
+        "rollback_required_for_persistent_runtime": true,
+        "required_tests": [
+          "test_executable_foundation_gate_clean_room_end_to_end",
+          "test_sprint_zero_baseline_decision_04",
+          "test_epic_086_contrato",
+          "test_walking_skeleton_fail_closed_paths"
+        ],
+        "candidate_state": "READY_FOR_INDEPENDENT_REVIEW",
+        "self_approval": "PROHIBITED"
+      }
+    }
+  }
+}
