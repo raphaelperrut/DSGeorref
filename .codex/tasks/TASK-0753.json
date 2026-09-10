@@ -48,8 +48,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0753.json",
+    "Makefile",
     "tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/**",
-    "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/**"
+    "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/**",
+    "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py",
+    "evidence/implementation/walking-skeleton-frontendapipostgresqlrabbitmq-cel/sprint-001-parte-2/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -121,8 +125,12 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0753.json",
+        "Makefile",
         "tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/**",
-        "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/**"
+        "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/**",
+        "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py",
+        "evidence/implementation/walking-skeleton-frontendapipostgresqlrabbitmq-cel/sprint-001-parte-2/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

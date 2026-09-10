@@ -1,0 +1,48 @@
+{
+  "payload": {
+    "schema_version": "1.0.0",
+    "evidence_set_id": "EXECUTABLE-FOUNDATION-CLOSURE-CUTOVER",
+    "owner": "BC-001",
+    "status": "CANDIDATE",
+    "requirements": [
+      "REQ-SPRINT-001-009",
+      "REQ-SPRINT-001-010"
+    ],
+    "acceptance_criteria": [
+      "AC-ISSUE-0863-01",
+      "AC-ISSUE-0863-02",
+      "AC-ISSUE-0863-03",
+      "AC-ISSUE-0863-04"
+    ],
+    "contract": {
+      "version": "1.0.0",
+      "sha256": "ebfbc1399de4053cd97eddf5e195a297872219c1390c9f570b02dc56862d7dbf"
+    },
+    "policies": {
+      "sprint_closure": {
+        "basis": "EVIDENCE",
+        "calendar_fallback": false,
+        "evidence_history": "REPOSITORY_BOUND_IMMUTABLE",
+        "extension_basis": "DIRECT_BLOCKER_EVIDENCE",
+        "extension_graph_revision_binding": true,
+        "extension_authorization_role": "Product Owner"
+      },
+      "first_slice_cutover": {
+        "mode": "EXPLICIT",
+        "foundation_gate": "G1_APPROVED_REQUIRED",
+        "first_slice_authorization": "REQUIRED",
+        "reviewed_candidate_lineage": "ANCESTOR_REQUIRED",
+        "missing_proof": "DENY"
+      }
+    },
+    "failure_policy": "FAIL_CLOSED",
+    "limitations": [
+      "NO_CUTOVER_AUTHORIZATION_GRANTED",
+      "NO_PRODUCT_RUNTIME_OR_MIGRATION_CHANGE",
+      "INDEPENDENT_REVIEW_PENDING"
+    ],
+    "review_gate": "INDEPENDENT_QA_AND_REVIEWER_SAME_CANDIDATE",
+    "rollback": "REVERT_COMMIT_NO_DATA_ACTION"
+  },
+  "payload_sha256": "cc0260a453f650222db63405f30fd9ba5602c55aa57221813a757bd1b56e0fe5"
+}

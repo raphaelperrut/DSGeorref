@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "foundation_id": "EXECUTABLE-FOUNDATION-WALKING-SKELETON",
+  "owner": "BC-001",
+  "status": "CANDIDATE",
+  "slice": {
+    "number": 2,
+    "total": 2,
+    "dependency_story_ids": ["STORY-0534"],
+    "requirement_ids": ["REQ-SPRINT-001-009", "REQ-SPRINT-001-010"],
+    "boundary": "CURRENT_SLICE_ONLY",
+    "next_slice": null
+  },
+  "contract": {
+    "path": "contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/examples/walking-skeleton.json",
+    "version": "1.0.0",
+    "sha256": "ebfbc1399de4053cd97eddf5e195a297872219c1390c9f570b02dc56862d7dbf",
+    "change": "NONE"
+  },
+  "sprint_closure": {
+    "basis": "EVIDENCE",
+    "calendar_fallback": false,
+    "evidence_history": "REPOSITORY_BOUND_IMMUTABLE",
+    "extension_basis": "DIRECT_BLOCKER_EVIDENCE",
+    "extension_graph_revision_binding": true,
+    "extension_authorization_role": "Product Owner"
+  },
+  "first_slice_cutover": {
+    "mode": "EXPLICIT",
+    "foundation_gate": "G1_APPROVED_REQUIRED",
+    "first_slice_authorization": "REQUIRED",
+    "reviewed_candidate_lineage": "ANCESTOR_REQUIRED",
+    "missing_proof": "DENY"
+  },
+  "failure_policy": {
+    "mode": "FAIL_CLOSED",
+    "silent_fallback": false,
+    "publication_on_error": "PROHIBITED"
+  },
+  "requirement_evidence": {
+    "REQ-SPRINT-001-009": {
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_09",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09"
+    },
+    "REQ-SPRINT-001-010": {
+      "test_path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+      "test_id": "test_sprint_zero_baseline_decision_10",
+      "checkpoint": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_10"
+    }
+  },
+  "write_scope": [
+    ".codex/tasks/TASK-0753.json",
+    "Makefile",
+    "tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/**",
+    "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/**",
+    "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py",
+    "evidence/implementation/walking-skeleton-frontendapipostgresqlrabbitmq-cel/sprint-001-parte-2/**"
+  ],
+  "evidence_set": {
+    "path": "evidence/implementation/walking-skeleton-frontendapipostgresqlrabbitmq-cel/sprint-001-parte-2/implementation-evidence.json",
+    "digest_algorithm": "sha256",
+    "immutable": true,
+    "machine_readable": true,
+    "human_summary": "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/README.md"
+  }
+}
