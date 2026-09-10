@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "identity": {
+    "epic_id": "EPIC-086",
+    "story_id": "STORY-0535",
+    "issue_id": "ISSUE-0645",
+    "task_id": "TASK-0535"
+  },
+  "candidate": {
+    "integration_base_commit": "03c0989a8534d2df20cc940fd70402b4c7490be9",
+    "state": "READY_FOR_REVIEW",
+    "independent_review": "NOT_PERFORMED",
+    "approval_claimed": false
+  },
+  "coverage": {
+    "predecessors": [
+      "STORY-0752",
+      "STORY-0753"
+    ],
+    "requirement_count": 12,
+    "duplicates": [],
+    "unassigned": [],
+    "test": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_slice_consolidation.py::test_story_0535_slice_consolidation"
+  },
+  "implementation_artifacts": [
+    "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/consolidacao/CONSOLIDATION.json",
+    "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/consolidacao/README.md",
+    "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_slice_consolidation.py"
+  ],
+  "contract_impact": {
+    "existing_frozen_contract_changed": false,
+    "new_public_contract": false,
+    "http_changed": false,
+    "persistence_changed": false,
+    "migration_required": false
+  },
+  "integration": {
+    "validation_composition": "ISOLATED_PROCESS_PER_SLICE",
+    "residual_risks": [
+      "TOP_LEVEL_VALIDATOR_MODULE_NAMES_REQUIRE_PROCESS_ISOLATION"
+    ]
+  },
+  "validation": {
+    "result": "PASS",
+    "pytest_cases_passed": 15,
+    "commands": [
+      "pytest -q -p no:cacheprovider tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_slice_consolidation.py",
+      "pytest -q -p no:cacheprovider tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_implementation.py",
+      "pytest -q -p no:cacheprovider tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py"
+    ]
+  },
+  "review_gate": {
+    "authority_role": "Reviewer",
+    "residual_risks_required": true,
+    "eligible_dependents": [
+      "STORY-0537"
+    ],
+    "released_dependents": []
+  },
+  "rollback": "REVERT_CANDIDATE_COMMIT_NO_DATA_ACTION"
+}
