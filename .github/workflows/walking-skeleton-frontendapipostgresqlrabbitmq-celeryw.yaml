@@ -1,0 +1,70 @@
+name: walking-skeleton-delivery-gate
+
+on:
+  push:
+    paths:
+      - ".codex/tasks/TASK-0536.json"
+      - "contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**"
+      - "contracts/http/openapi.yaml"
+      - "contracts/domain/**"
+      - "contracts/events/job-event.schema.json"
+      - "contracts/artifacts/**"
+      - "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**"
+      - "tools/quality/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**"
+      - ".github/workflows/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw.yaml"
+  pull_request:
+    paths:
+      - ".codex/tasks/TASK-0536.json"
+      - "contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**"
+      - "contracts/http/openapi.yaml"
+      - "contracts/domain/**"
+      - "contracts/events/job-event.schema.json"
+      - "contracts/artifacts/**"
+      - "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**"
+      - "tools/quality/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**"
+      - ".github/workflows/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw.yaml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-walking-skeleton:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12.13"
+          cache: pip
+          cache-dependency-path: requirements-validation.txt
+
+      - name: Install pinned validation dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-validation.txt
+
+      - name: Emit deterministic diagnostic artifact
+        run: >-
+          python tools/quality/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/validator.py
+          --repository-root .
+          --output artifacts/walking-skeleton-delivery-gate.json
+
+      - name: Prove dry-run does not mutate output
+        run: |
+          python tools/quality/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/validator.py \
+            --repository-root . \
+            --dry-run \
+            --output artifacts/dry-run-must-not-exist.json
+          test ! -e artifacts/dry-run-must-not-exist.json
+
+      - name: Run required test_epic_086_automacao and failure modes
+        run: >-
+          python -m pytest -q -p no:cacheprovider
+          tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_automation.py
+
+      - name: Publish diagnostic artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: walking-skeleton-delivery-gate
+          path: artifacts/walking-skeleton-delivery-gate.json
+          if-no-files-found: error
