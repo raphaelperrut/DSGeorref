@@ -223,6 +223,12 @@ def validate_repository(root: Path) -> list[Finding]:
                 "INPUT_UNREADABLE", path, "Required input is absent or malformed.",
                 "Restore a readable, versioned input; validation stops closed.",
             ))
+        elif path in {MANIFEST_PATH, SCHEMA_PATH, PROFILE_PATH} and not isinstance(value, dict):
+            findings.append(_finding(
+                "INPUT_STRUCTURE_INVALID", path,
+                "Required contractual input must be an object/mapping.",
+                "Replace the input with the versioned object/mapping required by its contract.",
+            ))
     manifest, schema, profile, task = loaded
     findings.extend(_validate_contract(manifest, schema, profile))
     findings.extend(_validate_traceability(manifest, profile, root))

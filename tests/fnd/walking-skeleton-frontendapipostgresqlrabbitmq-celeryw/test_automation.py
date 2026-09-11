@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 from types import ModuleType
 
+import pytest
 import yaml
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -136,6 +137,28 @@ def test_gate_rejects_silent_fallback_without_substitution(tmp_path: Path) -> No
         "PROFILE_SCHEMA_INVALID"
     }
     assert "approved, versioned contract revision" in report["findings"][0]["remediation"]
+
+
+@pytest.mark.parametrize(
+    "relative",
+    (BASE_COPY_PATHS[0], BASE_COPY_PATHS[1], PROFILE_REL),
+    ids=("manifest", "schema", "profile"),
+)
+def test_gate_rejects_non_mapping_contract_input(
+    tmp_path: Path, relative: Path
+) -> None:
+    repository = _isolated_repository(tmp_path)
+    (repository / relative).write_text("[]", encoding="utf-8")
+
+    report = gate.build_report(repository, dry_run=True)
+
+    assert report["status"] == "FAIL"
+    finding = next(
+        item for item in report["findings"]
+        if item["code"] == "INPUT_STRUCTURE_INVALID" and item["path"] == relative.as_posix()
+    )
+    assert "object/mapping" in finding["message"]
+    assert "versioned object/mapping" in finding["remediation"]
 
 
 def test_gate_rejects_missing_contract_source_with_actionable_diagnostic(
