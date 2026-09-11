@@ -46,8 +46,10 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0537.json",
     "tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**",
-    "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**"
+    "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**",
+    "evidence/implementation/epic-086/story-0537/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -119,8 +121,10 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0537.json",
         "tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**",
-        "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**"
+        "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**",
+        "evidence/implementation/epic-086/story-0537/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
