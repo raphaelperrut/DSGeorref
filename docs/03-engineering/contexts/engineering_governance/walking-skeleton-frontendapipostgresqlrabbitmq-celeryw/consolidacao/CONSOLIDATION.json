@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "identity": {
+    "epic_id": "EPIC-086",
+    "story_id": "STORY-0535",
+    "issue_id": "ISSUE-0645",
+    "task_id": "TASK-0535",
+    "owner_context": "BC-001"
+  },
+  "integration_base_commit": "03c0989a8534d2df20cc940fd70402b4c7490be9",
+  "predecessors": [
+    {
+      "story_id": "STORY-0752",
+      "issue_id": "ISSUE-0862",
+      "task_id": "TASK-0752",
+      "policy_path": "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/foundation-policy.json",
+      "policy_sha256": "61c714e1f638b01332c47ce6eac66d49a4ee46c09a0a784bc2b9e120fb9d0e8d",
+      "evidence_path": "evidence/implementation/walking-skeleton-frontendapipostgresqlrabbitmq-cel/del-ism-sprint-001-parte-1/sprint-evidence-set.json",
+      "evidence_sha256": "3f0d96639fabefb9aba61326e960364a707aa7326d14cb93796e20cb8479c929",
+      "validator_path": "tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/foundation_validation.py",
+      "validator_sha256": "41ee20ad4432a89f99cea37587ae745b88d922be8a2ff0eb99b709b46f63c07d",
+      "test_path": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_implementation.py",
+      "test_sha256": "a09d3e27dd0ebcb70752384cc9428f56a1e6d8e75ce64dc59014105c619469d8"
+    },
+    {
+      "story_id": "STORY-0753",
+      "issue_id": "ISSUE-0863",
+      "task_id": "TASK-0753",
+      "policy_path": "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/foundation-policy.json",
+      "policy_sha256": "af46789d5370ff6b5990e6d7bed5ff6a47788c7f235b4b4e363a441c9e7df510",
+      "evidence_path": "evidence/implementation/walking-skeleton-frontendapipostgresqlrabbitmq-cel/sprint-001-parte-2/implementation-evidence.json",
+      "evidence_sha256": "801362d18295f4fbb4cb527cf94b8dc5155dbd8be0f71b7d31b7569333c727e0",
+      "validator_path": "tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/foundation_validation.py",
+      "validator_sha256": "dbbe038bae4fb1e27b6c065033107177bf7d8a2bbf96f9ff693e175db5216acb",
+      "test_path": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py",
+      "test_sha256": "9ebe33b5fd0e33c7bb5131163514426603a893b3e047bf6d8db96368b352bbba"
+    }
+  ],
+  "coverage": {
+    "requirement_count": 12,
+    "duplicates": [],
+    "unassigned": []
+  },
+  "integration": {
+    "predecessor_outputs_reused_unchanged": true,
+    "artifact_path_collisions": [],
+    "normative_requirement_overlaps": [],
+    "duplicate_test_proofs": [],
+    "shared_contract": {
+      "path": "contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/examples/walking-skeleton.json",
+      "version": "1.0.0",
+      "sha256": "ebfbc1399de4053cd97eddf5e195a297872219c1390c9f570b02dc56862d7dbf"
+    },
+    "shared_contract_changes": [],
+    "redundant_implementations": [],
+    "validation_composition": "ISOLATED_PROCESS_PER_SLICE",
+    "runtime_materialization": "DOWNSTREAM_STORIES_ONLY",
+    "migration_required_for_this_diff": false
+  },
+  "review_gate": {
+    "candidate_state": "READY_FOR_REVIEW",
+    "authority_role": "Reviewer",
+    "residual_risks_required": true,
+    "self_approval": "PROHIBITED",
+    "eligible_dependents": [
+      "STORY-0537"
+    ],
+    "released_dependents": []
+  }
+}
