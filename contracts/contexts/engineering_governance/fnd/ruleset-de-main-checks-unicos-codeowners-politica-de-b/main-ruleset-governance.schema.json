@@ -1,0 +1,285 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/main-ruleset-governance/1.0.0",
+  "title": "DSGeorref Main Ruleset Governance Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "contract_version",
+    "owner",
+    "status",
+    "requirement_evidence",
+    "branch_policy",
+    "required_check_policy",
+    "codeowners_policy",
+    "bypass_policy",
+    "authority",
+    "compatibility",
+    "failure_policy",
+    "review_gate"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "contract_id": { "const": "MAIN-RULESET-GOVERNANCE-CONTRACT" },
+    "contract_version": { "const": "1.0.0" },
+    "owner": { "const": "BC-001" },
+    "status": { "const": "FROZEN" },
+    "requirement_evidence": {
+      "type": "array",
+      "prefixItems": [
+        { "$ref": "#/$defs/reqFrz003" },
+        { "$ref": "#/$defs/reqGov004" },
+        { "$ref": "#/$defs/reqIss003" },
+        { "$ref": "#/$defs/reqIss006" },
+        { "$ref": "#/$defs/reqPub002" }
+      ],
+      "items": false,
+      "minItems": 5,
+      "maxItems": 5
+    },
+    "branch_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protected_branch",
+        "entry_issue_state",
+        "execution_issue_state",
+        "branch_lifecycle",
+        "change_path",
+        "direct_push",
+        "automerge",
+        "sensitive_gate_decision"
+      ],
+      "properties": {
+        "protected_branch": { "const": "main" },
+        "entry_issue_state": { "const": "READY" },
+        "execution_issue_state": { "const": "IN_PROGRESS" },
+        "branch_lifecycle": { "const": "SHORT_LIVED" },
+        "change_path": { "const": "PULL_REQUEST_ONLY" },
+        "direct_push": { "const": "REJECT" },
+        "automerge": { "const": "REJECT" },
+        "sensitive_gate_decision": { "const": "AUTHORIZED_HUMAN_ONLY" }
+      }
+    },
+    "required_check_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "catalog_source",
+        "uniqueness_key",
+        "duplicate_context",
+        "ambiguous_producer",
+        "missing_required_check",
+        "non_successful_required_check"
+      ],
+      "properties": {
+        "catalog_source": { "const": "VERSIONED_RULESET_ARTIFACT" },
+        "uniqueness_key": { "const": "CHECK_CONTEXT" },
+        "duplicate_context": { "const": "REJECT" },
+        "ambiguous_producer": { "const": "REJECT" },
+        "missing_required_check": { "const": "REJECT" },
+        "non_successful_required_check": { "const": "REJECT" }
+      }
+    },
+    "codeowners_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "protected_path_coverage",
+        "unresolved_owner",
+        "review_semantics",
+        "delivery_approval_substitute"
+      ],
+      "properties": {
+        "source": { "const": ".github/CODEOWNERS" },
+        "protected_path_coverage": { "const": "REQUIRED" },
+        "unresolved_owner": { "const": "REJECT" },
+        "review_semantics": { "const": "REVIEW_ROUTING_ONLY" },
+        "delivery_approval_substitute": { "const": false }
+      }
+    },
+    "bypass_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "default",
+        "authorization",
+        "candidate_sha_binding",
+        "audit_record",
+        "record_fields",
+        "missing_or_invalid_evidence"
+      ],
+      "properties": {
+        "default": { "const": "REJECT" },
+        "authorization": { "const": "DELIVERY_APPROVAL_AUTHORITY_VERDICT_REQUIRED" },
+        "candidate_sha_binding": { "const": "EXACT" },
+        "audit_record": { "const": "IMMUTABLE" },
+        "record_fields": {
+          "const": [
+            "event_id",
+            "ruleset_id",
+            "protected_branch",
+            "candidate_sha",
+            "actor_subject",
+            "reason",
+            "occurred_at",
+            "delivery_approval_verdict_ref"
+          ]
+        },
+        "missing_or_invalid_evidence": { "const": "REJECT" }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy_definition",
+        "ruleset_enforcement",
+        "codeowners_source",
+        "delivery_approval",
+        "github_approval_signal",
+        "product_runtime_state",
+        "broker",
+        "telemetry"
+      ],
+      "properties": {
+        "policy_definition": { "const": "VERSIONED_REPOSITORY_CONTRACT" },
+        "ruleset_enforcement": { "const": "GITHUB_DERIVED_CONTROL" },
+        "codeowners_source": { "const": "GIT_TRACKED_CODEOWNERS" },
+        "delivery_approval": { "const": "ADR-058_DELIVERY_APPROVAL_AUTHORITY" },
+        "github_approval_signal": { "const": "SUPPORTING_SIGNAL_ONLY" },
+        "product_runtime_state": { "const": "NOT_APPLICABLE" },
+        "broker": { "const": "TRANSPORT_ONLY" },
+        "telemetry": { "const": "DERIVED_NON_AUTHORITATIVE" }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy", "compatible_change", "breaking_change", "unknown_properties"],
+      "properties": {
+        "policy": { "const": "SEMVER" },
+        "compatible_change": { "const": "OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR" },
+        "breaking_change": { "const": "NEW_MAJOR_AND_ARCHITECT_REVIEW" },
+        "unknown_properties": { "const": "REJECT" }
+      }
+    },
+    "failure_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "silent_fallback",
+        "missing_ruleset",
+        "duplicate_check_context",
+        "missing_codeowner",
+        "direct_main_change",
+        "automerge_attempt",
+        "unverified_bypass",
+        "stale_candidate_sha"
+      ],
+      "properties": {
+        "mode": { "const": "FAIL_CLOSED" },
+        "silent_fallback": { "const": false },
+        "missing_ruleset": { "const": "REJECT" },
+        "duplicate_check_context": { "const": "REJECT" },
+        "missing_codeowner": { "const": "REJECT" },
+        "direct_main_change": { "const": "REJECT" },
+        "automerge_attempt": { "const": "REJECT" },
+        "unverified_bypass": { "const": "REJECT" },
+        "stale_candidate_sha": { "const": "REJECT" }
+      }
+    },
+    "review_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["executor_role", "independent_role", "same_candidate_commit", "self_approval"],
+      "properties": {
+        "executor_role": { "const": "Arquiteto" },
+        "independent_role": { "const": "Reviewer" },
+        "same_candidate_commit": { "const": true },
+        "self_approval": { "const": "PROHIBITED" }
+      }
+    }
+  },
+  "$defs": {
+    "requirementEvidence": {
+      "type": "object",
+      "required": ["requirement_id", "source", "canonical_test", "candidate_evidence"],
+      "properties": {
+        "requirement_id": { "type": "string" },
+        "source": { "type": "string" },
+        "canonical_test": { "type": "string" },
+        "candidate_evidence": { "const": "test_epic_091_contrato" }
+      }
+    },
+    "reqFrz003": {
+      "allOf": [
+        { "$ref": "#/$defs/requirementEvidence" },
+        {
+          "properties": {
+            "requirement_id": { "const": "REQ-FRZ-003" },
+            "source": { "const": "docs/01-product/requirements/REQ-FRZ-003-a-fronteira-entre-issue-adr-e-owner-decision-record-deve-ser-proporciona.md" },
+            "canonical_test": { "const": "test_issue_adr_decision_package_impact_boundary_and_no_silent_divergence" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "reqGov004": {
+      "allOf": [
+        { "$ref": "#/$defs/requirementEvidence" },
+        {
+          "properties": {
+            "requirement_id": { "const": "REQ-GOV-004" },
+            "source": { "const": "docs/01-product/requirements/REQ-GOV-004-codex-atua-somente-em-issue-ready-branch-worktree-curta-e-pr-sem-merge-a.md" },
+            "canonical_test": { "const": "test_codex_issue_scope_required_pr_no_direct_main_or_automerge" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "reqIss003": {
+      "allOf": [
+        { "$ref": "#/$defs/requirementEvidence" },
+        {
+          "properties": {
+            "requirement_id": { "const": "REQ-ISS-003" },
+            "source": { "const": "docs/01-product/requirements/REQ-ISS-003-toda-issue-deve-apontar-adrs-requisitos-riscos-gates-ou-justificar-decis.md" },
+            "canonical_test": { "const": "test_no_orphan_issue_without_adr_or_local_decision_justification" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "reqIss006": {
+      "allOf": [
+        { "$ref": "#/$defs/requirementEvidence" },
+        {
+          "properties": {
+            "requirement_id": { "const": "REQ-ISS-006" },
+            "source": { "const": "docs/01-product/requirements/REQ-ISS-006-a-sincronizacao-de-issues-e-idempotente-suporta-dry-run-e-altera-apenas.md" },
+            "canonical_test": { "const": "test_idempotent_dry_run_managed_field_issue_sync" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "reqPub002": {
+      "allOf": [
+        { "$ref": "#/$defs/requirementEvidence" },
+        {
+          "properties": {
+            "requirement_id": { "const": "REQ-PUB-002" },
+            "source": { "const": "docs/01-product/requirements/REQ-PUB-002-contribuicoes-externas-devem-possuir-mecanismo-aprovado-de-certificacao.md" },
+            "canonical_test": { "const": "test_contribution_origin_dco_signoff_and_inbound_outbound_policy" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  }
+}

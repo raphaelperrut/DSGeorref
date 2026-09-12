@@ -210,3 +210,6 @@ contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgr
 contracts/contexts/engineering_governance/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/examples/issue-form-governance.json,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/issue-form-governance.schema.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/examples/main-ruleset-governance.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/main-ruleset-governance.schema.json,BC-001,contexts,VERSIONED,NO

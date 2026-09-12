@@ -1,0 +1,56 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-091
+  story_id: STORY-0560
+  issue_id: ISSUE-0670
+  task_id: TASK-0560
+contract:
+  id: main-ruleset-governance-contract
+  schema: contracts/contexts/engineering_governance/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/main-ruleset-governance.schema.json
+  example: contracts/contexts/engineering_governance/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/examples/main-ruleset-governance.json
+requirements:
+- id: REQ-FRZ-003
+  source: docs/01-product/requirements/REQ-FRZ-003-a-fronteira-entre-issue-adr-e-owner-decision-record-deve-ser-proporciona.md
+  canonical_test: test_issue_adr_decision_package_impact_boundary_and_no_silent_divergence
+- id: REQ-GOV-004
+  source: docs/01-product/requirements/REQ-GOV-004-codex-atua-somente-em-issue-ready-branch-worktree-curta-e-pr-sem-merge-a.md
+  canonical_test: test_codex_issue_scope_required_pr_no_direct_main_or_automerge
+- id: REQ-ISS-003
+  source: docs/01-product/requirements/REQ-ISS-003-toda-issue-deve-apontar-adrs-requisitos-riscos-gates-ou-justificar-decis.md
+  canonical_test: test_no_orphan_issue_without_adr_or_local_decision_justification
+- id: REQ-ISS-006
+  source: docs/01-product/requirements/REQ-ISS-006-a-sincronizacao-de-issues-e-idempotente-suporta-dry-run-e-altera-apenas.md
+  canonical_test: test_idempotent_dry_run_managed_field_issue_sync
+- id: REQ-PUB-002
+  source: docs/01-product/requirements/REQ-PUB-002-contribuicoes-externas-devem-possuir-mecanismo-aprovado-de-certificacao.md
+  canonical_test: test_contribution_origin_dco_signoff_and_inbound_outbound_policy
+compatibility:
+  policy: SEMVER
+  compatible_change: OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR
+  breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
+  unknown_properties: REJECT
+runtime:
+  implementation: DOWNSTREAM_STORIES_ONLY
+  http_contract: NOT_APPLICABLE
+  persistence_change: NOT_APPLICABLE
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+  contract_rollback: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+acceptance_criteria:
+- AC-ISSUE-0670-01
+- AC-ISSUE-0670-02
+- AC-ISSUE-0670-03
+- AC-ISSUE-0670-04
+proof:
+  required_tests:
+  - test_epic_091_contrato
+  failure_mode_tested: true
+  deterministic: true
+review:
+  executor_role: Arquiteto
+  independent_authority_role: Reviewer
+  same_candidate_commit: true
+  self_approval: PROHIBITED
