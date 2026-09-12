@@ -1,0 +1,22 @@
+{
+  "issue": "ISSUE-0667",
+  "story": "STORY-0557",
+  "status": "PASS",
+  "required_test": "test_epic_090_automacao",
+  "requirement_evidence": {
+    "REQ-GOV-002": "test_epic_090_automacao"
+  },
+  "acceptance_evidence": {
+    "AC-ISSUE-0667-01": "test_epic_090_automacao",
+    "AC-ISSUE-0667-02": "test_epic_090_automacao",
+    "AC-ISSUE-0667-03": "test_epic_090_automacao",
+    "AC-ISSUE-0667-04": "test_epic_090_automacao"
+  },
+  "validation_command": "python -m pytest -q -p no:cacheprovider tests/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/test_automation.py::test_epic_090_automacao",
+  "validator_command": "python tools/quality/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/validator.py --dry-run",
+  "automation_mode": "READ_ONLY_WITH_DRY_RUN",
+  "destructive_actions": 0,
+  "contract_impact": "NONE; consumes the frozen ISSUE-0666 contract, registry, templates, and validator.",
+  "rollback": "Revert the ISSUE-0667 commit; no persistent state or destructive action is involved.",
+  "independent_review": "PENDING"
+}
