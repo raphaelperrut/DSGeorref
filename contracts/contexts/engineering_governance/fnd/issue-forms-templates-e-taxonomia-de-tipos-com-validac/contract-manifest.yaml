@@ -1,0 +1,44 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-090
+  story_id: STORY-0555
+  issue_id: ISSUE-0665
+  task_id: TASK-0555
+contract:
+  id: issue-form-governance-contract
+  schema: contracts/contexts/engineering_governance/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/issue-form-governance.schema.json
+  example: contracts/contexts/engineering_governance/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/examples/issue-form-governance.json
+requirements:
+- id: REQ-GOV-002
+  source: docs/01-product/requirements/REQ-GOV-002-epicos-representam-outcomes-encerraveis-historias-implementaveis-possuem.md
+  canonical_test: test_issue_form_required_acceptance_risk_test_rollback_fields
+compatibility:
+  policy: SEMVER
+  compatible_change: OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR
+  breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
+  unknown_properties: REJECT
+runtime:
+  implementation: DOWNSTREAM_STORIES_ONLY
+  http_contract: NOT_APPLICABLE
+  persistence_change: NOT_APPLICABLE
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+  contract_rollback: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+acceptance_criteria:
+- AC-ISSUE-0665-01
+- AC-ISSUE-0665-02
+- AC-ISSUE-0665-03
+- AC-ISSUE-0665-04
+proof:
+  required_tests:
+  - test_epic_090_contrato
+  failure_mode_tested: true
+  deterministic: true
+review:
+  executor_role: Arquiteto
+  independent_authority_role: Reviewer
+  same_candidate_commit: true
+  self_approval: PROHIBITED

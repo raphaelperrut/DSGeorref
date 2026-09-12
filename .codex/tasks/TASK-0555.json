@@ -11,6 +11,7 @@
     ".codex/roles/ROLE-002-arquiteto.md",
     "docs/06-delivery/stories/STORY-0555-ISSUE-0665-definir-escopo-contratos-e-invariantes-issue-forms-templates-e-taxonomia-d.md",
     "docs/06-delivery/epics/EPIC-090-issue-forms-templates-e-taxonomia-de-tipos-com-validacao-de-campos-obr.md",
+    "docs/01-product/requirements/REQ-GOV-002-epicos-representam-outcomes-encerraveis-historias-implementaveis-possuem.md",
     "contracts/README.md",
     "contracts/http/openapi.yaml",
     "docs/06-delivery/PHASE-B-REQUIREMENTS-REVIEW-CHARTER.md",
@@ -44,8 +45,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0555.json",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
     "contracts/contexts/engineering_governance/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
-    "docs/02-architecture/design-reviews/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**"
+    "docs/02-architecture/design-reviews/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
+    "tests/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/test_contract.py",
+    "evidence/implementation/epic-090/story-0555/**"
   ],
   "deny_paths": [
     "src/**",
@@ -114,8 +119,12 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0555.json",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
         "contracts/contexts/engineering_governance/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
-        "docs/02-architecture/design-reviews/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**"
+        "docs/02-architecture/design-reviews/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
+        "tests/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/test_contract.py",
+        "evidence/implementation/epic-090/story-0555/**"
       ],
       "deny_paths": [
         "src/**",

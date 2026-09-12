@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/issue-form-governance/1.0.0",
+  "title": "DSGeorref Issue Form Governance Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "contract_version",
+    "owner",
+    "status",
+    "requirement_evidence",
+    "issue_taxonomy",
+    "template_contract",
+    "authority",
+    "compatibility",
+    "failure_policy",
+    "review_gate"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "contract_id": { "const": "ISSUE-FORM-GOVERNANCE-CONTRACT" },
+    "contract_version": { "const": "1.0.0" },
+    "owner": { "const": "BC-001" },
+    "status": { "const": "FROZEN" },
+    "requirement_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requirement_id", "source", "canonical_test"],
+      "properties": {
+        "requirement_id": { "const": "REQ-GOV-002" },
+        "source": {
+          "const": "docs/01-product/requirements/REQ-GOV-002-epicos-representam-outcomes-encerraveis-historias-implementaveis-possuem.md"
+        },
+        "canonical_test": {
+          "const": "test_issue_form_required_acceptance_risk_test_rollback_fields"
+        }
+      }
+    },
+    "issue_taxonomy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["types", "unregistered_type"],
+      "properties": {
+        "types": {
+          "type": "array",
+          "prefixItems": [
+            { "$ref": "#/$defs/bug" },
+            { "$ref": "#/$defs/spike" },
+            { "$ref": "#/$defs/story" },
+            { "$ref": "#/$defs/task" }
+          ],
+          "items": false,
+          "minItems": 4
+        },
+        "unregistered_type": { "const": "REJECT" }
+      }
+    },
+    "template_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "format",
+        "source_root",
+        "blank_issues_enabled",
+        "required_field_encoding",
+        "security_reporting",
+        "runtime_materialization"
+      ],
+      "properties": {
+        "format": { "const": "GITHUB_ISSUE_FORM_YAML" },
+        "source_root": { "const": ".github/ISSUE_TEMPLATE" },
+        "blank_issues_enabled": { "const": false },
+        "required_field_encoding": { "const": "validations.required=true" },
+        "security_reporting": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["route", "public_issue"],
+          "properties": {
+            "route": { "const": "PRIVATE_SECURITY_ADVISORY" },
+            "public_issue": { "const": "REJECT" }
+          }
+        },
+        "runtime_materialization": { "const": "DOWNSTREAM_STORIES_ONLY" }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_definition",
+        "form_sources",
+        "github_ui",
+        "product_runtime_state",
+        "broker",
+        "telemetry"
+      ],
+      "properties": {
+        "contract_definition": { "const": "VERSIONED_REPOSITORY" },
+        "form_sources": { "const": "GIT_TRACKED_ISSUE_TEMPLATE_DIRECTORY" },
+        "github_ui": { "const": "DERIVED_PROJECTION" },
+        "product_runtime_state": { "const": "NOT_APPLICABLE" },
+        "broker": { "const": "TRANSPORT_ONLY" },
+        "telemetry": { "const": "DERIVED_NON_AUTHORITATIVE" }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy", "compatible_change", "breaking_change", "unknown_properties"],
+      "properties": {
+        "policy": { "const": "SEMVER" },
+        "compatible_change": { "const": "OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR" },
+        "breaking_change": { "const": "NEW_MAJOR_AND_ARCHITECT_REVIEW" },
+        "unknown_properties": { "const": "REJECT" }
+      }
+    },
+    "failure_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "silent_fallback",
+        "missing_required_field",
+        "invalid_required_marker",
+        "unknown_issue_type",
+        "blank_issue_bypass",
+        "public_security_report"
+      ],
+      "properties": {
+        "mode": { "const": "FAIL_CLOSED" },
+        "silent_fallback": { "const": false },
+        "missing_required_field": { "const": "REJECT" },
+        "invalid_required_marker": { "const": "REJECT" },
+        "unknown_issue_type": { "const": "REJECT" },
+        "blank_issue_bypass": { "const": "REJECT" },
+        "public_security_report": { "const": "REJECT_AND_ROUTE_PRIVATE" }
+      }
+    },
+    "review_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["executor_role", "independent_role", "same_candidate_commit", "self_approval"],
+      "properties": {
+        "executor_role": { "const": "Arquiteto" },
+        "independent_role": { "const": "Reviewer" },
+        "same_candidate_commit": { "const": true },
+        "self_approval": { "const": "PROHIBITED" }
+      }
+    }
+  },
+  "$defs": {
+    "bug": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "template", "required_fields"],
+      "properties": {
+        "type": { "const": "BUG" },
+        "template": { "const": "bug.yml" },
+        "required_fields": {
+          "const": [
+            "OBSERVED_BEHAVIOR",
+            "EXPECTED_BEHAVIOR",
+            "MINIMAL_REPRODUCTION",
+            "ENVIRONMENT",
+            "SAFETY_CONFIRMATION"
+          ]
+        }
+      }
+    },
+    "spike": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "template", "required_fields"],
+      "properties": {
+        "type": { "const": "SPIKE" },
+        "template": { "const": "spike.yml" },
+        "required_fields": {
+          "const": [
+            "DECISION_QUESTION",
+            "TIMEBOX",
+            "ALTERNATIVES",
+            "EVIDENCE_METHOD",
+            "STOP_CRITERION"
+          ]
+        }
+      }
+    },
+    "story": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "template", "semantics", "required_fields"],
+      "properties": {
+        "type": { "const": "STORY" },
+        "template": { "const": "story.yml" },
+        "semantics": { "const": "IMPLEMENTABLE_CHILD_OF_CLOSABLE_EPIC" },
+        "required_fields": {
+          "const": [
+            "STABLE_ID",
+            "PARENT_EPIC",
+            "EXPECTED_VALUE",
+            "SCOPE_LIMITS",
+            "ACCEPTANCE_CRITERIA",
+            "ADRS",
+            "RISKS",
+            "TESTS",
+            "EVIDENCE",
+            "MIGRATION_APPLICABILITY",
+            "ROLLBACK"
+          ]
+        }
+      }
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "template", "semantics", "required_fields"],
+      "properties": {
+        "type": { "const": "TASK" },
+        "template": { "const": "task.yml" },
+        "semantics": { "const": "TECHNICAL_WORK_SUBORDINATE_TO_CANONICAL_STORY" },
+        "required_fields": {
+          "const": [
+            "PARENT_ISSUE",
+            "TECHNICAL_OBJECTIVE",
+            "ALLOW_DENY_PATHS",
+            "REQUIRED_TESTS_AND_EVIDENCE"
+          ]
+        }
+      }
+    }
+  }
+}
