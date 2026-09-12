@@ -39,9 +39,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0557.json",
     "tests/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
     "tools/quality/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
-    ".github/workflows/issue-forms-templates-e-taxonomia-de-tipos-com-validac.yaml"
+    ".github/workflows/issue-forms-templates-e-taxonomia-de-tipos-com-validac.yaml",
+    "evidence/operations/epic-090/story-0557/**"
   ],
   "deny_paths": [
     "src/geo/**",
@@ -112,9 +114,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0557.json",
         "tests/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
         "tools/quality/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
-        ".github/workflows/issue-forms-templates-e-taxonomia-de-tipos-com-validac.yaml"
+        ".github/workflows/issue-forms-templates-e-taxonomia-de-tipos-com-validac.yaml",
+        "evidence/operations/epic-090/story-0557/**"
       ],
       "deny_paths": [
         "src/geo/**",
