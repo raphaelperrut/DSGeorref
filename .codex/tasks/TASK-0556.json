@@ -36,8 +36,13 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0556.json",
+    ".github/ISSUE_TEMPLATE/**",
+    ".github/workflows/issue-form-governance.yaml",
     "tools/governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
-    "docs/03-engineering/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**"
+    "docs/03-engineering/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
+    "tests/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/test_foundation.py",
+    "evidence/implementation/epic-090/story-0556/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -104,8 +109,13 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0556.json",
+        ".github/ISSUE_TEMPLATE/**",
+        ".github/workflows/issue-form-governance.yaml",
         "tools/governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
-        "docs/03-engineering/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**"
+        "docs/03-engineering/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
+        "tests/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/test_foundation.py",
+        "evidence/implementation/epic-090/story-0556/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_type": "IMPLEMENTATION_CANDIDATE",
+  "identity": {
+    "epic_id": "EPIC-090",
+    "story_id": "STORY-0556",
+    "issue_id": "ISSUE-0666",
+    "github_issue": 54,
+    "task_id": "TASK-0556"
+  },
+  "candidate": {
+    "state": "READY_FOR_INDEPENDENT_REVIEW",
+    "owner_context": "BC-001",
+    "implementation_role": "Tech Lead",
+    "independent_review": "NOT_PERFORMED",
+    "approval_claimed": false,
+    "sha_binding": "IMMUTABLE_PR_HEAD_DECLARED_IN_PULL_REQUEST"
+  },
+  "task_envelope": {
+    "changed": true,
+    "reason": "The issue-owned TaskEnvelope omitted the issue form, CI, test, evidence, and envelope paths required by the approved capability.",
+    "control_plane_separated": true,
+    "deny_paths_preserved": [
+      "src/**/epic-*",
+      "src/**/issue-*"
+    ]
+  },
+  "acceptance_evidence": {
+    "AC-ISSUE-0666-01": "The versioned registry and read-only validator expose the four contracted Issue Forms as deterministic JSON evidence.",
+    "AC-ISSUE-0666-02": "REQ-GOV-002 maps explicitly to test_issue_form_required_acceptance_risk_test_rollback_fields.",
+    "AC-ISSUE-0666-03": "Focused negatives reject missing required markers and unregistered issue types without fallback.",
+    "AC-ISSUE-0666-04": "The documented local command is invoked unchanged by the dedicated CI workflow."
+  },
+  "changed_files_justification": {
+    ".codex/tasks/TASK-0556.json": "Authorizes the issue-owned forms, CI, test, evidence, registry, and envelope paths with Phase F parity.",
+    ".github/ISSUE_TEMPLATE/bug.yml": "Uses valid Issue Form metadata and enforces the contracted safety confirmation.",
+    ".github/ISSUE_TEMPLATE/spike.yml": "Uses valid Issue Form metadata for the contracted SPIKE form.",
+    ".github/ISSUE_TEMPLATE/story.yml": "Materializes every required STORY field from the frozen contract.",
+    ".github/ISSUE_TEMPLATE/task.yml": "Uses valid Issue Form metadata for the contracted TASK form.",
+    ".github/workflows/issue-form-governance.yaml": "Runs the same read-only validation entry point and focused tests in CI.",
+    "tools/governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/validate_issue_forms.py": "Validates taxonomy, mappings, required markers, bypass controls, CI parity, and TaskEnvelope fail-closed.",
+    "docs/03-engineering/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/issue-form-registry.json": "Maps frozen logical fields to versioned GitHub form identifiers.",
+    "docs/03-engineering/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/README.md": "Documents the executable interface, authority, boundaries, and rollback.",
+    "tests/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/test_foundation.py": "Provides both mandatory tests and directly related negative coverage.",
+    "evidence/implementation/epic-090/story-0556/IMPLEMENTATION_EVIDENCE.json": "Records acceptance and validation evidence for independent review."
+  },
+  "contract_impact": {
+    "existing_frozen_contract_changed": false,
+    "new_public_contract": false,
+    "http_changed": false,
+    "persistence_changed": false,
+    "runtime_changed": false
+  },
+  "migration": "NOT_APPLICABLE_VERSIONED_GITHUB_CONFIGURATION",
+  "rollback": "REVERT_CANDIDATE_BEFORE_DOWNSTREAM_CONSUMPTION",
+  "validation": {
+    "mandatory_tests": "PASS: 3 tests passed",
+    "direct_validator": "PASS",
+    "targeted_ruff": "PASS",
+    "targeted_mypy_strict": "PASS",
+    "task_envelope_schema_and_allow_path_parity": "PASS",
+    "git_diff_check": "PASS",
+    "global_gates": "NOT_RUN_BY_EXPLICIT_SENTINEL_CONTAINMENT",
+    "commands": [
+      "python -m pytest -q -p no:cacheprovider tests/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/test_foundation.py",
+      "python tools/governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/validate_issue_forms.py --repository-root .",
+      "python -m ruff check tools/governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/validate_issue_forms.py tests/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/test_foundation.py",
+      "python -m mypy --strict tools/governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/validate_issue_forms.py",
+      "TASK-0556 validation against .codex/tasks/TASK_ENVELOPE.schema.json plus allow-path parity",
+      "git diff --check"
+    ]
+  },
+  "limitations_and_residual_risks": [
+    "Independent QA and Reviewer approval for the exact candidate SHA remain pending and are not claimed.",
+    "The focused pytest run emitted the repository-global pytest-asyncio default-scope deprecation warning; no affected test uses asyncio."
+  ],
+  "findings": {
+    "blocker": "NONE",
+    "high": "NONE",
+    "medium_low_nonblocking": [
+      "The repository-global pytest-asyncio default-scope deprecation warning remains pre-existing."
+    ]
+  },
+  "new_prerequisite_created": false,
+  "architectural_risk_open": "NONE"
+}

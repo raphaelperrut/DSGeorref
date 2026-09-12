@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "ISSUE-FORM-GOVERNANCE-CONTRACT",
+  "contract_version": "1.0.0",
+  "forms": [
+    {
+      "type": "BUG",
+      "template": "bug.yml",
+      "required_fields": {
+        "OBSERVED_BEHAVIOR": "observed",
+        "EXPECTED_BEHAVIOR": "expected",
+        "MINIMAL_REPRODUCTION": "reproduction",
+        "ENVIRONMENT": "environment",
+        "SAFETY_CONFIRMATION": "safety"
+      }
+    },
+    {
+      "type": "SPIKE",
+      "template": "spike.yml",
+      "required_fields": {
+        "DECISION_QUESTION": "question",
+        "TIMEBOX": "timebox",
+        "ALTERNATIVES": "alternatives",
+        "EVIDENCE_METHOD": "evidence",
+        "STOP_CRITERION": "stop"
+      }
+    },
+    {
+      "type": "STORY",
+      "template": "story.yml",
+      "required_fields": {
+        "STABLE_ID": "stable-id",
+        "PARENT_EPIC": "parent",
+        "EXPECTED_VALUE": "value",
+        "SCOPE_LIMITS": "scope",
+        "ACCEPTANCE_CRITERIA": "acceptance",
+        "ADRS": "adrs",
+        "RISKS": "risks",
+        "TESTS": "tests",
+        "EVIDENCE": "evidence",
+        "MIGRATION_APPLICABILITY": "migration",
+        "ROLLBACK": "rollback"
+      }
+    },
+    {
+      "type": "TASK",
+      "template": "task.yml",
+      "required_fields": {
+        "PARENT_ISSUE": "parent",
+        "TECHNICAL_OBJECTIVE": "objective",
+        "ALLOW_DENY_PATHS": "paths",
+        "REQUIRED_TESTS_AND_EVIDENCE": "tests"
+      }
+    }
+  ],
+  "configuration": {
+    "path": ".github/ISSUE_TEMPLATE/config.yml",
+    "blank_issues_enabled": false,
+    "security_advisory_url": "https://github.com/raphaelperrut/DSGeorref/security/advisories/new"
+  }
+}
