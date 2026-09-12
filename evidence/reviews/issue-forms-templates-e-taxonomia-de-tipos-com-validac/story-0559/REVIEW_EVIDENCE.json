@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_type": "FINAL_REVIEW",
+  "issue_id": "ISSUE-0669",
+  "github_issue": 57,
+  "reviewed_issue_id": "ISSUE-0668",
+  "reviewed_pull_request": 959,
+  "candidate_sha": "a3f0364ecedac56cde0dd76787970b987c8de41b",
+  "candidate_tree": "9c577a32ee9ab3dddcc23c759304915d8fcc4139",
+  "merge_sha": "6e3748dfd26f89b6345b6b2442091602420530bd",
+  "candidate_artifacts": [
+    {
+      "path": ".codex/tasks/TASK-0558.json",
+      "sha256": "bc9e9c0a0bf62c2b767e984336c366eac4023da933dc9fb48c74803078db75bd"
+    },
+    {
+      "path": "docs/03-engineering/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/README.md",
+      "sha256": "e16414bb340981c739f4b3ac6ae111e70b5f47b2150cb7f8d39a7b8084b3fd3d"
+    },
+    {
+      "path": "evidence/implementation/epic-090/story-0558/IMPLEMENTATION_EVIDENCE.json",
+      "sha256": "ed3294c5f7539a4b0670576659312be852ce67058b901bddbff2bd2dac9e5a27"
+    },
+    {
+      "path": "tools/governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/repository_integration.py",
+      "sha256": "3d80b24059cc7879bc75b3b25d5743fa42973dceea099ba3377bbaf893af47ba"
+    },
+    {
+      "path": "tools/governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/test_repository_integration.py",
+      "sha256": "a30142aa27ff544ac091cf8ba55c4cb43223074b960f6e649e859e0c339c97b9"
+    }
+  ],
+  "requirements_evidence": {
+    "REQ-GOV-002": "tools/governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/test_repository_integration.py::test_epic_090_integracao"
+  },
+  "canonical_requirement_test": "tests/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/test_foundation.py::test_issue_form_required_acceptance_risk_test_rollback_fields",
+  "acceptance_criteria": [
+    "AC-ISSUE-0669-01",
+    "AC-ISSUE-0669-02",
+    "AC-ISSUE-0669-03",
+    "AC-ISSUE-0669-04"
+  ],
+  "acceptance_tests": [
+    "test_epic_090_aceite_happy_path",
+    "test_epic_090_aceite_negative_paths"
+  ],
+  "coordination": [
+    {
+      "role": "Reviewer",
+      "authority": "ROLE-011",
+      "decision": "PASS",
+      "candidate_sha": "a3f0364ecedac56cde0dd76787970b987c8de41b",
+      "evidence_paths": [
+        "evidence/implementation/epic-090/story-0558/IMPLEMENTATION_EVIDENCE.json",
+        "evidence/reviews/issue-forms-templates-e-taxonomia-de-tipos-com-validac/story-0559/REVIEW_EVIDENCE.json"
+      ],
+      "residual_risk_ids": [
+        "RR-ISSUE-0669-01",
+        "RR-ISSUE-0669-02"
+      ]
+    },
+    {
+      "role": "QA",
+      "authority": "GITHUB_ACTIONS",
+      "decision": "PASS",
+      "candidate_sha": "a3f0364ecedac56cde0dd76787970b987c8de41b",
+      "evidence_paths": [
+        "evidence/implementation/epic-090/story-0558/IMPLEMENTATION_EVIDENCE.json",
+        "evidence/reviews/issue-forms-templates-e-taxonomia-de-tipos-com-validac/story-0559/REVIEW_EVIDENCE.json"
+      ],
+      "residual_risk_ids": [
+        "RR-ISSUE-0669-01",
+        "RR-ISSUE-0669-02"
+      ]
+    }
+  ],
+  "implicit_approval": false,
+  "self_approval": false,
+  "hosted_validation": {
+    "pull_request": 959,
+    "head_sha": "a3f0364ecedac56cde0dd76787970b987c8de41b",
+    "conclusion": "SUCCESS",
+    "runs": [
+      {
+        "workflow": "epic-090-issue-form-governance",
+        "run_id": 34720913873,
+        "url": "https://github.com/raphaelperrut/DSGeorref/actions/runs/34720913873"
+      },
+      {
+        "workflow": "epic-090-issue-form-controls",
+        "run_id": 34720913882,
+        "url": "https://github.com/raphaelperrut/DSGeorref/actions/runs/34720913882"
+      },
+      {
+        "workflow": "foundation-ci",
+        "run_id": 34720913887,
+        "url": "https://github.com/raphaelperrut/DSGeorref/actions/runs/34720913887"
+      }
+    ]
+  },
+  "validation": {
+    "predecessor_focused_suites": "PASS: 14 passed",
+    "direct_automation_runner": "PASS",
+    "direct_integration_runner": "PASS",
+    "acceptance_tests": "PASS: 2 passed",
+    "targeted_ruff": "PASS",
+    "targeted_mypy_strict": "PASS",
+    "json_candidate_blob_digests_and_git_diff_check": "PASS",
+    "make_verify": "ENVIRONMENTAL_FAIL: Ruff, mypy, frontend typecheck, Vitest, Playwright, repository validation, architecture, requirements, DDD, ADR, specification, sprint, Python architecture, licensing foundation, and the monorepo foundation validator passed; the unchanged service-backed test then stopped before execution because FOUNDATION_INTEGRATION is unset and local PostgreSQL/RabbitMQ are unavailable. The exact reviewed candidate passed hosted foundation-ci with both services."
+  },
+  "residual_risks": [
+    {
+      "id": "RR-ISSUE-0669-01",
+      "severity": "LOW",
+      "description": "The Windows sandbox blocks the pre-existing automation test from creating its isolated temporary tree.",
+      "disposition": "MITIGATED: the focused suite passes outside the sandbox and the exact candidate passed the hosted EPIC-090 and foundation workflows."
+    },
+    {
+      "id": "RR-ISSUE-0669-02",
+      "severity": "LOW",
+      "description": "The service-backed foundation E2E cannot run locally without FOUNDATION_INTEGRATION=1 and PostgreSQL/RabbitMQ.",
+      "disposition": "MITIGATED: foundation-ci completed make verify successfully with both services on the exact candidate SHA."
+    }
+  ],
+  "findings": {
+    "blocker": "NONE",
+    "high": "NONE",
+    "medium_low_nonblocking": [
+      "The focused automation test requires filesystem access outside the local Windows sandbox for its transient clean-room tree.",
+      "The local make verify run cannot execute the service-backed foundation E2E without PostgreSQL/RabbitMQ; the exact candidate passed hosted foundation-ci.",
+      "The local Node 22.14.0 differs from the repository-pinned Node 24.20.0."
+    ]
+  },
+  "contract_impact": "NONE",
+  "migration_required": false,
+  "rollback": "Revert the ISSUE-0669 evidence commit; no contract, schema, persistent state, deployment, or runtime changes are present.",
+  "task_envelope_change": "NOT_NEEDED",
+  "new_prerequisite_created": false,
+  "architectural_risk_open": "NONE"
+}
