@@ -36,8 +36,10 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0558.json",
     "tools/governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
-    "docs/03-engineering/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**"
+    "docs/03-engineering/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
+    "evidence/implementation/epic-090/story-0558/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -105,8 +107,10 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0558.json",
         "tools/governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
-        "docs/03-engineering/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**"
+        "docs/03-engineering/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**",
+        "evidence/implementation/epic-090/story-0558/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
