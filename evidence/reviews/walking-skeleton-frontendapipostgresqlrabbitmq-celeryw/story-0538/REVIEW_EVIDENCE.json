@@ -1,0 +1,162 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_type": "FINAL_REVIEW",
+  "issue_id": "ISSUE-0648",
+  "github_issue": 52,
+  "reviewed_issue_id": "ISSUE-0647",
+  "reviewed_pull_request": 954,
+  "candidate_sha": "94c073428be1e8bbe49d078767651ec9237594b7",
+  "candidate_tree": "095d8195a77d2ad78266fc938c37f9b43d1897f9",
+  "merge_sha": "21e7b73d3e6e75ab9d18eaf098e8ec22db7ffdc3",
+  "candidate_artifacts": [
+    {
+      "path": ".codex/tasks/TASK-0537.json",
+      "sha256": "d00cf29a3c6a26b7a4738a5379e32f5c898abd4aa6d3eabd2345d932b22a1fae"
+    },
+    {
+      "path": "docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/README.md",
+      "sha256": "120592b0bb469374fda328784ac7ec4cf40f9ef1e385a1fb172b0638dcc17fce"
+    },
+    {
+      "path": "evidence/implementation/epic-086/story-0537/IMPLEMENTATION_EVIDENCE.json",
+      "sha256": "2f011b1d9f261ff47b6963ab09664b2987d2a01796a9abf3cf62876444220959"
+    },
+    {
+      "path": "tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/repository_integration.py",
+      "sha256": "e3ebadc5f5cfc7691059dc9a9c750dfbb70ad0758b6091cd987e21cf51a32f5b"
+    },
+    {
+      "path": "tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_repository_integration.py",
+      "sha256": "4d10d899c74c04265d8cb87c873b72b55fbbbd042572304e7974eb07bbeb683c"
+    }
+  ],
+  "requirements_evidence": {
+    "REQ-DEL-001": "tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation.py::test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done",
+    "REQ-DEL-002": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_implementation.py::test_private_operational_baseline_scope_cpu_only_clean_install",
+    "REQ-EPIC-001": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_contract.py::test_executable_foundation_gate_clean_room_end_to_end",
+    "REQ-ISM-003": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_implementation.py::test_thin_vertical_integrable_slices_and_pr_sequence",
+    "REQ-SPRINT-001-001": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_01",
+    "REQ-SPRINT-001-002": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_02",
+    "REQ-SPRINT-001-003": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_03",
+    "REQ-SPRINT-001-004": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py::test_sprint_zero_baseline_decision_04",
+    "REQ-SPRINT-001-005": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_05",
+    "REQ-SPRINT-001-006": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_06",
+    "REQ-SPRINT-001-007": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_07",
+    "REQ-SPRINT-001-008": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_08",
+    "REQ-SPRINT-001-009": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09",
+    "REQ-SPRINT-001-010": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_10"
+  },
+  "acceptance_criteria": [
+    "AC-ISSUE-0648-01",
+    "AC-ISSUE-0648-02",
+    "AC-ISSUE-0648-03",
+    "AC-ISSUE-0648-04"
+  ],
+  "acceptance_tests": [
+    "test_epic_086_aceite_happy_path",
+    "test_epic_086_aceite_negative_paths"
+  ],
+  "coordination": [
+    {
+      "role": "Reviewer",
+      "decision": "PASS",
+      "candidate_sha": "94c073428be1e8bbe49d078767651ec9237594b7",
+      "evidence_paths": [
+        "evidence/implementation/epic-086/story-0537/IMPLEMENTATION_EVIDENCE.json",
+        "evidence/reviews/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/story-0538/REVIEW_EVIDENCE.json"
+      ],
+      "residual_risk_ids": [
+        "RR-ISSUE-0648-01",
+        "RR-ISSUE-0648-02"
+      ]
+    },
+    {
+      "role": "QA",
+      "decision": "PASS",
+      "candidate_sha": "94c073428be1e8bbe49d078767651ec9237594b7",
+      "evidence_paths": [
+        "evidence/implementation/epic-086/story-0537/IMPLEMENTATION_EVIDENCE.json",
+        "evidence/reviews/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/story-0538/REVIEW_EVIDENCE.json"
+      ],
+      "residual_risk_ids": [
+        "RR-ISSUE-0648-01",
+        "RR-ISSUE-0648-02"
+      ]
+    }
+  ],
+  "independent_qa": {
+    "scope": "READ_ONLY_REVIEW_OF_ISSUE_0647_CANDIDATE",
+    "candidate_tree_matches_merge_tree": true,
+    "focused_results": {
+      "repository_integration": "PASS: 6 passed",
+      "contract": "PASS: 3 passed",
+      "implementation": "PASS: 7 passed",
+      "completion": "PASS: 7 passed",
+      "slice_consolidation": "PASS: 1 passed",
+      "automation": "PASS: 8 passed",
+      "direct_runner": "PASS",
+      "targeted_ruff": "PASS",
+      "targeted_mypy_strict": "PASS",
+      "git_diff_check": "PASS"
+    },
+    "blocker_findings": "NONE",
+    "high_findings": "NONE"
+  },
+  "implicit_approval": false,
+  "foundation_gate": {
+    "decision": "PENDING_PR_MERGE",
+    "failure_mode": "FAIL_CLOSED",
+    "first_functional_slice_authorized": false
+  },
+  "hosted_validation": {
+    "pull_request": 954,
+    "head_sha": "94c073428be1e8bbe49d078767651ec9237594b7",
+    "workflow": "foundation-ci",
+    "required_check": "verify-foundation",
+    "services": [
+      "postgres:18.4",
+      "rabbitmq:4.3.4"
+    ],
+    "conclusion": "SUCCESS",
+    "run_urls": [
+      "https://github.com/raphaelperrut/DSGeorref/actions/runs/34658472608",
+      "https://github.com/raphaelperrut/DSGeorref/actions/runs/34658494867"
+    ]
+  },
+  "validation": {
+    "acceptance_tests": "PASS: 2 passed",
+    "targeted_ruff": "PASS",
+    "targeted_mypy_strict": "PASS",
+    "json_parse_candidate_blob_digests_and_git_diff_check": "PASS",
+    "make_verify": "ENVIRONMENTAL_FAIL: Ruff, mypy, frontend typecheck, Vitest, Playwright, repository validation, architecture, requirements, DDD, ADR, specification, sprint, Python architecture, licensing foundation, and the monorepo foundation validator passed; the unchanged service-backed test then stopped before execution because FOUNDATION_INTEGRATION is unset and local PostgreSQL/RabbitMQ are unavailable. The exact reviewed candidate passed hosted foundation-ci with both pinned services."
+  },
+  "residual_risks": [
+    {
+      "id": "RR-ISSUE-0648-01",
+      "severity": "LOW",
+      "description": "The service-backed end-to-end test cannot run in the local sandbox without pinned PostgreSQL and RabbitMQ services.",
+      "disposition": "MITIGATED: foundation-ci completed make verify successfully with PostgreSQL 18.4 and RabbitMQ 4.3.4 on the exact candidate SHA."
+    },
+    {
+      "id": "RR-ISSUE-0648-02",
+      "severity": "LOW",
+      "description": "The two slice suites expose the same top-level module name foundation_expectations and cannot be safely combined in one Python process.",
+      "disposition": "ACCEPTED: the frozen consolidation contract requires ISOLATED_PROCESS_PER_SLICE, and isolated runs pass deterministically."
+    }
+  ],
+  "findings": {
+    "blocker": "NONE",
+    "high": "NONE",
+    "medium_low_nonblocking": [
+      "The local interpreter is Python 3.12.10 rather than the pinned CI runtime 3.12.13; the exact candidate passed hosted CI on 3.12.13.",
+      "pytest-asyncio emits a pre-existing default fixture loop scope deprecation warning.",
+      "The ISSUE-0647 integration test is not part of make verify; this ISSUE-0648 bundle executes it explicitly."
+    ]
+  },
+  "contract_impact": "NONE",
+  "migration_required": false,
+  "rollback": "Revert the ISSUE-0648 evidence commit; no contract, schema, persistent state, deployment, or runtime changes are present.",
+  "task_envelope_change": "NONE",
+  "new_prerequisite_created": false,
+  "architectural_blocker_requires_decision": false
+}
