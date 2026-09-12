@@ -1,5 +1,5 @@
 name: Bug
-about: Relatar comportamento incorreto ou regressão reproduzível
+description: Relatar comportamento incorreto ou regressão reproduzível
 title: "[BUG] "
 labels: []
 body:
@@ -50,3 +50,5 @@ body:
       options:
         - label: Confirmei que esta issue não contém segredos nem dados pessoais.
           required: true
+    validations:
+      required: true

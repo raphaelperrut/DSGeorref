@@ -1,5 +1,5 @@
 name: Story
-about: Registrar uma história implementável vinculada a um épico
+description: Registrar uma história implementável vinculada a um épico
 title: "[STORY] "
 labels: []
 body:
@@ -37,12 +37,41 @@ body:
     validations:
       required: true
   - type: textarea
-    id: dependencies
+    id: adrs
     attributes:
-      label: Dependências e contratos
+      label: ADRs e contratos aplicáveis
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Riscos e caminhos de falha
+    validations:
+      required: true
+  - type: textarea
+    id: tests
+    attributes:
+      label: Testes obrigatórios
+    validations:
+      required: true
   - type: textarea
     id: evidence
     attributes:
       label: Evidência exigida para conclusão
+    validations:
+      required: true
+  - type: dropdown
+    id: migration
+    attributes:
+      label: Aplicabilidade de migração
+      options:
+        - Aplicável
+        - Não aplicável
+    validations:
+      required: true
+  - type: textarea
+    id: rollback
+    attributes:
+      label: Plano de rollback ou justificativa de não aplicabilidade
     validations:
       required: true
