@@ -181,7 +181,7 @@ def _foundation_findings(
         "decision": "PASS",
         "issue_id": "ISSUE-0671",
         "live_ruleset_enforcement": "NOT_ASSERTED_BY_FOUNDATION",
-        "required_checks": ["verify-foundation"],
+        "required_checks": ["verify-foundation", "validate-main-ruleset-controls"],
         "requirement_evidence": FOUNDATION_EVIDENCE,
     }
     invalid = (

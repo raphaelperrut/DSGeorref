@@ -53,7 +53,10 @@ def test_epic_091_fundacao() -> None:
     report = TOOL.validate_foundation(ROOT)
     assert report["decision"] == "PASS"
     assert report["live_ruleset_enforcement"] == "NOT_ASSERTED_BY_FOUNDATION"
-    assert report["required_checks"] == ["verify-foundation"]
+    assert report["required_checks"] == [
+        "verify-foundation",
+        "validate-main-ruleset-controls",
+    ]
     assert set(report["requirement_evidence"]) == {
         "REQ-FRZ-003",
         "REQ-GOV-004",

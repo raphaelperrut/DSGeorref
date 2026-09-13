@@ -36,8 +36,13 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0563.json",
     "tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
-    "docs/03-engineering/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**"
+    "tools/quality/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
+    "docs/03-engineering/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
+    "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
+    ".github/workflows/ruleset-de-main-checks-unicos-codeowners-politica-de-b.yaml",
+    "evidence/implementation/epic-091/story-0563/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -105,8 +110,13 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0563.json",
         "tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
-        "docs/03-engineering/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**"
+        "tools/quality/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
+        "docs/03-engineering/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
+        "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
+        ".github/workflows/ruleset-de-main-checks-unicos-codeowners-politica-de-b.yaml",
+        "evidence/implementation/epic-091/story-0563/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

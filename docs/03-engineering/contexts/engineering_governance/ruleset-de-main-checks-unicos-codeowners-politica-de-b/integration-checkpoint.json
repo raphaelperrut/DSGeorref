@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0673",
+  "story_id": "STORY-0563",
+  "task_id": "TASK-0563",
+  "source_ruleset": "docs/03-engineering/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/main-ruleset.json",
+  "required_check_contexts": [
+    "verify-foundation",
+    "validate-main-ruleset-controls"
+  ],
+  "workflow": ".github/workflows/ruleset-de-main-checks-unicos-codeowners-politica-de-b.yaml",
+  "requirement_evidence": {
+    "REQ-FRZ-003": "test_epic_091_integracao",
+    "REQ-GOV-004": "test_epic_091_integracao",
+    "REQ-ISS-003": "test_epic_091_integracao",
+    "REQ-ISS-006": "test_epic_091_integracao",
+    "REQ-PUB-002": "test_epic_091_integracao"
+  },
+  "acceptance_evidence": {
+    "AC-ISSUE-0673-01": "test_epic_091_integracao",
+    "AC-ISSUE-0673-02": "test_epic_091_integracao",
+    "AC-ISSUE-0673-03": "test_epic_091_integracao",
+    "AC-ISSUE-0673-04": "test_epic_091_integracao"
+  },
+  "validation_command": "python -X utf8 tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/integration_validation.py",
+  "test_command": "python -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_integration.py::test_epic_091_integracao",
+  "architecture_evidence": {
+    "integration_reuses": "foundation_validation.validate_foundation",
+    "local_policy_reimplementation": "NONE",
+    "dependency_direction": "integration_validation -> foundation_validation -> main_ruleset_policy_validation"
+  },
+  "live_ruleset_enforcement": "NOT_ASSERTED_BY_INTEGRATION",
+  "migration": "NOT_APPLICABLE",
+  "rollback": "REVERT_COMMIT_BEFORE_DOWNSTREAM_CONSUMPTION"
+}

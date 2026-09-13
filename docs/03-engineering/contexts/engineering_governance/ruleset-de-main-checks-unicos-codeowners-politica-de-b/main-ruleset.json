@@ -22,7 +22,8 @@
     "missing_required_check": "REJECT",
     "non_successful_required_check": "REJECT",
     "required_contexts": [
-      "verify-foundation"
+      "verify-foundation",
+      "validate-main-ruleset-controls"
     ]
   },
   "codeowners_policy": {
