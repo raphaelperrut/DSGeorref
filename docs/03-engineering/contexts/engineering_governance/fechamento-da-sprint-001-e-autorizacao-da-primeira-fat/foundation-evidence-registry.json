@@ -10,8 +10,8 @@
     "REQ-FRZ-001": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_foundation_baseline_digest_controlled_change_and_adr_supersession",
     "REQ-FRZ-002": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_bex_epic_frz_part_2.py::test_sprint_zero_authorization_and_functional_foundation_gate_blocking",
     "REQ-FRZ-003": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_main_ruleset_foundation.py::test_issue_adr_decision_package_impact_boundary_and_no_silent_divergence",
-    "REQ-FRZ-004": "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py::test_epic_092_fundacao",
-    "REQ-GOV-005": "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py::test_epic_092_fundacao"
+    "REQ-FRZ-004": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_foundation_closure_evidence_set_and_material_reopening_criteria",
+    "REQ-GOV-005": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09"
   },
   "acceptance_evidence": {
     "AC-ISSUE-0676-01": "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py::test_epic_092_fundacao",
@@ -24,7 +24,8 @@
     "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_foundation_baseline_digest_controlled_change_and_adr_supersession",
     "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_bex_epic_frz_part_2.py::test_sprint_zero_authorization_and_functional_foundation_gate_blocking",
     "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_main_ruleset_foundation.py::test_issue_adr_decision_package_impact_boundary_and_no_silent_divergence",
-    "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py::test_epic_092_fundacao"
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_foundation_closure_evidence_set_and_material_reopening_criteria",
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09"
   ],
   "required_result": "PASS",
   "evidence_policy": {

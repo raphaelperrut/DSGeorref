@@ -7,15 +7,17 @@ ao comando executável.
 
 ## Comando reproduzível
 
-O mesmo comando é executado localmente e pelo `make verify` da CI:
+O mesmo gate é executado localmente e pelo `make verify` da CI:
 
 ```text
-python -X utf8 tools/governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/foundation_validation.py
+python -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py
 ```
 
-O validador rejeita contrato, registry, checkpoint, teste ou integração de CI
-ausente ou divergente. Evidência incompleta, malsucedida, conflitante ou ligada a
-outro SHA permanece bloqueante, sem fallback silencioso.
+O teste sentinela invoca o CLI com `--candidate-sha` e `--evidence`. O documento
+de evidência contém o SHA candidato e um resultado por teste obrigatório. O
+validador rejeita contrato, registry, checkpoint ou integração de CI divergente,
+assim como evidência ausente, malsucedida, conflitante ou ligada a outro SHA, sem
+fallback silencioso.
 
 ## Limites
 

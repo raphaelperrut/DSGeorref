@@ -4,26 +4,29 @@
 
 - `AC-ISSUE-0676-01`: registry, checkpoint e CLI versionados tornam o fechamento
   da SPRINT-001 observável e executável.
-- `AC-ISSUE-0676-02`: o registry liga `REQ-DEV-001`, `REQ-FRZ-001`,
-  `REQ-FRZ-002`, `REQ-FRZ-003`, `REQ-FRZ-004` e `REQ-GOV-005` aos testes
-  atribuíveis exigidos pela issue.
-- `AC-ISSUE-0676-03`: o teste fail-closed rejeita evidência ausente, stale ou
-  conflitante, drift de comando e tentativa de declarar autorização.
+- `AC-ISSUE-0676-02`: o registry liga `REQ-FRZ-004` ao teste existente de
+  `FoundationClosureEvidenceSet` e reabertura material, e `REQ-GOV-005` ao teste
+  existente de `SprintEvidenceSet`, fechamento por evidência e rejeição de
+  calendário; os demais requisitos permanecem nos testes canônicos da issue.
+- `AC-ISSUE-0676-03`: o CLI consome resultados executados ligados ao `git HEAD`
+  candidato e rejeita evidência ausente, malsucedida, stale, incompatível ou
+  conflitante, além de drift de comando e tentativa de declarar autorização.
 - `AC-ISSUE-0676-04`: o checkpoint exige o mesmo comando local e de CI; o
   `make verify` executado por `.github/workflows/ci.yml` chama o validador e o
   teste sentinela.
 
 ## Validações sentinela
 
-- CLI da fundação: `PASS`.
-- Testes focados da ISSUE-0676: `2 passed`.
-- Cinco testes obrigatórios da issue: `5 passed`.
+- Testes corretivos HIGH-01: `2 passed`.
+- Testes semânticos HIGH-02: `2 passed`.
+- Cinco testes obrigatórios da issue: `5 passed` no candidato inicial; repetidos
+  depois do commit corretivo.
 - Ruff nos arquivos Python alterados: `PASS`.
 - Mypy no validador: `PASS`.
 - `git diff --check`: `PASS`.
 
-Os resultados finais são repetidos no `PR_HEAD` e publicados no PR com o SHA
-exato, preservando a vinculação exigida entre candidato e evidência.
+Os resultados finais são repetidos no `PR_HEAD` corretivo e publicados no PR com
+o SHA exato, preservando a vinculação exigida entre candidato e evidência.
 
 ## Arquivos e justificativa de escopo
 

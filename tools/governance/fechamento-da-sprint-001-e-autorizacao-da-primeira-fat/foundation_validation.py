@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import ast
 import json
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any, cast
@@ -20,12 +21,11 @@ REGISTRY_PATH = (
 )
 CHECKPOINT_PATH = Path(__file__).with_name("foundation-checkpoint.json")
 TASK_PATH = ROOT / ".codex/tasks/TASK-0566.json"
-PORTABLE_COMMAND = f"python -X utf8 tools/governance/{SLUG}/foundation_validation.py"
-MAKE_COMMAND = f"$(PYTHON) -X utf8 tools/governance/{SLUG}/foundation_validation.py"
 MAKE_TEST_COMMAND = (
     "$(PYTHON) -X utf8 -m pytest -q -p no:cacheprovider "
     f"tests/fnd/{SLUG}/test_sprint_001_foundation.py"
 )
+PORTABLE_COMMAND = MAKE_TEST_COMMAND.replace("$(PYTHON)", "python")
 FOUNDATION_TEST = f"tests/fnd/{SLUG}/test_sprint_001_foundation.py::test_epic_092_fundacao"
 FAIL_CLOSED_TEST = (
     f"tests/fnd/{SLUG}/test_sprint_001_foundation.py::"
@@ -37,6 +37,15 @@ EXPECTED_AC_EVIDENCE = {
     "AC-ISSUE-0676-03": FAIL_CLOSED_TEST,
     "AC-ISSUE-0676-04": FOUNDATION_TEST,
 }
+FOUNDATION_CLOSURE_TEST = (
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/"
+    "test_materialization.py::"
+    "test_foundation_closure_evidence_set_and_material_reopening_criteria"
+)
+SPRINT_EVIDENCE_TEST = (
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/"
+    "test_materialization.py::test_sprint_zero_baseline_decision_09"
+)
 EXPECTED_REQUIREMENT_EVIDENCE = {
     "REQ-DEV-001": (
         "tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/"
@@ -57,10 +66,11 @@ EXPECTED_REQUIREMENT_EVIDENCE = {
         "test_main_ruleset_foundation.py::"
         "test_issue_adr_decision_package_impact_boundary_and_no_silent_divergence"
     ),
-    "REQ-FRZ-004": FOUNDATION_TEST,
-    "REQ-GOV-005": FOUNDATION_TEST,
+    "REQ-FRZ-004": FOUNDATION_CLOSURE_TEST,
+    "REQ-GOV-005": SPRINT_EVIDENCE_TEST,
 }
-EXPECTED_REQUIRED_TESTS = list(dict.fromkeys(EXPECTED_REQUIREMENT_EVIDENCE.values()))
+ISSUE_REQUIRED_TESTS = [*list(EXPECTED_REQUIREMENT_EVIDENCE.values())[:4], FOUNDATION_TEST]
+EXPECTED_REQUIRED_TESTS = list(EXPECTED_REQUIREMENT_EVIDENCE.values())
 REGISTRY_FIELDS = {
     "schema_version", "registry_id", "issue_id", "story_id", "task_id",
     "source_contract", "requirement_evidence", "acceptance_evidence", "required_tests",
@@ -71,6 +81,8 @@ CHECKPOINT_FIELDS = {
     "evidence_registry", "reproducible_command", "local_command", "ci_command",
     "test_command", "reviewable_state", "authorization_claim", "migration", "rollback",
 }
+EXECUTION_EVIDENCE_FIELDS = {"schema_version", "candidate_sha", "results"}
+TEST_RESULT_FIELDS = {"test", "candidate_sha", "result"}
 
 
 class FoundationValidationError(ValueError):
@@ -98,6 +110,19 @@ def require_exact_keys(value: Any, expected: set[str], label: str) -> dict[str, 
     return document
 
 
+def repository_head(root: Path) -> str:
+    completed = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=root,
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+    require(completed.returncode == 0, "candidate repository HEAD is unavailable")
+    return completed.stdout.strip()
+
+
 def validate_contract(root: Path = ROOT) -> dict[str, Any]:
     schema = load_json(root / SCHEMA_PATH.relative_to(ROOT))
     contract = load_json(root / CONTRACT_PATH.relative_to(ROOT))
@@ -114,7 +139,7 @@ def validate_task(root: Path = ROOT) -> dict[str, Any]:
         == ("ISSUE-0676", "STORY-0566", "TASK-0566"),
         "TaskEnvelope identity diverges",
     )
-    expected_names = [node_id.rsplit("::", 1)[1] for node_id in EXPECTED_REQUIRED_TESTS]
+    expected_names = [node_id.rsplit("::", 1)[1] for node_id in ISSUE_REQUIRED_TESTS]
     require(task["tests"] == expected_names, "TaskEnvelope required tests diverge")
     expected_paths = {
         ".codex/tasks/TASK-0566.json",
@@ -193,6 +218,35 @@ def validate_registry(
     return registry
 
 
+def validate_execution_evidence(
+    evidence: Any,
+    *,
+    candidate_sha: str,
+    registry: dict[str, Any],
+) -> dict[str, Any]:
+    document = require_exact_keys(evidence, EXECUTION_EVIDENCE_FIELDS, "execution evidence")
+    require(
+        len(candidate_sha) == 40 and all(char in "0123456789abcdef" for char in candidate_sha),
+        "candidate SHA is invalid",
+    )
+    require(document["schema_version"] == "1.0.0", "unsupported evidence version")
+    require(document["candidate_sha"] == candidate_sha, "execution evidence is stale")
+    results = document["results"]
+    require(isinstance(results, list), "execution results must be a list")
+    expected = set(registry["required_tests"])
+    observed: set[str] = set()
+    for index, value in enumerate(results):
+        result = require_exact_keys(value, TEST_RESULT_FIELDS, f"test result {index}")
+        test = result["test"]
+        require(isinstance(test, str) and test in expected, "execution evidence is incompatible")
+        require(test not in observed, "execution evidence is conflicting")
+        observed.add(test)
+        require(result["candidate_sha"] == candidate_sha, "test evidence is stale")
+        require(result["result"] == registry["required_result"], "test result is unsuccessful")
+    require(observed == expected, "required execution evidence is missing")
+    return {"candidate_sha": candidate_sha, "result_count": len(observed), "status": "PASS"}
+
+
 def _validate_checkpoint_document(checkpoint: Any, contract: dict[str, Any]) -> None:
     document = require_exact_keys(checkpoint, CHECKPOINT_FIELDS, "foundation checkpoint")
     require(document["schema_version"] == "1.0.0", "unsupported checkpoint version")
@@ -247,17 +301,27 @@ def validate_checkpoint(
 def validate_ci_integration(root: Path = ROOT) -> dict[str, str]:
     makefile = (root / "Makefile").read_text(encoding="utf-8")
     workflow = (root / ".github/workflows/ci.yml").read_text(encoding="utf-8")
-    require(f"\t{MAKE_COMMAND}" in makefile, "make verify omits the foundation validator")
     require(f"\t{MAKE_TEST_COMMAND}" in makefile, "make verify omits the foundation tests")
     require("run: make verify" in workflow, "CI does not execute make verify")
     return {"ci_entrypoint": "make verify", "command": PORTABLE_COMMAND, "status": "PASS"}
 
 
-def validate_foundation(root: Path = ROOT) -> dict[str, Any]:
+def validate_foundation(
+    root: Path = ROOT,
+    *,
+    candidate_sha: str,
+    execution_evidence: dict[str, Any],
+) -> dict[str, Any]:
+    require(candidate_sha == repository_head(root), "candidate SHA does not match repository HEAD")
     contract = validate_contract(root)
     task = validate_task(root)
     registry = validate_registry(root, contract=contract)
     checkpoint = validate_checkpoint(root, contract=contract)
+    executed = validate_execution_evidence(
+        execution_evidence,
+        candidate_sha=candidate_sha,
+        registry=registry,
+    )
     ci = validate_ci_integration(root)
     return {
         "acceptance_evidence": registry["acceptance_evidence"],
@@ -267,6 +331,7 @@ def validate_foundation(root: Path = ROOT) -> dict[str, Any]:
             "PASS",
         ),
         "ci": ci,
+        "execution_evidence": executed,
         "decision": "PASS",
         "issue_id": task["issue_id"],
         "requirement_evidence": registry["requirement_evidence"],
@@ -277,9 +342,16 @@ def validate_foundation(root: Path = ROOT) -> dict[str, Any]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Validate the EPIC-092 executable foundation")
     parser.add_argument("--repository-root", type=Path, default=ROOT)
+    parser.add_argument("--candidate-sha", required=True)
+    parser.add_argument("--evidence", required=True, type=Path)
     args = parser.parse_args(argv)
     try:
-        report = validate_foundation(args.repository_root.resolve())
+        root = args.repository_root.resolve()
+        report = validate_foundation(
+            root,
+            candidate_sha=args.candidate_sha,
+            execution_evidence=load_json(args.evidence.resolve()),
+        )
     except (FoundationValidationError, OSError) as exc:
         print(json.dumps({"decision": "FAIL", "error": str(exc)}, sort_keys=True))
         return 1
