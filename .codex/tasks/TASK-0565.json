@@ -46,8 +46,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0565.json",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
     "contracts/contexts/engineering_governance/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**",
-    "docs/02-architecture/design-reviews/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**"
+    "docs/02-architecture/design-reviews/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**",
+    "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_contract.py",
+    "evidence/implementation/epic-092/story-0565/**"
   ],
   "deny_paths": [
     "src/**",
@@ -126,8 +130,12 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0565.json",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
         "contracts/contexts/engineering_governance/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**",
-        "docs/02-architecture/design-reviews/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**"
+        "docs/02-architecture/design-reviews/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**",
+        "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_contract.py",
+        "evidence/implementation/epic-092/story-0565/**"
       ],
       "deny_paths": [
         "src/**",

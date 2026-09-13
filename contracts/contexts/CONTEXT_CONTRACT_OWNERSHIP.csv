@@ -213,3 +213,6 @@ contracts/contexts/engineering_governance/fnd/issue-forms-templates-e-taxonomia-
 contracts/contexts/engineering_governance/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/examples/main-ruleset-governance.json,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/main-ruleset-governance.schema.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/examples/sprint-001-closure-authorization.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/engineering_governance/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/sprint-001-closure-authorization.schema.json,BC-001,contexts,VERSIONED,NO

@@ -1,0 +1,50 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-092
+  story_id: STORY-0565
+  issue_id: ISSUE-0675
+  task_id: TASK-0565
+contract:
+  id: sprint-001-closure-authorization-contract
+  schema: contracts/contexts/engineering_governance/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/sprint-001-closure-authorization.schema.json
+  example: contracts/contexts/engineering_governance/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/examples/sprint-001-closure-authorization.json
+upstream:
+  id: walking-skeleton-foundation-contract
+  manifest: contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/contract-manifest.yaml
+  consumption: REFERENCE_WITHOUT_REINTERPRETATION
+requirements:
+- id: REQ-EPIC-001
+  source: docs/01-product/requirements/REQ-EPIC-001-georreferenciamento-funcional-somente-comeca-apos-fluxo-diagnostico-pont.md
+  canonical_test: test_executable_foundation_gate_clean_room_end_to_end
+compatibility:
+  policy: SEMVER
+  compatible_change: OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR
+  breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
+  unknown_properties: REJECT
+runtime:
+  implementation: DOWNSTREAM_STORIES_ONLY
+  http: FROZEN_CONTRACT_REFERENCED_NOT_CHANGED
+  persistence_change: NOT_APPLICABLE
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+  contract_rollback: REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION
+acceptance_criteria:
+- AC-ISSUE-0675-01
+- AC-ISSUE-0675-02
+- AC-ISSUE-0675-03
+- AC-ISSUE-0675-04
+proof:
+  required_tests:
+  - test_executable_foundation_gate_clean_room_end_to_end
+  - test_epic_092_contrato
+  failure_mode_tested: true
+  deterministic: true
+review:
+  executor_role: Arquiteto
+  qa_role: QA
+  independent_authority_role: Reviewer
+  same_candidate_commit: true
+  self_approval: PROHIBITED
