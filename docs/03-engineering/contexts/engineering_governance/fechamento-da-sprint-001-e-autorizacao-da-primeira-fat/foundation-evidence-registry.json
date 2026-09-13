@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "SPRINT-001-FOUNDATION-EVIDENCE",
+  "issue_id": "ISSUE-0676",
+  "story_id": "STORY-0566",
+  "task_id": "TASK-0566",
+  "source_contract": "contracts/contexts/engineering_governance/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/examples/sprint-001-closure-authorization.json",
+  "requirement_evidence": {
+    "REQ-DEV-001": "tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation.py::test_host_container_ci_contract_and_no_implicit_downloads",
+    "REQ-FRZ-001": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_foundation_baseline_digest_controlled_change_and_adr_supersession",
+    "REQ-FRZ-002": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_bex_epic_frz_part_2.py::test_sprint_zero_authorization_and_functional_foundation_gate_blocking",
+    "REQ-FRZ-003": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_main_ruleset_foundation.py::test_issue_adr_decision_package_impact_boundary_and_no_silent_divergence",
+    "REQ-FRZ-004": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_foundation_closure_evidence_set_and_material_reopening_criteria",
+    "REQ-GOV-005": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09"
+  },
+  "acceptance_evidence": {
+    "AC-ISSUE-0676-01": "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py::test_epic_092_fundacao",
+    "AC-ISSUE-0676-02": "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py::test_epic_092_fundacao",
+    "AC-ISSUE-0676-03": "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py::test_error_paths_are_fail_closed_without_silent_fallback",
+    "AC-ISSUE-0676-04": "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py::test_epic_092_fundacao"
+  },
+  "required_tests": [
+    "tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation.py::test_host_container_ci_contract_and_no_implicit_downloads",
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_foundation_baseline_digest_controlled_change_and_adr_supersession",
+    "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_bex_epic_frz_part_2.py::test_sprint_zero_authorization_and_functional_foundation_gate_blocking",
+    "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_main_ruleset_foundation.py::test_issue_adr_decision_package_impact_boundary_and_no_silent_divergence",
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_foundation_closure_evidence_set_and_material_reopening_criteria",
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09"
+  ],
+  "required_result": "PASS",
+  "evidence_policy": {
+    "candidate_sha_binding": "EXACT",
+    "same_sha_for_tests_and_approvals": true,
+    "missing_evidence": "BLOCK",
+    "non_successful_evidence": "BLOCK",
+    "stale_candidate_sha": "BLOCK",
+    "conflicting_evidence": "BLOCK"
+  },
+  "failure_policy": {
+    "mode": "FAIL_CLOSED",
+    "silent_fallback": false,
+    "partial_authorization": "PROHIBITED",
+    "missing_foundation_proof": "BLOCK",
+    "failed_sprint_exit_condition": "BLOCK",
+    "missing_independent_approval": "BLOCK",
+    "candidate_sha_mismatch": "BLOCK",
+    "unknown_property_or_state": "REJECT"
+  },
+  "authorization_claim": "NOT_ASSERTED_BY_FOUNDATION"
+}

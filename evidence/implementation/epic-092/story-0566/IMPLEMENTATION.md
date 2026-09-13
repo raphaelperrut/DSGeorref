@@ -1,0 +1,62 @@
+# Evidência de implementação — STORY-0566 / ISSUE-0676
+
+## Critérios de aceitação
+
+- `AC-ISSUE-0676-01`: registry, checkpoint e CLI versionados tornam o fechamento
+  da SPRINT-001 observável e executável.
+- `AC-ISSUE-0676-02`: o registry liga `REQ-FRZ-004` ao teste existente de
+  `FoundationClosureEvidenceSet` e reabertura material, e `REQ-GOV-005` ao teste
+  existente de `SprintEvidenceSet`, fechamento por evidência e rejeição de
+  calendário; os demais requisitos permanecem nos testes canônicos da issue.
+- `AC-ISSUE-0676-03`: o CLI executa os testes atribuíveis registrados, deriva o
+  veredito do exit code real do `pytest` em clone local temporário do candidato,
+  vincula a execução ao `git HEAD` antes/depois e ao SHA efetivamente testado e
+  rejeita evidência ausente, malsucedida, stale, incompatível ou
+  conflitante, além de drift de comando e tentativa de declarar autorização.
+- `AC-ISSUE-0676-04`: o checkpoint exige o mesmo comando local e de CI; o
+  `make verify` executado por `.github/workflows/ci.yml` chama o validador e o
+  teste sentinela.
+
+## Validações sentinela
+
+- Testes corretivos HIGH-01: o sentinela executa os seis node IDs governados; o
+  teste fail-closed usa execuções reais mínima positiva e negativa do `pytest`.
+- Testes semânticos HIGH-02: `2 passed`.
+- Cinco testes obrigatórios da issue: `5 passed` no candidato inicial; repetidos
+  depois do commit corretivo.
+- Ruff nos arquivos Python alterados: `PASS`.
+- Mypy no validador: `PASS`.
+- `git diff --check`: `PASS`.
+
+Os resultados finais são repetidos no `PR_HEAD` corretivo e publicados no PR com
+o SHA exato, preservando a vinculação exigida entre candidato e evidência.
+
+## Arquivos e justificativa de escopo
+
+- `.codex/tasks/TASK-0566.json`: corrige allow-paths omitidos para envelope,
+  integração CI, teste sentinela e evidência exigida.
+- `Makefile`: integra o mesmo validador e teste ao entrypoint usado pela CI.
+- `docs/03-engineering/contexts/engineering_governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/README.md`:
+  documenta comando e limites.
+- `docs/03-engineering/contexts/engineering_governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/foundation-evidence-registry.json`:
+  mantém o registry no control plane versionado.
+- `tools/governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/foundation-checkpoint.json`:
+  liga contrato, registry e comandos reproduzíveis.
+- `tools/governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/foundation_validation.py`:
+  implementa a interface executável fail-closed.
+- `tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py`:
+  prova o comportamento alterado e regressões plausíveis.
+- `evidence/implementation/epic-092/story-0566/IMPLEMENTATION.md`: registra o
+  handoff exigido pela issue.
+
+## Handoff
+
+- Impacto em contratos: nenhum; o contrato congelado da STORY-0565 é apenas
+  consumido e validado sem reinterpretação.
+- Persistência e migration: não aplicáveis; nenhum estado persistido muda.
+- Rollback: reverter o commit antes do consumo downstream ou superseder o
+  contrato por nova versão, conforme a política congelada.
+- Limitação: a fundação fica em `READY_FOR_INDEPENDENT_REVIEW` e não declara
+  `AUTHORIZED_FOR_FIRST_FUNCTIONAL_SLICE`.
+- Risco residual: a aprovação independente no mesmo SHA permanece pendente ao
+  reviewer; ausência ou SHA divergente bloqueia a autorização.
