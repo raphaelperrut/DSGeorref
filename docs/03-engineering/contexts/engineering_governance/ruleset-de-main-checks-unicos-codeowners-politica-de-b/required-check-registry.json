@@ -9,6 +9,11 @@
       "context": "verify-foundation",
       "workflow": ".github/workflows/ci.yml",
       "job": "verify-foundation"
+    },
+    {
+      "context": "validate-main-ruleset-controls",
+      "workflow": ".github/workflows/ruleset-de-main-checks-unicos-codeowners-politica-de-b.yaml",
+      "job": "validate-main-ruleset-controls"
     }
   ]
 }

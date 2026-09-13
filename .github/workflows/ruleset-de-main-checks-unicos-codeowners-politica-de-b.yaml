@@ -34,3 +34,13 @@ jobs:
         run: >-
           python -m pytest -q -p no:cacheprovider
           tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_automation.py::test_epic_091_automacao
+
+      - name: Validate ISSUE-0673 repository-flow integration
+        run: >-
+          python -X utf8
+          tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/integration_validation.py
+
+      - name: Prove ISSUE-0673 integration and failure modes
+        run: >-
+          python -X utf8 -m pytest -q -p no:cacheprovider
+          tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_integration.py::test_epic_091_integracao

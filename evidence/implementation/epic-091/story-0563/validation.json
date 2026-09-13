@@ -1,0 +1,30 @@
+{
+  "issue": "ISSUE-0673",
+  "story": "STORY-0563",
+  "status": "PASS",
+  "required_test": "test_epic_091_integracao",
+  "requirement_evidence": {
+    "REQ-FRZ-003": "test_epic_091_integracao",
+    "REQ-GOV-004": "test_epic_091_integracao",
+    "REQ-ISS-003": "test_epic_091_integracao",
+    "REQ-ISS-006": "test_epic_091_integracao",
+    "REQ-PUB-002": "test_epic_091_integracao"
+  },
+  "acceptance_evidence": {
+    "AC-ISSUE-0673-01": "test_epic_091_integracao",
+    "AC-ISSUE-0673-02": "test_epic_091_integracao",
+    "AC-ISSUE-0673-03": "test_epic_091_integracao",
+    "AC-ISSUE-0673-04": "test_epic_091_integracao"
+  },
+  "validation_command": "python -X utf8 tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/integration_validation.py",
+  "test_command": "python -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_integration.py::test_epic_091_integracao",
+  "required_check_contexts": [
+    "verify-foundation",
+    "validate-main-ruleset-controls"
+  ],
+  "contract_impact": "NONE; consumes the frozen ISSUE-0670 contract.",
+  "migration": "NOT_APPLICABLE",
+  "rollback": "Revert the ISSUE-0673 commit; no persistent state is changed.",
+  "live_ruleset_enforcement": "NOT_ASSERTED_BY_INTEGRATION",
+  "independent_review": "PENDING"
+}
