@@ -13,11 +13,12 @@ O mesmo gate é executado localmente e pelo `make verify` da CI:
 python -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py
 ```
 
-O teste sentinela invoca o CLI com `--candidate-sha` e `--evidence`. O documento
-de evidência contém o SHA candidato e um resultado por teste obrigatório. O
+O teste sentinela invoca o CLI com `--candidate-sha`. O próprio CLI executa
+exatamente os node IDs obrigatórios do registry e deriva o veredito do exit code
+real do `pytest`, verificando o SHA do checkout antes e depois da execução. O
 validador rejeita contrato, registry, checkpoint ou integração de CI divergente,
-assim como evidência ausente, malsucedida, conflitante ou ligada a outro SHA, sem
-fallback silencioso.
+assim como execução ausente, malsucedida, conflitante ou ligada a outro SHA, sem
+fallback silencioso. O chamador não fornece nem pode sintetizar resultados `PASS`.
 
 ## Limites
 

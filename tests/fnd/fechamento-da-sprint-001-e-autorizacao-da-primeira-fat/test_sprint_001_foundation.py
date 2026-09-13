@@ -40,25 +40,25 @@ def _candidate_sha() -> str:
     ).stdout.strip()
 
 
-def _execution_evidence(candidate_sha: str) -> dict[str, object]:
-    return {
-        "schema_version": "1.0.0",
-        "candidate_sha": candidate_sha,
-        "results": [
-            {"test": test, "candidate_sha": candidate_sha, "result": "PASS"}
-            for test in TOOL.EXPECTED_REQUIRED_TESTS
-        ],
-    }
-
-
-def test_epic_092_fundacao(tmp_path: Path) -> None:
+def test_epic_092_fundacao() -> None:
     candidate_sha = _candidate_sha()
-    execution_evidence = _execution_evidence(candidate_sha)
-    report = TOOL.validate_foundation(
-        ROOT,
-        candidate_sha=candidate_sha,
-        execution_evidence=execution_evidence,
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "-X",
+            "utf8",
+            str(TOOL_PATH),
+            "--candidate-sha",
+            candidate_sha,
+        ],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
     )
+    assert completed.returncode == 0, completed.stderr
+    report = json.loads(completed.stdout)
     assert report["decision"] == "PASS"
     assert report["reviewable_state"] == "READY_FOR_INDEPENDENT_REVIEW"
     assert report["authorization_claim"] == "NOT_ASSERTED_BY_FOUNDATION"
@@ -71,11 +71,15 @@ def test_epic_092_fundacao(tmp_path: Path) -> None:
         "REQ-GOV-005",
     }
     assert report["acceptance_evidence"] == TOOL.EXPECTED_AC_EVIDENCE
-    assert report["execution_evidence"] == {
-        "candidate_sha": candidate_sha,
-        "result_count": len(TOOL.EXPECTED_REQUIRED_TESTS),
-        "status": "PASS",
-    }
+    execution_evidence = report["execution_evidence"]
+    assert execution_evidence["candidate_sha_before"] == candidate_sha
+    assert execution_evidence["candidate_sha_after"] == candidate_sha
+    assert execution_evidence["tests"] == TOOL.EXPECTED_REQUIRED_TESTS
+    assert execution_evidence["command"][-len(TOOL.EXPECTED_REQUIRED_TESTS) :] == (
+        TOOL.EXPECTED_REQUIRED_TESTS
+    )
+    assert execution_evidence["exit_code"] == 0
+    assert execution_evidence["status"] == "PASS"
     assert report["requirement_evidence"]["REQ-FRZ-004"] == TOOL.FOUNDATION_CLOSURE_TEST
     assert report["requirement_evidence"]["REQ-GOV-005"] == TOOL.SPRINT_EVIDENCE_TEST
 
@@ -83,102 +87,97 @@ def test_epic_092_fundacao(tmp_path: Path) -> None:
     assert checkpoint["local_command"] == checkpoint["ci_command"]
     assert TOOL.validate_ci_integration(ROOT)["command"] == checkpoint["local_command"]
 
-    evidence_path = tmp_path / "execution-evidence.json"
-    evidence_path.write_text(json.dumps(execution_evidence), encoding="utf-8")
-    completed = subprocess.run(
-        [
-            sys.executable,
-            "-X",
-            "utf8",
-            str(TOOL_PATH),
-            "--candidate-sha",
-            candidate_sha,
-            "--evidence",
-            str(evidence_path),
-        ],
-        cwd=ROOT,
-        check=False,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-    )
-    assert completed.returncode == 0, completed.stderr
-    assert json.loads(completed.stdout)["decision"] == "PASS"
-
-
 def test_error_paths_are_fail_closed_without_silent_fallback(tmp_path: Path) -> None:
     contract = TOOL.validate_contract(ROOT)
-    registry = TOOL.validate_registry(ROOT, contract=contract)
+    TOOL.validate_registry(ROOT, contract=contract)
     assert contract["failure_policy"]["silent_fallback"] is False
 
     candidate_sha = _candidate_sha()
-    valid = _execution_evidence(candidate_sha)
-
-    unsuccessful = copy.deepcopy(valid)
-    unsuccessful["results"][0]["result"] = "FAIL"
-    with pytest.raises(TOOL.FoundationValidationError, match="result is unsuccessful"):
-        TOOL.validate_execution_evidence(
-            unsuccessful, candidate_sha=candidate_sha, registry=registry
-        )
-    failed_path = tmp_path / "failed-execution-evidence.json"
-    failed_path.write_text(json.dumps(unsuccessful), encoding="utf-8")
-    failed_cli = subprocess.run(
-        [
-            sys.executable,
-            "-X",
-            "utf8",
-            str(TOOL_PATH),
-            "--candidate-sha",
-            candidate_sha,
-            "--evidence",
-            str(failed_path),
-        ],
-        cwd=ROOT,
-        check=False,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
+    passing_test = tmp_path / "test_passing_execution.py"
+    passing_test.write_text("def test_passes():\n    assert True\n", encoding="utf-8")
+    passing_registry = {
+        "required_tests": [str(passing_test)],
+        "required_result": "PASS",
+    }
+    valid = TOOL.capture_test_execution(
+        ROOT,
+        candidate_sha=candidate_sha,
+        registry=passing_registry,
     )
-    assert failed_cli.returncode == 1
-    assert json.loads(failed_cli.stdout)["decision"] == "FAIL"
+    assert valid["exit_code"] == 0
+    assert TOOL.validate_execution_evidence(
+        valid,
+        candidate_sha=candidate_sha,
+        registry=passing_registry,
+    )["status"] == "PASS"
+    with pytest.raises(TOOL.FoundationValidationError, match="must be an object"):
+        TOOL.validate_execution_evidence(
+            None,
+            candidate_sha=candidate_sha,
+            registry=passing_registry,
+        )
+
+    failing_test = tmp_path / "test_failing_execution.py"
+    failing_test.write_text("def test_fails():\n    assert False\n", encoding="utf-8")
+    failing_registry = {
+        "required_tests": [str(failing_test)],
+        "required_result": "PASS",
+    }
+    with pytest.raises(TOOL.FoundationValidationError, match="result is unsuccessful"):
+        TOOL.execute_registered_tests(
+            ROOT,
+            candidate_sha=candidate_sha,
+            registry=failing_registry,
+        )
 
     stale = copy.deepcopy(valid)
-    stale["results"][0]["candidate_sha"] = "0" * 40
-    with pytest.raises(TOOL.FoundationValidationError, match="test evidence is stale"):
-        TOOL.validate_execution_evidence(stale, candidate_sha=candidate_sha, registry=registry)
+    stale["candidate_sha_after"] = "0" * 40
+    with pytest.raises(TOOL.FoundationValidationError, match="execution evidence is stale"):
+        TOOL.validate_execution_evidence(
+            stale, candidate_sha=candidate_sha, registry=passing_registry
+        )
 
     conflicting = copy.deepcopy(valid)
-    conflicting["results"].append(copy.deepcopy(conflicting["results"][0]))
+    conflicting["tests"].append(conflicting["tests"][0])
     with pytest.raises(TOOL.FoundationValidationError, match="evidence is conflicting"):
         TOOL.validate_execution_evidence(
-            conflicting, candidate_sha=candidate_sha, registry=registry
+            conflicting, candidate_sha=candidate_sha, registry=passing_registry
         )
 
     incompatible = copy.deepcopy(valid)
-    incompatible["results"][0]["test"] = "unregistered-test"
+    incompatible["tests"][0] = "unregistered-test"
     with pytest.raises(TOOL.FoundationValidationError, match="evidence is incompatible"):
         TOOL.validate_execution_evidence(
-            incompatible, candidate_sha=candidate_sha, registry=registry
+            incompatible, candidate_sha=candidate_sha, registry=passing_registry
         )
 
     missing = copy.deepcopy(valid)
-    missing["results"].pop()
+    missing["tests"].pop()
     with pytest.raises(TOOL.FoundationValidationError, match="evidence is missing"):
-        TOOL.validate_execution_evidence(missing, candidate_sha=candidate_sha, registry=registry)
-
-    stale_candidate = copy.deepcopy(valid)
-    stale_candidate["candidate_sha"] = "0" * 40
-    with pytest.raises(TOOL.FoundationValidationError, match="evidence is stale"):
         TOOL.validate_execution_evidence(
-            stale_candidate, candidate_sha=candidate_sha, registry=registry
+            missing, candidate_sha=candidate_sha, registry=passing_registry
         )
 
-    arbitrary_candidate = _execution_evidence("0" * 40)
+    stale_candidate = copy.deepcopy(valid)
+    stale_candidate["candidate_sha_before"] = "0" * 40
+    with pytest.raises(TOOL.FoundationValidationError, match="evidence is stale"):
+        TOOL.validate_execution_evidence(
+            stale_candidate, candidate_sha=candidate_sha, registry=passing_registry
+        )
+
+    execution_command_drift = copy.deepcopy(valid)
+    execution_command_drift["command"].append("--collect-only")
+    with pytest.raises(TOOL.FoundationValidationError, match="execution command diverges"):
+        TOOL.validate_execution_evidence(
+            execution_command_drift,
+            candidate_sha=candidate_sha,
+            registry=passing_registry,
+        )
+
     with pytest.raises(TOOL.FoundationValidationError, match="does not match repository HEAD"):
         TOOL.validate_foundation(
             ROOT,
             candidate_sha="0" * 40,
-            execution_evidence=arbitrary_candidate,
         )
 
     checkpoint = TOOL.validate_checkpoint(ROOT, contract=contract)

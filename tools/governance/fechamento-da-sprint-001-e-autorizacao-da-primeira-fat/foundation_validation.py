@@ -81,8 +81,10 @@ CHECKPOINT_FIELDS = {
     "evidence_registry", "reproducible_command", "local_command", "ci_command",
     "test_command", "reviewable_state", "authorization_claim", "migration", "rollback",
 }
-EXECUTION_EVIDENCE_FIELDS = {"schema_version", "candidate_sha", "results"}
-TEST_RESULT_FIELDS = {"test", "candidate_sha", "result"}
+EXECUTION_EVIDENCE_FIELDS = {
+    "schema_version", "candidate_sha_before", "candidate_sha_after",
+    "command", "tests", "exit_code",
+}
 
 
 class FoundationValidationError(ValueError):
@@ -230,21 +232,95 @@ def validate_execution_evidence(
         "candidate SHA is invalid",
     )
     require(document["schema_version"] == "1.0.0", "unsupported evidence version")
-    require(document["candidate_sha"] == candidate_sha, "execution evidence is stale")
-    results = document["results"]
-    require(isinstance(results, list), "execution results must be a list")
-    expected = set(registry["required_tests"])
-    observed: set[str] = set()
-    for index, value in enumerate(results):
-        result = require_exact_keys(value, TEST_RESULT_FIELDS, f"test result {index}")
-        test = result["test"]
-        require(isinstance(test, str) and test in expected, "execution evidence is incompatible")
-        require(test not in observed, "execution evidence is conflicting")
-        observed.add(test)
-        require(result["candidate_sha"] == candidate_sha, "test evidence is stale")
-        require(result["result"] == registry["required_result"], "test result is unsuccessful")
-    require(observed == expected, "required execution evidence is missing")
-    return {"candidate_sha": candidate_sha, "result_count": len(observed), "status": "PASS"}
+    require(document["candidate_sha_before"] == candidate_sha, "execution evidence is stale")
+    require(document["candidate_sha_after"] == candidate_sha, "execution evidence is stale")
+    tests = document["tests"]
+    require(isinstance(tests, list) and all(isinstance(test, str) for test in tests),
+            "execution tests must be a list of node ids")
+    require(len(tests) == len(set(tests)), "execution evidence is conflicting")
+    expected_tests = registry["required_tests"]
+    require(set(tests) <= set(expected_tests), "execution evidence is incompatible")
+    require(set(tests) == set(expected_tests), "required execution evidence is missing")
+    expected_command = _pytest_command(expected_tests)
+    require(document["command"] == expected_command, "execution command diverges")
+    exit_code = document["exit_code"]
+    require(isinstance(exit_code, int) and not isinstance(exit_code, bool),
+            "execution result is invalid")
+    require(exit_code == 0, "test result is unsuccessful")
+    return {
+        "candidate_sha_before": document["candidate_sha_before"],
+        "candidate_sha_after": document["candidate_sha_after"],
+        "command": document["command"],
+        "tests": tests,
+        "exit_code": exit_code,
+        "status": "PASS",
+    }
+
+
+def _pytest_command(tests: list[str]) -> list[str]:
+    return [
+        sys.executable,
+        "-X",
+        "utf8",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        *tests,
+    ]
+
+
+def capture_test_execution(
+    root: Path,
+    *,
+    candidate_sha: str,
+    registry: dict[str, Any],
+) -> dict[str, Any]:
+    tests = list(registry["required_tests"])
+    command = _pytest_command(tests)
+    candidate_sha_before = repository_head(root)
+    require(
+        candidate_sha_before == candidate_sha,
+        "candidate SHA does not match repository HEAD",
+    )
+    try:
+        completed = subprocess.run(
+            command,
+            cwd=root,
+            check=False,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+        )
+    except OSError as exc:
+        raise FoundationValidationError("governed test execution is unavailable") from exc
+    return {
+        "schema_version": "1.0.0",
+        "candidate_sha_before": candidate_sha_before,
+        "candidate_sha_after": repository_head(root),
+        "command": command,
+        "tests": tests,
+        "exit_code": completed.returncode,
+    }
+
+
+def execute_registered_tests(
+    root: Path,
+    *,
+    candidate_sha: str,
+    registry: dict[str, Any],
+) -> dict[str, Any]:
+    evidence = capture_test_execution(
+        root,
+        candidate_sha=candidate_sha,
+        registry=registry,
+    )
+    return validate_execution_evidence(
+        evidence,
+        candidate_sha=candidate_sha,
+        registry=registry,
+    )
 
 
 def _validate_checkpoint_document(checkpoint: Any, contract: dict[str, Any]) -> None:
@@ -310,15 +386,14 @@ def validate_foundation(
     root: Path = ROOT,
     *,
     candidate_sha: str,
-    execution_evidence: dict[str, Any],
 ) -> dict[str, Any]:
     require(candidate_sha == repository_head(root), "candidate SHA does not match repository HEAD")
     contract = validate_contract(root)
     task = validate_task(root)
     registry = validate_registry(root, contract=contract)
     checkpoint = validate_checkpoint(root, contract=contract)
-    executed = validate_execution_evidence(
-        execution_evidence,
+    executed = execute_registered_tests(
+        root,
         candidate_sha=candidate_sha,
         registry=registry,
     )
@@ -343,14 +418,12 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Validate the EPIC-092 executable foundation")
     parser.add_argument("--repository-root", type=Path, default=ROOT)
     parser.add_argument("--candidate-sha", required=True)
-    parser.add_argument("--evidence", required=True, type=Path)
     args = parser.parse_args(argv)
     try:
         root = args.repository_root.resolve()
         report = validate_foundation(
             root,
             candidate_sha=args.candidate_sha,
-            execution_evidence=load_json(args.evidence.resolve()),
         )
     except (FoundationValidationError, OSError) as exc:
         print(json.dumps({"decision": "FAIL", "error": str(exc)}, sort_keys=True))

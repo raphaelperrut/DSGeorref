@@ -8,8 +8,9 @@
   `FoundationClosureEvidenceSet` e reabertura material, e `REQ-GOV-005` ao teste
   existente de `SprintEvidenceSet`, fechamento por evidência e rejeição de
   calendário; os demais requisitos permanecem nos testes canônicos da issue.
-- `AC-ISSUE-0676-03`: o CLI consome resultados executados ligados ao `git HEAD`
-  candidato e rejeita evidência ausente, malsucedida, stale, incompatível ou
+- `AC-ISSUE-0676-03`: o CLI executa os testes atribuíveis registrados, deriva o
+  veredito do exit code real do `pytest`, vincula a execução ao `git HEAD` antes
+  e depois e rejeita evidência ausente, malsucedida, stale, incompatível ou
   conflitante, além de drift de comando e tentativa de declarar autorização.
 - `AC-ISSUE-0676-04`: o checkpoint exige o mesmo comando local e de CI; o
   `make verify` executado por `.github/workflows/ci.yml` chama o validador e o
@@ -17,7 +18,8 @@
 
 ## Validações sentinela
 
-- Testes corretivos HIGH-01: `2 passed`.
+- Testes corretivos HIGH-01: o sentinela executa os seis node IDs governados; o
+  teste fail-closed usa execuções reais mínima positiva e negativa do `pytest`.
 - Testes semânticos HIGH-02: `2 passed`.
 - Cinco testes obrigatórios da issue: `5 passed` no candidato inicial; repetidos
   depois do commit corretivo.
