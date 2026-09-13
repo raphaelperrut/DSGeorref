@@ -1,0 +1,27 @@
+{
+  "issue": "ISSUE-0672",
+  "story": "STORY-0562",
+  "status": "PASS",
+  "required_test": "test_epic_091_automacao",
+  "requirement_evidence": {
+    "REQ-FRZ-003": "test_epic_091_automacao",
+    "REQ-GOV-004": "test_epic_091_automacao",
+    "REQ-ISS-003": "test_epic_091_automacao",
+    "REQ-ISS-006": "test_epic_091_automacao",
+    "REQ-PUB-002": "test_epic_091_automacao"
+  },
+  "acceptance_evidence": {
+    "AC-ISSUE-0672-01": "test_epic_091_automacao",
+    "AC-ISSUE-0672-02": "test_epic_091_automacao",
+    "AC-ISSUE-0672-03": "test_epic_091_automacao",
+    "AC-ISSUE-0672-04": "test_epic_091_automacao"
+  },
+  "validation_command": "python -m pytest -q -p no:cacheprovider tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_automation.py::test_epic_091_automacao",
+  "validator_command": "python tools/quality/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/validator.py --dry-run",
+  "automation_mode": "READ_ONLY_WITH_DRY_RUN",
+  "destructive_actions": 0,
+  "live_ruleset_enforcement": "NOT_ASSERTED_BY_AUTOMATION",
+  "contract_impact": "NONE; consumes the frozen ISSUE-0670 contract and ISSUE-0671 control plane.",
+  "rollback": "Revert the ISSUE-0672 commit; no persistent state or destructive action is involved.",
+  "independent_review": "PENDING"
+}

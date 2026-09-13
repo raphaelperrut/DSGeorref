@@ -39,9 +39,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0562.json",
     "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
     "tools/quality/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
-    ".github/workflows/ruleset-de-main-checks-unicos-codeowners-politica-de-b.yaml"
+    ".github/workflows/ruleset-de-main-checks-unicos-codeowners-politica-de-b.yaml",
+    "evidence/operations/epic-091/story-0562/**"
   ],
   "deny_paths": [
     "src/geo/**",
@@ -112,9 +114,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0562.json",
         "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
         "tools/quality/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
-        ".github/workflows/ruleset-de-main-checks-unicos-codeowners-politica-de-b.yaml"
+        ".github/workflows/ruleset-de-main-checks-unicos-codeowners-politica-de-b.yaml",
+        "evidence/operations/epic-091/story-0562/**"
       ],
       "deny_paths": [
         "src/geo/**",
