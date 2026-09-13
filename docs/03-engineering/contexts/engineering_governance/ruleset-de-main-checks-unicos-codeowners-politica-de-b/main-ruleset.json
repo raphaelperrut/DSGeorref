@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "ruleset_id": "DSGEOREF-MAIN",
+  "source_contract": "contracts/contexts/engineering_governance/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/examples/main-ruleset-governance.json",
+  "desired_enforcement": "ACTIVE",
+  "live_enforcement_evidence": "NOT_ASSERTED_BY_FOUNDATION",
+  "branch_policy": {
+    "protected_branch": "main",
+    "entry_issue_state": "READY",
+    "execution_issue_state": "IN_PROGRESS",
+    "branch_lifecycle": "SHORT_LIVED",
+    "change_path": "PULL_REQUEST_ONLY",
+    "direct_push": "REJECT",
+    "automerge": "REJECT",
+    "sensitive_gate_decision": "AUTHORIZED_HUMAN_ONLY"
+  },
+  "required_check_policy": {
+    "catalog_source": "VERSIONED_RULESET_ARTIFACT",
+    "uniqueness_key": "CHECK_CONTEXT",
+    "duplicate_context": "REJECT",
+    "ambiguous_producer": "REJECT",
+    "missing_required_check": "REJECT",
+    "non_successful_required_check": "REJECT",
+    "required_contexts": [
+      "verify-foundation"
+    ]
+  },
+  "codeowners_policy": {
+    "source": ".github/CODEOWNERS",
+    "protected_path_coverage": "REQUIRED",
+    "unresolved_owner": "REJECT",
+    "review_semantics": "REVIEW_ROUTING_ONLY",
+    "delivery_approval_substitute": false
+  },
+  "bypass_policy": {
+    "default": "REJECT",
+    "authorization": "DELIVERY_APPROVAL_AUTHORITY_VERDICT_REQUIRED",
+    "candidate_sha_binding": "EXACT",
+    "audit_record": "IMMUTABLE",
+    "record_fields": [
+      "event_id",
+      "ruleset_id",
+      "protected_branch",
+      "candidate_sha",
+      "actor_subject",
+      "reason",
+      "occurred_at",
+      "delivery_approval_verdict_ref"
+    ],
+    "missing_or_invalid_evidence": "REJECT"
+  },
+  "authority": {
+    "policy_definition": "VERSIONED_REPOSITORY_CONTRACT",
+    "ruleset_enforcement": "GITHUB_DERIVED_CONTROL",
+    "codeowners_source": "GIT_TRACKED_CODEOWNERS",
+    "delivery_approval": "ADR-058_DELIVERY_APPROVAL_AUTHORITY",
+    "github_approval_signal": "SUPPORTING_SIGNAL_ONLY",
+    "product_runtime_state": "NOT_APPLICABLE",
+    "broker": "TRANSPORT_ONLY",
+    "telemetry": "DERIVED_NON_AUTHORITATIVE"
+  },
+  "failure_policy": {
+    "mode": "FAIL_CLOSED",
+    "silent_fallback": false,
+    "missing_ruleset": "REJECT",
+    "duplicate_check_context": "REJECT",
+    "missing_codeowner": "REJECT",
+    "direct_main_change": "REJECT",
+    "automerge_attempt": "REJECT",
+    "unverified_bypass": "REJECT",
+    "stale_candidate_sha": "REJECT"
+  }
+}

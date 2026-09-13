@@ -42,8 +42,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0561.json",
+    "Makefile",
     "tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
-    "docs/03-engineering/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**"
+    "docs/03-engineering/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
+    "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_main_ruleset_foundation.py",
+    "evidence/implementation/epic-091/story-0561/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -115,8 +119,12 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0561.json",
+        "Makefile",
         "tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
-        "docs/03-engineering/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**"
+        "docs/03-engineering/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/**",
+        "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_main_ruleset_foundation.py",
+        "evidence/implementation/epic-091/story-0561/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

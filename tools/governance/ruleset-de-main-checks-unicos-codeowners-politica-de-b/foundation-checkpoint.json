@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0671",
+  "story_id": "STORY-0561",
+  "task_id": "TASK-0561",
+  "source_contract": "contracts/contexts/engineering_governance/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/examples/main-ruleset-governance.json",
+  "control_plane_artifacts": [
+    "docs/03-engineering/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/main-ruleset.json",
+    "docs/03-engineering/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/required-check-registry.json",
+    ".github/CODEOWNERS"
+  ],
+  "requirement_evidence": {
+    "REQ-FRZ-003": "test_issue_adr_decision_package_impact_boundary_and_no_silent_divergence",
+    "REQ-GOV-004": "test_codex_issue_scope_required_pr_no_direct_main_or_automerge",
+    "REQ-ISS-003": "test_no_orphan_issue_without_adr_or_local_decision_justification",
+    "REQ-ISS-006": "test_idempotent_dry_run_managed_field_issue_sync",
+    "REQ-PUB-002": "test_contribution_origin_dco_signoff_and_inbound_outbound_policy"
+  },
+  "acceptance_evidence": {
+    "AC-ISSUE-0671-01": "test_epic_091_fundacao",
+    "AC-ISSUE-0671-02": "test_epic_091_fundacao",
+    "AC-ISSUE-0671-03": "test_epic_091_fundacao",
+    "AC-ISSUE-0671-04": "test_epic_091_fundacao"
+  },
+  "reproducible_command": "python -X utf8 tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/foundation_validation.py",
+  "local_command": "python -X utf8 tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/foundation_validation.py",
+  "ci_command": "python -X utf8 tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/foundation_validation.py",
+  "live_ruleset_enforcement": "NOT_ASSERTED_BY_FOUNDATION",
+  "migration": "NOT_APPLICABLE",
+  "rollback": "REVERT_COMMIT_BEFORE_DOWNSTREAM_CONSUMPTION"
+}
