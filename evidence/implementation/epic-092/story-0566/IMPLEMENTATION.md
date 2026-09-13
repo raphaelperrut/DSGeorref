@@ -9,8 +9,9 @@
   existente de `SprintEvidenceSet`, fechamento por evidência e rejeição de
   calendário; os demais requisitos permanecem nos testes canônicos da issue.
 - `AC-ISSUE-0676-03`: o CLI executa os testes atribuíveis registrados, deriva o
-  veredito do exit code real do `pytest`, vincula a execução ao `git HEAD` antes
-  e depois e rejeita evidência ausente, malsucedida, stale, incompatível ou
+  veredito do exit code real do `pytest` em clone local temporário do candidato,
+  vincula a execução ao `git HEAD` antes/depois e ao SHA efetivamente testado e
+  rejeita evidência ausente, malsucedida, stale, incompatível ou
   conflitante, além de drift de comando e tentativa de declarar autorização.
 - `AC-ISSUE-0676-04`: o checkpoint exige o mesmo comando local e de CI; o
   `make verify` executado por `.github/workflows/ci.yml` chama o validador e o

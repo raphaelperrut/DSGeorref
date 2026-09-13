@@ -5,6 +5,7 @@ import ast
 import json
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any, cast
 
@@ -259,14 +260,7 @@ def validate_execution_evidence(
 
 def _pytest_command(tests: list[str]) -> list[str]:
     return [
-        sys.executable,
-        "-X",
-        "utf8",
-        "-m",
-        "pytest",
-        "-q",
-        "-p",
-        "no:cacheprovider",
+        sys.executable, "-X", "utf8", "-m", "pytest", "-q", "-p", "no:cacheprovider",
         *tests,
     ]
 
@@ -284,17 +278,23 @@ def capture_test_execution(
         candidate_sha_before == candidate_sha,
         "candidate SHA does not match repository HEAD",
     )
-    try:
+    with tempfile.TemporaryDirectory(prefix="dsg0676-") as temporary_directory:
+        execution_root = Path(temporary_directory)
+        for setup_command in (
+            ["git", "clone", "-q", "--no-local", str(root), str(execution_root)],
+            [
+                "git", "-C", str(execution_root), "update-ref",
+                "refs/remotes/origin/main", candidate_sha,
+            ],
+        ):
+            prepared = subprocess.run(setup_command, check=False, capture_output=True)
+            require(prepared.returncode == 0, "governed execution checkout is unavailable")
         completed = subprocess.run(
-            command,
-            cwd=root,
-            check=False,
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
+            command, cwd=execution_root, check=False, capture_output=True,
+            text=True, encoding="utf-8",
         )
-    except OSError as exc:
-        raise FoundationValidationError("governed test execution is unavailable") from exc
+        executed_sha = repository_head(execution_root)
+    require(executed_sha == candidate_sha, "executed test candidate is stale")
     return {
         "schema_version": "1.0.0",
         "candidate_sha_before": candidate_sha_before,

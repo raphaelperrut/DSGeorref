@@ -15,7 +15,8 @@ python -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/fechamento-da-sprint-0
 
 O teste sentinela invoca o CLI com `--candidate-sha`. O próprio CLI executa
 exatamente os node IDs obrigatórios do registry e deriva o veredito do exit code
-real do `pytest`, verificando o SHA do checkout antes e depois da execução. O
+real do `pytest` em clone local temporário e sem rede do commit candidato,
+verificando o SHA do checkout original antes e depois e o SHA efetivamente testado. O
 validador rejeita contrato, registry, checkpoint ou integração de CI divergente,
 assim como execução ausente, malsucedida, conflitante ou ligada a outro SHA, sem
 fallback silencioso. O chamador não fornece nem pode sintetizar resultados `PASS`.
