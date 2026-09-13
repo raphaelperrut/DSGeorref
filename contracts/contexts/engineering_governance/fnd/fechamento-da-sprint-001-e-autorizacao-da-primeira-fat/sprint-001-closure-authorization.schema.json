@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/sprint-001-closure-authorization/1.0.0",
+  "title": "DSGeorref SPRINT-001 Closure and First Functional Slice Authorization Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "contract_version",
+    "owner",
+    "status",
+    "requirement_evidence",
+    "contract_sources",
+    "foundation_evidence",
+    "sprint_exit_conditions",
+    "state_model",
+    "data_authority",
+    "evidence_policy",
+    "compatibility",
+    "failure_policy",
+    "review_gate"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "contract_id": { "const": "SPRINT-001-CLOSURE-AUTHORIZATION-CONTRACT" },
+    "contract_version": { "const": "1.0.0" },
+    "owner": { "const": "BC-001" },
+    "status": { "const": "FROZEN" },
+    "requirement_evidence": {
+      "const": [
+        {
+          "requirement_id": "REQ-EPIC-001",
+          "source": "docs/01-product/requirements/REQ-EPIC-001-georreferenciamento-funcional-somente-comeca-apos-fluxo-diagnostico-pont.md",
+          "canonical_test": "test_executable_foundation_gate_clean_room_end_to_end",
+          "candidate_evidence": "test_epic_092_contrato"
+        }
+      ]
+    },
+    "contract_sources": {
+      "const": {
+        "foundation_manifest": "contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/contract-manifest.yaml",
+        "http": "contracts/http/openapi.yaml",
+        "operations": "contracts/http/OPERATION_CATALOG.json"
+      }
+    },
+    "foundation_evidence": {
+      "const": {
+        "requirement_id": "REQ-EPIC-001",
+        "canonical_test": "test_executable_foundation_gate_clean_room_end_to_end",
+        "required_result": "PASS",
+        "coverage": [
+          "DIAGNOSTIC_END_TO_END",
+          "MIGRATIONS",
+          "CONTRACTS",
+          "CI",
+          "MINIMUM_SECURITY",
+          "CLEAN_ROOM_BOOTSTRAP"
+        ],
+        "upstream_consumption": "REFERENCE_WITHOUT_REINTERPRETATION"
+      }
+    },
+    "sprint_exit_conditions": {
+      "const": {
+        "adr_019_022_evidence": "ATTACHED",
+        "contracts": "FROZEN",
+        "story_requirement_limit": 10,
+        "story_requirement_limit_violation": "BLOCK",
+        "transient_write_scope": "PROHIBITED",
+        "write_scope_overlap": "BLOCK",
+        "runtime_resolution": "RESOLVED",
+        "runtime_signature": "REQUIRED"
+      }
+    },
+    "state_model": {
+      "const": {
+        "initial_state": "EVIDENCE_PENDING",
+        "reviewable_state": "READY_FOR_INDEPENDENT_REVIEW",
+        "authorized_state": "AUTHORIZED_FOR_FIRST_FUNCTIONAL_SLICE",
+        "blocked_state": "BLOCKED",
+        "authorization_condition": "ALL_EVIDENCE_AND_INDEPENDENT_APPROVALS_SAME_SHA",
+        "unknown_or_unmapped_state": "REJECT"
+      }
+    },
+    "data_authority": {
+      "const": {
+        "gate_definition": "VERSIONED_REPOSITORY_CONTRACT",
+        "foundation_runtime_state": "POSTGRESQL_POSTGIS",
+        "published_binaries": "MANAGED_FILESYSTEM",
+        "broker": "TRANSPORT_ONLY",
+        "telemetry": "DERIVED_NON_AUTHORITATIVE",
+        "gate_evidence": "VERSIONED_CANDIDATE_BOUND_ARTIFACT",
+        "approval_record": "IMMUTABLE"
+      }
+    },
+    "evidence_policy": {
+      "const": {
+        "candidate_sha_binding": "EXACT",
+        "same_sha_for_tests_and_approvals": true,
+        "missing_evidence": "BLOCK",
+        "non_successful_evidence": "BLOCK",
+        "stale_candidate_sha": "BLOCK",
+        "conflicting_evidence": "BLOCK"
+      }
+    },
+    "compatibility": {
+      "const": {
+        "policy": "SEMVER",
+        "current_major": 1,
+        "compatible_change": "OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR",
+        "breaking_change": "NEW_MAJOR_AND_ARCHITECT_REVIEW",
+        "unknown_properties": "REJECT",
+        "rollback": "REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION"
+      }
+    },
+    "failure_policy": {
+      "const": {
+        "mode": "FAIL_CLOSED",
+        "silent_fallback": false,
+        "partial_authorization": "PROHIBITED",
+        "missing_foundation_proof": "BLOCK",
+        "failed_sprint_exit_condition": "BLOCK",
+        "missing_independent_approval": "BLOCK",
+        "candidate_sha_mismatch": "BLOCK",
+        "unknown_property_or_state": "REJECT"
+      }
+    },
+    "review_gate": {
+      "const": {
+        "executor_role": "Arquiteto",
+        "qa_role": "QA",
+        "independent_role": "Reviewer",
+        "same_candidate_commit": true,
+        "self_approval": "PROHIBITED",
+        "runtime_implementation": "DOWNSTREAM_STORIES_ONLY"
+      }
+    }
+  }
+}
