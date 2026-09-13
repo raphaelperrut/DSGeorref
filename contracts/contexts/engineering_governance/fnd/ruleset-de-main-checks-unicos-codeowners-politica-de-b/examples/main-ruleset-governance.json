@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "MAIN-RULESET-GOVERNANCE-CONTRACT",
+  "contract_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "FROZEN",
+  "requirement_evidence": [
+    {
+      "requirement_id": "REQ-FRZ-003",
+      "source": "docs/01-product/requirements/REQ-FRZ-003-a-fronteira-entre-issue-adr-e-owner-decision-record-deve-ser-proporciona.md",
+      "canonical_test": "test_issue_adr_decision_package_impact_boundary_and_no_silent_divergence",
+      "candidate_evidence": "test_epic_091_contrato"
+    },
+    {
+      "requirement_id": "REQ-GOV-004",
+      "source": "docs/01-product/requirements/REQ-GOV-004-codex-atua-somente-em-issue-ready-branch-worktree-curta-e-pr-sem-merge-a.md",
+      "canonical_test": "test_codex_issue_scope_required_pr_no_direct_main_or_automerge",
+      "candidate_evidence": "test_epic_091_contrato"
+    },
+    {
+      "requirement_id": "REQ-ISS-003",
+      "source": "docs/01-product/requirements/REQ-ISS-003-toda-issue-deve-apontar-adrs-requisitos-riscos-gates-ou-justificar-decis.md",
+      "canonical_test": "test_no_orphan_issue_without_adr_or_local_decision_justification",
+      "candidate_evidence": "test_epic_091_contrato"
+    },
+    {
+      "requirement_id": "REQ-ISS-006",
+      "source": "docs/01-product/requirements/REQ-ISS-006-a-sincronizacao-de-issues-e-idempotente-suporta-dry-run-e-altera-apenas.md",
+      "canonical_test": "test_idempotent_dry_run_managed_field_issue_sync",
+      "candidate_evidence": "test_epic_091_contrato"
+    },
+    {
+      "requirement_id": "REQ-PUB-002",
+      "source": "docs/01-product/requirements/REQ-PUB-002-contribuicoes-externas-devem-possuir-mecanismo-aprovado-de-certificacao.md",
+      "canonical_test": "test_contribution_origin_dco_signoff_and_inbound_outbound_policy",
+      "candidate_evidence": "test_epic_091_contrato"
+    }
+  ],
+  "branch_policy": {
+    "protected_branch": "main",
+    "entry_issue_state": "READY",
+    "execution_issue_state": "IN_PROGRESS",
+    "branch_lifecycle": "SHORT_LIVED",
+    "change_path": "PULL_REQUEST_ONLY",
+    "direct_push": "REJECT",
+    "automerge": "REJECT",
+    "sensitive_gate_decision": "AUTHORIZED_HUMAN_ONLY"
+  },
+  "required_check_policy": {
+    "catalog_source": "VERSIONED_RULESET_ARTIFACT",
+    "uniqueness_key": "CHECK_CONTEXT",
+    "duplicate_context": "REJECT",
+    "ambiguous_producer": "REJECT",
+    "missing_required_check": "REJECT",
+    "non_successful_required_check": "REJECT"
+  },
+  "codeowners_policy": {
+    "source": ".github/CODEOWNERS",
+    "protected_path_coverage": "REQUIRED",
+    "unresolved_owner": "REJECT",
+    "review_semantics": "REVIEW_ROUTING_ONLY",
+    "delivery_approval_substitute": false
+  },
+  "bypass_policy": {
+    "default": "REJECT",
+    "authorization": "DELIVERY_APPROVAL_AUTHORITY_VERDICT_REQUIRED",
+    "candidate_sha_binding": "EXACT",
+    "audit_record": "IMMUTABLE",
+    "record_fields": [
+      "event_id",
+      "ruleset_id",
+      "protected_branch",
+      "candidate_sha",
+      "actor_subject",
+      "reason",
+      "occurred_at",
+      "delivery_approval_verdict_ref"
+    ],
+    "missing_or_invalid_evidence": "REJECT"
+  },
+  "authority": {
+    "policy_definition": "VERSIONED_REPOSITORY_CONTRACT",
+    "ruleset_enforcement": "GITHUB_DERIVED_CONTROL",
+    "codeowners_source": "GIT_TRACKED_CODEOWNERS",
+    "delivery_approval": "ADR-058_DELIVERY_APPROVAL_AUTHORITY",
+    "github_approval_signal": "SUPPORTING_SIGNAL_ONLY",
+    "product_runtime_state": "NOT_APPLICABLE",
+    "broker": "TRANSPORT_ONLY",
+    "telemetry": "DERIVED_NON_AUTHORITATIVE"
+  },
+  "compatibility": {
+    "policy": "SEMVER",
+    "compatible_change": "OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR",
+    "breaking_change": "NEW_MAJOR_AND_ARCHITECT_REVIEW",
+    "unknown_properties": "REJECT"
+  },
+  "failure_policy": {
+    "mode": "FAIL_CLOSED",
+    "silent_fallback": false,
+    "missing_ruleset": "REJECT",
+    "duplicate_check_context": "REJECT",
+    "missing_codeowner": "REJECT",
+    "direct_main_change": "REJECT",
+    "automerge_attempt": "REJECT",
+    "unverified_bypass": "REJECT",
+    "stale_candidate_sha": "REJECT"
+  },
+  "review_gate": {
+    "executor_role": "Arquiteto",
+    "independent_role": "Reviewer",
+    "same_candidate_commit": true,
+    "self_approval": "PROHIBITED"
+  }
+}
