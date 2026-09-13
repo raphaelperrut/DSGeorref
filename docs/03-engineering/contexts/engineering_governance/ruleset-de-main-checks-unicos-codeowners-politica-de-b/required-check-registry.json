@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "MAIN-REQUIRED-CHECKS",
+  "protected_branch": "main",
+  "uniqueness_key": "CHECK_CONTEXT",
+  "duplicate_context": "REJECT",
+  "required_checks": [
+    {
+      "context": "verify-foundation",
+      "workflow": ".github/workflows/ci.yml",
+      "job": "verify-foundation"
+    }
+  ]
+}
