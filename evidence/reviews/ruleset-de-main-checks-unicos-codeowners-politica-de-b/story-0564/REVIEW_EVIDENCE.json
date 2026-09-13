@@ -1,0 +1,164 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_type": "FINAL_REVIEW",
+  "issue_id": "ISSUE-0674",
+  "github_issue": 62,
+  "reviewed_issue_id": "ISSUE-0673",
+  "reviewed_pull_request": 964,
+  "candidate_sha": "4d3e5d69192b7b52b10e02af758dcf3b41727ee0",
+  "candidate_tree": "ed7894a798841a18b15e07829a2e3f195436e233",
+  "merge_sha": "a4d2579291d7e2868899127157f9205313cbc172",
+  "candidate_artifacts": [
+    {
+      "path": ".codex/tasks/TASK-0563.json",
+      "sha256": "df0d96b8e284a088763852f7e0ed51bd24cf272eb3fe94c66beb7d48d2e5f718"
+    },
+    {
+      "path": ".github/workflows/ruleset-de-main-checks-unicos-codeowners-politica-de-b.yaml",
+      "sha256": "12661c1dfe9f9d1bcb5e00aa4b21c94c10508c7da1f6d98ef987d5b250ad8ceb"
+    },
+    {
+      "path": "docs/03-engineering/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/README.md",
+      "sha256": "6e298cc7daeca5a87abfc1223ec3d1f192d23caf9f02d1a697174a05ecc750c9"
+    },
+    {
+      "path": "docs/03-engineering/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/integration-checkpoint.json",
+      "sha256": "bf06d034c668bb19988534cc0b674722ec9c7a2470d4c70102070463a421d413"
+    },
+    {
+      "path": "docs/03-engineering/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/main-ruleset.json",
+      "sha256": "d4145ec9ff26c7e213a5a7faac8f4c618849baf7c15d38bdf211cae58ec9cbc1"
+    },
+    {
+      "path": "docs/03-engineering/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/required-check-registry.json",
+      "sha256": "e998b3dd3cd407e0553f1f3af25b365e0571e9e031e00e1f3443e202d44f324d"
+    },
+    {
+      "path": "evidence/implementation/epic-091/story-0563/validation.json",
+      "sha256": "105320d7f9d64ca1d3cb59c6a5ca020c5efb35fb1f92429a45923d8d5a787383"
+    },
+    {
+      "path": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_integration.py",
+      "sha256": "8aa721610ebbeb50bde68f68532013e9d0a325888bcb2dfe5fbbc324a9c0c4ca"
+    },
+    {
+      "path": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_main_ruleset_foundation.py",
+      "sha256": "8c0c085f3eb6f718d32ea8c159557bd1346c292c40c3cfb792b870e1d974d7a4"
+    },
+    {
+      "path": "tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/integration_validation.py",
+      "sha256": "46513acfe735bfe5594c74b02922c4e1d7192b1e43f0b0f6c35f6421930c83b3"
+    },
+    {
+      "path": "tools/quality/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/validator.py",
+      "sha256": "7f19379134457e40852ab1646a2d2ab9115be59e735bd4c48e7574003475bac7"
+    }
+  ],
+  "requirements_evidence": {
+    "REQ-FRZ-003": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_integration.py::test_epic_091_integracao",
+    "REQ-GOV-004": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_integration.py::test_epic_091_integracao",
+    "REQ-ISS-003": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_integration.py::test_epic_091_integracao",
+    "REQ-ISS-006": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_integration.py::test_epic_091_integracao",
+    "REQ-PUB-002": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_integration.py::test_epic_091_integracao"
+  },
+  "canonical_requirement_tests": {
+    "REQ-FRZ-003": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_main_ruleset_foundation.py::test_issue_adr_decision_package_impact_boundary_and_no_silent_divergence",
+    "REQ-GOV-004": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_fs1_gov_sgvcal_part_3.py::test_codex_issue_scope_required_pr_no_direct_main_or_automerge",
+    "REQ-ISS-003": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_main_ruleset_foundation.py::test_no_orphan_issue_without_adr_or_local_decision_justification",
+    "REQ-ISS-006": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_ism_issue_native_governance.py::test_idempotent_dry_run_managed_field_issue_sync",
+    "REQ-PUB-002": "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py::test_contribution_origin_dco_signoff_and_inbound_outbound_policy"
+  },
+  "acceptance_criteria": [
+    "AC-ISSUE-0674-01",
+    "AC-ISSUE-0674-02",
+    "AC-ISSUE-0674-03",
+    "AC-ISSUE-0674-04"
+  ],
+  "acceptance_tests": [
+    "test_epic_091_aceite_happy_path",
+    "test_epic_091_aceite_negative_paths"
+  ],
+  "coordination": [
+    {
+      "role": "Reviewer",
+      "authority": "ROLE-011",
+      "decision": "PASS",
+      "candidate_sha": "4d3e5d69192b7b52b10e02af758dcf3b41727ee0",
+      "evidence_paths": [
+        "evidence/implementation/epic-091/story-0563/validation.json",
+        "evidence/reviews/ruleset-de-main-checks-unicos-codeowners-politica-de-b/story-0564/REVIEW_EVIDENCE.json"
+      ],
+      "residual_risk_ids": [
+        "RR-ISSUE-0674-01"
+      ]
+    },
+    {
+      "role": "QA",
+      "authority": "GITHUB_ACTIONS",
+      "decision": "PASS",
+      "candidate_sha": "4d3e5d69192b7b52b10e02af758dcf3b41727ee0",
+      "evidence_paths": [
+        "evidence/implementation/epic-091/story-0563/validation.json",
+        "evidence/reviews/ruleset-de-main-checks-unicos-codeowners-politica-de-b/story-0564/REVIEW_EVIDENCE.json"
+      ],
+      "residual_risk_ids": [
+        "RR-ISSUE-0674-01"
+      ]
+    }
+  ],
+  "implicit_approval": false,
+  "self_approval": false,
+  "hosted_validation": {
+    "pull_request": 964,
+    "head_sha": "4d3e5d69192b7b52b10e02af758dcf3b41727ee0",
+    "conclusion": "SUCCESS",
+    "runs": [
+      {
+        "workflow": "epic-091-main-ruleset-controls",
+        "event": "pull_request",
+        "run_id": 34736556645,
+        "url": "https://github.com/raphaelperrut/DSGeorref/actions/runs/34736556645"
+      },
+      {
+        "workflow": "foundation-ci",
+        "event": "pull_request",
+        "run_id": 34736556547,
+        "url": "https://github.com/raphaelperrut/DSGeorref/actions/runs/34736556547"
+      }
+    ]
+  },
+  "validation": {
+    "predecessor_focused_suites": "PASS: 8 passed",
+    "direct_automation_runner": "PASS: dry-run, zero findings",
+    "direct_integration_runner": "PASS",
+    "acceptance_tests": "PASS: 2 passed",
+    "targeted_ruff": "PASS",
+    "targeted_mypy_strict": "PASS",
+    "json_candidate_blob_digests_and_git_diff_check": "PASS",
+    "make_verify": "ENVIRONMENTAL_FAIL: Ruff, mypy, frontend typecheck, Vitest, browser test, repository validation, architecture, requirements, DDD, ADR, specification, sprint, Python architecture, licensing foundation, and monorepo validation passed; the unchanged service-backed walking-skeleton test then stopped before execution because FOUNDATION_INTEGRATION is unset and local PostgreSQL/RabbitMQ are unavailable. The exact reviewed candidate passed hosted foundation-ci with both services."
+  },
+  "live_ruleset_enforcement": "NOT_ASSERTED",
+  "residual_risks": [
+    {
+      "id": "RR-ISSUE-0674-01",
+      "severity": "LOW",
+      "description": "The repository plan denies the GitHub ruleset/protection API, so this audit cannot prove live remote enforcement.",
+      "disposition": "ACCEPTED: the frozen contract and every implementation layer explicitly limit the claim to versioned desired state; enforcement remains a derived GitHub control."
+    }
+  ],
+  "findings": {
+    "blocker": "NONE",
+    "high": "NONE",
+    "medium_low_nonblocking": [
+      "Live GitHub ruleset enforcement is not asserted because the repository plan denies the ruleset/protection API.",
+      "The local make verify run cannot execute the unchanged service-backed walking-skeleton E2E without FOUNDATION_INTEGRATION=1 and PostgreSQL/RabbitMQ; the exact candidate passed hosted foundation-ci.",
+      "The local Node 22.14.0 differs from the repository-pinned Node 24.20.0; the frontend checks completed before the service-backed E2E stop."
+    ]
+  },
+  "contract_impact": "NONE",
+  "migration_required": false,
+  "rollback": "Revert the ISSUE-0674 evidence commit; no contract, schema, persistent state, deployment, or runtime changes are present.",
+  "task_envelope_change": "NOT_NEEDED",
+  "new_prerequisite_created": false,
+  "architectural_risk_open": "NONE"
+}
