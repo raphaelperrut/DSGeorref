@@ -24,6 +24,8 @@ verify: python-quality frontend-quality
 	$(PYTHON) -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09 tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_10
 	$(PYTHON) -X utf8 tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/foundation_validation.py
 	$(PYTHON) -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_main_ruleset_foundation.py
+	$(PYTHON) -X utf8 tools/governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/foundation_validation.py
+	$(PYTHON) -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py
 
 python-quality:
 	$(PYTHON) -m ruff check $(RUFF_PATHS)

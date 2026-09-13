@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0676",
+  "story_id": "STORY-0566",
+  "task_id": "TASK-0566",
+  "source_contract": "contracts/contexts/engineering_governance/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/examples/sprint-001-closure-authorization.json",
+  "evidence_registry": "docs/03-engineering/contexts/engineering_governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/foundation-evidence-registry.json",
+  "reproducible_command": "python -X utf8 tools/governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/foundation_validation.py",
+  "local_command": "python -X utf8 tools/governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/foundation_validation.py",
+  "ci_command": "python -X utf8 tools/governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/foundation_validation.py",
+  "test_command": "python -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py",
+  "reviewable_state": "READY_FOR_INDEPENDENT_REVIEW",
+  "authorization_claim": "NOT_ASSERTED_BY_FOUNDATION",
+  "migration": "NOT_APPLICABLE",
+  "rollback": "REVERT_BEFORE_CONSUMPTION_OR_SUPERSEDE_WITH_NEW_VERSION"
+}
