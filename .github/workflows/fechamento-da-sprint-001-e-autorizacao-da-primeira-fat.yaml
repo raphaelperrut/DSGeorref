@@ -1,0 +1,37 @@
+name: epic-092-sprint-001-closure-controls
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-sprint-001-closure-controls:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: '3.12.13'
+          cache: 'pip'
+          cache-dependency-path: requirements-validation.txt
+
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-validation.txt
+
+      - name: Validate ISSUE-0677 controls in dry-run mode
+        run: >-
+          python
+          tools/quality/contexts/engineering_governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/validator.py
+          --candidate-sha "${{ github.sha }}"
+          --dry-run
+
+      - name: Prove deterministic and fail-closed automation
+        run: >-
+          python -m pytest -q -p no:cacheprovider
+          tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_automation.py::test_epic_092_automacao
