@@ -39,9 +39,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0567.json",
     "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**",
     "tools/quality/contexts/engineering_governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**",
-    ".github/workflows/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat.yaml"
+    ".github/workflows/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat.yaml",
+    "evidence/operations/epic-092/story-0567/**"
   ],
   "deny_paths": [
     "src/geo/**",
@@ -112,9 +114,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0567.json",
         "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**",
         "tools/quality/contexts/engineering_governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**",
-        ".github/workflows/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat.yaml"
+        ".github/workflows/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat.yaml",
+        "evidence/operations/epic-092/story-0567/**"
       ],
       "deny_paths": [
         "src/geo/**",
