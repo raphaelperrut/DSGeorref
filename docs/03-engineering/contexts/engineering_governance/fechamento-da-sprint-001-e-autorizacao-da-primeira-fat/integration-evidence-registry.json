@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "SPRINT-001-CLOSURE-INTEGRATION-EVIDENCE",
+  "issue_id": "ISSUE-0678",
+  "story_id": "STORY-0568",
+  "task_id": "TASK-0568",
+  "dependency_issues": [
+    "ISSUE-0676",
+    "ISSUE-0677"
+  ],
+  "dependency_validator": "tools/quality/contexts/engineering_governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/validator.py",
+  "requirement_evidence": {
+    "REQ-DEV-001": "test_host_container_ci_contract_and_no_implicit_downloads",
+    "REQ-FRZ-001": "test_foundation_baseline_digest_controlled_change_and_adr_supersession",
+    "REQ-FRZ-002": "test_sprint_zero_authorization_and_functional_foundation_gate_blocking",
+    "REQ-FRZ-003": "test_issue_adr_decision_package_impact_boundary_and_no_silent_divergence",
+    "REQ-FRZ-004": "test_foundation_closure_evidence_set_and_material_reopening_criteria",
+    "REQ-GOV-005": "test_sprint_zero_baseline_decision_09"
+  },
+  "acceptance_evidence": {
+    "AC-ISSUE-0678-01": "test_epic_092_integracao",
+    "AC-ISSUE-0678-02": "test_epic_092_integracao",
+    "AC-ISSUE-0678-03": "test_epic_092_integracao",
+    "AC-ISSUE-0678-04": "test_epic_092_integracao"
+  },
+  "required_test": "test_epic_092_integracao",
+  "required_result": "READY_FOR_INDEPENDENT_REVIEW",
+  "failure_policy": "BLOCK_ON_ANY_FINDING",
+  "authorization_claim": "NOT_ASSERTED_BY_INTEGRATION"
+}

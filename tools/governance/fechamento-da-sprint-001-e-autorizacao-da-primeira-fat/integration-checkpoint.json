@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0678",
+  "story_id": "STORY-0568",
+  "task_id": "TASK-0568",
+  "evidence_registry": "docs/03-engineering/contexts/engineering_governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/integration-evidence-registry.json",
+  "dependency_validator": "tools/quality/contexts/engineering_governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/validator.py",
+  "reproducible_command": "python -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_integration.py::test_epic_092_integracao",
+  "candidate_state": "READY_FOR_INDEPENDENT_REVIEW",
+  "authorization_claim": "NOT_ASSERTED_BY_INTEGRATION",
+  "migration": "NOT_APPLICABLE",
+  "rollback": "REVERT_COMMIT"
+}
