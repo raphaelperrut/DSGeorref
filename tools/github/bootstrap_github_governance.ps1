@@ -52,12 +52,9 @@ python tools/github/sync_milestones.py `
 if ($LASTEXITCODE -ne 0) { throw "sync_milestones.py falhou" }
 
 python tools/github/configure_project_automations.py `
-    --repo $Repo `
     --owner $ProjectOwner `
     --owner-type $OwnerType `
     --project-number $ProjectNumber `
-    --install-actions-workflow `
-    --set-variables `
     @applyArg
 if ($LASTEXITCODE -ne 0) { throw "configure_project_automations.py falhou" }
 

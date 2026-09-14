@@ -9,7 +9,7 @@ Este pacote contém cinco utilitários principais:
 1. `sync_project_fields.py` — cria/valida campos personalizados e preenche as issues já materializadas.
 2. `sync_labels.py` — cria ou atualiza a taxonomia controlada de labels.
 3. `sync_milestones.py` — cria/atualiza milestones e associa issues conforme o mapa sprint → milestone.
-4. `configure_project_automations.py` — audita workflows built-in, instala automação via GitHub Actions e configura repository variables.
+4. `configure_project_automations.py` — audita workflows built-in e orienta a configuração manual.
 5. `enable_native_fields.py` — audita a visibilidade de `Parent issue` e `Sub-issue progress` por view e gera a ação manual exata.
 
 Também inclui:
@@ -25,7 +25,7 @@ Dois pontos não podem ser integralmente escritos pela API pública atual do Git
 - criação/edição dos workflows built-in do Project;
 - alteração dos campos visíveis em cada Project view.
 
-Por isso, os scripts correspondentes fazem auditoria, instalam uma automação equivalente via Actions quando possível e imprimem o procedimento manual restante. Eles não simulam sucesso remoto inexistente.
+Por isso, os scripts correspondentes fazem auditoria e imprimem o procedimento manual restante. Eles não simulam sucesso remoto inexistente.
 
 ## Pré-requisitos
 
@@ -177,64 +177,30 @@ Repita até `Pending milestone associations: 0`.
 
 Para ampliar a estratégia, edite `config/github/milestones.json` antes de importar sprints posteriores.
 
-## 4. Instalar e auditar automações do Project
+## 4. Auditar automações nativas do Project
 
 Dry-run:
 
 ```powershell
 python tools/github/configure_project_automations.py `
-  --repo raphaelperrut/DSGeorref `
   --owner raphaelperrut `
   --owner-type user `
-  --project-number N `
-  --install-actions-workflow `
-  --set-variables
+  --project-number N
 ```
 
 Aplicar:
 
 ```powershell
 python tools/github/configure_project_automations.py `
-  --repo raphaelperrut/DSGeorref `
   --owner raphaelperrut `
   --owner-type user `
   --project-number N `
-  --install-actions-workflow `
-  --set-variables `
   --apply
 ```
 
-Isso cria:
-
-```text
-.github/workflows/project-automation.yml
-```
-
-E configura as repository variables:
-
-```text
-DSGEO_PROJECT_OWNER=raphaelperrut
-DSGEO_PROJECT_OWNER_TYPE=user
-DSGEO_PROJECT_NUMBER=N
-```
-
-### Token para a automação
-
-Para um Project pertencente a uma conta pessoal, o `GITHUB_TOKEN` padrão do workflow não consegue administrar o Project. Crie um Personal Access Token classic com scopes:
-
-```text
-repo
-project
-```
-
-Depois grave-o como secret do repositório:
-
-```powershell
-gh secret set DSGEO_PROJECT_TOKEN `
-  --repo raphaelperrut/DSGeorref
-```
-
-Cole o token somente no prompt seguro. Nunca o salve em arquivo, commit, variável comum ou argumento de linha de comando.
+Com `--apply`, o utilitário persiste somente o relatório
+`evidence/github/project-workflows-audit.json`. Ele não altera workflows nem
+repository variables.
 
 ### Workflows built-in ainda manuais
 
@@ -253,7 +219,7 @@ Ative e configure:
 5. Auto-add para novas issues do repositório `raphaelperrut/DSGeorref`.
 6. Auto-archive para itens concluídos após o período de retenção escolhido.
 
-Evite deixar dois mecanismos executando exatamente a mesma transição. A automação via Actions já cobre `opened`, `reopened` e `closed`; os workflows built-in podem ser usados como redundância controlada ou você pode manter somente um mecanismo para cada transição.
+Evite configurar dois workflows built-in para executar exatamente a mesma transição.
 
 ## 5. Auditar e habilitar campos nativos por view
 
@@ -296,7 +262,7 @@ powershell -ExecutionPolicy Bypass -File tools/github/bootstrap_github_governanc
   -Apply
 ```
 
-O bootstrap não cria o secret `DSGEO_PROJECT_TOKEN` e não executa os cliques manuais do Project.
+O bootstrap não executa os cliques manuais do Project.
 
 ## Instalar os templates de governança
 
@@ -343,7 +309,6 @@ git add tools/github config/github docs/10-governance templates `
   .github/dsgeorref-materialization-map.json `
   .github/dsgeorref-project-field-sync.json `
   .github/dsgeorref-milestone-sync.json `
-  .github/workflows/project-automation.yml `
   evidence/github
 
 git commit -m "chore: configure GitHub governance and project synchronization"
