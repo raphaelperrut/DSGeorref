@@ -1,5 +1,4 @@
 {
-  "actions_workflow": ".github\\workflows\\project-automation.yml",
   "built_in_workflows": [
     {
       "enabled": true,

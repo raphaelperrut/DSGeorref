@@ -423,7 +423,7 @@ permissions:
   contents: read
 ```
 
-Para a automação do Project, o workflow usa um PAT guardado em `DSGEO_PROJECT_TOKEN`; o `GITHUB_TOKEN` permanece somente leitura para conteúdo e issues.
+Para a automação do Project, use os workflows built-in e mantenha a configuração manual auditada.
 
 ### Fork pull request workflows
 
