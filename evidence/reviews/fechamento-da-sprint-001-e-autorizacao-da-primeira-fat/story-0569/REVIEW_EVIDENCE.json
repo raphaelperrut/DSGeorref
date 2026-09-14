@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_type": "FINAL_REVIEW",
+  "issue_id": "ISSUE-0679",
+  "github_issue": 67,
+  "reviewed_issue_id": "ISSUE-0678",
+  "reviewed_pull_request": 969,
+  "candidate_sha": "97fc405d81b5fb6ab1ff802bf351e17845b2272e",
+  "candidate_tree": "2b653ea9dfaf3ff2485a983029694d80f9b93b55",
+  "merge_sha": "ae5ae1818f8438a8fac1822baf1ff4e2995788cb",
+  "candidate_artifacts": [
+    {
+      "path": ".codex/tasks/TASK-0568.json",
+      "sha256": "48590238651c519c2cb47a0fc9c0c3b6bce0eb7ebcdb1b9b9fbf8cc2275aec87"
+    },
+    {
+      "path": "docs/03-engineering/contexts/engineering_governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/integration-evidence-registry.json",
+      "sha256": "ff29de8f694959c9777b8bf53ab510657f37416fadbdeab289df9e638e9b342b"
+    },
+    {
+      "path": "evidence/implementation/epic-092/story-0568/IMPLEMENTATION.md",
+      "sha256": "1d6aa52c34934060cc9de159188e2c6a575b397f9abf24755663c6e32f25419f"
+    },
+    {
+      "path": "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_integration.py",
+      "sha256": "604b61f1422fa74fa61663158e85985639851044e59df15de3eb97ec3e89f63f"
+    },
+    {
+      "path": "tools/governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/integration-checkpoint.json",
+      "sha256": "b0130cf6a56a96f6832554c81462ec6f483f8fd84f8ed6265e000d1c7da38192"
+    },
+    {
+      "path": "tools/governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/integration_validation.py",
+      "sha256": "18806038c3fe983e5c24f7ea4de22c8759390c179d15fb9f1b7e2ca41d8e91b9"
+    }
+  ],
+  "requirements_evidence": {
+    "REQ-DEV-001": "tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation.py::test_host_container_ci_contract_and_no_implicit_downloads",
+    "REQ-EPIC-001": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_contract.py::test_executable_foundation_gate_clean_room_end_to_end",
+    "REQ-FRZ-001": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_foundation_baseline_digest_controlled_change_and_adr_supersession",
+    "REQ-FRZ-002": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_bex_epic_frz_part_2.py::test_sprint_zero_authorization_and_functional_foundation_gate_blocking",
+    "REQ-FRZ-003": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_main_ruleset_foundation.py::test_issue_adr_decision_package_impact_boundary_and_no_silent_divergence",
+    "REQ-FRZ-004": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_foundation_closure_evidence_set_and_material_reopening_criteria",
+    "REQ-GOV-005": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09",
+    "REQ-TST-001": "tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_foundation.py::test_corpus_license_hash_split_and_access_integrity"
+  },
+  "integration_checkpoint": "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_integration.py::test_epic_092_integracao",
+  "acceptance_criteria": [
+    "AC-ISSUE-0679-01",
+    "AC-ISSUE-0679-02",
+    "AC-ISSUE-0679-03",
+    "AC-ISSUE-0679-04"
+  ],
+  "acceptance_tests": [
+    "test_epic_092_aceite_happy_path",
+    "test_epic_092_aceite_negative_paths"
+  ],
+  "coordination": [
+    {
+      "role": "Reviewer",
+      "authority": "ROLE-011",
+      "decision": "PASS",
+      "candidate_sha": "97fc405d81b5fb6ab1ff802bf351e17845b2272e",
+      "evidence_paths": [
+        "evidence/implementation/epic-092/story-0568/IMPLEMENTATION.md",
+        "evidence/reviews/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/story-0569/REVIEW_EVIDENCE.json"
+      ],
+      "residual_risk_ids": []
+    },
+    {
+      "role": "QA",
+      "authority": "GITHUB_ACTIONS",
+      "decision": "PASS",
+      "candidate_sha": "97fc405d81b5fb6ab1ff802bf351e17845b2272e",
+      "evidence_paths": [
+        "evidence/implementation/epic-092/story-0568/IMPLEMENTATION.md",
+        "evidence/reviews/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/story-0569/REVIEW_EVIDENCE.json"
+      ],
+      "residual_risk_ids": []
+    }
+  ],
+  "implicit_approval": false,
+  "self_approval": false,
+  "authorization_claim": "NOT_ASSERTED_BY_ISSUE_0679",
+  "hosted_validation": {
+    "pull_request": 969,
+    "head_sha": "97fc405d81b5fb6ab1ff802bf351e17845b2272e",
+    "conclusion": "SUCCESS",
+    "runs": [
+      {
+        "workflow": "epic-092-sprint-001-closure-controls",
+        "event": "pull_request",
+        "run_id": 34790931935,
+        "url": "https://github.com/raphaelperrut/DSGeorref/actions/runs/34790931935"
+      },
+      {
+        "workflow": "foundation-ci",
+        "event": "pull_request",
+        "run_id": 34790931823,
+        "url": "https://github.com/raphaelperrut/DSGeorref/actions/runs/34790931823"
+      }
+    ]
+  },
+  "validation": {
+    "predecessor_focused_suites": "PASS",
+    "acceptance_tests": "PASS",
+    "targeted_ruff": "PASS",
+    "targeted_mypy_strict": "PASS",
+    "candidate_blob_digests_and_git_diff_check": "PASS",
+    "make_verify": "ENVIRONMENTAL_FAIL: quality, frontend, repository, architecture, requirements, DDD, ADR, specification, sprint, Python architecture, licensing, and monorepo validation passed; the unchanged service-backed walking-skeleton E2E then stopped because FOUNDATION_INTEGRATION is unset and local PostgreSQL/RabbitMQ are unavailable. The exact reviewed candidate passed hosted foundation-ci."
+  },
+  "residual_risks": [],
+  "findings": {
+    "blocker": "NONE",
+    "high": "NONE",
+    "medium_low_nonblocking": [
+      "The local make verify run cannot execute the unchanged service-backed walking-skeleton E2E without FOUNDATION_INTEGRATION=1 and PostgreSQL/RabbitMQ; the exact candidate passed hosted foundation-ci.",
+      "The local Node 22.14.0 differs from the repository-pinned Node 24.20.0; all frontend checks passed before the service-backed E2E stop."
+    ]
+  },
+  "contract_impact": "NONE",
+  "migration_required": false,
+  "rollback": "Revert the ISSUE-0679 evidence commit; no contract, schema, persistent state, deployment, or runtime changes are present.",
+  "task_envelope_change": "NOT_NEEDED",
+  "new_prerequisite_created": false,
+  "architectural_risk_open": "NONE"
+}
