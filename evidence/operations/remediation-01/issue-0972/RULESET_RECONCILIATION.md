@@ -76,7 +76,7 @@ A fresh GET of `/repos/raphaelperrut/DSGeorref/rulesets/19942009` confirmed the 
 
 ## Enforcement evidence
 
-The dedicated PR and its final candidate SHA will be recorded here after hosted checks complete. The operational proof target is that both required contexts are produced, successful, and reported by the PR/rules API as required before merge.
+PR <https://github.com/raphaelperrut/DSGeorref/pull/983> is the dedicated enforcement proof. On its first candidate, `validate-main-ruleset-controls` passed and `verify-foundation` failed because the initial TaskEnvelope location was interpreted as an invalid extension of the historical 761-task catalog. The ruleset kept the PR blocked. The envelope was then moved into this issue-scoped evidence directory without modifying the historical catalog; final hosted results are recorded on the PR and Issue #972.
 
 Direct push, force push, deletion, and unauthorized bypass are configured fail-closed and are shown as effective rules on `main`. Destructive negative operations against `main` were not attempted. Until an independently safe rejection trace exists, actual rejection for those operations is classified `NOT_PROVEN`; configuration and applicability are `PROVEN_BY_API`.
 
@@ -88,10 +88,10 @@ Direct push, force push, deletion, and unauthorized bypass are configured fail-c
 
 ## Focused validations
 
-- TaskEnvelope schema validation: pending final candidate.
+- TaskEnvelope schema validation: passed.
 - Versioned ruleset artifacts and workflow producers: inspected.
 - Remote precondition and concurrent-edit guards: passed.
 - Independent ruleset GET: passed.
 - Effective rules for `main` GET: passed.
-- Hosted PR checks: pending final candidate.
-
+- Focused automation and integration tests: `2 passed`.
+- Hosted PR checks: see PR #983 final candidate and Issue #972.

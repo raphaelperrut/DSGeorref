@@ -14,7 +14,7 @@
     "docs/10-governance/GITHUB_REPOSITORY_HARDENING_GUIDE.md"
   ],
   "allow_paths": [
-    ".codex/tasks/TASK-0972.json",
+    "evidence/operations/remediation-01/issue-0972/TASK_ENVELOPE.json",
     "evidence/operations/remediation-01/issue-0972/**"
   ],
   "deny_paths": [
@@ -85,7 +85,7 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
-        ".codex/tasks/TASK-0972.json",
+        "evidence/operations/remediation-01/issue-0972/TASK_ENVELOPE.json",
         "evidence/operations/remediation-01/issue-0972/**"
       ],
       "deny_paths": [
