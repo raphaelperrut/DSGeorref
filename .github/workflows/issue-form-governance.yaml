@@ -1,12 +1,24 @@
 name: epic-090-issue-form-governance
 
 on:
-  push:
   pull_request:
+    paths:
+      - ".codex/tasks/TASK-0556.json"
+      - ".github/ISSUE_TEMPLATE/**"
+      - "contracts/contexts/engineering_governance/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**"
+      - "docs/03-engineering/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**"
+      - "tools/governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**"
+      - "tests/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/**"
+      - ".github/workflows/issue-form-governance.yaml"
+      - ".github/workflows/issue-forms-templates-e-taxonomia-de-tipos-com-validac.yaml"
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-issue-forms:
