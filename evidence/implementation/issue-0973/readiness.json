@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "issue": 973,
+  "task_envelope": ".codex/tasks/operations/TASK-0763.json",
+  "observed_at": "2026-09-19",
+  "baseline": {
+    "branch_point": "f48b7f8a0d9079c5af09e599b4b08f09dc4e7568",
+    "main_matches_origin_main": true,
+    "worktree_was_clean": true,
+    "source_lock": "infra/images/native-stack.lock.yaml",
+    "source_lock_digest": "sha256:51b298fc4983e33e1173a6aac22f08e2e599a71e84ea270ae89e7ee2511248ee",
+    "resolved_lock_status": "NOT_BUILT"
+  },
+  "ownership": {
+    "open_pull_requests": 0,
+    "write_scope_collision": false,
+    "historical_task_envelopes_modified": false,
+    "issue_974_modified": false,
+    "epic_110_modified": false
+  },
+  "dependency_720": {
+    "state": "OPEN",
+    "reconciled": false,
+    "blocking_reason": "The fail-closed supply-chain contract owned by STORY-0500 / GitHub Issue #790 and the dependent enforcement, operational, and independent-review lanes are not integrated.",
+    "observed_open_github_issues": [
+      789,
+      790,
+      791,
+      792,
+      793,
+      794
+    ]
+  },
+  "repository_controls": {
+    "visibility": "public",
+    "default_workflow_permissions": "read",
+    "workflow_can_approve_pull_request_reviews": false,
+    "actions_variable_names": [],
+    "actions_secret_names": [],
+    "environment_names": [],
+    "container_package_inventory": "NOT_VERIFIED: the authenticated GitHub principal lacks read:packages scope"
+  },
+  "registry_and_trust": {
+    "approved_registry_configuration_found": false,
+    "approved_repository_or_package_found": false,
+    "approved_retention_policy_found": false,
+    "approved_publisher_identity_found": false,
+    "approved_signing_mechanism_found": false,
+    "approved_trust_scope_found": false,
+    "approved_provenance_attestation_policy_found": false,
+    "publication_attempted": false,
+    "reason": "No repository variable, secret, environment, workflow, contract, or issue decision in the authorized read scope defines these administrative controls."
+  },
+  "local_capabilities": {
+    "docker_cli": "29.7.2",
+    "docker_daemon": "UNAVAILABLE",
+    "cosign": "UNAVAILABLE",
+    "syft": "UNAVAILABLE",
+    "oras": "UNAVAILABLE"
+  },
+  "artifacts": {
+    "image_digest": null,
+    "sbom_digest": null,
+    "provenance_digest": null,
+    "signature_reference": null,
+    "signature_verification": "NOT_RUN",
+    "abi_smoke_result": "NOT_RUN",
+    "production_artifacts_real": false,
+    "artifact_linkage_verified": false
+  },
+  "stop_decision": {
+    "result": "BLOCKED",
+    "independent_work_completed": [
+      "Dedicated branch created from synchronized main/origin/main",
+      "Canonical remediation TaskEnvelope materialized and schema-validated",
+      "Active-lane collision check completed",
+      "Registry, permissions, toolchain, and trust preflight recorded without credentials",
+      "Source and resolved locks left unchanged"
+    ],
+    "owner_decisions_required": [
+      "Approve the registry and exact repository/package for the native image",
+      "Approve retention and publication permissions for that package",
+      "Approve the publishing identity and authentication mechanism",
+      "Integrate or explicitly supersede the EPIC-080 fail-closed supply-chain contract dependency",
+      "Approve the signing mechanism, trust scope, identity constraints, and provenance/attestation verification policy"
+    ]
+  }
+}
