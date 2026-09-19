@@ -1,12 +1,24 @@
 name: engineering-governance-contract-validation
 
 on:
-  push:
   pull_request:
+    paths:
+      - ".codex/tasks/TASK-0001.json"
+      - ".codex/tasks/TASK-0004.json"
+      - "contracts/contexts/engineering_governance/**"
+      - "docs/03-engineering/contexts/engineering_governance/**"
+      - "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**"
+      - "tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**"
+      - "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**"
+      - ".github/workflows/governanca-de-decisoes-arquiteturais-e-manutencao-da-b.yaml"
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-frozen-contracts:

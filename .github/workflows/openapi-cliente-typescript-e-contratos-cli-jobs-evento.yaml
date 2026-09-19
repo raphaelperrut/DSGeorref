@@ -1,12 +1,22 @@
 name: epic-004-versioned-contract-controls
 
 on:
-  push:
   pull_request:
+    paths:
+      - ".codex/tasks/TASK-0018.json"
+      - "contracts/**"
+      - "tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/**"
+      - "tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/**"
+      - "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/**"
+      - ".github/workflows/openapi-cliente-typescript-e-contratos-cli-jobs-evento.yaml"
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-versioned-contract-controls:

@@ -1,0 +1,234 @@
+{
+  "task_id": "TASK-0762",
+  "issue_id": "ISSUE-0872",
+  "story_id": "STORY-0008",
+  "epic_id": "EPIC-002",
+  "sprint_id": "SPRINT-001",
+  "role": "DevOps",
+  "outcome": "Optimize GitHub Actions usage for the private repository by removing redundant executions and indiscriminate workflow fan-out without weakening required functional or security gates.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-009-devops.md",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    "docs/06-delivery/stories/STORY-0008-ISSUE-0118-automatizar-validacoes-e-controles-repositorio-privado-project-central-vie.md",
+    "docs/06-delivery/epics/EPIC-002-repositorio-privado-project-central-views-campos-labels-issue-forms-te.md",
+    "docs/02-architecture/ddd/bounded-contexts/BC-001-engineering-governance.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md"
+  ],
+  "allow_paths": [
+    ".github/workflows/**",
+    "tests/fnd/github-actions-usage/**",
+    "evidence/operations/github-actions-usage/**",
+    ".codex/tasks/operations/TASK-0762.json"
+  ],
+  "deny_paths": [
+    "src/backend/**",
+    "src/frontend/**",
+    "src/geo/**",
+    "src/ai/**",
+    "src/**/migrations/**",
+    "contracts/**",
+    "data/**",
+    "models/**",
+    "infra/**",
+    "docs/02-architecture/**",
+    ".github/ISSUE_TEMPLATE/**",
+    ".github/dsgeorref-project-field-sync.json",
+    ".github/dsgeorref-materialization-map.json",
+    ".github/dsgeorref-milestone-sync.json",
+    "**/.env*",
+    "secrets/**",
+    "credentials/**",
+    "config/secrets/**",
+    "config/credentials/**",
+    "**/*.pem",
+    "**/*.key"
+  ],
+  "acceptance_criteria": [
+    "The main functional CI gate remains available on pull requests and redundant post-merge execution is removed only when main protection is verified.",
+    "Foundation security remains an automatic pull-request check with least-privilege permissions.",
+    "Historical or EPIC-specific governance workflows no longer run indiscriminately for ordinary pull requests and retain safe manual or path-scoped execution where appropriate.",
+    "Known required checks remain reachable, pinned actions remain pinned, no privileged issue trigger or pull_request_target is introduced, and sentinel validation passes on the candidate commit."
+  ],
+  "tests": [
+    "pytest tests/fnd/github-actions-usage/test_workflow_policy.py",
+    "make verify"
+  ],
+  "evidence": [
+    "GitHub issue #979",
+    "workflow trigger and required-check inventory in the pull request",
+    "candidate commit and sentinel QA results"
+  ],
+  "dependencies": [],
+  "stop_conditions": [
+    "Main protection and required checks cannot be verified sufficiently to remove a push gate safely.",
+    "A required check would become orphaned or renamed without a safe transition.",
+    "The change would require a PAT, new secret, pull_request_target, self-hosted runner, GitHub Project mutation, product change, or external infrastructure.",
+    "The authorized write scope would need to expand beyond workflows, focused tests, task metadata, and task-specific evidence."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0872-01",
+    "AC-ISSUE-0872-02",
+    "AC-ISSUE-0872-03",
+    "AC-ISSUE-0872-04"
+  ],
+  "governing_adrs": [
+    "ADR-006",
+    "ADR-007"
+  ],
+  "requirement_basis": "DERIVED_CONTROL",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-001",
+  "context_map_dependencies": [],
+  "domain_model_impact": "NONE",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 0,
+      "items": []
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        ".github/workflows/**",
+        "tests/fnd/github-actions-usage/**",
+        "evidence/operations/github-actions-usage/**",
+        ".codex/tasks/operations/TASK-0762.json"
+      ],
+      "deny_paths": [
+        "src/backend/**",
+        "src/frontend/**",
+        "src/geo/**",
+        "src/ai/**",
+        "src/**/migrations/**",
+        "contracts/**",
+        "data/**",
+        "models/**",
+        "infra/**",
+        "docs/02-architecture/**",
+        ".github/ISSUE_TEMPLATE/**",
+        ".github/dsgeorref-project-field-sync.json",
+        ".github/dsgeorref-materialization-map.json",
+        ".github/dsgeorref-milestone-sync.json",
+        "**/.env*",
+        "secrets/**",
+        "credentials/**",
+        "config/secrets/**",
+        "config/credentials/**",
+        "**/*.pem",
+        "**/*.key"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "pytest tests/fnd/github-actions-usage/test_workflow_policy.py",
+        "make verify"
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "PASS",
+      "kinds": [],
+      "evidence": [
+        "GitHub issue #979",
+        "workflow trigger and required-check inventory in the pull request",
+        "candidate commit and sentinel QA results"
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 4,
+      "ids": [
+        "AC-ISSUE-0872-01",
+        "AC-ISSUE-0872-02",
+        "AC-ISSUE-0872-03",
+        "AC-ISSUE-0872-04"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "CRITICAL",
+    "applicable_controls": [
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-006",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-005",
+      "CTO-007",
+      "CTO-008",
+      "CTO-009",
+      "CTO-010",
+      "CTO-011",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "verified main ruleset and required-check inventory",
+      "workflow trigger inventory before and after the change",
+      "sentinel QA results on the candidate commit"
+    ],
+    "production_gate": "SECURITY_AND_PRIVACY_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}
