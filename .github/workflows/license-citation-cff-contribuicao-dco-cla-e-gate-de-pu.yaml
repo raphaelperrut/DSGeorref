@@ -1,12 +1,29 @@
 name: epic-007-license-publication-governance-controls
 
 on:
-  push:
   pull_request:
+    paths:
+      - ".codex/tasks/TASK-0033.json"
+      - "LICENSE*"
+      - "NOTICE*"
+      - "CITATION.cff"
+      - "CONTRIBUTING.md"
+      - "CODE_OF_CONDUCT.md"
+      - ".github/pull_request_template.md"
+      - "contracts/contexts/engineering_governance/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**"
+      - "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**"
+      - "tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**"
+      - "tools/quality/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**"
+      - "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/**"
+      - ".github/workflows/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu.yaml"
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-controls:

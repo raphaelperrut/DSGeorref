@@ -1,12 +1,23 @@
 name: epic-006-capability-catalog-controls
 
 on:
-  push:
   pull_request:
+    paths:
+      - ".codex/tasks/TASK-0028.json"
+      - "contracts/contexts/engineering_governance/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**"
+      - "docs/03-engineering/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**"
+      - "tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**"
+      - "tools/quality/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**"
+      - "tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/**"
+      - ".github/workflows/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca.yaml"
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-controls:

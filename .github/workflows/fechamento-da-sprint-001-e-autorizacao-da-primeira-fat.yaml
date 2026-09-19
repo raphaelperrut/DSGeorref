@@ -1,12 +1,14 @@
 name: epic-092-sprint-001-closure-controls
 
 on:
-  push:
-  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-sprint-001-closure-controls:

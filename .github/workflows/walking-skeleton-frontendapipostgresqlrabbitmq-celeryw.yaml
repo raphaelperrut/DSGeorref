@@ -1,17 +1,6 @@
 name: walking-skeleton-delivery-gate
 
 on:
-  push:
-    paths:
-      - ".codex/tasks/TASK-0536.json"
-      - "contracts/contexts/engineering_governance/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**"
-      - "contracts/http/openapi.yaml"
-      - "contracts/domain/**"
-      - "contracts/events/job-event.schema.json"
-      - "contracts/artifacts/**"
-      - "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**"
-      - "tools/quality/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**"
-      - ".github/workflows/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw.yaml"
   pull_request:
     paths:
       - ".codex/tasks/TASK-0536.json"
@@ -23,9 +12,14 @@ on:
       - "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**"
       - "tools/quality/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/**"
       - ".github/workflows/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw.yaml"
+  workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-walking-skeleton:
