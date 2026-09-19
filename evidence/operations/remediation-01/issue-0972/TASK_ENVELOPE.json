@@ -28,7 +28,7 @@
     "O ruleset remoto 19942009 seleciona a default branch e permanece ativo.",
     "verify-foundation e validate-main-ruleset-controls são required checks com produtores únicos e bem-sucedidos em PR aplicável.",
     "O modo solo permanece sem aprovação obrigatória ou Code Owner review.",
-    "As proteções de pull request, resolução de conversas, deletion, force push e bypass permanecem fail-closed.",
+    "Os controles de PR obrigatório, direct push, force push, deletion e bypass não autorizado estão configurados em modo fail-closed, aplicam-se efetivamente à main e são comprovados por snapshot da API, regras efetivas, ausência de bypass autorizado e evidência não destrutiva de enforcement dos required checks. A rejeição operacional individual desses controles não foi demonstrada e essa limitação permanece explicitamente registrada.",
     "A leitura pós-alteração e um PR de prova demonstram o estado efetivo sem merge da remediação."
   ],
   "tests": [

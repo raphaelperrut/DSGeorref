@@ -78,12 +78,24 @@ A fresh GET of `/repos/raphaelperrut/DSGeorref/rulesets/19942009` confirmed the 
 
 PR <https://github.com/raphaelperrut/DSGeorref/pull/983> is the dedicated enforcement proof. On its first candidate, `validate-main-ruleset-controls` passed and `verify-foundation` failed because the initial TaskEnvelope location was interpreted as an invalid extension of the historical 761-task catalog. The ruleset kept the PR blocked. The envelope was then moved into this issue-scoped evidence directory without modifying the historical catalog; final hosted results are recorded on the PR and Issue #972.
 
-Direct push, force push, deletion, and unauthorized bypass are configured fail-closed and are shown as effective rules on `main`. Destructive negative operations against `main` were not attempted. Until an independently safe rejection trace exists, actual rejection for those operations is classified `NOT_PROVEN`; configuration and applicability are `PROVEN_BY_API`.
+Direct push, force push, deletion, and unauthorized bypass are configured fail-closed and are shown as effective rules on `main`. Destructive negative operations against `main` were not attempted. Individual operational rejection for those controls is classified `NOT_PROVEN`; configuration and applicability are `PROVEN_BY_API`.
+
+## Owner-approved AC5 acceptance decision
+
+The Owner approved the non-destructive acceptance strategy recorded in Issue #972. AC5 is accepted for focused re-QA from the combined evidence of active configuration, effective rules on `main`, absence of authorized bypass, and non-destructive required-check enforcement. This decision changes the acceptance strategy only; it does not assert that individual operational rejections occurred and it did not change any repository protection.
+
+- `AC5_CONFIGURATION_VERIFIED = YES`
+- `AC5_EFFECTIVE_RULES_VERIFIED = YES`
+- `AC5_REQUIRED_CHECK_ENFORCEMENT = PROVEN`
+- `AC5_INDIVIDUAL_OPERATIONAL_REJECTION = NOT_PROVEN`
+- `AC5_ACCEPTANCE_STRATEGY = OWNER_APPROVED_NON_DESTRUCTIVE_EVIDENCE`
+
+The original and revised AC5 texts, rationale, accepted evidence, and explicit limitations are preserved in <https://github.com/raphaelperrut/DSGeorref/issues/972#issuecomment-5745724706>. The revised AC5 checkbox remains open pending focused re-QA.
 
 ## Residual risks and owner decision
 
 - Historical private-repository requirement: `OPEN`; the Owner must formally retain or replace it in the normative baseline.
-- Safe operational rejection traces for direct push, force push, deletion, and bypass: `NOT_PROVEN`; no destructive action was attempted against `main`.
+- Individual operational rejection traces for direct push, force push, deletion, and bypass: `NOT_PROVEN`; the Owner-approved acceptance strategy explicitly preserves this limitation.
 - No change was made to EPIC #2, EPIC #10, EPIC-110 status, secret scanning, push protection, workflows, or product code.
 
 ## Focused validations
