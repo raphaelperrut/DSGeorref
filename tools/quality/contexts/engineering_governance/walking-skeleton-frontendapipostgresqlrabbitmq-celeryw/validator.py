@@ -46,6 +46,10 @@ EXPECTED_STAGES = (
     "WORKER",
     "DIAGNOSTIC_ARTIFACT",
 )
+AUTHORIZED_UPLOAD_ARTIFACT_ACTIONS = (
+    "actions/upload-artifact@v4",
+    "actions/upload-artifact@v7",
+)
 
 
 @dataclass(frozen=True, order=True)
@@ -195,9 +199,14 @@ def _validate_automation_wiring(task: Any, root: Path) -> list[Finding]:
         "--dry-run",
         "--output",
         "test_epic_086_automacao",
-        "actions/upload-artifact@v4",
     )
-    if any(fragment not in workflow for fragment in fragments):
+    has_authorized_artifact_upload = any(
+        action in workflow for action in AUTHORIZED_UPLOAD_ARTIFACT_ACTIONS
+    )
+    if (
+        any(fragment not in workflow for fragment in fragments)
+        or not has_authorized_artifact_upload
+    ):
         findings.append(_finding(
             "WORKFLOW_CONTROL_MISSING", WORKFLOW_PATH,
             "The read-only CI gate, dry-run, focused test, or diagnostic artifact is not wired.",

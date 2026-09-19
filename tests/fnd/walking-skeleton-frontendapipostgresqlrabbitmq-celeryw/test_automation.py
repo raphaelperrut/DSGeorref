@@ -21,6 +21,10 @@ PROFILE_REL = Path(
     "walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/"
     "examples/walking-skeleton.json"
 )
+WORKFLOW_REL = Path(
+    ".github/workflows/"
+    "walking-skeleton-frontendapipostgresqlrabbitmq-celeryw.yaml"
+)
 BASE_COPY_PATHS = (
     Path(
         "contracts/contexts/engineering_governance/fnd/"
@@ -38,10 +42,7 @@ BASE_COPY_PATHS = (
         "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/"
         "test_automation.py"
     ),
-    Path(
-        ".github/workflows/"
-        "walking-skeleton-frontendapipostgresqlrabbitmq-celeryw.yaml"
-    ),
+    WORKFLOW_REL,
 )
 
 
@@ -121,6 +122,39 @@ def test_epic_086_automacao() -> None:
     }
     assert len(report["input_sha256"]) == 6
     assert report["findings"] == []
+
+
+def test_gate_accepts_authorized_upload_artifact_v7(tmp_path: Path) -> None:
+    repository = _isolated_repository(tmp_path)
+    workflow = (repository / WORKFLOW_REL).read_text(encoding="utf-8")
+
+    assert "actions/upload-artifact@v7" in workflow
+    assert gate.build_report(repository, dry_run=True)["findings"] == []
+
+
+@pytest.mark.parametrize(
+    "upload_action",
+    (None, "actions/upload-artifact@v8"),
+    ids=("missing", "unauthorized-version"),
+)
+def test_gate_rejects_missing_or_unauthorized_upload_artifact_action(
+    tmp_path: Path, upload_action: str | None
+) -> None:
+    repository = _isolated_repository(tmp_path)
+    workflow_path = repository / WORKFLOW_REL
+    workflow = workflow_path.read_text(encoding="utf-8")
+    replacement = upload_action or ""
+    workflow_path.write_text(
+        workflow.replace("actions/upload-artifact@v7", replacement),
+        encoding="utf-8",
+    )
+
+    report = gate.build_report(repository, dry_run=True)
+
+    assert report["status"] == "FAIL"
+    assert "WORKFLOW_CONTROL_MISSING" in {
+        finding["code"] for finding in report["findings"]
+    }
 
 
 def test_gate_rejects_silent_fallback_without_substitution(tmp_path: Path) -> None:
