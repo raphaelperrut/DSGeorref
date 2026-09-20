@@ -9,6 +9,7 @@ package: ghcr.io/raphaelperrut/dsgeorref-native-stack
 package_visibility: public
 retention_policy: NO_AUTOMATIC_EXPIRY_ADMINISTRATIVE_DIGEST_PRESERVATION
 build_commit_sha: d950727cb7e30cb6602521129363a5b38a6706b3
+promotion_commit_sha: 2807f9ed217ed4167e9364f1d0f3ad444a03a176
 workflow_run_id: '35488532934'
 workflow_run_attempt: '1'
 environment: native-runtime-release
