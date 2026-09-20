@@ -167,7 +167,7 @@ jobs:
             }])' "$EVIDENCE_DIR/sbom.raw.spdx.json" > "$EVIDENCE_DIR/sbom.spdx.json"
           rm "$EVIDENCE_DIR/sbom.raw.spdx.json"
           jq -e '.spdxVersion == "SPDX-2.3" and (.packages | length > 0)' "$EVIDENCE_DIR/sbom.spdx.json" > /dev/null
-          oras attach --artifact-type application/spdx+json --format json "$IMAGE_REF" "$EVIDENCE_DIR/sbom.spdx.json:application/spdx+json" > "$EVIDENCE_DIR/sbom-attach.json"
+          (cd "$EVIDENCE_DIR" && oras attach --artifact-type application/spdx+json --format json "$IMAGE_REF" "sbom.spdx.json:application/spdx+json" > "sbom-attach.json")
           sbom_digest="$(jq -r '.digest // .manifest.digest // .descriptor.digest // empty' "$EVIDENCE_DIR/sbom-attach.json")"
           [[ "$sbom_digest" =~ ^sha256:[0-9a-f]{64}$ ]]
           cosign sign --yes --bundle "$EVIDENCE_DIR/sbom-signature.bundle.json" "$PACKAGE@$sbom_digest"
@@ -220,7 +220,7 @@ jobs:
              and .subject[0].digest.sha256 == $image_sha
              and (.predicate.buildDefinition.resolvedDependencies | any(.digest.sha256 == $source_sha))
              and (.predicate.buildDefinition.resolvedDependencies | any(.digest.gitCommit == $commit))' "$EVIDENCE_DIR/provenance.intoto.json" > /dev/null
-          oras attach --artifact-type application/vnd.in-toto+json --format json "$IMAGE_REF" "$EVIDENCE_DIR/provenance.intoto.json:application/vnd.in-toto+json" > "$EVIDENCE_DIR/provenance-attach.json"
+          (cd "$EVIDENCE_DIR" && oras attach --artifact-type application/vnd.in-toto+json --format json "$IMAGE_REF" "provenance.intoto.json:application/vnd.in-toto+json" > "provenance-attach.json")
           provenance_digest="$(jq -r '.digest // .manifest.digest // .descriptor.digest // empty' "$EVIDENCE_DIR/provenance-attach.json")"
           [[ "$provenance_digest" =~ ^sha256:[0-9a-f]{64}$ ]]
           cosign sign --yes --bundle "$EVIDENCE_DIR/provenance-signature.bundle.json" "$PACKAGE@$provenance_digest"
@@ -302,7 +302,7 @@ jobs:
               ref: "refs/heads/codex/issue-973-native-runtime",
               environment: "native-runtime-release"
             }' > "$EVIDENCE_DIR/linkage.json"
-          oras attach --artifact-type application/vnd.dsgeorref.native-runtime-linkage.v1+json --format json "$IMAGE_REF" "$EVIDENCE_DIR/linkage.json:application/vnd.dsgeorref.native-runtime-linkage.v1+json" > "$EVIDENCE_DIR/linkage-attach.json"
+          (cd "$EVIDENCE_DIR" && oras attach --artifact-type application/vnd.dsgeorref.native-runtime-linkage.v1+json --format json "$IMAGE_REF" "linkage.json:application/vnd.dsgeorref.native-runtime-linkage.v1+json" > "linkage-attach.json")
           linkage_digest="$(jq -r '.digest // .manifest.digest // .descriptor.digest // empty' "$EVIDENCE_DIR/linkage-attach.json")"
           [[ "$linkage_digest" =~ ^sha256:[0-9a-f]{64}$ ]]
           cosign sign --yes --bundle "$EVIDENCE_DIR/linkage-signature.bundle.json" "$PACKAGE@$linkage_digest"
