@@ -212,16 +212,20 @@ def test_smoke_retries_only_transient_database_connection_errors(monkeypatch) ->
     assert FakePsycopg.attempts == 2
 
 
-def test_validator_accepts_unpromoted_lock_without_invented_outputs() -> None:
+def test_validator_accepts_only_the_current_fail_closed_promotion_state() -> None:
+    resolved = yaml.safe_load(RESOLVED_LOCK.read_text(encoding="utf-8"))
+    command = [
+        sys.executable,
+        str(ROOT / "tools/quality/native_stack/validate.py"),
+        "--source-lock",
+        str(SOURCE_LOCK.relative_to(ROOT)),
+        "--resolved-lock",
+        str(RESOLVED_LOCK.relative_to(ROOT)),
+    ]
+    if resolved["status"] == "VERIFIED":
+        command.append("--require-resolved")
     result = subprocess.run(
-        [
-            sys.executable,
-            str(ROOT / "tools/quality/native_stack/validate.py"),
-            "--source-lock",
-            str(SOURCE_LOCK.relative_to(ROOT)),
-            "--resolved-lock",
-            str(RESOLVED_LOCK.relative_to(ROOT)),
-        ],
+        command,
         cwd=ROOT,
         text=True,
         capture_output=True,
@@ -229,6 +233,16 @@ def test_validator_accepts_unpromoted_lock_without_invented_outputs() -> None:
     )
     assert result.returncode == 0, result.stderr
     assert json.loads(result.stdout)["result"] == "PASS"
-    resolved = yaml.safe_load(RESOLVED_LOCK.read_text(encoding="utf-8"))
-    assert resolved["status"] == "NOT_BUILT"
-    assert "image_digest" not in resolved
+    if resolved["status"] == "NOT_BUILT":
+        assert "image_digest" not in resolved
+        return
+    summary = json.loads((EVIDENCE / "publication-summary.json").read_text(encoding="utf-8"))
+    assert resolved["status"] == "VERIFIED"
+    assert resolved["source_lock_digest"] == summary["source_lock_digest"]
+    assert resolved["build_commit_sha"] == summary["build_commit_sha"]
+    assert resolved["image_digest"] == summary["image_digest"]
+    assert resolved["sbom_digest"] == summary["sbom_digest"]
+    assert resolved["provenance_digest"] == summary["provenance_digest"]
+    assert resolved["signature_reference"] == summary["signature_reference"]
+    assert resolved["abi_smoke_result"] == "PASS"
+    assert resolved["artifact_linkage_verified"] is True

@@ -28,6 +28,22 @@ def _load_yaml(path: Path) -> dict[str, Any]:
     return value
 
 
+def _load_json(path: Path) -> dict[str, Any]:
+    value = json.loads(path.read_text(encoding="utf-8"))
+    _require(isinstance(value, dict), f"{path} must contain a JSON object")
+    return value
+
+
+def _contains_value(value: Any, expected: str) -> bool:
+    if value == expected:
+        return True
+    if isinstance(value, dict):
+        return any(_contains_value(item, expected) for item in value.values())
+    if isinstance(value, list):
+        return any(_contains_value(item, expected) for item in value)
+    return False
+
+
 def _validate_contract(source_lock: dict[str, Any], contract: Path, review_dir: Path) -> None:
     policy_digest = _sha256(contract)
     policy = _load_yaml(contract)
@@ -200,7 +216,139 @@ def _validate_workflow(source_lock: dict[str, Any], workflow: Path) -> None:
         )
 
 
-def _validate_resolved_lock(resolved: dict[str, Any], require_resolved: bool) -> None:
+def _validate_resolved_evidence(
+    resolved: dict[str, Any], evidence_dir: Path, source_lock_digest: str
+) -> None:
+    summary = _load_json(evidence_dir / "publication-summary.json")
+    abi = _load_json(evidence_dir / "abi-smoke.json")
+    linkage = _load_json(evidence_dir / "linkage.json")
+    provenance = _load_json(evidence_dir / "provenance.intoto.json")
+    referrers = _load_json(evidence_dir / "image-referrers.json")
+    revocations = _load_json(evidence_dir / "revocation-referrers.json")
+    public_access = _load_json(evidence_dir / "registry-public-access.json")
+    publication = _load_json(evidence_dir / "github-actions-publication.json")
+
+    _require(summary.get("result") == "PASS", "publication summary is not PASS")
+    _require(summary.get("source_lock_digest") == source_lock_digest, "wrong source-lock binding")
+    resolved_to_summary = {
+        "build_commit_sha": "build_commit_sha",
+        "image_digest": "image_digest",
+        "sbom_digest": "sbom_digest",
+        "provenance_digest": "provenance_digest",
+        "signature_reference": "signature_reference",
+        "signature_bundle_digest": "signature_bundle_digest",
+        "abi_smoke_evidence_digest": "abi_smoke_evidence_digest",
+        "linkage_digest": "linkage_digest",
+        "workflow_run_id": "workflow_run_id",
+        "trust_scope": "trust_scope",
+        "publisher_identity": "publisher_identity",
+        "oidc_issuer": "oidc_issuer",
+        "package": "package",
+        "environment": "environment",
+        "platform": "platform",
+    }
+    for resolved_field, summary_field in resolved_to_summary.items():
+        _require(
+            str(resolved.get(resolved_field)) == str(summary.get(summary_field)),
+            f"resolved {resolved_field} diverges from publication evidence",
+        )
+
+    image_digest = resolved["image_digest"]
+    _require(abi.get("result") == "PASS", "ABI smoke evidence is not PASS")
+    _require(abi.get("candidate_image_digest") == image_digest, "ABI smoke image mismatch")
+    _require(abi.get("source_lock_digest") == source_lock_digest, "ABI source-lock mismatch")
+    _require(
+        abi.get("components_verified") == resolved.get("abi_components_verified"),
+        "ABI component list mismatch",
+    )
+    _require(
+        _sha256(evidence_dir / "abi-smoke.json") == resolved["abi_smoke_evidence_digest"],
+        "ABI evidence digest mismatch",
+    )
+
+    subjects = provenance.get("subject", [])
+    _require(len(subjects) == 1, "provenance must have exactly one subject")
+    _require(
+        subjects[0].get("digest", {}).get("sha256") == image_digest.removeprefix("sha256:"),
+        "provenance subject does not bind the image",
+    )
+    _require(
+        provenance.get("predicateType") == "https://slsa.dev/provenance/v1",
+        "provenance is not SLSA v1",
+    )
+    _require(linkage.get("sourceLockDigest") == source_lock_digest, "linkage source-lock mismatch")
+    for field, key in (
+        ("image_digest", "imageDigest"),
+        ("sbom_digest", "sbomDigest"),
+        ("provenance_digest", "provenanceDigest"),
+        ("signature_reference", "signatureReference"),
+        ("signature_bundle_digest", "signatureBundleDigest"),
+        ("abi_smoke_evidence_digest", "abiSmokeEvidenceDigest"),
+        ("build_commit_sha", "buildCommitSha"),
+        ("trust_scope", "trustScope"),
+    ):
+        _require(linkage.get(key) == resolved.get(field), f"linkage {key} mismatch")
+
+    for artifact, expected_type, field in (
+        ("sbom", "application/spdx+json", "sbom_digest"),
+        ("provenance", "application/vnd.in-toto+json", "provenance_digest"),
+        (
+            "linkage",
+            "application/vnd.dsgeorref.native-runtime-linkage.v1+json",
+            "linkage_digest",
+        ),
+    ):
+        attached = _load_json(evidence_dir / f"{artifact}-attach.json")
+        _require(
+            attached.get("digest") == resolved[field],
+            f"{artifact} attachment digest mismatch",
+        )
+        _require(attached.get("artifactType") == expected_type, f"{artifact} media type mismatch")
+        _require(_contains_value(referrers, resolved[field]), f"{artifact} referrer is absent")
+
+    for artifact, field in (
+        ("image", "image_digest"),
+        ("sbom", "sbom_digest"),
+        ("provenance", "provenance_digest"),
+        ("linkage", "linkage_digest"),
+    ):
+        verification = json.loads(
+            (evidence_dir / f"{artifact}-signature-verification.json").read_text(encoding="utf-8")
+        )
+        _require(isinstance(verification, list) and verification, f"{artifact} signature absent")
+        _require(
+            _contains_value(verification, resolved[field]),
+            f"{artifact} signature verifies a different digest",
+        )
+
+    _require(
+        _sha256(evidence_dir / "image-signature.bundle.json")
+        == resolved["signature_bundle_digest"],
+        "signature bundle digest mismatch",
+    )
+    bundle = _load_json(evidence_dir / "image-signature.bundle.json")
+    _require(
+        _contains_value(bundle, resolved["transparency_log_reference"].split(":", 1)[1]),
+        "transparency log index is absent from signature bundle",
+    )
+    _require(not revocations.get("referrers"), "a matching revocation referrer exists")
+    _require(public_access.get("result") == "PASS", "public package check is not PASS")
+    _require(public_access.get("anonymous_pull") is True, "package is not anonymously pullable")
+    _require(
+        public_access.get("docker_content_digest") == image_digest,
+        "anonymous pull resolved a different digest",
+    )
+    _require(publication.get("result") == "PASS", "hosted publication is not PASS")
+    _require(publication.get("deployment_status") == "success", "deployment is not successful")
+    _require(
+        publication.get("head_sha") == resolved["build_commit_sha"],
+        "deployment build SHA mismatch",
+    )
+
+
+def _validate_resolved_lock(
+    resolved: dict[str, Any], require_resolved: bool, evidence_dir: Path, source_lock_digest: str
+) -> None:
     if resolved.get("status") == "NOT_BUILT":
         _require(not require_resolved, "resolved lock has not been promoted")
         forbidden = {"image_digest", "sbom_digest", "provenance_digest", "signature_reference"}
@@ -223,6 +371,16 @@ def _validate_resolved_lock(resolved: dict[str, Any], require_resolved: bool) ->
     _require(resolved.get("signature_verification") == "PASS", "signature verification is not PASS")
     _require(resolved.get("abi_smoke_result") == "PASS", "ABI smoke is not PASS")
     _require(resolved.get("artifact_linkage_verified") is True, "artifact linkage is not verified")
+    _require(
+        resolved.get("source_lock_digest") == source_lock_digest,
+        "resolved source lock mismatch",
+    )
+    _require(resolved.get("package_visibility") == "public", "package is not recorded as public")
+    _require(
+        resolved.get("revocation_status") == "NO_MATCHING_REVOCATION_REFERRER",
+        "revocation status is not clear",
+    )
+    _validate_resolved_evidence(resolved, evidence_dir, source_lock_digest)
 
 
 def main() -> int:
@@ -247,6 +405,9 @@ def main() -> int:
     parser.add_argument(
         "--contract-review-dir", type=Path, default=Path("evidence/implementation/issue-0973")
     )
+    parser.add_argument(
+        "--evidence-dir", type=Path, default=Path("evidence/implementation/issue-0973")
+    )
     parser.add_argument("--require-resolved", action="store_true")
     args = parser.parse_args()
     repository_root = Path.cwd()
@@ -255,7 +416,12 @@ def main() -> int:
     _validate_contract(source_lock, args.contract, args.contract_review_dir)
     _validate_dockerfile(source_lock, args.dockerfile)
     _validate_workflow(source_lock, args.workflow)
-    _validate_resolved_lock(_load_yaml(args.resolved_lock), args.require_resolved)
+    _validate_resolved_lock(
+        _load_yaml(args.resolved_lock),
+        args.require_resolved,
+        args.evidence_dir,
+        _sha256(args.source_lock),
+    )
     print(
         json.dumps(
             {"result": "PASS", "source_lock_digest": _sha256(args.source_lock)}, sort_keys=True
