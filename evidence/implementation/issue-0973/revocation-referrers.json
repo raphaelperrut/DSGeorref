@@ -1,0 +1,7 @@
+{
+  "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:88385363691781db070946cb83cdb42aa85883a749060b30f1daf4b494ca6855",
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "digest": "sha256:88385363691781db070946cb83cdb42aa85883a749060b30f1daf4b494ca6855",
+  "size": 2947,
+  "referrers": []
+}

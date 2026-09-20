@@ -1,0 +1,2 @@
+
+[{"critical":{"identity":{"docker-reference":"ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:c7198613bfb11271c77df70b9e5d3fce934674f7fb60cd4ed432786ca7cda52f"},"image":{"docker-manifest-digest":"sha256:c7198613bfb11271c77df70b9e5d3fce934674f7fb60cd4ed432786ca7cda52f"},"type":"https://sigstore.dev/cosign/sign/v1"},"optional":{}}]

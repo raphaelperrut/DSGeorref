@@ -1,0 +1,19 @@
+{
+  "predicateType": "https://dsgeorref.local/attestations/native-runtime-linkage/v1",
+  "trustScope": "DSGEOREF-NATIVE-RUNTIME-SUPPLY-CHAIN-V1",
+  "approvedPolicyDigest": "sha256:756dd9e682c844e942a24a12c82db462179ad7e3ec6bf800cb8e21f34a77d1eb",
+  "sourceLockDigest": "sha256:16970dbaba6b1a5494a2003626a53bf0d6d9cfc5ed64471804bc888551d49a9e",
+  "buildCommitSha": "d950727cb7e30cb6602521129363a5b38a6706b3",
+  "imageDigest": "sha256:88385363691781db070946cb83cdb42aa85883a749060b30f1daf4b494ca6855",
+  "sbomDigest": "sha256:c7198613bfb11271c77df70b9e5d3fce934674f7fb60cd4ed432786ca7cda52f",
+  "provenanceDigest": "sha256:ff27ab1bac384cc2e947816b767a865cc0bbc70c8d8258083ab59557633fdf04",
+  "signatureReference": "ghcr.io/raphaelperrut/dsgeorref-native-stack:sha256-88385363691781db070946cb83cdb42aa85883a749060b30f1daf4b494ca6855.sig",
+  "signatureBundleDigest": "sha256:52a9c2ceb3bc96e73ddc3f0b4edf52ae0cfe5164d82278e7cf3b72804b367593",
+  "abiSmokeEvidenceDigest": "sha256:53dc7726fa9cc90f6cd33fc19679d809fd079c91b359fadfc2bbea948199765c",
+  "workflowRunId": "35488532934",
+  "oidcIssuer": "https://token.actions.githubusercontent.com",
+  "publisherIdentity": "https://github.com/raphaelperrut/DSGeorref/.github/workflows/native-stack.yaml@refs/heads/codex/issue-973-native-runtime",
+  "repository": "raphaelperrut/DSGeorref",
+  "ref": "refs/heads/codex/issue-973-native-runtime",
+  "environment": "native-runtime-release"
+}

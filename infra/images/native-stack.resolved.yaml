@@ -1,10 +1,41 @@
-schema_version: 1.0.0
-status: NOT_BUILT
+schema_version: 1.1.0
+status: VERIFIED
 source_lock: native-stack.lock.yaml
-required_fields_after_build:
-- image_digest
-- sbom_digest
-- provenance_digest
-- abi_smoke_result
-note: This file is intentionally unresolved before implementation. Its absence of
-  digest is execution evidence pending, not an open technology decision.
+source_lock_digest: sha256:16970dbaba6b1a5494a2003626a53bf0d6d9cfc5ed64471804bc888551d49a9e
+previous_source_lock_digest: sha256:61197932f5cd5d4eed96c4a6c9d24185cfe9761e81094c6fd3a378c7eaa13d50
+platform: linux/amd64
+registry: ghcr.io
+package: ghcr.io/raphaelperrut/dsgeorref-native-stack
+package_visibility: public
+retention_policy: NO_AUTOMATIC_EXPIRY_ADMINISTRATIVE_DIGEST_PRESERVATION
+build_commit_sha: d950727cb7e30cb6602521129363a5b38a6706b3
+workflow_run_id: '35488532934'
+workflow_run_attempt: '1'
+environment: native-runtime-release
+image_digest: sha256:88385363691781db070946cb83cdb42aa85883a749060b30f1daf4b494ca6855
+sbom_format: SPDX-2.3-JSON
+sbom_digest: sha256:c7198613bfb11271c77df70b9e5d3fce934674f7fb60cd4ed432786ca7cda52f
+provenance_format: in-toto/SLSA-v1
+provenance_digest: sha256:ff27ab1bac384cc2e947816b767a865cc0bbc70c8d8258083ab59557633fdf04
+signature_reference: ghcr.io/raphaelperrut/dsgeorref-native-stack:sha256-88385363691781db070946cb83cdb42aa85883a749060b30f1daf4b494ca6855.sig
+signature_bundle_digest: sha256:52a9c2ceb3bc96e73ddc3f0b4edf52ae0cfe5164d82278e7cf3b72804b367593
+transparency_log_reference: rekor-log-index:2894035664
+signature_verification: PASS
+trust_scope: DSGEOREF-NATIVE-RUNTIME-SUPPLY-CHAIN-V1
+publisher_identity: https://github.com/raphaelperrut/DSGeorref/.github/workflows/native-stack.yaml@refs/heads/codex/issue-973-native-runtime
+oidc_issuer: https://token.actions.githubusercontent.com
+linkage_digest: sha256:958dfeb04c955c431e2d7ccbf9e20ceefda21d875802a21705d5987b00e2fff0
+abi_smoke_result: PASS
+abi_smoke_evidence_digest: sha256:53dc7726fa9cc90f6cd33fc19679d809fd079c91b359fadfc2bbea948199765c
+abi_components_verified:
+- Python
+- GDAL
+- PROJ
+- GEOS
+- Rasterio
+- Shapely
+- PostgreSQL
+- PostGIS
+artifact_linkage_verified: true
+revocation_status: NO_MATCHING_REVOCATION_REFERRER
+evidence_directory: evidence/implementation/issue-0973

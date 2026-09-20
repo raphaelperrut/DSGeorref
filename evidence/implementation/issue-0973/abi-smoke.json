@@ -1,0 +1,45 @@
+{
+  "candidate_image_digest": "sha256:88385363691781db070946cb83cdb42aa85883a749060b30f1daf4b494ca6855",
+  "components_verified": [
+    "Python",
+    "GDAL",
+    "PROJ",
+    "GEOS",
+    "Rasterio",
+    "Shapely",
+    "PostgreSQL",
+    "PostGIS"
+  ],
+  "database": {
+    "checks": [
+      "postgis_extension_load",
+      "postgis_transform",
+      "postgis_geography_topology"
+    ],
+    "versions": {
+      "postgis": "3.6.4",
+      "postgresql": "18.4 (Debian 18.4-1.pgdg13+1)"
+    }
+  },
+  "result": "PASS",
+  "runtime": {
+    "checks": [
+      "gdal_proj_coordinate_transform",
+      "rasterio_gdal_geotiff_round_trip",
+      "shapely_geos_topology"
+    ],
+    "versions": {
+      "celery": "5.6.3",
+      "fastapi": "0.140.2",
+      "gdal": "3.13.2",
+      "geos": "3.14.1",
+      "proj": "9.8.1",
+      "pydantic": "2.13.4",
+      "python": "3.12.13",
+      "rasterio": "1.5.0",
+      "shapely": "2.1.2"
+    }
+  },
+  "schema_version": "1.0.0",
+  "source_lock_digest": "sha256:16970dbaba6b1a5494a2003626a53bf0d6d9cfc5ed64471804bc888551d49a9e"
+}

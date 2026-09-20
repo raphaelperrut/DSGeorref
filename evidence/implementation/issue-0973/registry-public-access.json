@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "result": "PASS",
+  "verified_at": "2026-09-20T04:17:01Z",
+  "registry": "ghcr.io",
+  "package": "ghcr.io/raphaelperrut/dsgeorref-native-stack",
+  "candidate_image_digest": "sha256:88385363691781db070946cb83cdb42aa85883a749060b30f1daf4b494ca6855",
+  "method": "anonymous GHCR bearer token followed by digest-addressed manifest GET",
+  "http_status": 200,
+  "docker_content_digest": "sha256:88385363691781db070946cb83cdb42aa85883a749060b30f1daf4b494ca6855",
+  "anonymous_pull": true,
+  "credentials_recorded": false
+}

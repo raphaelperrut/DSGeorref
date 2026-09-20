@@ -1,0 +1,69 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "ghcr.io/raphaelperrut/dsgeorref-native-stack",
+      "digest": {
+        "sha256": "88385363691781db070946cb83cdb42aa85883a749060b30f1daf4b494ca6855"
+      }
+    }
+  ],
+  "predicateType": "https://slsa.dev/provenance/v1",
+  "predicate": {
+    "buildDefinition": {
+      "buildType": "https://dsgeorref.local/build-types/native-stack/v1",
+      "externalParameters": {
+        "platform": "linux/amd64"
+      },
+      "internalParameters": {
+        "repository": "raphaelperrut/DSGeorref",
+        "ref": "refs/heads/codex/issue-973-native-runtime",
+        "environment": "native-runtime-release",
+        "workflowRunId": "35488532934",
+        "workflowRunAttempt": "1",
+        "oidcIssuer": "https://token.actions.githubusercontent.com",
+        "publisherIdentity": "https://github.com/raphaelperrut/DSGeorref/.github/workflows/native-stack.yaml@refs/heads/codex/issue-973-native-runtime"
+      },
+      "resolvedDependencies": [
+        {
+          "uri": "git+https://github.com/raphaelperrut/DSGeorref@d950727cb7e30cb6602521129363a5b38a6706b3",
+          "digest": {
+            "gitCommit": "d950727cb7e30cb6602521129363a5b38a6706b3"
+          }
+        },
+        {
+          "uri": "file:infra/images/native-stack.lock.yaml",
+          "digest": {
+            "sha256": "16970dbaba6b1a5494a2003626a53bf0d6d9cfc5ed64471804bc888551d49a9e"
+          }
+        },
+        {
+          "uri": "file:infra/images/native-stack.conda-lock.txt",
+          "digest": {
+            "sha256": "dafb10f30d967d18c7417104d0bb417aaea8ea23a1a67937dd28dc6168db4848"
+          }
+        },
+        {
+          "uri": "file:infra/images/native-stack.Dockerfile",
+          "digest": {
+            "sha256": "b6fb55f5364bc0fd228f9671d4479d426495aea7e4dfadebcabecaed5e8d879f"
+          }
+        },
+        {
+          "uri": "docker.io/mambaorg/micromamba@sha256:e583f8e151fd1ebbc78b05cf4feb37ddbb518892dbabf6c0c03ea8ad613bc519"
+        },
+        {
+          "uri": "docker.io/kartoza/postgis@sha256:ee01a9755ba8fbb54a462ca137f3e79a71c5662b7decb45127d8a24eb2475ee6"
+        }
+      ]
+    },
+    "runDetails": {
+      "builder": {
+        "id": "https://github.com/raphaelperrut/DSGeorref/.github/workflows/native-stack.yaml@refs/heads/codex/issue-973-native-runtime"
+      },
+      "metadata": {
+        "invocationId": "35488532934"
+      }
+    }
+  }
+}
