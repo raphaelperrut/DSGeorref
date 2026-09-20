@@ -1,10 +1,10 @@
 {
-  "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:c7198613bfb11271c77df70b9e5d3fce934674f7fb60cd4ed432786ca7cda52f",
+  "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:842aaaf0cc93d1854f7d398fe5d23aef619128b305829282275e3488af4a60b6",
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
-  "digest": "sha256:c7198613bfb11271c77df70b9e5d3fce934674f7fb60cd4ed432786ca7cda52f",
+  "digest": "sha256:842aaaf0cc93d1854f7d398fe5d23aef619128b305829282275e3488af4a60b6",
   "size": 731,
   "annotations": {
-    "org.opencontainers.image.created": "2026-09-20T04:15:07Z"
+    "org.opencontainers.image.created": "2026-09-20T14:09:13Z"
   },
   "artifactType": "application/spdx+json"
 }

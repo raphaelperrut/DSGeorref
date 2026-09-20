@@ -1,71 +1,71 @@
 {
-  "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:88385363691781db070946cb83cdb42aa85883a749060b30f1daf4b494ca6855",
+  "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:9a74e4712b6943b1f4a16c9920dfb7a4c901fca9936cbf374150bdf01747541d",
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
-  "digest": "sha256:88385363691781db070946cb83cdb42aa85883a749060b30f1daf4b494ca6855",
+  "digest": "sha256:9a74e4712b6943b1f4a16c9920dfb7a4c901fca9936cbf374150bdf01747541d",
   "size": 2947,
   "referrers": [
     {
-      "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:897e5d8172ec76f51eba02925639f20acc1422bdfe9e1a95f913fa587c168c88",
+      "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:04a8509ef34d3bc187260139d7e233a5734487c741649db48ed9eedadb359103",
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
-      "digest": "sha256:897e5d8172ec76f51eba02925639f20acc1422bdfe9e1a95f913fa587c168c88",
+      "digest": "sha256:04a8509ef34d3bc187260139d7e233a5734487c741649db48ed9eedadb359103",
+      "size": 750,
+      "annotations": {
+        "org.opencontainers.image.created": "2026-09-20T14:09:21Z"
+      },
+      "artifactType": "application/vnd.in-toto+json",
+      "referrers": [
+        {
+          "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:1ec670521e7a1bfabffb965a166842936410dc9e3802579565a48a6212ec9818",
+          "mediaType": "application/vnd.oci.image.manifest.v1+json",
+          "digest": "sha256:1ec670521e7a1bfabffb965a166842936410dc9e3802579565a48a6212ec9818",
+          "size": 879,
+          "artifactType": "application/vnd.dev.sigstore.bundle.v0.3+json",
+          "referrers": []
+        }
+      ]
+    },
+    {
+      "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:842aaaf0cc93d1854f7d398fe5d23aef619128b305829282275e3488af4a60b6",
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:842aaaf0cc93d1854f7d398fe5d23aef619128b305829282275e3488af4a60b6",
+      "size": 731,
+      "annotations": {
+        "org.opencontainers.image.created": "2026-09-20T14:09:13Z"
+      },
+      "artifactType": "application/spdx+json",
+      "referrers": [
+        {
+          "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:2ac0e6d8ad3092af3c0cb2dc139cd2ef538593900f2c43a46db8416b52a27b7e",
+          "mediaType": "application/vnd.oci.image.manifest.v1+json",
+          "digest": "sha256:2ac0e6d8ad3092af3c0cb2dc139cd2ef538593900f2c43a46db8416b52a27b7e",
+          "size": 879,
+          "artifactType": "application/vnd.dev.sigstore.bundle.v0.3+json",
+          "referrers": []
+        }
+      ]
+    },
+    {
+      "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:85660ae57cc15839ba41c3cb0fd6457faa1a043e2ac9cb495e8fbfeba201d9f6",
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:85660ae57cc15839ba41c3cb0fd6457faa1a043e2ac9cb495e8fbfeba201d9f6",
       "size": 880,
       "artifactType": "application/vnd.dev.sigstore.bundle.v0.3+json",
       "referrers": []
     },
     {
-      "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:c7198613bfb11271c77df70b9e5d3fce934674f7fb60cd4ed432786ca7cda52f",
+      "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:000843e2834059fd6ca73e3c7c5aad62000723e78e4eef7a8918ad23e889743c",
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
-      "digest": "sha256:c7198613bfb11271c77df70b9e5d3fce934674f7fb60cd4ed432786ca7cda52f",
-      "size": 731,
-      "annotations": {
-        "org.opencontainers.image.created": "2026-09-20T04:15:07Z"
-      },
-      "artifactType": "application/spdx+json",
-      "referrers": [
-        {
-          "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:5e9f397d32f17c83b7f5c49b84589024e3fefff2febe9348ed0b61e805f86dd4",
-          "mediaType": "application/vnd.oci.image.manifest.v1+json",
-          "digest": "sha256:5e9f397d32f17c83b7f5c49b84589024e3fefff2febe9348ed0b61e805f86dd4",
-          "size": 879,
-          "artifactType": "application/vnd.dev.sigstore.bundle.v0.3+json",
-          "referrers": []
-        }
-      ]
-    },
-    {
-      "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:ff27ab1bac384cc2e947816b767a865cc0bbc70c8d8258083ab59557633fdf04",
-      "mediaType": "application/vnd.oci.image.manifest.v1+json",
-      "digest": "sha256:ff27ab1bac384cc2e947816b767a865cc0bbc70c8d8258083ab59557633fdf04",
-      "size": 750,
-      "annotations": {
-        "org.opencontainers.image.created": "2026-09-20T04:15:17Z"
-      },
-      "artifactType": "application/vnd.in-toto+json",
-      "referrers": [
-        {
-          "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:ae360093ac061b2f49dfe47dda9d310d4254aff703e35f8e907cc1eaf52f8e8b",
-          "mediaType": "application/vnd.oci.image.manifest.v1+json",
-          "digest": "sha256:ae360093ac061b2f49dfe47dda9d310d4254aff703e35f8e907cc1eaf52f8e8b",
-          "size": 879,
-          "artifactType": "application/vnd.dev.sigstore.bundle.v0.3+json",
-          "referrers": []
-        }
-      ]
-    },
-    {
-      "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:958dfeb04c955c431e2d7ccbf9e20ceefda21d875802a21705d5987b00e2fff0",
-      "mediaType": "application/vnd.oci.image.manifest.v1+json",
-      "digest": "sha256:958dfeb04c955c431e2d7ccbf9e20ceefda21d875802a21705d5987b00e2fff0",
+      "digest": "sha256:000843e2834059fd6ca73e3c7c5aad62000723e78e4eef7a8918ad23e889743c",
       "size": 796,
       "annotations": {
-        "org.opencontainers.image.created": "2026-09-20T04:16:02Z"
+        "org.opencontainers.image.created": "2026-09-20T14:10:05Z"
       },
       "artifactType": "application/vnd.dsgeorref.native-runtime-linkage.v1+json",
       "referrers": [
         {
-          "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:d97aeba67f69cb272c80b7934e41e3bddcf5adeb4539edaacad47d046025c942",
+          "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:49615d0080104ef29b0ea1206d9319efb9a55e0344842a3fcb61a0ceecdc7364",
           "mediaType": "application/vnd.oci.image.manifest.v1+json",
-          "digest": "sha256:d97aeba67f69cb272c80b7934e41e3bddcf5adeb4539edaacad47d046025c942",
+          "digest": "sha256:49615d0080104ef29b0ea1206d9319efb9a55e0344842a3fcb61a0ceecdc7364",
           "size": 879,
           "artifactType": "application/vnd.dev.sigstore.bundle.v0.3+json",
           "referrers": []
