@@ -17,6 +17,58 @@ python_stack:
   fastapi: 0.140.2
   pydantic: 2.13.4
   celery: 5.6.3
+immutable_inputs:
+  target_platform: linux/amd64
+  previous_source_lock_digest: sha256:61197932f5cd5d4eed96c4a6c9d24185cfe9761e81094c6fd3a378c7eaa13d50
+  base_image:
+    reference: docker.io/mambaorg/micromamba@sha256:e583f8e151fd1ebbc78b05cf4feb37ddbb518892dbabf6c0c03ea8ad613bc519
+    version: 2.3.3
+  conda_environment:
+    lock_file: infra/images/native-stack.conda-lock.txt
+    lock_sha256: sha256:dafb10f30d967d18c7417104d0bb417aaea8ea23a1a67937dd28dc6168db4848
+    resolver: micromamba
+    resolver_version: 2.8.1-0
+    resolver_linux_amd64_sha256: sha256:9689782d863c05a1bf5d2d371ba527104e7a4eb4310c1637d8653b751aed9c82
+    channel: conda-forge
+    proj_data_version: '1.25'
+    artifact_count: 136
+  pypi_artifacts:
+    fastapi:
+      version: 0.140.2
+      filename: fastapi-0.140.2-py3-none-any.whl
+      url: https://files.pythonhosted.org/packages/74/ed/15196be41f2bf84e358d899e62daf5666ba4f6dbab4cbad87d16cc16df6d/fastapi-0.140.2-py3-none-any.whl
+      sha256: sha256:944336ef298148dfd97478638567b223d929aba8717ad8be73ae962a62ecd61d
+      install_mode: NO_DEPS
+  abi_smoke_service:
+    reference: docker.io/kartoza/postgis@sha256:ee01a9755ba8fbb54a462ca137f3e79a71c5662b7decb45127d8a24eb2475ee6
+    declared_tag: 18.4-3.6.4--v2026.06.21
+    required_postgresql: '18.4'
+    required_postgis: 3.6.4
+    runtime_version_verification: REQUIRED
+    client_driver:
+      package: psycopg
+      version: 3.2.9
+  workflow_actions:
+    checkout: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+    setup_buildx: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069
+    login: docker/login-action@dbcb813823bdd20940b903addbd779551569679f
+    upload_artifact: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+  supply_chain_tools:
+    buildx:
+      version: 0.37.1
+      linux_amd64_sha256: sha256:9447199cdb435f25880548343c128a4b6650e8891ee598905d8d29d39a8e359b
+    cosign:
+      version: 3.1.3
+      url: https://github.com/sigstore/cosign/releases/download/v3.1.3/cosign-linux-amd64
+      linux_amd64_sha256: sha256:4629c757b7618056f8ddd7e2625ae9fdd94c0372a65049520bc7d9df9efc7f71
+    syft:
+      version: 1.52.0
+      url: https://github.com/anchore/syft/releases/download/v1.52.0/syft_1.52.0_linux_amd64.tar.gz
+      linux_amd64_sha256: sha256:caeedb81fb0491615f1ebd1761e4145d41ee86dd2cc7bf80669f9f5ad9d6133d
+    oras:
+      version: 1.3.4
+      url: https://github.com/oras-project/oras/releases/download/v1.3.4/oras_1.3.4_linux_amd64.tar.gz
+      linux_amd64_sha256: sha256:f27adb935022d94df8dc77719c322dda592c78a0d57a6f7dcdd8d900b248c454
 resolution:
   oci_digest: GENERATED_BY_SPRINT_001_BUILD
   sbom: GENERATED_BY_SPRINT_001_BUILD

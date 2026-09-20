@@ -1,0 +1,38 @@
+{
+  "issue": 973,
+  "decision": "APPROVED",
+  "recorded_at": "2026-09-20T03:39:14Z",
+  "registry": "ghcr.io",
+  "package": "ghcr.io/raphaelperrut/dsgeorref-native-stack",
+  "visibility": "public",
+  "platform": "linux/amd64",
+  "retention": {
+    "automatic_expiration": false,
+    "referenced_digests_preserved_by_administrative_policy": true,
+    "ghcr_technical_immutability_claimed": false
+  },
+  "publisher": {
+    "repository": "raphaelperrut/DSGeorref",
+    "workflow": ".github/workflows/native-stack.yaml",
+    "ref": "refs/heads/codex/issue-973-native-runtime",
+    "environment": "native-runtime-release",
+    "registry_authentication": "EPHEMERAL_GITHUB_TOKEN",
+    "signing_authentication": "GITHUB_OIDC_KEYLESS"
+  },
+  "permissions": {
+    "global": {
+      "contents": "read"
+    },
+    "publisher_job_only": {
+      "contents": "read",
+      "packages": "write",
+      "id-token": "write"
+    }
+  },
+  "signing": "COSIGN_KEYLESS",
+  "trust_scope": "DSGEOREF-NATIVE-RUNTIME-SUPPLY-CHAIN-V1",
+  "sbom": "SPDX-2.3-JSON_OCI_REFERRER",
+  "provenance": "IN_TOTO_SLSA_V1_OCI_REFERRER",
+  "dependency_720_resolution": "OWNER_APPROVED_B",
+  "issue_974_authorized": false
+}

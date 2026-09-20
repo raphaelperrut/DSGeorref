@@ -1,0 +1,364 @@
+name: native-stack
+
+on:
+  pull_request:
+    paths:
+      - .codex/tasks/operations/TASK-0763.json
+      - contracts/contexts/release_installation/native-stack-supply-chain/**
+      - infra/images/native-stack.Dockerfile
+      - infra/images/native-stack.conda-lock.txt
+      - infra/images/native-stack.lock.yaml
+      - infra/images/native-stack.resolved.yaml
+      - tools/quality/native_stack/**
+      - tests/infra/native_stack/**
+      - .github/workflows/native-stack.yaml
+  push:
+    branches:
+      - codex/issue-973-native-runtime
+    paths:
+      - .codex/tasks/operations/TASK-0763.json
+      - contracts/contexts/release_installation/native-stack-supply-chain/**
+      - infra/images/native-stack.Dockerfile
+      - infra/images/native-stack.conda-lock.txt
+      - infra/images/native-stack.lock.yaml
+      - tools/quality/native_stack/**
+      - tests/infra/native_stack/**
+      - .github/workflows/native-stack.yaml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-stack-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  PACKAGE: ghcr.io/raphaelperrut/dsgeorref-native-stack
+  SOURCE_LOCK_DIGEST: sha256:16970dbaba6b1a5494a2003626a53bf0d6d9cfc5ed64471804bc888551d49a9e
+  POLICY_DIGEST: sha256:756dd9e682c844e942a24a12c82db462179ad7e3ec6bf800cb8e21f34a77d1eb
+  TRUST_SCOPE: DSGEOREF-NATIVE-RUNTIME-SUPPLY-CHAIN-V1
+  OIDC_ISSUER: https://token.actions.githubusercontent.com
+  CERTIFICATE_IDENTITY: https://github.com/raphaelperrut/DSGeorref/.github/workflows/native-stack.yaml@refs/heads/codex/issue-973-native-runtime
+  POSTGIS_IMAGE: docker.io/kartoza/postgis@sha256:ee01a9755ba8fbb54a462ca137f3e79a71c5662b7decb45127d8a24eb2475ee6
+
+jobs:
+  validate:
+    name: Validate immutable inputs
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Install focused validation dependencies
+        run: python3 -m pip install --disable-pip-version-check PyYAML==6.0.3 jsonschema==4.26.0 pytest==9.1.1
+
+      - name: Validate TaskEnvelope
+        run: >-
+          python3 -m jsonschema
+          -i .codex/tasks/operations/TASK-0763.json
+          .codex/tasks/TASK_ENVELOPE.schema.json
+
+      - name: Validate source lock and workflow
+        run: >-
+          python3 tools/quality/native_stack/validate.py
+          --source-lock infra/images/native-stack.lock.yaml
+          --resolved-lock infra/images/native-stack.resolved.yaml
+
+      - name: Run focused tests
+        run: python3 -m pytest tests/infra/native_stack/test_native_stack.py
+
+  publish:
+    name: Publish signed native runtime
+    if: >-
+      github.event_name == 'push' &&
+      github.repository == 'raphaelperrut/DSGeorref' &&
+      github.ref == 'refs/heads/codex/issue-973-native-runtime'
+    needs: validate
+    runs-on: ubuntu-24.04
+    environment: native-runtime-release
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      - name: Checkout publisher candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Configure pinned Buildx
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+        with:
+          version: v0.37.1
+          driver: docker-container
+
+      - name: Authenticate to approved registry
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install checksum-pinned supply-chain tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          tools_dir="$RUNNER_TEMP/native-stack-tools"
+          mkdir -p "$tools_dir"
+
+          curl --fail --silent --show-error --location https://github.com/sigstore/cosign/releases/download/v3.1.3/cosign-linux-amd64 --output "$tools_dir/cosign"
+          echo "4629c757b7618056f8ddd7e2625ae9fdd94c0372a65049520bc7d9df9efc7f71  $tools_dir/cosign" | sha256sum --check
+          chmod 0755 "$tools_dir/cosign"
+
+          curl --fail --silent --show-error --location https://github.com/anchore/syft/releases/download/v1.52.0/syft_1.52.0_linux_amd64.tar.gz --output "$tools_dir/syft.tar.gz"
+          echo "caeedb81fb0491615f1ebd1761e4145d41ee86dd2cc7bf80669f9f5ad9d6133d  $tools_dir/syft.tar.gz" | sha256sum --check
+          tar --extract --gzip --file "$tools_dir/syft.tar.gz" --directory "$tools_dir" syft
+
+          curl --fail --silent --show-error --location https://github.com/oras-project/oras/releases/download/v1.3.4/oras_1.3.4_linux_amd64.tar.gz --output "$tools_dir/oras.tar.gz"
+          echo "f27adb935022d94df8dc77719c322dda592c78a0d57a6f7dcdd8d900b248c454  $tools_dir/oras.tar.gz" | sha256sum --check
+          tar --extract --gzip --file "$tools_dir/oras.tar.gz" --directory "$tools_dir" oras
+          chmod 0755 "$tools_dir/syft" "$tools_dir/oras"
+          echo "$tools_dir" >> "$GITHUB_PATH"
+
+      - name: Revalidate immutable source-lock digest
+        shell: bash
+        run: |
+          set -euo pipefail
+          actual="sha256:$(sha256sum infra/images/native-stack.lock.yaml | cut -d' ' -f1)"
+          test "$actual" = "$SOURCE_LOCK_DIGEST"
+          conda_actual="sha256:$(sha256sum infra/images/native-stack.conda-lock.txt | cut -d' ' -f1)"
+          test "$conda_actual" = "sha256:dafb10f30d967d18c7417104d0bb417aaea8ea23a1a67937dd28dc6168db4848"
+          test "$GITHUB_REF" = "refs/heads/codex/issue-973-native-runtime"
+          test "$GITHUB_REPOSITORY" = "raphaelperrut/DSGeorref"
+
+      - name: Build and publish candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          evidence="$RUNNER_TEMP/native-evidence"
+          mkdir -p "$evidence"
+          tag="$PACKAGE:issue-973-$GITHUB_SHA"
+          docker buildx build --platform linux/amd64 --file infra/images/native-stack.Dockerfile --build-arg "SOURCE_LOCK_DIGEST=$SOURCE_LOCK_DIGEST" --build-arg "BUILD_COMMIT_SHA=$GITHUB_SHA" --provenance=false --sbom=false --tag "$tag" --push --metadata-file "$evidence/build-metadata.json" .
+          image_digest="$(jq -r '."containerimage.digest" // empty' "$evidence/build-metadata.json")"
+          [[ "$image_digest" =~ ^sha256:[0-9a-f]{64}$ ]]
+          image_ref="$PACKAGE@$image_digest"
+          docker buildx imagetools inspect "$image_ref" > "$evidence/image-inspect.txt"
+          labels="$(docker buildx imagetools inspect "$image_ref" --format '{{json .Image.Config.Labels}}')"
+          test "$(jq -r '."io.dsgeorref.source-lock-digest"' <<<"$labels")" = "$SOURCE_LOCK_DIGEST"
+          test "$(jq -r '."org.opencontainers.image.revision"' <<<"$labels")" = "$GITHUB_SHA"
+          echo "IMAGE_DIGEST=$image_digest" >> "$GITHUB_ENV"
+          echo "IMAGE_REF=$image_ref" >> "$GITHUB_ENV"
+          echo "EVIDENCE_DIR=$evidence" >> "$GITHUB_ENV"
+          echo "BUILD_RECIPE_DIGEST=sha256:$(sha256sum infra/images/native-stack.Dockerfile | cut -d' ' -f1)" >> "$GITHUB_ENV"
+
+      - name: Generate, attach, sign, and verify SPDX SBOM
+        shell: bash
+        env:
+          COSIGN_YES: "true"
+        run: |
+          set -euo pipefail
+          created="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          syft "$IMAGE_REF" --output spdx-json > "$EVIDENCE_DIR/sbom.raw.spdx.json"
+          jq --arg date "$created" --arg run_id "$GITHUB_RUN_ID" --arg issuer "$OIDC_ISSUER" --arg identity "$CERTIFICATE_IDENTITY" --arg subject "$IMAGE_REF" '.annotations = ((.annotations // []) + [{
+              annotationDate: $date,
+              annotationType: "OTHER",
+              annotator: "Tool: dsgeorref-native-stack-workflow",
+              comment: ("WORKFLOW_RUN_ID=" + $run_id + "; OIDC_ISSUER=" + $issuer + "; PUBLISHER_IDENTITY=" + $identity + "; SUBJECT=" + $subject)
+            }])' "$EVIDENCE_DIR/sbom.raw.spdx.json" > "$EVIDENCE_DIR/sbom.spdx.json"
+          rm "$EVIDENCE_DIR/sbom.raw.spdx.json"
+          jq -e '.spdxVersion == "SPDX-2.3" and (.packages | length > 0)' "$EVIDENCE_DIR/sbom.spdx.json" > /dev/null
+          oras attach --artifact-type application/spdx+json --format json "$IMAGE_REF" "$EVIDENCE_DIR/sbom.spdx.json:application/spdx+json" > "$EVIDENCE_DIR/sbom-attach.json"
+          sbom_digest="$(jq -r '.digest // .manifest.digest // .descriptor.digest // empty' "$EVIDENCE_DIR/sbom-attach.json")"
+          [[ "$sbom_digest" =~ ^sha256:[0-9a-f]{64}$ ]]
+          cosign sign --yes --bundle "$EVIDENCE_DIR/sbom-signature.bundle.json" "$PACKAGE@$sbom_digest"
+          cosign verify --bundle "$EVIDENCE_DIR/sbom-signature.bundle.json" --certificate-identity "$CERTIFICATE_IDENTITY" --certificate-oidc-issuer "$OIDC_ISSUER" --output json "$PACKAGE@$sbom_digest" > "$EVIDENCE_DIR/sbom-signature-verification.json"
+          echo "SBOM_DIGEST=$sbom_digest" >> "$GITHUB_ENV"
+
+      - name: Generate, attach, sign, and verify SLSA provenance
+        shell: bash
+        env:
+          COSIGN_YES: "true"
+        run: |
+          set -euo pipefail
+          image_sha="${IMAGE_DIGEST#sha256:}"
+          source_sha="${SOURCE_LOCK_DIGEST#sha256:}"
+          recipe_sha="${BUILD_RECIPE_DIGEST#sha256:}"
+          conda_sha="dafb10f30d967d18c7417104d0bb417aaea8ea23a1a67937dd28dc6168db4848"
+          jq -n --arg package "$PACKAGE" --arg image_sha "$image_sha" --arg source_sha "$source_sha" --arg recipe_sha "$recipe_sha" --arg conda_sha "$conda_sha" --arg commit "$GITHUB_SHA" --arg run_id "$GITHUB_RUN_ID" --arg run_attempt "$GITHUB_RUN_ATTEMPT" --arg identity "$CERTIFICATE_IDENTITY" --arg issuer "$OIDC_ISSUER" --arg base "docker.io/mambaorg/micromamba@sha256:e583f8e151fd1ebbc78b05cf4feb37ddbb518892dbabf6c0c03ea8ad613bc519" --arg service "$POSTGIS_IMAGE" '{
+              _type: "https://in-toto.io/Statement/v1",
+              subject: [{name: $package, digest: {sha256: $image_sha}}],
+              predicateType: "https://slsa.dev/provenance/v1",
+              predicate: {
+                buildDefinition: {
+                  buildType: "https://dsgeorref.local/build-types/native-stack/v1",
+                  externalParameters: {platform: "linux/amd64"},
+                  internalParameters: {
+                    repository: "raphaelperrut/DSGeorref",
+                    ref: "refs/heads/codex/issue-973-native-runtime",
+                    environment: "native-runtime-release",
+                    workflowRunId: $run_id,
+                    workflowRunAttempt: $run_attempt,
+                    oidcIssuer: $issuer,
+                    publisherIdentity: $identity
+                  },
+                  resolvedDependencies: [
+                    {uri: ("git+https://github.com/raphaelperrut/DSGeorref@" + $commit), digest: {gitCommit: $commit}},
+                    {uri: "file:infra/images/native-stack.lock.yaml", digest: {sha256: $source_sha}},
+                    {uri: "file:infra/images/native-stack.conda-lock.txt", digest: {sha256: $conda_sha}},
+                    {uri: "file:infra/images/native-stack.Dockerfile", digest: {sha256: $recipe_sha}},
+                    {uri: $base},
+                    {uri: $service}
+                  ]
+                },
+                runDetails: {
+                  builder: {id: $identity},
+                  metadata: {invocationId: $run_id}
+                }
+              }
+            }' > "$EVIDENCE_DIR/provenance.intoto.json"
+          jq -e --arg image_sha "$image_sha" --arg source_sha "$source_sha" --arg commit "$GITHUB_SHA" '.predicateType == "https://slsa.dev/provenance/v1"
+             and .subject[0].digest.sha256 == $image_sha
+             and (.predicate.buildDefinition.resolvedDependencies | any(.digest.sha256 == $source_sha))
+             and (.predicate.buildDefinition.resolvedDependencies | any(.digest.gitCommit == $commit))' "$EVIDENCE_DIR/provenance.intoto.json" > /dev/null
+          oras attach --artifact-type application/vnd.in-toto+json --format json "$IMAGE_REF" "$EVIDENCE_DIR/provenance.intoto.json:application/vnd.in-toto+json" > "$EVIDENCE_DIR/provenance-attach.json"
+          provenance_digest="$(jq -r '.digest // .manifest.digest // .descriptor.digest // empty' "$EVIDENCE_DIR/provenance-attach.json")"
+          [[ "$provenance_digest" =~ ^sha256:[0-9a-f]{64}$ ]]
+          cosign sign --yes --bundle "$EVIDENCE_DIR/provenance-signature.bundle.json" "$PACKAGE@$provenance_digest"
+          cosign verify --bundle "$EVIDENCE_DIR/provenance-signature.bundle.json" --certificate-identity "$CERTIFICATE_IDENTITY" --certificate-oidc-issuer "$OIDC_ISSUER" --output json "$PACKAGE@$provenance_digest" > "$EVIDENCE_DIR/provenance-signature-verification.json"
+          echo "PROVENANCE_DIGEST=$provenance_digest" >> "$GITHUB_ENV"
+
+      - name: Sign and verify candidate image
+        shell: bash
+        env:
+          COSIGN_YES: "true"
+        run: |
+          set -euo pipefail
+          cosign sign --yes --bundle "$EVIDENCE_DIR/image-signature.bundle.json" "$IMAGE_REF"
+          cosign verify --bundle "$EVIDENCE_DIR/image-signature.bundle.json" --certificate-identity "$CERTIFICATE_IDENTITY" --certificate-oidc-issuer "$OIDC_ISSUER" --output json "$IMAGE_REF" > "$EVIDENCE_DIR/image-signature-verification.json"
+          signature_reference="$(cosign triangulate "$IMAGE_REF")"
+          test -n "$signature_reference"
+          signature_bundle_digest="sha256:$(sha256sum "$EVIDENCE_DIR/image-signature.bundle.json" | cut -d' ' -f1)"
+          tlog_index="$(jq -r '.. | objects | .logIndex? // empty' "$EVIDENCE_DIR/image-signature.bundle.json" | head -n1)"
+          test -n "$tlog_index"
+          echo "SIGNATURE_REFERENCE=$signature_reference" >> "$GITHUB_ENV"
+          echo "SIGNATURE_BUNDLE_DIGEST=$signature_bundle_digest" >> "$GITHUB_ENV"
+          echo "TRANSPARENCY_LOG_REFERENCE=rekor-log-index:$tlog_index" >> "$GITHUB_ENV"
+
+      - name: Run digest-bound ABI smoke against isolated PostgreSQL and PostGIS
+        shell: bash
+        run: |
+          set -euo pipefail
+          network="native-973-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          database="native-973-postgis-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          cleanup() {
+            docker rm --force "$database" >/dev/null 2>&1 || true
+            docker network rm "$network" >/dev/null 2>&1 || true
+          }
+          trap cleanup EXIT
+          docker network create "$network" >/dev/null
+          docker run --detach --name "$database" --network "$network" --network-alias postgis --env POSTGRES_USER=native_smoke --env POSTGRES_PASS=native_smoke --env POSTGRES_PASSWORD=native_smoke --env POSTGRES_DBNAME=native_smoke --env ALLOW_IP_RANGE=0.0.0.0/0 "$POSTGIS_IMAGE" > "$EVIDENCE_DIR/postgis-container-id.txt"
+          ready=0
+          for _ in $(seq 1 60); do
+            if docker exec "$database" pg_isready -U native_smoke -d native_smoke >/dev/null 2>&1; then
+              ready=1
+              break
+            fi
+            sleep 5
+          done
+          if [ "$ready" -ne 1 ]; then
+            docker logs "$database"
+            exit 1
+          fi
+          chmod 0777 "$EVIDENCE_DIR"
+          docker run --rm --network "$network" --volume "$GITHUB_WORKSPACE:/workspace:ro" --volume "$EVIDENCE_DIR:/evidence" "$IMAGE_REF" python /workspace/tools/quality/native_stack/abi_smoke.py   --source-lock /workspace/infra/images/native-stack.lock.yaml   --candidate-image-digest "$IMAGE_DIGEST"   --postgres-dsn postgresql://native_smoke:native_smoke@postgis:5432/native_smoke   --output /evidence/abi-smoke.json
+          jq -e --arg image "$IMAGE_DIGEST" --arg source "$SOURCE_LOCK_DIGEST" '.result == "PASS"
+             and .candidate_image_digest == $image
+             and .source_lock_digest == $source
+             and (.components_verified | length == 8)' "$EVIDENCE_DIR/abi-smoke.json" > /dev/null
+          echo "ABI_SMOKE_EVIDENCE_DIGEST=sha256:$(sha256sum "$EVIDENCE_DIR/abi-smoke.json" | cut -d' ' -f1)" >> "$GITHUB_ENV"
+
+      - name: Publish signed linkage and verify all bindings
+        shell: bash
+        env:
+          COSIGN_YES: "true"
+        run: |
+          set -euo pipefail
+          jq -n --arg trust_scope "$TRUST_SCOPE" --arg policy_digest "$POLICY_DIGEST" --arg source_lock_digest "$SOURCE_LOCK_DIGEST" --arg build_commit_sha "$GITHUB_SHA" --arg image_digest "$IMAGE_DIGEST" --arg sbom_digest "$SBOM_DIGEST" --arg provenance_digest "$PROVENANCE_DIGEST" --arg signature_reference "$SIGNATURE_REFERENCE" --arg signature_bundle_digest "$SIGNATURE_BUNDLE_DIGEST" --arg abi_smoke_evidence_digest "$ABI_SMOKE_EVIDENCE_DIGEST" --arg workflow_run_id "$GITHUB_RUN_ID" --arg oidc_issuer "$OIDC_ISSUER" --arg publisher_identity "$CERTIFICATE_IDENTITY" '{
+              predicateType: "https://dsgeorref.local/attestations/native-runtime-linkage/v1",
+              trustScope: $trust_scope,
+              approvedPolicyDigest: $policy_digest,
+              sourceLockDigest: $source_lock_digest,
+              buildCommitSha: $build_commit_sha,
+              imageDigest: $image_digest,
+              sbomDigest: $sbom_digest,
+              provenanceDigest: $provenance_digest,
+              signatureReference: $signature_reference,
+              signatureBundleDigest: $signature_bundle_digest,
+              abiSmokeEvidenceDigest: $abi_smoke_evidence_digest,
+              workflowRunId: $workflow_run_id,
+              oidcIssuer: $oidc_issuer,
+              publisherIdentity: $publisher_identity,
+              repository: "raphaelperrut/DSGeorref",
+              ref: "refs/heads/codex/issue-973-native-runtime",
+              environment: "native-runtime-release"
+            }' > "$EVIDENCE_DIR/linkage.json"
+          oras attach --artifact-type application/vnd.dsgeorref.native-runtime-linkage.v1+json --format json "$IMAGE_REF" "$EVIDENCE_DIR/linkage.json:application/vnd.dsgeorref.native-runtime-linkage.v1+json" > "$EVIDENCE_DIR/linkage-attach.json"
+          linkage_digest="$(jq -r '.digest // .manifest.digest // .descriptor.digest // empty' "$EVIDENCE_DIR/linkage-attach.json")"
+          [[ "$linkage_digest" =~ ^sha256:[0-9a-f]{64}$ ]]
+          cosign sign --yes --bundle "$EVIDENCE_DIR/linkage-signature.bundle.json" "$PACKAGE@$linkage_digest"
+          cosign verify --bundle "$EVIDENCE_DIR/linkage-signature.bundle.json" --certificate-identity "$CERTIFICATE_IDENTITY" --certificate-oidc-issuer "$OIDC_ISSUER" --output json "$PACKAGE@$linkage_digest" > "$EVIDENCE_DIR/linkage-signature-verification.json"
+          oras discover --format json "$IMAGE_REF" > "$EVIDENCE_DIR/image-referrers.json"
+          jq -e --arg digest "$SBOM_DIGEST" '.. | strings | select(. == $digest)' "$EVIDENCE_DIR/image-referrers.json" > /dev/null
+          jq -e --arg digest "$PROVENANCE_DIGEST" '.. | strings | select(. == $digest)' "$EVIDENCE_DIR/image-referrers.json" > /dev/null
+          jq -e --arg digest "$linkage_digest" '.. | strings | select(. == $digest)' "$EVIDENCE_DIR/image-referrers.json" > /dev/null
+          oras discover --artifact-type application/vnd.dsgeorref.native-runtime-revocation.v1+json --format json "$IMAGE_REF" > "$EVIDENCE_DIR/revocation-referrers.json"
+          jq -e '(.manifests // []) | length == 0' "$EVIDENCE_DIR/revocation-referrers.json" > /dev/null
+          jq -e --arg trust "$TRUST_SCOPE" --arg policy "$POLICY_DIGEST" --arg source "$SOURCE_LOCK_DIGEST" --arg commit "$GITHUB_SHA" --arg image "$IMAGE_DIGEST" --arg sbom "$SBOM_DIGEST" --arg provenance "$PROVENANCE_DIGEST" --arg run "$GITHUB_RUN_ID" '.trustScope == $trust
+             and .approvedPolicyDigest == $policy
+             and .sourceLockDigest == $source
+             and .buildCommitSha == $commit
+             and .imageDigest == $image
+             and .sbomDigest == $sbom
+             and .provenanceDigest == $provenance
+             and .workflowRunId == $run' "$EVIDENCE_DIR/linkage.json" > /dev/null
+          echo "LINKAGE_DIGEST=$linkage_digest" >> "$GITHUB_ENV"
+
+      - name: Record sanitized publication evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          jq -n --arg result PASS --arg source_lock_digest "$SOURCE_LOCK_DIGEST" --arg build_recipe_digest "$BUILD_RECIPE_DIGEST" --arg build_commit_sha "$GITHUB_SHA" --arg image_digest "$IMAGE_DIGEST" --arg sbom_digest "$SBOM_DIGEST" --arg provenance_digest "$PROVENANCE_DIGEST" --arg signature_reference "$SIGNATURE_REFERENCE" --arg signature_bundle_digest "$SIGNATURE_BUNDLE_DIGEST" --arg transparency_log_reference "$TRANSPARENCY_LOG_REFERENCE" --arg abi_smoke_evidence_digest "$ABI_SMOKE_EVIDENCE_DIGEST" --arg linkage_digest "$LINKAGE_DIGEST" --arg workflow_run_id "$GITHUB_RUN_ID" --arg workflow_run_attempt "$GITHUB_RUN_ATTEMPT" --arg trust_scope "$TRUST_SCOPE" --arg publisher_identity "$CERTIFICATE_IDENTITY" --arg oidc_issuer "$OIDC_ISSUER" '{
+              result: $result,
+              source_lock_digest: $source_lock_digest,
+              build_recipe_digest: $build_recipe_digest,
+              build_commit_sha: $build_commit_sha,
+              image_digest: $image_digest,
+              sbom_digest: $sbom_digest,
+              provenance_digest: $provenance_digest,
+              signature_reference: $signature_reference,
+              signature_bundle_digest: $signature_bundle_digest,
+              transparency_log_reference: $transparency_log_reference,
+              abi_smoke_evidence_digest: $abi_smoke_evidence_digest,
+              linkage_digest: $linkage_digest,
+              workflow_run_id: $workflow_run_id,
+              workflow_run_attempt: $workflow_run_attempt,
+              trust_scope: $trust_scope,
+              publisher_identity: $publisher_identity,
+              oidc_issuer: $oidc_issuer,
+              registry: "ghcr.io",
+              package: "ghcr.io/raphaelperrut/dsgeorref-native-stack",
+              environment: "native-runtime-release",
+              platform: "linux/amd64",
+              signature_verification: "PASS",
+              abi_smoke_result: "PASS",
+              artifact_linkage_verified: true
+            }' > "$EVIDENCE_DIR/publication-summary.json"
+
+      - name: Upload evidence bundle
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: native-stack-issue-973-${{ github.sha }}-${{ github.run_attempt }}
+          path: ${{ env.EVIDENCE_DIR }}
+          if-no-files-found: error
+          retention-days: 90

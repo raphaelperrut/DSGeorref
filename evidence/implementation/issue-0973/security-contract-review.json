@@ -1,0 +1,21 @@
+{
+  "issue": 973,
+  "review_role": "Security",
+  "reviewed_at": "2026-09-20T03:23:26Z",
+  "decision": "APPROVE",
+  "contract_version": "1.0.2",
+  "policy_sha256": "756dd9e682c844e942a24a12c82db462179ad7e3ec6bf800cb8e21f34a77d1eb",
+  "schema_sha256": "53ee536a0cf745c5f192b98787a395a7bb89ac4ee3ece2c42da6800696faada8",
+  "schema_validation": "PASS",
+  "task_envelope_validation": "PASS",
+  "contract_precondition": "APPROVED",
+  "implementation_candidate_reviewed": false,
+  "production_artifacts_reviewed": false,
+  "findings": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "condition": "Approval applies only to the exact policy and schema digests recorded here; implementation must enforce every required equality and fail-closed rule."
+}

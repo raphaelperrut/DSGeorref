@@ -29,10 +29,18 @@
     "docs/02-architecture/adrs/ADR-033-supply-chain-sbom-assinaturas-e-dependencias.md",
     "docs/02-architecture/adrs/ADR-034-oci-compose-instalacao-bootstrap-e-readiness.md",
     "docs/02-architecture/adrs/ADR-043-stack-geoespacial-nativa-abi-e-isolamento.md",
-    "docs/02-architecture/adrs/ADR-057-release-train-publicacao-e-gates-de-distribuicao.md"
+    "docs/02-architecture/adrs/ADR-057-release-train-publicacao-e-gates-de-distribuicao.md",
+    "contracts/contexts/release_installation/native-stack-supply-chain/policy.yaml",
+    "contracts/contexts/release_installation/native-stack-supply-chain/policy.schema.json"
   ],
   "allow_paths": [
     ".codex/tasks/operations/TASK-0763.json",
+    "contracts/contexts/release_installation/native-stack-supply-chain/README.md",
+    "contracts/contexts/release_installation/native-stack-supply-chain/policy.yaml",
+    "contracts/contexts/release_installation/native-stack-supply-chain/policy.schema.json",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
+    "infra/images/native-stack.lock.yaml",
+    "infra/images/native-stack.conda-lock.txt",
     "infra/images/native-stack.Dockerfile",
     "infra/images/native-stack.resolved.yaml",
     ".github/workflows/native-stack.yaml",
@@ -42,7 +50,6 @@
     "evidence/implementation/issue-0973/**"
   ],
   "deny_paths": [
-    "infra/images/native-stack.lock.yaml",
     ".codex/tasks/TASK-0499.json",
     ".codex/tasks/TASK-0500.json",
     ".codex/tasks/TASK-0501.json",
@@ -54,7 +61,7 @@
     "docs/06-delivery/epics/EPIC-110-*.md",
     "docs/06-delivery/stories/**ISSUE-0874*.md",
     "src/**",
-    "contracts/**",
+    "contracts/contexts/release_installation/sec/**",
     "**/.env*",
     "secrets/**",
     "credentials/**",
@@ -133,29 +140,30 @@
   "adr_baseline": "SAR-v2.9-PHASE-F",
   "applicable_specifications": [
     "SPEC-001",
-    "SPEC-004"
+    "SPEC-004",
+    "SPEC-005"
   ],
   "specification_review_status": "PASS",
   "specification_baseline": "SAR-v2.9-PHASE-F",
   "phase_f_review": {
     "status": "PASS",
     "dependencies": {
-      "status": "BLOCKED",
-      "count": 7,
+      "status": "PASS",
+      "count": 1,
       "items": [
-        "ISSUE-0080",
-        "STORY-0499",
-        "STORY-0500",
-        "STORY-0501",
-        "STORY-0502",
-        "STORY-0503",
-        "STORY-0504"
+        "ISSUE-0080: OWNER_APPROVED_B_RUNTIME_EQUIVALENT_CONTRACT"
       ]
     },
     "files": {
       "status": "PASS",
       "allow_paths": [
         ".codex/tasks/operations/TASK-0763.json",
+        "contracts/contexts/release_installation/native-stack-supply-chain/README.md",
+        "contracts/contexts/release_installation/native-stack-supply-chain/policy.yaml",
+        "contracts/contexts/release_installation/native-stack-supply-chain/policy.schema.json",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
+        "infra/images/native-stack.lock.yaml",
+        "infra/images/native-stack.conda-lock.txt",
         "infra/images/native-stack.Dockerfile",
         "infra/images/native-stack.resolved.yaml",
         ".github/workflows/native-stack.yaml",
@@ -165,7 +173,6 @@
         "evidence/implementation/issue-0973/**"
       ],
       "deny_paths": [
-        "infra/images/native-stack.lock.yaml",
         ".codex/tasks/TASK-0499.json",
         ".codex/tasks/TASK-0500.json",
         ".codex/tasks/TASK-0501.json",
@@ -177,7 +184,7 @@
         "docs/06-delivery/epics/EPIC-110-*.md",
         "docs/06-delivery/stories/**ISSUE-0874*.md",
         "src/**",
-        "contracts/**",
+        "contracts/contexts/release_installation/sec/**",
         "**/.env*",
         "secrets/**",
         "credentials/**",
@@ -243,7 +250,7 @@
         "evidence/implementation/issue-0973/",
         "registry-produced references and verified digests"
       ],
-      "contract": null
+      "contract": "contracts/contexts/release_installation/native-stack-supply-chain/policy.yaml"
     },
     "acceptance_criteria": {
       "status": "BLOCKED",
