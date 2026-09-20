@@ -270,7 +270,10 @@ jobs:
             exit 1
           fi
           chmod 0777 "$EVIDENCE_DIR"
-          docker run --rm --network "$network" --volume "$GITHUB_WORKSPACE:/workspace:ro" --volume "$EVIDENCE_DIR:/evidence" "$IMAGE_REF" /opt/conda/bin/python /workspace/tools/quality/native_stack/abi_smoke.py   --source-lock /workspace/infra/images/native-stack.lock.yaml   --candidate-image-digest "$IMAGE_DIGEST"   --postgres-dsn postgresql://native_smoke:native_smoke@postgis:5432/native_smoke   --output /evidence/abi-smoke.json
+          if ! docker run --rm --network "$network" --volume "$GITHUB_WORKSPACE:/workspace:ro" --volume "$EVIDENCE_DIR:/evidence" "$IMAGE_REF" /opt/conda/bin/python /workspace/tools/quality/native_stack/abi_smoke.py   --source-lock /workspace/infra/images/native-stack.lock.yaml   --candidate-image-digest "$IMAGE_DIGEST"   --postgres-dsn postgresql://native_smoke:native_smoke@postgis:5432/native_smoke   --database-wait-seconds 120   --output /evidence/abi-smoke.json; then
+            docker logs "$database"
+            exit 1
+          fi
           jq -e --arg image "$IMAGE_DIGEST" --arg source "$SOURCE_LOCK_DIGEST" '.result == "PASS"
              and .candidate_image_digest == $image
              and .source_lock_digest == $source

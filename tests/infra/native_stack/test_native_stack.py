@@ -6,6 +6,7 @@ import json
 import re
 import subprocess
 import sys
+from contextlib import nullcontext
 from pathlib import Path
 from types import ModuleType
 
@@ -181,6 +182,34 @@ def test_smoke_reads_required_versions_and_rejects_non_digest_candidate() -> Non
     assert versions["native_stack.postgis"] == "3.6.4"
     assert smoke.SHA256_RE.fullmatch("sha256:" + "a" * 64)
     assert smoke.SHA256_RE.fullmatch("latest") is None
+
+
+def test_smoke_retries_only_transient_database_connection_errors(monkeypatch) -> None:
+    smoke = _load_smoke_module()
+
+    class OperationalError(Exception):
+        pass
+
+    class FakePsycopg:
+        attempts = 0
+
+        @classmethod
+        def connect(cls, dsn, **kwargs):
+            assert dsn == "postgresql://smoke"
+            assert kwargs == {"autocommit": False, "connect_timeout": 5}
+            cls.attempts += 1
+            if cls.attempts == 1:
+                raise OperationalError("database is still starting")
+            return nullcontext("connection")
+
+    FakePsycopg.OperationalError = OperationalError
+    ticks = iter((0.0, 0.1, 2.1))
+    monkeypatch.setattr(smoke.time, "monotonic", lambda: next(ticks))
+    monkeypatch.setattr(smoke.time, "sleep", lambda seconds: None)
+
+    connection = smoke._connect_database(FakePsycopg, "postgresql://smoke", 120)
+    assert connection is not None
+    assert FakePsycopg.attempts == 2
 
 
 def test_validator_accepts_unpromoted_lock_without_invented_outputs() -> None:

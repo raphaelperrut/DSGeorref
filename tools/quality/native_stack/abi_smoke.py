@@ -7,6 +7,7 @@ import math
 import platform
 import re
 import subprocess
+import time
 from pathlib import Path
 from typing import Any
 
@@ -151,10 +152,27 @@ def _runtime_checks(locked: dict[str, str]) -> dict[str, Any]:
     }
 
 
-def _database_checks(dsn: str, locked: dict[str, str]) -> dict[str, Any]:
+def _connect_database(psycopg: Any, dsn: str, wait_seconds: int) -> Any:
+    if wait_seconds <= 0:
+        raise RuntimeError("database wait timeout must be greater than zero")
+    deadline = time.monotonic() + wait_seconds
+    while True:
+        try:
+            return psycopg.connect(dsn, autocommit=False, connect_timeout=5)
+        except psycopg.OperationalError as error:
+            if time.monotonic() >= deadline:
+                raise RuntimeError(
+                    f"PostgreSQL did not accept the smoke connection within {wait_seconds} seconds"
+                ) from error
+            time.sleep(2)
+
+
+def _database_checks(
+    dsn: str, locked: dict[str, str], wait_seconds: int
+) -> dict[str, Any]:
     import psycopg
 
-    with psycopg.connect(dsn, autocommit=False) as connection:
+    with _connect_database(psycopg, dsn, wait_seconds) as connection:
         with connection.cursor() as cursor:
             cursor.execute("CREATE EXTENSION IF NOT EXISTS postgis")
             cursor.execute(
@@ -192,6 +210,7 @@ def main() -> int:
     parser.add_argument("--source-lock", type=Path, required=True)
     parser.add_argument("--candidate-image-digest", required=True)
     parser.add_argument("--postgres-dsn", required=True)
+    parser.add_argument("--database-wait-seconds", type=int, default=120)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
@@ -205,7 +224,7 @@ def main() -> int:
         "candidate_image_digest": args.candidate_image_digest,
         "source_lock_digest": f"sha256:{hashlib.sha256(source_bytes).hexdigest()}",
         "runtime": _runtime_checks(locked),
-        "database": _database_checks(args.postgres_dsn, locked),
+        "database": _database_checks(args.postgres_dsn, locked, args.database_wait_seconds),
         "components_verified": [
             "Python",
             "GDAL",
