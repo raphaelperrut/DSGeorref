@@ -314,8 +314,7 @@ jobs:
           jq -e --arg digest "$SBOM_DIGEST" '.. | strings | select(. == $digest)' "$EVIDENCE_DIR/image-referrers.json" > /dev/null
           jq -e --arg digest "$PROVENANCE_DIGEST" '.. | strings | select(. == $digest)' "$EVIDENCE_DIR/image-referrers.json" > /dev/null
           jq -e --arg digest "$linkage_digest" '.. | strings | select(. == $digest)' "$EVIDENCE_DIR/image-referrers.json" > /dev/null
-          oras discover --artifact-type application/vnd.dsgeorref.native-runtime-revocation.v1+json --format json "$IMAGE_REF" > "$EVIDENCE_DIR/revocation-referrers.json"
-          jq -e '(.manifests // []) | length == 0' "$EVIDENCE_DIR/revocation-referrers.json" > /dev/null
+          python3 tools/quality/native_stack/validate.py --revocation-check-image "$IMAGE_REF" --revocation-check-operation promotion --revocation-output "$EVIDENCE_DIR/revocation-referrers.json"
           jq -e --arg trust "$TRUST_SCOPE" --arg policy "$POLICY_DIGEST" --arg source "$SOURCE_LOCK_DIGEST" --arg commit "$GITHUB_SHA" --arg image "$IMAGE_DIGEST" --arg sbom "$SBOM_DIGEST" --arg provenance "$PROVENANCE_DIGEST" --arg run "$GITHUB_RUN_ID" '.trustScope == $trust
              and .approvedPolicyDigest == $policy
              and .sourceLockDigest == $source

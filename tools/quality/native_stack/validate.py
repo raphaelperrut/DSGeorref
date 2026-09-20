@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import re
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -11,6 +12,9 @@ import yaml
 
 SHA256_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 ACTION_RE = re.compile(r"^\s*-?\s*uses:\s*([^\s@]+)@([^\s#]+)", re.MULTILINE)
+REVOCATION_ARTIFACT_TYPE = (
+    "application/vnd.dsgeorref.native-runtime-revocation.v1+json"
+)
 
 
 def _sha256(path: Path) -> str:
@@ -42,6 +46,94 @@ def _contains_value(value: Any, expected: str) -> bool:
     if isinstance(value, list):
         return any(_contains_value(item, expected) for item in value)
     return False
+
+
+def _validate_revocation_response(
+    response: Any, candidate_image_reference: str, operation: str
+) -> dict[str, Any]:
+    package, separator, digest = candidate_image_reference.rpartition("@")
+    _require(bool(package) and separator == "@", "candidate image must be digest-addressed")
+    _require(SHA256_RE.fullmatch(digest) is not None, "candidate image digest is invalid")
+    if not isinstance(response, dict):
+        raise RuntimeError(f"fresh revocation query response is not an object before {operation}")
+    required_types = {
+        "reference": str,
+        "mediaType": str,
+        "digest": str,
+        "size": int,
+        "referrers": list,
+    }
+    for field, expected_type in required_types.items():
+        if field not in response or not isinstance(response[field], expected_type):
+            raise RuntimeError(
+                f"fresh revocation query field {field} is missing or invalid before {operation}"
+            )
+    _require(
+        response["reference"] == candidate_image_reference,
+        f"fresh revocation query reference mismatch before {operation}",
+    )
+    _require(
+        response["digest"] == digest,
+        f"fresh revocation query digest mismatch before {operation}",
+    )
+    _require(
+        response["mediaType"] == "application/vnd.oci.image.manifest.v1+json",
+        f"fresh revocation query media type mismatch before {operation}",
+    )
+    _require(response["size"] >= 0, f"fresh revocation query size is invalid before {operation}")
+    if response["referrers"]:
+        raise RuntimeError(f"candidate image is revoked before {operation}")
+    return response
+
+
+def _query_fresh_revocation_state(
+    candidate_image_reference: str,
+    operation: str,
+    output_path: Path | None = None,
+    runner: Any = subprocess.run,
+) -> dict[str, Any]:
+    _require(operation in {"promotion", "recovery"}, "unknown revocation-check operation")
+    command = [
+        "oras",
+        "discover",
+        "--artifact-type",
+        REVOCATION_ARTIFACT_TYPE,
+        "--format",
+        "json",
+        candidate_image_reference,
+    ]
+    try:
+        result = runner(
+            command,
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=30,
+        )
+    except (OSError, subprocess.TimeoutExpired) as error:
+        raise RuntimeError(f"fresh revocation query unavailable before {operation}") from error
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"fresh revocation query failed before {operation} with exit code "
+            f"{result.returncode}"
+        )
+    raw_response = result.stdout.strip()
+    if not raw_response:
+        raise RuntimeError(f"fresh revocation query returned an empty response before {operation}")
+    try:
+        response = json.loads(raw_response)
+    except json.JSONDecodeError as error:
+        raise RuntimeError(
+            f"fresh revocation query returned invalid JSON before {operation}"
+        ) from error
+    response = _validate_revocation_response(response, candidate_image_reference, operation)
+    if output_path is not None:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(
+            json.dumps(response, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+    return response
 
 
 def _validate_contract(source_lock: dict[str, Any], contract: Path, review_dir: Path) -> None:
@@ -331,7 +423,11 @@ def _validate_resolved_evidence(
         _contains_value(bundle, resolved["transparency_log_reference"].split(":", 1)[1]),
         "transparency log index is absent from signature bundle",
     )
-    _require(not revocations.get("referrers"), "a matching revocation referrer exists")
+    _validate_revocation_response(
+        revocations,
+        f"{resolved['package']}@{image_digest}",
+        "resolved-lock promotion",
+    )
     _require(public_access.get("result") == "PASS", "public package check is not PASS")
     _require(public_access.get("anonymous_pull") is True, "package is not anonymously pullable")
     _require(
@@ -387,8 +483,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(
         description="Validate Issue #973 native-stack inputs and promotion state"
     )
-    parser.add_argument("--source-lock", type=Path, required=True)
-    parser.add_argument("--resolved-lock", type=Path, required=True)
+    parser.add_argument("--source-lock", type=Path)
+    parser.add_argument("--resolved-lock", type=Path)
     parser.add_argument(
         "--dockerfile", type=Path, default=Path("infra/images/native-stack.Dockerfile")
     )
@@ -408,8 +504,36 @@ def main() -> int:
     parser.add_argument(
         "--evidence-dir", type=Path, default=Path("evidence/implementation/issue-0973")
     )
+    parser.add_argument("--revocation-check-image")
+    parser.add_argument("--revocation-check-operation", choices=("promotion", "recovery"))
+    parser.add_argument("--revocation-output", type=Path)
     parser.add_argument("--require-resolved", action="store_true")
     args = parser.parse_args()
+    if args.revocation_check_image:
+        _require(
+            args.revocation_check_operation is not None,
+            "revocation-check operation is required",
+        )
+        _require(args.revocation_output is not None, "revocation output is required")
+        response = _query_fresh_revocation_state(
+            args.revocation_check_image,
+            args.revocation_check_operation,
+            args.revocation_output,
+        )
+        print(
+            json.dumps(
+                {
+                    "result": "PASS",
+                    "operation": args.revocation_check_operation,
+                    "candidate_image_digest": response["digest"],
+                    "referrers": 0,
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
+    _require(args.source_lock is not None, "source lock is required")
+    _require(args.resolved_lock is not None, "resolved lock is required")
     repository_root = Path.cwd()
     source_lock = _load_yaml(args.source_lock)
     _validate_source_lock(source_lock, args.source_lock, repository_root)

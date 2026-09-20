@@ -9,7 +9,9 @@ import sys
 from contextlib import nullcontext
 from pathlib import Path
 from types import ModuleType
+from unittest.mock import Mock
 
+import pytest
 import yaml
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -33,6 +35,15 @@ def _sha256(path: Path) -> str:
 def _load_smoke_module() -> ModuleType:
     path = ROOT / "tools/quality/native_stack/abi_smoke.py"
     spec = importlib.util.spec_from_file_location("native_stack_abi_smoke", path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _load_validator_module() -> ModuleType:
+    path = ROOT / "tools/quality/native_stack/validate.py"
+    spec = importlib.util.spec_from_file_location("native_stack_validator", path)
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -158,6 +169,8 @@ def test_workflow_separates_untrusted_validation_from_publisher_permissions() ->
     assert "pull_request_target" not in text
     assert text.count("packages: write") == 1
     assert text.count("id-token: write") == 1
+    assert "(.manifests // [])" not in text
+    assert '--revocation-check-operation promotion' in text
     action_revisions = re.findall(r"^\s*uses:\s*[^@\s]+@([^\s#]+)", text, flags=re.MULTILINE)
     assert action_revisions
     assert all(re.fullmatch(r"[0-9a-f]{40}", revision) for revision in action_revisions)
@@ -210,6 +223,141 @@ def test_smoke_retries_only_transient_database_connection_errors(monkeypatch) ->
     connection = smoke._connect_database(FakePsycopg, "postgresql://smoke", 120)
     assert connection is not None
     assert FakePsycopg.attempts == 2
+
+
+def _oras_response(image_reference: str, referrers: object) -> dict[str, object]:
+    return {
+        "reference": image_reference,
+        "mediaType": "application/vnd.oci.image.manifest.v1+json",
+        "digest": image_reference.rsplit("@", 1)[1],
+        "size": 2947,
+        "referrers": referrers,
+    }
+
+
+def _completed_oras(response: object, returncode: int = 0) -> subprocess.CompletedProcess[str]:
+    stdout = response if isinstance(response, str) else json.dumps(response)
+    return subprocess.CompletedProcess(["oras"], returncode, stdout=stdout, stderr="")
+
+
+def test_revocation_guard_accepts_valid_empty_referrers() -> None:
+    validator = _load_validator_module()
+    image = "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:" + "a" * 64
+    calls = []
+
+    def runner(command, **kwargs):
+        calls.append((command, kwargs))
+        return _completed_oras(_oras_response(image, []))
+
+    output = Mock()
+    response = validator._query_fresh_revocation_state(image, "promotion", output, runner)
+    assert response["referrers"] == []
+    written = output.write_text.call_args.args[0]
+    assert json.loads(written)["referrers"] == []
+    assert len(calls) == 1
+    assert "--artifact-type" in calls[0][0]
+    assert validator.SHA256_RE.fullmatch(response["digest"])
+
+
+def test_revocation_guard_rejects_applicable_revocation() -> None:
+    validator = _load_validator_module()
+    image = "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:" + "b" * 64
+    revocation = {
+        "digest": "sha256:" + "c" * 64,
+        "artifactType": validator.REVOCATION_ARTIFACT_TYPE,
+    }
+
+    with pytest.raises(RuntimeError, match="candidate image is revoked"):
+        validator._query_fresh_revocation_state(
+            image,
+            "promotion",
+            runner=lambda *args, **kwargs: _completed_oras(
+                _oras_response(image, [revocation])
+            ),
+        )
+
+
+def test_revocation_guard_rejects_missing_referrers_field() -> None:
+    validator = _load_validator_module()
+    image = "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:" + "2" * 64
+    response = _oras_response(image, [])
+    del response["referrers"]
+    with pytest.raises(RuntimeError, match="field referrers is missing or invalid"):
+        validator._query_fresh_revocation_state(
+            image,
+            "promotion",
+            runner=lambda *args, **kwargs: _completed_oras(response),
+        )
+
+
+@pytest.mark.parametrize(
+    ("response", "message"),
+    [
+        ({"reference": "unused"}, "field mediaType is missing or invalid"),
+        ({"referrers": None}, "field referrers is missing or invalid"),
+        ({"referrers": {}}, "field referrers is missing or invalid"),
+        ([], "response is not an object"),
+        ("", "empty response"),
+        ("not-json", "invalid JSON"),
+    ],
+)
+def test_revocation_guard_rejects_malformed_responses(response, message) -> None:
+    validator = _load_validator_module()
+    image = "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:" + "d" * 64
+    if isinstance(response, dict) and set(response) == {"referrers"}:
+        response = _oras_response(image, response["referrers"])
+    with pytest.raises(RuntimeError, match=message):
+        validator._query_fresh_revocation_state(
+            image,
+            "promotion",
+            runner=lambda *args, **kwargs: _completed_oras(response),
+        )
+
+
+def test_revocation_guard_rejects_oras_failure_and_unavailability() -> None:
+    validator = _load_validator_module()
+    image = "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:" + "e" * 64
+    with pytest.raises(RuntimeError, match="exit code 1"):
+        validator._query_fresh_revocation_state(
+            image,
+            "promotion",
+            runner=lambda *args, **kwargs: _completed_oras("", returncode=1),
+        )
+
+    def unavailable(*args, **kwargs):
+        raise OSError("registry unavailable")
+
+    with pytest.raises(RuntimeError, match="query unavailable"):
+        validator._query_fresh_revocation_state(image, "recovery", runner=unavailable)
+
+
+def test_revocation_guard_queries_again_and_rejects_new_revocation() -> None:
+    validator = _load_validator_module()
+    image = "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:" + "f" * 64
+    responses = [
+        _completed_oras(_oras_response(image, [])),
+        _completed_oras(
+            _oras_response(
+                image,
+                [
+                    {
+                        "digest": "sha256:" + "1" * 64,
+                        "artifactType": validator.REVOCATION_ARTIFACT_TYPE,
+                    }
+                ],
+            )
+        ),
+    ]
+    calls = []
+
+    def runner(*args, **kwargs):
+        calls.append((args, kwargs))
+        return responses.pop(0)
+
+    validator._query_fresh_revocation_state(image, "promotion", runner=runner)
+    with pytest.raises(RuntimeError, match="candidate image is revoked"):
+        validator._query_fresh_revocation_state(image, "recovery", runner=runner)
+    assert len(calls) == 2
 
 
 def test_validator_accepts_only_the_current_fail_closed_promotion_state() -> None:
