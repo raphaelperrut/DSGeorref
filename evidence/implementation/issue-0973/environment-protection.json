@@ -1,0 +1,18 @@
+{
+  "observed_at": "2026-09-20T03:39:14Z",
+  "repository": "raphaelperrut/DSGeorref",
+  "environment": "native-runtime-release",
+  "environment_id": 22317200896,
+  "required_reviewers": [],
+  "solo_operation": true,
+  "protection_rule": "branch_policy",
+  "protected_branches": false,
+  "custom_branch_policies": true,
+  "allowed_branch_policies": [
+    {
+      "id": 60461926,
+      "name": "codex/issue-973-native-runtime",
+      "type": "branch"
+    }
+  ]
+}

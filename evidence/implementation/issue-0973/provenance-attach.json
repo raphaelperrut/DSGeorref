@@ -1,0 +1,10 @@
+{
+  "reference": "ghcr.io/raphaelperrut/dsgeorref-native-stack@sha256:04a8509ef34d3bc187260139d7e233a5734487c741649db48ed9eedadb359103",
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "digest": "sha256:04a8509ef34d3bc187260139d7e233a5734487c741649db48ed9eedadb359103",
+  "size": 750,
+  "annotations": {
+    "org.opencontainers.image.created": "2026-09-20T14:09:21Z"
+  },
+  "artifactType": "application/vnd.in-toto+json"
+}

@@ -1,0 +1,179 @@
+schema_version: 1.0.0
+contract_id: DSGEOREF-NATIVE-STACK-SUPPLY-CHAIN
+contract_version: 1.0.2
+status: FROZEN
+owner_context: BC-015
+scope:
+  issue: 973
+  sprint: SPRINT-001
+  dependency_720_resolution: OWNER_APPROVED_B
+  epic_080_satisfied: false
+  issue_974_authorized: false
+publication:
+  registry: ghcr.io
+  package: ghcr.io/raphaelperrut/dsgeorref-native-stack
+  visibility: public
+  platform: linux/amd64
+  retention:
+    automatic_expiration: false
+    referenced_digests_preserved: true
+    registry_technical_immutability_claimed: false
+    tags_are_evidence: false
+publisher:
+  repository: raphaelperrut/DSGeorref
+  workflow: .github/workflows/native-stack.yaml
+  ref: refs/heads/codex/issue-973-native-runtime
+  environment: native-runtime-release
+  registry_authentication: EPHEMERAL_GITHUB_TOKEN
+  signing_authentication: GITHUB_OIDC_KEYLESS
+  global_permissions:
+    contents: read
+  publisher_job_permissions:
+    contents: read
+    packages: write
+    id-token: write
+  allowed_events:
+  - push
+  prohibited_events:
+  - pull_request
+  - pull_request_target
+  - fork
+  - workflow_run_from_untrusted_code
+  environment_verified_separately: true
+  oidc_environment_claim_assumed: false
+immutable_inputs:
+  source_lock_required: true
+  source_lock_digest_algorithm: sha256
+  candidate_sha_required: true
+  floating_references: REJECT
+  unresolved_references: REJECT
+  actions_pinned_by_commit_sha: true
+  tools_pinned_by_version_and_checksum: true
+artifacts:
+  image:
+    digest_algorithm: sha256
+    registry_digest_required: true
+  sbom:
+    format: SPDX-2.3-JSON
+    publication: OCI_REFERRER
+    subject: EXACT_IMAGE_DIGEST
+    registry_digest_required: true
+    attestation_signature: COSIGN_KEYLESS
+  provenance:
+    envelope: in-toto
+    predicate: https://slsa.dev/provenance/v1
+    publication: OCI_REFERRER
+    subject: EXACT_IMAGE_DIGEST
+    registry_digest_required: true
+    attestation_signature: COSIGN_KEYLESS
+    required_materials:
+    - SOURCE_LOCK_DIGEST
+    - CANDIDATE_SHA
+    - BUILD_RECIPE_DIGEST
+    - IMMUTABLE_DEPENDENCY_REFERENCES
+  linkage_attestation:
+    predicate: https://dsgeorref.local/attestations/native-runtime-linkage/v1
+    publication: OCI_REFERRER
+    subject: EXACT_IMAGE_DIGEST
+    registry_digest_required: true
+    attestation_signature: COSIGN_KEYLESS
+    required_fields:
+    - TRUST_SCOPE
+    - APPROVED_POLICY_DIGEST
+    - SOURCE_LOCK_DIGEST
+    - BUILD_COMMIT_SHA
+    - IMAGE_DIGEST
+    - SBOM_DIGEST
+    - PROVENANCE_DIGEST
+    - SIGNATURE_REFERENCE
+    - SIGNATURE_BUNDLE_DIGEST
+    - ABI_SMOKE_EVIDENCE_DIGEST
+    - WORKFLOW_RUN_ID
+signing:
+  mechanism: COSIGN_KEYLESS
+  subject: EXACT_IMAGE_DIGEST
+  trust_scope: DSGEOREF-NATIVE-RUNTIME-SUPPLY-CHAIN-V1
+  oidc_issuer: https://token.actions.githubusercontent.com
+  certificate_identity: https://github.com/raphaelperrut/DSGeorref/.github/workflows/native-stack.yaml@refs/heads/codex/issue-973-native-runtime
+  transparency_log_required: true
+  verification_bundle_required: true
+  retained_outputs:
+  - SIGNATURE_REFERENCE
+  - SIGNATURE_BUNDLE_DIGEST
+  - TRANSPARENCY_LOG_REFERENCE
+  cross_scope_key_or_signature_use: REJECT
+linkage:
+  required_equalities:
+  - SBOM_SUBJECT_EQUALS_IMAGE_DIGEST
+  - PROVENANCE_SUBJECT_EQUALS_IMAGE_DIGEST
+  - SIGNATURE_SUBJECT_EQUALS_IMAGE_DIGEST
+  - SBOM_ATTESTATION_IDENTITY_EQUALS_PUBLISHER_IDENTITY
+  - SBOM_ATTESTATION_ISSUER_EQUALS_CONTRACT_OIDC_ISSUER
+  - PROVENANCE_ATTESTATION_IDENTITY_EQUALS_PUBLISHER_IDENTITY
+  - PROVENANCE_ATTESTATION_ISSUER_EQUALS_CONTRACT_OIDC_ISSUER
+  - LINKAGE_ATTESTATION_IDENTITY_EQUALS_PUBLISHER_IDENTITY
+  - LINKAGE_ATTESTATION_ISSUER_EQUALS_CONTRACT_OIDC_ISSUER
+  - PROVENANCE_SOURCE_LOCK_DIGEST_EQUALS_BUILD_SOURCE_LOCK_DIGEST
+  - PROVENANCE_CANDIDATE_SHA_EQUALS_BUILD_COMMIT_SHA
+  - ABI_SMOKE_IMAGE_DIGEST_EQUALS_IMAGE_DIGEST
+  - LINKAGE_SBOM_DIGEST_EQUALS_REGISTRY_SBOM_DIGEST
+  - LINKAGE_PROVENANCE_DIGEST_EQUALS_REGISTRY_PROVENANCE_DIGEST
+  - LINKAGE_POLICY_DIGEST_EQUALS_INDEPENDENTLY_REVIEWED_POLICY_DIGEST
+  - LINKAGE_TRUST_SCOPE_EQUALS_CONTRACT_TRUST_SCOPE
+  - DEPLOYMENT_REPOSITORY_EQUALS_PUBLISHER_REPOSITORY
+  - DEPLOYMENT_ENVIRONMENT_EQUALS_PUBLISHER_ENVIRONMENT
+  - DEPLOYMENT_STATUS_EQUALS_SUCCESS
+  - DEPLOYMENT_SHA_EQUALS_BUILD_COMMIT_SHA
+  - DEPLOYMENT_WORKFLOW_RUN_ID_EQUALS_PROVENANCE_WORKFLOW_RUN_ID
+  - SIGNING_WORKFLOW_RUN_ID_EQUALS_PROVENANCE_WORKFLOW_RUN_ID
+  - SBOM_ATTESTATION_WORKFLOW_RUN_ID_EQUALS_PROVENANCE_WORKFLOW_RUN_ID
+  - LINKAGE_ATTESTATION_WORKFLOW_RUN_ID_EQUALS_PROVENANCE_WORKFLOW_RUN_ID
+  resolved_lock_promotion: ONLY_AFTER_ALL_VERIFICATIONS_PASS
+verification:
+  signature_identity_match: EXACT
+  signature_issuer_match: EXACT
+  trust_scope_match: EXACT
+  approved_policy_digest_source: INDEPENDENT_REVIEW_EVIDENCE
+  trust_scope_authenticated_carrier: SIGNED_LINKAGE_ATTESTATION
+  environment_evidence:
+    source: GITHUB_DEPLOYMENT_RECORD
+    required_repository: raphaelperrut/DSGeorref
+    required_environment: native-runtime-release
+    required_status: success
+    same_build_commit_sha: true
+    same_workflow_run: true
+  abi_smoke_result: PASS_REQUIRED
+  independent_architect_review: REQUIRED
+  independent_security_review: REQUIRED
+revocation_and_recovery:
+  authority: APPROVED_SUPPLY_CHAIN_PUBLISHER_IDENTITY
+  mechanism: COSIGN_KEYLESS_SIGNED_OCI_ATTESTATION
+  predicate: https://dsgeorref.local/attestations/native-runtime-revocation/v1
+  registry: ghcr.io/raphaelperrut/dsgeorref-native-stack
+  trust_scope: DSGEOREF-NATIVE-RUNTIME-SUPPLY-CHAIN-V1
+  subject: EXACT_IMAGE_DIGEST
+  discovery: COMPLETE_CANDIDATE_IMAGE_REFERRER_QUERY_AT_VERIFICATION_TIME
+  selectors:
+  - IMAGE_DIGEST
+  required_fields:
+  - RECORD_VERSION
+  - ISSUED_AT
+  - REASON
+  - SELECTORS
+  - SUPERSEDING_DIGEST_OR_NONE
+  lookup_before_promotion_and_recovery: REQUIRED
+  lookup_failure: REJECT
+  freshness: COMPLETE_CANDIDATE_IMAGE_REFERRER_QUERY_AT_VERIFICATION_TIME
+  signature_identity_match: EXACT
+  signature_issuer_match: EXACT
+  delete_revoked_evidence: false
+  supersession_requires_new_digest: true
+  recovery: PREVIOUS_SIGNED_NON_REVOKED_IMAGE_WITH_COMPATIBLE_DATABASE
+failure_policy:
+  mode: FAIL_CLOSED
+  missing_evidence: REJECT
+  invalid_evidence: REJECT
+  divergent_evidence: REJECT
+  unknown_field: REJECT
+  partial_success: REJECT
+  revocation_lookup_failure: REJECT

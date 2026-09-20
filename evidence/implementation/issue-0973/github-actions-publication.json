@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "result": "PASS",
+  "workflow_run_id": "35515382559",
+  "workflow_run_attempt": "1",
+  "workflow_run_url": "https://github.com/raphaelperrut/DSGeorref/actions/runs/35515382559",
+  "event": "push",
+  "head_sha": "dae2ba132f1b84c2ea3dbb1422c8b2c53982ce58",
+  "environment": "native-runtime-release",
+  "deployment_id": "6553618182",
+  "deployment_status": "success",
+  "deployment_job_url": "https://github.com/raphaelperrut/DSGeorref/actions/runs/35515382559/job/106090366656",
+  "artifact": {
+    "id": "10606832288",
+    "name": "native-stack-issue-973-dae2ba132f1b84c2ea3dbb1422c8b2c53982ce58-1",
+    "digest": "sha256:2209427b26fcc654321b25b34275ca3c68b6b31d63c76fcca18c7ffe1dddb77d",
+    "expires_at": "2026-12-19T14:04:46Z"
+  },
+  "credentials_recorded": false
+}

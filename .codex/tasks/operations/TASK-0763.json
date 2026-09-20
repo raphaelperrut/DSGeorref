@@ -1,0 +1,314 @@
+{
+  "task_id": "TASK-0763",
+  "issue_id": "ISSUE-0973",
+  "story_id": "STORY-0763",
+  "epic_id": "EPIC-005",
+  "sprint_id": "SPRINT-001",
+  "role": "DevOps",
+  "outcome": "Produce the native runtime evidence set requested by GitHub Issue #973 while keeping publication, signing, and resolved-lock promotion fail-closed until the approved registry and supply-chain trust contract exist.",
+  "references": [
+    "AGENTS.md",
+    "infra/AGENTS.md",
+    "tests/AGENTS.md",
+    "evidence/AGENTS.md",
+    ".codex/roles/ROLE-009-devops.md",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    "https://github.com/raphaelperrut/DSGeorref/issues/973",
+    "https://github.com/raphaelperrut/DSGeorref/issues/720",
+    "https://github.com/raphaelperrut/DSGeorref/issues/789",
+    "https://github.com/raphaelperrut/DSGeorref/issues/790",
+    "https://github.com/raphaelperrut/DSGeorref/issues/791",
+    "https://github.com/raphaelperrut/DSGeorref/issues/792",
+    "https://github.com/raphaelperrut/DSGeorref/issues/793",
+    "https://github.com/raphaelperrut/DSGeorref/issues/794",
+    "infra/images/native-stack.lock.yaml",
+    "infra/images/native-stack.resolved.yaml",
+    "docs/01-product/requirements/REQ-NATIVE-009-stack-nativa-e-promovida-como-unidade-oci-abi-coerente.md",
+    "docs/01-product/requirements/REQ-SUP-001-releases-possuem-lockfiles-sbom-scanning-checksums-assinatura-oci-e-prov.md",
+    "docs/02-architecture/adrs/ADR-009-runtime-python-3-12-toolchain-e-stack-nativa-reproduzivel.md",
+    "docs/02-architecture/adrs/ADR-033-supply-chain-sbom-assinaturas-e-dependencias.md",
+    "docs/02-architecture/adrs/ADR-034-oci-compose-instalacao-bootstrap-e-readiness.md",
+    "docs/02-architecture/adrs/ADR-043-stack-geoespacial-nativa-abi-e-isolamento.md",
+    "docs/02-architecture/adrs/ADR-057-release-train-publicacao-e-gates-de-distribuicao.md",
+    "contracts/contexts/release_installation/native-stack-supply-chain/policy.yaml",
+    "contracts/contexts/release_installation/native-stack-supply-chain/policy.schema.json"
+  ],
+  "allow_paths": [
+    ".codex/tasks/operations/TASK-0763.json",
+    "contracts/contexts/release_installation/native-stack-supply-chain/README.md",
+    "contracts/contexts/release_installation/native-stack-supply-chain/policy.yaml",
+    "contracts/contexts/release_installation/native-stack-supply-chain/policy.schema.json",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
+    "infra/images/native-stack.lock.yaml",
+    "infra/images/native-stack.conda-lock.txt",
+    "infra/images/native-stack.Dockerfile",
+    "infra/images/native-stack.resolved.yaml",
+    ".github/workflows/native-stack.yaml",
+    "tools/quality/native_stack/validate.py",
+    "tools/quality/native_stack/abi_smoke.py",
+    "tests/infra/native_stack/test_native_stack.py",
+    "evidence/implementation/issue-0973/**"
+  ],
+  "deny_paths": [
+    ".codex/tasks/TASK-0499.json",
+    ".codex/tasks/TASK-0500.json",
+    ".codex/tasks/TASK-0501.json",
+    ".codex/tasks/TASK-0502.json",
+    ".codex/tasks/TASK-0503.json",
+    ".codex/tasks/TASK-0504.json",
+    "contracts/contexts/release_installation/sec/lockfiles-pins-por-digest-sha-scanners-sbom-assinatura/**",
+    ".github/workflows/lockfiles-pins-por-digest-sha-scanners-sbom-assinatura.yaml",
+    "docs/06-delivery/epics/EPIC-110-*.md",
+    "docs/06-delivery/stories/**ISSUE-0874*.md",
+    "src/**",
+    "contracts/contexts/release_installation/sec/**",
+    "**/.env*",
+    "secrets/**",
+    "credentials/**",
+    "**/*.pem",
+    "**/*.key"
+  ],
+  "acceptance_criteria": [
+    "Tech Lead publishes a TaskEnvelope with exact write scope and explicit dependencies on GitHub Issue #720 and EPIC-080.",
+    "Registry, repository/package, retention, and publication permissions are approved and recorded without exposing credentials.",
+    "The canonical workflow builds the versions fixed by the source lock and rejects floating or unresolved dependencies.",
+    "The native image is published and recorded using the OCI digest returned by the authorized registry.",
+    "SBOM and provenance are published with digests that bind the same image and source-lock digest.",
+    "A signature or attestation is published and successfully verified under the approved trust scope.",
+    "The fail-closed ABI smoke verifies Python, GDAL, PROJ, GEOS, Rasterio, Shapely, PostgreSQL, and PostGIS using the source-lock requirements and the candidate image digest.",
+    "native-stack.resolved.yaml is promoted only from real verified outputs and contains no placeholders.",
+    "Independent tests and evidence verify the source-lock, image, SBOM, provenance, signature, and ABI-smoke linkage."
+  ],
+  "tests": [
+    "python -m jsonschema -i .codex/tasks/operations/TASK-0763.json .codex/tasks/TASK_ENVELOPE.schema.json",
+    "pytest tests/infra/native_stack/test_native_stack.py",
+    "python tools/quality/native_stack/validate.py --source-lock infra/images/native-stack.lock.yaml --resolved-lock infra/images/native-stack.resolved.yaml",
+    "python tools/quality/native_stack/abi_smoke.py --source-lock infra/images/native-stack.lock.yaml --candidate-image-digest <verified-digest> --postgres-dsn <isolated-test-service>"
+  ],
+  "evidence": [
+    "evidence/implementation/issue-0973/",
+    "sanitized registry and trust configuration inventory",
+    "source-lock digest and candidate commit",
+    "published OCI, SBOM, provenance, signature, and ABI-smoke references when the external prerequisites are approved"
+  ],
+  "dependencies": [
+    "ISSUE-0080",
+    "STORY-0499",
+    "STORY-0500",
+    "STORY-0501",
+    "STORY-0502",
+    "STORY-0503",
+    "STORY-0504"
+  ],
+  "stop_conditions": [
+    "Registry, repository/package, retention policy, publishing identity, or least-privilege permissions are not approved; publication and resolved-lock promotion must stop.",
+    "The EPIC-080 fail-closed supply-chain contract or an approved equivalent trust policy is absent; signing, attestation, trust verification, and production claims must stop.",
+    "The source lock cannot resolve every build input to an immutable source or package identity without altering its fixed versions.",
+    "A produced digest, SBOM, provenance, signature, or smoke result does not bind the same source-lock digest and candidate image digest.",
+    "The write scope collides with an active lane or must expand beyond the explicitly allowed paths.",
+    "The work would modify GitHub Issue #974, EPIC-110, or authorize the first functional slice."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0973-01",
+    "AC-ISSUE-0973-02",
+    "AC-ISSUE-0973-03",
+    "AC-ISSUE-0973-04",
+    "AC-ISSUE-0973-05",
+    "AC-ISSUE-0973-06",
+    "AC-ISSUE-0973-07",
+    "AC-ISSUE-0973-08",
+    "AC-ISSUE-0973-09"
+  ],
+  "governing_adrs": [
+    "ADR-009",
+    "ADR-033",
+    "ADR-034",
+    "ADR-043",
+    "ADR-057"
+  ],
+  "requirement_basis": "MIXED",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-015",
+  "context_map_dependencies": [
+    "BC-001",
+    "BC-006",
+    "BC-007"
+  ],
+  "domain_model_impact": "NONE",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004",
+    "SPEC-005"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 1,
+      "items": [
+        "ISSUE-0080: OWNER_APPROVED_B_RUNTIME_EQUIVALENT_CONTRACT"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        ".codex/tasks/operations/TASK-0763.json",
+        "contracts/contexts/release_installation/native-stack-supply-chain/README.md",
+        "contracts/contexts/release_installation/native-stack-supply-chain/policy.yaml",
+        "contracts/contexts/release_installation/native-stack-supply-chain/policy.schema.json",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
+        "infra/images/native-stack.lock.yaml",
+        "infra/images/native-stack.conda-lock.txt",
+        "infra/images/native-stack.Dockerfile",
+        "infra/images/native-stack.resolved.yaml",
+        ".github/workflows/native-stack.yaml",
+        "tools/quality/native_stack/validate.py",
+        "tools/quality/native_stack/abi_smoke.py",
+        "tests/infra/native_stack/test_native_stack.py",
+        "evidence/implementation/issue-0973/**"
+      ],
+      "deny_paths": [
+        ".codex/tasks/TASK-0499.json",
+        ".codex/tasks/TASK-0500.json",
+        ".codex/tasks/TASK-0501.json",
+        ".codex/tasks/TASK-0502.json",
+        ".codex/tasks/TASK-0503.json",
+        ".codex/tasks/TASK-0504.json",
+        "contracts/contexts/release_installation/sec/lockfiles-pins-por-digest-sha-scanners-sbom-assinatura/**",
+        ".github/workflows/lockfiles-pins-por-digest-sha-scanners-sbom-assinatura.yaml",
+        "docs/06-delivery/epics/EPIC-110-*.md",
+        "docs/06-delivery/stories/**ISSUE-0874*.md",
+        "src/**",
+        "contracts/contexts/release_installation/sec/**",
+        "**/.env*",
+        "secrets/**",
+        "credentials/**",
+        "**/*.pem",
+        "**/*.key"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "PostgreSQL/PostGIS are isolated external smoke-test services and are not embedded in the application image."
+      ],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "geo": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "ADR-009",
+        "ADR-043",
+        "infra/images/native-stack.lock.yaml"
+      ]
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "TaskEnvelope schema validation",
+        "source-lock and resolved-lock fail-closed validation",
+        "native ABI smoke with isolated PostgreSQL/PostGIS",
+        "workflow permission and immutable-reference security tests"
+      ]
+    },
+    "artifacts": {
+      "applicability": "PRODUCT_AND_EVIDENCE",
+      "status": "BLOCKED",
+      "kinds": [
+        "OCI image",
+        "SBOM",
+        "provenance",
+        "signature or attestation",
+        "ABI smoke report"
+      ],
+      "evidence": [
+        "evidence/implementation/issue-0973/",
+        "registry-produced references and verified digests"
+      ],
+      "contract": "contracts/contexts/release_installation/native-stack-supply-chain/policy.yaml"
+    },
+    "acceptance_criteria": {
+      "status": "BLOCKED",
+      "count": 9,
+      "ids": [
+        "AC-ISSUE-0973-01",
+        "AC-ISSUE-0973-02",
+        "AC-ISSUE-0973-03",
+        "AC-ISSUE-0973-04",
+        "AC-ISSUE-0973-05",
+        "AC-ISSUE-0973-06",
+        "AC-ISSUE-0973-07",
+        "AC-ISSUE-0973-08",
+        "AC-ISSUE-0973-09"
+      ]
+    },
+    "review": {
+      "status": "BLOCKED",
+      "required_roles": [
+        "QA",
+        "Security",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "CRITICAL",
+    "applicable_controls": [
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-006",
+      "CTO-008",
+      "CTO-010",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-005",
+      "CTO-007",
+      "CTO-009",
+      "CTO-011",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "approved registry, repository/package, retention, identity, and least-privilege permissions",
+      "approved signing mechanism and trust scope",
+      "source-lock, OCI image, SBOM, provenance, signature, and ABI-smoke linkage",
+      "independent QA, Security, and Reviewer results on the same candidate commit"
+    ],
+    "production_gate": "SECURITY_AND_PRIVACY_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

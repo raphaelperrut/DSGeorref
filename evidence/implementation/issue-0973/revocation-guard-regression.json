@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "result": "PASS",
+  "previous_review_sha": "47d53d4672e22e213509dc18311a9ab0e861231c",
+  "corrective_sha": "dae2ba132f1b84c2ea3dbb1422c8b2c53982ce58",
+  "root_cause": "The promotion guard read the nonexistent manifests member and used a silent empty-array fallback, so a structurally incompatible ORAS response could be accepted as no revocation.",
+  "correction": "The shared guard now performs a fresh pinned-ORAS query, rejects query and decoding failures, requires the real referrers array and exact candidate subject binding, and rejects any applicable revocation referrer.",
+  "contract_version": "1.0.2",
+  "contract_changed": false,
+  "source_lock_changed": false,
+  "focused_tests": {
+    "revocation_selection": "11 passed, 9 deselected",
+    "affected_test_file": "20 passed",
+    "accepted": [
+      "valid ORAS response with an empty referrers array",
+      "unrevoked candidate accepted after a successful fresh query"
+    ],
+    "rejected": [
+      "applicable revocation referrer present",
+      "missing referrers member",
+      "null referrers member",
+      "incorrect referrers type",
+      "structurally incompatible top-level JSON",
+      "empty response",
+      "invalid JSON",
+      "nonzero ORAS exit code",
+      "unavailable ORAS query",
+      "revocation appearing after an earlier successful query"
+    ]
+  },
+  "fresh_query_enforcement": {
+    "promotion": "The hosted publisher queried immediately before linkage publication and verification.",
+    "recovery": "No recovery operation exists in issue #973; the same canonical recovery-mode guard is regression-tested with a distinct second ORAS invocation and fails closed when revocation appears.",
+    "reuses_previous_response": false
+  },
+  "hosted_evidence": {
+    "workflow_run_id": "35515382559",
+    "workflow_run_url": "https://github.com/raphaelperrut/DSGeorref/actions/runs/35515382559",
+    "workflow_conclusion": "success",
+    "candidate_image_digest": "sha256:9a74e4712b6943b1f4a16c9920dfb7a4c901fca9936cbf374150bdf01747541d",
+    "revocation_response": "evidence/implementation/issue-0973/revocation-referrers.json",
+    "referrers_count": 0,
+    "response_subject_binding_verified": true
+  },
+  "artifact_impact": {
+    "republished": true,
+    "reason": "The authorized branch push changed a workflow path included in the publisher trigger; publication was therefore unavoidable and was not bypassed.",
+    "resolved_lock_reconciled": true,
+    "old_artifact_attributed_to_corrective_sha": false
+  },
+  "credentials_recorded": false
+}
