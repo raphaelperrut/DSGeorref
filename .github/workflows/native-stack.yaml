@@ -171,7 +171,7 @@ jobs:
           sbom_digest="$(jq -r '.digest // .manifest.digest // .descriptor.digest // empty' "$EVIDENCE_DIR/sbom-attach.json")"
           [[ "$sbom_digest" =~ ^sha256:[0-9a-f]{64}$ ]]
           cosign sign --yes --bundle "$EVIDENCE_DIR/sbom-signature.bundle.json" "$PACKAGE@$sbom_digest"
-          cosign verify --bundle "$EVIDENCE_DIR/sbom-signature.bundle.json" --certificate-identity "$CERTIFICATE_IDENTITY" --certificate-oidc-issuer "$OIDC_ISSUER" --output json "$PACKAGE@$sbom_digest" > "$EVIDENCE_DIR/sbom-signature-verification.json"
+          cosign verify --certificate-identity "$CERTIFICATE_IDENTITY" --certificate-oidc-issuer "$OIDC_ISSUER" --certificate-github-workflow-repository raphaelperrut/DSGeorref --certificate-github-workflow-ref refs/heads/codex/issue-973-native-runtime --certificate-github-workflow-sha "$GITHUB_SHA" --certificate-github-workflow-trigger push --output json "$PACKAGE@$sbom_digest" > "$EVIDENCE_DIR/sbom-signature-verification.json"
           echo "SBOM_DIGEST=$sbom_digest" >> "$GITHUB_ENV"
 
       - name: Generate, attach, sign, and verify SLSA provenance
@@ -224,7 +224,7 @@ jobs:
           provenance_digest="$(jq -r '.digest // .manifest.digest // .descriptor.digest // empty' "$EVIDENCE_DIR/provenance-attach.json")"
           [[ "$provenance_digest" =~ ^sha256:[0-9a-f]{64}$ ]]
           cosign sign --yes --bundle "$EVIDENCE_DIR/provenance-signature.bundle.json" "$PACKAGE@$provenance_digest"
-          cosign verify --bundle "$EVIDENCE_DIR/provenance-signature.bundle.json" --certificate-identity "$CERTIFICATE_IDENTITY" --certificate-oidc-issuer "$OIDC_ISSUER" --output json "$PACKAGE@$provenance_digest" > "$EVIDENCE_DIR/provenance-signature-verification.json"
+          cosign verify --certificate-identity "$CERTIFICATE_IDENTITY" --certificate-oidc-issuer "$OIDC_ISSUER" --certificate-github-workflow-repository raphaelperrut/DSGeorref --certificate-github-workflow-ref refs/heads/codex/issue-973-native-runtime --certificate-github-workflow-sha "$GITHUB_SHA" --certificate-github-workflow-trigger push --output json "$PACKAGE@$provenance_digest" > "$EVIDENCE_DIR/provenance-signature-verification.json"
           echo "PROVENANCE_DIGEST=$provenance_digest" >> "$GITHUB_ENV"
 
       - name: Sign and verify candidate image
@@ -234,7 +234,7 @@ jobs:
         run: |
           set -euo pipefail
           cosign sign --yes --bundle "$EVIDENCE_DIR/image-signature.bundle.json" "$IMAGE_REF"
-          cosign verify --bundle "$EVIDENCE_DIR/image-signature.bundle.json" --certificate-identity "$CERTIFICATE_IDENTITY" --certificate-oidc-issuer "$OIDC_ISSUER" --output json "$IMAGE_REF" > "$EVIDENCE_DIR/image-signature-verification.json"
+          cosign verify --certificate-identity "$CERTIFICATE_IDENTITY" --certificate-oidc-issuer "$OIDC_ISSUER" --certificate-github-workflow-repository raphaelperrut/DSGeorref --certificate-github-workflow-ref refs/heads/codex/issue-973-native-runtime --certificate-github-workflow-sha "$GITHUB_SHA" --certificate-github-workflow-trigger push --output json "$IMAGE_REF" > "$EVIDENCE_DIR/image-signature-verification.json"
           signature_reference="$(cosign triangulate "$IMAGE_REF")"
           test -n "$signature_reference"
           signature_bundle_digest="sha256:$(sha256sum "$EVIDENCE_DIR/image-signature.bundle.json" | cut -d' ' -f1)"
@@ -306,7 +306,7 @@ jobs:
           linkage_digest="$(jq -r '.digest // .manifest.digest // .descriptor.digest // empty' "$EVIDENCE_DIR/linkage-attach.json")"
           [[ "$linkage_digest" =~ ^sha256:[0-9a-f]{64}$ ]]
           cosign sign --yes --bundle "$EVIDENCE_DIR/linkage-signature.bundle.json" "$PACKAGE@$linkage_digest"
-          cosign verify --bundle "$EVIDENCE_DIR/linkage-signature.bundle.json" --certificate-identity "$CERTIFICATE_IDENTITY" --certificate-oidc-issuer "$OIDC_ISSUER" --output json "$PACKAGE@$linkage_digest" > "$EVIDENCE_DIR/linkage-signature-verification.json"
+          cosign verify --certificate-identity "$CERTIFICATE_IDENTITY" --certificate-oidc-issuer "$OIDC_ISSUER" --certificate-github-workflow-repository raphaelperrut/DSGeorref --certificate-github-workflow-ref refs/heads/codex/issue-973-native-runtime --certificate-github-workflow-sha "$GITHUB_SHA" --certificate-github-workflow-trigger push --output json "$PACKAGE@$linkage_digest" > "$EVIDENCE_DIR/linkage-signature-verification.json"
           oras discover --format json "$IMAGE_REF" > "$EVIDENCE_DIR/image-referrers.json"
           jq -e --arg digest "$SBOM_DIGEST" '.. | strings | select(. == $digest)' "$EVIDENCE_DIR/image-referrers.json" > /dev/null
           jq -e --arg digest "$PROVENANCE_DIGEST" '.. | strings | select(. == $digest)' "$EVIDENCE_DIR/image-referrers.json" > /dev/null
