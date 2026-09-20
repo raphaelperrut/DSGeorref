@@ -25,8 +25,8 @@ ADD --chown=$MAMBA_USER:$MAMBA_USER --chmod=0444 \
     https://files.pythonhosted.org/packages/74/ed/15196be41f2bf84e358d899e62daf5666ba4f6dbab4cbad87d16cc16df6d/fastapi-0.140.2-py3-none-any.whl \
     /tmp/fastapi-0.140.2-py3-none-any.whl
 
-RUN python -m pip install --no-deps /tmp/fastapi-0.140.2-py3-none-any.whl \
+RUN /opt/conda/bin/python -m pip install --no-deps /tmp/fastapi-0.140.2-py3-none-any.whl \
     && rm /tmp/fastapi-0.140.2-py3-none-any.whl \
-    && python -m pip check
+    && /opt/conda/bin/python -m pip check
 
-CMD ["python", "--version"]
+CMD ["/opt/conda/bin/python", "--version"]
