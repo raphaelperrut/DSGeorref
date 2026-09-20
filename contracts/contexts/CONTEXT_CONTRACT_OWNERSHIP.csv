@@ -216,5 +216,6 @@ contracts/contexts/engineering_governance/fnd/ruleset-de-main-checks-unicos-code
 contracts/contexts/engineering_governance/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/contract-manifest.yaml,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/examples/sprint-001-closure-authorization.json,BC-001,contexts,VERSIONED,NO
 contracts/contexts/engineering_governance/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/sprint-001-closure-authorization.schema.json,BC-001,contexts,VERSIONED,NO
+contracts/contexts/release_installation/native-stack-supply-chain/README.md,BC-015,supply-chain,VERSIONED,NO
 contracts/contexts/release_installation/native-stack-supply-chain/policy.schema.json,BC-015,supply-chain,VERSIONED,NO
 contracts/contexts/release_installation/native-stack-supply-chain/policy.yaml,BC-015,supply-chain,FROZEN,NO
