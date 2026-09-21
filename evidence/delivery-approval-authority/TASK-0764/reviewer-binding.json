@@ -9,9 +9,9 @@
   "principal": {"issuer": "https://github.com", "subject": "raphaelperrut"},
   "accountable_subject": "acct:github.com/raphaelperrut",
   "role": "Reviewer",
-  "task_envelope": {"task_id": "TASK-0764", "digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39"},
+  "task_envelope": {"task_id": "TASK-0764", "digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35"},
   "valid_from": "2026-09-20T23:40:55Z",
   "valid_until": "2027-09-20T23:40:55Z",
   "revoked_at": null,
-  "signature": {"key_id": "daa2-operational-binding-authority-2026", "algorithm": "Ed25519", "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2", "value": "51hyoBZda11at2mA2SpNceywPWo7Ixm5Ik7qUdNnDJ2Sk_00bnW9tk9CRSCUE30e-LlO3F2exjUz9PWpulWGCg"}
+  "signature": {"key_id": "daa2-operational-binding-authority-2026", "algorithm": "Ed25519", "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2", "value": "IiKdWXO35uzeCv2v-mUw_Zd5YgD5vRCvQBecU1Hee7cMOE40OdM6NBkfiygiPXk8niZSF4CcdE1osPFV4pG5DA"}
 }

@@ -23,7 +23,7 @@
       "personal_independence": "ABSENT_DECLARED",
       "task_envelope": {
         "task_id": "TASK-0764",
-        "digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39"
+        "digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35"
       }
     }
   ],
@@ -39,7 +39,7 @@
       "task_envelopes": [
         {
           "task_id": "TASK-0764",
-          "digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39"
+          "digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35"
         }
       ],
       "valid_from": "2026-09-20T23:40:55Z",
@@ -54,7 +54,7 @@
       "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
       "principal": {"issuer": "https://github.com", "subject": "raphaelperrut"},
       "roles": ["Executor"],
-      "task_envelopes": [{"task_id": "TASK-0764", "digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39"}],
+      "task_envelopes": [{"task_id": "TASK-0764", "digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35"}],
       "valid_from": "2026-09-20T23:40:55Z",
       "valid_until": "2027-09-20T23:40:55Z",
       "revoked_at": null
@@ -67,7 +67,7 @@
       "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
       "principal": {"issuer": "https://github.com", "subject": "raphaelperrut"},
       "roles": ["QA"],
-      "task_envelopes": [{"task_id": "TASK-0764", "digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39"}],
+      "task_envelopes": [{"task_id": "TASK-0764", "digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35"}],
       "valid_from": "2026-09-20T23:40:55Z",
       "valid_until": "2027-09-20T23:40:55Z",
       "revoked_at": null
@@ -80,7 +80,7 @@
       "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
       "principal": {"issuer": "https://github.com", "subject": "raphaelperrut"},
       "roles": ["Reviewer"],
-      "task_envelopes": [{"task_id": "TASK-0764", "digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39"}],
+      "task_envelopes": [{"task_id": "TASK-0764", "digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35"}],
       "valid_from": "2026-09-20T23:40:55Z",
       "valid_until": "2027-09-20T23:40:55Z",
       "revoked_at": null
@@ -93,7 +93,7 @@
       "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
       "principal": {"issuer": "https://github.com", "subject": "raphaelperrut"},
       "roles": ["Project Owner"],
-      "task_envelopes": [{"task_id": "TASK-0764", "digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39"}],
+      "task_envelopes": [{"task_id": "TASK-0764", "digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35"}],
       "valid_from": "2026-09-20T23:40:55Z",
       "valid_until": "2027-09-20T23:40:55Z",
       "revoked_at": null
@@ -103,6 +103,6 @@
     "key_id": "daa2-operational-profile-root-2026",
     "algorithm": "Ed25519",
     "message_profile": "DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V2",
-    "value": "7QcbLNW7ALFnTlrSdziFCUMPiTb47XMlPTe5-EtycTCeJNvTLqO4eU5tD_SF8QbS5qeVnCF-YxpBvHcHfUJEAg"
+    "value": "O5MxIJdzI2oOA_RXv8o9aKBzq1jJQmjZwWWBDtfmejH10S1VErhFCA8zUGD9cYUjlxSleo5W1CXzBRCLspMmBw"
   }
 }

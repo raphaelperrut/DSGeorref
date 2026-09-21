@@ -30,8 +30,14 @@ contracts/assurance/delivery-approval-authority/test-vectors/conformance-suite.j
 contracts/assurance/delivery-approval-authority/trust-anchor-set.schema.json,BC-001,assurance,VERSIONED,NO
 contracts/assurance/delivery-approval-authority/trust-profile.schema.json,BC-001,assurance,VERSIONED,NO
 contracts/assurance/delivery-approval-authority/trust/anchors/dsgeorref-daa-operational-roots-1.0.0.json,BC-001,assurance,VERSIONED,NO
+contracts/assurance/delivery-approval-authority/trust/anchors/dsgeorref-daa-operational-roots-2.0.0.json,BC-001,assurance,VERSIONED,NO
 contracts/assurance/delivery-approval-authority/trust/manifest.json,BC-001,assurance,VERSIONED,NO
 contracts/assurance/delivery-approval-authority/trust/profiles/dsgeorref-daa-operational-1.0.0.json,BC-001,assurance,VERSIONED,NO
+contracts/assurance/delivery-approval-authority/trust/profiles/dsgeorref-daa-operational-2.0.0.json,BC-001,assurance,VERSIONED,NO
+contracts/assurance/delivery-approval-authority/v2/approval-attestation.schema.json,BC-001,assurance,VERSIONED,NO
+contracts/assurance/delivery-approval-authority/v2/role-binding.schema.json,BC-001,assurance,VERSIONED,NO
+contracts/assurance/delivery-approval-authority/v2/trust-profile.schema.json,BC-001,assurance,VERSIONED,NO
+contracts/assurance/delivery-approval-authority/v2/verification-verdict.schema.json,BC-001,assurance,VERSIONED,NO
 contracts/assurance/delivery-approval-authority/verification-verdict.schema.json,BC-001,assurance,VERSIONED,NO
 contracts/assurance/phase-f-issue-review.schema.json,BC-001,assurance,VERSIONED,NO
 contracts/assurance/phase-g-cto-review.schema.json,BC-001,assurance,VERSIONED,NO

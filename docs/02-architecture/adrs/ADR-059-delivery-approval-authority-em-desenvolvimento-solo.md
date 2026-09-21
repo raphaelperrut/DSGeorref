@@ -9,6 +9,7 @@
 - **Aprovador da direção:** `Project Owner`
 - **Owner normativo:** `ADR-059`
 - **Substitui:** `ADR-058` prospectivamente; DAA 1.0.0 permanece sob ADR-058
+- **Decisões em aberto:** `Nenhuma`
 - **Boundary independente:** `SIM`
 - **Bounded Contexts:** `BC-001` — Governança de Engenharia e Entrega
 
@@ -30,7 +31,7 @@ por papel, revisão separada, integridade das evidências, vínculo ao mesmo can
 formal fail-closed. Ela precisa ser registrada como limitação explícita, e não ocultada por
 contas, chaves ou sessões artificiais.
 
-## Decisão proposta
+## Decisão
 
 - A Delivery Approval Authority mantém o regime `INDEPENDENT_SUBJECTS_V1` da `ADR-058` para
   evidências históricas e contextos com accountable subjects realmente disjuntos.
@@ -55,6 +56,18 @@ contas, chaves ou sessões artificiais.
 - O modo de governança é resolvido exclusivamente da política operacional assinada. O caller
   não pode selecionar, enfraquecer ou substituir o modo.
 
+## Invariantes
+
+- Existe uma única identidade e um único accountable subject reais no regime solo.
+- `PERSONAL_INDEPENDENCE=ABSENT_DECLARED` é obrigatório e não pode ser substituído por alegação
+  de independência baseada em sessões, papéis, bindings ou chaves distintas.
+- Executor, QA, Reviewer e Project Owner atuam em sessões funcionalmente segregadas e na ordem
+  definida, vinculados ao mesmo TaskEnvelope, digest canônico e candidate SHA.
+- Cada decisão e evidência é autenticada, íntegra, rastreável e vinculada criptograficamente à
+  predecessora; ausência, ambiguidade ou divergência mantém o gate fail-closed.
+- O trust profile assinado seleciona o regime. O caller não escolhe modo, anchor ou política.
+- Records DAA `1.0.0` preservam a semântica histórica da `ADR-058` e nunca são reinterpretados.
+
 ## Independência funcional e independência pessoal
 
 `Independência funcional` significa que cada função é executada em uma sessão distinta, sobre
@@ -64,6 +77,23 @@ criptograficamente registrados.
 `Independência pessoal` significa julgamento por accountable subjects humanos distintos. Ela
 não existe no regime solo. O verdict e o gate devem expor essa ausência literalmente; não podem
 usar `independent`, `independent approval` ou expressão equivalente para descrever pessoas.
+
+## Alternativas consideradas
+
+- Manter a exigência de accountable subjects distintos da `ADR-058`: rejeitada porque bloquearia
+  permanentemente o desenvolvimento solo ou incentivaria identidade fictícia.
+- Tratar chaves, contas ou sessões distintas como pessoas independentes: rejeitada porque simula
+  independência pessoal e falseia o risco operacional.
+- Remover segregação ou autenticação por papel: rejeitada porque enfraquece integridade,
+  rastreabilidade e o comportamento fail-closed.
+
+## Racional da seleção
+
+O regime escolhido representa fielmente o accountable subject existente e conserva os controles
+que podem ser comprovados: separação funcional sequencial, bindings por papel, evidências distintas,
+lineage criptográfico, decisão formal do Project Owner e política assinada. A ausência de
+independência pessoal permanece explícita e verificável, sem reduzir as garantias históricas do
+regime `INDEPENDENT_SUBJECTS_V1`.
 
 ## Records mínimos do regime solo
 
@@ -103,7 +133,7 @@ em que rejeita reutilização de chave, binding, attestation ou sessão entre fu
 - DAA `2.0.0` usa schemas e domínios de assinatura próprios para impedir downgrade ou cross-version
   ambiguity.
 
-## Consequências e riscos residuais
+## Consequências e trade-offs
 
 - Segregação funcional melhora disciplina e auditabilidade, mas não remove self-review bias.
 - Comprometimento ou coerção da única pessoa pode afetar todos os papéis, mesmo com chaves distintas.
@@ -112,6 +142,14 @@ em que rejeita reutilização de chave, binding, attestation ou sessão entre fu
 - Perda da custódia externa pode bloquear entrega até rotação ou recuperação governada.
 - Esses riscos são declarados no gate e aceitos pelo Project Owner; não são convertidos em
   independência pessoal por linguagem ou implementação.
+
+## Dependências arquiteturais
+
+- `ADR-058`, como autoridade histórica exclusiva da DAA `1.0.0` e decisão substituída somente de
+  forma prospectiva.
+- `ADR-057`, para identidade imutável do candidato, promoção e gates de distribuição.
+- Contratos versionados DAA `1.0.0` e `2.0.0`, trust profiles assinados e anchors públicos fixados
+  pelo verifier governado.
 
 ## Alterações normativas requeridas
 
@@ -159,6 +197,15 @@ preservarem esta decisão.
 - rejeitar ordem, predecessor, TaskEnvelope digest ou candidate SHA divergente;
 - preservar todos os casos históricos DAA `1.0.0`;
 - retornar `FAIL` para `NO_GO`, decisão ausente e qualquer evidência incompleta ou inválida.
+
+## Rastreabilidade SAR
+
+- Issue de origem e critérios alterados: `#974`.
+- TaskEnvelope autorizado: `TASK-0764`, por digest canônico explícito.
+- Bounded Context: `BC-001` — Governança de Engenharia e Entrega.
+- Decisão arquitetural anterior: `ADR-058`; gate de release relacionado: `ADR-057`.
+- Evidências DAA `2.0.0` permanecem versionadas e vinculadas ao TaskEnvelope e ao candidate SHA;
+  evidências DAA `1.0.0` conservam sua interpretação histórica.
 
 ## Relação com a ADR-058
 
