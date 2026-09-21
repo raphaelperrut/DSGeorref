@@ -711,7 +711,7 @@ def test_delivery_approval_authority_v2_public_material_and_signed_trust() -> No
             "personal_independence": "ABSENT_DECLARED",
             "task_envelope": {
                 "task_id": "TASK-0764",
-                "digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39",
+                "digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35",
             },
         }
     ]

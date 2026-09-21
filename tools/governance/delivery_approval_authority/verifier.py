@@ -14,7 +14,7 @@ class OperationalVerifier:
 
     def __init__(self, trust: GovernedTrust, schemas: SchemaSet) -> None:
         self._trust = trust
-        self._schemas = schemas
+        self._schemas = schemas.for_contract_version(trust.contract_version)
 
     def verify(
         self,
