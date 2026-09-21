@@ -37,6 +37,7 @@ from .fixture import (
 
 ROOT = Path(__file__).resolve().parents[3]
 VERIFICATION_TIME = "2026-08-22T12:30:00Z"
+V2_VERIFICATION_TIME = "2026-09-21T00:00:00Z"
 
 
 def _fixture(tmp_path: Path) -> GovernedFixture:
@@ -115,7 +116,7 @@ def test_delivery_approval_operational_verifier(tmp_path: Path) -> None:
     governed = verify_delivery_approval(
         task_envelope=fixture.task,
         expected_candidate_sha=fixture.candidate_sha,
-        verification_time=VERIFICATION_TIME,
+        verification_time=V2_VERIFICATION_TIME,
         evidence={"bindings": [], "attestations": []},
     )
     assert governed["profile"] == {

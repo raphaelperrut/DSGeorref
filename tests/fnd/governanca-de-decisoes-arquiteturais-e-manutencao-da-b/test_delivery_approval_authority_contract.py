@@ -676,7 +676,7 @@ def test_delivery_approval_authority_fail_closed() -> None:
     assert len(observed) == len(suite["probes"]) == 24
 
 
-def test_delivery_approval_authority_v2_public_material_and_unsigned_drafts() -> None:
+def test_delivery_approval_authority_v2_public_material_and_signed_trust() -> None:
     validators: dict[str, Draft202012Validator] = {}
     for name, path in V2_SCHEMA_PATHS.items():
         schema = _load_json(path)
@@ -698,10 +698,12 @@ def test_delivery_approval_authority_v2_public_material_and_unsigned_drafts() ->
         CONTRACT_ROOT
         / "trust/profiles/dsgeorref-daa-operational-2.0.0.json"
     )
-    assert profile["signature"]["value"] == ""
-    profile_projection = copy.deepcopy(profile)
-    profile_projection["signature"]["value"] = "A" * 86
-    validators["profile"].validate(profile_projection)
+    validators["profile"].validate(profile)
+    assert _verify_signature(
+        profile,
+        root["public_key"],
+        "DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V2",
+    )
     policy = profile["governance_policies"]
     assert policy == [
         {
@@ -724,11 +726,18 @@ def test_delivery_approval_authority_v2_public_material_and_unsigned_drafts() ->
             "project-owner-binding.json",
         )
     ]
+    binding_key = next(
+        key
+        for key in profile["keys"]
+        if key["key_id"] == "daa2-operational-binding-authority-2026"
+    )
     for binding in bindings:
-        assert binding["signature"]["value"] == ""
-        projection = copy.deepcopy(binding)
-        projection["signature"]["value"] = "A" * 86
-        validators["binding"].validate(projection)
+        validators["binding"].validate(binding)
+        assert _verify_signature(
+            binding,
+            binding_key["public_key"],
+            "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2",
+        )
     assert {binding["role"] for binding in bindings} == {
         "Executor", "QA", "Reviewer", "Project Owner"
     }
