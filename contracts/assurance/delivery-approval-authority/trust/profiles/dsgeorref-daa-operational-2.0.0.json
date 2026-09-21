@@ -1,0 +1,108 @@
+{
+  "schema_version": "2.0.0",
+  "profile_id": "dsgeorref-daa-operational",
+  "profile_version": "2.0.0",
+  "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+  "canonicalization": "JCS-RFC8785-PROFILE-1",
+  "hash_algorithm": "SHA-256",
+  "signature_algorithm": "Ed25519",
+  "valid_from": "2026-09-20T23:40:55Z",
+  "valid_until": "2027-09-20T23:40:55Z",
+  "identity_issuers": [
+    {
+      "issuer": "https://github.com",
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+      "valid_from": "2026-09-20T23:40:55Z",
+      "valid_until": "2027-09-20T23:40:55Z",
+      "revoked_at": null
+    }
+  ],
+  "governance_policies": [
+    {
+      "governance_mode": "SOLO_FUNCTIONAL_SEGREGATION_V1",
+      "personal_independence": "ABSENT_DECLARED",
+      "task_envelope": {
+        "task_id": "TASK-0764",
+        "digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39"
+      }
+    }
+  ],
+  "keys": [
+    {
+      "key_id": "daa2-operational-binding-authority-2026",
+      "algorithm": "Ed25519",
+      "public_key": "_579fTbUg536rZ8OcgrN0qh-Fz7SIbjfvH6tDKJQPSs",
+      "purpose": "DELIVERY_ROLE_BINDING",
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+      "principal": null,
+      "roles": ["Executor", "QA", "Reviewer", "Project Owner"],
+      "task_envelopes": [
+        {
+          "task_id": "TASK-0764",
+          "digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39"
+        }
+      ],
+      "valid_from": "2026-09-20T23:40:55Z",
+      "valid_until": "2027-09-20T23:40:55Z",
+      "revoked_at": null
+    },
+    {
+      "key_id": "daa2-operational-executor-2026",
+      "algorithm": "Ed25519",
+      "public_key": "msl1r3lOea1EuWcEJRQPsgbGx9DfWw_NApwHM_HkAgc",
+      "purpose": "DELIVERY_APPROVAL_ATTESTATION",
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+      "principal": {"issuer": "https://github.com", "subject": "raphaelperrut"},
+      "roles": ["Executor"],
+      "task_envelopes": [{"task_id": "TASK-0764", "digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39"}],
+      "valid_from": "2026-09-20T23:40:55Z",
+      "valid_until": "2027-09-20T23:40:55Z",
+      "revoked_at": null
+    },
+    {
+      "key_id": "daa2-operational-qa-2026",
+      "algorithm": "Ed25519",
+      "public_key": "Ggiu15WbiVcokBO0jTDsoex2JhOx56KESyduvQZo_GA",
+      "purpose": "DELIVERY_APPROVAL_ATTESTATION",
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+      "principal": {"issuer": "https://github.com", "subject": "raphaelperrut"},
+      "roles": ["QA"],
+      "task_envelopes": [{"task_id": "TASK-0764", "digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39"}],
+      "valid_from": "2026-09-20T23:40:55Z",
+      "valid_until": "2027-09-20T23:40:55Z",
+      "revoked_at": null
+    },
+    {
+      "key_id": "daa2-operational-reviewer-2026",
+      "algorithm": "Ed25519",
+      "public_key": "uPkne8tPoPyL-RWPQYLAalJOwrz8gIZnNmu7z4z9IHo",
+      "purpose": "DELIVERY_APPROVAL_ATTESTATION",
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+      "principal": {"issuer": "https://github.com", "subject": "raphaelperrut"},
+      "roles": ["Reviewer"],
+      "task_envelopes": [{"task_id": "TASK-0764", "digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39"}],
+      "valid_from": "2026-09-20T23:40:55Z",
+      "valid_until": "2027-09-20T23:40:55Z",
+      "revoked_at": null
+    },
+    {
+      "key_id": "daa2-operational-project-owner-2026",
+      "algorithm": "Ed25519",
+      "public_key": "pClvRjwQhActQlAcnHyWaDXgi9DKw7zWLXjlPe9GB-A",
+      "purpose": "DELIVERY_APPROVAL_ATTESTATION",
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+      "principal": {"issuer": "https://github.com", "subject": "raphaelperrut"},
+      "roles": ["Project Owner"],
+      "task_envelopes": [{"task_id": "TASK-0764", "digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39"}],
+      "valid_from": "2026-09-20T23:40:55Z",
+      "valid_until": "2027-09-20T23:40:55Z",
+      "revoked_at": null
+    }
+  ],
+  "signature": {
+    "key_id": "daa2-operational-profile-root-2026",
+    "algorithm": "Ed25519",
+    "message_profile": "DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V2",
+    "value": "7QcbLNW7ALFnTlrSdziFCUMPiTb47XMlPTe5-EtycTCeJNvTLqO4eU5tD_SF8QbS5qeVnCF-YxpBvHcHfUJEAg"
+  }
+}

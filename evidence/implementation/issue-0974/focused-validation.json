@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0974",
+  "status": "SIGNED_TRUST_INTEGRATED_AWAITING_CANDIDATE_ATTESTATIONS",
+  "executed_on": "2026-09-20",
+  "results": {
+    "owner_comment_identity_and_package_digest": "PASS",
+    "adr_059_proposed_status": "PASS",
+    "adr_058_pending_supersession_record": "PASS",
+    "adr_index_and_dependency_graph_consistency": "PASS",
+    "github_ac_03_04_06_representation": "PASS",
+    "unchanged_acceptance_criteria_preserved": "PASS",
+    "task_envelope_schema": "PASS",
+    "task_envelope_allow_paths_exact_without_wildcards": "PASS_39_PATHS",
+    "task_envelope_digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39",
+    "daa_1_0_0_schema_files_unchanged": "PASS",
+    "tech_lead_authorization_for_current_digest": "PASS",
+    "daa_2_0_0_contract_tests": "PASS_4_TESTS",
+    "solo_verifier_fail_closed_tests": "PASS_11_OPERATIONAL_TESTS_TOTAL_V1_V2",
+    "existing_anchor_and_profile_public_verification": "PASS",
+    "public_bootstrap_bundle_sha256": "396c719f0d2f7378a039dbee36187f3e83e0baa086aed7ac73a81bc0813766b4",
+    "public_key_fingerprints": "PASS_6_OF_6",
+    "root_possession_signature": "PASS",
+    "daa_1_0_0_historical_regression": "PASS",
+    "profile_signing_capability": "AVAILABLE_ONLY_TO_PROJECT_OWNER_OUTSIDE_CODEX",
+    "role_binding_signing_capability": "AVAILABLE_ONLY_TO_PROJECT_OWNER_OUTSIDE_CODEX",
+    "principal_attestation_signers": "PUBLIC_KEYS_VERIFIED_PRIVATE_USE_MANUAL_ONLY",
+    "signed_trust_profile_and_bindings": "PASS_5_OF_5",
+    "signed_profile_sha256": "715aee7c3870d3d1662d8f750578641ea1f9767d06a748dfd4571c02ef9d6625",
+    "signed_role_binding_sha256": {
+      "Executor": "e2e6e1f839cc0f71121463c19c02aab88bff79f989a0ee8cf069613581100fed",
+      "QA": "0a767c3d7864f37cbe2027d9508e65ae82f136d7172e72a49ac6baa01152dec5",
+      "Reviewer": "317f1126a9ba13ab5110ce05667bca22dbea2a76979f290e2fcb209d23de083d",
+      "Project Owner": "5acd476aef569183536a75d52d87ce5703e42838c7ffab288836f1184747bdac"
+    },
+    "manifest_selects_signed_daa_2_0_0": "PASS"
+  },
+  "commands": [
+    "python -m jsonschema -i .codex/tasks/operations/TASK-0764.json .codex/tasks/TASK_ENVELOPE.schema.json",
+    "focused JSON/CSV checks for ADR-059 node, index row, ADR-058 dependency, proposed status, solo declaration, DAA 1.0.0 non-reinterpretation and TaskEnvelope digest",
+    "GitHub Issue #974 acceptance-criteria representation check",
+    "governed DAA 1.0.0 anchor/profile signature verification at the exact main revision",
+    "public bootstrap bundle, fingerprint and root-possession verification",
+    "pytest -q -p no:cacheprovider tests/security/delivery_approval_authority/test_operational_verifier.py",
+    "pytest -q -p no:cacheprovider tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_delivery_approval_authority_contract.py",
+    "git diff --check"
+  ],
+  "not_executed": [
+    "make verify",
+    "runtime rebuild or publication",
+    "ABI smoke",
+    "phase A-G matrices",
+    "QA or Reviewer validation"
+  ],
+  "completed_manual_signature_requests": [
+    {
+      "path": "contracts/assurance/delivery-approval-authority/trust/profiles/dsgeorref-daa-operational-2.0.0.json",
+      "key_id": "daa2-operational-profile-root-2026",
+      "message_profile": "DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V2",
+      "canonical_message_length": 3609,
+      "canonical_message_sha256": "6e341884cc550254292bb9d9adad4e4c6bc0efb9dcdf312d73238bce1828e81c"
+    },
+    {
+      "path": "evidence/delivery-approval-authority/TASK-0764/executor-binding.json",
+      "key_id": "daa2-operational-binding-authority-2026",
+      "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2",
+      "canonical_message_length": 878,
+      "canonical_message_sha256": "3655a61c48e51948cc93e9fefc896db691d4b3ee84b89e65a820b658213b340c"
+    },
+    {
+      "path": "evidence/delivery-approval-authority/TASK-0764/qa-binding.json",
+      "key_id": "daa2-operational-binding-authority-2026",
+      "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2",
+      "canonical_message_length": 866,
+      "canonical_message_sha256": "a538d4f6b32b7833b2916e97ee525c976a34474e6034038a893dfd1f76ad2c78"
+    },
+    {
+      "path": "evidence/delivery-approval-authority/TASK-0764/reviewer-binding.json",
+      "key_id": "daa2-operational-binding-authority-2026",
+      "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2",
+      "canonical_message_length": 878,
+      "canonical_message_sha256": "bb96b5ac36a2355d8ade77bfcd61f17bd50ada013118c8aa87209be495899da0"
+    },
+    {
+      "path": "evidence/delivery-approval-authority/TASK-0764/project-owner-binding.json",
+      "key_id": "daa2-operational-binding-authority-2026",
+      "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2",
+      "canonical_message_length": 888,
+      "canonical_message_sha256": "cc14988998c33f4e72a5674a27481876eb15c75d49fd000093581eb942b0581f"
+    }
+  ],
+  "implementation_ready": true,
+  "blocking_condition": "The immutable candidate and its authentic sequential role attestations do not yet exist; the delivery gate remains fail-closed."
+}

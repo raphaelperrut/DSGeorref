@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0974",
+  "task_id": "TASK-0764",
+  "task_envelope_path": ".codex/tasks/operations/TASK-0764.json",
+  "task_envelope_digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39",
+  "schema_validation": "PASS",
+  "allow_path_count": 39,
+  "allow_paths_use_wildcards": false,
+  "project_owner_decision": "https://github.com/raphaelperrut/DSGeorref/issues/974#issuecomment-5752923713",
+  "project_owner_authorization": "CONDITIONAL",
+  "tech_lead_decision": "https://github.com/raphaelperrut/DSGeorref/issues/974#issuecomment-5753207954",
+  "tech_lead_identity": {
+    "issuer": "https://github.com",
+    "subject": "raphaelperrut",
+    "author_association": "OWNER",
+    "declared_function": "Tech Lead"
+  },
+  "tech_lead_authorization": "APPROVED",
+  "tech_lead_authorized_digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39",
+  "tech_lead_authorized_allow_path_count": 39,
+  "required_authenticated_statement": "TECH LEAD REAUTHORIZATION — ISSUE #974; TASK_ENVELOPE=TASK-0764; APPROVED_DIGEST=b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39; DECISION=APPROVED.",
+  "implementation_authorized": true,
+  "cryptographic_material_authorized_or_available": true,
+  "public_root_acceptance": "https://github.com/raphaelperrut/DSGeorref/issues/974#issuecomment-5753593051",
+  "private_material_accessible_to_writer": false
+}

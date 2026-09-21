@@ -1,0 +1,222 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0974",
+  "status": "OWNER_DECISION_REQUIRED",
+  "prepared_on": "2026-09-20",
+  "scope": {
+    "bounded_context": "BC-001",
+    "current_normative_decision": "ADR-058",
+    "current_task_envelope": ".codex/tasks/operations/TASK-0764.json",
+    "current_task_envelope_digest_sha256": "d94075ae1865dace981b88b6f165c4a9e0191111986a6f9554e0b51a0601f019",
+    "current_issue_acceptance_criteria": "https://github.com/raphaelperrut/DSGeorref/issues/974",
+    "normative_changes_applied": false
+  },
+  "architectural_decision_proposal": {
+    "provisional_adr_id": "ADR-059",
+    "title": "Delivery Approval Authority em desenvolvimento solo com segregacao funcional criptografica",
+    "status": "PROPOSED",
+    "supersedes": "ADR-058",
+    "owner": "Project Owner",
+    "bounded_context": "BC-001",
+    "reason_for_supersession": "ADR-058 defines pairwise-disjoint accountable subjects as the only valid independence model. DSGeorref has one real human accountable subject, so applying the current rule would require fictitious identities or make every delivery permanently impossible.",
+    "decision": [
+      "Preserve the existing independent-subject mode without weakening it for historical records or tasks that use it.",
+      "Add an explicitly authorized SOLO_FUNCTIONAL_SEGREGATION_V1 mode selected only by a signed operational trust profile for named TaskEnvelope IDs.",
+      "In solo mode, Executor, QA, Reviewer and Project Owner use the same authentic principal and the same real accountable subject; PERSONAL_INDEPENDENCE is obligatorily ABSENT_DECLARED.",
+      "Functional segregation is evidenced by four distinct role-scoped bindings, four distinct role-scoped attestation keys, four distinct signed session records and a strict Executor then QA then Reviewer then Project Owner digest chain over one TaskEnvelope digest and one candidate SHA.",
+      "The same person may perform every function but may not collapse functions into one session, reuse a role key across functions, rewrite a prior signed record or claim personal independence.",
+      "The Project Owner formal decision is a signed final record with decision PASS or NO_GO. PASS requires DELIVERED, QA APPROVE and Reviewer APPROVE on the same immutable candidate. NO_GO produces a fail-closed delivery verdict. Missing or ambiguous evidence produces no formal decision and remains fail-closed.",
+      "GitHub accounts, labels, pull-request approvals, CODEOWNERS, Git authorship, SPEC-001 signatures and supply-chain signatures remain insufficient substitutes for the Delivery Approval Authority records."
+    ],
+    "invariants": [
+      "No fictitious principal, accountable subject, session, key, binding or attestation is permitted.",
+      "Governance mode is resolved from the signed governed trust profile and is never caller-selected.",
+      "Every record binds the same canonical TaskEnvelope digest and exact immutable candidate SHA.",
+      "Role keys, binding IDs, attestation IDs and functional session IDs are pairwise distinct even though the principal and accountable subject are the same.",
+      "Each later functional attestation binds the canonical digest of the immediately preceding attestation.",
+      "Historical ADR-058 evidence remains verifiable under its original repository revision and strict independent-subject semantics.",
+      "Any missing authorization, signature, binding, session field, predecessor digest, required decision or owner record fails closed."
+    ],
+    "explicit_limit": "Functional segregation improves traceability and prevents silent role collapse, but it is not interpersonal independence and must never be reported as such."
+  },
+  "record_model": {
+    "governance_mode": "SOLO_FUNCTIONAL_SEGREGATION_V1",
+    "personal_independence": "ABSENT_DECLARED",
+    "principal_rule": "Exactly one authentic issuer plus subject pair is shared by all four functions.",
+    "accountable_subject_rule": "Exactly one real accountable subject is shared by all four functions.",
+    "role_order": [
+      "Executor",
+      "QA",
+      "Reviewer",
+      "Project Owner"
+    ],
+    "functional_session_fields": [
+      "session_id",
+      "role",
+      "sequence",
+      "started_at",
+      "input_snapshot_digest_sha256",
+      "predecessor_attestation_digest_sha256"
+    ],
+    "session_rules": [
+      "session_id values are unique and covered by the corresponding attestation signature",
+      "sequence is exactly 1, 2, 3 and 4 for Executor, QA, Reviewer and Project Owner",
+      "issued_at values are strictly increasing and each session starts after the preceding attestation was issued",
+      "Executor has no predecessor; QA binds the Executor attestation digest; Reviewer binds the QA attestation digest; Project Owner binds the Reviewer attestation digest and the verifier input-set digest",
+      "each session consumes the same candidate SHA, TaskEnvelope digest and immutable evidence snapshot"
+    ],
+    "role_results": {
+      "Executor": [
+        "DELIVERED"
+      ],
+      "QA": [
+        "APPROVE",
+        "REJECT"
+      ],
+      "Reviewer": [
+        "APPROVE",
+        "REJECT"
+      ],
+      "Project Owner": [
+        "PASS",
+        "NO_GO"
+      ]
+    },
+    "verdict_semantics": [
+      "PASS is emitted only for a valid four-record chain ending in Project Owner PASS after DELIVERED, QA APPROVE and Reviewer APPROVE.",
+      "A valid Project Owner NO_GO is reported as formal_decision NO_GO with delivery status FAIL and code OWNER_NO_GO.",
+      "A QA or Reviewer REJECT cannot lead to PASS and requires Project Owner NO_GO for an explicit formal decision.",
+      "Absent or invalid records return FAIL with no caller-controlled values promoted as validated state."
+    ]
+  },
+  "acceptance_criteria_change_proposal": {
+    "authorization": "PENDING_PROJECT_OWNER",
+    "unchanged": [
+      "AC-ISSUE-0974-01",
+      "AC-ISSUE-0974-02",
+      "AC-ISSUE-0974-05",
+      "AC-ISSUE-0974-07"
+    ],
+    "replacements": [
+      {
+        "id": "AC-ISSUE-0974-03",
+        "current": "Executor, QA and Reviewer have valid independent attestations bound to the same TaskEnvelope digest and candidate SHA.",
+        "proposed": "Executor, QA, Reviewer and Project Owner have authentic role-scoped attestations bound to the same TaskEnvelope digest and candidate SHA. For SOLO_FUNCTIONAL_SEGREGATION_V1, the records declare one real principal, one real accountable subject, PERSONAL_INDEPENDENCE=ABSENT_DECLARED, distinct role keys and bindings, distinct ordered functional sessions and a complete predecessor-digest chain."
+      },
+      {
+        "id": "AC-ISSUE-0974-04",
+        "current": "The ADR-058 authority validates the attestations without fallback.",
+        "proposed": "The authority governed by the ADR that supersedes ADR-058 resolves the task-authorized governance mode from the signed trust profile and validates identity, role bindings, functional sessions, attestation lineage and the Project Owner decision without fallback."
+      },
+      {
+        "id": "AC-ISSUE-0974-06",
+        "current": "The formal decision is exactly PASS or NO_GO, with absence remaining fail-closed.",
+        "proposed": "The authentic Project Owner record makes the formal decision exactly PASS or NO_GO. PASS requires the complete valid Executor, QA and Reviewer chain; NO_GO yields a fail-closed delivery verdict; absence, ambiguity or invalid evidence remains fail-closed and is not treated as a decision."
+      }
+    ],
+    "dependency_text_replacement": {
+      "current": "independent authorities/approvers",
+      "proposed": "legitimately authenticated DAA authorities and role-scoped solo functional sessions; no interpersonal independence is claimed"
+    }
+  },
+  "task_envelope_change_proposal": {
+    "authorization": "PENDING_TECH_LEAD_AFTER_OWNER_DECISION",
+    "required_semantic_changes": [
+      "Replace ADR-058 with the approved successor ADR in references, governing_adrs, tests, evidence and stop conditions.",
+      "Replace pairwise-disjoint accountable-subject requirements with the approved solo functional-session rules for TASK-0764 only.",
+      "Require the signed Project Owner PASS or NO_GO record as the final role in the chain.",
+      "Replace the proposed trust profile path 1.1.0 with a breaking-version profile path 2.0.0.",
+      "Keep ISSUE-0973 artifacts, historical EPICs and ISSUE-0678/0679 control-plane records read-only."
+    ],
+    "proposed_additional_allow_paths": [
+      "docs/02-architecture/adrs/ADR-059-delivery-approval-authority-em-desenvolvimento-solo.md",
+      "docs/00-governance/ADR_INDEX.csv",
+      "docs/02-architecture/ADR_DEPENDENCY_GRAPH.json",
+      "docs/07-assurance/ADR_APPLICABILITY_MATRIX.csv",
+      "contracts/assurance/delivery-approval-authority/README.md",
+      "contracts/assurance/delivery-approval-authority/trust-profile.schema.json",
+      "contracts/assurance/delivery-approval-authority/role-binding.schema.json",
+      "contracts/assurance/delivery-approval-authority/approval-attestation.schema.json",
+      "contracts/assurance/delivery-approval-authority/verification-verdict.schema.json",
+      "tools/governance/delivery_approval_authority/crypto.py",
+      "tools/governance/delivery_approval_authority/records.py",
+      "tools/governance/delivery_approval_authority/verdicts.py",
+      "tools/governance/delivery_approval_authority/verifier.py",
+      "tests/security/delivery_approval_authority/fixture.py",
+      "tests/security/delivery_approval_authority/test_operational_verifier.py",
+      "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_delivery_approval_authority_contract.py"
+    ],
+    "proposed_path_replacement": {
+      "remove": "contracts/assurance/delivery-approval-authority/trust/profiles/dsgeorref-daa-operational-1.1.0.json",
+      "add": "contracts/assurance/delivery-approval-authority/trust/profiles/dsgeorref-daa-operational-2.0.0.json"
+    },
+    "paths_retained": [
+      ".codex/tasks/operations/TASK-0764.json",
+      "contracts/assurance/delivery-approval-authority/trust/manifest.json",
+      "docs/03-engineering/contexts/engineering_governance/remediation-03-first-functional-slice-authorization/gate-evidence-registry.json",
+      "tools/governance/remediation-03-first-functional-slice-authorization/gate-checkpoint.json",
+      "evidence/implementation/issue-0974/**",
+      "evidence/delivery-approval-authority/TASK-0764/**"
+    ]
+  },
+  "contract_and_verifier_change_proposal": {
+    "contract_owner": "BC-001 / Architect function",
+    "verifier_owner": "BC-001 / Security function",
+    "breaking_contract_version": "2.0.0",
+    "required_contract_changes": [
+      "Trust profile schema adds signed task-scoped governance policies, SOLO_FUNCTIONAL_SEGREGATION_V1 and the Project Owner role.",
+      "Role-binding schema adds governance_mode and permits Project Owner while retaining principal, accountable-subject, task, validity, revocation and authority signatures.",
+      "Approval-attestation schema adds governance_mode, personal_independence and functional_session; adds Project Owner with PASS and NO_GO decisions; role-specific decision constraints reject cross-role decisions.",
+      "Verification-verdict schema adds governance_mode, personal_independence, functional-session summaries, Project Owner, formal_decision and fail codes for unauthorized mode, session failure, chain mismatch, key reuse and OWNER_NO_GO.",
+      "Version-2 trust-profile, role-binding and attestation records use version-2 signature message domains; version-1 records remain verifiable at their governed historical revisions."
+    ],
+    "required_verifier_changes": [
+      "Resolve governance mode exclusively from the authentic signed profile policy for TASK-0764.",
+      "Keep current pairwise-disjoint accountable-subject enforcement for version-1 and independent-subject policies.",
+      "For authorized solo mode, require exactly one principal and accountable subject across all roles, PERSONAL_INDEPENDENCE=ABSENT_DECLARED, distinct role keys, bindings and session IDs, strict role order and exact predecessor-attestation digests.",
+      "Validate Project Owner PASS or NO_GO as the final signed record and never translate missing evidence or NO_GO into PASS.",
+      "Return empty validated state on schema, trust, signature, scope, session, ordering, lineage, candidate, TaskEnvelope or decision failure."
+    ],
+    "api_change": "No caller-controlled trust or governance-mode parameter is added to verify_delivery_approval; the public API shape remains unchanged.",
+    "new_service_or_infrastructure": false
+  },
+  "trust_material_change_proposal": {
+    "authorization": "PENDING_DAA_PROFILE_SIGNING_AND_ROLE_BINDING_AUTHORITIES_AFTER_OWNER_DECISION",
+    "preserve": [
+      "dsgeorref-daa-operational-roots-1.0.0 anchor",
+      "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1 trust scope",
+      "Ed25519",
+      "SHA-256",
+      "JCS-RFC8785-PROFILE-1",
+      "external private-key custody and revocation semantics"
+    ],
+    "required_after_normative_approval": [
+      "Authentic signed dsgeorref-daa-operational-2.0.0 profile authorizing SOLO_FUNCTIONAL_SEGREGATION_V1 only for TASK-0764.",
+      "One real principal and accountable subject disclosed consistently across all bindings.",
+      "Four distinct legitimate public attestation keys, each scoped to exactly one of Executor, QA, Reviewer and Project Owner for TASK-0764.",
+      "Four authentic role bindings carrying the same real accountable subject and the authorized solo governance mode.",
+      "Manifest update to the exact profile path and digest."
+    ],
+    "private_keys_or_signatures_generated_by_this_proposal": false
+  },
+  "residual_risks": [
+    "There is no interpersonal independence; self-review bias remains and is accepted explicitly rather than hidden.",
+    "Compromise or coercion of the sole human principal can affect every functional role even when role keys are distinct.",
+    "Distinct sessions, keys and signed lineage prove process separation and record integrity, not independent judgment by different people.",
+    "Without an external trusted timestamp or transparency service, signed issued_at ordering is attributable to the same principal; the digest chain prevents undetected mutation but not retrospective creation by a fully compromised signer.",
+    "Loss of the sole operator's external key custody can block delivery until governed recovery or rotation occurs.",
+    "The verifier and schemas must preserve historical version-1 behavior to avoid retroactively reinterpreting earlier approvals."
+  ],
+  "objective_resume_condition": [
+    "The Project Owner records an explicit authenticated approval of this exact package digest, authorizes ADR-059 to supersede ADR-058, accepts the stated residual risks and authorizes the specified AC and TaskEnvelope changes.",
+    "After that owner decision, the Tech Lead function publishes the revised TASK-0764 with its new canonical digest and exact approved allow/deny paths.",
+    "Only then may contract, verifier and trust-profile implementation begin; until both records exist, the current ADR-058 policy remains authoritative and every solo approval attempt must fail closed."
+  ],
+  "owner_approval": {
+    "status": "NOT_PROVIDED",
+    "required_role": "Project Owner",
+    "required_authenticated_statement": "APPROVE the ISSUE-0974 solo-governance decision package by its exact SHA-256 digest; authorize ADR-059 to supersede ADR-058; authorize the listed acceptance-criteria and TASK-0764 scope changes; accept that personal independence is absent and only functional segregation is claimed; accept the enumerated residual risks.",
+    "instruction_is_not_approval": true
+  },
+  "ready_to_resume_implementation": false
+}
