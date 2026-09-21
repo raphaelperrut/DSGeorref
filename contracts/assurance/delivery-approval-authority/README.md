@@ -128,7 +128,8 @@ personal independence.
 An authentic Project Owner `NO_GO` returns `FAIL/OWNER_NO_GO`. Missing, ambiguous, reordered,
 reused, divergent, invalid or unsigned material fails closed with no validated roles.
 
-The operational manifest remains on the signed `1.0.0` profile until the `2.0.0` profile and
-bindings receive authentic external signatures. The verifier keeps both versioned anchor
-pins and schema/domain paths; version `1.0.0` records retain their original pairwise-disjoint
-accountable-subject semantics and are never reinterpreted as solo records.
+The operational manifest selects the signed `2.0.0` profile only after authentic external
+signatures on that profile and all four role bindings have been verified. The verifier keeps
+both versioned anchor pins and schema/domain paths; version `1.0.0` records retain their
+original pairwise-disjoint accountable-subject semantics and are never reinterpreted as solo
+records.
