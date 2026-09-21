@@ -123,7 +123,7 @@ def test_delivery_approval_operational_verifier(tmp_path: Path) -> None:
         "profile_id": "dsgeorref-daa-operational",
         "profile_version": "2.0.0",
     }
-    assert governed["code"] == "APPROVAL_MISSING"
+    assert governed["code"] == "GOVERNANCE_MODE_UNAUTHORIZED"
     package_source = (ROOT / "tools/governance/delivery_approval_authority").glob("*.py")
     combined = "\n".join(path.read_text() for path in package_source)
     assert "test_delivery_approval_authority_contract" not in combined
