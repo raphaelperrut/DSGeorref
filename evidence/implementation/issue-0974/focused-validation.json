@@ -26,12 +26,12 @@
     "role_binding_signing_capability": "AVAILABLE_ONLY_TO_PROJECT_OWNER_OUTSIDE_CODEX",
     "principal_attestation_signers": "PUBLIC_KEYS_VERIFIED_PRIVATE_USE_MANUAL_ONLY",
     "signed_trust_profile_and_bindings": "PASS_5_OF_5",
-    "signed_profile_sha256": "715aee7c3870d3d1662d8f750578641ea1f9767d06a748dfd4571c02ef9d6625",
+    "signed_profile_sha256": "60eb2a9c846bc0fae27de1330dea0c68dc94512f5a1b2820d37c0af30a31c0e4",
     "signed_role_binding_sha256": {
-      "Executor": "e2e6e1f839cc0f71121463c19c02aab88bff79f989a0ee8cf069613581100fed",
-      "QA": "0a767c3d7864f37cbe2027d9508e65ae82f136d7172e72a49ac6baa01152dec5",
-      "Reviewer": "317f1126a9ba13ab5110ce05667bca22dbea2a76979f290e2fcb209d23de083d",
-      "Project Owner": "5acd476aef569183536a75d52d87ce5703e42838c7ffab288836f1184747bdac"
+      "Executor": "b8a78946b44253100b5c9526a86b8ff82bf28c04071a403ce5c9935c7a4cd440",
+      "QA": "12f8d6c8bcefb3d8f9fd7e42e117b6148a32ec2dd027601de10d1b22d1c41c9d",
+      "Reviewer": "70bce6310d59ca3f10fd6bbd677197b9595644678f77dac6abcef88d05425a3d",
+      "Project Owner": "62e26f81d8747c410395db9ea08b17450815de027164654cb8203e5887e13ba2"
     },
     "manifest_selects_signed_daa_2_0_0": "PASS",
     "candidate_sha": "17e9e413626b03bcbbae70d6a4e12330731749fb",
@@ -67,35 +67,35 @@
       "key_id": "daa2-operational-profile-root-2026",
       "message_profile": "DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V2",
       "canonical_message_length": 3609,
-      "canonical_message_sha256": "6e341884cc550254292bb9d9adad4e4c6bc0efb9dcdf312d73238bce1828e81c"
+      "canonical_message_sha256": "638dfaba28a43e0ec98a7a63418563ea48aa8c7f64a83d7f1ec502e64a1b28a9"
     },
     {
       "path": "evidence/delivery-approval-authority/TASK-0764/executor-binding.json",
       "key_id": "daa2-operational-binding-authority-2026",
       "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2",
       "canonical_message_length": 878,
-      "canonical_message_sha256": "3655a61c48e51948cc93e9fefc896db691d4b3ee84b89e65a820b658213b340c"
+      "canonical_message_sha256": "04abab30141e4e62293b43cfa13351e2a12246fb2d5b748a1c76e23cbc9099c4"
     },
     {
       "path": "evidence/delivery-approval-authority/TASK-0764/qa-binding.json",
       "key_id": "daa2-operational-binding-authority-2026",
       "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2",
       "canonical_message_length": 866,
-      "canonical_message_sha256": "a538d4f6b32b7833b2916e97ee525c976a34474e6034038a893dfd1f76ad2c78"
+      "canonical_message_sha256": "cd258d2c2dded4f60445362446163fdf32ff0d0292767ac30bc8f8767fb8630b"
     },
     {
       "path": "evidence/delivery-approval-authority/TASK-0764/reviewer-binding.json",
       "key_id": "daa2-operational-binding-authority-2026",
       "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2",
       "canonical_message_length": 878,
-      "canonical_message_sha256": "bb96b5ac36a2355d8ade77bfcd61f17bd50ada013118c8aa87209be495899da0"
+      "canonical_message_sha256": "bbdd4350baf82b5ff9f5e9a45c280fa0618578dabf4b9a82d44a1a85e2dc6b3d"
     },
     {
       "path": "evidence/delivery-approval-authority/TASK-0764/project-owner-binding.json",
       "key_id": "daa2-operational-binding-authority-2026",
       "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2",
       "canonical_message_length": 888,
-      "canonical_message_sha256": "cc14988998c33f4e72a5674a27481876eb15c75d49fd000093581eb942b0581f"
+      "canonical_message_sha256": "a927ca859d043f601fa45497e94e6fb277985e83ffcd27ba410ccaec7e2c676e"
     }
   ],
   "project_owner_decision_correction": {

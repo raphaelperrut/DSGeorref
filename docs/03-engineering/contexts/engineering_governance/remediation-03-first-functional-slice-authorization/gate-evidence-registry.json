@@ -33,7 +33,7 @@
     "anchor_path": "contracts/assurance/delivery-approval-authority/trust/anchors/dsgeorref-daa-operational-roots-2.0.0.json",
     "anchor_sha256": "98c4951609d9b0ebb1bf27a784dedd74aa7c4d6cffca776649a1227b955c7dc5",
     "profile_path": "contracts/assurance/delivery-approval-authority/trust/profiles/dsgeorref-daa-operational-2.0.0.json",
-    "profile_sha256": "715aee7c3870d3d1662d8f750578641ea1f9767d06a748dfd4571c02ef9d6625",
+    "profile_sha256": "60eb2a9c846bc0fae27de1330dea0c68dc94512f5a1b2820d37c0af30a31c0e4",
     "governance_mode": "SOLO_FUNCTIONAL_SEGREGATION_V1",
     "personal_independence": "ABSENT_DECLARED",
     "input_snapshot_digest_sha256": "04356e1c03d13febb9f2ff0e799e4e3fafa34c130b70993efacf09cbb59ff02b",
