@@ -56,4 +56,5 @@ ADR-054,Accepted,"Observabilidade, telemetria e diagnósticos operacionais",ADR-
 ADR-055,Accepted,"Audit ledger, privacidade, redaction e support bundles",ADR-055-audit-ledger-privacidade-redaction-e-support-bundles.md,true,BC-014,ADR-018/ADR-021/ADR-028/ADR-054,11
 ADR-056,Accepted,"Licenciamento, contribuições, provider attribution e citação",ADR-056-licenciamento-contribuicoes-provider-attribution-e-citacao.md,true,BC-015,ADR-023/ADR-047/ADR-055,1
 ADR-057,Accepted,"Release train, publicação e gates de distribuição",ADR-057-release-train-publicacao-e-gates-de-distribuicao.md,true,BC-015/BC-001,ADR-026/ADR-033/ADR-034/ADR-035/ADR-056,6
-ADR-058,Accepted,Delivery Approval Authority e attestations criptográficas independentes,ADR-058-delivery-approval-authority-e-attestations-criptograficas-independentes.md,true,BC-001,ADR-003/ADR-006/ADR-007/ADR-010,0
+ADR-058,Superseded,Delivery Approval Authority e attestations criptográficas independentes,ADR-058-delivery-approval-authority-e-attestations-criptograficas-independentes.md,true,BC-001,ADR-003/ADR-006/ADR-007/ADR-010,0
+ADR-059,Accepted,Delivery Approval Authority em desenvolvimento solo,ADR-059-delivery-approval-authority-em-desenvolvimento-solo.md,true,BC-001,ADR-058,0

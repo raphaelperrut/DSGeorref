@@ -4,6 +4,7 @@ import base64
 import copy
 import hashlib
 import json
+import shutil
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
@@ -18,6 +19,9 @@ SCOPE = "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1"
 PROFILE_DOMAIN = "DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V1"
 BINDING_DOMAIN = "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V1"
 ATTESTATION_DOMAIN = "DSGEOREF-DELIVERY-APPROVAL-ATTESTATION-V1"
+PROFILE_DOMAIN_V2 = "DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V2"
+BINDING_DOMAIN_V2 = "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2"
+ATTESTATION_DOMAIN_V2 = "DSGEOREF-DELIVERY-APPROVAL-ATTESTATION-V2"
 TRUST_ROOT = Path("contracts/assurance/delivery-approval-authority/trust")
 ISSUER = "https://operational-test.invalid"
 
@@ -268,3 +272,248 @@ def governed_fixture(source: Path, destination: Path) -> GovernedFixture:
 def commit_profile(fixture: GovernedFixture) -> str:
     _sign(fixture.profile, fixture.private_keys["root"], PROFILE_DOMAIN)
     return _commit_trust(fixture.repository, fixture.anchors, fixture.profile)
+
+
+SOLO_ROLES = ("Executor", "QA", "Reviewer", "Project Owner")
+
+
+def solo_governed_fixture(source: Path, destination: Path) -> GovernedFixture:
+    subprocess.run(
+        ["git", "clone", "--quiet", "--no-hardlinks", str(source), str(destination)],
+        check=True,
+    )
+    _git(destination, "config", "user.name", "ISSUE-0974 solo test")
+    _git(destination, "config", "user.email", "issue-0974-solo@test.invalid")
+    schema_source = source / "contracts/assurance/delivery-approval-authority/v2"
+    schema_destination = destination / "contracts/assurance/delivery-approval-authority/v2"
+    shutil.copytree(schema_source, schema_destination, dirs_exist_ok=True)
+
+    keys = {
+        label: _key(f"solo-{label}")
+        for label in ("root", "binding", "executor", "qa", "reviewer", "project-owner")
+    }
+    task = json.loads((destination / ".codex/tasks/TASK-0761.json").read_text())
+    task_reference = {
+        "task_id": task["task_id"],
+        "digest_sha256": hashlib.sha256(canonical_json_bytes(task)).hexdigest(),
+    }
+    principal = {"issuer": ISSUER, "subject": "solo-principal"}
+    accountable_subject = "acct:issue-0974/solo-principal"
+    key_records = [
+        {
+            "key_id": "issue-0974-solo-binding",
+            "algorithm": "Ed25519",
+            "public_key": _public(keys["binding"]),
+            "purpose": "DELIVERY_ROLE_BINDING",
+            "trust_scope": SCOPE,
+            "principal": None,
+            "roles": list(SOLO_ROLES),
+            "task_envelopes": [task_reference],
+            "valid_from": "2026-09-20T00:00:00Z",
+            "valid_until": "2026-09-22T00:00:00Z",
+            "revoked_at": None,
+        }
+    ]
+    for role in SOLO_ROLES:
+        label = role.lower().replace(" ", "-")
+        key_records.append(
+            {
+                "key_id": f"issue-0974-solo-{label}",
+                "algorithm": "Ed25519",
+                "public_key": _public(keys[label]),
+                "purpose": "DELIVERY_APPROVAL_ATTESTATION",
+                "trust_scope": SCOPE,
+                "principal": principal,
+                "roles": [role],
+                "task_envelopes": [task_reference],
+                "valid_from": "2026-09-20T00:00:00Z",
+                "valid_until": "2026-09-22T00:00:00Z",
+                "revoked_at": None,
+            }
+        )
+    profile = {
+        "schema_version": "2.0.0",
+        "profile_id": "issue-0974-solo-test",
+        "profile_version": "2.0.0",
+        "trust_scope": SCOPE,
+        "canonicalization": "JCS-RFC8785-PROFILE-1",
+        "hash_algorithm": "SHA-256",
+        "signature_algorithm": "Ed25519",
+        "valid_from": "2026-09-20T00:00:00Z",
+        "valid_until": "2026-09-22T00:00:00Z",
+        "identity_issuers": [
+            {
+                "issuer": ISSUER,
+                "trust_scope": SCOPE,
+                "valid_from": "2026-09-20T00:00:00Z",
+                "valid_until": "2026-09-22T00:00:00Z",
+                "revoked_at": None,
+            }
+        ],
+        "governance_policies": [
+            {
+                "governance_mode": "SOLO_FUNCTIONAL_SEGREGATION_V1",
+                "personal_independence": "ABSENT_DECLARED",
+                "task_envelope": task_reference,
+            }
+        ],
+        "keys": key_records,
+        "signature": {
+            "key_id": "issue-0974-solo-root",
+            "algorithm": "Ed25519",
+            "message_profile": PROFILE_DOMAIN_V2,
+            "value": "",
+        },
+    }
+    _sign(profile, keys["root"], PROFILE_DOMAIN_V2)
+    anchors = {
+        "schema_version": "1.0.0",
+        "anchor_set_id": "issue-0974-solo-test-roots",
+        "anchor_set_version": "2.0.0",
+        "trust_scope": SCOPE,
+        "anchors": [
+            {
+                "key_id": "issue-0974-solo-root",
+                "algorithm": "Ed25519",
+                "public_key": _public(keys["root"]),
+                "purpose": "DELIVERY_TRUST_PROFILE_SIGNING",
+                "trust_scope": SCOPE,
+                "valid_from": "2026-09-20T00:00:00Z",
+                "valid_until": "2026-09-22T00:00:00Z",
+                "revoked_at": None,
+            }
+        ],
+    }
+
+    bindings: list[dict[str, Any]] = []
+    for role in SOLO_ROLES:
+        label = role.lower().replace(" ", "-")
+        binding = {
+            "schema_version": "2.0.0",
+            "binding_id": f"issue-0974-solo-binding-{label}",
+            "binding_version": "2.0.0",
+            "trust_scope": SCOPE,
+            "governance_mode": "SOLO_FUNCTIONAL_SEGREGATION_V1",
+            "personal_independence": "ABSENT_DECLARED",
+            "policy": {"profile_id": profile["profile_id"], "profile_version": "2.0.0"},
+            "principal": principal,
+            "accountable_subject": accountable_subject,
+            "role": role,
+            "task_envelope": task_reference,
+            "valid_from": "2026-09-20T00:00:00Z",
+            "valid_until": "2026-09-22T00:00:00Z",
+            "revoked_at": None,
+            "signature": {
+                "key_id": "issue-0974-solo-binding",
+                "algorithm": "Ed25519",
+                "message_profile": BINDING_DOMAIN_V2,
+                "value": "",
+            },
+        }
+        _sign(binding, keys["binding"], BINDING_DOMAIN_V2)
+        bindings.append(binding)
+
+    candidate_sha = "c" * 40
+    snapshot_digest = "a" * 64
+    times = (
+        ("2026-09-20T12:00:00Z", "2026-09-20T12:05:00Z"),
+        ("2026-09-20T12:06:00Z", "2026-09-20T12:10:00Z"),
+        ("2026-09-20T12:11:00Z", "2026-09-20T12:15:00Z"),
+        ("2026-09-20T12:16:00Z", "2026-09-20T12:20:00Z"),
+    )
+    decisions = ("DELIVERED", "APPROVE", "APPROVE", "PASS")
+    attestations: list[dict[str, Any]] = []
+    for sequence, (role, binding, decision, timestamps) in enumerate(
+        zip(SOLO_ROLES, bindings, decisions, times, strict=True), 1
+    ):
+        label = role.lower().replace(" ", "-")
+        predecessor = None if not attestations else hashlib.sha256(
+            canonical_json_bytes(attestations[-1])
+        ).hexdigest()
+        attestation = {
+            "schema_version": "2.0.0",
+            "attestation_id": f"issue-0974-solo-attestation-{label}",
+            "trust_scope": SCOPE,
+            "governance_mode": "SOLO_FUNCTIONAL_SEGREGATION_V1",
+            "personal_independence": "ABSENT_DECLARED",
+            "policy": {"profile_id": profile["profile_id"], "profile_version": "2.0.0"},
+            "principal": principal,
+            "accountable_subject": accountable_subject,
+            "role": role,
+            "decision": decision,
+            "binding": {
+                "binding_id": binding["binding_id"],
+                "binding_version": "2.0.0",
+                "digest_sha256": hashlib.sha256(canonical_json_bytes(binding)).hexdigest(),
+            },
+            "task_envelope": task_reference,
+            "candidate_sha": candidate_sha,
+            "functional_session": {
+                "session_id": f"issue-0974-solo-session-{label}",
+                "role": role,
+                "sequence": sequence,
+                "started_at": timestamps[0],
+                "input_snapshot_digest_sha256": snapshot_digest,
+                "predecessor_attestation_digest_sha256": predecessor,
+                "verifier_input_set_digest_sha256": None,
+            },
+            "issued_at": timestamps[1],
+            "signature": {
+                "key_id": f"issue-0974-solo-{label}",
+                "algorithm": "Ed25519",
+                "message_profile": ATTESTATION_DOMAIN_V2,
+                "value": "",
+            },
+        }
+        if role == "Project Owner":
+            verifier_input = {
+                "task_envelope": task_reference,
+                "candidate_sha": candidate_sha,
+                "bindings": [
+                    {
+                        "role": item["role"],
+                        "digest_sha256": hashlib.sha256(
+                            canonical_json_bytes(item)
+                        ).hexdigest(),
+                    }
+                    for item in bindings
+                ],
+                "attestations": [
+                    {
+                        "role": item["role"],
+                        "digest_sha256": hashlib.sha256(
+                            canonical_json_bytes(item)
+                        ).hexdigest(),
+                    }
+                    for item in attestations
+                ],
+            }
+            attestation["functional_session"]["verifier_input_set_digest_sha256"] = (
+                hashlib.sha256(canonical_json_bytes(verifier_input)).hexdigest()
+            )
+        _sign(attestation, keys[label], ATTESTATION_DOMAIN_V2)
+        attestations.append(attestation)
+
+    anchor_path = TRUST_ROOT / "anchors/solo-test.json"
+    profile_path = TRUST_ROOT / "profiles/solo-test.json"
+    anchor_digest = _write_json(destination / anchor_path, anchors)
+    profile_digest = _write_json(destination / profile_path, profile)
+    manifest = {
+        "schema_version": "1.0.0",
+        "anchors": {"path": anchor_path.as_posix(), "sha256": anchor_digest},
+        "profile": {"path": profile_path.as_posix(), "sha256": profile_digest},
+    }
+    _write_json(destination / TRUST_ROOT / "manifest.json", manifest)
+    _git(destination, "add", "contracts/assurance/delivery-approval-authority")
+    _git(destination, "commit", "-m", "test: governed solo trust revision")
+    revision = _git(destination, "rev-parse", "HEAD")
+    return GovernedFixture(
+        destination,
+        revision,
+        profile,
+        anchors,
+        keys,
+        task,
+        candidate_sha,
+        {"bindings": bindings, "attestations": attestations},
+    )

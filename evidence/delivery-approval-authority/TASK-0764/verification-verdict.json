@@ -1,0 +1,45 @@
+{
+  "schema_version": "2.0.0",
+  "status": "PASS",
+  "code": "APPROVAL_AUTHORITY_VERIFIED",
+  "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+  "profile": {
+    "profile_id": "dsgeorref-daa-operational",
+    "profile_version": "2.0.0"
+  },
+  "governance_mode": "SOLO_FUNCTIONAL_SEGREGATION_V1",
+  "personal_independence": "ABSENT_DECLARED",
+  "task_envelope": {
+    "task_id": "TASK-0764",
+    "digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35"
+  },
+  "candidate_sha": "17e9e413626b03bcbbae70d6a4e12330731749fb",
+  "verification_time": "2026-09-22T02:52:02.131195Z",
+  "validated_roles": [
+    "Executor",
+    "QA",
+    "Reviewer",
+    "Project Owner"
+  ],
+  "accountable_subjects": {
+    "Executor": [
+      "acct:github.com/raphaelperrut"
+    ],
+    "QA": [
+      "acct:github.com/raphaelperrut"
+    ],
+    "Reviewer": [
+      "acct:github.com/raphaelperrut"
+    ],
+    "Project Owner": [
+      "acct:github.com/raphaelperrut"
+    ]
+  },
+  "functional_sessions": [
+    "task-0764-candidate-17e9e413-session-executor-c9ec890d0c194466953ecdc602a6925b",
+    "task-0764-candidate-17e9e413-session-qa-22e7bf0e4f914c939aa3c5b3a3304fd2",
+    "task-0764-candidate-17e9e413-session-reviewer-6e8abf8b5dc043c79363cfff3e55afa9",
+    "task-0764-candidate-17e9e413-session-project-owner-d2aa389ace384e4e86d4e3ebd516551b"
+  ],
+  "formal_decision": "PASS"
+}

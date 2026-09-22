@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0974",
+  "status": "ACTIVATED_CURRENT_CANDIDATE_VERIFIED",
+  "checked_on": "2026-09-22",
+  "proposed_adr": "docs/02-architecture/adrs/ADR-059-delivery-approval-authority-em-desenvolvimento-solo.md",
+  "current_adr": "docs/02-architecture/adrs/ADR-058-delivery-approval-authority-e-attestations-criptograficas-independentes.md",
+  "checks": {
+    "adr_059_status_is_accepted": "PASS",
+    "adr_058_historical_authority_for_daa_1_0_0": "PASS",
+    "owner_decision_and_package_digest_linked": "PASS",
+    "functional_vs_personal_independence_distinguished": "PASS",
+    "personal_independence_absence_explicit": "PASS",
+    "solo_role_sequence_defined": "PASS",
+    "project_owner_pass_or_no_go_defined": "PASS",
+    "fail_closed_preserved": "PASS",
+    "daa_1_0_0_historical_semantics_preserved_by_non_modification": "PASS",
+    "trust_anchor_scope_algorithms_and_custody_unchanged": "PASS",
+    "tech_lead_authorization_for_current_task_digest": "PASS",
+    "daa_2_0_0_contract_and_verifier_implemented": "PASS",
+    "daa_1_0_0_historical_semantics_regression": "PASS",
+    "public_bootstrap_bundle_and_root_possession": "PASS",
+    "legitimate_signed_operational_profile_and_bindings_available": "PASS_5_OF_5",
+    "operational_manifest_selects_daa_2_0_0": "PASS",
+    "authentic_solo_functional_chain": "PASS",
+    "project_owner_formal_decision": "PASS",
+    "personal_independence": "ABSENT_DECLARED"
+  },
+  "daa_2_required": true,
+  "daa_2_rationale": [
+    "DAA 1.0.0 admits only Executor, QA and Reviewer and requires pairwise-disjoint accountable subjects.",
+    "DAA 1.0.0 has no signed functional-session, predecessor-attestation lineage, PERSONAL_INDEPENDENCE declaration or Project Owner PASS/NO_GO record.",
+    "Accepting the solo model under DAA 1.0.0 would reinterpret existing records and weaken the current verifier silently."
+  ],
+  "historical_compatibility_strategy": [
+    "Keep every DAA 1.0.0 schema and historical governed revision unchanged.",
+    "Use separately versioned DAA 2.0.0 schemas and signature domains for solo records.",
+    "Keep pairwise-disjoint accountable-subject enforcement for DAA 1.0.0.",
+    "Select solo mode only from a signed task-scoped DAA 2.0.0 trust profile; never from caller input."
+  ],
+  "cryptographic_authority_assessment": {
+    "existing_anchor": {
+      "anchor_set_id": "dsgeorref-daa-operational-roots",
+      "key_id": "daa2-operational-profile-root-2026",
+      "purpose": "DELIVERY_TRUST_PROFILE_SIGNING",
+      "public_material_versioned": true,
+      "profile_1_0_0_signature_verification": "PASS",
+      "daa_2_root_fingerprint_sha256": "7eee2d0b947f124fbacd9987e599e06fe5c1c8e36d3ba87b7c117669e5cd59ae",
+      "owner_acceptance": "https://github.com/raphaelperrut/DSGeorref/issues/974#issuecomment-5753593051"
+    },
+    "profile_signing_authority": {
+      "logical_authority": "daa2-operational-profile-root-2026",
+      "documented_custody_model": "external Project Owner custody",
+      "production_custody_claimed": true,
+      "authorized_signing_service_or_access_path": "MANUAL_OUTSIDE_CODEX",
+      "signing_capability_available": true
+    },
+    "role_binding_authority": {
+      "key_id": "daa2-operational-binding-authority-2026",
+      "public_key_versioned": true,
+      "current_task_scope": [
+        "TASK-0764"
+      ],
+      "private_key_or_authorized_signing_service_available": "MANUAL_OUTSIDE_CODEX"
+    },
+    "attestation_signers": {
+      "published_principal_key_count": 4,
+      "executor_available": "MANUAL_OUTSIDE_CODEX",
+      "qa_available": "MANUAL_OUTSIDE_CODEX",
+      "reviewer_available": "MANUAL_OUTSIDE_CODEX",
+      "project_owner_available": "MANUAL_OUTSIDE_CODEX"
+    },
+    "configured_signing_surfaces": {
+      "repository_actions_secret_names": [],
+      "repository_actions_variable_names": [],
+      "native_runtime_release_signing_entries": [],
+      "local_daa_kms_hsm_vault_or_ed25519_environment_names": [],
+      "local_git_signing_configuration": [],
+      "daa_profile_or_binding_signing_workflow": "NOT_FOUND"
+    },
+    "origin_commit": {
+      "sha": "dad7b50968021a1b652abc5c8b6a3421a31de1d9",
+      "github_commit_signature": "UNSIGNED",
+      "profile_signature_generation_provenance": "NOT_RECORDED",
+      "note": "The valid profile signature proves possession at issuance time, not current signer availability."
+    }
+  },
+  "activation_allowed": true,
+  "activation_blocker": null
+}

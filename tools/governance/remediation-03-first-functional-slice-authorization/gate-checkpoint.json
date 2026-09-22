@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0974",
+  "task_id": "TASK-0764",
+  "task_envelope_digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35",
+  "candidate_sha": "17e9e413626b03bcbbae70d6a4e12330731749fb",
+  "evidence_registry": "docs/03-engineering/contexts/engineering_governance/remediation-03-first-functional-slice-authorization/gate-evidence-registry.json",
+  "delivery_approval_verdict": "evidence/delivery-approval-authority/TASK-0764/verification-verdict.json",
+  "candidate_state": "ATTESTED",
+  "gate_verdict": "PASS",
+  "formal_decision": "PASS",
+  "personal_independence": "ABSENT_DECLARED",
+  "authorization_claim": "EXACT_CANDIDATE_AUTHORIZED",
+  "pr_approval_claim": "NOT_ASSERTED",
+  "historical_epic_reevaluation": "ELIGIBLE_NOT_EXECUTED"
+}

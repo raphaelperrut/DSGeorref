@@ -6,6 +6,8 @@ from jsonschema import Draft202012Validator
 
 ROOT=Path(__file__).resolve().parents[1]
 errors=[]
+CURRENT_ADR_COUNT=59
+PHASE_D_ADR_BASELINE=58
 GENERATED_DIRS=frozenset({
     '.npm-cache',
     '.playwright-browsers',
@@ -42,7 +44,7 @@ counts={
  'tasks':check_sequence(ROOT.glob('.codex/tasks/TASK-*.json'),r'TASK-(\d{4})','TASK'),
  'requirements':len(list(ROOT.glob('docs/01-product/requirements/REQ-*.md'))),
 }
-expected={'adrs':58,'components':18,'modules':18,'sprints':12,'epics':110,'parent_issues':110,'stories':761,'tasks':761,'requirements':376}
+expected={'adrs':CURRENT_ADR_COUNT,'components':18,'modules':18,'sprints':12,'epics':110,'parent_issues':110,'stories':761,'tasks':761,'requirements':376}
 for k,v in expected.items():
     if counts[k]!=v: errors.append(f'{k}: expected {v}, found {counts[k]}')
 
@@ -51,7 +53,9 @@ for k,v in expected.items():
 phase_d_required=['docs/07-assurance/PHASE-D-ADR-REVIEW-REPORT.md','docs/07-assurance/PHASE-D-ADR-REVIEW-REPORT.json','docs/07-assurance/ADR_APPLICABILITY_MATRIX.csv','docs/02-architecture/ADR_DEPENDENCY_GRAPH.json','docs/02-architecture/sar/SAR-180-PHASE-D-ADR-DEFINITIVO.md']
 for rel in phase_d_required:
     if not (ROOT/rel).exists(): errors.append(f'missing Phase D artifact {rel}')
-if counts.get('adrs') != 58: errors.append('Phase D ADR count drift')
+adr_ids=sorted(int(re.search(r'ADR-(\d{3})',p.name).group(1)) for p in ROOT.glob('docs/02-architecture/adrs/ADR-*.md'))
+if [adr_id for adr_id in adr_ids if adr_id <= PHASE_D_ADR_BASELINE] != list(range(1,PHASE_D_ADR_BASELINE+1)):
+    errors.append('Phase D ADR historical baseline drift')
 
 # JSON/YAML syntax.
 for p in repo_rglob('*.json'):
