@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0.0",
   "issue_id": "ISSUE-0974",
-  "status": "ACTIVATED_PENDING_CANDIDATE_ATTESTATIONS",
-  "checked_on": "2026-09-20",
+  "status": "ACTIVATED_CURRENT_CANDIDATE_VERIFIED",
+  "checked_on": "2026-09-22",
   "proposed_adr": "docs/02-architecture/adrs/ADR-059-delivery-approval-authority-em-desenvolvimento-solo.md",
   "current_adr": "docs/02-architecture/adrs/ADR-058-delivery-approval-authority-e-attestations-criptograficas-independentes.md",
   "checks": {
@@ -21,7 +21,10 @@
     "daa_1_0_0_historical_semantics_regression": "PASS",
     "public_bootstrap_bundle_and_root_possession": "PASS",
     "legitimate_signed_operational_profile_and_bindings_available": "PASS_5_OF_5",
-    "operational_manifest_selects_daa_2_0_0": "PASS"
+    "operational_manifest_selects_daa_2_0_0": "PASS",
+    "authentic_solo_functional_chain": "PASS",
+    "project_owner_formal_decision": "PASS",
+    "personal_independence": "ABSENT_DECLARED"
   },
   "daa_2_required": true,
   "daa_2_rationale": [

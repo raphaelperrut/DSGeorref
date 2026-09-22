@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0.0",
   "issue_id": "ISSUE-0974",
-  "status": "SIGNED_TRUST_INTEGRATED_AWAITING_CANDIDATE_ATTESTATIONS",
-  "executed_on": "2026-09-20",
+  "status": "CURRENT_CANDIDATE_GATE_VERIFIED",
+  "executed_on": "2026-09-22",
   "results": {
     "owner_comment_identity_and_package_digest": "PASS",
     "adr_059_proposed_status": "PASS",
@@ -11,8 +11,8 @@
     "github_ac_03_04_06_representation": "PASS",
     "unchanged_acceptance_criteria_preserved": "PASS",
     "task_envelope_schema": "PASS",
-    "task_envelope_allow_paths_exact_without_wildcards": "PASS_39_PATHS",
-    "task_envelope_digest_sha256": "b66d49c9dace86d9c37a75e543d15e1c89ea394cbbc30339340e9b827379cd39",
+    "task_envelope_allow_paths_exact_without_wildcards": "PASS_42_PATHS",
+    "task_envelope_digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35",
     "daa_1_0_0_schema_files_unchanged": "PASS",
     "tech_lead_authorization_for_current_digest": "PASS",
     "daa_2_0_0_contract_tests": "PASS_4_TESTS",
@@ -33,7 +33,16 @@
       "Reviewer": "317f1126a9ba13ab5110ce05667bca22dbea2a76979f290e2fcb209d23de083d",
       "Project Owner": "5acd476aef569183536a75d52d87ce5703e42838c7ffab288836f1184747bdac"
     },
-    "manifest_selects_signed_daa_2_0_0": "PASS"
+    "manifest_selects_signed_daa_2_0_0": "PASS",
+    "candidate_sha": "17e9e413626b03bcbbae70d6a4e12330731749fb",
+    "input_snapshot_digest_sha256": "04356e1c03d13febb9f2ff0e799e4e3fafa34c130b70993efacf09cbb59ff02b",
+    "operational_verifier_input_set_sha256": "82496a65efff4116ff4efa1d08a486f2999e99b645e5b09097f6a1ec026133d6",
+    "corrected_project_owner_signature": "PASS_REISSUED_AND_VERIFIED",
+    "daa_2_0_0_full_chain": "PASS",
+    "acceptance_criteria": "PASS_7_OF_7",
+    "immutable_issue_0973_artifact_chain": "PASS",
+    "gate_verdict": "PASS",
+    "pr_approval_claim": "NOT_ASSERTED"
   },
   "commands": [
     "python -m jsonschema -i .codex/tasks/operations/TASK-0764.json .codex/tasks/TASK_ENVELOPE.schema.json",
@@ -89,6 +98,23 @@
       "canonical_message_sha256": "cc14988998c33f4e72a5674a27481876eb15c75d49fd000093581eb942b0581f"
     }
   ],
-  "implementation_ready": true,
-  "blocking_condition": "The immutable candidate and its authentic sequential role attestations do not yet exist; the delivery gate remains fail-closed."
+  "project_owner_decision_correction": {
+    "authorization": "https://github.com/raphaelperrut/DSGeorref/issues/974#issuecomment-5754228668",
+    "decision": "APPROVE_PROJECT_OWNER_DECISION_REPLACEMENT",
+    "rejected_document": {
+      "path": "evidence/delivery-approval-authority/TASK-0764/project-owner-decision.json",
+      "raw_sha256": "544337f1990862aac7c28bc89b0e5cf5a77d3844e2b300fd3774d133378c0d2e",
+      "canonical_digest_sha256": "aa383799b63e764324bce217a6077ad5694c5ccfb0045af8330ded1349a5f49c",
+      "signature_message_sha256": "c28dc5794137aadaf0c92bbaba457873ae33d864ba298a68ecf7a3418c23aba8",
+      "verifier_input_set_digest_sha256": "b8df6ecc02059b63fbc720f1445d9940f9e929437e0ef8ae48c67e90534add7d",
+      "verification_result": "FAIL_VERIFIER_INPUT_SET_MISMATCH"
+    },
+    "root_cause": "The rejected preparation hashed the full TaskEnvelope object. The operational verifier hashes the governed TaskEnvelope reference containing only task_id and canonical digest_sha256.",
+    "required_verifier_input_set_digest_sha256": "70f567beae802d317d7a7a87813754158be9d8d6c7fb3b34e12584b325384a19",
+    "candidate_sha": "9aaa80625f95f2568d6539f779ec47d51655e5ab",
+    "predecessor_attestations_preserved": true,
+    "old_signature_reuse_prohibited": true
+  },
+  "implementation_ready": false,
+  "blocking_condition": null
 }
