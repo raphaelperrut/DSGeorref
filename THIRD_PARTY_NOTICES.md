@@ -14,7 +14,7 @@ all applicable redistribution notices before the publication gate can pass.
 | Python | celery | 5.6.3 | BSD-3-Clause | validation |
 | Python | psycopg[binary] | 3.3.5 | LGPL-3.0-only | validation |
 | Python | pytest | 9.1.1 | MIT | validation |
-| Python | ruff | 0.16.7 | MIT | validation |
+| Python | ruff | 0.16.8 | MIT | validation |
 | Python | mypy | 2.3.1 | MIT | validation |
 | npm | @playwright/test | 1.62.1 | Apache-2.0 | development |
 | npm | @testing-library/dom | 10.4.1 | MIT | development |
