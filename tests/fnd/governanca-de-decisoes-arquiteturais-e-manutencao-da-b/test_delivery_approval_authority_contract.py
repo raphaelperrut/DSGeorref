@@ -45,6 +45,12 @@ SCHEMA_PATHS = {
     "attestation": CONTRACT_ROOT / "approval-attestation.schema.json",
     "verdict": CONTRACT_ROOT / "verification-verdict.schema.json",
 }
+V2_SCHEMA_PATHS = {
+    "profile": CONTRACT_ROOT / "v2/trust-profile.schema.json",
+    "binding": CONTRACT_ROOT / "v2/role-binding.schema.json",
+    "attestation": CONTRACT_ROOT / "v2/approval-attestation.schema.json",
+    "verdict": CONTRACT_ROOT / "v2/verification-verdict.schema.json",
+}
 PUBLISHED_PATHS = {
     path.relative_to(ROOT).as_posix()
     for path in [CONTRACT_ROOT / "README.md", VECTOR_PATH, *SCHEMA_PATHS.values()]
@@ -668,3 +674,88 @@ def test_delivery_approval_authority_fail_closed() -> None:
         assert all(not values for values in verdict["accountable_subjects"].values())
         observed[probe["probe_id"]] = verdict["code"]
     assert len(observed) == len(suite["probes"]) == 24
+
+
+def test_delivery_approval_authority_v2_public_material_and_signed_trust() -> None:
+    validators: dict[str, Draft202012Validator] = {}
+    for name, path in V2_SCHEMA_PATHS.items():
+        schema = _load_json(path)
+        Draft202012Validator.check_schema(schema)
+        validators[name] = Draft202012Validator(schema, format_checker=FormatChecker())
+
+    anchor = _load_json(
+        CONTRACT_ROOT
+        / "trust/anchors/dsgeorref-daa-operational-roots-2.0.0.json"
+    )
+    _validator("anchors").validate(anchor)
+    root = anchor["anchors"][0]
+    assert root["key_id"] == "daa2-operational-profile-root-2026"
+    assert hashlib.sha256(_decode(root["public_key"])).hexdigest() == (
+        "7eee2d0b947f124fbacd9987e599e06fe5c1c8e36d3ba87b7c117669e5cd59ae"
+    )
+
+    profile = _load_json(
+        CONTRACT_ROOT
+        / "trust/profiles/dsgeorref-daa-operational-2.0.0.json"
+    )
+    validators["profile"].validate(profile)
+    assert _verify_signature(
+        profile,
+        root["public_key"],
+        "DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V2",
+    )
+    policy = profile["governance_policies"]
+    assert policy == [
+        {
+            "governance_mode": "SOLO_FUNCTIONAL_SEGREGATION_V1",
+            "personal_independence": "ABSENT_DECLARED",
+            "task_envelope": {
+                "task_id": "TASK-0764",
+                "digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35",
+            },
+        }
+    ]
+
+    evidence_root = ROOT / "evidence/delivery-approval-authority/TASK-0764"
+    bindings = [
+        _load_json(evidence_root / filename)
+        for filename in (
+            "executor-binding.json",
+            "qa-binding.json",
+            "reviewer-binding.json",
+            "project-owner-binding.json",
+        )
+    ]
+    binding_key = next(
+        key
+        for key in profile["keys"]
+        if key["key_id"] == "daa2-operational-binding-authority-2026"
+    )
+    for binding in bindings:
+        validators["binding"].validate(binding)
+        assert _verify_signature(
+            binding,
+            binding_key["public_key"],
+            "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2",
+        )
+    assert {binding["role"] for binding in bindings} == {
+        "Executor", "QA", "Reviewer", "Project Owner"
+    }
+    assert {json.dumps(binding["principal"], sort_keys=True) for binding in bindings} == {
+        '{"issuer": "https://github.com", "subject": "raphaelperrut"}'
+    }
+    assert {binding["accountable_subject"] for binding in bindings} == {
+        "acct:github.com/raphaelperrut"
+    }
+    assert {binding["personal_independence"] for binding in bindings} == {
+        "ABSENT_DECLARED"
+    }
+
+    assert _load_json(SCHEMA_PATHS["profile"])["properties"]["schema_version"] == {
+        "const": "1.0.0"
+    }
+    assert DOMAINS == {
+        "profile": "DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V1",
+        "binding": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V1",
+        "attestation": "DSGEOREF-DELIVERY-APPROVAL-ATTESTATION-V1",
+    }

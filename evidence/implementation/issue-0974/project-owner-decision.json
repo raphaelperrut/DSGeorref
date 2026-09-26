@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0974",
+  "decision": "APPROVE_SOLO_GOVERNANCE_PROPOSAL",
+  "project_owner": {
+    "issuer": "https://github.com",
+    "subject": "raphaelperrut",
+    "author_association": "OWNER"
+  },
+  "source": "https://github.com/raphaelperrut/DSGeorref/issues/974#issuecomment-5752923713",
+  "source_comment_id": 5752923713,
+  "issued_at": "2026-09-20T21:50:07Z",
+  "package_digest_sha256": "8240a2096557dbc26a0f3546ebefafcad00b598c80f95ff1dd923eb33e20ca42",
+  "authorized": [
+    "prepare ADR-059 as the proposed successor to ADR-058",
+    "change AC-ISSUE-0974-03, AC-ISSUE-0974-04 and AC-ISSUE-0974-06",
+    "prepare a strict TASK-0764 update",
+    "implement the solo governance direction only after a valid TaskEnvelope and legitimate trust material exist"
+  ],
+  "does_not_authorize": [
+    "cryptographic signature substitution",
+    "fabricated identity, key, binding or attestation",
+    "implementation outside a Tech-Lead-authorized TaskEnvelope",
+    "a PASS gate without all required authentic evidence"
+  ],
+  "cryptographic_delivery_attestation": false
+}

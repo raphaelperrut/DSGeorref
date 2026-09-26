@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/assurance/delivery-approval-authority/approval-attestation/2.0.0",
+  "title": "DeliveryApprovalAttestationV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "attestation_id", "trust_scope", "governance_mode", "personal_independence", "policy", "principal", "accountable_subject", "role", "decision", "binding", "task_envelope", "candidate_sha", "functional_session", "issued_at", "signature"],
+  "properties": {
+    "schema_version": {"const": "2.0.0"},
+    "attestation_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+    "trust_scope": {"const": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1"},
+    "governance_mode": {"const": "SOLO_FUNCTIONAL_SEGREGATION_V1"},
+    "personal_independence": {"const": "ABSENT_DECLARED"},
+    "policy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["profile_id", "profile_version"],
+      "properties": {"profile_id": {"type": "string"}, "profile_version": {"const": "2.0.0"}}
+    },
+    "principal": {
+      "type": "object", "additionalProperties": false,
+      "required": ["issuer", "subject"],
+      "properties": {"issuer": {"type": "string", "format": "uri", "maxLength": 512}, "subject": {"type": "string", "minLength": 1, "maxLength": 512}}
+    },
+    "accountable_subject": {"type": "string", "pattern": "^acct:[a-z0-9][a-z0-9._:@/-]{2,255}$"},
+    "role": {"enum": ["Executor", "QA", "Reviewer", "Project Owner"]},
+    "decision": {"enum": ["DELIVERED", "APPROVE", "REJECT", "PASS", "NO_GO"]},
+    "binding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["binding_id", "binding_version", "digest_sha256"],
+      "properties": {
+        "binding_id": {"type": "string"}, "binding_version": {"const": "2.0.0"},
+        "digest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "task_envelope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["task_id", "digest_sha256"],
+      "properties": {"task_id": {"type": "string", "pattern": "^TASK-[0-9]{4}$"}, "digest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+    },
+    "candidate_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "functional_session": {
+      "type": "object", "additionalProperties": false,
+      "required": ["session_id", "role", "sequence", "started_at", "input_snapshot_digest_sha256", "predecessor_attestation_digest_sha256", "verifier_input_set_digest_sha256"],
+      "properties": {
+        "session_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+        "role": {"enum": ["Executor", "QA", "Reviewer", "Project Owner"]},
+        "sequence": {"type": "integer", "minimum": 1, "maximum": 4},
+        "started_at": {"type": "string", "format": "date-time"},
+        "input_snapshot_digest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "predecessor_attestation_digest_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "verifier_input_set_digest_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "issued_at": {"type": "string", "format": "date-time"},
+    "signature": {
+      "type": "object", "additionalProperties": false,
+      "required": ["key_id", "algorithm", "message_profile", "value"],
+      "properties": {
+        "key_id": {"type": "string"}, "algorithm": {"const": "Ed25519"},
+        "message_profile": {"const": "DSGEOREF-DELIVERY-APPROVAL-ATTESTATION-V2"},
+        "value": {"type": "string", "pattern": "^[A-Za-z0-9_-]{86}$"}
+      }
+    }
+  }
+}

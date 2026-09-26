@@ -1,0 +1,376 @@
+{
+  "task_id": "TASK-0764",
+  "issue_id": "ISSUE-0974",
+  "story_id": "STORY-0764",
+  "epic_id": "EPIC-092",
+  "sprint_id": "SPRINT-001",
+  "role": "Tech Lead",
+  "outcome": "Materialize the Owner-approved solo-governance successor to ADR-058 and prepare the explicit first-functional-slice authorization gate for exactly one immutable candidate, without claiming personal independence or reopening historical EPIC-092.",
+  "references": [
+    "AGENTS.md",
+    "docs/00-governance/ROLE_AUTHORITY_MATRIX.md",
+    "docs/00-governance/DEFINITION_OF_DONE.md",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    "https://github.com/raphaelperrut/DSGeorref/issues/974",
+    "https://github.com/raphaelperrut/DSGeorref/issues/973",
+    "docs/02-architecture/adrs/ADR-057-release-train-publicacao-e-gates-de-distribuicao.md",
+    "docs/02-architecture/adrs/ADR-058-delivery-approval-authority-e-attestations-criptograficas-independentes.md",
+    "docs/02-architecture/adrs/ADR-059-delivery-approval-authority-em-desenvolvimento-solo.md",
+    "contracts/assurance/delivery-approval-authority/README.md",
+    "contracts/assurance/delivery-approval-authority/trust/manifest.json",
+    "contracts/assurance/delivery-approval-authority/trust/profiles/dsgeorref-daa-operational-1.0.0.json",
+    "evidence/implementation/issue-0974/owner-decision-package.json",
+    "evidence/implementation/issue-0974/project-owner-decision.json",
+    "evidence/implementation/issue-0974/acceptance-criteria-change.json",
+    "https://github.com/raphaelperrut/DSGeorref/issues/974#issuecomment-5752923713",
+    "tools/governance/delivery_approval_authority/api.py",
+    "infra/images/native-stack.resolved.yaml",
+    "evidence/implementation/issue-0973/publication-summary.json",
+    "evidence/implementation/issue-0973/linkage.json",
+    "evidence/implementation/issue-0973/abi-smoke.json",
+    "evidence/reviews/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/story-0569/REVIEW_EVIDENCE.json",
+    "tools/governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/integration-checkpoint.json"
+  ],
+  "allow_paths": [
+    ".codex/tasks/operations/TASK-0764.json",
+    "docs/02-architecture/adrs/ADR-058-delivery-approval-authority-e-attestations-criptograficas-independentes.md",
+    "docs/02-architecture/adrs/ADR-059-delivery-approval-authority-em-desenvolvimento-solo.md",
+    "docs/00-governance/ADR_INDEX.csv",
+    "docs/02-architecture/ADR_DEPENDENCY_GRAPH.json",
+    "contracts/assurance/delivery-approval-authority/README.md",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
+    "contracts/assurance/delivery-approval-authority/v2/trust-profile.schema.json",
+    "contracts/assurance/delivery-approval-authority/v2/role-binding.schema.json",
+    "contracts/assurance/delivery-approval-authority/v2/approval-attestation.schema.json",
+    "contracts/assurance/delivery-approval-authority/v2/verification-verdict.schema.json",
+    "contracts/assurance/delivery-approval-authority/trust/manifest.json",
+    "contracts/assurance/delivery-approval-authority/trust/anchors/dsgeorref-daa-operational-roots-2.0.0.json",
+    "contracts/assurance/delivery-approval-authority/trust/profiles/dsgeorref-daa-operational-2.0.0.json",
+    "tools/governance/delivery_approval_authority/crypto.py",
+    "tools/governance/delivery_approval_authority/records.py",
+    "tools/governance/delivery_approval_authority/repository.py",
+    "tools/governance/delivery_approval_authority/schemas.py",
+    "tools/governance/delivery_approval_authority/verdicts.py",
+    "tools/governance/delivery_approval_authority/verifier.py",
+    "tools/validate_repository.py",
+    "tools/run_adr_review.py",
+    "tests/security/delivery_approval_authority/fixture.py",
+    "tests/security/delivery_approval_authority/test_operational_verifier.py",
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_delivery_approval_authority_contract.py",
+    "docs/03-engineering/contexts/engineering_governance/remediation-03-first-functional-slice-authorization/gate-evidence-registry.json",
+    "tools/governance/remediation-03-first-functional-slice-authorization/gate-checkpoint.json",
+    "evidence/implementation/issue-0974/owner-decision-package.json",
+    "evidence/implementation/issue-0974/project-owner-decision.json",
+    "evidence/implementation/issue-0974/acceptance-criteria-change.json",
+    "evidence/implementation/issue-0974/task-envelope-authorization.json",
+    "evidence/implementation/issue-0974/adr-compatibility.json",
+    "evidence/implementation/issue-0974/focused-validation.json",
+    "evidence/delivery-approval-authority/TASK-0764/executor-binding.json",
+    "evidence/delivery-approval-authority/TASK-0764/qa-binding.json",
+    "evidence/delivery-approval-authority/TASK-0764/reviewer-binding.json",
+    "evidence/delivery-approval-authority/TASK-0764/project-owner-binding.json",
+    "evidence/delivery-approval-authority/TASK-0764/executor-attestation.json",
+    "evidence/delivery-approval-authority/TASK-0764/qa-attestation.json",
+    "evidence/delivery-approval-authority/TASK-0764/reviewer-attestation.json",
+    "evidence/delivery-approval-authority/TASK-0764/project-owner-decision.json",
+    "evidence/delivery-approval-authority/TASK-0764/verification-verdict.json"
+  ],
+  "deny_paths": [
+    "docs/06-delivery/epics/EPIC-005-*.md",
+    "docs/06-delivery/epics/EPIC-092-*.md",
+    "docs/06-delivery/epics/EPIC-110-*.md",
+    "evidence/implementation/issue-0973/**",
+    "infra/images/**",
+    ".github/**",
+    "src/**",
+    "contracts/assurance/delivery-approval-authority/trust-profile.schema.json",
+    "contracts/assurance/delivery-approval-authority/role-binding.schema.json",
+    "contracts/assurance/delivery-approval-authority/approval-attestation.schema.json",
+    "contracts/assurance/delivery-approval-authority/verification-verdict.schema.json",
+    "contracts/assurance/delivery-approval-authority/test-vectors/**",
+    "tools/governance/delivery_approval_authority/api.py",
+    "tools/governance/delivery_approval_authority/canonical.py",
+    "docs/03-engineering/contexts/engineering_governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**",
+    "tools/governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**",
+    "evidence/reviews/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**",
+    "**/.env*",
+    "secrets/**",
+    "credentials/**",
+    "**/*.pem",
+    "**/*.key"
+  ],
+  "acceptance_criteria": [
+    "ISSUE-0973 is closed with runtime, signature and verifiable digests.",
+    "RUNTIME_REQUIREMENTS, SIGNATURE and ABI_SMOKE are PASS, and OCI, SBOM and provenance digests are present.",
+    "Executor, QA and Reviewer have authentic attestations with verifiable functional segregation bound to the same TaskEnvelope, canonical digest and candidate SHA; solo mode preserves the real identity and accountable subject and requires PERSONAL_INDEPENDENCE=ABSENT_DECLARED.",
+    "The ADR-059 authority validates attestations under signed policy, resolves the regime from governed trust and accepts no fallback.",
+    "The gate record identifies candidate SHA, image digest, SBOM digest, provenance digest, signature reference and source-lock digest.",
+    "The authentic Project Owner formal decision is exactly PASS or NO_GO; PASS requires the valid functional chain, NO_GO yields FAIL and absence remains fail-closed.",
+    "Historical EPIC-092 residual criteria are only eligible for reevaluation after a PASS decision and the historical epic is not modified or reopened."
+  ],
+  "tests": [
+    "python -m jsonschema -i .codex/tasks/operations/TASK-0764.json .codex/tasks/TASK_ENVELOPE.schema.json",
+    "pytest -q -p no:cacheprovider tests/security/delivery_approval_authority/test_operational_verifier.py",
+    "pytest -q -p no:cacheprovider tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_delivery_approval_authority_contract.py",
+    "Verify focused fail-closed outcomes for unauthorized governance mode, absent Owner decision, NO_GO, session/key reuse, sequence or predecessor mismatch, candidate mismatch, TaskEnvelope digest mismatch, unauthorized signer and binding scope mismatch."
+  ],
+  "evidence": [
+    "evidence/implementation/issue-0974/owner-decision-package.json",
+    "evidence/implementation/issue-0974/project-owner-decision.json",
+    "evidence/implementation/issue-0974/acceptance-criteria-change.json",
+    "evidence/implementation/issue-0974/task-envelope-authorization.json",
+    "evidence/implementation/issue-0974/adr-compatibility.json",
+    "evidence/implementation/issue-0974/focused-validation.json",
+    "evidence/delivery-approval-authority/TASK-0764/",
+    "gate registry and checkpoint bound to the exact candidate SHA and canonical TaskEnvelope digest",
+    "authentic signed trust profile, role bindings and sequential solo-functional attestations that explicitly declare absence of personal independence"
+  ],
+  "dependencies": [
+    "ISSUE-0973",
+    "STORY-0761"
+  ],
+  "stop_conditions": [
+    "ADR-059 has not satisfied its activation conditions and ADR-058 therefore remains authoritative.",
+    "The Tech Lead has not explicitly approved and published the exact updated TaskEnvelope bytes or canonical digest.",
+    "The operational trust-profile signing authority has not issued an authentic signed DAA 2.0.0 profile authorizing TASK-0764, solo mode and the required role-scoped signer public keys.",
+    "The role-binding authority has not issued authentic solo-mode bindings for the real Executor, QA, Reviewer and Project Owner principal/accountable subject.",
+    "Any private key, identity, signature, binding or attestation would need to be generated, inferred or simulated by the implementer.",
+    "Any role session would claim personal independence or reuse a key, binding, attestation, session or invalid predecessor chain.",
+    "The candidate SHA is absent, ambiguous, mutable or equal by inference to the ISSUE-0973 build or promotion SHA.",
+    "Any mandatory artifact digest or PASS result from ISSUE-0973 is absent or does not bind the same immutable artifact chain.",
+    "The work would modify a historical epic, historical ISSUE-0678/0679 control-plane artifact, the ISSUE-0973 evidence chain, runtime infrastructure, DAA 1.0.0 schemas or conformance material.",
+    "The write scope must expand beyond the exact allow paths."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0974-01",
+    "AC-ISSUE-0974-02",
+    "AC-ISSUE-0974-03",
+    "AC-ISSUE-0974-04",
+    "AC-ISSUE-0974-05",
+    "AC-ISSUE-0974-06",
+    "AC-ISSUE-0974-07"
+  ],
+  "governing_adrs": [
+    "ADR-006",
+    "ADR-007",
+    "ADR-057",
+    "ADR-059"
+  ],
+  "requirement_basis": "DERIVED_CONTROL",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-001",
+  "context_map_dependencies": [
+    "BC-015"
+  ],
+  "domain_model_impact": "NONE",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 2,
+      "items": [
+        "ISSUE-0973: CLOSED_BY_PR_984",
+        "STORY-0761: OPERATIONAL_DAA_VERIFIER_PRESENT"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        ".codex/tasks/operations/TASK-0764.json",
+        "docs/02-architecture/adrs/ADR-058-delivery-approval-authority-e-attestations-criptograficas-independentes.md",
+        "docs/02-architecture/adrs/ADR-059-delivery-approval-authority-em-desenvolvimento-solo.md",
+        "docs/00-governance/ADR_INDEX.csv",
+        "docs/02-architecture/ADR_DEPENDENCY_GRAPH.json",
+        "contracts/assurance/delivery-approval-authority/README.md",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
+        "contracts/assurance/delivery-approval-authority/v2/trust-profile.schema.json",
+        "contracts/assurance/delivery-approval-authority/v2/role-binding.schema.json",
+        "contracts/assurance/delivery-approval-authority/v2/approval-attestation.schema.json",
+        "contracts/assurance/delivery-approval-authority/v2/verification-verdict.schema.json",
+        "contracts/assurance/delivery-approval-authority/trust/manifest.json",
+        "contracts/assurance/delivery-approval-authority/trust/anchors/dsgeorref-daa-operational-roots-2.0.0.json",
+        "contracts/assurance/delivery-approval-authority/trust/profiles/dsgeorref-daa-operational-2.0.0.json",
+        "tools/governance/delivery_approval_authority/crypto.py",
+        "tools/governance/delivery_approval_authority/records.py",
+        "tools/governance/delivery_approval_authority/repository.py",
+        "tools/governance/delivery_approval_authority/schemas.py",
+        "tools/governance/delivery_approval_authority/verdicts.py",
+        "tools/governance/delivery_approval_authority/verifier.py",
+        "tools/validate_repository.py",
+        "tools/run_adr_review.py",
+        "tests/security/delivery_approval_authority/fixture.py",
+        "tests/security/delivery_approval_authority/test_operational_verifier.py",
+        "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_delivery_approval_authority_contract.py",
+        "docs/03-engineering/contexts/engineering_governance/remediation-03-first-functional-slice-authorization/gate-evidence-registry.json",
+        "tools/governance/remediation-03-first-functional-slice-authorization/gate-checkpoint.json",
+        "evidence/implementation/issue-0974/owner-decision-package.json",
+        "evidence/implementation/issue-0974/project-owner-decision.json",
+        "evidence/implementation/issue-0974/acceptance-criteria-change.json",
+        "evidence/implementation/issue-0974/task-envelope-authorization.json",
+        "evidence/implementation/issue-0974/adr-compatibility.json",
+        "evidence/implementation/issue-0974/focused-validation.json",
+        "evidence/delivery-approval-authority/TASK-0764/executor-binding.json",
+        "evidence/delivery-approval-authority/TASK-0764/qa-binding.json",
+        "evidence/delivery-approval-authority/TASK-0764/reviewer-binding.json",
+        "evidence/delivery-approval-authority/TASK-0764/project-owner-binding.json",
+        "evidence/delivery-approval-authority/TASK-0764/executor-attestation.json",
+        "evidence/delivery-approval-authority/TASK-0764/qa-attestation.json",
+        "evidence/delivery-approval-authority/TASK-0764/reviewer-attestation.json",
+        "evidence/delivery-approval-authority/TASK-0764/project-owner-decision.json",
+        "evidence/delivery-approval-authority/TASK-0764/verification-verdict.json"
+      ],
+      "deny_paths": [
+        "docs/06-delivery/epics/EPIC-005-*.md",
+        "docs/06-delivery/epics/EPIC-092-*.md",
+        "docs/06-delivery/epics/EPIC-110-*.md",
+        "evidence/implementation/issue-0973/**",
+        "infra/images/**",
+        ".github/**",
+        "src/**",
+        "contracts/assurance/delivery-approval-authority/trust-profile.schema.json",
+        "contracts/assurance/delivery-approval-authority/role-binding.schema.json",
+        "contracts/assurance/delivery-approval-authority/approval-attestation.schema.json",
+        "contracts/assurance/delivery-approval-authority/verification-verdict.schema.json",
+        "contracts/assurance/delivery-approval-authority/test-vectors/**",
+        "tools/governance/delivery_approval_authority/api.py",
+        "tools/governance/delivery_approval_authority/canonical.py",
+        "docs/03-engineering/contexts/engineering_governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**",
+        "tools/governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**",
+        "evidence/reviews/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/**",
+        "**/.env*",
+        "secrets/**",
+        "credentials/**",
+        "**/*.pem",
+        "**/*.key"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "TaskEnvelope schema validation",
+        "DAA 1.0.0 historical-semantics regression",
+        "DAA 2.0.0 solo-mode contract and fail-closed verifier cases",
+        "canonical TaskEnvelope digest, functional-session lineage and candidate-SHA linkage"
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "BLOCKED",
+      "kinds": [
+        "signed DAA 2.0.0 operational trust profile",
+        "solo-mode role bindings",
+        "sequential role attestations and Project Owner decision",
+        "verification verdict",
+        "gate registry and checkpoint"
+      ],
+      "evidence": [
+        "evidence/implementation/issue-0974/owner-decision-package.json",
+        "evidence/implementation/issue-0974/project-owner-decision.json",
+        "evidence/implementation/issue-0974/acceptance-criteria-change.json",
+        "evidence/implementation/issue-0974/task-envelope-authorization.json",
+        "evidence/implementation/issue-0974/adr-compatibility.json",
+        "evidence/implementation/issue-0974/focused-validation.json",
+        "evidence/delivery-approval-authority/TASK-0764/"
+      ],
+      "contract": "contracts/assurance/delivery-approval-authority/"
+    },
+    "acceptance_criteria": {
+      "status": "BLOCKED",
+      "count": 7,
+      "ids": [
+        "AC-ISSUE-0974-01",
+        "AC-ISSUE-0974-02",
+        "AC-ISSUE-0974-03",
+        "AC-ISSUE-0974-04",
+        "AC-ISSUE-0974-05",
+        "AC-ISSUE-0974-06",
+        "AC-ISSUE-0974-07"
+      ]
+    },
+    "review": {
+      "status": "BLOCKED",
+      "required_roles": [
+        "QA",
+        "Reviewer",
+        "Product Owner"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "CRITICAL",
+    "applicable_controls": [
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-006",
+      "CTO-008",
+      "CTO-010",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-005",
+      "CTO-007",
+      "CTO-009",
+      "CTO-011",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "Project Owner approval of the solo-governance package and acceptance-criteria changes",
+      "Tech Lead authorization of the exact updated TaskEnvelope bytes and canonical digest",
+      "activated ADR-059 after compatibility and trust conditions pass",
+      "authentic signed DAA 2.0.0 operational trust profile scoped to TASK-0764 and solo mode",
+      "authentic role bindings and distinct role-scoped signer public keys for one real principal/accountable subject",
+      "exact candidate SHA and canonical TaskEnvelope digest linkage",
+      "authentic sequential Executor, QA, Reviewer and Project Owner records declaring PERSONAL_INDEPENDENCE=ABSENT_DECLARED",
+      "canonical ADR-059 PASS verdict before any formal PASS gate decision"
+    ],
+    "production_gate": "SECURITY_AND_PRIVACY_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

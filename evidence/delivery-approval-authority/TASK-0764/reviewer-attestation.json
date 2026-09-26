@@ -1,0 +1,44 @@
+{
+  "schema_version": "2.0.0",
+  "attestation_id": "task-0764-candidate-17e9e413-attestation-reviewer-69a46491206b4429b5ac338ad2e41528",
+  "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+  "governance_mode": "SOLO_FUNCTIONAL_SEGREGATION_V1",
+  "personal_independence": "ABSENT_DECLARED",
+  "policy": {
+    "profile_id": "dsgeorref-daa-operational",
+    "profile_version": "2.0.0"
+  },
+  "principal": {
+    "issuer": "https://github.com",
+    "subject": "raphaelperrut"
+  },
+  "accountable_subject": "acct:github.com/raphaelperrut",
+  "role": "Reviewer",
+  "decision": "APPROVE",
+  "binding": {
+    "binding_id": "task-0764-solo-reviewer",
+    "binding_version": "2.0.0",
+    "digest_sha256": "15d0c60d7dbf9eecf7c15f01ef6a238053019f87a5a55718dd9ede24ff1bb9ef"
+  },
+  "task_envelope": {
+    "task_id": "TASK-0764",
+    "digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35"
+  },
+  "candidate_sha": "17e9e413626b03bcbbae70d6a4e12330731749fb",
+  "functional_session": {
+    "session_id": "task-0764-candidate-17e9e413-session-reviewer-6e8abf8b5dc043c79363cfff3e55afa9",
+    "role": "Reviewer",
+    "sequence": 3,
+    "started_at": "2026-09-22T02:47:33.757074Z",
+    "input_snapshot_digest_sha256": "04356e1c03d13febb9f2ff0e799e4e3fafa34c130b70993efacf09cbb59ff02b",
+    "predecessor_attestation_digest_sha256": "e6f408646e98d04610f1c541d86f84ef0e35569fba7d4d89ce953f6fbd93b14e",
+    "verifier_input_set_digest_sha256": null
+  },
+  "issued_at": "2026-09-22T02:47:37.096327Z",
+  "signature": {
+    "key_id": "daa2-operational-reviewer-2026",
+    "algorithm": "Ed25519",
+    "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ATTESTATION-V2",
+    "value": "NBrVKcE9S4KOwO-5Ov9qPGVrywDdfZK-kaPRsOyXA_x213vlyqxogvPLrs7RK4VFvkcQaR90eCnRaqYoTmO2BA"
+  }
+}

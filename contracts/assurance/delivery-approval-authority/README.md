@@ -1,8 +1,8 @@
 # Delivery Approval Authority contract
 
-- Contract version: `1.0.0`
+- Contract versions: `1.0.0`, `2.0.0`
 - Owner: `BC-001`
-- Normative decision: `ADR-058`
+- Normative decisions: `ADR-058` for `1.0.0`; proposed successor `ADR-059` for `2.0.0`
 - Canonicalization: `JCS-RFC8785-PROFILE-1`
 - Hash: `SHA-256`
 - Signature algorithm: `Ed25519`
@@ -56,6 +56,14 @@ bytes of that projection:
 | role binding | `DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V1` |
 | approval attestation | `DSGEOREF-DELIVERY-APPROVAL-ATTESTATION-V1` |
 
+Version `2.0.0` uses separate domains and cannot validate a version `1.0.0` signature:
+
+| Record | Signature domain |
+|---|---|
+| trust profile | `DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V2` |
+| role binding | `DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2` |
+| approval attestation | `DSGEOREF-DELIVERY-APPROVAL-ATTESTATION-V2` |
+
 These domains and the trust scope differ from
 `DSGEOREF-PROMPT-BUNDLE-V1`/`SPEC-001`. A key without the exact delivery purpose and scope
 is rejected even if an Ed25519 signature is mathematically valid.
@@ -100,3 +108,28 @@ reproduce the PASS and every fail-closed result, including cross-use of the `SPE
 signature domain and trust scope.
 
 This contract adds no API, database, service, GitHub integration or product runtime.
+
+## Version 2 solo functional segregation
+
+Version `2.0.0` adds only the signed `SOLO_FUNCTIONAL_SEGREGATION_V1` policy. The governed
+profile selects that mode for an exact TaskEnvelope ID and canonical digest; callers cannot
+select a mode, anchor, profile or key. The policy requires one real principal, one real
+accountable subject and `PERSONAL_INDEPENDENCE=ABSENT_DECLARED` across Executor, QA, Reviewer
+and Project Owner.
+
+Each role has a distinct binding, attestation key, attestation and functional session. The
+records form the strict sequence Executor, QA, Reviewer, Project Owner. Every record after
+Executor binds the canonical digest of its predecessor, all four bind the same TaskEnvelope,
+candidate SHA and immutable input-snapshot digest, and the final Project Owner record also
+binds the verifier input-set digest. Distinct role keys prove function-scoped use, not
+personal independence.
+
+`PASS` requires `DELIVERED`, `APPROVE`, `APPROVE`, then an authentic Project Owner `PASS`.
+An authentic Project Owner `NO_GO` returns `FAIL/OWNER_NO_GO`. Missing, ambiguous, reordered,
+reused, divergent, invalid or unsigned material fails closed with no validated roles.
+
+The operational manifest selects the signed `2.0.0` profile only after authentic external
+signatures on that profile and all four role bindings have been verified. The verifier keeps
+both versioned anchor pins and schema/domain paths; version `1.0.0` records retain their
+original pairwise-disjoint accountable-subject semantics and are never reinterpreted as solo
+records.

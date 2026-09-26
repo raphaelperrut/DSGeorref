@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/assurance/delivery-approval-authority/verification-verdict/2.0.0",
+  "title": "DeliveryApprovalVerificationVerdictV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "code", "trust_scope", "profile", "governance_mode", "personal_independence", "task_envelope", "candidate_sha", "verification_time", "validated_roles", "accountable_subjects", "functional_sessions", "formal_decision"],
+  "properties": {
+    "schema_version": {"const": "2.0.0"},
+    "status": {"enum": ["PASS", "FAIL"]},
+    "code": {"enum": ["APPROVAL_AUTHORITY_VERIFIED", "SCHEMA_INVALID", "TRUST_ANCHOR_INVALID", "TRUST_PROFILE_INVALID", "TRUST_SCOPE_INVALID", "POLICY_MISMATCH", "GOVERNANCE_MODE_UNAUTHORIZED", "PERSONAL_INDEPENDENCE_INVALID", "ISSUER_UNTRUSTED", "SIGNER_UNKNOWN", "SIGNER_PURPOSE_INVALID", "SIGNATURE_INVALID", "TEMPORAL_INVALID", "REVOKED", "SCOPE_INVALID", "BINDING_MISSING", "BINDING_INVALID", "BINDING_MISMATCH", "PRINCIPAL_MISMATCH", "ROLE_MISMATCH", "ACCOUNTABLE_SUBJECT_MISMATCH", "TASK_ENVELOPE_INVALID", "TASK_ENVELOPE_DIGEST_MISMATCH", "CANDIDATE_SHA_MISMATCH", "APPROVAL_MISSING", "ROLE_RECORD_AMBIGUOUS", "DECISION_INVALID", "KEY_REUSE", "SESSION_REUSE", "SESSION_SEQUENCE_INVALID", "SESSION_TEMPORAL_INVALID", "SESSION_SNAPSHOT_MISMATCH", "PREDECESSOR_MISMATCH", "VERIFIER_INPUT_SET_MISMATCH", "OWNER_NO_GO"]},
+    "trust_scope": {"const": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1"},
+    "profile": {
+      "type": "object", "additionalProperties": false,
+      "required": ["profile_id", "profile_version"],
+      "properties": {"profile_id": {"type": "string"}, "profile_version": {"const": "2.0.0"}}
+    },
+    "governance_mode": {"const": "SOLO_FUNCTIONAL_SEGREGATION_V1"},
+    "personal_independence": {"const": "ABSENT_DECLARED"},
+    "task_envelope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["task_id", "digest_sha256"],
+      "properties": {"task_id": {"type": "string"}, "digest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+    },
+    "candidate_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "verification_time": {"type": "string", "format": "date-time"},
+    "validated_roles": {"type": "array", "uniqueItems": true, "items": {"enum": ["Executor", "QA", "Reviewer", "Project Owner"]}},
+    "accountable_subjects": {
+      "type": "object", "additionalProperties": false,
+      "required": ["Executor", "QA", "Reviewer", "Project Owner"],
+      "properties": {
+        "Executor": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "QA": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "Reviewer": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "Project Owner": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "functional_sessions": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "formal_decision": {"enum": ["PASS", "NO_GO", null]}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "PASS"}}},
+      "then": {
+        "properties": {
+          "code": {"const": "APPROVAL_AUTHORITY_VERIFIED"},
+          "validated_roles": {"minItems": 4, "maxItems": 4},
+          "functional_sessions": {"minItems": 4, "maxItems": 4},
+          "formal_decision": {"const": "PASS"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "FAIL"}}},
+      "then": {"properties": {"validated_roles": {"maxItems": 0}, "functional_sessions": {"maxItems": 0}}}
+    }
+  ]
+}

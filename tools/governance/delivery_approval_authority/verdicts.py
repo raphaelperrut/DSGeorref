@@ -10,6 +10,9 @@ from .schemas import SchemaSet
 
 SCOPE = "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1"
 ROLE_DECISIONS = {"Executor": "DELIVERED", "QA": "APPROVE", "Reviewer": "APPROVE"}
+SOLO_ROLES = ("Executor", "QA", "Reviewer", "Project Owner")
+SOLO_MODE = "SOLO_FUNCTIONAL_SEGREGATION_V1"
+PERSONAL_INDEPENDENCE = "ABSENT_DECLARED"
 ZERO_SHA = "0" * 40
 EPOCH = "1970-01-01T00:00:00Z"
 
@@ -66,6 +69,48 @@ def verdict(
             role: sorted(accountable[role]) if status == "PASS" else []
             for role in ROLE_DECISIONS
         },
+    }
+    schemas.validate_verdict(result)
+    return result
+
+
+def solo_verdict(
+    schemas: SchemaSet,
+    status: str,
+    code: str,
+    task: dict[str, Any],
+    candidate_sha: str,
+    profile: dict[str, Any],
+    verification_time: str,
+    *,
+    accountable_subject: str | None = None,
+    sessions: list[str] | None = None,
+    formal_decision: str | None = None,
+) -> dict[str, Any]:
+    result = {
+        "schema_version": "2.0.0",
+        "status": status,
+        "code": code,
+        "trust_scope": SCOPE,
+        "profile": {
+            "profile_id": profile.get("profile_id", "invalid"),
+            "profile_version": profile.get("profile_version", "2.0.0"),
+        },
+        "governance_mode": SOLO_MODE,
+        "personal_independence": PERSONAL_INDEPENDENCE,
+        "task_envelope": {
+            "task_id": task.get("task_id", "INVALID"),
+            "digest_sha256": digest(task),
+        },
+        "candidate_sha": candidate_sha,
+        "verification_time": verification_time,
+        "validated_roles": list(SOLO_ROLES) if status == "PASS" else [],
+        "accountable_subjects": {
+            role: [accountable_subject] if status == "PASS" and accountable_subject else []
+            for role in SOLO_ROLES
+        },
+        "functional_sessions": sessions if status == "PASS" and sessions else [],
+        "formal_decision": formal_decision,
     }
     schemas.validate_verdict(result)
     return result

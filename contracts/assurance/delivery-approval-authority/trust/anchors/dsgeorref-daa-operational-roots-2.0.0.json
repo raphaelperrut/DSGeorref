@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "anchor_set_id": "dsgeorref-daa-operational-roots",
+  "anchor_set_version": "2.0.0",
+  "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+  "anchors": [
+    {
+      "key_id": "daa2-operational-profile-root-2026",
+      "algorithm": "Ed25519",
+      "public_key": "HLuLR250oEDbVd2i75770RteebrAWGaf96LosisGuQE",
+      "purpose": "DELIVERY_TRUST_PROFILE_SIGNING",
+      "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+      "valid_from": "2026-09-20T23:40:55Z",
+      "valid_until": "2031-09-20T23:40:55Z",
+      "revoked_at": null
+    }
+  ]
+}
