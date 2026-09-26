@@ -437,6 +437,13 @@
       "contexts": [
         "BC-001"
       ]
+    },
+    {
+      "id": "ADR-059",
+      "title": "Delivery Approval Authority em desenvolvimento solo",
+      "contexts": [
+        "BC-001"
+      ]
     }
   ],
   "edges": [
@@ -1128,6 +1135,11 @@
     {
       "from": "ADR-010",
       "to": "ADR-058",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-058",
+      "to": "ADR-059",
       "type": "ARCHITECTURAL_PREREQUISITE"
     }
   ],

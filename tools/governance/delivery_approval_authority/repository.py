@@ -17,6 +17,23 @@ PINNED_ANCHOR_PATH = (
     f"{TRUST_ROOT}/anchors/dsgeorref-daa-operational-roots-1.0.0.json"
 )
 PINNED_ANCHOR_SHA256 = "b5ef44d14070663a97d450761bde373a7b9d7fe150aed6fc20b6ca3bf13ae14f"
+PINNED_V2_ANCHOR_PATH = (
+    f"{TRUST_ROOT}/anchors/dsgeorref-daa-operational-roots-2.0.0.json"
+)
+PINNED_V2_ANCHOR_SHA256 = "98c4951609d9b0ebb1bf27a784dedd74aa7c4d6cffca776649a1227b955c7dc5"
+PINNED_TRUST_SETS = {
+    f"{TRUST_ROOT}/profiles/dsgeorref-daa-operational-1.0.0.json": {
+        "contract_version": "1.0.0",
+        "anchors": {"path": PINNED_ANCHOR_PATH, "sha256": PINNED_ANCHOR_SHA256},
+    },
+    f"{TRUST_ROOT}/profiles/dsgeorref-daa-operational-2.0.0.json": {
+        "contract_version": "2.0.0",
+        "anchors": {
+            "path": PINNED_V2_ANCHOR_PATH,
+            "sha256": PINNED_V2_ANCHOR_SHA256,
+        },
+    },
+}
 
 
 class GovernedTrustError(ValueError):
@@ -29,6 +46,7 @@ class GovernedTrust:
     anchors: dict[str, Any]
     profile: dict[str, Any]
     digests: dict[str, str]
+    contract_version: str = "1.0.0"
 
 
 def _git(repository: Path, *arguments: str) -> bytes:
@@ -106,8 +124,10 @@ def resolve_governed_trust(repository: Path, revision: str) -> GovernedTrust:
         raise GovernedTrustError("trust manifest fields are invalid")
     if manifest.get("schema_version") != "1.0.0":
         raise GovernedTrustError("trust manifest version is unsupported")
-    pinned_anchor = {"path": PINNED_ANCHOR_PATH, "sha256": PINNED_ANCHOR_SHA256}
-    if manifest.get("anchors") != pinned_anchor:
+    profile_reference = manifest.get("profile")
+    profile_path = profile_reference.get("path") if isinstance(profile_reference, dict) else None
+    pinned = PINNED_TRUST_SETS.get(profile_path)
+    if pinned is None or manifest.get("anchors") != pinned["anchors"]:
         raise GovernedTrustError("trust anchor is not pinned by the operational verifier")
     anchors, anchor_digest = _artifact(repository, revision, manifest["anchors"])
     profile, profile_digest = _artifact(repository, revision, manifest["profile"])
@@ -116,6 +136,7 @@ def resolve_governed_trust(repository: Path, revision: str) -> GovernedTrust:
         anchors=anchors,
         profile=profile,
         digests={"anchors": anchor_digest, "profile": profile_digest},
+        contract_version=str(pinned["contract_version"]),
     )
 
 
@@ -132,5 +153,20 @@ def governed_schema(repository: Path, revision: str, name: str) -> dict[str, Any
         raise GovernedTrustError("unknown governed schema")
     filename = allowed[name]
     contract_root = "contracts/assurance/delivery-approval-authority"
+    if name not in {"anchors", "task"}:
+        manifest = governed_json(repository, revision, MANIFEST_PATH)
+        profile_reference = manifest.get("profile")
+        if not isinstance(profile_reference, dict):
+            raise GovernedTrustError("trust profile reference is invalid")
+        profile_path = profile_reference.get("path")
+        if not isinstance(profile_path, str) or not profile_path.startswith(f"{TRUST_ROOT}/"):
+            raise GovernedTrustError("trust profile is outside the governed trust root")
+        contract_version = governed_json(repository, revision, profile_path).get(
+            "schema_version"
+        )
+        if contract_version == "2.0.0":
+            filename = f"v2/{filename}"
+        elif contract_version != "1.0.0":
+            raise GovernedTrustError("delivery approval contract version is unsupported")
     path = filename if filename.startswith(".") else f"{contract_root}/{filename}"
     return governed_json(repository, revision, path)

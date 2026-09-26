@@ -1,12 +1,16 @@
 # ADR-058 — Delivery Approval Authority e attestations criptográficas independentes
 
-- **Status:** `Accepted`
+- **Status:** `Superseded prospectivamente por ADR-059; autoritativa para DAA 1.0.0`
 - **Baseline:** `Owner Decision — APPROVE_OPTION_B — 2026-08-17`
 - **Aprovador:** `Project Owner`
 - **Owner normativo:** `ADR-058`
 - **Boundary independente:** `SIM`
 - **Decisões em aberto:** `Nenhuma`
 - **Bounded Contexts:** `BC-001` — Governança de Engenharia e Entrega
+
+> **Supersession prospectiva:** a `ADR-059` estabelece o regime explícito de segregação funcional
+> para desenvolvimento solo sob DAA `2.0.0`. Records DAA `1.0.0` continuam regidos permanentemente
+> por esta ADR e não serão reinterpretados.
 
 ## Contexto
 

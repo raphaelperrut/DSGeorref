@@ -1,0 +1,17 @@
+{
+  "schema_version": "2.0.0",
+  "binding_id": "task-0764-solo-executor",
+  "binding_version": "2.0.0",
+  "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+  "governance_mode": "SOLO_FUNCTIONAL_SEGREGATION_V1",
+  "personal_independence": "ABSENT_DECLARED",
+  "policy": {"profile_id": "dsgeorref-daa-operational", "profile_version": "2.0.0"},
+  "principal": {"issuer": "https://github.com", "subject": "raphaelperrut"},
+  "accountable_subject": "acct:github.com/raphaelperrut",
+  "role": "Executor",
+  "task_envelope": {"task_id": "TASK-0764", "digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35"},
+  "valid_from": "2026-09-20T23:40:55Z",
+  "valid_until": "2027-09-20T23:40:55Z",
+  "revoked_at": null,
+  "signature": {"key_id": "daa2-operational-binding-authority-2026", "algorithm": "Ed25519", "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2", "value": "RbRZLc_KIYLDPkTdY62JfDa2gV2U0RfExOSkfY3VUzM9GBQVzmh6ssJtrB2l60scU-cjvzLOTtq8sBMZt50QDg"}
+}

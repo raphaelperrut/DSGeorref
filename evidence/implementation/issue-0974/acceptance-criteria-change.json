@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0974",
+  "authorization": "https://github.com/raphaelperrut/DSGeorref/issues/974#issuecomment-5752923713",
+  "package_digest_sha256": "8240a2096557dbc26a0f3546ebefafcad00b598c80f95ff1dd923eb33e20ca42",
+  "applied_at": "2026-09-20T21:57:00Z",
+  "source": "https://github.com/raphaelperrut/DSGeorref/issues/974",
+  "changes": [
+    {
+      "id": "AC-ISSUE-0974-03",
+      "previous": "Executor, QA and Reviewer possuem attestations válidas, independentes e vinculadas ao mesmo TaskEnvelope/candidate SHA.",
+      "current": "Executor, QA e Reviewer possuem attestations autênticas com segregação funcional verificável, vinculadas ao mesmo TaskEnvelope, digest canônico e candidate SHA; no regime solo, a identidade e o accountable subject reais são preservados e PERSONAL_INDEPENDENCE=ABSENT_DECLARED é obrigatório."
+    },
+    {
+      "id": "AC-ISSUE-0974-04",
+      "previous": "A autoridade definida pela ADR-058 valida as attestations sem fallback.",
+      "current": "A autoridade definida pela ADR-059 valida as attestations mediante política assinada, resolve o regime pelo trust profile governado e não aceita fallback."
+    },
+    {
+      "id": "AC-ISSUE-0974-06",
+      "previous": "A decisão é explicitamente PASS ou NO_GO; ausência permanece fail-closed.",
+      "current": "A decisão formal autêntica do Project Owner é explicitamente PASS ou NO_GO; PASS exige a cadeia funcional válida, NO_GO resulta em FAIL e ausência permanece fail-closed."
+    }
+  ],
+  "unchanged": [
+    "AC-ISSUE-0974-01",
+    "AC-ISSUE-0974-02",
+    "AC-ISSUE-0974-05",
+    "AC-ISSUE-0974-07"
+  ]
+}

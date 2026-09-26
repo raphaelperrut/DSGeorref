@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0974",
+  "status": "CURRENT_CANDIDATE_GATE_VERIFIED",
+  "executed_on": "2026-09-22",
+  "results": {
+    "owner_comment_identity_and_package_digest": "PASS",
+    "adr_059_proposed_status": "PASS",
+    "adr_058_pending_supersession_record": "PASS",
+    "adr_index_and_dependency_graph_consistency": "PASS",
+    "github_ac_03_04_06_representation": "PASS",
+    "unchanged_acceptance_criteria_preserved": "PASS",
+    "task_envelope_schema": "PASS",
+    "task_envelope_allow_paths_exact_without_wildcards": "PASS_42_PATHS",
+    "task_envelope_digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35",
+    "daa_1_0_0_schema_files_unchanged": "PASS",
+    "tech_lead_authorization_for_current_digest": "PASS",
+    "daa_2_0_0_contract_tests": "PASS_4_TESTS",
+    "solo_verifier_fail_closed_tests": "PASS_11_OPERATIONAL_TESTS_TOTAL_V1_V2",
+    "existing_anchor_and_profile_public_verification": "PASS",
+    "public_bootstrap_bundle_sha256": "396c719f0d2f7378a039dbee36187f3e83e0baa086aed7ac73a81bc0813766b4",
+    "public_key_fingerprints": "PASS_6_OF_6",
+    "root_possession_signature": "PASS",
+    "daa_1_0_0_historical_regression": "PASS",
+    "profile_signing_capability": "AVAILABLE_ONLY_TO_PROJECT_OWNER_OUTSIDE_CODEX",
+    "role_binding_signing_capability": "AVAILABLE_ONLY_TO_PROJECT_OWNER_OUTSIDE_CODEX",
+    "principal_attestation_signers": "PUBLIC_KEYS_VERIFIED_PRIVATE_USE_MANUAL_ONLY",
+    "signed_trust_profile_and_bindings": "PASS_5_OF_5",
+    "signed_profile_sha256": "60eb2a9c846bc0fae27de1330dea0c68dc94512f5a1b2820d37c0af30a31c0e4",
+    "signed_role_binding_sha256": {
+      "Executor": "b8a78946b44253100b5c9526a86b8ff82bf28c04071a403ce5c9935c7a4cd440",
+      "QA": "12f8d6c8bcefb3d8f9fd7e42e117b6148a32ec2dd027601de10d1b22d1c41c9d",
+      "Reviewer": "70bce6310d59ca3f10fd6bbd677197b9595644678f77dac6abcef88d05425a3d",
+      "Project Owner": "62e26f81d8747c410395db9ea08b17450815de027164654cb8203e5887e13ba2"
+    },
+    "manifest_selects_signed_daa_2_0_0": "PASS",
+    "candidate_sha": "17e9e413626b03bcbbae70d6a4e12330731749fb",
+    "input_snapshot_digest_sha256": "04356e1c03d13febb9f2ff0e799e4e3fafa34c130b70993efacf09cbb59ff02b",
+    "operational_verifier_input_set_sha256": "82496a65efff4116ff4efa1d08a486f2999e99b645e5b09097f6a1ec026133d6",
+    "corrected_project_owner_signature": "PASS_REISSUED_AND_VERIFIED",
+    "daa_2_0_0_full_chain": "PASS",
+    "acceptance_criteria": "PASS_7_OF_7",
+    "immutable_issue_0973_artifact_chain": "PASS",
+    "gate_verdict": "PASS",
+    "pr_approval_claim": "NOT_ASSERTED"
+  },
+  "commands": [
+    "python -m jsonschema -i .codex/tasks/operations/TASK-0764.json .codex/tasks/TASK_ENVELOPE.schema.json",
+    "focused JSON/CSV checks for ADR-059 node, index row, ADR-058 dependency, proposed status, solo declaration, DAA 1.0.0 non-reinterpretation and TaskEnvelope digest",
+    "GitHub Issue #974 acceptance-criteria representation check",
+    "governed DAA 1.0.0 anchor/profile signature verification at the exact main revision",
+    "public bootstrap bundle, fingerprint and root-possession verification",
+    "pytest -q -p no:cacheprovider tests/security/delivery_approval_authority/test_operational_verifier.py",
+    "pytest -q -p no:cacheprovider tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_delivery_approval_authority_contract.py",
+    "git diff --check"
+  ],
+  "not_executed": [
+    "make verify",
+    "runtime rebuild or publication",
+    "ABI smoke",
+    "phase A-G matrices",
+    "QA or Reviewer validation"
+  ],
+  "completed_manual_signature_requests": [
+    {
+      "path": "contracts/assurance/delivery-approval-authority/trust/profiles/dsgeorref-daa-operational-2.0.0.json",
+      "key_id": "daa2-operational-profile-root-2026",
+      "message_profile": "DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V2",
+      "canonical_message_length": 3609,
+      "canonical_message_sha256": "638dfaba28a43e0ec98a7a63418563ea48aa8c7f64a83d7f1ec502e64a1b28a9"
+    },
+    {
+      "path": "evidence/delivery-approval-authority/TASK-0764/executor-binding.json",
+      "key_id": "daa2-operational-binding-authority-2026",
+      "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2",
+      "canonical_message_length": 878,
+      "canonical_message_sha256": "04abab30141e4e62293b43cfa13351e2a12246fb2d5b748a1c76e23cbc9099c4"
+    },
+    {
+      "path": "evidence/delivery-approval-authority/TASK-0764/qa-binding.json",
+      "key_id": "daa2-operational-binding-authority-2026",
+      "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2",
+      "canonical_message_length": 866,
+      "canonical_message_sha256": "cd258d2c2dded4f60445362446163fdf32ff0d0292767ac30bc8f8767fb8630b"
+    },
+    {
+      "path": "evidence/delivery-approval-authority/TASK-0764/reviewer-binding.json",
+      "key_id": "daa2-operational-binding-authority-2026",
+      "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2",
+      "canonical_message_length": 878,
+      "canonical_message_sha256": "bbdd4350baf82b5ff9f5e9a45c280fa0618578dabf4b9a82d44a1a85e2dc6b3d"
+    },
+    {
+      "path": "evidence/delivery-approval-authority/TASK-0764/project-owner-binding.json",
+      "key_id": "daa2-operational-binding-authority-2026",
+      "message_profile": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2",
+      "canonical_message_length": 888,
+      "canonical_message_sha256": "a927ca859d043f601fa45497e94e6fb277985e83ffcd27ba410ccaec7e2c676e"
+    }
+  ],
+  "project_owner_decision_correction": {
+    "authorization": "https://github.com/raphaelperrut/DSGeorref/issues/974#issuecomment-5754228668",
+    "decision": "APPROVE_PROJECT_OWNER_DECISION_REPLACEMENT",
+    "rejected_document": {
+      "path": "evidence/delivery-approval-authority/TASK-0764/project-owner-decision.json",
+      "raw_sha256": "544337f1990862aac7c28bc89b0e5cf5a77d3844e2b300fd3774d133378c0d2e",
+      "canonical_digest_sha256": "aa383799b63e764324bce217a6077ad5694c5ccfb0045af8330ded1349a5f49c",
+      "signature_message_sha256": "c28dc5794137aadaf0c92bbaba457873ae33d864ba298a68ecf7a3418c23aba8",
+      "verifier_input_set_digest_sha256": "b8df6ecc02059b63fbc720f1445d9940f9e929437e0ef8ae48c67e90534add7d",
+      "verification_result": "FAIL_VERIFIER_INPUT_SET_MISMATCH"
+    },
+    "root_cause": "The rejected preparation hashed the full TaskEnvelope object. The operational verifier hashes the governed TaskEnvelope reference containing only task_id and canonical digest_sha256.",
+    "required_verifier_input_set_digest_sha256": "70f567beae802d317d7a7a87813754158be9d8d6c7fb3b34e12584b325384a19",
+    "candidate_sha": "9aaa80625f95f2568d6539f779ec47d51655e5ab",
+    "predecessor_attestations_preserved": true,
+    "old_signature_reuse_prohibited": true
+  },
+  "implementation_ready": false,
+  "blocking_condition": null
+}

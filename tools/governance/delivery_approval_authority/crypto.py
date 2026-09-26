@@ -17,6 +17,12 @@ DOMAINS = {
     "binding": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V1",
     "attestation": "DSGEOREF-DELIVERY-APPROVAL-ATTESTATION-V1",
 }
+DOMAINS_V2 = {
+    "profile": "DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V2",
+    "binding": "DSGEOREF-DELIVERY-APPROVAL-ROLE-BINDING-V2",
+    "attestation": "DSGEOREF-DELIVERY-APPROVAL-ATTESTATION-V2",
+}
+DOMAINS_BY_VERSION = {"1.0.0": DOMAINS, "2.0.0": DOMAINS_V2}
 
 
 def digest(value: Any) -> str:
@@ -39,11 +45,19 @@ def usable(record: dict[str, Any], at: datetime, checked_at: datetime) -> str | 
     return None
 
 
+def signature_message(document: dict[str, Any], kind: str) -> bytes:
+    version = document["schema_version"]
+    domain = DOMAINS_BY_VERSION[version][kind]
+    if document["signature"]["message_profile"] != domain:
+        raise ValueError("signature message profile does not match the contract version")
+    projection = copy.deepcopy(document)
+    projection["signature"]["value"] = ""
+    return domain.encode("ascii") + b"\x00" + canonical_json_bytes(projection)
+
+
 def verify_signature(document: dict[str, Any], public_key: str, kind: str) -> bool:
     try:
-        projection = copy.deepcopy(document)
-        projection["signature"]["value"] = ""
-        message = DOMAINS[kind].encode("ascii") + b"\x00" + canonical_json_bytes(projection)
+        message = signature_message(document, kind)
         key_bytes = base64.urlsafe_b64decode(public_key + "=" * (-len(public_key) % 4))
         signature = document["signature"]["value"]
         signature_bytes = base64.urlsafe_b64decode(signature + "=" * (-len(signature) % 4))
