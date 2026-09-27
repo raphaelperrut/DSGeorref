@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "owner": "BC-001",
+  "epic_index": "docs/06-delivery/EPIC_INDEX.csv",
+  "story_index": "docs/06-delivery/STORY_INDEX.csv",
+  "domains": [
+    "CLI",
+    "DAT",
+    "EDU",
+    "FND",
+    "GEO",
+    "JOB",
+    "LAB",
+    "OPS",
+    "PLT",
+    "PUB",
+    "REL",
+    "REP",
+    "REV",
+    "SEC",
+    "WEB"
+  ]
+}
