@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "ENGINEERING-BACKLOG-PROJECT-GOVERNANCE",
+  "owner": "BC-001",
+  "status": "CANDIDATE",
+  "controls": {
+    "issue_types": {
+      "taxonomy": "VERSIONED_CANONICAL",
+      "form_per_registered_type": "REQUIRED",
+      "unknown_type": "REJECT"
+    },
+    "mandatory_fields": {
+      "core": "REQUIRED",
+      "per_type_extensions": "REQUIRED",
+      "missing_applicable_field": "REJECT"
+    },
+    "hierarchy": {
+      "primary_parent": "EXACTLY_ONE",
+      "operational_hierarchy": "LIMITED",
+      "multiple_primary_parents": "REJECT"
+    },
+    "ready_gate": {
+      "definition": "docs/00-governance/DEFINITION_OF_READY.md",
+      "applicability": "PROPORTIONAL",
+      "unsatisfied": "REJECT"
+    },
+    "done_gate": {
+      "definition": "docs/00-governance/DEFINITION_OF_DONE.md",
+      "evidence": "REQUIRED",
+      "applicable_checks": "REQUIRED",
+      "unsatisfied": "REJECT"
+    },
+    "typed_dependencies": {
+      "edge_type": "REQUIRED",
+      "material_cycle_detection": "REQUIRED",
+      "material_cycle": "REJECT"
+    },
+    "priority": {
+      "dimensions": [
+        "IMPACT",
+        "URGENCY",
+        "RISK",
+        "GATE"
+      ],
+      "derivation": "EXPLICIT",
+      "collapsed_dimension": "REJECT"
+    },
+    "relative_size": {
+      "estimate": "RELATIVE_BAND",
+      "confidence": "REQUIRED",
+      "split_rule": "REQUIRED",
+      "uncertain_without_split_rule": "REJECT"
+    },
+    "guarded_automation": {
+      "integrity_preservation": "REQUIRED",
+      "material_decision_approval": "PROHIBITED",
+      "material_decision_gate": "HUMAN_REQUIRED",
+      "silent_approval": "REJECT"
+    },
+    "staging_materialization": {
+      "first_target": "REPRESENTATIVE_STAGING",
+      "operational_project_after_staging": "REQUIRED",
+      "direct_first_operational_materialization": "REJECT"
+    }
+  },
+  "requirement_evidence": {
+    "REQ-PRJ-001": "test_issue_type_forms",
+    "REQ-PRJ-002": "test_mandatory_core_type_fields",
+    "REQ-PRJ-003": "test_single_parent_limited_hierarchy",
+    "REQ-PRJ-005": "test_definition_of_ready_gate",
+    "REQ-PRJ-006": "test_evidence_based_definition_of_done",
+    "REQ-PRJ-007": "test_typed_dependency_cycle_detection",
+    "REQ-PRJ-008": "test_derived_priority_dimensions",
+    "REQ-PRJ-009": "test_relative_size_uncertainty_split",
+    "REQ-PRJ-010": "test_guarded_project_automation",
+    "REQ-PRM-001": "test_portfolio_materialization_decision_01"
+  }
+}
