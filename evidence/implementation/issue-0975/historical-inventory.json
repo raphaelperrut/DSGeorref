@@ -1,0 +1,471 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "HISTORICAL_EVIDENCE_INVENTORY",
+  "issue_id": "ISSUE-0975",
+  "generated_at": "2026-09-26T21:24:18.8565197-03:00",
+  "task_envelope": {
+    "path": ".codex/tasks/operations/TASK-0765.json",
+    "canonical_digest_sha256": "a67fcaaac95fbfd8652536914e7c37e517072c45db78226ba5c7a792f774fec1"
+  },
+  "current_main_sha_used": "e3e22d06811db901d3e315fe66708fc53efe1486",
+  "classification_taxonomy": [
+    "SATISFIED_BY_ORIGINAL_EVIDENCE",
+    "SATISFIED_BY_RETROSPECTIVE_ATTESTATION",
+    "NOT_VALID_TO_RETROACTIVELY_ASSERT"
+  ],
+  "historical_state_guards": {
+    "epics_1_through_6_remain_closed": true,
+    "historical_checkboxes_modified": false,
+    "historical_attestations_or_dates_rewritten": false,
+    "closure_or_merge_treated_as_approval": false,
+    "absent_approval_promoted": false
+  },
+  "common_original_wording": {
+    "tests": "Testes automatizados e evidências obrigatórias passam.",
+    "qa": "QA registra aprovação independente no commit candidato.",
+    "reviewer": "Reviewer registra aprovação final no mesmo commit.",
+    "final_audit_ac_04": "QA e Reviewer referenciam o mesmo commit, evidências e riscos residuais; nenhuma aprovação é implícita."
+  },
+  "epics": [
+    {
+      "epic_id": "EPIC-001",
+      "github_issue": {
+        "number": 1,
+        "state": "CLOSED",
+        "closed_at": "2026-08-23T18:55:33Z",
+        "url": "https://github.com/raphaelperrut/DSGeorref/issues/1"
+      },
+      "final_audit_issue": {
+        "number": 17,
+        "comments": 0,
+        "url": "https://github.com/raphaelperrut/DSGeorref/issues/17"
+      },
+      "pull_request": {
+        "number": 889,
+        "state": "MERGED",
+        "reviews": 0,
+        "historical_candidate_sha": "405ab9ea58f63930f42755450cce83925bae38e5",
+        "merge_sha": "f8029d71e12f1091f1663b9878efb6d298c1de96",
+        "hosted_check_count": 5,
+        "hosted_checks_all_success": true,
+        "url": "https://github.com/raphaelperrut/DSGeorref/pull/889"
+      },
+      "evidence_set": {
+        "verified_at_sha": "405ab9ea58f63930f42755450cce83925bae38e5",
+        "path_presence": "PASS",
+        "paths": [
+          "evidence/reviews/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/story-0005/README.md",
+          "evidence/reviews/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/story-0005/test_issue_0115_acceptance.py"
+        ]
+      },
+      "ci_tests": {
+        "classification": "SATISFIED_BY_ORIGINAL_EVIDENCE",
+        "result": "PASS",
+        "sources": [
+          "PR #889 hosted checks on the historical candidate SHA",
+          "versioned happy-path and negative-path acceptance tests at the same SHA"
+        ]
+      },
+      "qa": {
+        "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+        "historical_result": "ABSENT",
+        "authority_validation": "FAIL_CLOSED",
+        "reason": "No GitHub review, issue approval comment or attributable DAA attestation exists; the evidence README says it does not declare approval."
+      },
+      "reviewer": {
+        "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+        "historical_result": "ABSENT",
+        "authority_validation": "FAIL_CLOSED",
+        "reason": "No GitHub review, issue approval comment or attributable DAA attestation exists; merge and closure are not approval."
+      },
+      "residual_criteria": [
+        {
+          "source_checkbox_index": 4,
+          "original_text": "Testes automatizados e evidências obrigatórias passam.",
+          "classification": "SATISFIED_BY_ORIGINAL_EVIDENCE"
+        },
+        {
+          "source_checkbox_index": 5,
+          "original_text": "QA registra aprovação independente no commit candidato.",
+          "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT"
+        },
+        {
+          "source_checkbox_index": 6,
+          "original_text": "Reviewer registra aprovação final no mesmo commit.",
+          "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT"
+        },
+        {
+          "source_checkbox_index": 8,
+          "original_text": "O registro de decisões informa 22 ADRs e zero decisão arquitetural aberta.",
+          "classification": "SATISFIED_BY_ORIGINAL_EVIDENCE",
+          "source": "docs/00-governance/START_HERE.md at 405ab9ea58f63930f42755450cce83925bae38e5 records 22 ADRs and the closed Phase A actions."
+        }
+      ],
+      "final_classification": "MIXED: CI_TESTS_AND_DECISION_BASELINE_SATISFIED_BY_ORIGINAL_EVIDENCE; QA_AND_REVIEWER_NOT_VALID_TO_RETROACTIVELY_ASSERT"
+    },
+    {
+      "epic_id": "EPIC-002",
+      "github_issue": {
+        "number": 2,
+        "state": "CLOSED",
+        "closed_at": "2026-08-27T01:10:31Z",
+        "url": "https://github.com/raphaelperrut/DSGeorref/issues/2"
+      },
+      "final_audit_issue": {
+        "number": 22,
+        "comments": 0,
+        "url": "https://github.com/raphaelperrut/DSGeorref/issues/22"
+      },
+      "pull_request": {
+        "number": 906,
+        "state": "MERGED",
+        "reviews": 0,
+        "historical_candidate_sha": "ca4247283dcd80e14318c8e81cf9ea62f8598b4f",
+        "merge_sha": "d90286bed0183c839b94959c08d0e44b64e2263a",
+        "hosted_check_count": 7,
+        "hosted_checks_all_success": true,
+        "url": "https://github.com/raphaelperrut/DSGeorref/pull/906"
+      },
+      "evidence_set": {
+        "verified_at_sha": "ca4247283dcd80e14318c8e81cf9ea62f8598b4f",
+        "path_presence": "PASS",
+        "paths": [
+          "evidence/reviews/repositorio-privado-project-central-views-campos-label/story-0010/README.md",
+          "evidence/reviews/repositorio-privado-project-central-views-campos-label/story-0010/test_issue_0120_acceptance.py"
+        ]
+      },
+      "ci_tests": {
+        "classification": "SATISFIED_BY_ORIGINAL_EVIDENCE",
+        "result": "PASS",
+        "sources": [
+          "PR #906 hosted checks on the historical candidate SHA",
+          "versioned happy-path and negative-path acceptance tests at the same SHA"
+        ]
+      },
+      "qa": {
+        "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+        "historical_result": "UNVERIFIED_PR_BODY_CLAIM",
+        "authority_validation": "FAIL_CLOSED",
+        "reason": "The PR body says QA_VALID_FOR_SHA=YES, but there is no attributable review, issue comment or DAA linkage and the evidence README explicitly says it does not declare approval."
+      },
+      "reviewer": {
+        "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+        "historical_result": "UNVERIFIED_PR_BODY_CLAIM",
+        "authority_validation": "FAIL_CLOSED",
+        "reason": "The PR body says FINAL_REVIEW=APPROVED, but no authorized principal or verifiable attestation is linked."
+      },
+      "residual_criteria": [
+        {
+          "source_checkbox_index": 1,
+          "original_text": "O resultado de produto de EPIC-002 é demonstravelmente satisfeito.",
+          "classification": "SATISFIED_BY_ORIGINAL_EVIDENCE"
+        },
+        {
+          "source_checkbox_index": 4,
+          "original_text": "Testes automatizados e evidências obrigatórias passam.",
+          "classification": "SATISFIED_BY_ORIGINAL_EVIDENCE"
+        },
+        {
+          "source_checkbox_index": 5,
+          "original_text": "QA registra aprovação independente no commit candidato.",
+          "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT"
+        },
+        {
+          "source_checkbox_index": 6,
+          "original_text": "Reviewer registra aprovação final no mesmo commit.",
+          "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT"
+        }
+      ],
+      "final_classification": "MIXED: PRODUCT_AND_CI_TESTS_SATISFIED_BY_ORIGINAL_EVIDENCE; QA_AND_REVIEWER_NOT_VALID_TO_RETROACTIVELY_ASSERT"
+    },
+    {
+      "epic_id": "EPIC-003",
+      "github_issue": {
+        "number": 3,
+        "state": "CLOSED",
+        "closed_at": "2026-08-29T16:11:37Z",
+        "url": "https://github.com/raphaelperrut/DSGeorref/issues/3"
+      },
+      "final_audit_issue": {
+        "number": 27,
+        "comments": 0,
+        "url": "https://github.com/raphaelperrut/DSGeorref/issues/27"
+      },
+      "pull_request": {
+        "number": 912,
+        "state": "MERGED",
+        "reviews": 0,
+        "historical_candidate_sha": "4b730fdb8607a8cdaa05f8af75c6ce75ed855ad8",
+        "merge_sha": "c3b954e7334772b5af76c397d24263ec7e6998ac",
+        "hosted_check_count": 9,
+        "hosted_checks_all_success": true,
+        "url": "https://github.com/raphaelperrut/DSGeorref/pull/912"
+      },
+      "evidence_set": {
+        "verified_at_sha": "4b730fdb8607a8cdaa05f8af75c6ce75ed855ad8",
+        "path_presence": "PASS",
+        "paths": [
+          "evidence/reviews/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/story-0015/README.md",
+          "evidence/reviews/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/story-0015/test_issue_0125_acceptance.py"
+        ]
+      },
+      "ci_tests": {
+        "classification": "SATISFIED_BY_ORIGINAL_EVIDENCE",
+        "result": "PASS",
+        "sources": [
+          "PR #912 hosted checks on the historical candidate SHA",
+          "versioned happy-path and negative-path acceptance tests at the same SHA"
+        ]
+      },
+      "qa": {
+        "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+        "historical_result": "UNVERIFIED_PR_BODY_CLAIM",
+        "authority_validation": "FAIL_CLOSED",
+        "reason": "The PR body states an independent QA pass, but no principal, review object, issue comment or DAA attestation verifies that claim; the evidence README says it does not declare approval."
+      },
+      "reviewer": {
+        "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+        "historical_result": "ABSENT",
+        "authority_validation": "FAIL_CLOSED",
+        "reason": "No final review with verifiable authority exists."
+      },
+      "residual_criteria": [
+        {
+          "source_checkbox_index": 4,
+          "original_text": "Testes automatizados e evidências obrigatórias passam.",
+          "classification": "SATISFIED_BY_ORIGINAL_EVIDENCE"
+        },
+        {
+          "source_checkbox_index": 5,
+          "original_text": "QA registra aprovação independente no commit candidato.",
+          "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT"
+        },
+        {
+          "source_checkbox_index": 6,
+          "original_text": "Reviewer registra aprovação final no mesmo commit.",
+          "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT"
+        }
+      ],
+      "final_classification": "MIXED: CI_TESTS_SATISFIED_BY_ORIGINAL_EVIDENCE; QA_AND_REVIEWER_NOT_VALID_TO_RETROACTIVELY_ASSERT"
+    },
+    {
+      "epic_id": "EPIC-004",
+      "github_issue": {
+        "number": 4,
+        "state": "CLOSED",
+        "closed_at": "2026-08-31T01:32:08Z",
+        "url": "https://github.com/raphaelperrut/DSGeorref/issues/4"
+      },
+      "final_audit_issue": {
+        "number": 32,
+        "comments": 0,
+        "url": "https://github.com/raphaelperrut/DSGeorref/issues/32"
+      },
+      "pull_request": {
+        "number": 922,
+        "state": "MERGED",
+        "reviews": 0,
+        "historical_candidate_sha": "d6180fba91c2e4e07c410263b514119cad6de698",
+        "merge_sha": "d450a78d221813860af7d547fc88675ffcfb29c9",
+        "hosted_check_count": 11,
+        "hosted_checks_all_success": true,
+        "url": "https://github.com/raphaelperrut/DSGeorref/pull/922"
+      },
+      "evidence_set": {
+        "verified_at_sha": "d6180fba91c2e4e07c410263b514119cad6de698",
+        "path_presence": "PASS",
+        "paths": [
+          ".codex/tasks/TASK-0020.json",
+          "evidence/reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/story-0020/README.md",
+          "evidence/reviews/openapi-cliente-typescript-e-contratos-cli-jobs-evento/story-0020/test_issue_0130_acceptance.py"
+        ]
+      },
+      "ci_tests": {
+        "classification": "SATISFIED_BY_ORIGINAL_EVIDENCE",
+        "result": "PASS",
+        "sources": [
+          "PR #922 hosted checks on the historical candidate SHA",
+          "versioned happy-path and negative-path acceptance tests at the same SHA"
+        ]
+      },
+      "qa": {
+        "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+        "historical_result": "ABSENT",
+        "authority_validation": "FAIL_CLOSED",
+        "reason": "The original evidence says independent approval remains a next gate and is not produced by that delivery."
+      },
+      "reviewer": {
+        "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+        "historical_result": "ABSENT",
+        "authority_validation": "FAIL_CLOSED",
+        "reason": "No review object, issue approval comment or attributable attestation exists."
+      },
+      "residual_criteria": [
+        {
+          "source_checkbox_index": 4,
+          "original_text": "Testes automatizados e evidências obrigatórias passam.",
+          "classification": "SATISFIED_BY_ORIGINAL_EVIDENCE"
+        },
+        {
+          "source_checkbox_index": 5,
+          "original_text": "QA registra aprovação independente no commit candidato.",
+          "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT"
+        },
+        {
+          "source_checkbox_index": 6,
+          "original_text": "Reviewer registra aprovação final no mesmo commit.",
+          "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT"
+        }
+      ],
+      "final_classification": "MIXED: CI_TESTS_SATISFIED_BY_ORIGINAL_EVIDENCE; QA_AND_REVIEWER_NOT_VALID_TO_RETROACTIVELY_ASSERT"
+    },
+    {
+      "epic_id": "EPIC-005",
+      "github_issue": {
+        "number": 5,
+        "state": "CLOSED",
+        "closed_at": "2026-09-04T20:43:43Z",
+        "url": "https://github.com/raphaelperrut/DSGeorref/issues/5"
+      },
+      "final_audit_issue": {
+        "number": 37,
+        "comments": 0,
+        "url": "https://github.com/raphaelperrut/DSGeorref/issues/37"
+      },
+      "pull_request": {
+        "number": 934,
+        "state": "MERGED",
+        "reviews": 0,
+        "historical_implementation_sha": "780f45410d237f43b2658254fbe9742df96b9c28",
+        "historical_audit_candidate_sha": "6b4ea73ac5d9ab25a382242957ff196a616b19cf",
+        "merge_sha": "a95778e15116cb602dcf0240d683e5c516f3a89f",
+        "hosted_check_count": 17,
+        "hosted_checks_all_success": true,
+        "url": "https://github.com/raphaelperrut/DSGeorref/pull/934"
+      },
+      "evidence_set": {
+        "verified_at_sha": "6b4ea73ac5d9ab25a382242957ff196a616b19cf",
+        "path_presence": "PASS",
+        "paths": [
+          "evidence/reviews/migrations-ci-secret-dependency-scan-e-telemetria-mini/story-0025/README.md",
+          "evidence/reviews/migrations-ci-secret-dependency-scan-e-telemetria-mini/story-0025/REVIEW_EVIDENCE.json",
+          "evidence/reviews/migrations-ci-secret-dependency-scan-e-telemetria-mini/story-0025/test_issue_0135_acceptance.py"
+        ],
+        "implementation_artifact_digests_at_780f454_crlf_normalization": "PASS"
+      },
+      "ci_tests": {
+        "classification": "SATISFIED_BY_ORIGINAL_EVIDENCE",
+        "result": "PASS",
+        "sources": [
+          "PR #934 hosted checks on the historical audit candidate SHA",
+          "REVIEW_EVIDENCE.json artifact digests verified against 780f45410d237f43b2658254fbe9742df96b9c28 with the recorded CRLF byte convention"
+        ]
+      },
+      "qa": {
+        "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+        "historical_result": "PENDING",
+        "authority_validation": "FAIL_CLOSED",
+        "reason": "The original evidence explicitly records QA=PENDING."
+      },
+      "reviewer": {
+        "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+        "historical_result": "PASS_RECORDED_WITHOUT_VERIFIABLE_PRINCIPAL_LINKAGE",
+        "authority_validation": "FAIL_CLOSED",
+        "reason": "REVIEW_EVIDENCE.json records role=Reviewer and PASS for 780f454, but no principal, signed binding, GitHub review or issue approval comment establishes the applicable authority. ADR-058 forbids promotion of this legacy approval."
+      },
+      "residual_criteria": [
+        {
+          "source_checkbox_index": 4,
+          "original_text": "Testes automatizados e evidências obrigatórias passam.",
+          "classification": "SATISFIED_BY_ORIGINAL_EVIDENCE"
+        },
+        {
+          "source_checkbox_index": 5,
+          "original_text": "QA registra aprovação independente no commit candidato.",
+          "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT"
+        },
+        {
+          "source_checkbox_index": 9,
+          "original_text": "A SPRINT-001 produz digest OCI, SBOM, provenance e smoke ABI antes de liberar coding geoespacial.",
+          "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+          "reason": "The wording contains a historical ordering condition; evidence produced later by ISSUE-0973 cannot make it true retroactively."
+        }
+      ],
+      "final_classification": "MIXED: CI_TESTS_SATISFIED_BY_ORIGINAL_EVIDENCE; QA_REVIEWER_AND_TEMPORAL_SUPPLY_CHAIN_CONDITION_NOT_VALID_TO_RETROACTIVELY_ASSERT"
+    },
+    {
+      "epic_id": "EPIC-006",
+      "github_issue": {
+        "number": 6,
+        "state": "CLOSED",
+        "closed_at": "2026-09-05T17:46:23Z",
+        "url": "https://github.com/raphaelperrut/DSGeorref/issues/6"
+      },
+      "final_audit_issue": {
+        "number": 42,
+        "comments": 0,
+        "url": "https://github.com/raphaelperrut/DSGeorref/issues/42"
+      },
+      "pull_request": {
+        "number": 939,
+        "state": "MERGED",
+        "reviews": 1,
+        "review_state": "COMMENTED",
+        "review_author": "raphaelperrut",
+        "review_author_association": "OWNER",
+        "historical_candidate_sha": "56bcb4befd26fa54c7875fc39bbe05eb8c19df57",
+        "merge_sha": "5b51d23983b6a6212ed0115c0c9b36ac5a678097",
+        "hosted_check_count": 19,
+        "hosted_checks_all_success": true,
+        "url": "https://github.com/raphaelperrut/DSGeorref/pull/939"
+      },
+      "evidence_set": {
+        "verified_at_sha": "56bcb4befd26fa54c7875fc39bbe05eb8c19df57",
+        "path_presence": "PASS",
+        "paths": [
+          ".codex/tasks/TASK-0030.json",
+          "evidence/reviews/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/AUDIT_HANDOFF.md",
+          "evidence/reviews/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_acceptance.py"
+        ]
+      },
+      "ci_tests": {
+        "classification": "SATISFIED_BY_ORIGINAL_EVIDENCE",
+        "result": "PASS",
+        "sources": [
+          "PR #939 hosted checks on the exact historical candidate SHA",
+          "the Writer handoff plus hosted verify-foundation success for that SHA"
+        ]
+      },
+      "qa": {
+        "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+        "historical_result": "PENDING",
+        "authority_validation": "FAIL_CLOSED",
+        "reason": "The original handoff explicitly leaves QA pending."
+      },
+      "reviewer": {
+        "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+        "historical_result": "OWNER_SELF_REVIEW_COMMENT_ONLY",
+        "authority_validation": "FAIL_CLOSED",
+        "reason": "The only review is COMMENTED by the same owner principal and cannot prove the personal independence required by the historical wording or ADR-058."
+      },
+      "residual_criteria": [
+        {
+          "source_checkbox_index": 4,
+          "original_text": "Testes automatizados e evidências obrigatórias passam.",
+          "classification": "SATISFIED_BY_ORIGINAL_EVIDENCE"
+        },
+        {
+          "source_checkbox_index": 5,
+          "original_text": "QA registra aprovação independente no commit candidato.",
+          "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT"
+        },
+        {
+          "source_checkbox_index": 6,
+          "original_text": "Reviewer registra aprovação final no mesmo commit.",
+          "classification": "NOT_VALID_TO_RETROACTIVELY_ASSERT"
+        }
+      ],
+      "final_classification": "MIXED: CI_TESTS_SATISFIED_BY_ORIGINAL_EVIDENCE; QA_AND_REVIEWER_NOT_VALID_TO_RETROACTIVELY_ASSERT"
+    }
+  ]
+}

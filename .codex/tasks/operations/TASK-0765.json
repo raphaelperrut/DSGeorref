@@ -1,0 +1,263 @@
+{
+  "task_id": "TASK-0765",
+  "issue_id": "ISSUE-0975",
+  "story_id": "STORY-0765",
+  "epic_id": "EPIC-001",
+  "sprint_id": "SPRINT-001",
+  "role": "Tech Lead",
+  "outcome": "Reconcile the historical CI, QA and Reviewer evidence debt of EPICs 001 through 006 without reopening them, changing their historical checkboxes or promoting absent approvals.",
+  "references": [
+    "AGENTS.md",
+    "evidence/AGENTS.md",
+    "https://github.com/raphaelperrut/DSGeorref/issues/975",
+    "docs/00-governance/ROLE_AUTHORITY_MATRIX.md",
+    "docs/02-architecture/adrs/ADR-058-delivery-approval-authority-e-attestations-criptograficas-independentes.md",
+    "docs/02-architecture/adrs/ADR-059-delivery-approval-authority-em-desenvolvimento-solo.md",
+    ".codex/tasks/TASK-0005.json",
+    ".codex/tasks/TASK-0010.json",
+    ".codex/tasks/TASK-0015.json",
+    ".codex/tasks/TASK-0020.json",
+    ".codex/tasks/TASK-0025.json",
+    ".codex/tasks/TASK-0030.json",
+    "https://github.com/raphaelperrut/DSGeorref/pull/889",
+    "https://github.com/raphaelperrut/DSGeorref/pull/906",
+    "https://github.com/raphaelperrut/DSGeorref/pull/912",
+    "https://github.com/raphaelperrut/DSGeorref/pull/922",
+    "https://github.com/raphaelperrut/DSGeorref/pull/934",
+    "https://github.com/raphaelperrut/DSGeorref/pull/939"
+  ],
+  "allow_paths": [
+    ".codex/tasks/operations/TASK-0765.json",
+    "evidence/implementation/issue-0975/historical-inventory.json",
+    "evidence/implementation/issue-0975/retrospective-attestation.json",
+    "evidence/implementation/issue-0975/owner-architect-semantic-decision.json",
+    "evidence/implementation/issue-0975/focused-validation.json"
+  ],
+  "deny_paths": [
+    "docs/06-delivery/epics/EPIC-001-*.md",
+    "docs/06-delivery/epics/EPIC-002-*.md",
+    "docs/06-delivery/epics/EPIC-003-*.md",
+    "docs/06-delivery/epics/EPIC-004-*.md",
+    "docs/06-delivery/epics/EPIC-005-*.md",
+    "docs/06-delivery/epics/EPIC-006-*.md",
+    "evidence/reviews/**",
+    "evidence/delivery-approval-authority/**",
+    ".github/**",
+    "contracts/**",
+    "src/**",
+    "infra/**",
+    "docs/02-architecture/adrs/**",
+    ".codex/tasks/TASK-*.json",
+    "**/.env*",
+    "secrets/**",
+    "credentials/**",
+    "**/*.pem",
+    "**/*.key"
+  ],
+  "acceptance_criteria": [
+    "An inventory per EPIC separates CI/tests, QA, Reviewer, historical candidate SHA and evidence set.",
+    "Any original evidence found is validated against the applicable SHA and authority.",
+    "Any review performed now uses exclusively the label RETROSPECTIVE_ATTESTATION.",
+    "The retrospective attestation records the current date, current principal or reviewer, historical SHA, current main SHA, scope, consumed tests and evidence, limitations and conclusion.",
+    "The Owner or Architect decides whether original evidence or a retrospective attestation semantically satisfies each original wording.",
+    "Items without valid semantic equivalence remain NOT_VALID_TO_RETROACTIVELY_ASSERT.",
+    "No historical checkbox is updated merely because an issue or pull request is closed."
+  ],
+  "tests": [
+    "python -m jsonschema -i .codex/tasks/operations/TASK-0765.json .codex/tasks/TASK_ENVELOPE.schema.json",
+    "Parse every ISSUE-0975 evidence JSON and validate classification, identity, SHA, scope, limitation and conclusion fields.",
+    "Verify every historical evidence path against its recorded candidate or audit SHA and verify the EPIC-005 CRLF-normalized artifact digests.",
+    "make verify"
+  ],
+  "evidence": [
+    "evidence/implementation/issue-0975/historical-inventory.json",
+    "evidence/implementation/issue-0975/retrospective-attestation.json",
+    "evidence/implementation/issue-0975/owner-architect-semantic-decision.json",
+    "evidence/implementation/issue-0975/focused-validation.json"
+  ],
+  "dependencies": [],
+  "stop_conditions": [
+    "The current acceptance criteria of GitHub Issue #975 change.",
+    "A historical candidate SHA, evidence path or authority cannot be verified.",
+    "Any conclusion would require inferring approval from merge, closure, labels, technical checks or absence of data.",
+    "Any historical EPIC, checkbox, attestation, date or evidence set would need to be rewritten.",
+    "Any current analysis would be represented as a contemporaneous historical approval.",
+    "The write scope must expand beyond the exact allow paths."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0975-01",
+    "AC-ISSUE-0975-02",
+    "AC-ISSUE-0975-03",
+    "AC-ISSUE-0975-04",
+    "AC-ISSUE-0975-05",
+    "AC-ISSUE-0975-06",
+    "AC-ISSUE-0975-07"
+  ],
+  "governing_adrs": [
+    "ADR-058",
+    "ADR-059"
+  ],
+  "requirement_basis": "DERIVED_CONTROL",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-001",
+  "context_map_dependencies": [],
+  "domain_model_impact": "NONE",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 0,
+      "items": []
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        ".codex/tasks/operations/TASK-0765.json",
+        "evidence/implementation/issue-0975/historical-inventory.json",
+        "evidence/implementation/issue-0975/retrospective-attestation.json",
+        "evidence/implementation/issue-0975/owner-architect-semantic-decision.json",
+        "evidence/implementation/issue-0975/focused-validation.json"
+      ],
+      "deny_paths": [
+        "docs/06-delivery/epics/EPIC-001-*.md",
+        "docs/06-delivery/epics/EPIC-002-*.md",
+        "docs/06-delivery/epics/EPIC-003-*.md",
+        "docs/06-delivery/epics/EPIC-004-*.md",
+        "docs/06-delivery/epics/EPIC-005-*.md",
+        "docs/06-delivery/epics/EPIC-006-*.md",
+        "evidence/reviews/**",
+        "evidence/delivery-approval-authority/**",
+        ".github/**",
+        "contracts/**",
+        "src/**",
+        "infra/**",
+        "docs/02-architecture/adrs/**",
+        ".codex/tasks/TASK-*.json",
+        "**/.env*",
+        "secrets/**",
+        "credentials/**",
+        "**/*.pem",
+        "**/*.key"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "TaskEnvelope schema validation",
+        "historical SHA and evidence-path linkage validation",
+        "classification and retrospective-attestation field validation",
+        "historical EPIC and checkbox immutability inspection"
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "PASS",
+      "kinds": [
+        "historical evidence inventory",
+        "retrospective attestation",
+        "Owner or Architect semantic decision",
+        "focused validation record"
+      ],
+      "evidence": [
+        "evidence/implementation/issue-0975/historical-inventory.json",
+        "evidence/implementation/issue-0975/retrospective-attestation.json",
+        "evidence/implementation/issue-0975/owner-architect-semantic-decision.json",
+        "evidence/implementation/issue-0975/focused-validation.json"
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 7,
+      "ids": [
+        "AC-ISSUE-0975-01",
+        "AC-ISSUE-0975-02",
+        "AC-ISSUE-0975-03",
+        "AC-ISSUE-0975-04",
+        "AC-ISSUE-0975-05",
+        "AC-ISSUE-0975-06",
+        "AC-ISSUE-0975-07"
+      ]
+    },
+    "review": {
+      "status": "BLOCKED",
+      "required_roles": [
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "MEDIUM",
+    "applicable_controls": [
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-006",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-005",
+      "CTO-007",
+      "CTO-008",
+      "CTO-009",
+      "CTO-010",
+      "CTO-011",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "historical candidate and evidence linkage per EPIC",
+      "explicit separation of original facts from retrospective analysis",
+      "Owner or Architect semantic decision for every residual criterion",
+      "proof that historical EPIC state and checkboxes were not changed"
+    ],
+    "production_gate": "IMPLEMENTATION_AUTHORIZATION"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}
