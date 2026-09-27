@@ -1,0 +1,140 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-110
+  story_id: STORY-0755
+  issue_id: ISSUE-0865
+  github_issue: 100
+  task_id: TASK-0755
+candidate:
+  branch: codex/issue-0865
+  candidate_commit_binding: CONTAINING_COMMIT
+  owner_context: BC-001
+  domain_model_impact: LOCAL_MODEL
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  status: PREAUTHORIZED
+  authorization_commit: ac02056072cc0a42146d9cee8d202b536060593c
+  precedes_candidate: true
+  changed_in_candidate: false
+  reason: >-
+    The envelope omitted its own path and the mandatory implementation-evidence
+    path. A separate preceding administrative commit added only those exact paths
+    to the canonical and Phase-F allowlists; outcome, requirements, acceptance,
+    dependencies and deny paths are unchanged.
+dependency:
+  story_id: STORY-0683
+  satisfied: true
+  evidence: integrated on main by merge commit 97fe6f8
+artifacts:
+- tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/iss-pln-parte-2/policy_validation.py
+- tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/iss-pln-parte-2/test_policy_validation.py
+- docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/iss-pln-parte-2/foundation-policy.json
+- docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/iss-pln-parte-2/README.md
+digests:
+  policy_validation_sha256: f98923d397712b1cc1661d732f8df63f2d7571284d6c0a311f892f6be8a2b5cb
+  test_policy_validation_sha256: 327d2bd354b96b7f16d72fd40ef0e6463cf3a3e30b95f7441346fe8486b95750
+  foundation_policy_sha256: 7d8912fed1c7f9343494c1b2844c12a8bca26334704df7146cac9915a80ec836
+scope:
+  valid: true
+  write_scope_stable_and_disjoint: true
+  production_ticket_identifier: false
+  new_boundary_or_shared_primitive: false
+  new_prerequisite_created: false
+acceptance_criteria:
+- id: AC-ISSUE-0865-01
+  result: PASS
+  evidence: strict requirement_evidence mapping plus all ten canonical tests
+- id: AC-ISSUE-0865-02
+  result: PASS
+  evidence: all files use corrected allow paths; production artifacts contain no ticket identifier
+- id: AC-ISSUE-0865-03
+  result: PASS
+  evidence: every control has a rejection test and policy input fails closed
+- id: AC-ISSUE-0865-04
+  result: PASS
+  evidence: README and this record contain contract impact, risks, limitations and rollback
+requirements:
+- id: REQ-ISS-004
+  control: complete skeleton required; future detail is progressive
+  test: test_complete_portfolio_skeleton_and_progressive_detailing_rules
+- id: REQ-PLN-001
+  control: horizon/outcome/gate roadmap; dates require real-commitment justification
+  test: test_roadmap_horizons_outcomes_gates_and_date_exception
+- id: REQ-PLN-002
+  control: outcome/gate, release and iteration are separate explicitly mapped layers
+  test: test_layered_milestones_gate_release_mapping
+- id: REQ-PLN-003
+  control: blocker/gate/dependency/explainable priority order; override requires audit
+  test: test_sequence_gates_dependencies_priority_override_audit
+- id: REQ-PLN-004
+  control: critical dependency classification; uncertain dependency requires risk buffer
+  test: test_critical_enablers_uncertain_dependencies_and_risk_buffers
+- id: REQ-PLN-005
+  control: class/global WIP limits with P0, security and maintenance reservations
+  test: test_wip_class_limits_global_cap_and_emergency_reserve
+- id: REQ-PLN-006
+  control: capacity range/category/confidence without automatic deadline conversion
+  test: test_capacity_ranges_availability_throughput_and_no_deadline_conversion
+- id: REQ-PLN-007
+  control: pull flow, iteration objective and classified carryover
+  test: test_pull_iteration_objective_and_carryover_reason_classification
+- id: REQ-PLN-008
+  control: one accountable owner with separate collaborator/reviewer/gate approver
+  test: test_accountable_owner_collaborator_reviewer_and_gate_approver
+- id: REQ-PLN-010
+  control: immutable versioned snapshots, classified material variance and delta report
+  test: test_versioned_reforecast_snapshot_variance_classification_and_delta_report
+validation:
+  mandatory_tests: PASS
+  mandatory_count: 10
+  additional_fail_closed_test: PASS
+  focused_result: 11 passed
+  ruff_changed_python: PASS
+  mypy_strict_changed_python: PASS
+  make_verify: BLOCKED_ENVIRONMENT
+  make_verify_detail: >-
+    The gate passed frontend typecheck/unit/browser, repository, architecture,
+    requirements, DDD, ADR, specification, sprint, Python architecture,
+    licensing and the first foundation checks, then stopped at the precondition
+    FOUNDATION_INTEGRATION=1 with pinned PostgreSQL and RabbitMQ services.
+  commands:
+  - py -3.12 -X utf8 -m pytest -q -p no:cacheprovider --basetemp .pytest-tmp/issue-0865 tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/iss-pln-parte-2/test_policy_validation.py
+  - py -3.12 -m ruff check tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/iss-pln-parte-2/policy_validation.py tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/iss-pln-parte-2/test_policy_validation.py
+  - py -3.12 -m mypy --strict tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/iss-pln-parte-2/policy_validation.py tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/iss-pln-parte-2/test_policy_validation.py
+  - make PYTHON="py -3.12" verify
+failure_states_covered:
+- full-upfront portfolio detailing
+- unjustified roadmap date
+- collapsed or implicitly mapped milestone layers
+- unaudited priority override
+- unclassified critical dependency or uncertain dependency without risk buffer
+- missing emergency WIP reservation
+- automatic capacity-to-deadline conversion
+- unclassified carryover
+- collapsed authorities or self-approval
+- mutable reforecast or unclassified material variance
+- missing, unknown, mistyped or changed policy fields
+- duplicate JSON key, non-finite JSON constant and unreadable input
+contract_impact:
+  frozen_contract_changed: false
+  adr_changed: false
+  new_public_contract: false
+  http_changed: false
+  persistence_changed: false
+  migration_required: false
+  broker_changed: false
+risks:
+- Downstream repository automation must consume the candidate policy without weakening fail-closed controls.
+- Concrete WIP and capacity numbers remain absent until supplied by their authorized configuration owner.
+- Independent QA and Reviewer approval remain pending on the exact candidate commit.
+limitations:
+- Declarative repository control-plane foundation only; no live GitHub mutation or runtime service.
+- No quantitative cost, scale, latency, GPU, recovery or security claim is made.
+rollback:
+  method: revert the candidate commit
+  data_action: none
+stop_condition: NONE
+implementation_ready_for_qa: true
