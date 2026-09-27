@@ -1,6 +1,9 @@
 # SAR-040 — Registro definitivo de decisões
 
+## Snapshot histórico da Fase D
+
 A Fase D substituiu o inventário agregado de 25 ADRs por **57 ADRs atômicas**, contínuas e sem decisões abertas.
+Essa contagem é o snapshot histórico da Fase D; a tabela abaixo preserva o registro daquele fechamento e não representa, isoladamente, o inventário corrente.
 
 | ADR | Decisão | Estado | Contexts | Requisitos owned |
 |---|---|---|---|---:|
@@ -61,6 +64,22 @@ A Fase D substituiu o inventário agregado de 25 ADRs por **57 ADRs atômicas**,
 | `ADR-055` | Audit ledger, privacidade, redaction e support bundles | `Accepted` | BC-014 | 11 |
 | `ADR-056` | Licenciamento, contribuições, provider attribution e citação | `Accepted` | BC-015 | 1 |
 | `ADR-057` | Release train, publicação e gates de distribuição | `Accepted` | BC-015, BC-001 | 6 |
+
+## Estado corrente
+
+- `TOTAL_ADR_RECORDS = 59` (`ADR-001`..`ADR-059`);
+- `ACTIVE_ACCEPTED_ADRS = 58`;
+- `SUPERSEDED_ADRS = 1` (`ADR-058`);
+- `OPEN_ARCHITECTURAL_DECISIONS = 0`.
+
+As decisões posteriores ao snapshot da Fase D são:
+
+| ADR | Decisão | Estado | Contexts | Requisitos owned |
+|---|---|---|---|---:|
+| `ADR-058` | Delivery Approval Authority e attestations criptográficas independentes | `Superseded` prospectivamente por `ADR-059`; autoridade histórica para DAA 1.0.0 | BC-001 | 0 |
+| `ADR-059` | Delivery Approval Authority em desenvolvimento solo | `Accepted`; autoridade prospectiva para DAA 2.0.0 | BC-001 | 0 |
+
+Assim, “22 ADRs” permanece somente como snapshot histórico das Fases A/B, “57 ADRs” permanece como snapshot histórico da Fase D, e nenhuma dessas quantidades é a contagem ativa vigente.
 
 ## Regras
 

@@ -1,0 +1,248 @@
+{
+  "task_id": "TASK-0766",
+  "issue_id": "ISSUE-0976",
+  "story_id": "STORY-0766",
+  "epic_id": "EPIC-001",
+  "sprint_id": "SPRINT-001",
+  "role": "Arquiteto",
+  "outcome": "Reconcile the historical and current ADR counts without reopening EPIC-001, rewriting historical facts or creating new governance capability.",
+  "references": [
+    "AGENTS.md",
+    "https://github.com/raphaelperrut/DSGeorref/issues/976",
+    "https://github.com/raphaelperrut/DSGeorref/issues/976#issuecomment-5851473553",
+    "docs/00-governance/START_HERE.md",
+    "docs/00-governance/ADR_INDEX.csv",
+    "docs/02-architecture/sar/SAR-040-DECISION-REGISTER.md",
+    "docs/02-architecture/adrs/ADR-058-delivery-approval-authority-e-attestations-criptograficas-independentes.md",
+    "docs/02-architecture/adrs/ADR-059-delivery-approval-authority-em-desenvolvimento-solo.md",
+    "https://github.com/raphaelperrut/DSGeorref/issues/1"
+  ],
+  "allow_paths": [
+    ".codex/tasks/operations/TASK-0766.json",
+    "evidence/implementation/issue-0976/owner-architect-decision.json",
+    "docs/00-governance/START_HERE.md",
+    "docs/02-architecture/sar/SAR-040-DECISION-REGISTER.md",
+    "tools/run_adr_review.py"
+  ],
+  "deny_paths": [
+    ".codex/tasks/operations/TASK-0763.json",
+    ".codex/tasks/operations/TASK-0764.json",
+    ".codex/tasks/operations/TASK-0765.json",
+    "docs/06-delivery/epics/EPIC-001-*.md",
+    "docs/02-architecture/adrs/**",
+    "docs/00-governance/ADR_INDEX.csv",
+    "docs/07-assurance/**",
+    ".github/**",
+    "contracts/**",
+    "src/**",
+    "infra/**",
+    "**/.env*",
+    "secrets/**",
+    "credentials/**",
+    "**/*.pem",
+    "**/*.key"
+  ],
+  "acceptance_criteria": [
+    "The Owner and Architect decision records 22 ADRs as the historical Phase A/B snapshot rather than a permanent invariant or active count.",
+    "START_HERE reports 58 Accepted active ADRs while preserving the historical Phase A/B snapshots of 22 ADRs.",
+    "SAR-040 preserves its Phase D history and separately reports 59 total ADR records, 58 Accepted active ADRs, one Superseded ADR and zero open architectural decisions.",
+    "SAR-040 represents ADR-058 as prospectively Superseded and historically authoritative for DAA 1.0.0, and ADR-059 as Accepted and prospectively authoritative for DAA 2.0.0.",
+    "ADR_INDEX remains unchanged and coherent with 59 records: 58 Accepted and one Superseded.",
+    "The directly applicable ADR validator distinguishes total, active Accepted, Superseded and open-decision counts while preserving the historical Phase D baseline of 57.",
+    "EPIC-001 remains closed and its historical checkbox and facts remain unchanged."
+  ],
+  "tests": [
+    "python -m jsonschema -i .codex/tasks/operations/TASK-0766.json .codex/tasks/TASK_ENVELOPE.schema.json",
+    "python tools/run_adr_review.py",
+    "Targeted assertions for START_HERE, SAR-040, ADR_INDEX, ADR-058, ADR-059 and unchanged EPIC-001 historical text",
+    "Verify the changed paths are an exact subset of TASK-0766 allow_paths"
+  ],
+  "evidence": [
+    "https://github.com/raphaelperrut/DSGeorref/issues/976#issuecomment-5851473553",
+    "evidence/implementation/issue-0976/owner-architect-decision.json",
+    "targeted validation output recorded in the ISSUE-0976 pull request"
+  ],
+  "dependencies": [],
+  "stop_conditions": [
+    "The current remote acceptance criteria of GitHub Issue #976 change materially.",
+    "The observed ADR_INDEX state is not exactly 59 records, 58 Accepted and one Superseded ADR-058 followed by Accepted ADR-059.",
+    "Any historical fact, date, checkbox or Phase A/B/D snapshot would need to be rewritten.",
+    "EPIC-001 would need to be reopened or modified.",
+    "Any new issue, story, prerequisite, remediation, ADR, framework, registry, workflow, primitive or subsystem would be required.",
+    "The write scope must expand beyond the exact allow paths."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0976-01",
+    "AC-ISSUE-0976-02",
+    "AC-ISSUE-0976-03",
+    "AC-ISSUE-0976-04",
+    "AC-ISSUE-0976-05",
+    "AC-ISSUE-0976-06",
+    "AC-ISSUE-0976-07"
+  ],
+  "governing_adrs": [
+    "ADR-006",
+    "ADR-007",
+    "ADR-058",
+    "ADR-059"
+  ],
+  "requirement_basis": "DERIVED_CONTROL",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-001",
+  "context_map_dependencies": [],
+  "domain_model_impact": "NONE",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 0,
+      "items": []
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        ".codex/tasks/operations/TASK-0766.json",
+        "evidence/implementation/issue-0976/owner-architect-decision.json",
+        "docs/00-governance/START_HERE.md",
+        "docs/02-architecture/sar/SAR-040-DECISION-REGISTER.md",
+        "tools/run_adr_review.py"
+      ],
+      "deny_paths": [
+        ".codex/tasks/operations/TASK-0763.json",
+        ".codex/tasks/operations/TASK-0764.json",
+        ".codex/tasks/operations/TASK-0765.json",
+        "docs/06-delivery/epics/EPIC-001-*.md",
+        "docs/02-architecture/adrs/**",
+        "docs/00-governance/ADR_INDEX.csv",
+        "docs/07-assurance/**",
+        ".github/**",
+        "contracts/**",
+        "src/**",
+        "infra/**",
+        "**/.env*",
+        "secrets/**",
+        "credentials/**",
+        "**/*.pem",
+        "**/*.key"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "TaskEnvelope schema validation",
+        "ADR inventory semantic validation",
+        "historical snapshot preservation inspection",
+        "exact allow-path diff inspection"
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "PASS",
+      "kinds": [
+        "Owner and Architect decision",
+        "reconciled active inventory",
+        "reconciled definitive decision register",
+        "focused validation output"
+      ],
+      "evidence": [
+        "https://github.com/raphaelperrut/DSGeorref/issues/976#issuecomment-5851473553",
+        "evidence/implementation/issue-0976/owner-architect-decision.json",
+        "docs/00-governance/START_HERE.md",
+        "docs/02-architecture/sar/SAR-040-DECISION-REGISTER.md"
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 7,
+      "ids": [
+        "AC-ISSUE-0976-01",
+        "AC-ISSUE-0976-02",
+        "AC-ISSUE-0976-03",
+        "AC-ISSUE-0976-04",
+        "AC-ISSUE-0976-05",
+        "AC-ISSUE-0976-06",
+        "AC-ISSUE-0976-07"
+      ]
+    },
+    "review": {
+      "status": "BLOCKED",
+      "required_roles": [
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "MEDIUM",
+    "applicable_controls": [
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-006",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-005",
+      "CTO-007",
+      "CTO-008",
+      "CTO-009",
+      "CTO-010",
+      "CTO-011",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "authenticated Project Owner and Architect decision for ISSUE-0976",
+      "exact current ADR status counts from ADR_INDEX",
+      "proof that Phase A/B/D snapshots and EPIC-001 remained unchanged",
+      "focused validation of the restricted documentation diff"
+    ],
+    "production_gate": "IMPLEMENTATION_AUTHORIZATION"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}
