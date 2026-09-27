@@ -46,8 +46,10 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0754.json",
     "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/ism-iss-parte-1/**",
-    "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/ism-iss-parte-1/**"
+    "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/ism-iss-parte-1/**",
+    "evidence/implementation/governanca-continua-do-backlog-e-decomposicao-de-e/ism-iss-parte-1/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -123,8 +125,10 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0754.json",
         "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/ism-iss-parte-1/**",
-        "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/ism-iss-parte-1/**"
+        "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/ism-iss-parte-1/**",
+        "evidence/implementation/governanca-continua-do-backlog-e-decomposicao-de-e/ism-iss-parte-1/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

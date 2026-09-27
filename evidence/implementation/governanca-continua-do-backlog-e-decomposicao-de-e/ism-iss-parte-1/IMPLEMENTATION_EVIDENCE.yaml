@@ -1,0 +1,171 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-110
+  story_id: STORY-0754
+  issue_id: ISSUE-0864
+  github_issue: 99
+  task_id: TASK-0754
+candidate:
+  branch: codex/issue-0864-slice-1
+  candidate_commit_binding: CONTAINING_COMMIT
+  state: CANDIDATE_COMMITTED_PENDING_INDEPENDENT_REVIEW
+  owner_context: BC-001
+  implementation_role: Tech Lead
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  changed: true
+  reason: >-
+    The envelope omitted its own path and the mandatory implementation-evidence
+    path. Only those two paths were added to the canonical and Phase-F allowlists;
+    outcome, requirements, acceptance, dependencies and deny paths are unchanged.
+dependency:
+  story_id: STORY-0683
+  satisfied: true
+  evidence:
+  - GitHub issue 68 is closed
+  - frozen contract and implementation evidence are integrated at aead17a44732e0db29a828d281375e1242b7fa57
+  - contracts/contexts/engineering_governance/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/contract-manifest.yaml
+  - evidence/implementation/epic-110/story-0683/IMPLEMENTATION_EVIDENCE.yaml
+contract_binding:
+  manifest_sha256: 8a527f07f92819a02c06009af4467014cc8646a14e33238f6bc43a31bbf44351
+  schema_sha256: 2bf13f00ced7fc24faa5c03ed6b0765c61f5e3ec25810f1b67ed68263a87108a
+  policy_sha256: 3d027265a8731c61db7e63cde6eaedc6d443c610a89e0389d5e8e4fb90f80ea7
+  domain_taxonomy_sha256: d7c2ce6cbf03555b697e3083a66668ccdadc11e3c75bebc58751da1b9d3e2244
+scope:
+  valid: true
+  new_prerequisite_created: false
+  runtime_materialized: false
+  shared_contract_changed: false
+  control_plane_separated: true
+acceptance_criteria:
+- id: AC-ISSUE-0864-01
+  result: PASS
+  evidence:
+  - strict requirement_evidence mapping in foundation-policy.json
+  - all ten mandatory tests pass, including the existing governed portfolio test
+- id: AC-ISSUE-0864-02
+  result: PASS
+  evidence:
+  - all changed files fall within the corrected TaskEnvelope allow paths
+  - production validators contain no concrete issue, story or task IDs
+  - control-plane-only package under BC-001 ownership
+- id: AC-ISSUE-0864-03
+  result: PASS
+  evidence:
+  - unknown and missing policy fields fail closed
+  - invalid domains, identity changes, missing evidence, oversized or unordered slices fail closed
+  - unapproved or inexact deltas, missing tombstones, snapshot mutation and orphan issues fail closed
+- id: AC-ISSUE-0864-04
+  result: PASS
+  evidence:
+  - this handoff records contract impact, risks, rollback and limitations
+requirements:
+- id: REQ-ISM-001
+  implementation: domain_taxonomy.load_canonical_domains + backlog_validation.validate_work_item
+  test: test_canonical_domain_taxonomy_primary_and_affected_domains
+  evidence: versioned 15-code taxonomy reconciled against both delivery indexes; fail-closed domain findings
+- id: REQ-ISM-002
+  implementation: backlog_validation.validate_epic
+  test: test_work_package_epics_outcome_evidence_and_closure
+  evidence: non-empty outcome and known closure evidence are mandatory
+- id: REQ-ISM-003
+  implementation: backlog_validation.validate_epic
+  test: test_thin_vertical_integrable_slices_and_pr_sequence
+  evidence: at most ten requirements, primary write scope and contiguous integration order
+- id: REQ-ISM-005
+  implementation: backlog_validation.validate_identity_update
+  test: test_stable_portfolio_ids_independent_github_numbers_titles
+  evidence: GitHub number/title may change while stable identity may not
+- id: REQ-ISM-007
+  implementation: backlog_validation.validate_epic
+  test: test_req_ism_007
+  evidence: explicit criterion-to-known ADR/requirement/risk/gate sources and evidence
+- id: REQ-ISM-008
+  implementation: backlog_validation.validate_issue_set
+  test: test_single_primary_cross_domain_issue_contracts
+  evidence: one primary domain with unique affected domains and no duplicated issue identity
+- id: REQ-ISM-009
+  implementation: backlog_validation.validate_spike
+  test: test_req_ism_009
+  evidence: question, budget, evidence and exit decision are all mandatory
+- id: REQ-ISM-010
+  implementation: existing BC-001 portfolio_validation.validate_snapshot_tombstone_delta_history
+  test: test_portfolio_snapshot_tombstone_approved_delta
+  evidence: governed approval references, immutable snapshot identity, exact delta and tombstones
+- id: REQ-ISS-001
+  implementation: backlog_validation.validate_epic
+  test: test_all_work_packages_have_parent_issue_and_slice_skeleton
+  evidence: epic issue and slice skeleton are mandatory; all 110 versioned epics map to an issue and 761 story rows
+- id: REQ-ISS-003
+  implementation: backlog_validation.validate_work_item
+  test: test_no_orphan_issue_without_adr_or_local_decision_justification
+  evidence: governed reference or reversible local decision is mandatory; all 761 versioned story rows have ADR/requirement references
+tests:
+  mandatory:
+  - test_canonical_domain_taxonomy_primary_and_affected_domains
+  - test_work_package_epics_outcome_evidence_and_closure
+  - test_thin_vertical_integrable_slices_and_pr_sequence
+  - test_stable_portfolio_ids_independent_github_numbers_titles
+  - test_req_ism_007
+  - test_single_primary_cross_domain_issue_contracts
+  - test_req_ism_009
+  - test_portfolio_snapshot_tombstone_approved_delta
+  - test_all_work_packages_have_parent_issue_and_slice_skeleton
+  - test_no_orphan_issue_without_adr_or_local_decision_justification
+  additional:
+  - test_policy_rejects_unknown_missing_and_unreadable_input
+  focused_result: 10 mandatory and 1 additional passed
+  ruff_changed_files: PASS
+  mypy_strict_changed_files: PASS
+  full_make_verify: NOT_RUN_BY_EXPLICIT_FOCUSED_VALIDATION_CONSTRAINT
+failure_states_covered:
+- unknown, duplicate or primary-as-affected domain
+- registry/index domain divergence
+- missing epic outcome or closure evidence
+- oversized, duplicate or non-contiguous slice skeleton
+- stable identity replacement after GitHub metadata change
+- unresolved acceptance source or missing evidence
+- incomplete research spike
+- mutated snapshot identity
+- inexact or unapproved delta, duplicate delta and missing tombstone
+- missing epic issue or slice skeleton
+- orphan issue without governed reference or reversible local decision
+- unknown/missing policy field and unreadable policy
+- duplicate JSON keys and non-finite JSON constants
+changed_files_justification:
+  .codex/tasks/TASK-0754.json: authorize only the mandatory omitted envelope/evidence paths
+  foundation-policy.json: materialize the ten strict BC-001 controls and frozen-contract binding
+  domain-taxonomy.json: record existing domain codes from both versioned delivery indexes
+  README.md: document boundary, authority, non-runtime scope and rollback
+  policy_validation.py: reject policy drift, omissions, unknown fields and unreadable input
+  domain_taxonomy.py: reject registry/index drift and malformed codes
+  backlog_validation.py: validate the current backlog/issue invariants without adapters or runtime state
+  test_backlog_governance.py: implement nine mandatory tests plus one focused fail-closed test
+  IMPLEMENTATION_EVIDENCE.yaml: bind requirements, ACs, validation, scope and handoff
+contract_impact:
+  type: CONSUMES_EXISTING_FROZEN_CONTRACT
+  shared_contracts_modified: false
+  new_public_contract: false
+  http: NOT_APPLICABLE
+  persistence: NOT_APPLICABLE
+  migration: NOT_APPLICABLE
+  broker: NOT_APPLICABLE
+  external_state_mutated: false
+architectural_risk_open: false
+residual_risks:
+- The implementation validates repository control-plane records; GitHub reconciliation automation remains outside this slice.
+- Known source and evidence IDs are supplied by callers; incorrect authority selection remains an integration risk.
+- Independent QA and Reviewer approval are pending on this exact candidate commit.
+rollback:
+  method: revert the candidate commit
+  data_action: none
+  immutable_history_action: never rewrite published history; revert only the validator/policy candidate
+limitations:
+- No runtime backlog service, endpoint, database model, queue consumer or GitHub writer is implemented.
+- No requirements from slices 2 through 5 are implemented.
+- The domain taxonomy is loaded from its local registry; source/evidence IDs remain caller supplied.
+- The full repository verification matrix was intentionally not run under the focused-validation constraint.
+stop_condition: NONE
+ready_for_sentinel_qa: true
