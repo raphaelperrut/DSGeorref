@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "issue_id": "ISSUE-0976",
+  "decision": "APPROVED_FOR_DOCUMENTARY_RECONCILIATION",
+  "project_owner": {
+    "issuer": "https://github.com",
+    "subject": "raphaelperrut",
+    "author_association": "OWNER"
+  },
+  "architect_function": {
+    "subject": "raphaelperrut",
+    "same_real_person_as_project_owner": true,
+    "second_person_or_personal_independence_claimed": false
+  },
+  "source": "https://github.com/raphaelperrut/DSGeorref/issues/976#issuecomment-5851473553",
+  "source_comment_id": 5851473553,
+  "issued_at": "2026-09-27T01:02:42Z",
+  "decision_terms": {
+    "phase_a_b_historical_snapshot_adrs": 22,
+    "historical_snapshot_is_permanent_invariant": false,
+    "total_adr_records": 59,
+    "active_accepted_adrs": 58,
+    "superseded_adrs": 1,
+    "open_architectural_decisions": 0,
+    "adr_058": "Superseded prospectively by ADR-059; preserved as historical authority for DAA 1.0.0",
+    "adr_059": "Accepted; prospective authority for DAA 2.0.0",
+    "epic_001_reopened": false,
+    "historical_checkbox_change_authorized": false,
+    "historical_fact_rewrite_authorized": false
+  },
+  "authorized_scope": [
+    "Create and validate TASK-0766 for ISSUE-0976.",
+    "Reconcile the active ADR inventory wording in START_HERE.",
+    "Extend SAR-040 with a current inventory section while preserving its Phase D historical statement.",
+    "Make the directly applicable ADR validator distinguish total records, Accepted active ADRs, Superseded ADRs and open decisions."
+  ]
+}
