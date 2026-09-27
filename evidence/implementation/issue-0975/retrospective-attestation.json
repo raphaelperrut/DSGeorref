@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "RETROSPECTIVE_ATTESTATION",
+  "label": "RETROSPECTIVE_ATTESTATION",
+  "issue_id": "ISSUE-0975",
+  "issued_at": "2026-09-26T21:24:18.8565197-03:00",
+  "current_principal": {
+    "issuer": "https://github.com",
+    "subject": "raphaelperrut",
+    "accountable_subject": "acct:github.com/raphaelperrut",
+    "declared_functions_in_this_record": [
+      "Implementation",
+      "Product Owner semantic decision",
+      "Architect semantic decision"
+    ]
+  },
+  "reviewer_in_this_session": {
+    "principal": null,
+    "status": "NOT_PERFORMED",
+    "reason": "This session is Implementation and semantic reconciliation only; independent Review is explicitly deferred."
+  },
+  "personal_independence": "ABSENT_DECLARED",
+  "functional_segregation": "IMPLEMENTATION_ONLY_IN_THIS_SESSION",
+  "task_envelope": {
+    "path": ".codex/tasks/operations/TASK-0765.json",
+    "canonical_digest_sha256": "a67fcaaac95fbfd8652536914e7c37e517072c45db78226ba5c7a792f774fec1"
+  },
+  "historical_shas_examined": [
+    "405ab9ea58f63930f42755450cce83925bae38e5",
+    "ca4247283dcd80e14318c8e81cf9ea62f8598b4f",
+    "4b730fdb8607a8cdaa05f8af75c6ce75ed855ad8",
+    "d6180fba91c2e4e07c410263b514119cad6de698",
+    "780f45410d237f43b2658254fbe9742df96b9c28",
+    "6b4ea73ac5d9ab25a382242957ff196a616b19cf",
+    "56bcb4befd26fa54c7875fc39bbe05eb8c19df57"
+  ],
+  "current_main_sha_used": "e3e22d06811db901d3e315fe66708fc53efe1486",
+  "scope": [
+    "GitHub Issues #1 through #6 and final-audit Issues #17, #22, #27, #32, #37 and #42",
+    "Pull Requests #889, #906, #912, #922, #934 and #939",
+    "historical candidate SHAs, hosted check summaries, review metadata and final evidence paths",
+    "original residual checkbox wording and final-audit AC-04 wording",
+    "ADR-058 fail-closed legacy compatibility and ADR-059 distinction between functional segregation and personal independence"
+  ],
+  "tests_and_evidence_consumed": [
+    "the six final audit TaskEnvelopes TASK-0005, TASK-0010, TASK-0015, TASK-0020, TASK-0025 and TASK-0030",
+    "the final evidence paths enumerated in historical-inventory.json",
+    "GitHub hosted check rollups on the six historical PR head SHAs",
+    "GitHub review and issue-comment metadata for the six parent and six final-audit issues",
+    "EPIC-005 candidate artifact SHA-256 values, verified using the original CRLF byte convention",
+    "docs/00-governance/START_HERE.md at EPIC-001 candidate SHA for the 22-ADR baseline"
+  ],
+  "limitations": [
+    "No historical CI suite was rerun; persisted hosted checks and versioned evidence were inspected.",
+    "No absent QA or Reviewer approval can be reconstructed from closure, merge, labels, PR prose or technical checks.",
+    "No DAA 1.0.0 attestation was found for the disputed approvals.",
+    "The PR #939 COMMENTED review is attributable to the owner but does not establish personal independence.",
+    "This record is not a QA approval, final Review, DAA approval attestation or contemporaneous historical record.",
+    "The same real principal may exercise functional roles under current governance, but that cannot reinterpret or upgrade historical ADR-058 records."
+  ],
+  "conclusion": {
+    "inventory_complete_for_issue_975_scope": true,
+    "original_ci_and_test_evidence_validated": true,
+    "historical_qa_approvals_validated": false,
+    "historical_reviewer_approvals_validated": false,
+    "epic_005_recorded_reviewer_pass_promoted": false,
+    "epic_006_owner_comment_promoted": false,
+    "retrospective_analysis_presented_as_historical_approval": false,
+    "result": "The technical evidence is classifiable from original sources, while absent or unverifiably linked QA and Reviewer approvals remain NOT_VALID_TO_RETROACTIVELY_ASSERT."
+  }
+}

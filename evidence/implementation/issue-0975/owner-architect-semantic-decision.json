@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "OWNER_ARCHITECT_SEMANTIC_DECISION",
+  "issue_id": "ISSUE-0975",
+  "issued_at": "2026-09-26T21:24:18.8565197-03:00",
+  "authority": {
+    "principal": {
+      "issuer": "https://github.com",
+      "subject": "raphaelperrut",
+      "author_association": "OWNER"
+    },
+    "functions": [
+      "Product Owner",
+      "Architect"
+    ],
+    "decision_scope": "Semantic equivalence of original residual criteria only",
+    "personal_independence": "ABSENT_DECLARED",
+    "qa_or_reviewer_approval": false
+  },
+  "task_envelope": {
+    "path": ".codex/tasks/operations/TASK-0765.json",
+    "canonical_digest_sha256": "a67fcaaac95fbfd8652536914e7c37e517072c45db78226ba5c7a792f774fec1"
+  },
+  "current_main_sha_used": "e3e22d06811db901d3e315fe66708fc53efe1486",
+  "semantic_rules": [
+    {
+      "original_wording": "Testes automatizados e evidências obrigatórias passam.",
+      "decision": "SATISFIED_BY_ORIGINAL_EVIDENCE",
+      "reason": "The historical candidate SHA, versioned acceptance evidence and successful hosted checks are directly verifiable."
+    },
+    {
+      "original_wording": "QA registra aprovação independente no commit candidato.",
+      "decision": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+      "reason": "A current implementation analysis cannot become a past independent QA approval; absence or unverifiable prose is not equivalent to an authorized attestation."
+    },
+    {
+      "original_wording": "Reviewer registra aprovação final no mesmo commit.",
+      "decision": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+      "reason": "A current semantic decision cannot become a past final review; merge, closure, a role-only record or owner self-comment is insufficient under ADR-058."
+    },
+    {
+      "original_wording": "QA e Reviewer referenciam o mesmo commit, evidências e riscos residuais; nenhuma aprovação é implícita.",
+      "decision": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+      "reason": "The wording requires actual QA and Reviewer acts on the same historical candidate. This Implementation session performs neither role and does not fabricate those acts."
+    },
+    {
+      "original_wording": "O resultado de produto de EPIC-002 é demonstravelmente satisfeito.",
+      "decision": "SATISFIED_BY_ORIGINAL_EVIDENCE",
+      "reason": "The candidate contains the executable evidence and its hosted checks completed successfully."
+    },
+    {
+      "original_wording": "O registro de decisões informa 22 ADRs e zero decisão arquitetural aberta.",
+      "decision": "SATISFIED_BY_ORIGINAL_EVIDENCE",
+      "reason": "The EPIC-001 candidate records the 22-ADR baseline and closed Phase A architecture actions."
+    },
+    {
+      "original_wording": "A SPRINT-001 produz digest OCI, SBOM, provenance e smoke ABI antes de liberar coding geoespacial.",
+      "decision": "NOT_VALID_TO_RETROACTIVELY_ASSERT",
+      "reason": "The word 'antes' is a historical ordering condition. Later ISSUE-0973 evidence cannot change whether the condition was true at the historical release point."
+    }
+  ],
+  "epic_decisions": [
+    {
+      "epic_id": "EPIC-001",
+      "decision": "MIXED: CI_TESTS_AND_DECISION_BASELINE_SATISFIED_BY_ORIGINAL_EVIDENCE; QA_AND_REVIEWER_NOT_VALID_TO_RETROACTIVELY_ASSERT"
+    },
+    {
+      "epic_id": "EPIC-002",
+      "decision": "MIXED: PRODUCT_AND_CI_TESTS_SATISFIED_BY_ORIGINAL_EVIDENCE; QA_AND_REVIEWER_NOT_VALID_TO_RETROACTIVELY_ASSERT"
+    },
+    {
+      "epic_id": "EPIC-003",
+      "decision": "MIXED: CI_TESTS_SATISFIED_BY_ORIGINAL_EVIDENCE; QA_AND_REVIEWER_NOT_VALID_TO_RETROACTIVELY_ASSERT"
+    },
+    {
+      "epic_id": "EPIC-004",
+      "decision": "MIXED: CI_TESTS_SATISFIED_BY_ORIGINAL_EVIDENCE; QA_AND_REVIEWER_NOT_VALID_TO_RETROACTIVELY_ASSERT"
+    },
+    {
+      "epic_id": "EPIC-005",
+      "decision": "MIXED: CI_TESTS_SATISFIED_BY_ORIGINAL_EVIDENCE; QA_REVIEWER_AND_TEMPORAL_SUPPLY_CHAIN_CONDITION_NOT_VALID_TO_RETROACTIVELY_ASSERT"
+    },
+    {
+      "epic_id": "EPIC-006",
+      "decision": "MIXED: CI_TESTS_SATISFIED_BY_ORIGINAL_EVIDENCE; QA_AND_REVIEWER_NOT_VALID_TO_RETROACTIVELY_ASSERT"
+    }
+  ],
+  "explicit_non_effects": [
+    "No historical EPIC is reopened.",
+    "No historical checkbox is changed.",
+    "No historical attestation, date or fact is rewritten.",
+    "No current analysis is converted into a historical approval.",
+    "No QA or Reviewer gate for ISSUE-0975 is approved by this decision."
+  ],
+  "conclusion": "The classifications in historical-inventory.json are semantically approved for QA and Review of ISSUE-0975; they do not approve the historical EPICs or alter their recorded state."
+}

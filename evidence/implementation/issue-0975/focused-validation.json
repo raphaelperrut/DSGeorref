@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "FOCUSED_VALIDATION",
+  "issue_id": "ISSUE-0975",
+  "executed_at": "2026-09-26T21:24:18.8565197-03:00",
+  "task_envelope": {
+    "path": ".codex/tasks/operations/TASK-0765.json",
+    "canonical_digest_sha256": "a67fcaaac95fbfd8652536914e7c37e517072c45db78226ba5c7a792f774fec1",
+    "schema_validation": "PASS"
+  },
+  "current_main_sha_used": "e3e22d06811db901d3e315fe66708fc53efe1486",
+  "focused_results": [
+    {
+      "check": "evidence JSON parse",
+      "result": "PASS",
+      "details": "historical-inventory.json, retrospective-attestation.json and owner-architect-semantic-decision.json"
+    },
+    {
+      "check": "classification and attestation semantics",
+      "result": "PASS",
+      "details": "six EPICs, closed-state guards, three-state taxonomy, RETROSPECTIVE_ATTESTATION label, current principal, no Reviewer act in this session and PERSONAL_INDEPENDENCE=ABSENT_DECLARED"
+    },
+    {
+      "check": "historical evidence path linkage",
+      "result": "PASS",
+      "details": "15 evidence paths resolved at their recorded candidate or audit SHA"
+    },
+    {
+      "check": "EPIC-005 artifact digest linkage",
+      "result": "PASS",
+      "details": "five recorded SHA-256 values matched candidate 780f45410d237f43b2658254fbe9742df96b9c28 under the original CRLF byte convention"
+    },
+    {
+      "check": "GitHub historical metadata",
+      "result": "PASS",
+      "details": "Issues #1-#6 remain CLOSED; final-audit Issues #17, #22, #27, #32, #37 and #42 have no comments; PRs #889, #906, #912, #922 and #934 have no review objects; PR #939 has one owner-authored COMMENTED review"
+    },
+    {
+      "check": "git diff --check",
+      "result": "PASS"
+    }
+  ],
+  "make_verify": {
+    "required_execution_performed": true,
+    "default_python_attempt": "ENVIRONMENT_BLOCKED: C:/Python313/python.exe has no ruff module",
+    "python_3_12_sandbox_attempt": "ENVIRONMENT_BLOCKED: Vitest worker spawn EPERM",
+    "python_3_12_outside_sandbox_attempt": {
+      "result": "ENVIRONMENT_BLOCKED",
+      "passed_before_block": [
+        "Ruff",
+        "mypy",
+        "TypeScript",
+        "Vitest",
+        "Playwright Chromium",
+        "repository validation",
+        "architecture review",
+        "requirements review",
+        "DDD review",
+        "ADR review",
+        "specification review",
+        "sprint review",
+        "Python architecture",
+        "license and citation foundation",
+        "monorepo foundation validator"
+      ],
+      "blocking_check": "walking skeleton integration test",
+      "blocking_reason": "FOUNDATION_INTEGRATION=1 and the pinned PostgreSQL/RabbitMQ services are absent",
+      "test_summary_at_block": "1 failed, 4 passed",
+      "related_to_issue_975_diff": false
+    }
+  },
+  "warnings": [
+    "Node v22.14.0 differs from the repository engine v24.20.0, although TypeScript, Vitest and Playwright passed.",
+    "pytest-asyncio reports the pre-existing asyncio_default_fixture_loop_scope deprecation warning."
+  ],
+  "conclusion": {
+    "focused_issue_975_validations": "PASS",
+    "global_local_gate": "ENVIRONMENT_BLOCKED",
+    "historical_ci_rerun_used_as_substitute": false,
+    "blocker_or_high_finding_in_issue_975_scope": false
+  }
+}
