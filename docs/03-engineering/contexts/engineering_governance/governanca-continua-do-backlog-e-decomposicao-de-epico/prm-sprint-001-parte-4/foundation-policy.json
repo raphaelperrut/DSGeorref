@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "ENGINEERING-BACKLOG-PORTFOLIO-MATERIALIZATION",
+  "owner": "BC-001",
+  "status": "CANDIDATE",
+  "controls": {
+    "bounded_waves": {
+      "dependency_bound": "REQUIRED",
+      "gate_bound": "REQUIRED",
+      "risk_bound": "REQUIRED",
+      "unbounded_import": "REJECT"
+    },
+    "field_sync": {
+      "authority_per_field": "REQUIRED",
+      "direction_per_field": "REQUIRED",
+      "undefined_field_governance": "REJECT"
+    },
+    "drift_reconciliation": {
+      "comparison": "THREE_WAY",
+      "conflict_classification": "REQUIRED",
+      "silent_conflict_overwrite": "REJECT"
+    },
+    "destructive_changes": {
+      "approved_changeset": "REQUIRED",
+      "tombstones": "REQUIRED",
+      "direct_destructive_mutation": "REJECT"
+    },
+    "resumable_operations": {
+      "idempotency": "REQUIRED",
+      "checkpoints": "REQUIRED",
+      "backoff": "REQUIRED",
+      "safe_resume": "REQUIRED",
+      "incompatible_resume": "REJECT"
+    },
+    "materialization_evidence": {
+      "evidence_type": "PortfolioMaterializationEvidenceSet",
+      "before_operational_convergence": "REQUIRED",
+      "missing_evidence": "REJECT"
+    },
+    "sync_run_record": {
+      "record_type": "PortfolioSyncRunRecord",
+      "every_execution": "REQUIRED",
+      "immutability": "REQUIRED",
+      "sanitization": "REQUIRED",
+      "missing_or_mutable_record": "REJECT"
+    },
+    "wave_recovery": {
+      "snapshot": "REQUIRED",
+      "safe_compensations": "REQUIRED",
+      "reconciliation": "FORWARD",
+      "unsafe_recovery": "REJECT"
+    },
+    "service_identity": {
+      "identity": "DEDICATED",
+      "privileges": "LEAST_PRIVILEGE",
+      "credentials": "SHORT_LIVED",
+      "shared_or_long_lived_credentials": "REJECT"
+    },
+    "sprint_minimum_scope": {
+      "source": "docs/03-engineering/application-profiles/AP-008-sprint-001-execution-profile.md",
+      "selection": "MINIMUM_ONLY",
+      "capabilities": [
+        "scaffold por contracts",
+        "schemas iniciais finos",
+        "ambiente reproduzível",
+        "serviços reais nos tiers aplicáveis",
+        "walking skeleton diagnóstico ponta a ponta",
+        "CI progressivo",
+        "SprintEvidenceSet machine-readable"
+      ],
+      "scope_expansion": "REJECT"
+    }
+  },
+  "requirement_evidence": {
+    "REQ-PRM-002": "test_portfolio_materialization_decision_02",
+    "REQ-PRM-003": "test_portfolio_materialization_decision_03",
+    "REQ-PRM-004": "test_portfolio_materialization_decision_04",
+    "REQ-PRM-005": "test_portfolio_materialization_decision_05",
+    "REQ-PRM-006": "test_portfolio_materialization_decision_06",
+    "REQ-PRM-007": "test_portfolio_materialization_decision_07",
+    "REQ-PRM-008": "test_portfolio_materialization_decision_08",
+    "REQ-PRM-009": "test_portfolio_materialization_decision_09",
+    "REQ-PRM-010": "test_portfolio_materialization_decision_10",
+    "REQ-SPRINT-001-001": "test_sprint_zero_baseline_decision_01"
+  }
+}

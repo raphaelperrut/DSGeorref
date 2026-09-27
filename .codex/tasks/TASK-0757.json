@@ -50,7 +50,8 @@
   ],
   "allow_paths": [
     "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/prm-sprint-001-parte-4/**",
-    "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/prm-sprint-001-parte-4/**"
+    "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/prm-sprint-001-parte-4/**",
+    "evidence/implementation/governanca-continua-do-backlog-e-decomposicao-de-e/prm-sprint-001-parte-4/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -130,7 +131,8 @@
       "status": "PASS",
       "allow_paths": [
         "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/prm-sprint-001-parte-4/**",
-        "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/prm-sprint-001-parte-4/**"
+        "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/prm-sprint-001-parte-4/**",
+        "evidence/implementation/governanca-continua-do-backlog-e-decomposicao-de-e/prm-sprint-001-parte-4/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
