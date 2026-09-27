@@ -1,0 +1,90 @@
+schema_version: 1.0.0
+contract_version: 1.0.0
+status: FROZEN
+owner: BC-001
+identity:
+  epic_id: EPIC-110
+  story_id: STORY-0683
+  issue_id: ISSUE-0793
+  github_issue: 68
+  task_id: TASK-0683
+contract:
+  id: backlog-governance-profile
+  schema: contracts/contexts/engineering_governance/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/backlog-governance-profile.schema.json
+  example: contracts/contexts/engineering_governance/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/examples/backlog-governance-profile.json
+compatibility:
+  policy: SEMVER
+  compatible_change: VERIFIED_ACCEPTED_BY_TARGET_VERSION_READERS_ONLY
+  property_addition: INCOMPATIBLE_WITH_1_0_0_READERS
+  breaking_change: NEW_MAJOR_AND_ARCHITECT_REVIEW
+  unknown_properties: REJECT
+authority:
+  semantic_owner: BC-001
+  contract_source: VERSIONED_REPOSITORY
+  github_role: RECONCILIATION_COUNTERPART
+  runtime_state: NOT_APPLICABLE
+  transport_state: NOT_APPLICABLE
+boundary:
+  published_language: POLICY_CONFORMANCE_DTO
+  exposed:
+  - stable_identifiers
+  - versioned_contract_references
+  - validation_controls
+  prohibited:
+  - entity
+  - repository
+  - orm_model
+  - state_machine
+runtime:
+  implementation: NOT_INCLUDED
+  http: NOT_APPLICABLE
+  persistence: NOT_APPLICABLE
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+  contract_rollback: REVERT_BEFORE_CONSUMPTION_OR_PUBLISH_NEW_VERSION
+requirements:
+- id: REQ-ISM-004
+  control: /controls/portfolio_catalog
+  test: test_versioned_issue_portfolio_catalog_github_reconciliation
+  failure_modes:
+  - VERSIONED_CATALOG_MISSING
+  - GITHUB_SIDE_MISSING
+  - RECONCILIATION_MISMATCH
+- id: REQ-ISS-002
+  control: /controls/forecast
+  test: test_issue_forecast_min_mode_max_confidence_and_snapshot_variance
+  failure_modes:
+  - FORECAST_COMPONENT_MISSING
+  - INTERVAL_NOT_ORDERED
+  - SNAPSHOT_VARIANCE_MISMATCH
+- id: REQ-PLN-009
+  control: /controls/integration_checkpoint
+  test: test_cross_domain_contract_checkpoint_and_walking_skeleton_integration
+  failure_modes:
+  - PRODUCER_OR_CONSUMER_CONTRACT_MISSING
+  - CHECKPOINT_INCOMPATIBLE
+- id: REQ-PRJ-004
+  control: /controls/workflow
+  test: test_canonical_workflow_transitions
+  failure_modes:
+  - UNKNOWN_STATE
+  - UNREGISTERED_TRANSITION
+- id: REQ-SPRINT-001-004
+  control: /controls/foundation_boundaries
+  test: test_epic_110_contrato
+  failure_modes:
+  - CORE_API_OR_RUNNERS_MISSING
+  - BOUNDARY_COLLAPSED
+  - RUNTIME_MATERIALIZATION_ATTEMPTED
+acceptance_criteria:
+- AC-ISSUE-0793-01
+- AC-ISSUE-0793-02
+- AC-ISSUE-0793-03
+- AC-ISSUE-0793-04
+proof:
+  required_tests:
+  - test_versioned_issue_portfolio_catalog_github_reconciliation
+  - test_issue_forecast_min_mode_max_confidence_and_snapshot_variance
+  - test_cross_domain_contract_checkpoint_and_walking_skeleton_integration
+  - test_canonical_workflow_transitions
+  - test_epic_110_contrato

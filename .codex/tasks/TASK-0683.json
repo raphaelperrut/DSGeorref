@@ -58,7 +58,11 @@
   ],
   "allow_paths": [
     "contracts/contexts/engineering_governance/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/**",
-    "docs/02-architecture/design-reviews/governanca-continua-do-backlog-e-decomposicao-de-epico/**"
+    "docs/02-architecture/design-reviews/governanca-continua-do-backlog-e-decomposicao-de-epico/**",
+    "tests/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/test_epic_110_contract.py",
+    "evidence/implementation/epic-110/story-0683/**",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
+    ".codex/tasks/TASK-0683.json"
   ],
   "deny_paths": [
     "src/**",
@@ -133,7 +137,11 @@
       "status": "PASS",
       "allow_paths": [
         "contracts/contexts/engineering_governance/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/**",
-        "docs/02-architecture/design-reviews/governanca-continua-do-backlog-e-decomposicao-de-epico/**"
+        "docs/02-architecture/design-reviews/governanca-continua-do-backlog-e-decomposicao-de-epico/**",
+        "tests/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/test_epic_110_contract.py",
+        "evidence/implementation/epic-110/story-0683/**",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv",
+        ".codex/tasks/TASK-0683.json"
       ],
       "deny_paths": [
         "src/**",
