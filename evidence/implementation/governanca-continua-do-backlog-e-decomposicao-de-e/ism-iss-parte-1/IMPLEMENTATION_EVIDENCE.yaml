@@ -203,3 +203,25 @@ qa_high_01_gate_recheck:
     is intentionally not embedded in this file.
   high_01_technical_status: ENVIRONMENT_BLOCKED
   independent_qa_reassessment_pending: true
+
+qa_high_01_gate_completion:
+  evidence_source: user-reported external execution on the same clean checkout
+  gate_target_commit: 12a314a8f113ae1ff5015870511be64a44ece05d
+  command: make verify
+  result: PASS
+  exit_code: 0
+  preconditions:
+    FOUNDATION_INTEGRATION: "1"
+    FOUNDATION_DATABASE_URL: postgresql://foundation:foundation@127.0.0.1:5432/foundation
+    FOUNDATION_BROKER_URL: amqp://guest:guest@127.0.0.1:5672//
+    postgresql: postgres:18.4 healthy at 127.0.0.1:5432
+    rabbitmq: rabbitmq:4.3.4 healthy at 127.0.0.1:5672
+  prior_environmental_block: RESOLVED
+  worktree_clean_after_gate: true
+  functional_files_changed_after_gate: false
+  evidence_commit_binding: >-
+    The containing commit changes only this evidence record. The complete gate PASS
+    applies to its parent, gate_target_commit, whose functional tree is unchanged;
+    an evidence-only commit cannot refer to its own SHA and does not require a
+    repeated gate execution solely to record the result.
+  independent_qa_recheck_pending: true
