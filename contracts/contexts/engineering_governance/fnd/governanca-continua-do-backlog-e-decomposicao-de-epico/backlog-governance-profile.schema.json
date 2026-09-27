@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/contracts/contexts/engineering-governance/backlog-governance-profile/1.0.0",
+  "title": "Backlog Governance and Epic Decomposition Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "profile_id",
+    "profile_version",
+    "owner",
+    "status",
+    "controls"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "profile_id": { "const": "EPIC-110-BACKLOG-GOVERNANCE" },
+    "profile_version": { "const": "1.0.0" },
+    "owner": { "const": "BC-001" },
+    "status": { "const": "FROZEN" },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "portfolio_catalog",
+        "forecast",
+        "integration_checkpoint",
+        "workflow",
+        "foundation_boundaries"
+      ],
+      "properties": {
+        "portfolio_catalog": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "schema",
+            "example",
+            "source",
+            "github_reconciliation",
+            "stable_identity",
+            "missing_or_mismatch"
+          ],
+          "properties": {
+            "schema": {
+              "const": "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/portfolio-snapshot.schema.json"
+            },
+            "example": {
+              "const": "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/portfolio-snapshot.json"
+            },
+            "source": { "const": "VERSIONED_REPOSITORY_CATALOG" },
+            "github_reconciliation": { "const": "REQUIRED" },
+            "stable_identity": { "const": "REPOSITORY_STABLE_ID" },
+            "missing_or_mismatch": { "const": "REJECT" }
+          }
+        },
+        "forecast": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "schema",
+            "example",
+            "components",
+            "interval_policy",
+            "snapshot_variance",
+            "invalid_or_missing"
+          ],
+          "properties": {
+            "schema": {
+              "const": "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/issue-forecast.schema.json"
+            },
+            "example": {
+              "const": "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/issue-forecast.json"
+            },
+            "components": {
+              "type": "array",
+              "prefixItems": [
+                { "const": "MINIMUM" },
+                { "const": "MODE" },
+                { "const": "MAXIMUM" },
+                { "const": "CONFIDENCE" },
+                { "const": "VERSIONED_SNAPSHOT" },
+                { "const": "VARIANCE" }
+              ],
+              "items": false,
+              "minItems": 6
+            },
+            "interval_policy": { "const": "MINIMUM_LE_MODE_LE_MAXIMUM" },
+            "snapshot_variance": { "const": "EXACT_REFERENCE" },
+            "invalid_or_missing": { "const": "REJECT" }
+          }
+        },
+        "integration_checkpoint": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "profile_schema",
+            "profile_example",
+            "producer_contract",
+            "consumer_contract",
+            "schema_compatibility",
+            "input_compatibility",
+            "version_compatibility",
+            "hash_compatibility",
+            "missing_or_incompatible"
+          ],
+          "properties": {
+            "profile_schema": {
+              "const": "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/foundation-conformance.schema.json"
+            },
+            "profile_example": {
+              "const": "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/examples/foundation-conformance.json"
+            },
+            "producer_contract": { "const": "REQUIRED" },
+            "consumer_contract": { "const": "REQUIRED" },
+            "schema_compatibility": { "const": "EXACT_OR_COMPATIBLE" },
+            "input_compatibility": { "const": "EXACT" },
+            "version_compatibility": { "const": "EXACT_OR_COMPATIBLE" },
+            "hash_compatibility": { "const": "EXACT" },
+            "missing_or_incompatible": { "const": "REJECT" }
+          }
+        },
+        "workflow": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "catalog_version",
+            "state_catalog",
+            "transition_policy",
+            "unknown_state",
+            "invalid_transition"
+          ],
+          "properties": {
+            "catalog_version": { "const": "1.0.0" },
+            "state_catalog": { "const": "VERSIONED_CANONICAL" },
+            "transition_policy": { "const": "REGISTERED_ONLY" },
+            "unknown_state": { "const": "REJECT" },
+            "invalid_transition": { "const": "REJECT" }
+          }
+        },
+        "foundation_boundaries": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "schema",
+            "example",
+            "required",
+            "separation",
+            "runtime_materialization",
+            "missing_or_collapsed"
+          ],
+          "properties": {
+            "schema": {
+              "const": "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/foundation-boundaries.schema.json"
+            },
+            "example": {
+              "const": "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/foundation-boundaries.json"
+            },
+            "required": {
+              "type": "array",
+              "prefixItems": [
+                { "const": "CORE" },
+                { "const": "API" },
+                { "const": "RUNNERS" }
+              ],
+              "items": false,
+              "minItems": 3
+            },
+            "separation": { "const": "MANDATORY" },
+            "runtime_materialization": { "const": "DECLARATIVE_ONLY" },
+            "missing_or_collapsed": { "const": "REJECT" }
+          }
+        }
+      }
+    }
+  }
+}

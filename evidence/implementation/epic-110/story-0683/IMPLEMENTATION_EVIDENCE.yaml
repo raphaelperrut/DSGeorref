@@ -1,0 +1,173 @@
+schema_version: 1.0.0
+evidence_type: IMPLEMENTATION_CANDIDATE
+identity:
+  epic_id: EPIC-110
+  story_id: STORY-0683
+  issue_id: ISSUE-0793
+  github_issue: 68
+  task_id: TASK-0683
+candidate:
+  base_commit: e2f581a
+  branch: codex/issue-0793-architecture
+  state: READY_FOR_CANDIDATE_COMMIT_PENDING_INDEPENDENT_REVIEW
+  owner_context: BC-001
+  implementation_role: Arquiteto
+  independent_review: NOT_PERFORMED
+  approval_claimed: false
+task_envelope:
+  changed: true
+  reason: >-
+    The original allow paths omitted the mandatory test, evidence, public-contract
+    ownership registry, and the TaskEnvelope itself. Only those paths were added;
+    outcome, ownership, acceptance criteria, dependencies, and deny paths are unchanged.
+scope:
+  valid: true
+  new_prerequisite_created: false
+  runtime_materialized: false
+  shared_contract_changed: false
+  new_public_contract:
+    id: backlog-governance-profile
+    version: 1.0.0
+    owner: BC-001
+contract_artifacts:
+- contracts/contexts/engineering_governance/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/contract-manifest.yaml
+- contracts/contexts/engineering_governance/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/backlog-governance-profile.schema.json
+- contracts/contexts/engineering_governance/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/examples/backlog-governance-profile.json
+supporting_artifacts:
+- .codex/tasks/TASK-0683.json
+- contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv
+- docs/02-architecture/design-reviews/governanca-continua-do-backlog-e-decomposicao-de-epico/ISSUE-0793-DESIGN-REVIEW.md
+- tests/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/test_epic_110_contract.py
+- evidence/implementation/epic-110/story-0683/IMPLEMENTATION_EVIDENCE.yaml
+acceptance_criteria:
+- id: AC-ISSUE-0793-01
+  result: PASS
+  evidence:
+  - backlog-governance-profile.schema.json
+  - backlog-governance-profile.json
+  - test_epic_110_contrato
+- id: AC-ISSUE-0793-02
+  result: PASS
+  evidence:
+  - contract-manifest.yaml requirements mapping
+  - five mandatory sentinel tests
+- id: AC-ISSUE-0793-03
+  result: PASS
+  evidence:
+  - test_epic_110_contract_rejects_fail_open_paths
+  - test_epic_110_contract_rejects_missing_unknown_or_wrong_authority
+- id: AC-ISSUE-0793-04
+  result: PASS
+  evidence:
+  - schema_version and profile_version 1.0.0
+  - workflow catalog_version 1.0.0
+  - SemVer compatibility policy
+  - explicit BC-001 and repository authority
+requirements:
+- id: REQ-ISM-004
+  result: PASS
+  control: /controls/portfolio_catalog
+  test: test_versioned_issue_portfolio_catalog_github_reconciliation
+- id: REQ-ISS-002
+  result: PASS
+  control: /controls/forecast
+  test: test_issue_forecast_min_mode_max_confidence_and_snapshot_variance
+- id: REQ-PLN-009
+  result: PASS
+  control: /controls/integration_checkpoint
+  test: test_cross_domain_contract_checkpoint_and_walking_skeleton_integration
+- id: REQ-PRJ-004
+  result: PASS
+  control: /controls/workflow
+  test: test_canonical_workflow_transitions
+- id: REQ-SPRINT-001-004
+  result: PASS
+  control: /controls/foundation_boundaries
+  test: test_epic_110_contrato
+tests:
+  required:
+  - test: test_versioned_issue_portfolio_catalog_github_reconciliation
+    result: PASS
+  - test: test_issue_forecast_min_mode_max_confidence_and_snapshot_variance
+    result: PASS
+  - test: test_cross_domain_contract_checkpoint_and_walking_skeleton_integration
+    result: PASS
+  - test: test_canonical_workflow_transitions
+    result: PASS
+  - test: test_epic_110_contrato
+    result: PASS
+  required_command_result: 5 passed
+  additional:
+  - check: complete ISSUE-0793 contract test module
+    result: 11 passed
+  - check: test_sprint_zero_baseline_decision_04
+    result: 1 passed
+  - check: ruff on the changed Python test
+    result: PASS
+  - check: tools/validate_repository.py
+    result: PASS
+  - check: JSON syntax for TaskEnvelope, schema, and example
+    result: PASS
+  - check: git diff --check
+    result: PASS
+  make_verify:
+    result: ENVIRONMENT_BLOCKED_AFTER_APPLICABLE_GATES_PASSED
+    applicable_gates_passed:
+    - Ruff and mypy
+    - frontend typecheck, Vitest, and Playwright
+    - repository validation
+    - architecture review
+    - requirements review
+    - DDD review
+    - ADR review
+    - specification review
+    - sprint review
+    - Python architecture
+    - license and contribution foundation
+    failure: >-
+      The unrelated walking-skeleton integration test requires FOUNDATION_INTEGRATION=1
+      plus PostgreSQL 18.4 and RabbitMQ 4.3.4. Those services are not running locally;
+      Docker Desktop is unavailable. The pull-request CI provides the pinned services.
+    initial_sandbox_failure: >-
+      The first attempt could not spawn a Vitest worker (EPERM); the escalated rerun
+      passed the frontend gates and reached the external-service prerequisite.
+fail_closed_coverage:
+- missing required control
+- unknown property
+- wrong BC-001 authority
+- missing or mismatched GitHub reconciliation
+- unordered or incomplete forecast
+- non-exact snapshot variance
+- missing producer or consumer contract
+- incompatible checkpoint
+- unknown workflow state
+- unregistered workflow transition
+- collapsed core, API, or runners boundary
+- attempted runtime materialization
+- missing ownership registration or referenced contract
+contract_impact:
+  type: NEW_VERSIONED_PUBLIC_CONTRACT
+  shared_contracts_modified: false
+  shared_contracts_referenced: true
+  boundary: POLICY_CONFORMANCE_DTO_ONLY
+  leaked_internals: false
+  http: NOT_APPLICABLE
+  persistence: NOT_APPLICABLE
+  migration: NOT_APPLICABLE
+  operational_rollback: NOT_APPLICABLE
+  contract_rollback: REVERT_BEFORE_CONSUMPTION_OR_PUBLISH_NEW_VERSION
+changed_files_justification:
+  task_envelope: authorize only mandatory omitted paths
+  contract_files: publish the minimum versioned profile and positive example
+  ownership_registry: register every new BC-001 public contract file
+  design_review: record local compatibility, authority, boundary, and rollback decisions
+  tests: prove positive contract behavior and fail-closed negatives
+  evidence: bind ACs, requirements, validations, limitations, and residual risks
+limitations:
+- This story is declarative and does not implement runtime backlog automation.
+- Independent Reviewer approval remains pending for the same candidate commit.
+- Full local make verify depends on pinned PostgreSQL and RabbitMQ services supplied by CI.
+residual_risks:
+- Consumers must pin a compatible major version and cannot infer missing controls.
+- Referenced BC-001 contracts must retain their published compatibility guarantees.
+- Local Node 22.14.0 emitted an engine warning; CI is configured for pinned Node 24.20.0.

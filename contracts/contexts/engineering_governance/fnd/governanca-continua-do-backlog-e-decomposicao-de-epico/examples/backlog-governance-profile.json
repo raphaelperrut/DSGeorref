@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "EPIC-110-BACKLOG-GOVERNANCE",
+  "profile_version": "1.0.0",
+  "owner": "BC-001",
+  "status": "FROZEN",
+  "controls": {
+    "portfolio_catalog": {
+      "schema": "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/portfolio-snapshot.schema.json",
+      "example": "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/portfolio-snapshot.json",
+      "source": "VERSIONED_REPOSITORY_CATALOG",
+      "github_reconciliation": "REQUIRED",
+      "stable_identity": "REPOSITORY_STABLE_ID",
+      "missing_or_mismatch": "REJECT"
+    },
+    "forecast": {
+      "schema": "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/issue-forecast.schema.json",
+      "example": "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/issue-forecast.json",
+      "components": [
+        "MINIMUM",
+        "MODE",
+        "MAXIMUM",
+        "CONFIDENCE",
+        "VERSIONED_SNAPSHOT",
+        "VARIANCE"
+      ],
+      "interval_policy": "MINIMUM_LE_MODE_LE_MAXIMUM",
+      "snapshot_variance": "EXACT_REFERENCE",
+      "invalid_or_missing": "REJECT"
+    },
+    "integration_checkpoint": {
+      "profile_schema": "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/foundation-conformance.schema.json",
+      "profile_example": "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/examples/foundation-conformance.json",
+      "producer_contract": "REQUIRED",
+      "consumer_contract": "REQUIRED",
+      "schema_compatibility": "EXACT_OR_COMPATIBLE",
+      "input_compatibility": "EXACT",
+      "version_compatibility": "EXACT_OR_COMPATIBLE",
+      "hash_compatibility": "EXACT",
+      "missing_or_incompatible": "REJECT"
+    },
+    "workflow": {
+      "catalog_version": "1.0.0",
+      "state_catalog": "VERSIONED_CANONICAL",
+      "transition_policy": "REGISTERED_ONLY",
+      "unknown_state": "REJECT",
+      "invalid_transition": "REJECT"
+    },
+    "foundation_boundaries": {
+      "schema": "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/foundation-boundaries.schema.json",
+      "example": "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/examples/foundation-boundaries.json",
+      "required": [
+        "CORE",
+        "API",
+        "RUNNERS"
+      ],
+      "separation": "MANDATORY",
+      "runtime_materialization": "DECLARATIVE_ONLY",
+      "missing_or_collapsed": "REJECT"
+    }
+  }
+}
