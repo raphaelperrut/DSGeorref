@@ -9,7 +9,14 @@ identity:
 candidate:
   base_commit: e2f581a
   branch: codex/issue-0793-architecture
-  state: READY_FOR_CANDIDATE_COMMIT_PENDING_INDEPENDENT_REVIEW
+  candidate_commit_binding: CONTAINING_COMMIT
+  binding_verification: >-
+    The authoritative candidate SHA is the PR HEAD containing this version of the
+    evidence file, not base_commit. At the PR HEAD, compare git rev-parse HEAD with
+    the PR headRefOid and inspect the file with git show
+    HEAD:evidence/implementation/epic-110/story-0683/IMPLEMENTATION_EVIDENCE.yaml.
+    No SHA is embedded in its own commit.
+  state: CANDIDATE_COMMITTED_PENDING_INDEPENDENT_RE_REVIEW
   owner_context: BC-001
   implementation_role: Arquiteto
   independent_review: NOT_PERFORMED
@@ -61,7 +68,8 @@ acceptance_criteria:
   evidence:
   - schema_version and profile_version 1.0.0
   - workflow catalog_version 1.0.0
-  - SemVer compatibility policy
+  - SemVer compatibility only after target readers accept the change
+  - version 1.0.0 readers reject optional property additions
   - explicit BC-001 and repository authority
 requirements:
 - id: REQ-ISM-004
@@ -99,7 +107,7 @@ tests:
   required_command_result: 5 passed
   additional:
   - check: complete ISSUE-0793 contract test module
-    result: 11 passed
+    result: 12 passed
   - check: test_sprint_zero_baseline_decision_04
     result: 1 passed
   - check: ruff on the changed Python test
@@ -134,6 +142,7 @@ tests:
 fail_closed_coverage:
 - missing required control
 - unknown property
+- optional property addition at root, controls, or workflow, and new profile version
 - wrong BC-001 authority
 - missing or mismatched GitHub reconciliation
 - unordered or incomplete forecast
@@ -168,6 +177,7 @@ limitations:
 - Independent Reviewer approval remains pending for the same candidate commit.
 - Full local make verify depends on pinned PostgreSQL and RabbitMQ services supplied by CI.
 residual_risks:
-- Consumers must pin a compatible major version and cannot infer missing controls.
+- Consumers must pin a version they actually accept; major matching alone does not
+  establish compatibility with new properties.
 - Referenced BC-001 contracts must retain their published compatibility guarantees.
 - Local Node 22.14.0 emitted an engine warning; CI is configured for pinned Node 24.20.0.

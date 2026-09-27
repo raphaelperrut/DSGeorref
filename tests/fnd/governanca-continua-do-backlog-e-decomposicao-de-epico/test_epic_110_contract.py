@@ -118,7 +118,8 @@ def test_epic_110_contrato() -> None:
     }
     assert manifest["compatibility"] == {
         "policy": "SEMVER",
-        "compatible_change": "OPTIONAL_ADDITION_WITHIN_CURRENT_MAJOR",
+        "compatible_change": "VERIFIED_ACCEPTED_BY_TARGET_VERSION_READERS_ONLY",
+        "property_addition": "INCOMPATIBLE_WITH_1_0_0_READERS",
         "breaking_change": "NEW_MAJOR_AND_ARCHITECT_REVIEW",
         "unknown_properties": "REJECT",
     }
@@ -195,3 +196,20 @@ def test_epic_110_contract_rejects_missing_unknown_or_wrong_authority() -> None:
     wrong_owner = copy.deepcopy(_profile())
     wrong_owner["owner"] = "BC-013"
     _assert_rejected(wrong_owner)
+
+
+def test_epic_110_v1_reader_rejects_optional_additions_and_new_version() -> None:
+    assert _load_manifest()["compatibility"]["property_addition"] == (
+        "INCOMPATIBLE_WITH_1_0_0_READERS"
+    )
+    for target in ((), ("controls",), ("controls", "workflow")):
+        candidate = copy.deepcopy(_profile())
+        current = candidate
+        for key in target:
+            current = current[key]
+        current["optional_future_property"] = "present"
+        _assert_rejected(candidate)
+
+    next_minor = copy.deepcopy(_profile())
+    next_minor["profile_version"] = "1.1.0"
+    _assert_rejected(next_minor)

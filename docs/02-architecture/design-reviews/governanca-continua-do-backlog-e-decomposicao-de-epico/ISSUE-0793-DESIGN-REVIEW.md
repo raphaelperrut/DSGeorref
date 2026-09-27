@@ -42,9 +42,12 @@ O profile referencia contratos públicos existentes do mesmo owner BC-001, sem c
 
 ## Compatibilidade
 
-O profile segue SemVer. Adição opcional pode ocorrer na major corrente; remoção,
-renomeação, mudança de tipo, relaxamento fail-closed ou alteração do boundary exige nova
-major e revisão do Arquiteto. Readers rejeitam propriedades desconhecidas. O contrato
+O profile segue SemVer. Readers `1.0.0` rejeitam propriedades desconhecidas, inclusive
+adições opcionais, e aceitam somente `profile_version: 1.0.0`. Uma adição não é
+automaticamente compatível dentro da mesma major: a compatibilidade só pode ser alegada
+quando o contrato e os readers da versão alvo efetivamente a aceitam. Mudança
+incompatível exige nova versão apropriada e revisão arquitetural conforme ADR-010;
+para este contrato, o manifesto exige nova major e revisão do Arquiteto. O contrato
 permanece congelado antes das stories de implementação subsequentes.
 
 ## Autoridade de dados
