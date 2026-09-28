@@ -46,7 +46,8 @@
   "allow_paths": [
     "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/sprint-001-parte-5/**",
     "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/sprint-001-parte-5/**",
-    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py"
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+    "evidence/implementation/governanca-continua-do-backlog-e-decomposicao-de-e/sprint-001-parte-5/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -123,7 +124,8 @@
       "allow_paths": [
         "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/sprint-001-parte-5/**",
         "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/sprint-001-parte-5/**",
-        "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py"
+        "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py",
+        "evidence/implementation/governanca-continua-do-backlog-e-decomposicao-de-e/sprint-001-parte-5/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

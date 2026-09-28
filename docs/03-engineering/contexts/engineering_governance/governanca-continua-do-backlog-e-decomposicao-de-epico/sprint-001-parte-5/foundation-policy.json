@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "ENGINEERING-SPRINT-FOUNDATION-EXECUTION",
+  "owner": "BC-001",
+  "status": "CANDIDATE",
+  "controls": {
+    "graph_selection": {
+      "source": "docs/06-delivery/STORY_DEPENDENCY_GRAPH.json",
+      "closure": "DETERMINISTIC_HARD_PREDECESSORS",
+      "gates": [
+        "DEPENDENCIES",
+        "REQUIREMENTS",
+        "RISK"
+      ],
+      "caller_selected_issues": "REJECT"
+    },
+    "vertical_waves": {
+      "selection": "GRAPH_DERIVED",
+      "size": "PROPER_SUBSET",
+      "direct_blockers": "COMPLETED_WITH_EVIDENCE",
+      "evidence_oriented": "REQUIRED",
+      "unbounded_wave": "REJECT"
+    },
+    "essential_contracts": {
+      "scope": "EXACT_ESSENTIAL_SET",
+      "versioned": "REQUIRED",
+      "exercise_evidence": "REQUIRED",
+      "missing_or_extra_contract": "REJECT"
+    },
+    "synthetic_diagnostic": {
+      "synthetic": "REQUIRED",
+      "end_to_end": "REQUIRED",
+      "functional_georeferencing_claim": "REJECT",
+      "passing_execution_evidence": "REQUIRED"
+    },
+    "progressive_ci": {
+      "capability_source": "REPOSITORY_REVISION",
+      "test_per_present_capability": "REQUIRED",
+      "make_verify_parity": "REQUIRED",
+      "caller_capability_assertion": "IGNORED",
+      "untested_present_capability": "REJECT"
+    },
+    "sprint_evidence_set": {
+      "record_type": "SPRINT_EVIDENCE_SET",
+      "machine_readable": "REQUIRED",
+      "immutable_digest": "SHA-256",
+      "human_summary": "REQUIRED",
+      "incomplete_or_mutated_evidence": "REJECT"
+    },
+    "sprint_closure": {
+      "basis": "EVIDENCE",
+      "calendar_closure": "REJECT",
+      "extension_authority": "PRODUCT_OWNER",
+      "extension_basis": "DIRECT_GRAPH_BLOCKER",
+      "self_declared_extension": "REJECT"
+    },
+    "first_slice_cutover": {
+      "mode": "EXPLICIT",
+      "foundation_gate": "G1_APPROVED",
+      "first_slice_authorization": "REQUIRED",
+      "candidate_lineage": "REQUIRED",
+      "silent_or_unapproved_cutover": "REJECT"
+    }
+  },
+  "requirement_evidence": {
+    "REQ-SPRINT-001-002": "test_sprint_zero_baseline_decision_02",
+    "REQ-SPRINT-001-003": "test_sprint_zero_baseline_decision_03",
+    "REQ-SPRINT-001-005": "test_sprint_zero_baseline_decision_05",
+    "REQ-SPRINT-001-006": "test_sprint_zero_baseline_decision_06",
+    "REQ-SPRINT-001-007": "test_sprint_zero_baseline_decision_07",
+    "REQ-SPRINT-001-008": "test_sprint_zero_baseline_decision_08",
+    "REQ-SPRINT-001-009": "test_sprint_zero_baseline_decision_09",
+    "REQ-SPRINT-001-010": "test_sprint_zero_baseline_decision_10"
+  }
+}
