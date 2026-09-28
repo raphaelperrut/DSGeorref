@@ -1,0 +1,278 @@
+{
+  "task_id": "TASK-0767",
+  "issue_id": "ISSUE-0996",
+  "story_id": "STORY-0008",
+  "epic_id": "EPIC-002",
+  "sprint_id": "SPRINT-001",
+  "role": "Tech Lead",
+  "outcome": "Update the repository root README with an accurate product overview and the canonical twelve-sprint implementation roadmap, without changing software behavior or any other project artifact.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-003-tech-lead.md",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    "https://github.com/raphaelperrut/DSGeorref/issues/996",
+    "README.md",
+    "docs/06-delivery/ROADMAP.md",
+    "docs/06-delivery/PHASE_ROADMAP.md",
+    "docs/02-architecture/sar/SAR-000-START-HERE.md",
+    "docs/07-assurance/PHASE-F-SPRINT-REVIEW-REPORT.md",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
+    "docs/06-delivery/sprint-backlogs/SPRINT-001-BACKLOG.md",
+    "docs/06-delivery/sprint-backlogs/SPRINT-002-BACKLOG.md",
+    "docs/06-delivery/sprint-backlogs/SPRINT-003-BACKLOG.md",
+    "docs/06-delivery/sprint-backlogs/SPRINT-004-BACKLOG.md",
+    "docs/06-delivery/sprint-backlogs/SPRINT-005-BACKLOG.md",
+    "docs/06-delivery/sprint-backlogs/SPRINT-006-BACKLOG.md",
+    "docs/06-delivery/sprint-backlogs/SPRINT-007-BACKLOG.md",
+    "docs/06-delivery/sprint-backlogs/SPRINT-008-BACKLOG.md",
+    "docs/06-delivery/sprint-backlogs/SPRINT-009-BACKLOG.md",
+    "docs/06-delivery/sprint-backlogs/SPRINT-010-BACKLOG.md",
+    "docs/06-delivery/sprint-backlogs/SPRINT-011-BACKLOG.md",
+    "docs/06-delivery/sprint-backlogs/SPRINT-012-BACKLOG.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md"
+  ],
+  "allow_paths": [
+    "README.md",
+    ".codex/tasks/operations/TASK-0767.json"
+  ],
+  "deny_paths": [
+    "AGENTS.md",
+    ".github/**",
+    ".codex/tasks/operations/TASK-0762.json",
+    ".codex/tasks/operations/TASK-0763.json",
+    ".codex/tasks/operations/TASK-0764.json",
+    ".codex/tasks/operations/TASK-0765.json",
+    ".codex/tasks/operations/TASK-0766.json",
+    "docs/**",
+    "contracts/**",
+    "src/**",
+    "tests/**",
+    "infra/**",
+    "tools/**",
+    "data/**",
+    "models/**",
+    "evidence/**",
+    "**/migrations/**",
+    "**/.env*",
+    "secrets/**",
+    "credentials/**",
+    "config/secrets/**",
+    "config/credentials/**",
+    "**/*.pem",
+    "**/*.key"
+  ],
+  "acceptance_criteria": [
+    "The README clearly and concisely presents the purpose of DSGeorref and distinguishes the product vision from capabilities already materialized.",
+    "The README reports the current canonical roadmap totals of 110 epics, 761 implementable stories and 871 issues, unless the canonical source has demonstrably changed at execution time.",
+    "The README contains exactly twelve sprint entries, SPRINT-001 through SPRINT-012, each with a Markdown checkbox, canonical name, concise objective, expected result and relative link to the canonical backlog.",
+    "No sprint is marked complete with [x] without canonical evidence that the entire sprint has been formally closed.",
+    "The README does not present an obsolete BLOCKED_EXTERNAL implementation statement as current state when it contradicts the current program state.",
+    "The functional diff is limited to README.md, every referenced relative link resolves, and no software behavior or other project artifact changes."
+  ],
+  "tests": [
+    "python -m jsonschema -i .codex/tasks/operations/TASK-0767.json .codex/tasks/TASK_ENVELOPE.schema.json",
+    "Verify that README.md is the only functional path changed and that no denied path changed.",
+    "Verify exactly twelve sprint checklist entries, from SPRINT-001 through SPRINT-012, with none marked complete without canonical evidence.",
+    "Verify roadmap totals against docs/06-delivery/ROADMAP.md and resolve every relative link added to README.md.",
+    "Run any existing cheap README-specific Markdown or documentation check that applies.",
+    "make verify"
+  ],
+  "evidence": [
+    "GitHub issue #996",
+    "README.md diff",
+    "exact changed-path inventory separating README.md from the TaskEnvelope control-plane record",
+    "twelve-sprint checklist count and completion-state check",
+    "roadmap total comparison against docs/06-delivery/ROADMAP.md",
+    "relative-link validation output",
+    "applicable documentation validation and make verify results"
+  ],
+  "dependencies": [],
+  "stop_conditions": [
+    "A canonical source is absent or contradictory for a material README statement.",
+    "The functional write scope must expand beyond README.md.",
+    "The change would require modifying code, tests, ADRs, specifications, contracts, stories, sprint backlogs, architectural documentation, governance rules or any other project artifact.",
+    "A sprint would be marked complete without canonical evidence of formal closure of the sprint as a whole.",
+    "The branch or worktree contains unrelated changes or another issue or TaskEnvelope.",
+    "Independent review cannot be performed on the same candidate commit."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0996-01",
+    "AC-ISSUE-0996-02",
+    "AC-ISSUE-0996-03",
+    "AC-ISSUE-0996-04",
+    "AC-ISSUE-0996-05",
+    "AC-ISSUE-0996-06"
+  ],
+  "governing_adrs": [
+    "ADR-006",
+    "ADR-007"
+  ],
+  "requirement_basis": "DERIVED_CONTROL",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-001",
+  "context_map_dependencies": [],
+  "domain_model_impact": "NONE",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 0,
+      "items": []
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "README.md",
+        ".codex/tasks/operations/TASK-0767.json"
+      ],
+      "deny_paths": [
+        "AGENTS.md",
+        ".github/**",
+        ".codex/tasks/operations/TASK-0762.json",
+        ".codex/tasks/operations/TASK-0763.json",
+        ".codex/tasks/operations/TASK-0764.json",
+        ".codex/tasks/operations/TASK-0765.json",
+        ".codex/tasks/operations/TASK-0766.json",
+        "docs/**",
+        "contracts/**",
+        "src/**",
+        "tests/**",
+        "infra/**",
+        "tools/**",
+        "data/**",
+        "models/**",
+        "evidence/**",
+        "**/migrations/**",
+        "**/.env*",
+        "secrets/**",
+        "credentials/**",
+        "config/secrets/**",
+        "config/credentials/**",
+        "**/*.pem",
+        "**/*.key"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "TaskEnvelope JSON Schema validation",
+        "exact functional write-scope inspection",
+        "twelve-sprint checklist and completion-state validation",
+        "canonical roadmap total comparison",
+        "relative-link validation",
+        "applicable documentation validation and make verify"
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "PASS",
+      "kinds": [
+        "repository entry-page documentation",
+        "focused validation output"
+      ],
+      "evidence": [
+        "GitHub issue #996",
+        "README.md diff",
+        "exact changed-path inventory",
+        "sprint checklist and roadmap count verification",
+        "relative-link validation output"
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 6,
+      "ids": [
+        "AC-ISSUE-0996-01",
+        "AC-ISSUE-0996-02",
+        "AC-ISSUE-0996-03",
+        "AC-ISSUE-0996-04",
+        "AC-ISSUE-0996-05",
+        "AC-ISSUE-0996-06"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "MEDIUM",
+    "applicable_controls": [
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-006",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-005",
+      "CTO-007",
+      "CTO-008",
+      "CTO-009",
+      "CTO-010",
+      "CTO-011",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "exact README.md-only functional diff",
+      "canonical roadmap totals and twelve-sprint checklist verification",
+      "relative-link validation",
+      "independent QA and Reviewer results on the same candidate commit"
+    ],
+    "production_gate": "IMPLEMENTATION_AUTHORIZATION"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}
