@@ -34,8 +34,10 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0684.json",
     "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/consolidacao/**",
-    "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/consolidacao/**"
+    "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/consolidacao/**",
+    "evidence/implementation/epic-110/story-0684/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -109,8 +111,10 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0684.json",
         "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/consolidacao/**",
-        "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/consolidacao/**"
+        "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/consolidacao/**",
+        "evidence/implementation/epic-110/story-0684/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
