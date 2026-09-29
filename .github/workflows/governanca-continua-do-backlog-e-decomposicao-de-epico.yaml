@@ -1,0 +1,59 @@
+name: EPIC-110 backlog governance automation
+
+on:
+  pull_request:
+    paths:
+      - ".codex/tasks/TASK-0685.json"
+      - "contracts/contexts/engineering_governance/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/**"
+      - "contracts/contexts/engineering_governance/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/**"
+      - "contracts/contexts/engineering_governance/fnd/repositorio-privado-project-central-views-campos-label/classicprofile-iss-native-parte-1/**"
+      - "tools/quality/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/**"
+      - "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py"
+      - "tests/fnd/repositorio-privado-project-central-views-campos-label/test_foundation_conformance.py"
+      - "tests/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/**"
+      - ".github/workflows/governanca-continua-do-backlog-e-decomposicao-de-epico.yaml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-epic-110-governance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12.13"
+
+      - name: Install validation dependencies
+        run: >-
+          python -m pip install --disable-pip-version-check
+          PyYAML==6.0.3 jsonschema==4.26.0 pytest==9.1.1
+
+      - name: Run observable fail-closed validator
+        run: >-
+          python
+          tools/quality/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/validator.py
+
+      - name: Run linked requirement proofs
+        run: >-
+          python -m pytest
+          tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py::test_versioned_issue_portfolio_catalog_github_reconciliation
+          tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py::test_issue_forecast_min_mode_max_confidence_and_snapshot_variance
+          tests/fnd/repositorio-privado-project-central-views-campos-label/test_foundation_conformance.py::test_cross_domain_contract_checkpoint_and_walking_skeleton_integration
+          tests/fnd/repositorio-privado-project-central-views-campos-label/test_foundation_conformance.py::test_canonical_workflow_transitions
+          tests/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/test_epic_110_contract.py
+          -q
+
+      - name: Test happy path, fail-closed diagnostics, and idempotency
+        run: >-
+          python -m pytest
+          tests/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/test_automation.py
+          -q
