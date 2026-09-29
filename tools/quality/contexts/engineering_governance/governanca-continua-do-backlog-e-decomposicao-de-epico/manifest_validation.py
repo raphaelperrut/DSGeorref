@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -124,6 +125,60 @@ def _validate_requirement_entry(
     return findings
 
 
+def _validate_requirement_cardinality(entries: list[Any]) -> list[Finding]:
+    findings: list[Finding] = []
+    expect_equal(
+        findings,
+        artifact=MANIFEST_REL,
+        field="requirements.count",
+        actual=len(entries),
+        expected=len(EXPECTED_REQUIREMENTS),
+        code="REQUIREMENT_MAPPING_COUNT_MISMATCH",
+    )
+    requirement_ids = [
+        entry.get("id")
+        for entry in entries
+        if isinstance(entry, dict) and isinstance(entry.get("id"), str)
+    ]
+    for requirement_id, count in sorted(Counter(requirement_ids).items()):
+        if count > 1:
+            findings.append(
+                finding(
+                    MANIFEST_REL,
+                    "DUPLICATE_REQUIREMENT_MAPPING",
+                    f"requirement id {requirement_id} occurs {count} times",
+                    f"Keep exactly one mapping for {requirement_id}.",
+                )
+            )
+    return findings
+
+
+def _validate_proof_cardinality(proof_tests: Any) -> list[Finding]:
+    findings: list[Finding] = []
+    if not isinstance(proof_tests, list):
+        return findings
+    expect_equal(
+        findings,
+        artifact=MANIFEST_REL,
+        field="proof.required_tests.count",
+        actual=len(proof_tests),
+        expected=len(EXPECTED_REQUIREMENTS),
+        code="PROOF_COUNT_MISMATCH",
+    )
+    proof_names = [item for item in proof_tests if isinstance(item, str)]
+    for proof_name, count in sorted(Counter(proof_names).items()):
+        if count > 1:
+            findings.append(
+                finding(
+                    MANIFEST_REL,
+                    "DUPLICATE_PROOF",
+                    f"proof {proof_name} occurs {count} times",
+                    f"Keep exactly one proof entry for {proof_name}.",
+                )
+            )
+    return findings
+
+
 def _validate_requirements(manifest: dict[str, Any]) -> list[Finding]:
     findings: list[Finding] = []
     entries = manifest.get("requirements")
@@ -137,6 +192,7 @@ def _validate_requirements(manifest: dict[str, Any]) -> list[Finding]:
                 "Restore the five frozen requirement-to-control mappings.",
             )
         )
+    findings.extend(_validate_requirement_cardinality(entries))
     mapped = {
         entry.get("id"): entry
         for entry in entries
@@ -155,11 +211,16 @@ def _validate_requirements(manifest: dict[str, Any]) -> list[Finding]:
         if entry is not None:
             findings.extend(_validate_requirement_entry(requirement_id, expectation, entry))
     proof_tests = _mapping(manifest.get("proof")).get("required_tests")
+    findings.extend(_validate_proof_cardinality(proof_tests))
     expect_equal(
         findings,
         artifact=MANIFEST_REL,
         field="proof.required_tests",
-        actual=set(proof_tests) if isinstance(proof_tests, list) else proof_tests,
+        actual=(
+            set(proof_tests)
+            if isinstance(proof_tests, list) and all(isinstance(item, str) for item in proof_tests)
+            else proof_tests
+        ),
         expected={value["test"] for value in EXPECTED_REQUIREMENTS.values()},
         code="PROOF_SET_MISMATCH",
     )

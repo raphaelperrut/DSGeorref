@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import hashlib
 import importlib.util
 import json
@@ -19,6 +20,9 @@ ROOT = Path(__file__).resolve().parents[3]
 VALIDATOR_REL = Path(
     "tools/quality/contexts/engineering_governance/"
     "governanca-continua-do-backlog-e-decomposicao-de-epico/validator.py"
+)
+CONTRACT_TEST_REL = Path(
+    "tests/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/test_epic_110_contract.py"
 )
 CONTRACT_REL = Path(
     "contracts/contexts/engineering_governance/fnd/"
@@ -87,6 +91,21 @@ def _load_validator() -> ModuleType:
 validator = _load_validator()
 
 
+def _load_contract_test() -> ModuleType:
+    spec = importlib.util.spec_from_file_location(
+        "epic_110_contract_test",
+        ROOT / CONTRACT_TEST_REL,
+    )
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+contract_test = _load_contract_test()
+
+
 def _copy_inputs(destination: Path) -> None:
     for relative in INPUT_RELS:
         target = destination / relative
@@ -145,6 +164,19 @@ def _write_json(root: Path, relative: Path, value: dict[str, Any]) -> None:
     )
 
 
+def _read_manifest(root: Path) -> dict[str, Any]:
+    manifest = yaml.safe_load((root / MANIFEST_REL).read_text(encoding="utf-8"))
+    assert isinstance(manifest, dict)
+    return manifest
+
+
+def _write_manifest(root: Path, manifest: dict[str, Any]) -> None:
+    (root / MANIFEST_REL).write_text(
+        yaml.safe_dump(manifest, sort_keys=False),
+        encoding="utf-8",
+    )
+
+
 def _remove_manifest(root: Path) -> None:
     (root / MANIFEST_REL).unlink()
 
@@ -160,11 +192,28 @@ def _add_fail_open_fallback(root: Path) -> None:
 
 
 def _remove_requirement_mapping(root: Path) -> None:
-    path = root / MANIFEST_REL
-    manifest = yaml.safe_load(path.read_text(encoding="utf-8"))
-    assert isinstance(manifest, dict)
+    manifest = _read_manifest(root)
     manifest["requirements"] = manifest["requirements"][1:]
-    path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
+    _write_manifest(root, manifest)
+
+
+def _duplicate_requirement_mapping(root: Path) -> None:
+    manifest = _read_manifest(root)
+    manifest["requirements"].append(copy.deepcopy(manifest["requirements"][0]))
+    _write_manifest(root, manifest)
+
+
+def _duplicate_proof(root: Path) -> None:
+    manifest = _read_manifest(root)
+    manifest["proof"]["required_tests"].append(manifest["proof"]["required_tests"][0])
+    _write_manifest(root, manifest)
+
+
+def _duplicate_mapping_and_proof(root: Path) -> None:
+    manifest = _read_manifest(root)
+    manifest["requirements"].append(copy.deepcopy(manifest["requirements"][0]))
+    manifest["proof"]["required_tests"].append(manifest["proof"]["required_tests"][0])
+    _write_manifest(root, manifest)
 
 
 def _remove_referenced_contract(root: Path) -> None:
@@ -203,7 +252,10 @@ def test_epic_110_automacao() -> None:
         "version": "1.0.0",
         "owner": "BC-001",
     }
-    assert {evidence["requirement_id"] for evidence in report["requirement_evidence"]} == {
+    requirement_ids = [evidence["requirement_id"] for evidence in report["requirement_evidence"]]
+    assert len(requirement_ids) == 5
+    assert len(set(requirement_ids)) == len(requirement_ids)
+    assert set(requirement_ids) == {
         "REQ-ISM-004",
         "REQ-ISS-002",
         "REQ-PLN-009",
@@ -232,6 +284,85 @@ def test_automation_is_idempotent_and_read_only(tmp_path: Path) -> None:
     assert first_cli.stdout == second_cli.stdout
     assert first_cli.stderr == second_cli.stderr == ""
     assert _snapshot(tmp_path) == after
+
+
+def test_duplicate_requirement_mapping_is_rejected_with_diagnostic(
+    tmp_path: Path,
+) -> None:
+    _copy_inputs(tmp_path)
+    _duplicate_requirement_mapping(tmp_path)
+
+    report = validator.build_report(tmp_path)
+
+    assert report["status"] == "FAIL"
+    duplicate = next(
+        finding
+        for finding in report["findings"]
+        if finding["code"] == "DUPLICATE_REQUIREMENT_MAPPING"
+    )
+    assert "REQ-ISM-004" in duplicate["detail"]
+    assert "2 times" in duplicate["detail"]
+    assert "exactly one mapping" in duplicate["remediation"]
+
+
+def test_duplicate_proof_is_rejected_with_diagnostic(tmp_path: Path) -> None:
+    _copy_inputs(tmp_path)
+    _duplicate_proof(tmp_path)
+
+    report = validator.build_report(tmp_path)
+
+    assert report["status"] == "FAIL"
+    duplicate = next(
+        finding for finding in report["findings"] if finding["code"] == "DUPLICATE_PROOF"
+    )
+    assert "test_versioned_issue_portfolio_catalog_github_reconciliation" in duplicate["detail"]
+    assert "2 times" in duplicate["detail"]
+    assert "exactly one proof entry" in duplicate["remediation"]
+
+
+def test_six_mapping_and_proof_regression_is_fail_closed_and_idempotent(
+    tmp_path: Path,
+) -> None:
+    _copy_inputs(tmp_path)
+    _duplicate_mapping_and_proof(tmp_path)
+    manifest = _read_manifest(tmp_path)
+    assert len(manifest["requirements"]) == 6
+    assert len(manifest["proof"]["required_tests"]) == 6
+    before = _snapshot(tmp_path)
+
+    first = _run_cli(tmp_path)
+    second = _run_cli(tmp_path)
+
+    assert first.returncode == second.returncode == 1
+    assert first.stdout == second.stdout
+    assert first.stderr == second.stderr == ""
+    assert "Traceback" not in first.stdout
+    report = json.loads(first.stdout)
+    assert report["status"] == "FAIL"
+    assert report["failure_policy"] == "FAIL_CLOSED"
+    codes = {finding["code"] for finding in report["findings"]}
+    assert {
+        "DUPLICATE_REQUIREMENT_MAPPING",
+        "REQUIREMENT_MAPPING_COUNT_MISMATCH",
+        "DUPLICATE_PROOF",
+        "PROOF_COUNT_MISMATCH",
+    } <= codes
+    assert _snapshot(tmp_path) == before
+
+
+def test_contract_sentinel_rejects_six_mapping_and_proof_regression(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _copy_inputs(tmp_path)
+    _duplicate_mapping_and_proof(tmp_path)
+    monkeypatch.setattr(contract_test, "MANIFEST_PATH", tmp_path / MANIFEST_REL)
+    contract_test._load_manifest.cache_clear()
+
+    with pytest.raises(AssertionError):
+        contract_test.test_epic_110_contrato()
+
+    contract_test._load_manifest.cache_clear()
 
 
 @pytest.mark.parametrize(("case", "expected_code", "mutate"), FAIL_CLOSED_CASES)
