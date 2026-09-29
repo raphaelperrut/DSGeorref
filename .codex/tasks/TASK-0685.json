@@ -39,9 +39,11 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
+    ".codex/tasks/TASK-0685.json",
     "tests/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/**",
     "tools/quality/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/**",
-    ".github/workflows/governanca-continua-do-backlog-e-decomposicao-de-epico.yaml"
+    ".github/workflows/governanca-continua-do-backlog-e-decomposicao-de-epico.yaml",
+    "evidence/operations/epic-110/story-0685/**"
   ],
   "deny_paths": [
     "src/geo/**",
@@ -112,9 +114,11 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
+        ".codex/tasks/TASK-0685.json",
         "tests/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/**",
         "tools/quality/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/**",
-        ".github/workflows/governanca-continua-do-backlog-e-decomposicao-de-epico.yaml"
+        ".github/workflows/governanca-continua-do-backlog-e-decomposicao-de-epico.yaml",
+        "evidence/operations/epic-110/story-0685/**"
       ],
       "deny_paths": [
         "src/geo/**",

@@ -132,12 +132,18 @@ def test_epic_110_contrato() -> None:
         "state_machine",
     ]
 
-    requirements = {entry["id"]: entry for entry in manifest["requirements"]}
+    requirement_entries = manifest["requirements"]
+    assert len(requirement_entries) == len(REQUIREMENT_TESTS)
+    requirements = {entry["id"]: entry for entry in requirement_entries}
+    assert len(requirements) == len(requirement_entries)
     assert set(requirements) == set(REQUIREMENT_TESTS)
     for requirement, test_name in REQUIREMENT_TESTS.items():
         assert requirements[requirement]["test"] == test_name
         assert requirements[requirement]["failure_modes"]
-    assert set(manifest["proof"]["required_tests"]) == set(REQUIREMENT_TESTS.values())
+    proof_tests = manifest["proof"]["required_tests"]
+    assert len(proof_tests) == len(REQUIREMENT_TESTS)
+    assert len(set(proof_tests)) == len(proof_tests)
+    assert set(proof_tests) == set(REQUIREMENT_TESTS.values())
 
     controls = profile["controls"]
     assert controls["forecast"]["components"] == [
