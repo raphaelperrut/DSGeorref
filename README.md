@@ -38,7 +38,7 @@ Os sprints oferecem a visão temporal e macroscópica da entrega. A ordem efetiv
 
 Um checkbox marcado representa o encerramento formal do sprint inteiro, não progresso parcial. Na ausência dessa evidência canônica, o sprint permanece desmarcado.
 
-### [ ] SPRINT-001 — Repositório, governança e fundação executável
+### [X] SPRINT-001 — Repositório, governança e fundação executável
 
 **12 épicos · 94 histórias**
 
