@@ -37,7 +37,8 @@
   ],
   "allow_paths": [
     "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/**",
-    "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/**"
+    "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/**",
+    "evidence/implementation/epic-110/story-0686/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -106,7 +107,8 @@
       "status": "PASS",
       "allow_paths": [
         "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/**",
-        "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/**"
+        "docs/03-engineering/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/**",
+        "evidence/implementation/epic-110/story-0686/**"
       ],
       "deny_paths": [
         "src/**/epic-*",
