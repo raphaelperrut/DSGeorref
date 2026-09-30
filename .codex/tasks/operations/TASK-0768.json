@@ -1,0 +1,267 @@
+{
+  "task_id": "TASK-0768",
+  "issue_id": "ISSUE-1003",
+  "story_id": "STORY-0503",
+  "epic_id": "EPIC-080",
+  "sprint_id": "SPRINT-011",
+  "role": "DevOps",
+  "outcome": "Remediate Dependabot alert #2 by changing only the pnpm lockfile resolution of transitive undici 8.10.1 to a non-vulnerable version at or above 8.10.2, without direct-dependency, override, application-code or unrelated graph changes.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-009-devops.md",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    "https://github.com/raphaelperrut/DSGeorref/issues/1003",
+    "https://github.com/raphaelperrut/DSGeorref/security/dependabot/2",
+    "docs/06-delivery/issues/ISSUE-0080-lockfiles-pins-por-digest-sha-scanners-sbom-assinatura-oci-attestation.md",
+    "docs/06-delivery/stories/STORY-0503-ISSUE-0613-instrumentar-deteccao-resposta-e-runbook-lockfiles-pins-por-digest-sha-sca.md",
+    "docs/06-delivery/epics/EPIC-080-lockfiles-pins-por-digest-sha-scanners-sbom-assinatura-oci-attestation.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-033-supply-chain-sbom-assinaturas-e-dependencias.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "package.json",
+    "src/frontend/package.json",
+    "pnpm-workspace.yaml",
+    "pnpm-lock.yaml"
+  ],
+  "allow_paths": [
+    "pnpm-lock.yaml",
+    ".codex/tasks/operations/TASK-0768.json"
+  ],
+  "deny_paths": [
+    "package.json",
+    "pnpm-workspace.yaml",
+    ".npmrc",
+    "**/package.json",
+    "src/**",
+    ".github/**",
+    "docs/**",
+    "contracts/**",
+    "tests/**",
+    "infra/**",
+    "tools/**",
+    "data/**",
+    "models/**",
+    "evidence/**",
+    "**/migrations/**",
+    "**/.env*",
+    "secrets/**",
+    "credentials/**",
+    "config/secrets/**",
+    "config/credentials/**",
+    "**/*.pem",
+    "**/*.key"
+  ],
+  "acceptance_criteria": [
+    "AC-01: No vulnerable resolution of undici below 8.10.2 remains in the lockfile or installed dependency graph.",
+    "AC-02: The lockfile remains valid and the applicable frozen installation passes with Node 24.20.0 and pnpm 10.26.1.",
+    "AC-03: The minimum directly affected frontend validations pass on the required runtime.",
+    "AC-04: The diff contains no dependency update or lockfile churn unrelated to Dependabot alert #2."
+  ],
+  "tests": [
+    "python -m jsonschema -i .codex/tasks/operations/TASK-0768.json .codex/tasks/TASK_ENVELOPE.schema.json",
+    "Verify exact runtime versions with node --version and pnpm --version: Node 24.20.0 and pnpm 10.26.1.",
+    "Run pnpm why undici -r and inspect every undici package and snapshot entry in pnpm-lock.yaml; all resolved versions must be at least 8.10.2.",
+    "pnpm install --frozen-lockfile",
+    "pnpm run frontend:typecheck",
+    "pnpm run frontend:test:unit",
+    "Inspect git diff -- pnpm-lock.yaml and the complete changed-path inventory for unrelated dependency churn.",
+    "make verify"
+  ],
+  "evidence": [
+    "GitHub issue #1003",
+    "Node and pnpm version output",
+    "final pnpm why undici -r output and complete lockfile resolution inventory",
+    "frozen installation result",
+    "focused frontend typecheck and unit-test results",
+    "pnpm-lock.yaml diff and exact changed-path inventory",
+    "candidate commit and independent QA, Security and Reviewer results"
+  ],
+  "dependencies": [],
+  "stop_conditions": [
+    "Normal deterministic resolution cannot produce undici at or above 8.10.2 without changing an unrelated dependency.",
+    "The functional write scope must expand beyond pnpm-lock.yaml or requires a package manifest, override, direct undici dependency, source-code, test, workflow, contract, schema, ADR or evidence-file change.",
+    "Any undici resolution below 8.10.2 remains in the lockfile or installed graph.",
+    "Frozen installation or focused frontend validation fails under Node 24.20.0 and pnpm 10.26.1.",
+    "The lockfile diff contains unrelated package or integrity churn.",
+    "The branch or worktree contains another issue, another TaskEnvelope or unrelated changes.",
+    "Independent QA, Security and Reviewer validation cannot be performed on the same candidate commit."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-1003-01",
+    "AC-ISSUE-1003-02",
+    "AC-ISSUE-1003-03",
+    "AC-ISSUE-1003-04"
+  ],
+  "governing_adrs": [
+    "ADR-006",
+    "ADR-007",
+    "ADR-033"
+  ],
+  "requirement_basis": "DERIVED_CONTROL",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-015",
+  "context_map_dependencies": [],
+  "domain_model_impact": "NONE",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 0,
+      "items": []
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "pnpm-lock.yaml",
+        ".codex/tasks/operations/TASK-0768.json"
+      ],
+      "deny_paths": [
+        "package.json",
+        "pnpm-workspace.yaml",
+        ".npmrc",
+        "**/package.json",
+        "src/**",
+        ".github/**",
+        "docs/**",
+        "contracts/**",
+        "tests/**",
+        "infra/**",
+        "tools/**",
+        "data/**",
+        "models/**",
+        "evidence/**",
+        "**/migrations/**",
+        "**/.env*",
+        "secrets/**",
+        "credentials/**",
+        "config/secrets/**",
+        "config/credentials/**",
+        "**/*.pem",
+        "**/*.key"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "src/frontend/package.json (read-only direct-dependency authority)",
+        "pnpm-lock.yaml"
+      ]
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "TaskEnvelope JSON Schema validation",
+        "exact Node 24.20.0 and pnpm 10.26.1 runtime check",
+        "complete undici resolution proof",
+        "frozen pnpm installation",
+        "focused frontend typecheck and jsdom unit test",
+        "exact lockfile and changed-path diff inspection",
+        "make verify before handoff"
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "PASS",
+      "kinds": [
+        "dependency-resolution evidence",
+        "focused validation output"
+      ],
+      "evidence": [
+        "GitHub issue #1003",
+        "runtime, graph, frozen-install, focused frontend and diff results recorded in pull-request checks or logs",
+        "independent QA, Security and Reviewer results on the same candidate commit"
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 4,
+      "ids": [
+        "AC-ISSUE-1003-01",
+        "AC-ISSUE-1003-02",
+        "AC-ISSUE-1003-03",
+        "AC-ISSUE-1003-04"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "QA",
+        "Security",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "MEDIUM",
+    "applicable_controls": [
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-006",
+      "CTO-008",
+      "CTO-010",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-005",
+      "CTO-007",
+      "CTO-009",
+      "CTO-011",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "complete final undici graph with no resolution below 8.10.2",
+      "frozen installation under Node 24.20.0 and pnpm 10.26.1",
+      "focused frontend validation results",
+      "pnpm-lock.yaml-only functional diff with no unrelated dependency churn",
+      "independent QA, Security and Reviewer results on the same candidate commit"
+    ],
+    "production_gate": "SECURITY_AND_PRIVACY_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}
