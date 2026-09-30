@@ -35,7 +35,9 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
-    "evidence/reviews/governanca-continua-do-backlog-e-decomposicao-de-epico/**"
+    "evidence/reviews/governanca-continua-do-backlog-e-decomposicao-de-epico/**",
+    "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/aceite/test_final_acceptance.py",
+    ".codex/tasks/TASK-0687.json"
   ],
   "deny_paths": [
     "src/**",
@@ -55,7 +57,7 @@
     "test_epic_110_aceite_negative_paths"
   ],
   "evidence": [
-    "evidence/reviews/epic-110/story-0687/",
+    "evidence/reviews/governanca-continua-do-backlog-e-decomposicao-de-epico/story-0687/",
     "commit candidato e relatório de testes"
   ],
   "dependencies": [
@@ -105,7 +107,9 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
-        "evidence/reviews/governanca-continua-do-backlog-e-decomposicao-de-epico/**"
+        "evidence/reviews/governanca-continua-do-backlog-e-decomposicao-de-epico/**",
+        "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/aceite/test_final_acceptance.py",
+        ".codex/tasks/TASK-0687.json"
       ],
       "deny_paths": [
         "src/**",
@@ -158,7 +162,7 @@
         "Audit"
       ],
       "evidence": [
-        "evidence/reviews/epic-110/story-0687/",
+        "evidence/reviews/governanca-continua-do-backlog-e-decomposicao-de-epico/story-0687/",
         "commit candidato e relatório de testes"
       ],
       "contract": null
