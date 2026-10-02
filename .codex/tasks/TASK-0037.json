@@ -46,7 +46,10 @@
   ],
   "allow_paths": [
     "src/backend/dsgeorref/contexts/identity_access/application/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/consolidacao/**",
-    "src/backend/dsgeorref/contexts/identity_access/adapters/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/consolidacao/**"
+    "src/backend/dsgeorref/contexts/identity_access/adapters/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/consolidacao/**",
+    ".codex/tasks/TASK-0037.json",
+    "tests/backend/identity_access/local_identity/test_slice_consolidation.py",
+    "evidence/implementation/epic-008/story-0037/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -119,7 +122,10 @@
       "status": "PASS",
       "allow_paths": [
         "src/backend/dsgeorref/contexts/identity_access/application/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/consolidacao/**",
-        "src/backend/dsgeorref/contexts/identity_access/adapters/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/consolidacao/**"
+        "src/backend/dsgeorref/contexts/identity_access/adapters/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/consolidacao/**",
+    ".codex/tasks/TASK-0037.json",
+    "tests/backend/identity_access/local_identity/test_slice_consolidation.py",
+    "evidence/implementation/epic-008/story-0037/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

@@ -1,0 +1,372 @@
+{
+  "issue_id": "ISSUE-0147",
+  "github_issue": 113,
+  "story_id": "STORY-0037",
+  "task_id": "TASK-0037",
+  "owner": "BC-002",
+  "checked_at": "2026-10-02T22:33:37.909999+00:00",
+  "candidate_binding": "The single commit containing this report, HANDOFF.md and test_slice_consolidation.py; candidate SHA reported at handoff. Independent reviews must target that SHA.",
+  "branch": "codex/issue-0147-slice-consolidation",
+  "baseline_sha": "39afd61937a2873e4385fc35dbbe2838e32457bc",
+  "baseline_slices": {
+    "STORY-0712": {
+      "merge_sha": "ba0b63ddbe010a74c7e9ebeeb48f28b18e2864f5",
+      "implementation_sha": "a61be06e765f6af360487d36f122b462aa8eef2e",
+      "h1_sha": "5f71f1a6b915095905f76357cd4589c752d30857",
+      "github_issue": 155,
+      "issue_state": "CLOSED",
+      "ancestor_of_candidate": true
+    },
+    "STORY-0713": {
+      "merge_sha": "39afd61937a2873e4385fc35dbbe2838e32457bc",
+      "implementation_sha": "a2206c146b64273e3b8bcb4cea7ec73a72ea0540",
+      "github_issue": 156,
+      "issue_state": "CLOSED",
+      "ancestor_of_candidate": true
+    }
+  },
+  "requirement_coverage": {
+    "REQ-AUTH-IMPL-001": {
+      "owner": "STORY-0712",
+      "test": "test_req_auth_impl_001",
+      "reused_evidence": [
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/mandatory-tests.xml"
+      ],
+      "status": "PASS"
+    },
+    "REQ-AUTH-IMPL-002": {
+      "owner": "STORY-0712",
+      "test": "test_req_auth_impl_002",
+      "reused_evidence": [
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/mandatory-tests.xml"
+      ],
+      "status": "PASS"
+    },
+    "REQ-AUTH-IMPL-003": {
+      "owner": "STORY-0712",
+      "test": "test_req_auth_impl_003",
+      "reused_evidence": [
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/mandatory-tests.xml"
+      ],
+      "status": "PASS"
+    },
+    "REQ-AUTH-IMPL-004": {
+      "owner": "STORY-0712",
+      "test": "test_req_auth_impl_004",
+      "reused_evidence": [
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/mandatory-tests.xml",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-focused-tests.xml"
+      ],
+      "status": "PASS"
+    },
+    "REQ-AUTH-IMPL-005": {
+      "owner": "STORY-0712",
+      "test": "test_req_auth_impl_005",
+      "reused_evidence": [
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/mandatory-tests.xml"
+      ],
+      "status": "PASS"
+    },
+    "REQ-AUTH-IMPL-006": {
+      "owner": "STORY-0712",
+      "test": "test_req_auth_impl_006",
+      "reused_evidence": [
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/mandatory-tests.xml",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-focused-tests.xml"
+      ],
+      "status": "PASS"
+    },
+    "REQ-AUTH-IMPL-008": {
+      "owner": "STORY-0712",
+      "test": "test_req_auth_impl_008",
+      "reused_evidence": [
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/mandatory-tests.xml"
+      ],
+      "status": "PASS"
+    },
+    "REQ-AUTH-IMPL-009": {
+      "owner": "STORY-0712",
+      "test": "test_req_auth_impl_009",
+      "reused_evidence": [
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/mandatory-tests.xml"
+      ],
+      "status": "PASS"
+    },
+    "REQ-AUTH-IMPL-010": {
+      "owner": "STORY-0712",
+      "test": "test_req_auth_impl_0010",
+      "reused_evidence": [
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/mandatory-tests.xml"
+      ],
+      "status": "PASS"
+    },
+    "REQ-DBSCHEMA-003": {
+      "owner": "STORY-0712",
+      "test": "test_req_dbschema_003",
+      "reused_evidence": [
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/mandatory-tests.xml",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-focused-tests.xml"
+      ],
+      "status": "PASS"
+    },
+    "REQ-ID-001": {
+      "owner": "STORY-0713",
+      "test": "test_network_authentication_local_oidc",
+      "reused_evidence": [
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/VALIDATION-REPORT.json",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/focused-tests.xml"
+      ],
+      "status": "PASS"
+    },
+    "REQ-ID-002": {
+      "owner": "STORY-0713",
+      "test": "test_bootstrap_session_token_recovery",
+      "reused_evidence": [
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/VALIDATION-REPORT.json",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/focused-tests.xml"
+      ],
+      "status": "PASS"
+    }
+  },
+  "normative_duplication": "NONE; 12 disjoint requirement owners. REQ-ID accepts existing services; no second implementation authority.",
+  "redundant_implementation": "NONE; no production code added or modified; no collision requiring removal.",
+  "output_contract_compatibility": "PASS; existing local-account/session/token outputs and OIDC linking outputs share the same IdentityTransactions/Access/PostgresUnitOfWork. Source manifest of slice 2 matches baseline; production output unchanged from integrated a2206c1.",
+  "boundary": "PASS; Python architecture gate and AST inspection of other production contexts: no imports of BC-002 internal entities/repositories/ORM/state machines. All identity domain/application/adapters remain in BC-002.",
+  "scope_adjustment": {
+    "authorization": "Explicit current user instruction for containment of #113; ADR-007 compatible reversible issue adjustment.",
+    "paths": [
+      ".codex/tasks/TASK-0037.json",
+      "tests/backend/identity_access/local_identity/test_slice_consolidation.py",
+      "evidence/implementation/epic-008/story-0037/**"
+    ],
+    "both_allow_lists_equal": true,
+    "deny_paths_unchanged": true,
+    "new_product_scope": false
+  },
+  "database": {
+    "applicability": "APPLICABLE",
+    "migration_required": false,
+    "compatibility": "PASS",
+    "existing_revisions": [
+      "local_identity_v1",
+      "identity_link_binding_v2"
+    ],
+    "new_migration": false,
+    "schema_impact": "NONE; existing slice migrations applied only to disposable database",
+    "runtime": {
+      "server": "PostgreSQL 16.1, compiled by Visual C++ build 1937, 64-bit",
+      "revision": "identity_link_binding_v2",
+      "constraints": 66,
+      "state_counts": {
+        "accounts": [
+          [
+            "active",
+            1
+          ]
+        ],
+        "sessions": [
+          [
+            "active",
+            1
+          ],
+          [
+            "revoked",
+            1
+          ]
+        ],
+        "tokens": [
+          [
+            "revoked",
+            1
+          ]
+        ],
+        "oidc_links": [
+          [
+            "revoked",
+            1
+          ]
+        ],
+        "oidc_transactions": [
+          [
+            "consumed",
+            1
+          ]
+        ]
+      },
+      "bootstrap": [
+        [
+          "completed",
+          1
+        ]
+      ],
+      "committed_audits": [
+        [
+          "AdminBootstrapped",
+          1
+        ],
+        [
+          "SessionCreated",
+          1
+        ],
+        [
+          "TokenIssued",
+          1
+        ],
+        [
+          "link",
+          1
+        ],
+        [
+          "revoke",
+          1
+        ],
+        [
+          "unlink",
+          1
+        ]
+      ],
+      "cleanup": "Only the newly created identity_slice2_validation database dropped; absence verified; preexisting databases untouched."
+    }
+  },
+  "test_story_0037_slice_consolidation": {
+    "status": "PASS",
+    "result": "1 passed, zero skips/failures/errors",
+    "duration_seconds": 3.81,
+    "command": ".venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider -o junit_family=legacy tests/backend/identity_access/local_identity/test_slice_consolidation.py --junitxml=evidence/implementation/epic-008/story-0037/focused-tests.xml",
+    "environment": {
+      "PYTHONPATH": "src/backend;workdir/id-validation-deps;workdir/auth-exact",
+      "IDENTITY_TEST_DSN": "host=127.0.0.1 port=55482 dbname=identity_slice2_validation user=auth_test",
+      "IDENTITY_MIGRATION_DSN": "postgresql+psycopg://auth_test@127.0.0.1:55482/identity_slice2_validation",
+      "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1"
+    },
+    "observed": "same account/bootstrap; explicit OIDC link -> session -> PAT -> durable token revoke + unlink; both denied; local session valid; one audit per mutation; existing validated v2 schema"
+  },
+  "other_focused_checks": {
+    "ruff": "PASS",
+    "python_architecture": "PASS; 22 modules",
+    "git_diff_check": "PASS",
+    "scope_database_boundary_inspection": "PASS",
+    "slice_suites": "REUSED, not rerun; slice-1 original/H1 plus slice-2 current acceptance/regression evidence"
+  },
+  "make_verify": {
+    "status": "FAIL_ENVIRONMENT_GATE",
+    "exit_code": 2,
+    "command": "make verify PYTHON=.venv/Scripts/python.exe",
+    "failure": "test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done requires FOUNDATION_INTEGRATION=1 and pinned PostgreSQL/RabbitMQ services",
+    "log": "make-verify.log",
+    "stack_started": false,
+    "passed_before_failure": [
+      "Python quality",
+      "frontend typecheck/unit/browser",
+      "repository",
+      "architecture review",
+      "requirements review",
+      "DDD review",
+      "ADR review",
+      "specification review",
+      "sprint review",
+      "Python architecture",
+      "license validator + six tests",
+      "monorepo foundation validator + five tests"
+    ],
+    "claim": "No complete global verify PASS; no later targets claimed; no weakening or bypass."
+  },
+  "acceptance": {
+    "AC-ISSUE-0147-01": "PASS_EXECUTOR_EVIDENCE",
+    "AC-ISSUE-0147-02": "PASS_EXECUTOR_EVIDENCE",
+    "AC-ISSUE-0147-03": "PASS_EXECUTOR_EVIDENCE",
+    "AC-ISSUE-0147-04": "PENDING_INDEPENDENT_REVIEWER; residual risks recorded, dependents not released"
+  },
+  "contract_impact": "NONE; no public contract, table, API, migration, state, event, infrastructure or architecture change.",
+  "rollback": "Revert only this consolidation increment (envelope/test/evidence); preserve all valid slice commits and existing v1/v2 migrations/data. No database downgrade.",
+  "residual_risks": [
+    "Global make verify integration environment gate pending; no full stack started.",
+    "Python 3.12.10 and Node 22.14.0 differ from repository pins 3.12.13 and 24.20.0; exact CI validation pending.",
+    "Inherited synthetic security/eligibility/administrative-decision profiles and OIDC transport; no BP-003 promotion, external IdP/TLS or production/SLO claims."
+  ],
+  "BLOCKER_HIGH": "No material consolidation blocker. Global environment gate remains pending for release. Independent QA/Architect/Reviewer approvals are pending.",
+  "READY_FOR_QA": true,
+  "independent_approval": "NOT_CLAIMED",
+  "changed_files": [
+    ".codex/tasks/TASK-0037.json",
+    "tests/backend/identity_access/local_identity/test_slice_consolidation.py",
+    "evidence/implementation/epic-008/story-0037/architecture.log",
+    "evidence/implementation/epic-008/story-0037/focused-tests.log",
+    "evidence/implementation/epic-008/story-0037/focused-tests.xml",
+    "evidence/implementation/epic-008/story-0037/HANDOFF.md",
+    "evidence/implementation/epic-008/story-0037/make-verify.log",
+    "evidence/implementation/epic-008/story-0037/ruff.log",
+    "evidence/implementation/epic-008/story-0037/runtime-observed.json",
+    "evidence/implementation/epic-008/story-0037/VALIDATION-REPORT.json"
+  ],
+  "candidate_manifest": [
+    {
+      "path": ".codex/tasks/TASK-0037.json",
+      "sha256_utf8_lf": "aa3356fd2b22d22a9d15fd79cc53fac2b59b0f92a1a12d57ada832e5a56164af"
+    },
+    {
+      "path": "tests/backend/identity_access/local_identity/test_slice_consolidation.py",
+      "sha256_utf8_lf": "be7626b3fa883390bee4e547300e769dbfdf24276b6aa622be0a6e9a4be0e1ee"
+    },
+    {
+      "path": "evidence/implementation/epic-008/story-0037/architecture.log",
+      "sha256_utf8_lf": "c70384579046a442b91c43de322e22fffa5e0b0d9c9d3166b9ab9f3835532fcf"
+    },
+    {
+      "path": "evidence/implementation/epic-008/story-0037/focused-tests.log",
+      "sha256_utf8_lf": "e5121065bd8ffc330a9cb89211f8f62ef223de98459f44273bebb77692fa0144"
+    },
+    {
+      "path": "evidence/implementation/epic-008/story-0037/focused-tests.xml",
+      "sha256_utf8_lf": "5c3c99773c42258307cc90358a2994f4754cd02b56e6898150b77b958571c995"
+    },
+    {
+      "path": "evidence/implementation/epic-008/story-0037/HANDOFF.md",
+      "sha256_utf8_lf": "79c211732d011bf4ca7d9be85fea755670f6b851427314c55e42a39725054d23"
+    },
+    {
+      "path": "evidence/implementation/epic-008/story-0037/make-verify.log",
+      "sha256_utf8_lf": "29f36a67d313bea9e8f07067b050de5726a2026da378f5617848ddc03b711353"
+    },
+    {
+      "path": "evidence/implementation/epic-008/story-0037/ruff.log",
+      "sha256_utf8_lf": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "evidence/implementation/epic-008/story-0037/runtime-observed.json",
+      "sha256_utf8_lf": "26a166185630dcadf934c049bdc39221843e866a013c1ab4a4101ffdef9e5739"
+    }
+  ],
+  "reused_evidence_manifest": [
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+      "sha256_utf8_lf": "bc07937fc914267527d7370092663f7f246a6ed588bceaeceb22253fc58de87f"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-focused-tests.xml",
+      "sha256_utf8_lf": "2a8fcb03d59d2604b250a60ddcb70351d79fb9d4d5e034ee2c647a2b7bc4ef76"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/mandatory-tests.xml",
+      "sha256_utf8_lf": "325031b56885a504d8ed364ed1a0e80619c675a0b09a5f64b832f225d1a954a9"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/VALIDATION-REPORT.json",
+      "sha256_utf8_lf": "b0566f768575c6bd85a175757ff608b95a2eb61584db3d7a773e7aaff00f7284"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/focused-tests.xml",
+      "sha256_utf8_lf": "7b4ef5b44270a301b2ac157914912b7b64a64e2cc80c6d0382f949a83171f099"
+    }
+  ]
+}
