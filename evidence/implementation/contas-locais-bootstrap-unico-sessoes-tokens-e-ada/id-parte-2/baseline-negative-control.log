@@ -1,0 +1,39 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+________________ test_pending_link_cannot_use_revoked_identity ________________
+
+runtime = Runtime(uow=<dsgeorref.contexts.identity_access.adapters.local_identity.postgres.PostgresUnitOfWork object at 0x000002...lBJ2QQFw0_fteH_P_Ws5CGlxmuPoLaoAPyng', dsn='host=127.0.0.1 port=5432 dbname=identity_slice2_validation user=auth_test')
+
+    def test_pending_link_cannot_use_revoked_identity(runtime):
+        r = runtime
+        transport = SignedProvider("pending")
+        federation = Federation(r.tx, ValidatingOidcProvider(config(), transport))
+        state, transport.nonce = federation.begin("browser", r.browser(), r.issued.secret)
+        source, _ = federation.callback(state, "browser", "code")
+        transport.subject = "new-subject"
+        state, transport.nonce = federation.begin("browser", r.browser(source), source.secret)
+        # An authoritative link revocation invalidates use even before session cleanup.
+        with r.uow() as store:
+            store.update(
+                "oidc_links", {"id": source.session.oidc_link_id}, {"state": "revoked", "revision": 2}
+            )
+            r.tx.observe(store, r.account.id, "unlink", source.session.oidc_link_id)
+        denied("unauthorized", lambda: r.access.authenticate(session=source.secret))
+>       denied("identity_link_conflict", lambda: federation.callback(state, "browser", "code"))
+
+tests\backend\identity_access\local_identity\test_identity_requirements.py:239:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+code = 'identity_link_conflict'
+action = <function test_pending_link_cannot_use_revoked_identity.<locals>.<lambda> at 0x0000024A97A73E20>
+
+    def denied(code, action):
+>       with pytest.raises(Denied) as failure:
+             ^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE Denied
+
+tests\backend\identity_access\local_identity\test_identity_requirements.py:20: Failed
+=========================== short test summary info ===========================
+FAILED tests/backend/identity_access/local_identity/test_identity_requirements.py::test_pending_link_cannot_use_revoked_identity
+1 failed in 2.09s
+BASELINE NEGATIVE CONTROL PASS: current regression rejects baseline source that accepted revoked identity for pending linking; no source file modified

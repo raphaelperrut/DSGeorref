@@ -48,8 +48,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
-    "src/backend/dsgeorref/contexts/identity_access/application/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/id-parte-2/**",
-    "src/backend/dsgeorref/contexts/identity_access/adapters/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/id-parte-2/**"
+    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/**",
+    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/**",
+    ".codex/tasks/TASK-0713.json",
+    "tests/backend/identity_access/local_identity/test_identity_requirements.py",
+    "tests/backend/identity_access/local_identity/conftest.py",
+    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/**"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -121,8 +125,12 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
-        "src/backend/dsgeorref/contexts/identity_access/application/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/id-parte-2/**",
-        "src/backend/dsgeorref/contexts/identity_access/adapters/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/id-parte-2/**"
+        "src/backend/dsgeorref/contexts/identity_access/application/local_identity/**",
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/**",
+        ".codex/tasks/TASK-0713.json",
+        "tests/backend/identity_access/local_identity/test_identity_requirements.py",
+        "tests/backend/identity_access/local_identity/conftest.py",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/**"
       ],
       "deny_paths": [
         "src/**/epic-*",

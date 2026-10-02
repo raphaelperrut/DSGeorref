@@ -1,0 +1,67 @@
+{
+  "scope": "temporary direct application/adapters rehearsal; PostgreSQL only; synthetic profile, not production readiness",
+  "evidence": [
+    {
+      "action": "base -> upgrade head -> inspect schema/constraints",
+      "expected": "v2; validated owner FK and issuer+subject uniqueness",
+      "observed": "identity_link_binding_v2; 66 validated constraints inspected"
+    },
+    {
+      "action": "bootstrap -> inspect state/audit -> second use",
+      "expected": "one completed bootstrap and administrator; rejection",
+      "observed": "completed; administrator FK matches; 1 committed AdminBootstrapped; bootstrap_already_completed"
+    },
+    {
+      "action": "independent local login",
+      "expected": "valid account still usable",
+      "observed": "Argon2id verification succeeded; persisted session authenticated"
+    },
+    {
+      "action": "session/token -> persist -> revoke -> reuse",
+      "expected": "revoked persisted and audited; subsequent use denied",
+      "observed": "both revoked; 2 committed audits; unauthorized for both"
+    },
+    {
+      "action": "authenticated explicit link -> OIDC login",
+      "expected": "issuer+subject resolves same local account",
+      "observed": "linked true then false; same link and account; sessions persisted"
+    },
+    {
+      "action": "unlinked/invalid OIDC -> unlink -> reuse -> local login",
+      "expected": "explicit failure; revocation audited; no fallback; local remains usable",
+      "observed": "identity_link_conflict / oidc_exchange_failed; failed callbacks; link revoked + unlink audit; unauthorized; independent local login succeeds"
+    },
+    {
+      "action": "recovery -> persist ceremony/rotate kit/revoke credentials -> reuse",
+      "expected": "old kit/password/session/PAT denied; audit and new local access",
+      "observed": "ceremony kit hash + rotated account hash; 1 committed recover; forbidden / invalid_credentials / unauthorized; new local login succeeded"
+    },
+    {
+      "action": "populated v2 -> downgrade v1",
+      "expected": "compatible rollback without state/audit loss",
+      "observed": "v1; all table data SHA256 unchanged: 8de500c0e387a33459058393be3f0011fb70649cc37212efe78a304120253f22"
+    },
+    {
+      "action": "upgrade v1 with legacy owner mismatch",
+      "expected": "atomic failure; v1 and data preserved",
+      "observed": "23503 FK violation; v1; data SHA256 unchanged; partial unique constraint absent"
+    },
+    {
+      "action": "initialized schema -> downgrade base",
+      "expected": "refuse destructive reset; retain completed bootstrap/audit",
+      "observed": "restore guard rejected; entire migration transaction rolled back; v2/data unchanged"
+    },
+    {
+      "action": "clean temporary data -> downgrade base",
+      "expected": "no capability tables; no version row",
+      "observed": "0 capability tables; 0 version rows"
+    },
+    {
+      "action": "reapply after rollback -> final clean rollback",
+      "expected": "repeatable migration and no fixture data",
+      "observed": "head applies; bootstrap available/0 accounts; base again"
+    }
+  ],
+  "server": "PostgreSQL 16.1, compiled by Visual C++ build 1937, 64-bit",
+  "cleanup": "capability schema downgraded; temporary database will be dropped by owning command"
+}

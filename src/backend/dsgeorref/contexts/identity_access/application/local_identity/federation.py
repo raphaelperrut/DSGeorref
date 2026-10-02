@@ -133,10 +133,19 @@ class Federation:
     def _link_authorized(self, store: Store, pending: Record, account_id: UUID) -> None:
         if pending["account_id"]:
             session = store.get("sessions", {"id": pending["session_id"]}, lock=True)
-            if not session or session["state"] != "active" or session["expires_at"] <= store.now():
+            if (
+                not session
+                or session["account_id"] != account_id
+                or session["state"] != "active"
+                or session["expires_at"] <= store.now()
+            ):
                 raise Denied("identity_link_conflict")
             if session["idle_expires_at"] <= store.now():
                 raise Denied("identity_link_conflict")
+            if session["oidc_link_id"] is not None:
+                source = store.get("oidc_links", {"id": session["oidc_link_id"]})
+                if not source or source["state"] != "linked" or source["account_id"] != account_id:
+                    raise Denied("identity_link_conflict")
             if "oidc:callback" not in self.tx.access.policy.account_grants.get(
                 account_id, frozenset()
             ):

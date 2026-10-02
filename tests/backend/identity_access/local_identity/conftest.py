@@ -25,6 +25,7 @@ from dsgeorref.contexts.identity_access.domain.local_identity.policy import (
     SecurityProfile,
 )
 from dsgeorref.contexts.identity_access.domain.local_identity.web import Provenance, WebPolicy
+from sqlalchemy.engine import make_url
 
 PASSWORD = "synthetic-password-for-tests-only"
 ORIGIN = "https://identity.example.test"
@@ -76,10 +77,15 @@ class Runtime:
 @pytest.fixture(scope="session")
 def database():
     dsn = os.environ["IDENTITY_TEST_DSN"]
+    migration_dsn = os.environ.get(
+        "IDENTITY_MIGRATION_DSN",
+        "postgresql+psycopg://auth_test@127.0.0.1:55482/local_identity_validation",
+    )
     # Explicitly require the private validation database before destructive fixture cleanup.
     with psycopg.connect(dsn) as connection:
-        assert connection.info.dbname == "local_identity_validation"
-    migrate("postgresql+psycopg://auth_test@127.0.0.1:55482/local_identity_validation", "upgrade")
+        assert connection.info.dbname in {"local_identity_validation", "identity_slice2_validation"}
+        assert make_url(migration_dsn).database == connection.info.dbname
+    migrate(migration_dsn, "upgrade")
     yield dsn
 
 

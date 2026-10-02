@@ -1,0 +1,398 @@
+[
+  [
+    "accounts",
+    "accounts_password_hash_check",
+    "CHECK ((password_hash ~~ '$argon2id$v=19$%'::text))",
+    true
+  ],
+  [
+    "accounts",
+    "accounts_pkey",
+    "PRIMARY KEY (id)",
+    true
+  ],
+  [
+    "accounts",
+    "accounts_recovery_hash_check",
+    "CHECK ((recovery_hash ~ '^[0-9a-f]{64}$'::text))",
+    true
+  ],
+  [
+    "accounts",
+    "accounts_revision_check",
+    "CHECK ((revision > 0))",
+    true
+  ],
+  [
+    "accounts",
+    "accounts_state_check",
+    "CHECK ((state = ANY (ARRAY['active'::text, 'inactive'::text, 'locked'::text])))",
+    true
+  ],
+  [
+    "accounts",
+    "accounts_username_check",
+    "CHECK ((length(username) > 0))",
+    true
+  ],
+  [
+    "accounts",
+    "accounts_username_key",
+    "UNIQUE (username)",
+    true
+  ],
+  [
+    "alembic_version",
+    "alembic_version_pkc",
+    "PRIMARY KEY (version_num)",
+    true
+  ],
+  [
+    "bootstrap",
+    "bootstrap_administrator_id_fkey",
+    "FOREIGN KEY (administrator_id) REFERENCES identity.accounts(id) ON DELETE RESTRICT",
+    true
+  ],
+  [
+    "bootstrap",
+    "bootstrap_check",
+    "CHECK ((((state = 'available'::text) AND (administrator_id IS NULL)) OR ((state = 'completed'::text) AND (administrator_id IS NOT NULL))))",
+    true
+  ],
+  [
+    "bootstrap",
+    "bootstrap_pkey",
+    "PRIMARY KEY (singleton)",
+    true
+  ],
+  [
+    "bootstrap",
+    "bootstrap_revision_check",
+    "CHECK ((revision > 0))",
+    true
+  ],
+  [
+    "bootstrap",
+    "bootstrap_singleton_check",
+    "CHECK (singleton)",
+    true
+  ],
+  [
+    "bootstrap",
+    "bootstrap_state_check",
+    "CHECK ((state = ANY (ARRAY['available'::text, 'completed'::text])))",
+    true
+  ],
+  [
+    "ceremonies",
+    "ceremonies_account_id_fkey",
+    "FOREIGN KEY (account_id) REFERENCES identity.accounts(id)",
+    true
+  ],
+  [
+    "ceremonies",
+    "ceremonies_kit_hash_check",
+    "CHECK ((kit_hash ~ '^[0-9a-f]{64}$'::text))",
+    true
+  ],
+  [
+    "ceremonies",
+    "ceremonies_kit_hash_key",
+    "UNIQUE (kit_hash)",
+    true
+  ],
+  [
+    "ceremonies",
+    "ceremonies_pkey",
+    "PRIMARY KEY (id)",
+    true
+  ],
+  [
+    "memberships",
+    "memberships_account_id_fkey",
+    "FOREIGN KEY (account_id) REFERENCES identity.accounts(id)",
+    true
+  ],
+  [
+    "memberships",
+    "memberships_pkey",
+    "PRIMARY KEY (project_id, account_id)",
+    true
+  ],
+  [
+    "memberships",
+    "memberships_revision_check",
+    "CHECK ((revision > 0))",
+    true
+  ],
+  [
+    "memberships",
+    "memberships_role_check",
+    "CHECK ((role = ANY (ARRAY['owner'::text, 'editor'::text, 'reviewer'::text, 'viewer'::text])))",
+    true
+  ],
+  [
+    "observations",
+    "observations_check",
+    "CHECK ((((outcome = 'COMMITTED'::text) AND (reason_code IS NULL)) OR (outcome = 'DENIED'::text)))",
+    true
+  ],
+  [
+    "observations",
+    "observations_outcome_check",
+    "CHECK ((outcome = ANY (ARRAY['COMMITTED'::text, 'DENIED'::text])))",
+    true
+  ],
+  [
+    "observations",
+    "observations_pkey",
+    "PRIMARY KEY (id)",
+    true
+  ],
+  [
+    "observations",
+    "observations_policy_version_check",
+    "CHECK ((length(policy_version) > 0))",
+    true
+  ],
+  [
+    "oidc_links",
+    "oidc_links_account_id_fkey",
+    "FOREIGN KEY (account_id) REFERENCES identity.accounts(id)",
+    true
+  ],
+  [
+    "oidc_links",
+    "oidc_links_id_account_id_key",
+    "UNIQUE (id, account_id)",
+    true
+  ],
+  [
+    "oidc_links",
+    "oidc_links_issuer_check",
+    "CHECK ((issuer ~~ 'https://%'::text))",
+    true
+  ],
+  [
+    "oidc_links",
+    "oidc_links_issuer_subject_key",
+    "UNIQUE (issuer, subject)",
+    true
+  ],
+  [
+    "oidc_links",
+    "oidc_links_pkey",
+    "PRIMARY KEY (id)",
+    true
+  ],
+  [
+    "oidc_links",
+    "oidc_links_revision_check",
+    "CHECK ((revision > 0))",
+    true
+  ],
+  [
+    "oidc_links",
+    "oidc_links_state_check",
+    "CHECK ((state = ANY (ARRAY['linked'::text, 'revoked'::text])))",
+    true
+  ],
+  [
+    "oidc_links",
+    "oidc_links_subject_check",
+    "CHECK ((length(subject) > 0))",
+    true
+  ],
+  [
+    "oidc_transactions",
+    "oidc_transaction_session_owner_fk",
+    "FOREIGN KEY (session_id, account_id) REFERENCES identity.sessions(id, account_id)",
+    true
+  ],
+  [
+    "oidc_transactions",
+    "oidc_transactions_account_id_fkey",
+    "FOREIGN KEY (account_id) REFERENCES identity.accounts(id)",
+    true
+  ],
+  [
+    "oidc_transactions",
+    "oidc_transactions_browser_hash_check",
+    "CHECK ((browser_hash ~ '^[0-9a-f]{64}$'::text))",
+    true
+  ],
+  [
+    "oidc_transactions",
+    "oidc_transactions_check",
+    "CHECK (((account_id IS NULL) = (session_id IS NULL)))",
+    true
+  ],
+  [
+    "oidc_transactions",
+    "oidc_transactions_nonce_hash_check",
+    "CHECK ((nonce_hash ~ '^[0-9a-f]{64}$'::text))",
+    true
+  ],
+  [
+    "oidc_transactions",
+    "oidc_transactions_pkey",
+    "PRIMARY KEY (id)",
+    true
+  ],
+  [
+    "oidc_transactions",
+    "oidc_transactions_session_id_fkey",
+    "FOREIGN KEY (session_id) REFERENCES identity.sessions(id)",
+    true
+  ],
+  [
+    "oidc_transactions",
+    "oidc_transactions_state_check",
+    "CHECK ((state = ANY (ARRAY['pending'::text, 'consumed'::text, 'failed'::text])))",
+    true
+  ],
+  [
+    "oidc_transactions",
+    "oidc_transactions_state_hash_check",
+    "CHECK ((state_hash ~ '^[0-9a-f]{64}$'::text))",
+    true
+  ],
+  [
+    "oidc_transactions",
+    "oidc_transactions_state_hash_key",
+    "UNIQUE (state_hash)",
+    true
+  ],
+  [
+    "requests",
+    "requests_key_hash_check",
+    "CHECK ((key_hash ~ '^[0-9a-f]{64}$'::text))",
+    true
+  ],
+  [
+    "requests",
+    "requests_key_hash_operation_principal_id_key",
+    "UNIQUE NULLS NOT DISTINCT (key_hash, operation, principal_id)",
+    true
+  ],
+  [
+    "requests",
+    "requests_payload_hash_check",
+    "CHECK ((payload_hash ~ '^[0-9a-f]{64}$'::text))",
+    true
+  ],
+  [
+    "requests",
+    "requests_principal_id_fkey",
+    "FOREIGN KEY (principal_id) REFERENCES identity.accounts(id)",
+    true
+  ],
+  [
+    "sessions",
+    "sessions_account_id_fkey",
+    "FOREIGN KEY (account_id) REFERENCES identity.accounts(id)",
+    true
+  ],
+  [
+    "sessions",
+    "sessions_check",
+    "CHECK ((idle_expires_at <= expires_at))",
+    true
+  ],
+  [
+    "sessions",
+    "sessions_csrf_hash_check",
+    "CHECK ((csrf_hash ~ '^[0-9a-f]{64}$'::text))",
+    true
+  ],
+  [
+    "sessions",
+    "sessions_id_account_key",
+    "UNIQUE (id, account_id)",
+    true
+  ],
+  [
+    "sessions",
+    "sessions_oidc_link_id_account_id_fkey",
+    "FOREIGN KEY (oidc_link_id, account_id) REFERENCES identity.oidc_links(id, account_id)",
+    true
+  ],
+  [
+    "sessions",
+    "sessions_pkey",
+    "PRIMARY KEY (id)",
+    true
+  ],
+  [
+    "sessions",
+    "sessions_revision_check",
+    "CHECK ((revision > 0))",
+    true
+  ],
+  [
+    "sessions",
+    "sessions_secret_hash_check",
+    "CHECK ((secret_hash ~ '^[0-9a-f]{64}$'::text))",
+    true
+  ],
+  [
+    "sessions",
+    "sessions_secret_hash_key",
+    "UNIQUE (secret_hash)",
+    true
+  ],
+  [
+    "sessions",
+    "sessions_state_check",
+    "CHECK ((state = ANY (ARRAY['active'::text, 'revoked'::text, 'expired'::text, 'rotated'::text])))",
+    true
+  ],
+  [
+    "tokens",
+    "tokens_account_id_fkey",
+    "FOREIGN KEY (account_id) REFERENCES identity.accounts(id)",
+    true
+  ],
+  [
+    "tokens",
+    "tokens_pkey",
+    "PRIMARY KEY (id)",
+    true
+  ],
+  [
+    "tokens",
+    "tokens_project_id_account_id_fkey",
+    "FOREIGN KEY (project_id, account_id) REFERENCES identity.memberships(project_id, account_id)",
+    true
+  ],
+  [
+    "tokens",
+    "tokens_revision_check",
+    "CHECK ((revision > 0))",
+    true
+  ],
+  [
+    "tokens",
+    "tokens_scopes_check",
+    "CHECK (((cardinality(scopes) > 0) AND (array_position(scopes, NULL::text) IS NULL)))",
+    true
+  ],
+  [
+    "tokens",
+    "tokens_secret_hash_check",
+    "CHECK ((secret_hash ~ '^[0-9a-f]{64}$'::text))",
+    true
+  ],
+  [
+    "tokens",
+    "tokens_secret_hash_key",
+    "UNIQUE (secret_hash)",
+    true
+  ],
+  [
+    "tokens",
+    "tokens_state_check",
+    "CHECK ((state = ANY (ARRAY['active'::text, 'revoked'::text, 'expired'::text])))",
+    true
+  ]
+]
