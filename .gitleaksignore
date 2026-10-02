@@ -1,0 +1,6 @@
+# Only the four reviewed historical SHA-256 integrity digests; immutable commit/path/rule/line fingerprints.
+# No path, file, directory, value or regex exemption; new commits remain fully scanned.
+5f71f1a6b915095905f76357cd4589c752d30857:evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json:generic-api-key:389
+a61be06e765f6af360487d36f122b462aa8eef2e:evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json:generic-api-key:231
+a61be06e765f6af360487d36f122b462aa8eef2e:evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json:generic-api-key:238
+a61be06e765f6af360487d36f122b462aa8eef2e:evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json:generic-api-key:240

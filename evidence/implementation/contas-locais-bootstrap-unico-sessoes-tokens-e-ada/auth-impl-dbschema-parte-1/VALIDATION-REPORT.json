@@ -217,45 +217,150 @@
     "tests/backend/identity_access/local_identity/test_requirements.py"
   ],
   "digest_encoding": "SHA256_UTF8_LF; console log trailing whitespace normalized, content/results preserved",
-  "source_digests": {
-    ".codex/tasks/TASK-0712.json": "04ab3b8594da0b34226597f441a963a0aa51ad40b69271996c5bda35865b29b3",
-    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/crypto.py": "81569c4ff0ff4894e07c3865d5d57a6b1b832f5f37001c3ca88dcf73e7bada1c",
-    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migration.py": "4c408b39eada68e563322bd1d05f137f1f53bd63dae2240b706c08b409b1c306",
-    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/env.py": "de93e2a41b83e949ba034b435caeaf09078ffd1cdf204f049c60c7fb4d156d12",
-    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/schema.sql": "dc01232a9ea1ddfd203c9086af4fed25f20086f953099dcc1c5c10ae3a72f972",
-    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/versions/local_identity.py": "f041f647b3f8878f50063b63445e369460e3b13626ac3d3b365ce762cd3d8249",
-    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/oidc.py": "005a1ca3d3f22b23539a2b3445985b90219a69fa9515e868ea647346c7548ec2",
-    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/postgres.py": "a232ca3dfa7acbf6b13fc7eb2d5d8551a77160b84e6bc80323f2e3679b3710ef",
-    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt": "58eac81c98bd718124069ce85c7fc2755a0df75c7d169cae37dec8a6f9bdabeb",
-    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/web.py": "8695f4ecddff36a1b38c3aaf0e62fc6d6706ce7133a5287985497dac72279ff8",
-    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/access.py": "24277a5ac40560f43d23858141b554590fd0972a5443a27e5270fb153780b088",
-    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/accounts.py": "8d164aec244260e46feddfbee61d448985d4a300b0b2b24e5b3300ef14894012",
-    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/federation.py": "c48c444c241de34cb784d33faf83863076d93dc0eee0250d94460f6f5184abfc",
-    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/observations.py": "68bc90b20cfb1bac7ffc75a22da432326d61fb193a2ef0991c751572bab8e005",
-    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/ports.py": "a61078184de54c414887f5b0a2143b258a020944861e1373db3baf764e9b51ee",
-    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/recovery.py": "5e8660293f542c2e9e50aea12ceae2dcf29e1db4b28f2dcee796d30958cd29f2",
-    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/sessions.py": "b9f6e3213c8a527dba791de6c1ba9623acb133f385352e50a3b9a03b65ab3ba6",
-    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/tokens.py": "b139e96236e9840fe382e0cc2c9bc07da6dce2f7e3069e218027e6b603de41c5",
-    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/transactions.py": "ca78d89f305719bee11f4cc87ebbf2688dd001fbae4d4453872be2bc383b1f1c",
-    "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/credentials.py": "7336534ed1d083ac347e9fc26d77c2d658b3ccb54aafcf5c04a2f557012a4060",
-    "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/federation.py": "c4ef21b3131dbfb34e03840aa401284d316c3fcf24b3cd544d1c9a403e00d174",
-    "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/models.py": "68ddcbc6cd6535cbb664726b6d8a60f0158ca9559d9f6696fdc91c79607e75e8",
-    "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/policy.py": "9e86fd717b2b85d6ebd17ec4eb159a3a1cd9f1163a95841d2a52ffa0515d1cdb",
-    "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/web.py": "74f882204a92ada9e71e7e7eb18f1798e0d657d7cf4738ed71bd239eb18f8928",
-    "tests/backend/identity_access/local_identity/conftest.py": "619fdc5e6a48a3c69faf363fd5917f8cabfd558f0b5c297ae21316461afea5e6",
-    "tests/backend/identity_access/local_identity/oidc_fixture.py": "c96f135b99a34421c0ff084cc45128c7a1f3d5240171f610a9be57f45ea4a46e",
-    "tests/backend/identity_access/local_identity/runtime_evidence.py": "64474687bdbfe9a0bff1ef1940386f1882fd88746079fc485379f41c1239c90d",
-    "tests/backend/identity_access/local_identity/test_requirements.py": "a43777df9a2a534a59268709f41931d4646684fe6f5bd590fd75a10223bef972"
-  },
-  "evidence_digests": {
-    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/HANDOFF.md": "c2493f32dcded44f1be1f4152ef1630503b1ce0861284ebd546e0fa4684c86e6",
-    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/make-verify-completion.log": "39b2784791738d50476d399ed8b6fa68b7e0623408610db579d100cd75781d6f",
-    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/make-verify-final.log": "c2e32bdc3f84320357eb0581141a9cb4c15b069ab5a52d0776bd56c9cf84b88f",
-    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/make-verify.log": "e7fadcc5e8ad540d11eab0234afa08d6f96b190257d062f6c83c72bf11ed11a2",
-    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/mandatory-tests.xml": "325031b56885a504d8ed364ed1a0e80619c675a0b09a5f64b832f225d1a954a9",
-    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/runtime-evidence.json": "8baabb639b90c4f6f40dfcdd9b65e42d2533d560e8b0228fba10bdc705704dd1",
-    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/schema-constraints.json": "cd744c5e5b5b2446d034b4eabe46ffcd5597ed30bc35f03d17d12a689877e39d"
-  },
+  "source_digests": [
+    {
+      "path": ".codex/tasks/TASK-0712.json",
+      "sha256": "04ab3b8594da0b34226597f441a963a0aa51ad40b69271996c5bda35865b29b3"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/crypto.py",
+      "sha256": "81569c4ff0ff4894e07c3865d5d57a6b1b832f5f37001c3ca88dcf73e7bada1c"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migration.py",
+      "sha256": "4c408b39eada68e563322bd1d05f137f1f53bd63dae2240b706c08b409b1c306"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/env.py",
+      "sha256": "de93e2a41b83e949ba034b435caeaf09078ffd1cdf204f049c60c7fb4d156d12"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/schema.sql",
+      "sha256": "dc01232a9ea1ddfd203c9086af4fed25f20086f953099dcc1c5c10ae3a72f972"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/versions/local_identity.py",
+      "sha256": "f041f647b3f8878f50063b63445e369460e3b13626ac3d3b365ce762cd3d8249"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/oidc.py",
+      "sha256": "005a1ca3d3f22b23539a2b3445985b90219a69fa9515e868ea647346c7548ec2"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/postgres.py",
+      "sha256": "a232ca3dfa7acbf6b13fc7eb2d5d8551a77160b84e6bc80323f2e3679b3710ef"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt",
+      "sha256": "58eac81c98bd718124069ce85c7fc2755a0df75c7d169cae37dec8a6f9bdabeb"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/web.py",
+      "sha256": "8695f4ecddff36a1b38c3aaf0e62fc6d6706ce7133a5287985497dac72279ff8"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/access.py",
+      "sha256": "24277a5ac40560f43d23858141b554590fd0972a5443a27e5270fb153780b088"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/accounts.py",
+      "sha256": "8d164aec244260e46feddfbee61d448985d4a300b0b2b24e5b3300ef14894012"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/federation.py",
+      "sha256": "c48c444c241de34cb784d33faf83863076d93dc0eee0250d94460f6f5184abfc"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/observations.py",
+      "sha256": "68bc90b20cfb1bac7ffc75a22da432326d61fb193a2ef0991c751572bab8e005"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/ports.py",
+      "sha256": "a61078184de54c414887f5b0a2143b258a020944861e1373db3baf764e9b51ee"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/recovery.py",
+      "sha256": "5e8660293f542c2e9e50aea12ceae2dcf29e1db4b28f2dcee796d30958cd29f2"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/sessions.py",
+      "sha256": "b9f6e3213c8a527dba791de6c1ba9623acb133f385352e50a3b9a03b65ab3ba6"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/tokens.py",
+      "sha256": "b139e96236e9840fe382e0cc2c9bc07da6dce2f7e3069e218027e6b603de41c5"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/transactions.py",
+      "sha256": "ca78d89f305719bee11f4cc87ebbf2688dd001fbae4d4453872be2bc383b1f1c"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/credentials.py",
+      "sha256": "7336534ed1d083ac347e9fc26d77c2d658b3ccb54aafcf5c04a2f557012a4060"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/federation.py",
+      "sha256": "c4ef21b3131dbfb34e03840aa401284d316c3fcf24b3cd544d1c9a403e00d174"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/models.py",
+      "sha256": "68ddcbc6cd6535cbb664726b6d8a60f0158ca9559d9f6696fdc91c79607e75e8"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/policy.py",
+      "sha256": "9e86fd717b2b85d6ebd17ec4eb159a3a1cd9f1163a95841d2a52ffa0515d1cdb"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/web.py",
+      "sha256": "74f882204a92ada9e71e7e7eb18f1798e0d657d7cf4738ed71bd239eb18f8928"
+    },
+    {
+      "path": "tests/backend/identity_access/local_identity/conftest.py",
+      "sha256": "619fdc5e6a48a3c69faf363fd5917f8cabfd558f0b5c297ae21316461afea5e6"
+    },
+    {
+      "path": "tests/backend/identity_access/local_identity/oidc_fixture.py",
+      "sha256": "c96f135b99a34421c0ff084cc45128c7a1f3d5240171f610a9be57f45ea4a46e"
+    },
+    {
+      "path": "tests/backend/identity_access/local_identity/runtime_evidence.py",
+      "sha256": "64474687bdbfe9a0bff1ef1940386f1882fd88746079fc485379f41c1239c90d"
+    },
+    {
+      "path": "tests/backend/identity_access/local_identity/test_requirements.py",
+      "sha256": "a43777df9a2a534a59268709f41931d4646684fe6f5bd590fd75a10223bef972"
+    }
+  ],
+  "evidence_digests": [
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/HANDOFF.md",
+      "sha256": "c2493f32dcded44f1be1f4152ef1630503b1ce0861284ebd546e0fa4684c86e6"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/make-verify-completion.log",
+      "sha256": "39b2784791738d50476d399ed8b6fa68b7e0623408610db579d100cd75781d6f"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/make-verify-final.log",
+      "sha256": "c2e32bdc3f84320357eb0581141a9cb4c15b069ab5a52d0776bd56c9cf84b88f"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/make-verify.log",
+      "sha256": "e7fadcc5e8ad540d11eab0234afa08d6f96b190257d062f6c83c72bf11ed11a2"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/mandatory-tests.xml",
+      "sha256": "325031b56885a504d8ed364ed1a0e80619c675a0b09a5f64b832f225d1a954a9"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/runtime-evidence.json",
+      "sha256": "8baabb639b90c4f6f40dfcdd9b65e42d2533d560e8b0228fba10bdc705704dd1"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/schema-constraints.json",
+      "sha256": "cd744c5e5b5b2446d034b4eabe46ffcd5597ed30bc35f03d17d12a689877e39d"
+    }
+  ],
   "contract_impact": "No shared HTTP, frozen context contract, ADR or requirement change; additive private BC-002 persistence schema only.",
   "handoff": "HANDOFF.md",
   "independent_review": {
@@ -382,14 +487,32 @@
     "reviewer_status": "PENDING independent confirmation on new candidate",
     "blocker_high_remaining_by_executor": [],
     "checked_at": "2026-10-02T19:40:34.725890+00:00",
-    "digests_utf8_lf": {
-      "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/HANDOFF.md": "10c8fe0224462ef5129f69395ae726a2c5cc9799cf9b931167025da123ad04c3",
-      "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-focused-tests.xml": "2a8fcb03d59d2604b250a60ddcb70351d79fb9d4d5e034ee2c647a2b7bc4ef76",
-      "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-runtime-evidence.json": "116aac1142716817d05b21f8365ba58c81b088a15b853e4896fe5625590ea4ea",
-      "src/backend/dsgeorref/contexts/identity_access/application/local_identity/tokens.py": "1a9bde1bea8e87f51221c81eeffcb49d35dbedf5addb7cebf7af9374b180b690",
-      "tests/backend/identity_access/local_identity/test_requirements.py": "046831046fa6db551ab9fd0f0a53b5ac1cc906d8d3d7f9d2dfe21585156fbedd",
-      "tests/backend/identity_access/local_identity/test_revoke_authorization.py": "84c566485c32be8bfdc7d540a6733e5a1822b92f1ac66589620966271628f6ec"
-    },
+    "digests_utf8_lf": [
+      {
+        "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/HANDOFF.md",
+        "sha256": "10c8fe0224462ef5129f69395ae726a2c5cc9799cf9b931167025da123ad04c3"
+      },
+      {
+        "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-focused-tests.xml",
+        "sha256": "2a8fcb03d59d2604b250a60ddcb70351d79fb9d4d5e034ee2c647a2b7bc4ef76"
+      },
+      {
+        "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-runtime-evidence.json",
+        "sha256": "116aac1142716817d05b21f8365ba58c81b088a15b853e4896fe5625590ea4ea"
+      },
+      {
+        "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/tokens.py",
+        "sha256": "1a9bde1bea8e87f51221c81eeffcb49d35dbedf5addb7cebf7af9374b180b690"
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/test_requirements.py",
+        "sha256": "046831046fa6db551ab9fd0f0a53b5ac1cc906d8d3d7f9d2dfe21585156fbedd"
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/test_revoke_authorization.py",
+        "sha256": "84c566485c32be8bfdc7d540a6733e5a1822b92f1ac66589620966271628f6ec"
+      }
+    ],
     "previous_review_finding": {
       "severity": "HIGH",
       "id": "H1",

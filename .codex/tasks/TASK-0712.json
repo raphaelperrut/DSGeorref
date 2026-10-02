@@ -66,7 +66,8 @@
     "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/**",
     "tests/backend/identity_access/local_identity/**",
     "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/**",
-    ".codex/tasks/TASK-0712.json"
+    ".codex/tasks/TASK-0712.json",
+    ".gitleaksignore"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -156,7 +157,8 @@
         "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/**",
         "tests/backend/identity_access/local_identity/**",
         "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/**",
-        ".codex/tasks/TASK-0712.json"
+        ".codex/tasks/TASK-0712.json",
+        ".gitleaksignore"
       ],
       "deny_paths": [
         "src/**/epic-*",
