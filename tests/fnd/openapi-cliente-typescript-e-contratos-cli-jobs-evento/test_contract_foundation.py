@@ -7,6 +7,7 @@ from functools import cache
 from pathlib import Path
 from typing import Any
 
+import pytest
 import yaml
 from jsonschema import Draft202012Validator
 
@@ -244,3 +245,106 @@ def test_profile_rejects_missing_or_unknown_control() -> None:
     unknown = copy.deepcopy(_profile())
     unknown["controls"]["silent_fallback"] = {"enabled": True}
     _assert_rejected(unknown)
+
+
+def _load_project_members_sources(paths: dict[str, Path]) -> dict[str, Any]:
+    with paths["index"].open(encoding="utf-8", newline="") as index_file:
+        index = list(csv.DictReader(index_file))
+    return {
+        "catalog": _load_json(paths["catalog"]),
+        "openapi": _load_yaml(paths["openapi"]),
+        "specific": paths["specific"].read_text(encoding="utf-8"),
+        "index": index,
+    }
+
+
+def _assert_project_members_idempotency(sources: dict[str, Any]) -> None:
+    assert set(sources) == {"catalog", "openapi", "specific", "index"}
+    operation_id = "get_projects_projectid_members"
+    path = "/projects/{projectId}/members"
+    values = {}
+    for source, entries in (
+        ("catalog", sources["catalog"]["operations"]),
+        ("index", sources["index"]),
+    ):
+        matching = [entry for entry in entries if entry["operation_id"] == operation_id]
+        assert len(matching) == 1, f"{source}: expected exactly one {operation_id}"
+        assert matching[0]["method"] == "GET" and matching[0]["path"] == path
+        values[source] = matching[0]["idempotency"]
+    path_item = sources["openapi"]["paths"][path]
+    operation = path_item["get"]
+    assert operation["operationId"] == operation_id
+    values["openapi"] = operation["x-idempotency"]
+    lines = sources["specific"].splitlines()
+    assert lines[0] == f"# {operation_id} — GET {path}"
+    prefix = "- **Idempotência:** "
+    declarations = [line.removeprefix(prefix) for line in lines if line.startswith(prefix)]
+    assert len(declarations) == 1, "specific: expected exactly one idempotency declaration"
+    values["specific"] = declarations[0].removeprefix("`").removesuffix("`")
+    terms = {
+        "Não aplicável": "NOT_APPLICABLE",
+        "not-applicable": "NOT_APPLICABLE",
+        "Obrigatória": "REQUIRED",
+        "required": "REQUIRED",
+    }
+    for source, value in values.items():
+        assert value in terms, f"{source}: unknown idempotency {value!r}"
+    normalized = {source: terms[value] for source, value in values.items()}
+    assert set(normalized.values()) == {"NOT_APPLICABLE"}, normalized
+    for parameter in path_item.get("parameters", []) + operation.get("parameters", []):
+        if "$ref" in parameter:
+            parameter = sources["openapi"]["components"]["parameters"][
+                parameter["$ref"].removeprefix("#/components/parameters/")
+            ]
+        assert parameter["name"].lower() != "idempotency-key"
+
+
+def test_project_members_idempotency_owner_decision() -> None:
+    # Project Owner authority: #1007, issuecomment-5953684021; no application-level key.
+    paths = {
+        "catalog": ROOT / "contracts/http/OPERATION_CATALOG.json",
+        "openapi": OPENAPI_PATH,
+        "specific": ROOT / "contracts/http/operations/get_projects_projectid_members.md",
+        "index": ROOT / "contracts/http/API_CONTRACT_INDEX.csv",
+    }
+    sources = _load_project_members_sources(paths)
+    _assert_project_members_idempotency(sources)
+    operation_id = "get_projects_projectid_members"
+    path = "/projects/{projectId}/members"
+    for source in paths:
+        missing = paths[source].with_name(paths[source].name + ".missing")
+        assert not missing.exists()
+        with pytest.raises(FileNotFoundError):
+            _load_project_members_sources(paths | {source: missing})
+    for source in sources:
+        for value in ("Obrigatória", "UNKNOWN", None):
+            invalid = copy.deepcopy(sources)
+            if source in {"catalog", "index"}:
+                entries = (
+                    invalid["catalog"]["operations"] if source == "catalog" else invalid["index"]
+                )
+                entry = next(item for item in entries if item["operation_id"] == operation_id)
+                if value is None:
+                    entries.remove(entry)
+                else:
+                    entry["idempotency"] = value
+            elif source == "openapi":
+                if value is None:
+                    del invalid["openapi"]["paths"][path]["get"]
+                else:
+                    invalid["openapi"]["paths"][path]["get"]["x-idempotency"] = (
+                        "required" if value == "Obrigatória" else value
+                    )
+            else:
+                invalid["specific"] = invalid["specific"].replace(
+                    "- **Idempotência:** `Não aplicável`",
+                    "" if value is None else f"- **Idempotência:** `{value}`",
+                )
+            with pytest.raises((AssertionError, KeyError)):
+                _assert_project_members_idempotency(invalid)
+    invalid = copy.deepcopy(sources)
+    invalid["openapi"]["paths"][path]["get"]["parameters"].append(
+        {"$ref": "#/components/parameters/IdempotencyKey"}
+    )
+    with pytest.raises(AssertionError):
+        _assert_project_members_idempotency(invalid)
