@@ -1,0 +1,36 @@
+# Resumed make verify targets — executor record
+
+Earlier output and interrupted invocations: make-verify.log and make-verify-final.log.
+No single uninterrupted make invocation exited zero. Previously successful unchanged checks were reused; no test was disabled or substituted.
+Windows memory pressure and repeated Git subprocess fixtures prevented timely uninterrupted completion; Linux runner build/WSL attempts did not produce validation evidence and their unused recipe was removed.
+
+py -3.12 -X utf8 -m pytest -v -p no:cacheprovider tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09 tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_10
+[Prior output: decision_09 PASSED [50%], decision_10 started]
+PASSED [100%]
+
+======================== 2 passed in 886.70s (0:14:46) ========================
+
+Exit code: 0
+
+py -3.12 -X utf8 tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/foundation_validation.py
+Decision: PASS; checkpoint/ci_integration/codeowners/contract/registry/ruleset PASS. Live ruleset enforcement NOT_ASSERTED_BY_FOUNDATION.
+Exit code: 0
+
+py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_main_ruleset_foundation.py
+..... [100%]
+5 passed in 2.30s
+Exit code: 0
+
+py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py
+..                                                                       [100%]
+2 passed in 562.56s (0:09:22)
+
+Exit code: 0
+
+Post-staging license foundation validator: PASS, no external commit range, DCO NOT_REQUESTED.
+Frozen STORY-0036 contract digest UTF8/LF unchanged: 1a7c9563927a93aeb620d4ed970d631e68643ff97986ea9d89fcf58f40b5404a.
+Focused mandatory tests: 10/10 PASS, failures/errors/skips zero (mandatory-tests.xml).
+Migration runtime restored data SHA-256: ade917c416df69f08cafdd609679cdad9c88f58fadf6c6b77f4cfbcf361de04f.
+Owned native PostgreSQL stopped gracefully; restored cluster and backup preserved.
+Owned Docker validation ports 55483/56783, native PostgreSQL 55482, API 8765: no listeners at cleanup inspection.
+Docker Desktop became unresponsive after successful real integration; final Docker container deletion not confirmed. Owned container names reserved: dsgeorref-auth-validation-postgres and dsgeorref-auth-validation-rabbitmq; network dsgeorref-auth-validation. No user images/cache pruned.

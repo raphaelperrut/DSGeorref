@@ -61,8 +61,12 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
-    "src/backend/dsgeorref/contexts/identity_access/application/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/auth-impl-dbschema-parte-1/**",
-    "src/backend/dsgeorref/contexts/identity_access/adapters/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/auth-impl-dbschema-parte-1/**"
+    "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/**",
+    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/**",
+    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/**",
+    "tests/backend/identity_access/local_identity/**",
+    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/**",
+    ".codex/tasks/TASK-0712.json"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -147,8 +151,12 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
-        "src/backend/dsgeorref/contexts/identity_access/application/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/auth-impl-dbschema-parte-1/**",
-        "src/backend/dsgeorref/contexts/identity_access/adapters/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/auth-impl-dbschema-parte-1/**"
+        "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/**",
+        "src/backend/dsgeorref/contexts/identity_access/application/local_identity/**",
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/**",
+        "tests/backend/identity_access/local_identity/**",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/**",
+        ".codex/tasks/TASK-0712.json"
       ],
       "deny_paths": [
         "src/**/epic-*",

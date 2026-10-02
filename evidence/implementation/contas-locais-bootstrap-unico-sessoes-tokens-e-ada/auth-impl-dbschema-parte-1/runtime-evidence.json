@@ -1,0 +1,17 @@
+{
+  "profile": "synthetic fixture only; no BP-003 promotion or production readiness claim",
+  "boundary": "application services -> private BC-002 UoW -> PostgreSQL 16.1",
+  "migration_apply": "Alembic local_identity_v1; transactional additive DDL; PASS",
+  "deferred_commit_failure": "commit rejected -> no account/session/idempotency/audit success -> observed; bootstrap available",
+  "bootstrap_concurrency": "two transactions -> exactly one winner -> one account/session, loser bootstrap_already_completed",
+  "project_scope": "scoped PAT -> same project allowed / other denied -> observed allowed / forbidden",
+  "expiry": "server expiry elapsed -> denied and state expired -> unauthorized / expired",
+  "restart": "PostgreSQL restart -> durable sessions/tokens/bootstrap -> same identities valid; bootstrap completed",
+  "revocation_rotation_logout": "revoke/rotate/logout -> old credential denied, terminal state persisted -> revoked/rotated/revoked + unauthorized",
+  "secret_at_rest": "all BC-002 tables inspected -> no raw password/kit/session/CSRF/PAT -> absent; Argon2id and SHA-256 only",
+  "constraints": "64 schema constraints inspected; composite project/account FK, uniqueness, states, hashes and timestamptz",
+  "populated_rollback_guard": "initialized identity -> refuse destructive downgrade -> refused, same data digest",
+  "migration_rollback": "empty downgrade -> base/no capability tables -> observed; reapply head -> observed; populated backup restored -> identical SHA-256",
+  "restored_data_sha256": "ade917c416df69f08cafdd609679cdad9c88f58fadf6c6b77f4cfbcf361de04f",
+  "final_state": "local_identity_v1 restored; bootstrap completed; synthetic data preserved; no production deployment"
+}
