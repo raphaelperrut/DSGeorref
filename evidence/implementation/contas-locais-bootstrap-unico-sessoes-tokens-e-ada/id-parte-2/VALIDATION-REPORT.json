@@ -1,0 +1,248 @@
+{
+  "task": "TASK-0713 / ISSUE-0823 / GitHub #156 / STORY-0713",
+  "role": "Backend",
+  "progress": "implementation, hardening, focused acceptance/regression and direct PostgreSQL rehearsal complete; independent QA/Reviewer pending; global verify failed on unavailable walking-skeleton integration",
+  "task_envelope_changed": {
+    "status": "YES",
+    "reason": "user explicitly authorized normalization of application/adapters paths to integrated local_identity; added exact test fixture/test/evidence and own envelope paths; gates, requirements, dependencies, database applicability and deny paths unchanged"
+  },
+  "REQ_ID_001": "PASS",
+  "REQ_ID_002": "PASS",
+  "MIGRATION": "PASS",
+  "ROLLBACK": "PASS",
+  "source_manifest": [
+    {
+      "path": ".codex/tasks/TASK-0713.json",
+      "sha256_utf8_lf": "4fbe498a8994487777b3f2e5a8670231df7797aa73705112667b26b264721260"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/federation.py",
+      "sha256_utf8_lf": "1a8843b3f820a320f86ebeca6c68f339f3d54836b218d66b603f8bcf9fa7c78e"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/versions/link_session_binding.py",
+      "sha256_utf8_lf": "95315eb1da8d69bfaf9dc15d1626dbb879cd351a08adfb17a43914f45a777a9c"
+    },
+    {
+      "path": "tests/backend/identity_access/local_identity/conftest.py",
+      "sha256_utf8_lf": "8d9a4c8b43a41f4ff625bdd387d429a0def11504fb1473ba9b0e8f18c381d575"
+    },
+    {
+      "path": "tests/backend/identity_access/local_identity/test_identity_requirements.py",
+      "sha256_utf8_lf": "3397e2f910ead1b3ce2442ce9c3c9b976b3de88737f84babfc1c0e83848db661"
+    }
+  ],
+  "runtime_environment": {
+    "python": "3.12.10",
+    "postgresql": "PostgreSQL 16.1, compiled by Visual C++ build 1937, 64-bit",
+    "PyJWT": "2.15.0",
+    "cryptography": "50.0.1",
+    "psycopg": "3.3.6",
+    "alembic": "1.18.4",
+    "SQLAlchemy": "2.1.2",
+    "fixture": "synthetic-test-only / BP-003; not a benchmark or production policy",
+    "provider": "real RS256 signature validation; synthetic transport, no live IdP"
+  },
+  "focused_tests": {
+    "status": "PASS",
+    "command": ".venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider -o junit_family=legacy tests/backend/identity_access/local_identity --ignore=tests/backend/identity_access/local_identity/test_revoke_authorization.py --junitxml=<this evidence>/focused-tests.xml",
+    "environment": {
+      "PYTHONPATH": "src/backend;workdir/id-validation-deps;workdir/auth-exact",
+      "IDENTITY_TEST_DSN": "host=127.0.0.1 port=5432 dbname=identity_slice2_validation user=auth_test",
+      "IDENTITY_MIGRATION_DSN": "postgresql+psycopg://auth_test@127.0.0.1:5432/identity_slice2_validation",
+      "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1"
+    },
+    "result": "22 passed; 12 new requirement/failure tests and 10 previous requirement regressions",
+    "canonical_tests": [
+      "test_network_authentication_local_oidc",
+      "test_bootstrap_session_token_recovery",
+      "test_oidc_invalid_fails_without_local_fallback[disabled]",
+      "test_oidc_invalid_fails_without_local_fallback[subject]",
+      "test_oidc_invalid_fails_without_local_fallback[issuer]",
+      "test_oidc_invalid_fails_without_local_fallback[audience]",
+      "test_oidc_invalid_fails_without_local_fallback[nonce]",
+      "test_oidc_invalid_fails_without_local_fallback[browser]",
+      "test_oidc_invalid_fails_without_local_fallback[ambiguous-keys]",
+      "test_oidc_invalid_fails_without_local_fallback[outage]",
+      "test_pending_link_cannot_use_revoked_identity",
+      "test_linking_transaction_session_owner_constraint",
+      "test_req_auth_impl_001",
+      "test_req_auth_impl_002",
+      "test_req_auth_impl_003",
+      "test_req_auth_impl_004",
+      "test_req_auth_impl_005",
+      "test_req_auth_impl_006",
+      "test_req_auth_impl_008",
+      "test_req_auth_impl_009",
+      "test_req_auth_impl_0010",
+      "test_req_dbschema_003"
+    ],
+    "excluded_regression": "test_revoke_authorization.py uses a separate preexisting populated v1 H1 validation database; it was not mutated or rerun because token revocation code is unchanged"
+  },
+  "negative_control": {
+    "status": "PASS",
+    "result": "baseline Federation._link_authorized loaded in memory from branch parent; new test_pending_link_cannot_use_revoked_identity failed DID NOT RAISE Denied (expected); current production version then passed 1 test; no tracked source swapped"
+  },
+  "quality": {
+    "ruff": "PASS; four changed Python files",
+    "mypy": "PASS; federation.py and link_session_binding.py, MYPYPATH=src/backend",
+    "make_verify": {
+      "command": "make verify PYTHON=.venv/Scripts/python.exe",
+      "status": "FAIL",
+      "reason": "test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done requires FOUNDATION_INTEGRATION=1 and pinned PostgreSQL/RabbitMQ; no full stack started",
+      "passed_before_failure": [
+        "ruff/mypy Makefile targets",
+        "frontend typecheck/unit/browser",
+        "repository validation",
+        "architecture review",
+        "requirements review",
+        "DDD review",
+        "ADR review",
+        "specification review",
+        "sprint review",
+        "Python architecture",
+        "license foundation: 6 tests",
+        "monorepo foundation validator"
+      ],
+      "not_claimed": "full make verify completion or later targets"
+    }
+  },
+  "runtime_validation": [
+    {
+      "action": "base -> upgrade head -> inspect schema/constraints",
+      "expected": "v2; validated owner FK and issuer+subject uniqueness",
+      "observed": "identity_link_binding_v2; 66 validated constraints inspected"
+    },
+    {
+      "action": "bootstrap -> inspect state/audit -> second use",
+      "expected": "one completed bootstrap and administrator; rejection",
+      "observed": "completed; administrator FK matches; 1 committed AdminBootstrapped; bootstrap_already_completed"
+    },
+    {
+      "action": "independent local login",
+      "expected": "valid account still usable",
+      "observed": "Argon2id verification succeeded; persisted session authenticated"
+    },
+    {
+      "action": "session/token -> persist -> revoke -> reuse",
+      "expected": "revoked persisted and audited; subsequent use denied",
+      "observed": "both revoked; 2 committed audits; unauthorized for both"
+    },
+    {
+      "action": "authenticated explicit link -> OIDC login",
+      "expected": "issuer+subject resolves same local account",
+      "observed": "linked true then false; same link and account; sessions persisted"
+    },
+    {
+      "action": "unlinked/invalid OIDC -> unlink -> reuse -> local login",
+      "expected": "explicit failure; revocation audited; no fallback; local remains usable",
+      "observed": "identity_link_conflict / oidc_exchange_failed; failed callbacks; link revoked + unlink audit; unauthorized; independent local login succeeds"
+    },
+    {
+      "action": "recovery -> persist ceremony/rotate kit/revoke credentials -> reuse",
+      "expected": "old kit/password/session/PAT denied; audit and new local access",
+      "observed": "ceremony kit hash + rotated account hash; 1 committed recover; forbidden / invalid_credentials / unauthorized; new local login succeeded"
+    },
+    {
+      "action": "populated v2 -> downgrade v1",
+      "expected": "compatible rollback without state/audit loss",
+      "observed": "v1; all table data SHA256 unchanged: 8de500c0e387a33459058393be3f0011fb70649cc37212efe78a304120253f22"
+    },
+    {
+      "action": "upgrade v1 with legacy owner mismatch",
+      "expected": "atomic failure; v1 and data preserved",
+      "observed": "23503 FK violation; v1; data SHA256 unchanged; partial unique constraint absent"
+    },
+    {
+      "action": "initialized schema -> downgrade base",
+      "expected": "refuse destructive reset; retain completed bootstrap/audit",
+      "observed": "restore guard rejected; entire migration transaction rolled back; v2/data unchanged"
+    },
+    {
+      "action": "clean temporary data -> downgrade base",
+      "expected": "no capability tables; no version row",
+      "observed": "0 capability tables; 0 version rows"
+    },
+    {
+      "action": "reapply after rollback -> final clean rollback",
+      "expected": "repeatable migration and no fixture data",
+      "observed": "head applies; bootstrap available/0 accounts; base again"
+    },
+    {
+      "action": "clean fixtures -> downgrade base -> drop temporary database",
+      "expected": "no temporary persisted data; existing databases preserved",
+      "observed": "0 capability tables; database dropped; pg_database count=0"
+    }
+  ],
+  "failure_states": {
+    "status": "PASS",
+    "cases": [
+      "bootstrap distinct-key reuse and changed-payload replay denied; exact nonsecret replay allowed by frozen contract",
+      "issuer+subject unlinked or competing-account link => identity_link_conflict; no local fallback",
+      "disabled provider, empty subject, wrong issuer/audience, provider outage, ambiguous JWKS => oidc_exchange_failed",
+      "wrong browser/nonce and consumed/failed callback replay => oidc_state_invalid",
+      "revoked session/PAT/OIDC source => unauthorized; pending linking source revocation => identity_link_conflict",
+      "application grant removed => forbidden even for valid federated identity",
+      "invalid/old recovery kit => forbidden; reused ceremony => conflict; old password => invalid_credentials",
+      "mismatched linking session owner => PostgreSQL FK violation; legacy mismatch upgrade fails atomically at v1",
+      "populated base downgrade refuses destructive bootstrap/audit reset; full transaction/data preserved"
+    ]
+  },
+  "contract_impact": "No public contract/HTTP/DTO/endpoint/state/event change; existing frozen STORY-0036 contract reused. Private BC-002 schema adds validated composite linking-session owner FK and supporting uniqueness; v1 readers/writers compatible, no new tables/backfill. Domain entities/repositories/ORM/state machines stay within BC-002.",
+  "migration_policy": {
+    "kind": "additive constraints only; expand; no contract/data rewrite phase",
+    "versions": "v1 reader/writer remains compatible with v2; v2 to v1 rollback preserves table-data digest",
+    "execution": "existing exclusive Alembic controller, transactional revision checkpoint, advisory lock; 5s lock and 30s statement bounds",
+    "preflight": "legacy ownership mismatch rejected atomically, no repair or cutover; production capacity/space checks remain an operator gate for existing table index/constraint DDL",
+    "backup": "v2 has no data rewrite/irreversible phase; v1 initialized-downgrade restore guard preserved",
+    "rollback": "populated v2 -> v1 digest equality; cleaned schema -> base, reapply head, base again demonstrated"
+  },
+  "cleanup": "all temporary fixture data removed; downgrade base verified; identity_slice2_validation dropped and absence verified; existing databases preserved; started PostgreSQL service stopped; no other services started",
+  "residual_risks": [
+    "full make verify integration gate pending; no bypass or weakening",
+    "Python 3.12.10 was available locally; repository pins 3.12.13, so exact pinned interpreter/CI validation remains pending",
+    "synthetic profile/eligibility/ceremony decision and OIDC transport only; no production security profile promotion, live IdP, throttling implementation or scale/SLO/security-readiness claim",
+    "production migration on larger existing tables needs capacity/space/lock preflight within the declared time bounds"
+  ],
+  "BLOCKER_HIGH": "No absent/contradictory material contract or new prerequisite. Global verify environment gate and exact interpreter validation remain pending for release; candidate is not approved.",
+  "HANDOFF": "One candidate commit on codex/issue-0823-identity-access for independent QA/Reviewer (and required Architect gate) on the same SHA; no self-approval, push or PR publication.",
+  "evidence_manifest": [
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/baseline-negative-control.log",
+      "sha256_utf8_lf": "c50f77f409b3b0099565d005e377742da151b8db93a21166f716df3ab4b003e9"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/focused-tests.xml",
+      "sha256_utf8_lf": "7b4ef5b44270a301b2ac157914912b7b64a64e2cc80c6d0382f949a83171f099"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/make-verify.log",
+      "sha256_utf8_lf": "3e375ca7c9d7361217c3d40b6e7216ce60065464b5009d986f5bbada625de966"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/mypy.log",
+      "sha256_utf8_lf": "f9b031e5c45aa702cd4fef028d465551cb20a2c4698e0913c7b00766b20ac4d8"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/regression-current.log",
+      "sha256_utf8_lf": "43db26f998bc22eb28c0a45cbdbba6a1e973537f513c2dcd663ff6df3a77cac6"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/ruff.log",
+      "sha256_utf8_lf": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/runtime-validation.json",
+      "sha256_utf8_lf": "07c6e0aeaf56ece8512658371b1e6a5f5de9d8c15c6a445761388b3aac2cf9c6"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/runtime-validation.log",
+      "sha256_utf8_lf": "b8da83b60af2a166bef12d5912b0851062188314a02ed54a1f57315921bc03c3"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/schema-constraints.json",
+      "sha256_utf8_lf": "c5ea556bdd362c6299a3d81d5a87a1bf3020f2789fc8a3b9fc2a1d89c1f5ecf9"
+    }
+  ],
+  "manifest_digest_encoding": "SHA256_UTF8_LF; canonical line endings; log capture trailing whitespace normalized without changing output meaning"
+}
