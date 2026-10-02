@@ -67,7 +67,9 @@
     "tests/backend/identity_access/local_identity/**",
     "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/**",
     ".codex/tasks/TASK-0712.json",
-    ".gitleaksignore"
+    ".gitleaksignore",
+    "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/license-inventory.json",
+    ".reuse/dep5"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -158,7 +160,9 @@
         "tests/backend/identity_access/local_identity/**",
         "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/**",
         ".codex/tasks/TASK-0712.json",
-        ".gitleaksignore"
+        ".gitleaksignore",
+        "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/license-inventory.json",
+        ".reuse/dep5"
       ],
       "deny_paths": [
         "src/**/epic-*",

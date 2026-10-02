@@ -22,6 +22,7 @@
         ".editorconfig",
         ".env.example",
         ".gitignore",
+        ".gitleaksignore",
         ".pre-commit-config.yaml",
         ".python-version",
         "Makefile",
