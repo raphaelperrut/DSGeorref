@@ -115,7 +115,7 @@
   "artifact_digests": {
     "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/boundary-evidence.schema.json": "cad2719b9acce7b54ad7cc442ef4132725aac3ca50688e85b79d76961095a678",
     "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/conformance.py": "8bafff651486b651bdaf9774b7112efa72ec9ff737edb3c04a768c1c57fed8a4",
-    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.json": "5061e8c500f8af0c11bc139d0fc59f4a40da54ec63834a45387cf1468452da82",
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.json": "1a7c9563927a93aeb620d4ed970d631e68643ff97986ea9d89fcf58f40b5404a",
     "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.schema.json": "a0a359ec1ea103d639dbf784533afd185aca77a1b8751a0d712de6ed4a972876",
     "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/examples.json": "05288887ffd4639ff252c9a3a754d560a4a6e5213be2b1050352dd876450f902",
     "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/test_auth_freeze.py": "6130e3e7626d39aa0927720e44e287fd172d97261a9a7c9b2e3a1628adea4024",
