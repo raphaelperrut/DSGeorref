@@ -8,7 +8,7 @@
   "checked_at": "2026-10-02T19:18:25.461029+00:00",
   "branch": "codex/issue-0822-local-identity",
   "baseline_main_sha": "42906b8de172fb1dd487e821575e5bc21ec093d3",
-  "candidate_binding": "Git commit containing this report; SHA supplied in final handoff. Report excluded from its own digest to avoid a cycle.",
+  "candidate_binding": "Original implementation evidence retained at a61be06e765f6af360487d36f122b462aa8eef2e; H1 correction section binds separately to the new commit containing this report. Original source/evidence digests belong to the previous reviewed SHA.",
   "dependency": {
     "STORY-0036": "SATISFIED: FROZEN v1.0.0 merged by PR #1009 on baseline",
     "contract_sha256_utf8_lf": "1a7c9563927a93aeb620d4ed970d631e68643ff97986ea9d89fcf58f40b5404a"
@@ -299,5 +299,110 @@
     },
     "observation_note": "SQL inspection after an earlier successful integration run; subsequent successful runs may recreate the synthetic job.",
     "cleanup_note": "API/worker cleaned by fixture. Docker executor became unresponsive under host memory pressure after successful integration; no Linux runner validation claimed."
+  },
+  "h1_correction": {
+    "previous_review_sha": "a61be06e765f6af360487d36f122b462aa8eef2e",
+    "candidate_binding": "New commit containing this correction; report excluded from own digest",
+    "finding": "H1",
+    "root_cause": "Ownership check without a central action/resource authorization decision before target mutation",
+    "fix": "Access.enforce(store, principal, token:create, target.project_id) after target ownership and before mutation",
+    "contract_change": false,
+    "schema_change": false,
+    "changed_files": [
+      "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/HANDOFF.md",
+      "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+      "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-focused-tests.xml",
+      "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-runtime-evidence.json",
+      "src/backend/dsgeorref/contexts/identity_access/application/local_identity/tokens.py",
+      "tests/backend/identity_access/local_identity/test_requirements.py",
+      "tests/backend/identity_access/local_identity/test_revoke_authorization.py"
+    ],
+    "scope_still_valid": true,
+    "requirements": {
+      "REQ-AUTH-IMPL-004": "PASS executor; independent confirmation pending",
+      "REQ-AUTH-IMPL-006": "PASS executor; independent confirmation pending",
+      "REQ-DBSCHEMA-003": "PASS executor; independent confirmation pending"
+    },
+    "acceptance": {
+      "AC-ISSUE-0822-01": "PASS executor; independent confirmation pending",
+      "AC-ISSUE-0822-03": "PASS executor; independent confirmation pending"
+    },
+    "focused_tests": {
+      "result": "PASS",
+      "count": 4,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "names": [
+        "test_req_auth_impl_004",
+        "test_req_auth_impl_006",
+        "test_req_dbschema_003",
+        "test_revoke_requires_target_project_permission"
+      ],
+      "duration_seconds": 7.353
+    },
+    "test_command": "PYTHONPATH=src/backend;workdir/auth-exact IDENTITY_H1_TEST_DSN=<copied isolated DB> PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/backend/identity_access/local_identity/test_revoke_authorization.py --junitxml=<authorized evidence>/h1-focused-tests.xml",
+    "fixture_note": "Canonical test bodies imported unchanged except strengthened REQ004; focused module overrides runtime with schema-copy seed, preventing root bootstrap/migration fixtures",
+    "runtime_evidence": "h1-runtime-evidence.json",
+    "quality": {
+      "ruff": "PASS three changed Python files",
+      "mypy_strict": "PASS changed production module",
+      "git_diff_check": "PASS"
+    },
+    "previous_evidence": {
+      "base_sha": "a61be06e765f6af360487d36f122b462aa8eef2e",
+      "retained_artifacts": [
+        "mandatory-tests.xml",
+        "runtime-evidence.json",
+        "schema-constraints.json",
+        "make-verify.log",
+        "make-verify-final.log",
+        "make-verify-completion.log"
+      ],
+      "unchanged_canonical_test_bodies": [
+        "test_req_auth_impl_001",
+        "test_req_auth_impl_002",
+        "test_req_auth_impl_003",
+        "test_req_auth_impl_005",
+        "test_req_auth_impl_006",
+        "test_req_auth_impl_008",
+        "test_req_auth_impl_009",
+        "test_req_auth_impl_0010",
+        "test_req_dbschema_003"
+      ],
+      "superseded_findings": [
+        "REQ-AUTH-IMPL-004 revoke behavior",
+        "REQ-AUTH-IMPL-006/REQ-DBSCHEMA-003 target authorization",
+        "AC-ISSUE-0822-01",
+        "AC-ISSUE-0822-03"
+      ],
+      "migration_bootstrap_oidc_rollback": "NOT_RERUN; objects unchanged",
+      "global_make_verify": "NOT_RERUN per exclusive H1 scope; previous execution and limitations retained"
+    },
+    "reviewer_status": "PENDING independent confirmation on new candidate",
+    "blocker_high_remaining_by_executor": [],
+    "checked_at": "2026-10-02T19:40:34.725890+00:00",
+    "digests_utf8_lf": {
+      "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/HANDOFF.md": "10c8fe0224462ef5129f69395ae726a2c5cc9799cf9b931167025da123ad04c3",
+      "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-focused-tests.xml": "2a8fcb03d59d2604b250a60ddcb70351d79fb9d4d5e034ee2c647a2b7bc4ef76",
+      "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-runtime-evidence.json": "116aac1142716817d05b21f8365ba58c81b088a15b853e4896fe5625590ea4ea",
+      "src/backend/dsgeorref/contexts/identity_access/application/local_identity/tokens.py": "1a9bde1bea8e87f51221c81eeffcb49d35dbedf5addb7cebf7af9374b180b690",
+      "tests/backend/identity_access/local_identity/test_requirements.py": "046831046fa6db551ab9fd0f0a53b5ac1cc906d8d3d7f9d2dfe21585156fbedd",
+      "tests/backend/identity_access/local_identity/test_revoke_authorization.py": "84c566485c32be8bfdc7d540a6733e5a1822b92f1ac66589620966271628f6ec"
+    },
+    "previous_review_finding": {
+      "severity": "HIGH",
+      "id": "H1",
+      "blocker": "NONE",
+      "confirmed_by": "Reviewer, as supplied by user",
+      "failed_at_previous_sha": [
+        "AC-ISSUE-0822-01",
+        "AC-ISSUE-0822-03",
+        "REQ-AUTH-IMPL-004",
+        "REQ-AUTH-IMPL-006",
+        "REQ-DBSCHEMA-003"
+      ],
+      "other_review_objects": "Architecture/ownership/scope/freeze/migration/rollback PASS per supplied review; no prerequisite"
+    }
   }
 }

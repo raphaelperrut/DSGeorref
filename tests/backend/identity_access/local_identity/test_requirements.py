@@ -139,6 +139,17 @@ def test_req_auth_impl_004(runtime):
             {"project_id": project, "account_id": r.account.id},
             {"role": "viewer", "revision": 2},
         )
+    rejected(
+        "forbidden",
+        lambda: r.tokens.revoke(r.issued.secret, "session", issued.token.id, r.browser()),
+    )
+    with r.uow() as store:
+        assert store.get("tokens", {"id": issued.token.id}) == row
+        store.update(
+            "memberships",
+            {"project_id": project, "account_id": r.account.id},
+            {"role": "owner", "revision": 3},
+        )
     r.tokens.revoke(r.issued.secret, "session", issued.token.id, r.browser())
     rejected("unauthorized", lambda: r.access.authenticate(pat=issued.secret))
     with r.uow() as store:

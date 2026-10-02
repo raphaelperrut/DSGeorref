@@ -129,3 +129,39 @@ Revisão independente de Arquiteto, QA e Reviewer no SHA candidato; promover BP-
 aprovado e integrar as capabilities confiáveis antes de produção. Os checks globais
 foram completados nas execuções retomadas registradas, com a limitação operacional acima.
 Riscos residuais e ausência de aprovação não são apresentados como gates aprovados.
+
+## Correção H1 — revisão do candidato anterior
+
+Base revisada: `a61be06e765f6af360487d36f122b462aa8eef2e`. A correção pertence ao
+novo commit que contém este adendo. Somente H1 foi tratado; nenhuma aprovação
+independente é atribuída ao executor.
+
+A revogação autenticava e verificava ownership, mas não exigia permission_granted
+para a ação sobre o alvo. `Tokens.revoke` agora chama `Access.enforce` com a permissão
+registrada `token:create` e o `project_id` da linha persistida do token alvo, sob os
+locks e a transação existentes, antes da mutação. Ownership continua obrigatório.
+Não foi criada ação, política, contrato, endpoint ou capacidade de outro slice.
+
+`h1-focused-tests.xml`: PASS, quatro testes — canônicos REQ-AUTH-IMPL-004/006,
+REQ-DBSCHEMA-003 e regressão de autorização da revogação. Setup usa schema já aprovado
+copiado em `local_identity_h1_validation`; sujeitos/sessões são dados sintéticos,
+sem bootstrap, migration, rollback ou OIDC. Ruff dos três arquivos e mypy strict
+do módulo alterado passaram. A propriedade de runtime no JUnit gera um warning
+de compatibilidade xunit2; os resultados e seu conteúdo são preservados também
+em `h1-runtime-evidence.json`.
+
+A integração real comprovou quatro negações com a linha completa do alvo intacta
+e nenhuma revogação confirmada: PAT A list-only para B com permissão central negada;
+sessão proprietária sem permissão B; PAT A token:create para B mesmo com grant B;
+PAT B list-only sem a ação exigida. PAT B token:create autorizado revoga o alvo B,
+incrementa revisão, registra uma única revogação e nega usos posteriores.
+
+Evidências de migration/rollback, contratos e capacidades não alteradas permanecem
+vinculadas ao SHA revisado anterior. Os resultados de revogação e AC-01/AC-03 são
+supersedidos pela evidência H1. Nenhum gate global foi repetido ou apresentado como
+novo resultado neste SHA. Mudança de produção: uma chamada ao autorizador existente.
+Rollback da correção por revert reintroduziria H1 e exige decisão consciente; não
+há alteração de schema/dados ou procedimento novo de migration/rollback.
+
+Próximo gate: Reviewer independente confirmar o fechamento de H1 no novo SHA.
+Permanecem os limites produtivos e de aprovação registrados no handoff original.

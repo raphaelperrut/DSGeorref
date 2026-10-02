@@ -1,0 +1,98 @@
+{
+  "base_review_sha": "a61be06e765f6af360487d36f122b462aa8eef2e",
+  "candidate_binding": "Commit containing this evidence; code/test SHA256 bindings in VALIDATION-REPORT.json",
+  "checked_at": "2026-10-02T19:38:49.998787+00:00",
+  "boundary": "Tokens.revoke -> Access.enforce -> private PostgreSQL UoW",
+  "database": "local_identity_h1_validation; copied from approved local_identity_validation; PostgreSQL 16.1",
+  "schema_setup": "CREATE DATABASE TEMPLATE; no migration, rollback or bootstrap executed",
+  "permission": "existing registered token:create, evaluated against target.project_id",
+  "actions": [
+    {
+      "scenario": "A list-only PAT; B central permission denied; same owner",
+      "expected": "forbidden; target unchanged",
+      "observed": "forbidden; complete persisted row unchanged; no committed revoke"
+    },
+    {
+      "scenario": "session owner; B central permission denied",
+      "expected": "forbidden; target unchanged",
+      "observed": "forbidden; complete persisted row unchanged; no committed revoke"
+    },
+    {
+      "scenario": "A token:create PAT; B central role allows; caller project mismatch",
+      "expected": "forbidden; target unchanged",
+      "observed": "forbidden; complete persisted row unchanged; no committed revoke"
+    },
+    {
+      "scenario": "B list-only PAT; target owned; required action absent",
+      "expected": "forbidden; target unchanged",
+      "observed": "forbidden; complete persisted row unchanged; no committed revoke"
+    },
+    {
+      "scenario": "B token:create PAT; matching target project and owner",
+      "expected": "revoked; revision +1; subsequent use denied",
+      "observed": "revoked; revision +1; one committed audit; unauthorized"
+    }
+  ],
+  "post_run_sql_inspection": {
+    "tokens": [
+      {
+        "id": "01a0fe1e-9737-7b87-9f7b-4a2f9590cca9",
+        "account_id": "01a0fe1e-95e5-787f-98bf-e7c67c31bd55",
+        "project_id": "01a0fe1e-9649-7d33-ae75-9cb4b479278b",
+        "scopes": [
+          "project_member:list"
+        ],
+        "state": "revoked",
+        "revision": 2
+      },
+      {
+        "id": "01a0fe1e-97a8-77e7-a3c4-027246d0a12a",
+        "account_id": "01a0fe1e-95e5-787f-98bf-e7c67c31bd55",
+        "project_id": "01a0fe1e-9649-774c-8d49-c2a3d58df81d",
+        "scopes": [
+          "project_member:list"
+        ],
+        "state": "active",
+        "revision": 1
+      },
+      {
+        "id": "01a0fe1e-9893-74a7-ae16-ff9fda11ea99",
+        "account_id": "01a0fe1e-95e5-787f-98bf-e7c67c31bd55",
+        "project_id": "01a0fe1e-9649-774c-8d49-c2a3d58df81d",
+        "scopes": [
+          "token:create"
+        ],
+        "state": "active",
+        "revision": 1
+      },
+      {
+        "id": "01a0fe1e-9945-7586-9161-861f4963866c",
+        "account_id": "01a0fe1e-95e5-787f-98bf-e7c67c31bd55",
+        "project_id": "01a0fe1e-9649-7d33-ae75-9cb4b479278b",
+        "scopes": [
+          "token:create"
+        ],
+        "state": "active",
+        "revision": 1
+      }
+    ],
+    "committed_target_revoke_count": 1,
+    "revision": "local_identity_v1",
+    "result": "PASS"
+  },
+  "focused_tests": {
+    "result": "PASS",
+    "count": 4,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "names": [
+      "test_req_auth_impl_004",
+      "test_req_auth_impl_006",
+      "test_req_dbschema_003",
+      "test_revoke_requires_target_project_permission"
+    ],
+    "duration_seconds": 7.353
+  },
+  "junit_note": "record_property retained in XML; pytest warns that this extension is incompatible with strict xunit2 schema. No test failure. Structured runtime property also extracted here."
+}
