@@ -280,7 +280,7 @@
       "method": "GET",
       "path": "/projects/{projectId}/members",
       "authorization": "Política central server-side",
-      "idempotency": "Obrigatória",
+      "idempotency": "Não aplicável",
       "response": "JSON tipado ou `application/problem+json`",
       "operation_id": "get_projects_projectid_members",
       "mutating": false,
