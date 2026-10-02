@@ -4,7 +4,7 @@ Upstream-Contact: Raphael Perrut <110496238+raphaelperrut@users.noreply.github.c
 Source: https://github.com/raphaelperrut/DSGeorref
 
 Files: .codex/** .github/** .reuse/** config/** infra/** src/** tests/** tools/**
- .dockerignore .editorconfig .env.example .gitignore .pre-commit-config.yaml
+ .dockerignore .editorconfig .env.example .gitignore .gitleaksignore .pre-commit-config.yaml
  .python-version Makefile manifest.json package.json pnpm-lock.yaml
  pnpm-workspace.yaml pyproject.toml requirements-validation.txt SHA256SUMS.txt
  VALIDATION_RESULT.txt

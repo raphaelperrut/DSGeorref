@@ -1,0 +1,616 @@
+py -3.12 -m ruff check tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/decision_controls.py tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_srg_srp_part_4.py
+All checks passed!
+py -3.12 -m mypy tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/decision_controls.py
+Success: no issues found in 1 source file
+pnpm run frontend:verify
+ WARN  Unsupported engine: wanted: {"node":"24.20.0"} (current: {"node":"v22.14.0","pnpm":"10.26.1"})
+
+> dsgeorref-workspace@ frontend:verify C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref
+> pnpm run frontend:typecheck && pnpm run frontend:test:unit && pnpm run frontend:test:browser
+
+ WARN  Unsupported engine: wanted: {"node":"24.20.0"} (current: {"node":"v22.14.0","pnpm":"10.26.1"})
+ WARN  Unsupported engine: wanted: {"node":"24.20.0"} (current: {"node":"v22.14.0","pnpm":"10.26.1"})
+
+> dsgeorref-workspace@ frontend:typecheck C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling typecheck
+
+.                                        |  WARN  Unsupported engine: wanted: {"node":"24.20.0"} (current: {"node":"v22.14.0","pnpm":"10.26.1"})
+
+> @dsgeorref/frontend-tooling@0.0.0 typecheck C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> tsc --noEmit
+
+ WARN  Unsupported engine: wanted: {"node":"24.20.0"} (current: {"node":"v22.14.0","pnpm":"10.26.1"})
+ WARN  Unsupported engine: wanted: {"node":"24.20.0"} (current: {"node":"v22.14.0","pnpm":"10.26.1"})
+
+> dsgeorref-workspace@ frontend:test:unit C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling test:unit
+
+.                                        |  WARN  Unsupported engine: wanted: {"node":"24.20.0"} (current: {"node":"v22.14.0","pnpm":"10.26.1"})
+
+> @dsgeorref/frontend-tooling@0.0.0 test:unit C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> vitest run tests/tooling/testing-library.unit.test.ts --environment jsdom
+
+
+ RUN  v4.1.11 C:/Users/rapha/OneDrive/Documentos/Asimov/GitHub/DSGeorref/src/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  14:56:43
+   Duration  11.01s (transform 130ms, setup 0ms, import 1.38s, tests 343ms, environment 8.13s)
+
+ WARN  Unsupported engine: wanted: {"node":"24.20.0"} (current: {"node":"v22.14.0","pnpm":"10.26.1"})
+ WARN  Unsupported engine: wanted: {"node":"24.20.0"} (current: {"node":"v22.14.0","pnpm":"10.26.1"})
+
+> dsgeorref-workspace@ frontend:test:browser C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling test:browser
+
+.                                        |  WARN  Unsupported engine: wanted: {"node":"24.20.0"} (current: {"node":"v22.14.0","pnpm":"10.26.1"})
+
+> @dsgeorref/frontend-tooling@0.0.0 test:browser C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> playwright test tests/tooling/playwright.browser.spec.ts --browser=chromium
+
+
+Running 1 test using 1 worker
+
+(node:22028) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22028) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › tests\tooling\playwright.browser.spec.ts:3:1 › executes the browser gate (1.3s)
+
+  1 passed (5.0s)
+py -3.12 -X utf8 tools/validate_repository.py
+VALIDATION PASS
+adrs: 59
+components: 18
+modules: 18
+sprints: 12
+epics: 110
+parent_issues: 110
+stories: 761
+tasks: 761
+requirements: 376
+issues total: 871
+py -3.12 -X utf8 tools/run_architecture_review.py
+{
+  "status": "PASS",
+  "architecture_approved": true,
+  "phase_b_entry_approved": true,
+  "findings": {
+    "provisional_task_scopes": 0,
+    "stories_over_10_requirements": 0,
+    "generic_command_requests": 0,
+    "generic_resource_responses": 0,
+    "contracts_not_frozen": 0,
+    "cycles": false
+  },
+  "stories": 761,
+  "edges": 1170
+}
+py -3.12 -X utf8 tools/run_requirements_review.py
+REQUIREMENTS REVIEW VALIDATION PASS
+issues: 871
+criteria: 3704
+requirements: 376
+sprint gates: 84
+py -3.12 -X utf8 tools/run_domain_driven_design_review.py
+DOMAIN DRIVEN DESIGN REVIEW PASS
+contexts: 16
+context_map_edges: 70
+contracts_owned: 235
+py -3.12 -X utf8 tools/run_adr_review.py
+{
+  "status": "PASS",
+  "adrs": 59,
+  "total_adr_records": 59,
+  "active_accepted_adrs": 58,
+  "superseded_adrs": 1,
+  "phase_d_historical_adr_records": 57,
+  "requirements": 376,
+  "cycles": 0,
+  "open_decisions": 0,
+  "open_architectural_decisions": 0
+}
+py -3.12 -X utf8 tools/run_specification_review.py
+SPECIFICATION REVIEW PASS
+specifications: 5
+task envelopes: 761
+py -3.12 -X utf8 tools/run_sprint_review.py
+SPRINT REVIEW PASS
+sprints: 12
+issues: 871
+stories: 761
+matrix rows: 871
+py -3.12 -X utf8 tools/check_python_architecture.py
+PYTHON ARCHITECTURE FAILED
+- branch points exigem Design Review (13>12): src/backend/dsgeorref/contexts/identity_access/domain/local_identity/policy.py::validate
+make: *** [Makefile:16: verify] Error 1
+py -3.12 -X utf8 tools/validate_repository.py
+VALIDATION PASS
+adrs: 59
+components: 18
+modules: 18
+sprints: 12
+epics: 110
+parent_issues: 110
+stories: 761
+tasks: 761
+requirements: 376
+issues total: 871
+py -3.12 -X utf8 tools/run_architecture_review.py
+{
+  "status": "PASS",
+  "architecture_approved": true,
+  "phase_b_entry_approved": true,
+  "findings": {
+    "provisional_task_scopes": 0,
+    "stories_over_10_requirements": 0,
+    "generic_command_requests": 0,
+    "generic_resource_responses": 0,
+    "contracts_not_frozen": 0,
+    "cycles": false
+  },
+  "stories": 761,
+  "edges": 1170
+}
+py -3.12 -X utf8 tools/run_requirements_review.py
+REQUIREMENTS REVIEW VALIDATION PASS
+issues: 871
+criteria: 3704
+requirements: 376
+sprint gates: 84
+py -3.12 -X utf8 tools/run_domain_driven_design_review.py
+DOMAIN DRIVEN DESIGN REVIEW PASS
+contexts: 16
+context_map_edges: 70
+contracts_owned: 235
+py -3.12 -X utf8 tools/run_adr_review.py
+{
+  "status": "PASS",
+  "adrs": 59,
+  "total_adr_records": 59,
+  "active_accepted_adrs": 58,
+  "superseded_adrs": 1,
+  "phase_d_historical_adr_records": 57,
+  "requirements": 376,
+  "cycles": 0,
+  "open_decisions": 0,
+  "open_architectural_decisions": 0
+}
+py -3.12 -X utf8 tools/run_specification_review.py
+SPECIFICATION REVIEW PASS
+specifications: 5
+task envelopes: 761
+py -3.12 -X utf8 tools/run_sprint_review.py
+SPRINT REVIEW PASS
+sprints: 12
+issues: 871
+stories: 761
+matrix rows: 871
+py -3.12 -X utf8 tools/check_python_architecture.py
+PYTHON ARCHITECTURE PASS
+python_files: 21
+modules: 21
+py -3.12 -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py
+{
+  "checks": {
+    "checkpoint": {
+      "status": "PASS"
+    },
+    "ci_integration": {
+      "mechanism": "make verify",
+      "python": "$(PYTHON)",
+      "status": "PASS"
+    },
+    "citation": {
+      "artifact": "CITATION.cff",
+      "status": "PASS",
+      "version": "0.0.0"
+    },
+    "contribution": {
+      "cla": "NOT_REQUIRED",
+      "origin_certification": "DCO-1.1",
+      "status": "PASS"
+    },
+    "dco": {
+      "reason": "no external commit range",
+      "status": "NOT_REQUESTED"
+    },
+    "dependencies": {
+      "direct_dependencies": 14,
+      "runtime_dependencies": 0,
+      "status": "PASS"
+    },
+    "licensing": {
+      "assigned_paths": 3349,
+      "dep5_license_classes": 3,
+      "license_classes": [
+        "AGPL-3.0-or-later",
+        "Apache-2.0",
+        "CC-BY-4.0"
+      ],
+      "license_text_digests": {
+        "LICENSES/AGPL-3.0-or-later.txt": "d8a6cc31abc16b6748c7a21f21611f5a1ec33f67d22ca23d7da1c19b95496bee",
+        "LICENSES/Apache-2.0.txt": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+        "LICENSES/CC-BY-4.0.txt": "d557539df68e771cc1eedcc91d13f70fca930e508d11eedcafa4b15db49e3744"
+      },
+      "status": "PASS"
+    }
+  },
+  "decision": "PASS",
+  "issue_id": "ISSUE-0142",
+  "schema_version": "1.0.0"
+}
+py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py
+......                                                                   [100%]
+6 passed in 2.87s
+py -3.12 -X utf8 tools/governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/foundation_validation.py --foundation docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/foundation-plan.json --contract contracts/contexts/engineering_governance/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/examples/monorepo-foundation.json
+{"findings": [], "foundation": "docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/foundation-plan.json", "status": "PASS"}
+py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation.py
+......                                                                   [100%]
+6 passed in 9.67s
+py -3.12 -X utf8 tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/foundation_validation.py --policy docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/foundation-policy.json --repository-root .
+{"findings": [], "status": "PASS"}
+py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_implementation.py
+.......                                                                  [100%]
+7 passed in 7.18s
+py -3.12 -X utf8 tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/foundation_validation.py --policy docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/foundation-policy.json --repository-root .
+{"findings": [], "status": "PASS"}
+py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09 tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_10
+make: *** [Makefile:24: verify] Error -1
+........
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-8.3.5, pluggy-1.5.0 -- C:\Users\rapha\AppData\Local\Programs\Python\Python312\python.exe
+rootdir: C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref
+configfile: pyproject.toml
+collecting ... collected 9 items
+
+tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py::test_completion_policy_covers_closure_and_cutover PASSED [ 11%]
+tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py::test_completion_policy_binds_canonical_checkpoints PASSED [ 22%]
+tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py::test_completion_policy_rejects_fallback_and_missing_proofs PASSED [ 33%]
+tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py::test_completion_policy_rejects_checkpoint_scope_and_contract_drift PASSED [ 44%]
+tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py::test_completion_evidence_is_canonical_and_immutable PASSED [ 55%]
+tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py::test_completion_validator_cli_is_deterministic_and_fails_closed PASSED [ 66%]
+tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py::test_completion_handoff_records_contract_risk_and_rollback PASSED [ 77%]
+Windows fatal exception: access violation
+
+Thread 0x00000d70 (most recent call first):
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\yaml\scanner.py", line 1149 in save_possible_simple_key
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\yaml\scanner.py", line 89 in fetch_flow_scalar
+  File Windows fatal exception: access violation
+
+tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-8.3.5, pluggy-1.5.0 -- C:\Users\rapha\AppData\Local\Programs\Python\Python312\python.exe
+rootdir: C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref
+configfile: pyproject.toml
+collecting ... collected 2 items
+
+Timeout (0:00:45)!
+Thread 0x000077e4 (most recent call first):
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1599 in _readerthread
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012 in run
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x00007f98 (most recent call first):
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1599 in _readerthread
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012 in run
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x00007d98 (most recent call first):
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1169 in _wait_for_tstate_lock
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1149 in join
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1628 in _communicate
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1209 in communicate
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 550 in run
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\frz-gov-adr-gov-dec-parte-1\governed_artifacts.py", line 43 in git_blob
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\frz-gov-adr-gov-dec-parte-1\governed_artifacts.py", line 193 in _role_patterns
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\frz-gov-adr-gov-dec-parte-1\governed_artifacts.py", line 121 in role_authorizes_path
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\governed_authority.py", line 52 in authority_findings
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\execution_evidence.py", line 91 in execution_provenance_findings
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_evidence_payloads.py", line 153 in test_payload_findings
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_evidence.py", line 216 in _test_findings
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_evidence.py", line 127 in _collection_findings
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_evidence.py", line 80 in validate_sprint_evidence_set
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_evidence.py", line 63 in build_sprint_evidence_set
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tests\fnd\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\test_materialization.py", line 320 in _with_daa
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tests\fnd\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\test_materialization.py", line 324 in build_sprint_evidence_set
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tests\fnd\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\test_materialization.py", line 1225 in _sprint_evidence_fixture
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tests\fnd\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\test_materialization.py", line 2226 in test_sprint_zero_baseline_decision_09
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\python.py", line 159 in pytest_pyfunc_call
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_callers.py", line 103 in _multicall
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_manager.py", line 120 in _hookexec
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_hooks.py", line 513 in __call__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\python.py", line 1627 in runtest
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 174 in pytest_runtest_call
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_callers.py", line 103 in _multicall
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_manager.py", line 120 in _hookexec
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_hooks.py", line 513 in __call__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 242 in <lambda>
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 341 in from_call
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 241 in call_and_report
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 132 in runtestprotocol
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 113 in pytest_runtest_protocol
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_callers.py", line 103 in _multicall
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_manager.py", line 120 in _hookexec
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_hooks.py", line 513 in __call__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\main.py", line 362 in pytest_runtestloop
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_callers.py", line 103 in _multicall
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_manager.py", line 120 in _hookexec
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_hooks.py", line 513 in __call__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\main.py", line 337 in _main
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\main.py", line 283 in wrap_session
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\main.py", line 330 in pytest_cmdline_main
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_callers.py", line 103 in _multicall
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_manager.py", line 120 in _hookexec
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_hooks.py", line 513 in __call__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\config\__init__.py", line 175 in main
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\config\__init__.py", line 201 in console_main
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09
+py -3.12 -X utf8 tools/validate_repository.py
+VALIDATION PASS
+adrs: 59
+components: 18
+modules: 18
+sprints: 12
+epics: 110
+parent_issues: 110
+stories: 761
+tasks: 761
+requirements: 376
+issues total: 871
+py -3.12 -X utf8 tools/run_architecture_review.py
+{
+  "status": "PASS",
+  "architecture_approved": true,
+  "phase_b_entry_approved": true,
+  "findings": {
+    "provisional_task_scopes": 0,
+    "stories_over_10_requirements": 0,
+    "generic_command_requests": 0,
+    "generic_resource_responses": 0,
+    "contracts_not_frozen": 0,
+    "cycles": false
+  },
+  "stories": 761,
+  "edges": 1170
+}
+py -3.12 -X utf8 tools/run_requirements_review.py
+REQUIREMENTS REVIEW VALIDATION PASS
+issues: 871
+criteria: 3704
+requirements: 376
+sprint gates: 84
+py -3.12 -X utf8 tools/run_domain_driven_design_review.py
+DOMAIN DRIVEN DESIGN REVIEW PASS
+contexts: 16
+context_map_edges: 70
+contracts_owned: 235
+py -3.12 -X utf8 tools/run_adr_review.py
+{
+  "status": "PASS",
+  "adrs": 59,
+  "total_adr_records": 59,
+  "active_accepted_adrs": 58,
+  "superseded_adrs": 1,
+  "phase_d_historical_adr_records": 57,
+  "requirements": 376,
+  "cycles": 0,
+  "open_decisions": 0,
+  "open_architectural_decisions": 0
+}
+py -3.12 -X utf8 tools/run_specification_review.py
+SPECIFICATION REVIEW PASS
+specifications: 5
+task envelopes: 761
+py -3.12 -X utf8 tools/run_sprint_review.py
+SPRINT REVIEW PASS
+sprints: 12
+issues: 871
+stories: 761
+matrix rows: 871
+py -3.12 -X utf8 tools/check_python_architecture.py
+PYTHON ARCHITECTURE PASS
+python_files: 21
+modules: 21
+py -3.12 -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py
+{
+  "checks": {
+    "checkpoint": {
+      "status": "PASS"
+    },
+    "ci_integration": {
+      "mechanism": "make verify",
+      "python": "$(PYTHON)",
+      "status": "PASS"
+    },
+    "citation": {
+      "artifact": "CITATION.cff",
+      "status": "PASS",
+      "version": "0.0.0"
+    },
+    "contribution": {
+      "cla": "NOT_REQUIRED",
+      "origin_certification": "DCO-1.1",
+      "status": "PASS"
+    },
+    "dco": {
+      "reason": "no external commit range",
+      "status": "NOT_REQUESTED"
+    },
+    "dependencies": {
+      "direct_dependencies": 14,
+      "runtime_dependencies": 0,
+      "status": "PASS"
+    },
+    "licensing": {
+      "assigned_paths": 3349,
+      "dep5_license_classes": 3,
+      "license_classes": [
+        "AGPL-3.0-or-later",
+        "Apache-2.0",
+        "CC-BY-4.0"
+      ],
+      "license_text_digests": {
+        "LICENSES/AGPL-3.0-or-later.txt": "d8a6cc31abc16b6748c7a21f21611f5a1ec33f67d22ca23d7da1c19b95496bee",
+        "LICENSES/Apache-2.0.txt": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+        "LICENSES/CC-BY-4.0.txt": "d557539df68e771cc1eedcc91d13f70fca930e508d11eedcafa4b15db49e3744"
+      },
+      "status": "PASS"
+    }
+  },
+  "decision": "PASS",
+  "issue_id": "ISSUE-0142",
+  "schema_version": "1.0.0"
+}
+py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py
+......
+6 passed in 2.35s
+py -3.12 -X utf8 tools/governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/foundation_validation.py --foundation docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/foundation-plan.json --contract contracts/contexts/engineering_governance/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/examples/monorepo-foundation.json
+{"findings": [], "foundation": "docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/foundation-plan.json", "status": "PASS"}
+py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation.py
+
+ -------------- celery@LAPTOP-KIKMQL7S v5.6.3 (recovery)
+--- ***** -----
+-- ******* ---- Windows-11-10.0.26300-SP0 2026-10-02 15:29:59
+- *** --- * ---
+- ** ---------- [config]
+- ** ---------- .> app:         issue_0122_foundation:0x249c8b9bb60
+- ** ---------- .> transport:   amqp://guest:**@127.0.0.1:56783//
+- ** ---------- .> results:     disabled://
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** -----
+ -------------- [queues]
+                .> issue_0122_foundation exchange=issue_0122_foundation(direct) key=issue_0122_foundation
+
+
+......
+6 passed in 6.35s
+py -3.12 -X utf8 tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/foundation_validation.py --policy docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/foundation-policy.json --repository-root .
+{"findings": [], "status": "PASS"}
+py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_implementation.py
+.......
+7 passed in 3.31s
+py -3.12 -X utf8 tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/foundation_validation.py --policy docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/foundation-policy.json --repository-root .
+{"findings": [], "status": "PASS"}
+py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09 tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_10
+Timeout (0:01:00)!
+Thread 0x00005810 (most recent call first):
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1538 in _execute_child
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1026 in __init__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 548 in run
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\frz-gov-adr-gov-dec-parte-1\governed_artifacts.py", line 43 in git_blob
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\frz-gov-adr-gov-dec-parte-1\governed_artifacts.py", line 71 in resolve_governed_artifact
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_evidence_payloads.py", line 25 in resolve_evidence_reference
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_evidence.py", line 152 in _artifact_findings
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_evidence.py", line 114 in _collection_findings
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_evidence.py", line 80 in validate_sprint_evidence_set
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_evidence_history.py", line 51 in governed_sprint_evidence
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_decisions.py", line 84 in validate_sprint_closure
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tests\fnd\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\test_materialization.py", line 320 in _with_daa
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tests\fnd\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\test_materialization.py", line 344 in validate_sprint_closure
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tests\fnd\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\test_materialization.py", line 2228 in test_sprint_zero_baseline_decision_09
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\python.py", line 159 in pytest_pyfunc_call
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_callers.py", line 103 in _multicall
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_manager.py", line 120 in _hookexec
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_hooks.py", line 513 in __call__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\python.py", line 1627 in runtest
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 174 in pytest_runtest_call
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_callers.py", line 103 in _multicall
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_manager.py", line 120 in _hookexec
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_hooks.py", line 513 in __call__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 242 in <lambda>
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 341 in from_call
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 241 in call_and_report
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 132 in runtestprotocol
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 113 in pytest_runtest_protocol
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_callers.py", line 103 in _multicall
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_manager.py", line 120 in _hookexec
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_hooks.py", line 513 in __call__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\main.py", line 362 in pytest_runtestloop
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_callers.py", line 103 in _multicall
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_manager.py", line 120 in _hookexec
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_hooks.py", line 513 in __call__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\main.py", line 337 in _main
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\main.py", line 283 in wrap_session
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\main.py", line 330 in pytest_cmdline_main
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_callers.py", line 103 in _multicall
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_manager.py", line 120 in _hookexec
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_hooks.py", line 513 in __call__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\config\__init__.py", line 175 in main
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\config\__init__.py", line 201 in console_main
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Timeout (0:01:00)!
+Thread 0x0000822c (most recent call first):
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1599 in _readerthread
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012 in run
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x00008434 (most recent call first):
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1599 in _readerthread
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012 in run
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x00005810 (most recent call first):
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1169 in _wait_for_tstate_lock
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1149 in join
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1628 in _communicate
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1209 in communicate
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 550 in run
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\frz-gov-adr-gov-dec-parte-1\governed_artifacts.py", line 43 in git_blob
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\frz-gov-adr-gov-dec-parte-1\governed_artifacts.py", line 71 in resolve_governed_artifact
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\execution_evidence.py", line 68 in execution_provenance_findings
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_evidence_payloads.py", line 153 in test_payload_findings
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_evidence.py", line 216 in _test_findings
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_evidence.py", line 127 in _collection_findings
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_evidence.py", line 80 in validate_sprint_evidence_set
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tools\governance\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\sprint-001-tool-parte-2\sprint_evidence.py", line 63 in build_sprint_evidence_set
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tests\fnd\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\test_materialization.py", line 320 in _with_daa
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tests\fnd\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\test_materialization.py", line 324 in build_sprint_evidence_set
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tests\fnd\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\test_materialization.py", line 1477 in _build_sprint_evidence_at
+  File "C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\tests\fnd\governanca-de-decisoes-arquiteturais-e-manutencao-da-b\test_materialization.py", line 2369 in test_sprint_zero_baseline_decision_10
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\python.py", line 159 in pytest_pyfunc_call
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_callers.py", line 103 in _multicall
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_manager.py", line 120 in _hookexec
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_hooks.py", line 513 in __call__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\python.py", line 1627 in runtest
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 174 in pytest_runtest_call
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_callers.py", line 103 in _multicall
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_manager.py", line 120 in _hookexec
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_hooks.py", line 513 in __call__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 242 in <lambda>
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 341 in from_call
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 241 in call_and_report
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 132 in runtestprotocol
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\runner.py", line 113 in pytest_runtest_protocol
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_callers.py", line 103 in _multicall
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_manager.py", line 120 in _hookexec
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_hooks.py", line 513 in __call__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\main.py", line 362 in pytest_runtestloop
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_callers.py", line 103 in _multicall
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_manager.py", line 120 in _hookexec
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_hooks.py", line 513 in __call__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\main.py", line 337 in _main
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\main.py", line 283 in wrap_session
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\main.py", line 330 in pytest_cmdline_main
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_callers.py", line 103 in _multicall
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_manager.py", line 120 in _hookexec
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pluggy\_hooks.py", line 513 in __call__
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\config\__init__.py", line 175 in main
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\config\__init__.py", line 201 in console_main
+  File "C:\Users\rapha\AppData\Local\Programs\Python\Python312\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+make: *** [Makefile:24: verify] Error -1
+........

@@ -1,0 +1,531 @@
+{
+  "issue_id": "ISSUE-0822",
+  "github_issue": 155,
+  "task_id": "TASK-0712",
+  "story_id": "STORY-0712",
+  "owner": "BC-002",
+  "slice": "1/2",
+  "checked_at": "2026-10-02T19:18:25.461029+00:00",
+  "branch": "codex/issue-0822-local-identity",
+  "baseline_main_sha": "42906b8de172fb1dd487e821575e5bc21ec093d3",
+  "candidate_binding": "Original implementation evidence retained at a61be06e765f6af360487d36f122b462aa8eef2e; H1 correction section binds separately to the new commit containing this report. Original source/evidence digests belong to the previous reviewed SHA.",
+  "dependency": {
+    "STORY-0036": "SATISFIED: FROZEN v1.0.0 merged by PR #1009 on baseline",
+    "contract_sha256_utf8_lf": "1a7c9563927a93aeb620d4ed970d631e68643ff97986ea9d89fcf58f40b5404a"
+  },
+  "acceptance": {
+    "AC-ISSUE-0822-01": {
+      "executor_evidence": "PASS",
+      "independent_approval": "PENDING"
+    },
+    "AC-ISSUE-0822-02": {
+      "executor_evidence": "PASS",
+      "independent_approval": "PENDING"
+    },
+    "AC-ISSUE-0822-03": {
+      "executor_evidence": "PASS",
+      "independent_approval": "PENDING"
+    },
+    "AC-ISSUE-0822-04": {
+      "executor_evidence": "PASS",
+      "independent_approval": "PENDING"
+    }
+  },
+  "requirements": {
+    "REQ-AUTH-IMPL-001": {
+      "implementation_evidence": "PASS",
+      "canonical_test": "test_req_auth_impl_001"
+    },
+    "REQ-AUTH-IMPL-002": {
+      "implementation_evidence": "PASS",
+      "canonical_test": "test_req_auth_impl_002"
+    },
+    "REQ-AUTH-IMPL-003": {
+      "implementation_evidence": "PASS",
+      "canonical_test": "test_req_auth_impl_003"
+    },
+    "REQ-AUTH-IMPL-004": {
+      "implementation_evidence": "PASS",
+      "canonical_test": "test_req_auth_impl_004"
+    },
+    "REQ-AUTH-IMPL-005": {
+      "implementation_evidence": "PASS",
+      "canonical_test": "test_req_auth_impl_005"
+    },
+    "REQ-AUTH-IMPL-006": {
+      "implementation_evidence": "PASS",
+      "canonical_test": "test_req_auth_impl_006"
+    },
+    "REQ-AUTH-IMPL-008": {
+      "implementation_evidence": "PASS",
+      "canonical_test": "test_req_auth_impl_008"
+    },
+    "REQ-AUTH-IMPL-009": {
+      "implementation_evidence": "PASS",
+      "canonical_test": "test_req_auth_impl_009"
+    },
+    "REQ-AUTH-IMPL-010": {
+      "implementation_evidence": "PASS",
+      "canonical_test": "test_req_auth_impl_0010"
+    },
+    "REQ-DBSCHEMA-003": {
+      "implementation_evidence": "PASS",
+      "canonical_test": "test_req_dbschema_003"
+    }
+  },
+  "mandatory_tests": {
+    "result": "PASS",
+    "count": 10,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "entrypoints": [
+      "test_req_auth_impl_001",
+      "test_req_auth_impl_002",
+      "test_req_auth_impl_003",
+      "test_req_auth_impl_004",
+      "test_req_auth_impl_005",
+      "test_req_auth_impl_006",
+      "test_req_auth_impl_008",
+      "test_req_auth_impl_009",
+      "test_req_auth_impl_0010",
+      "test_req_dbschema_003"
+    ],
+    "command": "PYTHONPATH=src/backend;workdir/auth-exact IDENTITY_TEST_DSN=<isolated PostgreSQL DSN> PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/backend/identity_access/local_identity/test_requirements.py --junitxml=<authorized evidence>/mandatory-tests.xml",
+    "duration_seconds": 44.725
+  },
+  "quality": {
+    "ruff": "PASS, all changed Python code/tests",
+    "mypy_strict": "PASS, 21 production modules; MYPYPATH=src/backend, follow-untyped-imports for installed adapter libraries",
+    "python_architecture": "PASS, 21 modules; no circular imports, context violations or blocked size/branch limits",
+    "git_diff_check": "PASS"
+  },
+  "make_verify": {
+    "result": "PASS_ALL_CHECKS_RESUMED",
+    "complete_global_gate": false,
+    "single_invocation_exit_zero": false,
+    "execution_note": "make verify executed; completed unchanged successful checks reused, then interrupted slow Windows Git-fixture targets resumed with their exact commands. No tests disabled or substituted. Completion log records the remaining results.",
+    "passed": "frontend typecheck/unit/browser; Python quality; repository/SAR/requirements/DDD/ADR/specification/sprint/architecture; licenses; real walking skeleton API/worker; implementation/completion; decisions 09/10; ruleset and Sprint-001 foundation closure",
+    "logs": [
+      "make-verify.log",
+      "make-verify-final.log",
+      "make-verify-completion.log"
+    ],
+    "original_command": "make verify \"PYTHON=py -3.12\"",
+    "resumed_commands": [
+      "py -3.12 -X utf8 -m pytest -v -p no:cacheprovider tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09 tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_10",
+      "py -3.12 -X utf8 tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/foundation_validation.py",
+      "py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_main_ruleset_foundation.py",
+      "py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py"
+    ],
+    "all_check_commands_passed": true,
+    "formal_gate_note": "All prescribed checks passed across recorded resumed executions; no uninterrupted make verify process exited zero. Formal CI exit-zero result is not claimed."
+  },
+  "migration": {
+    "revision": "local_identity_v1",
+    "apply": "PASS",
+    "inspected_constraints": 64,
+    "rollback": "PASS empty downgrade, protected refusal when populated, reapply and coordinated restore with identical data digest"
+  },
+  "runtime": {
+    "profile": "synthetic fixture only; no BP-003 promotion or production readiness claim",
+    "boundary": "application services -> private BC-002 UoW -> PostgreSQL 16.1",
+    "migration_apply": "Alembic local_identity_v1; transactional additive DDL; PASS",
+    "deferred_commit_failure": "commit rejected -> no account/session/idempotency/audit success -> observed; bootstrap available",
+    "bootstrap_concurrency": "two transactions -> exactly one winner -> one account/session, loser bootstrap_already_completed",
+    "project_scope": "scoped PAT -> same project allowed / other denied -> observed allowed / forbidden",
+    "expiry": "server expiry elapsed -> denied and state expired -> unauthorized / expired",
+    "restart": "PostgreSQL restart -> durable sessions/tokens/bootstrap -> same identities valid; bootstrap completed",
+    "revocation_rotation_logout": "revoke/rotate/logout -> old credential denied, terminal state persisted -> revoked/rotated/revoked + unauthorized",
+    "secret_at_rest": "all BC-002 tables inspected -> no raw password/kit/session/CSRF/PAT -> absent; Argon2id and SHA-256 only",
+    "constraints": "64 schema constraints inspected; composite project/account FK, uniqueness, states, hashes and timestamptz",
+    "populated_rollback_guard": "initialized identity -> refuse destructive downgrade -> refused, same data digest",
+    "migration_rollback": "empty downgrade -> base/no capability tables -> observed; reapply head -> observed; populated backup restored -> identical SHA-256",
+    "restored_data_sha256": "ade917c416df69f08cafdd609679cdad9c88f58fadf6c6b77f4cfbcf361de04f",
+    "final_state": "local_identity_v1 restored; bootstrap completed; synthetic data preserved; no production deployment"
+  },
+  "environment": {
+    "python": "3.12.10",
+    "postgresql": "16.1, real isolated loopback cluster",
+    "packages": {
+      "cryptography": "50.0.1",
+      "psycopg": "3.3.6",
+      "alembic": "1.18.4",
+      "PyJWT": "2.12.1",
+      "SQLAlchemy": "2.1.2",
+      "pytest": "8.3.5",
+      "ruff": "0.16.5",
+      "mypy": "2.3.1"
+    },
+    "cleanup": {
+      "native_postgresql": "Stopped normally; restored data and backup preserved",
+      "validation_ports": "55482/55483/56783/8765: no listeners at final inspection",
+      "docker_container_deletion": "NOT_CONFIRMED: daemon unresponsive; owned named containers/network may remain stopped",
+      "user_resources": "No user image/cache/application removed"
+    }
+  },
+  "scope": {
+    "allow_paths_valid": true,
+    "deny_paths_valid": true,
+    "violations": [],
+    "allow_paths": [
+      "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/**",
+      "src/backend/dsgeorref/contexts/identity_access/application/local_identity/**",
+      "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/**",
+      "tests/backend/identity_access/local_identity/**",
+      "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/**",
+      ".codex/tasks/TASK-0712.json"
+    ],
+    "administrative_adjustment": "User-authorized: stable importable BC-002 packages plus omitted domain/tests/evidence; serialized scope lists updated together. No Slice 2 or public contract edits."
+  },
+  "changed_files": [
+    ".codex/tasks/TASK-0712.json",
+    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/HANDOFF.md",
+    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/make-verify-completion.log",
+    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/make-verify-final.log",
+    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/make-verify.log",
+    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/mandatory-tests.xml",
+    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/runtime-evidence.json",
+    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/schema-constraints.json",
+    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/crypto.py",
+    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migration.py",
+    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/env.py",
+    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/schema.sql",
+    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/versions/local_identity.py",
+    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/oidc.py",
+    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/postgres.py",
+    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt",
+    "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/web.py",
+    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/access.py",
+    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/accounts.py",
+    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/federation.py",
+    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/observations.py",
+    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/ports.py",
+    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/recovery.py",
+    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/sessions.py",
+    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/tokens.py",
+    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/transactions.py",
+    "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/credentials.py",
+    "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/federation.py",
+    "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/models.py",
+    "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/policy.py",
+    "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/web.py",
+    "tests/backend/identity_access/local_identity/conftest.py",
+    "tests/backend/identity_access/local_identity/oidc_fixture.py",
+    "tests/backend/identity_access/local_identity/runtime_evidence.py",
+    "tests/backend/identity_access/local_identity/test_requirements.py"
+  ],
+  "digest_encoding": "SHA256_UTF8_LF; console log trailing whitespace normalized, content/results preserved",
+  "source_digests": [
+    {
+      "path": ".codex/tasks/TASK-0712.json",
+      "sha256": "04ab3b8594da0b34226597f441a963a0aa51ad40b69271996c5bda35865b29b3"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/crypto.py",
+      "sha256": "81569c4ff0ff4894e07c3865d5d57a6b1b832f5f37001c3ca88dcf73e7bada1c"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migration.py",
+      "sha256": "4c408b39eada68e563322bd1d05f137f1f53bd63dae2240b706c08b409b1c306"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/env.py",
+      "sha256": "de93e2a41b83e949ba034b435caeaf09078ffd1cdf204f049c60c7fb4d156d12"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/schema.sql",
+      "sha256": "dc01232a9ea1ddfd203c9086af4fed25f20086f953099dcc1c5c10ae3a72f972"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/versions/local_identity.py",
+      "sha256": "f041f647b3f8878f50063b63445e369460e3b13626ac3d3b365ce762cd3d8249"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/oidc.py",
+      "sha256": "005a1ca3d3f22b23539a2b3445985b90219a69fa9515e868ea647346c7548ec2"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/postgres.py",
+      "sha256": "a232ca3dfa7acbf6b13fc7eb2d5d8551a77160b84e6bc80323f2e3679b3710ef"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt",
+      "sha256": "58eac81c98bd718124069ce85c7fc2755a0df75c7d169cae37dec8a6f9bdabeb"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/web.py",
+      "sha256": "8695f4ecddff36a1b38c3aaf0e62fc6d6706ce7133a5287985497dac72279ff8"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/access.py",
+      "sha256": "24277a5ac40560f43d23858141b554590fd0972a5443a27e5270fb153780b088"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/accounts.py",
+      "sha256": "8d164aec244260e46feddfbee61d448985d4a300b0b2b24e5b3300ef14894012"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/federation.py",
+      "sha256": "c48c444c241de34cb784d33faf83863076d93dc0eee0250d94460f6f5184abfc"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/observations.py",
+      "sha256": "68bc90b20cfb1bac7ffc75a22da432326d61fb193a2ef0991c751572bab8e005"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/ports.py",
+      "sha256": "a61078184de54c414887f5b0a2143b258a020944861e1373db3baf764e9b51ee"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/recovery.py",
+      "sha256": "5e8660293f542c2e9e50aea12ceae2dcf29e1db4b28f2dcee796d30958cd29f2"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/sessions.py",
+      "sha256": "b9f6e3213c8a527dba791de6c1ba9623acb133f385352e50a3b9a03b65ab3ba6"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/tokens.py",
+      "sha256": "b139e96236e9840fe382e0cc2c9bc07da6dce2f7e3069e218027e6b603de41c5"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/transactions.py",
+      "sha256": "ca78d89f305719bee11f4cc87ebbf2688dd001fbae4d4453872be2bc383b1f1c"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/credentials.py",
+      "sha256": "7336534ed1d083ac347e9fc26d77c2d658b3ccb54aafcf5c04a2f557012a4060"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/federation.py",
+      "sha256": "c4ef21b3131dbfb34e03840aa401284d316c3fcf24b3cd544d1c9a403e00d174"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/models.py",
+      "sha256": "68ddcbc6cd6535cbb664726b6d8a60f0158ca9559d9f6696fdc91c79607e75e8"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/policy.py",
+      "sha256": "9e86fd717b2b85d6ebd17ec4eb159a3a1cd9f1163a95841d2a52ffa0515d1cdb"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/domain/local_identity/web.py",
+      "sha256": "74f882204a92ada9e71e7e7eb18f1798e0d657d7cf4738ed71bd239eb18f8928"
+    },
+    {
+      "path": "tests/backend/identity_access/local_identity/conftest.py",
+      "sha256": "619fdc5e6a48a3c69faf363fd5917f8cabfd558f0b5c297ae21316461afea5e6"
+    },
+    {
+      "path": "tests/backend/identity_access/local_identity/oidc_fixture.py",
+      "sha256": "c96f135b99a34421c0ff084cc45128c7a1f3d5240171f610a9be57f45ea4a46e"
+    },
+    {
+      "path": "tests/backend/identity_access/local_identity/runtime_evidence.py",
+      "sha256": "64474687bdbfe9a0bff1ef1940386f1882fd88746079fc485379f41c1239c90d"
+    },
+    {
+      "path": "tests/backend/identity_access/local_identity/test_requirements.py",
+      "sha256": "a43777df9a2a534a59268709f41931d4646684fe6f5bd590fd75a10223bef972"
+    }
+  ],
+  "evidence_digests": [
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/HANDOFF.md",
+      "sha256": "c2493f32dcded44f1be1f4152ef1630503b1ce0861284ebd546e0fa4684c86e6"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/make-verify-completion.log",
+      "sha256": "39b2784791738d50476d399ed8b6fa68b7e0623408610db579d100cd75781d6f"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/make-verify-final.log",
+      "sha256": "c2e32bdc3f84320357eb0581141a9cb4c15b069ab5a52d0776bd56c9cf84b88f"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/make-verify.log",
+      "sha256": "e7fadcc5e8ad540d11eab0234afa08d6f96b190257d062f6c83c72bf11ed11a2"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/mandatory-tests.xml",
+      "sha256": "325031b56885a504d8ed364ed1a0e80619c675a0b09a5f64b832f225d1a954a9"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/runtime-evidence.json",
+      "sha256": "8baabb639b90c4f6f40dfcdd9b65e42d2533d560e8b0228fba10bdc705704dd1"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/schema-constraints.json",
+      "sha256": "cd744c5e5b5b2446d034b4eabe46ffcd5597ed30bc35f03d17d12a689877e39d"
+    }
+  ],
+  "contract_impact": "No shared HTTP, frozen context contract, ADR or requirement change; additive private BC-002 persistence schema only.",
+  "handoff": "HANDOFF.md",
+  "independent_review": {
+    "Arquiteto": "PENDING",
+    "QA": "PENDING",
+    "Reviewer": "PENDING",
+    "same_candidate_commit_required": true,
+    "approval_claimed": false
+  },
+  "residual_risks": [
+    "Production BP-003 calibration/profile promotion and installation/eligibility/ceremony capabilities are required; fixtures are synthetic and no production security/performance claim is made.",
+    "Actual native pinned image/runtime not certified: rehearsal used CPython 3.12.10 and PostgreSQL 16.1; Node 22 executed the existing frontend checks with an engine warning.",
+    "Real external IdP/TLS handshake not exercised; JWT cryptography and negative paths use isolated signed transport fixtures.",
+    "Production DB app role grants, credential/profile/replay-key management and approved profile transition must be supplied by the trusted composition/deployment boundary.",
+    "Independent Architect/QA/Reviewer approval on the final SHA remains pending.",
+    "No single uninterrupted make invocation exited zero: all its checks completed through recorded resumed commands after host memory pressure and slow Git fixtures. No successful Linux executor claim.",
+    "Docker Desktop became unresponsive after successful integration; final deletion of only the named task containers/network remains unconfirmed. Their ports were closed at cleanup inspection."
+  ],
+  "blocker_high_findings": {
+    "implementation_findings_identified_by_executor": [],
+    "global_gate_blocker": null,
+    "independent_findings": "NOT_ASSESSED"
+  },
+  "final_state": "IMPLEMENTED_AND_VALIDATED; READY_FOR_INDEPENDENT_REVIEW; no deployment",
+  "foundation_integration": {
+    "result": "PASS",
+    "executor": "Windows: native API and Celery solo worker, isolated Docker PostgreSQL 18.4 and RabbitMQ 4.3.4; FOUNDATION_INTEGRATION=1",
+    "test": "test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done",
+    "last_test_group_result": "6 passed in 6.35s",
+    "persisted_observation": {
+      "status": "COMPLETED",
+      "stage_trace": [
+        "CLI_OR_WEB_INPUT",
+        "HTTP_API",
+        "POSTGRESQL_POSTGIS",
+        "RABBITMQ_CELERY",
+        "WORKER",
+        "DIAGNOSTIC_ARTIFACT"
+      ],
+      "artifact_sha256": "7adc787415766f5edd89f753d26e577698d2ac982ef113675f54254143e66357"
+    },
+    "observation_note": "SQL inspection after an earlier successful integration run; subsequent successful runs may recreate the synthetic job.",
+    "cleanup_note": "API/worker cleaned by fixture. Docker executor became unresponsive under host memory pressure after successful integration; no Linux runner validation claimed."
+  },
+  "h1_correction": {
+    "previous_review_sha": "a61be06e765f6af360487d36f122b462aa8eef2e",
+    "candidate_binding": "New commit containing this correction; report excluded from own digest",
+    "finding": "H1",
+    "root_cause": "Ownership check without a central action/resource authorization decision before target mutation",
+    "fix": "Access.enforce(store, principal, token:create, target.project_id) after target ownership and before mutation",
+    "contract_change": false,
+    "schema_change": false,
+    "changed_files": [
+      "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/HANDOFF.md",
+      "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+      "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-focused-tests.xml",
+      "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-runtime-evidence.json",
+      "src/backend/dsgeorref/contexts/identity_access/application/local_identity/tokens.py",
+      "tests/backend/identity_access/local_identity/test_requirements.py",
+      "tests/backend/identity_access/local_identity/test_revoke_authorization.py"
+    ],
+    "scope_still_valid": true,
+    "requirements": {
+      "REQ-AUTH-IMPL-004": "PASS executor; independent confirmation pending",
+      "REQ-AUTH-IMPL-006": "PASS executor; independent confirmation pending",
+      "REQ-DBSCHEMA-003": "PASS executor; independent confirmation pending"
+    },
+    "acceptance": {
+      "AC-ISSUE-0822-01": "PASS executor; independent confirmation pending",
+      "AC-ISSUE-0822-03": "PASS executor; independent confirmation pending"
+    },
+    "focused_tests": {
+      "result": "PASS",
+      "count": 4,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "names": [
+        "test_req_auth_impl_004",
+        "test_req_auth_impl_006",
+        "test_req_dbschema_003",
+        "test_revoke_requires_target_project_permission"
+      ],
+      "duration_seconds": 7.353
+    },
+    "test_command": "PYTHONPATH=src/backend;workdir/auth-exact IDENTITY_H1_TEST_DSN=<copied isolated DB> PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 py -3.12 -X utf8 -m pytest -q -p no:cacheprovider tests/backend/identity_access/local_identity/test_revoke_authorization.py --junitxml=<authorized evidence>/h1-focused-tests.xml",
+    "fixture_note": "Canonical test bodies imported unchanged except strengthened REQ004; focused module overrides runtime with schema-copy seed, preventing root bootstrap/migration fixtures",
+    "runtime_evidence": "h1-runtime-evidence.json",
+    "quality": {
+      "ruff": "PASS three changed Python files",
+      "mypy_strict": "PASS changed production module",
+      "git_diff_check": "PASS"
+    },
+    "previous_evidence": {
+      "base_sha": "a61be06e765f6af360487d36f122b462aa8eef2e",
+      "retained_artifacts": [
+        "mandatory-tests.xml",
+        "runtime-evidence.json",
+        "schema-constraints.json",
+        "make-verify.log",
+        "make-verify-final.log",
+        "make-verify-completion.log"
+      ],
+      "unchanged_canonical_test_bodies": [
+        "test_req_auth_impl_001",
+        "test_req_auth_impl_002",
+        "test_req_auth_impl_003",
+        "test_req_auth_impl_005",
+        "test_req_auth_impl_006",
+        "test_req_auth_impl_008",
+        "test_req_auth_impl_009",
+        "test_req_auth_impl_0010",
+        "test_req_dbschema_003"
+      ],
+      "superseded_findings": [
+        "REQ-AUTH-IMPL-004 revoke behavior",
+        "REQ-AUTH-IMPL-006/REQ-DBSCHEMA-003 target authorization",
+        "AC-ISSUE-0822-01",
+        "AC-ISSUE-0822-03"
+      ],
+      "migration_bootstrap_oidc_rollback": "NOT_RERUN; objects unchanged",
+      "global_make_verify": "NOT_RERUN per exclusive H1 scope; previous execution and limitations retained"
+    },
+    "reviewer_status": "PENDING independent confirmation on new candidate",
+    "blocker_high_remaining_by_executor": [],
+    "checked_at": "2026-10-02T19:40:34.725890+00:00",
+    "digests_utf8_lf": [
+      {
+        "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/HANDOFF.md",
+        "sha256": "10c8fe0224462ef5129f69395ae726a2c5cc9799cf9b931167025da123ad04c3"
+      },
+      {
+        "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-focused-tests.xml",
+        "sha256": "2a8fcb03d59d2604b250a60ddcb70351d79fb9d4d5e034ee2c647a2b7bc4ef76"
+      },
+      {
+        "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/h1-runtime-evidence.json",
+        "sha256": "116aac1142716817d05b21f8365ba58c81b088a15b853e4896fe5625590ea4ea"
+      },
+      {
+        "path": "src/backend/dsgeorref/contexts/identity_access/application/local_identity/tokens.py",
+        "sha256": "1a9bde1bea8e87f51221c81eeffcb49d35dbedf5addb7cebf7af9374b180b690"
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/test_requirements.py",
+        "sha256": "046831046fa6db551ab9fd0f0a53b5ac1cc906d8d3d7f9d2dfe21585156fbedd"
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/test_revoke_authorization.py",
+        "sha256": "84c566485c32be8bfdc7d540a6733e5a1822b92f1ac66589620966271628f6ec"
+      }
+    ],
+    "previous_review_finding": {
+      "severity": "HIGH",
+      "id": "H1",
+      "blocker": "NONE",
+      "confirmed_by": "Reviewer, as supplied by user",
+      "failed_at_previous_sha": [
+        "AC-ISSUE-0822-01",
+        "AC-ISSUE-0822-03",
+        "REQ-AUTH-IMPL-004",
+        "REQ-AUTH-IMPL-006",
+        "REQ-DBSCHEMA-003"
+      ],
+      "other_review_objects": "Architecture/ownership/scope/freeze/migration/rollback PASS per supplied review; no prerequisite"
+    }
+  }
+}
