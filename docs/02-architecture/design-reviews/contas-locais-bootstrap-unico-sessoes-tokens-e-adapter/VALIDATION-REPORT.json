@@ -1,0 +1,137 @@
+{
+  "issue_id": "ISSUE-0146",
+  "task_id": "TASK-0036",
+  "story_id": "STORY-0036",
+  "executor_role": "Arquiteto",
+  "baseline_main_sha": "9bc6b5497938202581d599fa95ac459e00283616",
+  "previous_diagnostic_sha": "b2e06a94d286bbf5ebd2f6c3cecdb09d2764ea13",
+  "previous_diagnostic_in_candidate": false,
+  "prerequisite_1007": {
+    "pr": 1008,
+    "merge_sha": "9bc6b5497938202581d599fa95ac459e00283616",
+    "present": true,
+    "project_members_idempotency": "not-applicable",
+    "regression_test": "test_project_members_idempotency_owner_decision"
+  },
+  "acceptance": {
+    "AC-ISSUE-0146-01": {
+      "executor_evidence": "PASS",
+      "entrypoints": [
+        "test_epic_008_politica",
+        "test_http_compatibility_and_shared_sources",
+        "test_published_http_response_and_error_shapes"
+      ],
+      "independent_approval": "PENDING"
+    },
+    "AC-ISSUE-0146-02": {
+      "executor_evidence": "PASS",
+      "entrypoints": [
+        "test_req_auth_impl_007",
+        "test_throttling_evidence_rejects_invalid_or_unobservable_state",
+        "test_throttle_cannot_reset_counters_or_release_a_live_block"
+      ],
+      "independent_approval": "PENDING"
+    },
+    "AC-ISSUE-0146-03": {
+      "executor_evidence": "PASS",
+      "entrypoints": [
+        "test_every_server_guard_denies_without_success_effects",
+        "test_transition_fail_closed",
+        "test_invalid_freeze_rejected",
+        "test_oidc_provider_config_and_result_fail_closed",
+        "test_pat_plaintext_replay_and_failed_throttle_authority_are_denied"
+      ],
+      "independent_approval": "PENDING"
+    },
+    "AC-ISSUE-0146-04": {
+      "executor_evidence": "PASS",
+      "entrypoints": [
+        "test_epic_008_politica",
+        "test_every_server_guard_denies_without_success_effects",
+        "test_registered_event_in_wrong_state_is_denied",
+        "test_canonical_audit_requires_commit_and_rejects_false_success"
+      ],
+      "independent_approval": "PENDING"
+    }
+  },
+  "mandatory_tests": {
+    "test_req_auth_impl_007": "PASS",
+    "test_epic_008_politica": "PASS"
+  },
+  "pytest": {
+    "command": "py -3.12 -X utf8 -m pytest -q -p no:cacheprovider contracts\\contexts\\identity_access\\plt\\contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/test_auth_freeze.py tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_contract_foundation.py::test_project_members_idempotency_owner_decision --junitxml=docs\\02-architecture\\design-reviews\\contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/test-results.xml",
+    "tests": 171,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "result": "PASS"
+  },
+  "additional_validation": {
+    "ruff": {
+      "command": "py -3.12 -m ruff check --no-cache contracts\\contexts\\identity_access\\plt\\contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/conformance.py contracts\\contexts\\identity_access\\plt\\contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/test_auth_freeze.py",
+      "result": "PASS"
+    },
+    "mypy": {
+      "command": "py -3.12 -m mypy --follow-untyped-imports --no-incremental --cache-dir <temporary-cache> contracts\\contexts\\identity_access\\plt\\contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/conformance.py contracts\\contexts\\identity_access\\plt\\contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/test_auth_freeze.py",
+      "result": "PASS",
+      "note": "No dependencies installed; follow installed library source because external stubs absent; YAML return is explicitly typed and object-validated."
+    },
+    "python_312_ast_and_limits": {
+      "result": "PASS",
+      "conformance_lines": 287,
+      "test_lines": 313,
+      "max_definitions": 13,
+      "max_function_lines": 43,
+      "scope": "two new files only"
+    },
+    "schemas": "PASS: Draft 2020-12 freeze/evidence schemas, format validation and negative mutations",
+    "http_compatibility": "PASS: eight TASK-0036 operations; frozen request/response refs, permission, security, parameters, statuses, error codes, three canonical sources and index",
+    "git_diff_check": "PASS",
+    "global_suite": "NOT_RUN: explicitly excluded by current execution instruction"
+  },
+  "runtime_validation": "NOT_REQUIRED",
+  "runtime_validation_reason": "Versioned contract/artifact/evidence delivery only; no backend, migration, UI or infrastructure; fixtures and interpreters are synthetic offline conformance.",
+  "scope": {
+    "allow_paths_only": true,
+    "production_code_modified": false,
+    "shared_http_modified": false,
+    "adrs_or_requirements_modified": false,
+    "task_envelope_modified": false,
+    "evidence_locator": "docs/02-architecture/design-reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter",
+    "task_generic_evidence_path": "outside allow_paths; evidence delivered inside authorized design-review, with candidate commit and report per current instruction"
+  },
+  "changed_files": [
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/boundary-evidence.schema.json",
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/conformance.py",
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.json",
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.schema.json",
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/examples.json",
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/test_auth_freeze.py",
+    "docs/02-architecture/design-reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/DESIGN-REVIEW.md",
+    "docs/02-architecture/design-reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/test-results.xml",
+    "docs/02-architecture/design-reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/VALIDATION-REPORT.json"
+  ],
+  "digest_encoding": "SHA256_UTF8_LF",
+  "artifact_digests": {
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/boundary-evidence.schema.json": "cad2719b9acce7b54ad7cc442ef4132725aac3ca50688e85b79d76961095a678",
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/conformance.py": "8bafff651486b651bdaf9774b7112efa72ec9ff737edb3c04a768c1c57fed8a4",
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.json": "1a7c9563927a93aeb620d4ed970d631e68643ff97986ea9d89fcf58f40b5404a",
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.schema.json": "a0a359ec1ea103d639dbf784533afd185aca77a1b8751a0d712de6ed4a972876",
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/examples.json": "05288887ffd4639ff252c9a3a754d560a4a6e5213be2b1050352dd876450f902",
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/test_auth_freeze.py": "6130e3e7626d39aa0927720e44e287fd172d97261a9a7c9b2e3a1628adea4024",
+    "docs/02-architecture/design-reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/DESIGN-REVIEW.md": "bf54b0bfb1563122dfbf5576d5b01e4bef932aff5d66be4d9d307752c0d24050",
+    "docs/02-architecture/design-reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/test-results.xml": "618980e05fd5a2242ee5755435881dc0c2ce1e84ffb845a64260a894c80fbb75"
+  },
+  "digest_exclusion": "This report is excluded from its own digest to avoid a cycle; Git candidate SHA binds the entire tree and is supplied in the final handoff.",
+  "contract_impact": "New BC-002 local freeze v1.0.0, additive context artifacts; no shared HTTP/ADR/requirement change or runtime migration.",
+  "rollback": "Revert this candidate artifacts commit; no runtime data or deployed service changed.",
+  "blocker_findings": [],
+  "high_findings": [],
+  "residual_risks": [
+    "Independent QA and Reviewer on the same candidate SHA remain required.",
+    "Production persistence, CAS/locking, cryptography, real OIDC exchange and restart behavior are specified but not runtime-implemented/tested by this story.",
+    "Quantitative profile values are not promoted by this contract; future runtime must supply approved values or deny."
+  ],
+  "ready_for_qa": true,
+  "approval_claimed": false
+}

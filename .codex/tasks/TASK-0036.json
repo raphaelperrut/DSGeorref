@@ -50,7 +50,8 @@
   ],
   "allow_paths": [
     "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**",
-    "docs/02-architecture/design-reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**"
+    "docs/02-architecture/design-reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**",
+    "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv"
   ],
   "deny_paths": [
     "src/**",
@@ -125,7 +126,8 @@
       "status": "PASS",
       "allow_paths": [
         "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**",
-        "docs/02-architecture/design-reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**"
+        "docs/02-architecture/design-reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**",
+        "contracts/contexts/CONTEXT_CONTRACT_OWNERSHIP.csv"
       ],
       "deny_paths": [
         "src/**",

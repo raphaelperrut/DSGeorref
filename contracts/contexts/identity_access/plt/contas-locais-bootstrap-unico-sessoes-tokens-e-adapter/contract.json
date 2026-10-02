@@ -1,0 +1,1354 @@
+{
+  "schema_version": "1.0.0",
+  "contract_version": "1.0.0",
+  "contract_id": "identity-access-local-auth-freeze",
+  "status": "FROZEN",
+  "owner": "BC-002",
+  "task_id": "TASK-0036",
+  "story_id": "STORY-0036",
+  "requirement": "REQ-AUTH-IMPL-007",
+  "baseline_main_sha": "9bc6b5497938202581d599fa95ac459e00283616",
+  "invariants": {
+    "authority": "PostgreSQL",
+    "enforcement": "SERVER_SIDE",
+    "fallback": "DENY",
+    "unknown_state": "DENY",
+    "unknown_transition": "DENY",
+    "unknown_permission": "DENY",
+    "failed_commit": "NO_SUCCESS_EFFECTS",
+    "quantitative_policy": "APPROVED_PROFILE_ONLY",
+    "runtime_implemented": false
+  },
+  "sources": {
+    ".codex/tasks/TASK-0036.json": "3699d5dc9c102511a568e7efc3838160214d54200ca5286da3df515b9fe13bfc",
+    "contracts/http/openapi.yaml": "0f236a4937a5226b1c57cf8c6731750153b5d4cd9d6381c88a6bd2fceca30d52",
+    "contracts/http/OPERATION_CATALOG.json": "74e5bd905b529ff26809c210f0f7ee34a0fcc563e5720f4ca9c301be100dbd8f",
+    "contracts/http/API_CONTRACT_INDEX.csv": "3d1556996f1aaabad234cf623728f34babee4a3fcbfd3a3f3b36610d1e31ee1d",
+    "docs/02-architecture/adrs/ADR-028-contas-locais-sessoes-server-side-e-argon2id.md": "847af871f62249e87c31af3ac57fa0dea1fcdd07039c7f9222008a2050fa8989",
+    "docs/02-architecture/adrs/ADR-029-federacao-oidc-e-vinculo-de-identidade.md": "4b091d351b6e2493256889c25fbc62ccafa26c9ca59909860f49c37cc4323861",
+    "docs/02-architecture/adrs/ADR-030-pats-autorizacao-central-e-scopes.md": "cd0c8cf315b5fe1162f8599cc2bbbad1b14012cad641fca0d07634cc491ce4c1",
+    "docs/02-architecture/adrs/ADR-031-csrf-cors-security-headers-e-protecao-web.md": "43354a3958a1f70dcc4756eca4a03122f2b8a44f351d9189c2c62ea8b855a66b",
+    "docs/01-product/requirements/REQ-AUTH-IMPL-007-throttling-possui-estado-e-evidencia-observavel.md": "9d776af56cae076af3b9ea836267f63df284bad4fcf54e01978ed8c9241f28dc",
+    "docs/02-architecture/ddd/bounded-contexts/BC-002-identity-access.md": "88ebf5f103b63737aaae39d2d0792c187eeec5159c1b71afd85dd959386d7dc0",
+    "docs/06-delivery/stories/STORY-0036-ISSUE-0146-definir-politica-estados-e-contratos-contas-locais-bootstrap-unico-sessoes.md": "edf52b8015c0aa2cb315edb7898a441d47fbce7d6e0632abc048f5871b2ab16e",
+    "docs/02-architecture/adrs/ADR-010-api-first-versionamento-e-contract-freeze.md": "fd21f32b505d9e713108709dc7501913ed603b8fa16972c2f1a69a6b6bc8e60d",
+    "docs/02-architecture/adrs/ADR-011-boundary-http-fastapi-pydantic-e-openapi.md": "c320574010d8c713eb691bd5abe8662284ecb9fd65e0e4ade5b61f7255dee408",
+    "docs/02-architecture/adrs/ADR-016-application-services-uow-erros-e-idempotencia.md": "008fda800e57c525b449019e8b53e72fc43f10709fcaa64dd70bf6bee7433d2b",
+    "docs/02-architecture/adrs/ADR-018-postgresql-postgis-como-system-of-record.md": "c6e433ead374fcbf3e6cd0f131ac5feda864c15307feb1fd8a4ffe55f4ada8e2",
+    "contracts/http/operations/post_auth_bootstrap.md": "2997697b7cdf071d1f9fbb9b2732be2bfe6c697ef044ba3bc553a070029afc35",
+    "contracts/http/operations/post_auth_session.md": "c4c35766923c9ca87cf78f9eaccc849a72466ac4ca539f75d785d0aafec49a3b",
+    "contracts/http/operations/delete_auth_session.md": "4e364678601d6b1a5984c6e1d707fb8b7b6ae4dfa330e175c29a8bddef91477d",
+    "contracts/http/operations/post_auth_tokens.md": "4588071d02fbc9d90c556eaafc7844994ccc0db3516a857588eff99d5ec7f7e8",
+    "contracts/http/operations/get_auth_oidc_callback.md": "c970161abe97d94d5aa8f9b6628e7793293e46ef841e18e7378d20755563088d",
+    "contracts/http/operations/get_projects_projectid_members.md": "0ddd7c24e50601cf5d4ebfb58d9008743af80986fe14751f25f4719a85520225",
+    "contracts/http/operations/post_projects_projectid_members.md": "70a06cd8c46716894bae3226399a14857ecce71127cfb40870a1cdfee4a46730",
+    "contracts/http/operations/get_authorization_check.md": "34f0ef5a4c6c1417fe33d393d77b36dbebabd26fbe021e4bf10625e4f255b30a"
+  },
+  "policies": {
+    "local_account": {
+      "authority": "PostgreSQL",
+      "password_algorithm": "Argon2id",
+      "password_parameters": "approved bounded profile; absent or invalid => DENY",
+      "default_password": false,
+      "creation": "BootstrapAdmin creates active first administrator atomically; other internal creation requires a registered server-side administrative decision; none of the eight HTTP operations is a general account creation endpoint",
+      "deactivation": "inactive denies existing sessions/PATs at every use; locked denies authentication until authoritative unlock; no client activation or reset",
+      "lifecycle": "activate/deactivate require administrative decision in versioned policy; missing action/grant denies; lock/unlock are server-owned profile transitions",
+      "recovery": "offline kit and audited ceremony per ADR-028; does not reopen bootstrap or bypass policy"
+    },
+    "bootstrap": {
+      "availability": "authoritative available AND no completed bootstrap AND no first administrator committed; no cached or broker-derived availability",
+      "atomic_effects": [
+        "first administrator active",
+        "password hash persisted",
+        "server-side session persisted",
+        "bootstrap completed forever",
+        "idempotency outcome and audit committed"
+      ],
+      "concurrency": "one authoritative compare-and-set/lock transaction; only one winner; loser rereads completed and returns bootstrap_already_completed; no partially committed administrator/session",
+      "repeat": "distinct key or payload after completion => 409 bootstrap_already_completed; exact recorded replay may return original nonsecret BootstrapStatus, creates nothing, revalidates session before cookie use; unavailable replay authority => internal_error",
+      "exceptions": "trusted installation capability evaluates instance:bootstrap server-side before any administrator exists; public route is not an unconditional grant; failed transaction stays available; account deletion/recovery never resets completion",
+      "audit": "AdminBootstrapped only after commit; denied attempts record operation, decision, state and correlation without password or cookie"
+    },
+    "session": {
+      "storage": "opaque credential, server-side persisted state; cookie dsgeorref_session; no self-contained claims as authorization",
+      "validity": "active AND account active AND authoritative expiry later than server time AND current revision; expiry/revocation checked on every use",
+      "rotation": "old identifier becomes rotated and unusable in same commit as distinct active replacement and fresh CSRF; no grace or resurrection",
+      "logout": "current authenticated owner or explicitly authorized server-side decision; sessionCookie or PAT accepted as published; PAT does not implicitly identify a target session; absent authoritative target => session_not_found",
+      "expiration": "server-owned expiry, no client extension; expired/revoked/rotated terminal; new creation gets new identity",
+      "replay": "same validated key/payload/principal uses recorded outcome, creates no extra session; replay cannot resurrect or authenticate expired/revoked session",
+      "web": "CSRF bound to session plus Origin/Fetch Metadata for applicable cookie mutations; restrictive cookie attributes and CORS/TLS per ADR-031; no PAT downgrade after invalid cookie"
+    },
+    "pat": {
+      "storage": "opaque prefixed bearer; only hash and nonsecret metadata persisted; plaintext delivered once on initial issuance, never in audit/log/retrieval",
+      "validity": "active AND account active AND server expiry future AND scopes subset of currently authorized actions/resources; no role/scope escalation",
+      "expiration": "requested future expiry must satisfy approved profile; omitted/null uses finite expiry from approved policy, never unlimited default; missing policy => internal_error",
+      "replay": "Idempotency-Key prevents duplicate issue; replay after one-time plaintext delivery => conflict; no plaintext persistence or silent reissue",
+      "revocation": "owner or registered administrative server decision; authoritative revoke makes all future uses fail, no HTTP revoke endpoint added",
+      "scope": "scope names resolve via versioned central policy; unknown/empty scopes deny; bearer is not an OIDC token; no implicit token exchange"
+    },
+    "oidc": {
+      "optional": true,
+      "identity_key": [
+        "issuer",
+        "subject"
+      ],
+      "linking": "explicit linking bound to authenticated internal account; no email/username match, auto-provision, IdP role grants or implicit local-account authentication",
+      "port": "adapter exchanges code using server-owned state transaction, nonce and configured provider; returns validated external identity DTO only; application ACL resolves issuer+subject to account ID and owns authorization",
+      "dto_schema": "boundary-evidence.schema.json#/$defs/oidc",
+      "config": "explicit enabled provider, HTTPS issuer, clientId, redirect URI; configuration absence/provider outage/invalid result fails callback with published code, never local fallback",
+      "callback": "state is browser/transaction-bound, expires and is single-use; nonce, issuer, audience, signature and expiry must pass; successful session commit consumes state; failed callback is failed and cannot authenticate; retry needs new transaction",
+      "linked_result": "linked is true only if explicit link is committed in this callback; existing authoritative link produces false; both require existing active Account",
+      "provider_tokens": "code, provider access/ID tokens and SDK models do not cross downstream context boundary or enter audit",
+      "revocation": "unlink/change audit and invalidate authentication based on old issuer+subject; no automatic relink; failed provider revalidation stays unavailable"
+    },
+    "authorization": {
+      "authority": "BC-002 versioned application policy, server-side on every operation and every credential use",
+      "decision_inputs": [
+        "principal",
+        "action",
+        "resource",
+        "policyVersion",
+        "account state",
+        "credential state",
+        "scope",
+        "membership revision"
+      ],
+      "roles": [
+        "owner",
+        "editor",
+        "reviewer",
+        "viewer"
+      ],
+      "role_interpretation": "only server policy maps the existing roles; this freeze grants none by role label or IdP claim; absent policy/action/resource/grant => DENY",
+      "exceptions": "BootstrapAdmin uses installation capability, CriarSessao uses validated credentials without prior session, callback uses validated one-time OIDC transaction; each still evaluates published required permission",
+      "check": "authorization:check guards caller; allowed describes requested action, never replaces enforcement on later operation; unknown action validation_failed, known denied action allowed=false with policyVersion and reasonCode",
+      "membership": "project_member:list/create scoped to requested project; target existing user and registered role; MembershipChanged only after commit; no automatic grant to another project",
+      "credential_selection": "explicit sessionCookie or personalAccessToken from published security schemes; ambiguous/conflicting credentials deny, no trying another credential after failure"
+    },
+    "errors": {
+      "transport": "only operation-specific published codes/statuses; application/problem+json with Problem schema",
+      "unpublished_mapping": "protective guard without a dedicated public code maps to existing listed error (e.g. callback throttled => oidc_exchange_failed, bootstrap throttled => internal_error); never add HTTP errors",
+      "precedence": "ordered guards; missing/nonboolean fact, invalid state, unknown operation, missing server decision or unavailable authority => deny; unknown input never becomes success",
+      "failure_atomicity": "no success, session, PAT, account activation or OIDC link escapes an unsuccessful commit; denied attempt observation may be committed separately without allowing action"
+    },
+    "throttling": {
+      "requirement": "REQ-AUTH-IMPL-007",
+      "owner": "BC-002",
+      "authority": "PostgreSQL; no Redis/in-memory/broker/log authority",
+      "state": "persist bounded bucket key digest, policyVersion, revision, failure count, window start/end, blockedUntil; state open/limited/locked",
+      "quantitative_values": "only approved profile at runtime; fixture timestamps/counters are synthetic, not benchmark or production policy; missing/invalid profile => DENY",
+      "decision": "atomic bucket update and eligibility read; limited=>DENY, locked=>DENY; observe both successful and denied attempts; restart must not reset authoritative state",
+      "evidence_schema": "boundary-evidence.schema.json#/$defs/throttle",
+      "evidence": "operationId, correlationId, server observedAt, before/after snapshots and reason; audit correlated with commit; no password, raw identity/IP, cookie, code or bearer",
+      "cardinality": "metric labels restricted to operationId, state and allowed/denied; digest/correlation IDs are audit fields, never metric labels"
+    }
+  },
+  "machines": {
+    "account": {
+      "initial": "absent",
+      "states": [
+        "absent",
+        "active",
+        "inactive",
+        "locked"
+      ],
+      "transitions": [
+        {
+          "from": "absent",
+          "event": "create",
+          "to": "active",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "creation_authorized",
+            "password_eligible",
+            "profile_ready",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "active",
+          "event": "deactivate",
+          "to": "inactive",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "administrative_decision",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "locked",
+          "event": "deactivate",
+          "to": "inactive",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "administrative_decision",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "inactive",
+          "event": "activate",
+          "to": "active",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "administrative_decision",
+            "password_eligible",
+            "profile_ready",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "active",
+          "event": "lock",
+          "to": "locked",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "lockout_due",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "locked",
+          "event": "unlock",
+          "to": "active",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "unlock_due",
+            "profile_ready",
+            "commit_ready"
+          ]
+        }
+      ]
+    },
+    "bootstrap": {
+      "initial": "available",
+      "states": [
+        "available",
+        "completed"
+      ],
+      "transitions": [
+        {
+          "from": "available",
+          "event": "BootstrapAdmin",
+          "to": "completed",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "bootstrap_available",
+            "password_eligible",
+            "profile_ready",
+            "account_created",
+            "session_created",
+            "commit_ready"
+          ]
+        }
+      ]
+    },
+    "session": {
+      "initial": "absent",
+      "states": [
+        "absent",
+        "active",
+        "revoked",
+        "expired",
+        "rotated"
+      ],
+      "transitions": [
+        {
+          "from": "absent",
+          "event": "CriarSessao",
+          "to": "active",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "account_active",
+            "credentials_valid",
+            "profile_ready",
+            "throttle_open",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "active",
+          "event": "RevogarSessao",
+          "to": "revoked",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "session_owned",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "active",
+          "event": "expire",
+          "to": "expired",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "expiry_due",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "active",
+          "event": "rotate",
+          "to": "rotated",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "replacement_ready",
+            "commit_ready"
+          ]
+        }
+      ]
+    },
+    "pat": {
+      "initial": "absent",
+      "states": [
+        "absent",
+        "active",
+        "revoked",
+        "expired"
+      ],
+      "transitions": [
+        {
+          "from": "absent",
+          "event": "EmitirToken",
+          "to": "active",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "account_active",
+            "scope_subset",
+            "expiry_valid",
+            "profile_ready",
+            "throttle_open",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "active",
+          "event": "revoke",
+          "to": "revoked",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "token_owned",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "active",
+          "event": "expire",
+          "to": "expired",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "expiry_due",
+            "commit_ready"
+          ]
+        }
+      ]
+    },
+    "oidc_link": {
+      "initial": "unlinked",
+      "states": [
+        "unlinked",
+        "linked",
+        "revoked"
+      ],
+      "transitions": [
+        {
+          "from": "unlinked",
+          "event": "link",
+          "to": "linked",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "provider_result_valid",
+            "link_explicit",
+            "link_unique",
+            "account_active",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "linked",
+          "event": "unlink",
+          "to": "revoked",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "administrative_decision",
+            "commit_ready"
+          ]
+        }
+      ]
+    },
+    "oidc_callback": {
+      "initial": "pending",
+      "states": [
+        "pending",
+        "consumed",
+        "failed"
+      ],
+      "transitions": [
+        {
+          "from": "pending",
+          "event": "accept",
+          "to": "consumed",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "state_valid",
+            "nonce_valid",
+            "provider_result_valid",
+            "link_explicit",
+            "account_active",
+            "session_created",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "pending",
+          "event": "reject",
+          "to": "failed",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "rejection_confirmed",
+            "commit_ready"
+          ]
+        }
+      ]
+    },
+    "oidc_adapter": {
+      "initial": "disabled",
+      "states": [
+        "disabled",
+        "ready",
+        "unavailable"
+      ],
+      "transitions": [
+        {
+          "from": "disabled",
+          "event": "configure",
+          "to": "ready",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "config_valid",
+            "provider_enabled",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "ready",
+          "event": "provider_failure",
+          "to": "unavailable",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "failure_confirmed",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "unavailable",
+          "event": "revalidate",
+          "to": "ready",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "config_valid",
+            "provider_result_valid",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "ready",
+          "event": "disable",
+          "to": "disabled",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "administrative_decision",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "unavailable",
+          "event": "disable",
+          "to": "disabled",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "administrative_decision",
+            "commit_ready"
+          ]
+        }
+      ]
+    },
+    "throttle": {
+      "initial": "open",
+      "states": [
+        "open",
+        "limited",
+        "locked"
+      ],
+      "transitions": [
+        {
+          "from": "open",
+          "event": "limit",
+          "to": "limited",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "limit_due",
+            "profile_ready",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "limited",
+          "event": "release",
+          "to": "open",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "window_elapsed",
+            "profile_ready",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "open",
+          "event": "lock",
+          "to": "locked",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "lockout_due",
+            "profile_ready",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "limited",
+          "event": "lock",
+          "to": "locked",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "lockout_due",
+            "profile_ready",
+            "commit_ready"
+          ]
+        },
+        {
+          "from": "locked",
+          "event": "release",
+          "to": "open",
+          "requires": [
+            "authority_ready",
+            "policy_ready",
+            "audit_ready",
+            "fallback_disabled",
+            "permission_granted",
+            "unlock_due",
+            "profile_ready",
+            "commit_ready"
+          ]
+        }
+      ]
+    }
+  },
+  "operations": {
+    "post_auth_bootstrap": {
+      "method": "POST",
+      "path": "/auth/bootstrap",
+      "permission": "instance:bootstrap",
+      "success_status": 202,
+      "request_schema": "PostAuthBootstrapRequest",
+      "response_schema": "PostAuthBootstrapResponse",
+      "resource_schema": "BootstrapStatus",
+      "idempotency": "required",
+      "security": [],
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/IdempotencyKey"
+        }
+      ],
+      "errors": {
+        "bootstrap_already_completed": 409,
+        "password_policy_failed": 422,
+        "validation_failed": 422,
+        "internal_error": 500
+      },
+      "guards": [
+        {
+          "fact": "authority_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "policy_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "audit_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "fallback_disabled",
+          "error": "internal_error"
+        },
+        {
+          "fact": "request_valid",
+          "error": "validation_failed"
+        },
+        {
+          "fact": "permission_granted",
+          "error": "validation_failed"
+        },
+        {
+          "fact": "bootstrap_available",
+          "error": "bootstrap_already_completed"
+        },
+        {
+          "fact": "password_eligible",
+          "error": "password_policy_failed"
+        },
+        {
+          "fact": "profile_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "provenance_valid",
+          "error": "validation_failed"
+        },
+        {
+          "fact": "throttle_open",
+          "error": "internal_error"
+        },
+        {
+          "fact": "commit_ready",
+          "error": "internal_error"
+        }
+      ]
+    },
+    "post_auth_session": {
+      "method": "POST",
+      "path": "/auth/session",
+      "permission": "session:create",
+      "success_status": 202,
+      "request_schema": "PostAuthSessionRequest",
+      "response_schema": "PostAuthSessionResponse",
+      "resource_schema": "Session",
+      "idempotency": "required",
+      "security": [],
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/IdempotencyKey"
+        }
+      ],
+      "errors": {
+        "invalid_credentials": 401,
+        "account_locked": 429,
+        "rate_limited": 429,
+        "validation_failed": 422,
+        "internal_error": 500
+      },
+      "guards": [
+        {
+          "fact": "authority_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "policy_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "audit_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "fallback_disabled",
+          "error": "internal_error"
+        },
+        {
+          "fact": "request_valid",
+          "error": "validation_failed"
+        },
+        {
+          "fact": "profile_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "provenance_valid",
+          "error": "validation_failed"
+        },
+        {
+          "fact": "throttle_open",
+          "error": "rate_limited"
+        },
+        {
+          "fact": "account_unlocked",
+          "error": "account_locked"
+        },
+        {
+          "fact": "account_active",
+          "error": "invalid_credentials"
+        },
+        {
+          "fact": "credentials_valid",
+          "error": "invalid_credentials"
+        },
+        {
+          "fact": "permission_granted",
+          "error": "invalid_credentials"
+        },
+        {
+          "fact": "commit_ready",
+          "error": "internal_error"
+        }
+      ]
+    },
+    "delete_auth_session": {
+      "method": "DELETE",
+      "path": "/auth/session",
+      "permission": "session:revoke",
+      "success_status": 204,
+      "request_schema": null,
+      "response_schema": null,
+      "resource_schema": "Session",
+      "idempotency": "required",
+      "security": [
+        {
+          "sessionCookie": []
+        },
+        {
+          "personalAccessToken": []
+        }
+      ],
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/IdempotencyKey"
+        },
+        {
+          "$ref": "#/components/parameters/IfMatch"
+        }
+      ],
+      "errors": {
+        "unauthorized": 401,
+        "session_not_found": 404,
+        "internal_error": 500
+      },
+      "guards": [
+        {
+          "fact": "authority_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "policy_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "audit_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "fallback_disabled",
+          "error": "internal_error"
+        },
+        {
+          "fact": "principal_valid",
+          "error": "unauthorized"
+        },
+        {
+          "fact": "permission_granted",
+          "error": "unauthorized"
+        },
+        {
+          "fact": "provenance_valid",
+          "error": "unauthorized"
+        },
+        {
+          "fact": "session_exists",
+          "error": "session_not_found"
+        },
+        {
+          "fact": "revision_matches",
+          "error": "internal_error"
+        },
+        {
+          "fact": "commit_ready",
+          "error": "internal_error"
+        }
+      ]
+    },
+    "post_auth_tokens": {
+      "method": "POST",
+      "path": "/auth/tokens",
+      "permission": "token:create",
+      "success_status": 201,
+      "request_schema": "PostAuthTokensRequest",
+      "response_schema": "PostAuthTokensResponse",
+      "resource_schema": "PersonalAccessToken",
+      "idempotency": "required",
+      "security": [
+        {
+          "sessionCookie": []
+        },
+        {
+          "personalAccessToken": []
+        }
+      ],
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/IdempotencyKey"
+        }
+      ],
+      "errors": {
+        "validation_failed": 422,
+        "unauthorized": 401,
+        "forbidden": 403,
+        "not_found": 404,
+        "conflict": 409,
+        "precondition_failed": 412,
+        "rate_limited": 429,
+        "internal_error": 500
+      },
+      "guards": [
+        {
+          "fact": "authority_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "policy_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "audit_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "fallback_disabled",
+          "error": "internal_error"
+        },
+        {
+          "fact": "request_valid",
+          "error": "validation_failed"
+        },
+        {
+          "fact": "principal_valid",
+          "error": "unauthorized"
+        },
+        {
+          "fact": "account_active",
+          "error": "unauthorized"
+        },
+        {
+          "fact": "permission_granted",
+          "error": "forbidden"
+        },
+        {
+          "fact": "provenance_valid",
+          "error": "forbidden"
+        },
+        {
+          "fact": "scope_subset",
+          "error": "forbidden"
+        },
+        {
+          "fact": "expiry_valid",
+          "error": "validation_failed"
+        },
+        {
+          "fact": "profile_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "throttle_open",
+          "error": "rate_limited"
+        },
+        {
+          "fact": "issuance_not_replayed",
+          "error": "conflict"
+        },
+        {
+          "fact": "commit_ready",
+          "error": "internal_error"
+        }
+      ]
+    },
+    "get_auth_oidc_callback": {
+      "method": "GET",
+      "path": "/auth/oidc/callback",
+      "permission": "oidc:callback",
+      "success_status": 200,
+      "request_schema": null,
+      "response_schema": "GetAuthOidcCallbackResponse",
+      "resource_schema": "OidcCallbackResult",
+      "idempotency": "not-applicable",
+      "security": [],
+      "parameters": [
+        {
+          "name": "code",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "state",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "errors": {
+        "oidc_state_invalid": 400,
+        "oidc_exchange_failed": 502,
+        "identity_link_conflict": 409,
+        "internal_error": 500
+      },
+      "guards": [
+        {
+          "fact": "authority_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "policy_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "audit_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "fallback_disabled",
+          "error": "internal_error"
+        },
+        {
+          "fact": "provider_enabled",
+          "error": "oidc_exchange_failed"
+        },
+        {
+          "fact": "config_valid",
+          "error": "oidc_exchange_failed"
+        },
+        {
+          "fact": "state_valid",
+          "error": "oidc_state_invalid"
+        },
+        {
+          "fact": "nonce_valid",
+          "error": "oidc_state_invalid"
+        },
+        {
+          "fact": "permission_granted",
+          "error": "oidc_state_invalid"
+        },
+        {
+          "fact": "provider_result_valid",
+          "error": "oidc_exchange_failed"
+        },
+        {
+          "fact": "link_explicit",
+          "error": "identity_link_conflict"
+        },
+        {
+          "fact": "link_unique",
+          "error": "identity_link_conflict"
+        },
+        {
+          "fact": "account_active",
+          "error": "identity_link_conflict"
+        },
+        {
+          "fact": "throttle_open",
+          "error": "oidc_exchange_failed"
+        },
+        {
+          "fact": "commit_ready",
+          "error": "internal_error"
+        }
+      ]
+    },
+    "get_projects_projectid_members": {
+      "method": "GET",
+      "path": "/projects/{projectId}/members",
+      "permission": "project_member:list",
+      "success_status": 200,
+      "request_schema": null,
+      "response_schema": "GetProjectsProjectidMembersResponse",
+      "resource_schema": "ProjectMember",
+      "idempotency": "not-applicable",
+      "security": [
+        {
+          "sessionCookie": []
+        },
+        {
+          "personalAccessToken": []
+        }
+      ],
+      "parameters": [
+        {
+          "name": "projectId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "description": "Identificador de projectId."
+        }
+      ],
+      "errors": {
+        "validation_failed": 422,
+        "unauthorized": 401,
+        "forbidden": 403,
+        "not_found": 404,
+        "conflict": 409,
+        "precondition_failed": 412,
+        "rate_limited": 429,
+        "internal_error": 500
+      },
+      "guards": [
+        {
+          "fact": "authority_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "policy_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "audit_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "fallback_disabled",
+          "error": "internal_error"
+        },
+        {
+          "fact": "request_valid",
+          "error": "validation_failed"
+        },
+        {
+          "fact": "principal_valid",
+          "error": "unauthorized"
+        },
+        {
+          "fact": "account_active",
+          "error": "unauthorized"
+        },
+        {
+          "fact": "permission_granted",
+          "error": "forbidden"
+        },
+        {
+          "fact": "project_exists",
+          "error": "not_found"
+        },
+        {
+          "fact": "throttle_open",
+          "error": "rate_limited"
+        }
+      ]
+    },
+    "post_projects_projectid_members": {
+      "method": "POST",
+      "path": "/projects/{projectId}/members",
+      "permission": "project_member:create",
+      "success_status": 201,
+      "request_schema": "PostProjectsProjectidMembersRequest",
+      "response_schema": "PostProjectsProjectidMembersResponse",
+      "resource_schema": "ProjectMember",
+      "idempotency": "required",
+      "security": [
+        {
+          "sessionCookie": []
+        },
+        {
+          "personalAccessToken": []
+        }
+      ],
+      "parameters": [
+        {
+          "name": "projectId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "description": "Identificador de projectId."
+        },
+        {
+          "$ref": "#/components/parameters/IdempotencyKey"
+        }
+      ],
+      "errors": {
+        "validation_failed": 422,
+        "unauthorized": 401,
+        "forbidden": 403,
+        "not_found": 404,
+        "conflict": 409,
+        "precondition_failed": 412,
+        "rate_limited": 429,
+        "internal_error": 500
+      },
+      "guards": [
+        {
+          "fact": "authority_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "policy_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "audit_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "fallback_disabled",
+          "error": "internal_error"
+        },
+        {
+          "fact": "request_valid",
+          "error": "validation_failed"
+        },
+        {
+          "fact": "principal_valid",
+          "error": "unauthorized"
+        },
+        {
+          "fact": "account_active",
+          "error": "unauthorized"
+        },
+        {
+          "fact": "permission_granted",
+          "error": "forbidden"
+        },
+        {
+          "fact": "provenance_valid",
+          "error": "forbidden"
+        },
+        {
+          "fact": "project_exists",
+          "error": "not_found"
+        },
+        {
+          "fact": "target_account_exists",
+          "error": "not_found"
+        },
+        {
+          "fact": "role_registered",
+          "error": "validation_failed"
+        },
+        {
+          "fact": "membership_unique",
+          "error": "conflict"
+        },
+        {
+          "fact": "commit_ready",
+          "error": "internal_error"
+        }
+      ]
+    },
+    "get_authorization_check": {
+      "method": "GET",
+      "path": "/authorization/check",
+      "permission": "authorization:check",
+      "success_status": 200,
+      "request_schema": null,
+      "response_schema": "GetAuthorizationCheckResponse",
+      "resource_schema": "AuthorizationDecision",
+      "idempotency": "not-applicable",
+      "security": [
+        {
+          "sessionCookie": []
+        },
+        {
+          "personalAccessToken": []
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "resourceType",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "resourceId",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "errors": {
+        "validation_failed": 422,
+        "unauthorized": 401,
+        "forbidden": 403,
+        "not_found": 404,
+        "conflict": 409,
+        "precondition_failed": 412,
+        "rate_limited": 429,
+        "internal_error": 500
+      },
+      "guards": [
+        {
+          "fact": "authority_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "policy_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "audit_ready",
+          "error": "internal_error"
+        },
+        {
+          "fact": "fallback_disabled",
+          "error": "internal_error"
+        },
+        {
+          "fact": "request_valid",
+          "error": "validation_failed"
+        },
+        {
+          "fact": "principal_valid",
+          "error": "unauthorized"
+        },
+        {
+          "fact": "account_active",
+          "error": "unauthorized"
+        },
+        {
+          "fact": "permission_granted",
+          "error": "forbidden"
+        },
+        {
+          "fact": "action_registered",
+          "error": "validation_failed"
+        },
+        {
+          "fact": "resource_exists",
+          "error": "not_found"
+        },
+        {
+          "fact": "throttle_open",
+          "error": "rate_limited"
+        }
+      ]
+    }
+  },
+  "source_digest_encoding": "UTF8_LF"
+}
