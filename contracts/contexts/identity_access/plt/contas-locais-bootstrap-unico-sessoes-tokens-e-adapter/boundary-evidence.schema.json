@@ -1,0 +1,352 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BC-002 owner evidence DTO v1",
+  "$defs": {
+    "oidc": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "config",
+        "identity",
+        "accountId",
+        "linkExplicit"
+      ],
+      "properties": {
+        "config": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "enabled",
+            "issuer",
+            "clientId",
+            "redirectUri"
+          ],
+          "properties": {
+            "enabled": {
+              "const": true
+            },
+            "issuer": {
+              "type": "string",
+              "format": "uri",
+              "pattern": "^https://"
+            },
+            "clientId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "redirectUri": {
+              "type": "string",
+              "format": "uri",
+              "pattern": "^https://"
+            }
+          }
+        },
+        "identity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "issuer",
+            "subject",
+            "audience",
+            "signatureValidated",
+            "nonceValidated",
+            "stateValidated",
+            "expiresAt",
+            "validatedAt"
+          ],
+          "properties": {
+            "issuer": {
+              "type": "string",
+              "format": "uri",
+              "pattern": "^https://"
+            },
+            "subject": {
+              "type": "string",
+              "minLength": 1
+            },
+            "audience": {
+              "type": "string",
+              "minLength": 1
+            },
+            "signatureValidated": {
+              "const": true
+            },
+            "nonceValidated": {
+              "const": true
+            },
+            "stateValidated": {
+              "const": true
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "validatedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "accountId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "linkExplicit": {
+          "const": true
+        }
+      }
+    },
+    "throttle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operationId",
+        "correlationId",
+        "keyDigest",
+        "policyVersion",
+        "observedAt",
+        "before",
+        "after",
+        "decision",
+        "reason"
+      ],
+      "properties": {
+        "operationId": {
+          "enum": [
+            "post_auth_bootstrap",
+            "post_auth_session",
+            "delete_auth_session",
+            "post_auth_tokens",
+            "get_auth_oidc_callback",
+            "get_projects_projectid_members",
+            "post_projects_projectid_members",
+            "get_authorization_check"
+          ]
+        },
+        "correlationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "keyDigest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "policyVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "before": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state",
+            "revision",
+            "failureCount",
+            "windowStartedAt",
+            "windowEndsAt",
+            "blockedUntil"
+          ],
+          "properties": {
+            "state": {
+              "enum": [
+                "open",
+                "limited",
+                "locked"
+              ]
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "failureCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "windowStartedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "windowEndsAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "blockedUntil": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        "after": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state",
+            "revision",
+            "failureCount",
+            "windowStartedAt",
+            "windowEndsAt",
+            "blockedUntil"
+          ],
+          "properties": {
+            "state": {
+              "enum": [
+                "open",
+                "limited",
+                "locked"
+              ]
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "failureCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "windowStartedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "windowEndsAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "blockedUntil": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        "decision": {
+          "enum": [
+            "ALLOW",
+            "DENY"
+          ]
+        },
+        "reason": {
+          "enum": [
+            "eligible",
+            "rate_limited",
+            "account_locked",
+            "policy_unavailable",
+            "authority_unavailable"
+          ]
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "machine",
+        "event",
+        "fromState",
+        "toState",
+        "permission",
+        "policyVersion",
+        "correlationId",
+        "authorityRevision",
+        "outcome",
+        "committedAt",
+        "domainEvent"
+      ],
+      "properties": {
+        "machine": {
+          "enum": [
+            "account",
+            "bootstrap",
+            "session",
+            "pat",
+            "oidc_link",
+            "oidc_callback",
+            "oidc_adapter",
+            "throttle"
+          ]
+        },
+        "event": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fromState": {
+          "type": "string",
+          "minLength": 1
+        },
+        "toState": {
+          "type": "string",
+          "minLength": 1
+        },
+        "permission": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policyVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "correlationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "authorityRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "outcome": {
+          "enum": [
+            "COMMITTED",
+            "DENIED"
+          ]
+        },
+        "committedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "domainEvent": {
+          "enum": [
+            "AdminBootstrapped",
+            "SessionCreated",
+            "SessionRevoked",
+            "TokenIssued",
+            null
+          ]
+        }
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/oidc"
+    },
+    {
+      "$ref": "#/$defs/throttle"
+    },
+    {
+      "$ref": "#/$defs/audit"
+    }
+  ]
+}

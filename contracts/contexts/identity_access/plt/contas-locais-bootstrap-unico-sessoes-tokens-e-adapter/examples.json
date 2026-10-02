@@ -1,0 +1,206 @@
+{
+  "fixture_kind": "SYNTHETIC_CONTRACT_CONFORMANCE_NOT_RUNTIME_EVIDENCE",
+  "http_responses": {
+    "post_auth_bootstrap": {
+      "data": {
+        "administratorId": "00000000-0000-4000-8000-000000000001",
+        "sessionId": "00000000-0000-4000-8000-000000000001",
+        "createdAt": "2026-10-02T12:00:00Z"
+      }
+    },
+    "post_auth_session": {
+      "data": {
+        "sessionId": "00000000-0000-4000-8000-000000000001",
+        "userId": "00000000-0000-4000-8000-000000000001",
+        "expiresAt": "2026-10-02T13:00:00Z",
+        "csrfToken": "cccccccccccccccccccccccccccccccc"
+      }
+    },
+    "post_auth_tokens": {
+      "data": {
+        "tokenId": "00000000-0000-4000-8000-000000000001",
+        "token": "synthetic-one-time-value",
+        "prefix": "synthetic-prefix",
+        "scopes": [
+          "project_member:list"
+        ],
+        "expiresAt": "2026-10-02T13:00:00Z"
+      }
+    },
+    "get_auth_oidc_callback": {
+      "data": {
+        "session": {
+          "sessionId": "00000000-0000-4000-8000-000000000001",
+          "userId": "00000000-0000-4000-8000-000000000001",
+          "expiresAt": "2026-10-02T13:00:00Z",
+          "csrfToken": "cccccccccccccccccccccccccccccccc"
+        },
+        "linked": false
+      }
+    },
+    "get_projects_projectid_members": {
+      "items": [
+        {
+          "projectId": "00000000-0000-4000-8000-000000000001",
+          "userId": "00000000-0000-4000-8000-000000000001",
+          "role": "viewer",
+          "revision": 1
+        }
+      ],
+      "page": {
+        "limit": 1,
+        "nextCursor": null
+      }
+    },
+    "post_projects_projectid_members": {
+      "data": {
+        "projectId": "00000000-0000-4000-8000-000000000001",
+        "userId": "00000000-0000-4000-8000-000000000001",
+        "role": "viewer",
+        "revision": 1
+      }
+    },
+    "get_authorization_check": {
+      "data": {
+        "allowed": false,
+        "policyVersion": "synthetic-policy-v1",
+        "reasonCode": "registered_action_denied"
+      }
+    }
+  },
+  "oidc": {
+    "config": {
+      "enabled": true,
+      "issuer": "https://idp.example.test",
+      "clientId": "synthetic-client",
+      "redirectUri": "https://app.example.test/api/v1/auth/oidc/callback"
+    },
+    "identity": {
+      "issuer": "https://idp.example.test",
+      "subject": "synthetic-subject",
+      "audience": "synthetic-client",
+      "signatureValidated": true,
+      "nonceValidated": true,
+      "stateValidated": true,
+      "expiresAt": "2026-10-02T12:01:00Z",
+      "validatedAt": "2026-10-02T12:00:00Z"
+    },
+    "accountId": "00000000-0000-4000-8000-000000000001",
+    "linkExplicit": true
+  },
+  "throttle_observations": [
+    {
+      "operationId": "post_auth_session",
+      "correlationId": "00000000-0000-4000-8000-000000000001",
+      "keyDigest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "policyVersion": "synthetic-profile-v1",
+      "observedAt": "2026-10-02T12:00:30Z",
+      "before": {
+        "state": "open",
+        "revision": 1,
+        "failureCount": 0,
+        "windowStartedAt": "2026-10-02T12:00:00Z",
+        "windowEndsAt": "2026-10-02T12:01:00Z",
+        "blockedUntil": null
+      },
+      "after": {
+        "state": "limited",
+        "revision": 2,
+        "failureCount": 1,
+        "windowStartedAt": "2026-10-02T12:00:00Z",
+        "windowEndsAt": "2026-10-02T12:01:00Z",
+        "blockedUntil": "2026-10-02T12:01:00Z"
+      },
+      "decision": "DENY",
+      "reason": "rate_limited"
+    },
+    {
+      "operationId": "post_auth_session",
+      "correlationId": "00000000-0000-4000-8000-000000000001",
+      "keyDigest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "policyVersion": "synthetic-profile-v1",
+      "observedAt": "2026-10-02T12:00:30Z",
+      "before": {
+        "state": "limited",
+        "revision": 2,
+        "failureCount": 1,
+        "windowStartedAt": "2026-10-02T12:00:00Z",
+        "windowEndsAt": "2026-10-02T12:01:00Z",
+        "blockedUntil": "2026-10-02T12:01:00Z"
+      },
+      "after": {
+        "state": "locked",
+        "revision": 3,
+        "failureCount": 2,
+        "windowStartedAt": "2026-10-02T12:00:00Z",
+        "windowEndsAt": "2026-10-02T12:01:00Z",
+        "blockedUntil": "2026-10-02T12:01:00Z"
+      },
+      "decision": "DENY",
+      "reason": "account_locked"
+    },
+    {
+      "operationId": "post_auth_session",
+      "correlationId": "00000000-0000-4000-8000-000000000001",
+      "keyDigest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "policyVersion": "synthetic-profile-v1",
+      "observedAt": "2026-10-02T12:00:30Z",
+      "before": {
+        "state": "limited",
+        "revision": 2,
+        "failureCount": 1,
+        "windowStartedAt": "2026-10-02T12:00:00Z",
+        "windowEndsAt": "2026-10-02T12:01:00Z",
+        "blockedUntil": "2026-10-02T12:01:00Z"
+      },
+      "after": {
+        "state": "limited",
+        "revision": 2,
+        "failureCount": 1,
+        "windowStartedAt": "2026-10-02T12:00:00Z",
+        "windowEndsAt": "2026-10-02T12:01:00Z",
+        "blockedUntil": "2026-10-02T12:01:00Z"
+      },
+      "decision": "DENY",
+      "reason": "authority_unavailable"
+    },
+    {
+      "operationId": "post_auth_session",
+      "correlationId": "00000000-0000-4000-8000-000000000001",
+      "keyDigest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "policyVersion": "synthetic-profile-v1",
+      "observedAt": "2026-10-02T12:00:30Z",
+      "before": {
+        "state": "open",
+        "revision": 1,
+        "failureCount": 0,
+        "windowStartedAt": "2026-10-02T12:00:00Z",
+        "windowEndsAt": "2026-10-02T12:01:00Z",
+        "blockedUntil": null
+      },
+      "after": {
+        "state": "open",
+        "revision": 1,
+        "failureCount": 0,
+        "windowStartedAt": "2026-10-02T12:00:00Z",
+        "windowEndsAt": "2026-10-02T12:01:00Z",
+        "blockedUntil": null
+      },
+      "decision": "ALLOW",
+      "reason": "eligible"
+    }
+  ],
+  "audit": {
+    "machine": "bootstrap",
+    "event": "BootstrapAdmin",
+    "fromState": "available",
+    "toState": "completed",
+    "permission": "instance:bootstrap",
+    "policyVersion": "synthetic-policy-v1",
+    "correlationId": "00000000-0000-4000-8000-000000000001",
+    "authorityRevision": 1,
+    "outcome": "COMMITTED",
+    "committedAt": "2026-10-02T12:00:00Z",
+    "domainEvent": "AdminBootstrapped"
+  }
+}
