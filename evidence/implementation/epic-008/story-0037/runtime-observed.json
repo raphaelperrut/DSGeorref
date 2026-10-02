@@ -1,0 +1,74 @@
+{
+  "server": "PostgreSQL 16.1, compiled by Visual C++ build 1937, 64-bit",
+  "revision": "identity_link_binding_v2",
+  "constraints": 66,
+  "state_counts": {
+    "accounts": [
+      [
+        "active",
+        1
+      ]
+    ],
+    "sessions": [
+      [
+        "active",
+        1
+      ],
+      [
+        "revoked",
+        1
+      ]
+    ],
+    "tokens": [
+      [
+        "revoked",
+        1
+      ]
+    ],
+    "oidc_links": [
+      [
+        "revoked",
+        1
+      ]
+    ],
+    "oidc_transactions": [
+      [
+        "consumed",
+        1
+      ]
+    ]
+  },
+  "bootstrap": [
+    [
+      "completed",
+      1
+    ]
+  ],
+  "committed_audits": [
+    [
+      "AdminBootstrapped",
+      1
+    ],
+    [
+      "SessionCreated",
+      1
+    ],
+    [
+      "TokenIssued",
+      1
+    ],
+    [
+      "link",
+      1
+    ],
+    [
+      "revoke",
+      1
+    ],
+    [
+      "unlink",
+      1
+    ]
+  ],
+  "cleanup": "Only the newly created identity_slice2_validation database dropped; absence verified; preexisting databases untouched."
+}
