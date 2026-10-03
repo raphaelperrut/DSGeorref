@@ -204,10 +204,67 @@
         "result": {
           "enum": [
             "PASS",
-            "FAIL"
+            "FAIL",
+            "NONBLOCKING"
           ]
+        },
+        "classification": {
+          "const": "ENVIRONMENTAL"
+        },
+        "raw_exit_code": {
+          "type": "integer"
+        },
+        "reason_code": {
+          "const": "FOUNDATION_INTEGRATION_SERVICES_UNAVAILABLE"
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "const": "NONBLOCKING"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "classification",
+              "raw_exit_code",
+              "reason_code"
+            ],
+            "properties": {
+              "check_id": {
+                "const": "make-verify"
+              },
+              "raw_exit_code": {
+                "const": 2
+              }
+            }
+          },
+          "else": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "classification"
+                  ]
+                },
+                {
+                  "required": [
+                    "reason_code"
+                  ]
+                }
+              ]
+            },
+            "properties": {
+              "raw_exit_code": {
+                "const": 0
+              }
+            }
+          }
+        }
+      ]
     },
     "AcceptanceManifest": {
       "type": "object",

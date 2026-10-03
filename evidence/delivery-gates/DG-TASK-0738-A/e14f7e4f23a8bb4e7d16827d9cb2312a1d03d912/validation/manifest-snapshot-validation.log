@@ -1,0 +1,37 @@
+{
+  "gate_definition": "5ec3611d42cc10d28564c6f9da2b136043cfdf5c313beddff7613ae84e3bb0f2",
+  "manifest_sha256": "893b2dc9d4e74c52cfbf57ff05d5a980bdb58556d46f07c912d5d91118a80a8d",
+  "snapshot_sha256": "f84908d577debb9bc3a4d014b8411d3b548648aebf97dcf63284868dba177270",
+  "outputs": 30,
+  "checks": 10,
+  "source_evidence": 19,
+  "content_validation": "PASS",
+  "signed_current_profile_validation": "PASS",
+  "daa_applied_verdict": {
+    "schema_version": "2.0.0",
+    "status": "FAIL",
+    "code": "GOVERNANCE_MODE_UNAUTHORIZED",
+    "trust_scope": "DSGEOREF-DELIVERY-APPROVAL-AUTHORITY-V1",
+    "profile": {
+      "profile_id": "dsgeorref-daa-operational",
+      "profile_version": "2.0.0"
+    },
+    "governance_mode": "SOLO_FUNCTIONAL_SEGREGATION_V1",
+    "personal_independence": "ABSENT_DECLARED",
+    "task_envelope": {
+      "task_id": "TASK-0738",
+      "digest_sha256": "f84908d577debb9bc3a4d014b8411d3b548648aebf97dcf63284868dba177270"
+    },
+    "candidate_sha": "e14f7e4f23a8bb4e7d16827d9cb2312a1d03d912",
+    "verification_time": "2026-10-03T22:17:58.461515+00:00",
+    "validated_roles": [],
+    "accountable_subjects": {
+      "Executor": [],
+      "QA": [],
+      "Reviewer": [],
+      "Project Owner": []
+    },
+    "functional_sessions": [],
+    "formal_decision": null
+  }
+}

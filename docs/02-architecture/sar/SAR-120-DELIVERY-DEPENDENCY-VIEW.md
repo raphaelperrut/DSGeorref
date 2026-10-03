@@ -117,8 +117,14 @@ e os outputs aceitos. Não bastam configuração declarada ou scripts sem execu�
 
 <a id="dg-task-0738-a-make-verify"></a>
 ### make-verify
-Stage A exige `make verify` com evidência de execução; este passe apenas implementa
-governança e não produz aceite ou evidência real de Stage A.
+Stage A exige execução real de `make verify` com evidência imutável no candidate.
+PASS integral é aceito. Somente o evaluator governado de `DG-TASK-0738-A` pode aceitar
+`make-verify` como `NONBLOCKING`, classificação `ENVIRONMENTAL`, exit bruto 2 e reason
+`FOUNDATION_INTEGRATION_SERVICES_UNAVAILABLE`, quando o log prova que todos os gates
+anteriores passaram e a única parada foi a exigência de `FOUNDATION_INTEGRATION=1`
+e dos serviços PostgreSQL/RabbitMQ. Nenhum erro de frontend, OpenAPI, licença,
+repositório ou código de Stage A pode ser mascarado. A classificação permanece
+NONBLOCKING/ENVIRONMENTAL e nunca é convertida em PASS bruto.
 
 <a id="dg-task-0738-a-independent-approval"></a>
 ### independent-approval

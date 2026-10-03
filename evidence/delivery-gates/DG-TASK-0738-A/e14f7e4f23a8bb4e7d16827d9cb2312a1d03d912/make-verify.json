@@ -1,0 +1,1 @@
+{"candidate_sha":"e14f7e4f23a8bb4e7d16827d9cb2312a1d03d912","command":["make","verify","PYTHON=.venv/Scripts/python.exe","PNPM=pnpm.cmd"],"log":{"path":"evidence/delivery-gates/DG-TASK-0738-A/e14f7e4f23a8bb4e7d16827d9cb2312a1d03d912/provenance/stage-a-license-review/make-verify.log","sha256":"fbbcc79562dd74c0398b2b968de73834ea0d68a6b592c299336fb80f07c6a622"},"raw_exit_code":2}
