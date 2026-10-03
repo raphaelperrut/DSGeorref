@@ -1,0 +1,5 @@
+COMMAND = .venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/delivery_gates tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_automation.py::test_epic_004_automacao
+........................................................                 [100%]
+56 passed in 337.63s (0:05:37)
+
+EXIT_CODE = 0

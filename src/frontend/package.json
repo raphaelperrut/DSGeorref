@@ -4,16 +4,34 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "openapi:generate": "node tools/openapi/cli.mjs generate",
+    "openapi:check": "node tools/openapi/cli.mjs check",
+    "openapi:diff": "node tools/openapi/cli.mjs diff",
+    "test:foundation": "vitest run tests/foundation/openapi.test.mjs tests/foundation/shell.test.tsx --environment jsdom",
+    "test:smoke": "playwright test --config tests/foundation/playwright.config.ts",
     "typecheck": "tsc --noEmit",
-    "test:unit": "vitest run tests/tooling/testing-library.unit.test.ts --environment jsdom",
+    "test:unit": "vitest run tests/tooling/testing-library.unit.test.ts tests/foundation/openapi.test.mjs tests/foundation/shell.test.tsx --environment jsdom",
     "test:browser": "playwright test tests/tooling/playwright.browser.spec.ts --browser=chromium"
   },
   "devDependencies": {
+    "@hey-api/openapi-ts": "0.87.5",
+    "@oasdiff-js/oasdiff-js": "1.0.0",
     "@playwright/test": "1.62.1",
     "@testing-library/dom": "10.4.1",
     "@types/node": "24.13.3",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
     "jsdom": "30.0.1",
     "typescript": "6.0.3",
-    "vitest": "4.1.11"
+    "vite": "8.1.5",
+    "vitest": "4.1.11",
+    "yaml": "2.8.3"
+  },
+  "dependencies": {
+    "@hey-api/client-fetch": "0.13.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
   }
 }

@@ -6,10 +6,16 @@
     "node": "24.20.0",
     "pnpm": "10.26.1"
   },
+  "pnpm": {
+    "overrides": {
+      "@hey-api/json-schema-ref-parser>js-yaml": "4.3.2"
+    }
+  },
   "scripts": {
     "frontend:typecheck": "pnpm --filter @dsgeorref/frontend-tooling typecheck",
     "frontend:test:unit": "pnpm --filter @dsgeorref/frontend-tooling test:unit",
     "frontend:test:browser": "pnpm --filter @dsgeorref/frontend-tooling test:browser",
-    "frontend:verify": "pnpm run frontend:typecheck && pnpm run frontend:test:unit && pnpm run frontend:test:browser"
+    "frontend:build": "pnpm --filter @dsgeorref/frontend-tooling build",
+    "frontend:verify": "pnpm --dir src/frontend openapi:check && pnpm --dir src/frontend openapi:diff && pnpm run frontend:typecheck && pnpm run frontend:test:unit && pnpm run frontend:test:browser && pnpm run frontend:build && pnpm --dir src/frontend test:smoke"
   }
 }
