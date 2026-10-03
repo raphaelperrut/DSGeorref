@@ -8,7 +8,26 @@
     "src/frontend/package.json",
     "pnpm-lock.yaml"
   ],
-  "runtime": [],
+  "runtime": [
+    {
+      "ecosystem": "npm",
+      "name": "@hey-api/client-fetch",
+      "version": "0.13.1",
+      "license": "MIT"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "react",
+      "version": "19.2.4",
+      "license": "MIT"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "react-dom",
+      "version": "19.2.4",
+      "license": "MIT"
+    }
+  ],
   "development_and_validation": [
     {
       "ecosystem": "pypi",
@@ -93,9 +112,45 @@
       "name": "vitest",
       "version": "4.1.11",
       "license": "MIT"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@hey-api/openapi-ts",
+      "version": "0.87.5",
+      "license": "MIT"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@oasdiff-js/oasdiff-js",
+      "version": "1.0.0",
+      "license": "Apache-2.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@types/react",
+      "version": "19.2.14",
+      "license": "MIT"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@types/react-dom",
+      "version": "19.2.3",
+      "license": "MIT"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "vite",
+      "version": "8.1.5",
+      "license": "MIT"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "yaml",
+      "version": "2.8.3",
+      "license": "ISC"
     }
   ],
-  "redistribution": "NONE_IN_FOUNDATION_0.0.0",
+  "redistribution": "RUNTIME_NPM_IN_FRONTEND_BUILD_RELEASE_NOTICES_REQUIRED",
   "release_sbom": "REQUIRED_AT_RELEASE_CANDIDATE",
   "unknown_or_unpinned_dependency": "REJECT"
 }

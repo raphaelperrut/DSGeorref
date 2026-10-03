@@ -1,0 +1,71 @@
+[
+  {
+    "name": "license-governance-tests",
+    "command": [
+      "C:\\Users\\rapha\\OneDrive\\Documentos\\Asimov\\GitHub\\DSGeorref\\.venv\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "--basetemp",
+      "C:\\Users\\rapha\\OneDrive\\Documentos\\Asimov\\GitHub\\DSGeorref\\workdir\\stage-a-license-final-tests",
+      "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 16.83,
+    "log": "license-governance-tests.log"
+  },
+  {
+    "name": "license-dependency-validator",
+    "command": [
+      "C:\\Users\\rapha\\OneDrive\\Documentos\\Asimov\\GitHub\\DSGeorref\\.venv\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 0.83,
+    "log": "license-dependency-validator.log"
+  },
+  {
+    "name": "governance-quality",
+    "command": [
+      "C:\\Users\\rapha\\OneDrive\\Documentos\\Asimov\\GitHub\\DSGeorref\\.venv\\Scripts\\python.exe",
+      "-m",
+      "ruff",
+      "check",
+      "tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
+      "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 0.59,
+    "log": "governance-quality.log"
+  },
+  {
+    "name": "make-verify-browser-environment-attempt",
+    "command": [
+      "make",
+      "verify",
+      "PYTHON=.venv/Scripts/python.exe",
+      "PNPM=pnpm.cmd"
+    ],
+    "exit_code": 2,
+    "duration_seconds": 54.31,
+    "log": "make-verify-browser-environment-attempt.log"
+  },
+  {
+    "name": "make-verify",
+    "command": [
+      "make",
+      "verify",
+      "PYTHON=.venv/Scripts/python.exe",
+      "PNPM=pnpm.cmd"
+    ],
+    "exit_code": 2,
+    "duration_seconds": 483.58,
+    "log": "make-verify.log"
+  }
+]

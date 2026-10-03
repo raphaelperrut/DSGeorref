@@ -106,10 +106,10 @@ def test_layered_spdx_reuse_license_notices_dependency_and_asset_compatibility(
 
 def test_license_and_dependency_inventory() -> None:
     result = TOOL.validate_dependency_inventory(ROOT)
-    assert result == {"direct_dependencies": 14, "runtime_dependencies": 0, "status": "PASS"}
+    assert result == {"direct_dependencies": 23, "runtime_dependencies": 3, "status": "PASS"}
 
     inventory = _load_json(TOOL.DEPENDENCY_INVENTORY_PATH)
-    records = inventory["development_and_validation"]
+    records = inventory["runtime"] + inventory["development_and_validation"]
     assert len({(record["ecosystem"], record["name"]) for record in records}) == len(records)
     assert inventory["release_sbom"] == "REQUIRED_AT_RELEASE_CANDIDATE"
     assert inventory["unknown_or_unpinned_dependency"] == "REJECT"
@@ -123,6 +123,184 @@ def test_license_and_dependency_inventory() -> None:
     mismatched_license[0]["license"] = "Apache-2.0"
     with pytest.raises(TOOL.FoundationValidationError, match="dependency license mismatch"):
         TOOL._index_dependency_records(mismatched_license)
+
+
+@pytest.fixture
+def dependency_root(tmp_path: Path) -> Path:
+    for relative in [
+        TOOL.DEPENDENCY_INVENTORY_PATH.relative_to(ROOT),
+        Path("requirements-validation.txt"),
+        Path("pyproject.toml"),
+        Path("src/frontend/package.json"),
+        Path("pnpm-lock.yaml"),
+        Path("THIRD_PARTY_NOTICES.md"),
+    ]:
+        target = tmp_path / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / relative, target)
+    return tmp_path
+
+
+def test_dependency_review_baseline(dependency_root: Path) -> None:
+    assert TOOL.validate_dependency_inventory(dependency_root) == {
+        "direct_dependencies": 23,
+        "runtime_dependencies": 3,
+        "status": "PASS",
+    }
+
+
+@pytest.mark.parametrize("section", ["dependencies", "devDependencies"])
+def test_unknown_manifest_dependency_fails(dependency_root: Path, section: str) -> None:
+    path = dependency_root / "src/frontend/package.json"
+    frontend = _load_json(path)
+    frontend[section]["unreviewed-package"] = "1.0.0"
+    path.write_text(json.dumps(frontend), encoding="utf-8")
+    with pytest.raises(TOOL.FoundationValidationError, match="inventory diverges"):
+        TOOL.validate_dependency_inventory(dependency_root)
+
+
+@pytest.mark.parametrize("scope", ["runtime", "development_and_validation"])
+def test_unknown_dependency_even_with_matching_manifest_and_lock_fails(
+    dependency_root: Path, scope: str
+) -> None:
+    path = dependency_root / TOOL.DEPENDENCY_INVENTORY_PATH.relative_to(ROOT)
+    inventory = _load_json(path)
+    inventory[scope].append(
+        {"ecosystem": "npm", "name": "unreviewed-package", "version": "1.0.0", "license": "MIT"}
+    )
+    path.write_text(json.dumps(inventory), encoding="utf-8")
+    section = "dependencies" if scope == "runtime" else "devDependencies"
+    manifest_path = dependency_root / "src/frontend/package.json"
+    frontend = _load_json(manifest_path)
+    frontend[section]["unreviewed-package"] = "1.0.0"
+    manifest_path.write_text(json.dumps(frontend), encoding="utf-8")
+    lock_path = dependency_root / "pnpm-lock.yaml"
+    lock = yaml.safe_load(lock_path.read_text(encoding="utf-8"))
+    lock["importers"]["src/frontend"][section]["unreviewed-package"] = {
+        "specifier": "1.0.0",
+        "version": "1.0.0",
+    }
+    lock_path.write_text(yaml.safe_dump(lock), encoding="utf-8")
+    with pytest.raises(TOOL.FoundationValidationError, match="unknown dependency:"):
+        TOOL.validate_dependency_inventory(dependency_root)
+
+
+@pytest.mark.parametrize("section", ["optionalDependencies", "peerDependencies"])
+def test_unreviewed_dependency_section_fails(dependency_root: Path, section: str) -> None:
+    path = dependency_root / "src/frontend/package.json"
+    frontend = _load_json(path)
+    frontend[section] = {"unreviewed-package": "1.0.0"}
+    path.write_text(json.dumps(frontend), encoding="utf-8")
+    with pytest.raises(TOOL.FoundationValidationError, match="require release review"):
+        TOOL.validate_dependency_inventory(dependency_root)
+
+
+@pytest.mark.parametrize("scope", ["runtime", "development_and_validation"])
+@pytest.mark.parametrize(
+    "mutation", ["missing", "unknown", "version", "unpinned", "license", "swap"]
+)
+def test_dependency_inventory_rejects_drift(
+    dependency_root: Path, scope: str, mutation: str
+) -> None:
+    path = dependency_root / TOOL.DEPENDENCY_INVENTORY_PATH.relative_to(ROOT)
+    inventory = _load_json(path)
+    records = inventory[scope]
+    record = next(item for item in records if item["ecosystem"] == "npm")
+    expected_error = {
+        "missing": "inventory is incomplete",
+        "unknown": "unknown dependency:",
+        "version": "inventory diverges",
+        "unpinned": "not exactly pinned",
+        "license": "dependency license mismatch",
+        "swap": "classification diverges",
+    }[mutation]
+    if mutation == "missing":
+        records.remove(record)
+    elif mutation == "unknown":
+        records.append({**record, "name": "unreviewed-package"})
+    elif mutation == "version":
+        record["version"] = "0.0.1"
+    elif mutation == "unpinned":
+        record["version"] = "^" + record["version"]
+    elif mutation == "license":
+        record["license"] = "Apache-2.0" if record["license"] == "MIT" else "MIT"
+    else:
+        other_scope = (
+            "runtime" if scope == "development_and_validation" else "development_and_validation"
+        )
+        records.remove(record)
+        inventory[other_scope].append(record)
+    path.write_text(json.dumps(inventory), encoding="utf-8")
+    with pytest.raises(TOOL.FoundationValidationError, match=expected_error):
+        TOOL.validate_dependency_inventory(dependency_root)
+
+
+@pytest.mark.parametrize("section", ["dependencies", "devDependencies"])
+@pytest.mark.parametrize("mutation", ["removed", "version", "unpinned", "swap"])
+def test_manifest_classification_and_pins_fail_closed(
+    dependency_root: Path, section: str, mutation: str
+) -> None:
+    path = dependency_root / "src/frontend/package.json"
+    frontend = _load_json(path)
+    name = next(iter(frontend[section]))
+    version = frontend[section][name]
+    if mutation == "removed":
+        del frontend[section][name]
+    elif mutation == "version":
+        frontend[section][name] = "0.0.1"
+    elif mutation == "unpinned":
+        frontend[section][name] = "^" + version
+    else:
+        other_section = "dependencies" if section == "devDependencies" else "devDependencies"
+        frontend[other_section][name] = frontend[section].pop(name)
+    path.write_text(json.dumps(frontend), encoding="utf-8")
+    with pytest.raises(TOOL.FoundationValidationError, match="inventory diverges"):
+        TOOL.validate_dependency_inventory(dependency_root)
+
+
+@pytest.mark.parametrize("section", ["dependencies", "devDependencies"])
+@pytest.mark.parametrize("mutation", ["specifier", "version", "missing", "extra", "swap"])
+def test_lockfile_scope_and_resolved_pin_fail_closed(
+    dependency_root: Path, section: str, mutation: str
+) -> None:
+    path = dependency_root / "pnpm-lock.yaml"
+    lock = yaml.safe_load(path.read_text(encoding="utf-8"))
+    importer = lock["importers"]["src/frontend"]
+    name = next(iter(importer[section]))
+    if mutation in {"specifier", "version"}:
+        importer[section][name][mutation] = "0.0.1"
+    elif mutation == "missing":
+        del importer[section][name]
+    elif mutation == "extra":
+        importer[section]["unreviewed-package"] = {"specifier": "1.0.0", "version": "1.0.0"}
+    else:
+        other_section = "dependencies" if section == "devDependencies" else "devDependencies"
+        importer[other_section][name] = importer[section].pop(name)
+    path.write_text(yaml.safe_dump(lock), encoding="utf-8")
+    with pytest.raises(TOOL.FoundationValidationError, match=r"not locked|lockfile dependency set"):
+        TOOL.validate_dependency_inventory(dependency_root)
+
+
+@pytest.mark.parametrize(
+    "mutation", ["missing_file", "missing_row", "version", "license", "scope", "extra"]
+)
+def test_notices_fail_closed(dependency_root: Path, mutation: str) -> None:
+    path = dependency_root / "THIRD_PARTY_NOTICES.md"
+    text = path.read_text(encoding="utf-8")
+    row = "| npm | react | 19.2.4 | MIT | runtime |"
+    if mutation == "missing_file":
+        path.unlink()
+    else:
+        replacements = {
+            "missing_row": "",
+            "version": row.replace("19.2.4", "0.0.1"),
+            "license": row.replace("MIT", "ISC"),
+            "scope": row.replace("runtime", "development"),
+            "extra": row + "\n" + row,
+        }
+        path.write_text(text.replace(row, replacements[mutation]), encoding="utf-8")
+    with pytest.raises(TOOL.FoundationValidationError, match="third-party notices"):
+        TOOL.validate_dependency_inventory(dependency_root)
 
 
 def test_contribution_origin_dco_signoff_and_inbound_outbound_policy() -> None:

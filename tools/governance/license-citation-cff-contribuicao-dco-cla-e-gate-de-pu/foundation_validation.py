@@ -53,7 +53,19 @@ EXPECTED_DEPENDENCY_LICENSES = {
     ("npm", "jsdom"): "MIT",
     ("npm", "typescript"): "Apache-2.0",
     ("npm", "vitest"): "MIT",
+    ("npm", "@hey-api/client-fetch"): "MIT",
+    ("npm", "react"): "MIT",
+    ("npm", "react-dom"): "MIT",
+    ("npm", "@hey-api/openapi-ts"): "MIT",
+    ("npm", "@oasdiff-js/oasdiff-js"): "Apache-2.0",
+    ("npm", "@types/react"): "MIT",
+    ("npm", "@types/react-dom"): "MIT",
+    ("npm", "vite"): "MIT",
+    ("npm", "yaml"): "ISC",
 }
+EXPECTED_RUNTIME_DEPENDENCIES = frozenset(
+    {("npm", "@hey-api/client-fetch"), ("npm", "react"), ("npm", "react-dom")}
+)
 ALLOWED_DEPENDENCY_LICENSES = frozenset(EXPECTED_DEPENDENCY_LICENSES.values())
 EXPECTED_ASSET_EXTENSIONS = frozenset(
     {
@@ -455,8 +467,9 @@ def _index_dependency_records(records: Any) -> dict[tuple[str, str], dict[str, A
         _require(key not in keyed, f"duplicate inventory dependency: {key}")
         _require(key in EXPECTED_DEPENDENCY_LICENSES, f"unknown dependency: {key}")
         _require(
-            isinstance(record.get("version"), str) and bool(record["version"]),
-            f"missing dependency version: {key}",
+            isinstance(record.get("version"), str)
+            and bool(re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", record["version"])),
+            f"dependency version is not exactly pinned: {key}",
         )
         license_expression = record.get("license")
         _require(
@@ -474,6 +487,63 @@ def _index_dependency_records(records: Any) -> dict[tuple[str, str], dict[str, A
         "dependency license inventory is incomplete",
     )
     return keyed
+
+
+def _validate_npm_scope(
+    frontend: dict[str, Any],
+    locked: dict[str, Any],
+    keyed: dict[tuple[str, str], dict[str, Any]],
+    section: str,
+) -> None:
+    declared = frontend.get(section, {})
+    inventoried = {
+        name: record["version"] for (ecosystem, name), record in keyed.items() if ecosystem == "npm"
+    }
+    _require(
+        isinstance(declared, dict) and declared == inventoried,
+        f"npm {section} inventory diverges from package.json",
+    )
+    entries = locked.get(section, {})
+    _require(
+        isinstance(entries, dict) and set(entries) == set(declared),
+        f"npm {section} lockfile dependency set diverges",
+    )
+    for name, version in declared.items():
+        entry = entries[name]
+        _require(isinstance(entry, dict), f"invalid npm lock entry: {name}")
+        resolved = entry.get("version")
+        _require(
+            entry.get("specifier") == version
+            and isinstance(resolved, str)
+            and resolved.split("(", 1)[0] == version,
+            f"npm dependency is not locked to its exact pin: {name}",
+        )
+
+
+def _validate_dependency_notices(
+    root: Path, runtime: list[dict[str, Any]], development: list[dict[str, Any]]
+) -> None:
+    try:
+        notices = (root / "THIRD_PARTY_NOTICES.md").read_text(encoding="utf-8")
+    except OSError as exc:
+        raise FoundationValidationError("third-party notices are missing") from exc
+    expected = []
+    for scope, records in [("runtime", runtime), ("development", development)]:
+        for record in records:
+            ecosystem = "Python" if record["ecosystem"] == "pypi" else "npm"
+            notice_scope = "validation" if ecosystem == "Python" else scope
+            expected.append(
+                (ecosystem, record["name"], record["version"], record["license"], notice_scope)
+            )
+    observed = [
+        tuple(cell.strip() for cell in line.strip().strip("|").split("|"))
+        for line in notices.splitlines()
+        if line.startswith(("| Python |", "| npm |"))
+    ]
+    _require(
+        len(observed) == len(expected) and set(observed) == set(expected),
+        "third-party notices diverge from dependency inventory",
+    )
 
 
 def validate_dependency_inventory(root: Path = ROOT) -> dict[str, Any]:
@@ -511,9 +581,8 @@ def validate_dependency_inventory(root: Path = ROOT) -> dict[str, Any]:
         "dependency source manifests diverge",
     )
     _require(inventory.get("unknown_or_unpinned_dependency") == "REJECT", "dependency fallback")
-    _require(inventory.get("runtime") == [], "foundation declares unexpected runtime dependencies")
     _require(
-        inventory.get("redistribution") == "NONE_IN_FOUNDATION_0.0.0",
+        inventory.get("redistribution") == "RUNTIME_NPM_IN_FRONTEND_BUILD_RELEASE_NOTICES_REQUIRED",
         "dependency redistribution policy diverges",
     )
     _require(
@@ -521,8 +590,19 @@ def validate_dependency_inventory(root: Path = ROOT) -> dict[str, Any]:
         "release SBOM policy diverges",
     )
 
-    records = inventory.get("development_and_validation")
+    runtime = inventory.get("runtime")
+    development = inventory.get("development_and_validation")
+    _require(isinstance(runtime, list), "runtime dependency records are missing")
+    _require(isinstance(development, list), "development dependency records are missing")
+    records = runtime + development
     keyed = _index_dependency_records(records)
+    runtime_keys = {(record["ecosystem"], record["name"]) for record in runtime}
+    _require(
+        runtime_keys == EXPECTED_RUNTIME_DEPENDENCIES,
+        "runtime/development dependency classification diverges from release review",
+    )
+    runtime_keyed = {key: record for key, record in keyed.items() if key in runtime_keys}
+    development_keyed = {key: record for key, record in keyed.items() if key not in runtime_keys}
 
     expected_python = _parse_pinned_requirements(root / "requirements-validation.txt")
     with (root / "pyproject.toml").open("rb") as pyproject_file:
@@ -532,35 +612,32 @@ def validate_dependency_inventory(root: Path = ROOT) -> dict[str, Any]:
     )
     inventoried_python = {
         name: record["version"]
-        for (ecosystem, name), record in keyed.items()
+        for (ecosystem, name), record in development_keyed.items()
         if ecosystem == "pypi"
     }
     _require(
         inventoried_python == expected_python, "Python dependency inventory diverges from pins"
     )
 
-    frontend = json.loads((root / "src/frontend/package.json").read_text(encoding="utf-8"))
-    _require(not frontend.get("dependencies"), "runtime npm dependencies require release review")
-    expected_node = frontend.get("devDependencies", {})
-    inventoried_node = {
-        name: record["version"] for (ecosystem, name), record in keyed.items() if ecosystem == "npm"
-    }
+    frontend = _load_json(root / "src/frontend/package.json")
     _require(
-        inventoried_node == expected_node, "npm dependency inventory diverges from package.json"
+        not frontend.get("optionalDependencies") and not frontend.get("peerDependencies"),
+        "frontend optional/peer dependencies require release review",
     )
-
     pnpm_lock = yaml.safe_load((root / "pnpm-lock.yaml").read_text(encoding="utf-8"))
-    locked_node = pnpm_lock["importers"]["src/frontend"]["devDependencies"]
-    for name, version in expected_node.items():
-        _require(
-            str(locked_node[name]["specifier"]) == version, f"npm dependency is not locked: {name}"
-        )
-
-    notices = (root / "THIRD_PARTY_NOTICES.md").read_text(encoding="utf-8")
-    for record in records:
-        marker = f"| {record['name']} | {record['version']} | {record['license']} |"
-        _require(marker in notices, f"third-party notice missing dependency: {record['name']}")
-    return {"direct_dependencies": len(records), "runtime_dependencies": 0, "status": "PASS"}
+    _require(isinstance(pnpm_lock, dict), "invalid pnpm lockfile")
+    importers = pnpm_lock.get("importers")
+    _require(isinstance(importers, dict), "missing pnpm importers")
+    locked_node = importers.get("src/frontend")
+    _require(isinstance(locked_node, dict), "missing frontend pnpm importer")
+    _validate_npm_scope(frontend, locked_node, runtime_keyed, "dependencies")
+    _validate_npm_scope(frontend, locked_node, development_keyed, "devDependencies")
+    _validate_dependency_notices(root, runtime, development)
+    return {
+        "direct_dependencies": len(records),
+        "runtime_dependencies": len(runtime),
+        "status": "PASS",
+    }
 
 
 def validate_contribution_policy(root: Path = ROOT) -> dict[str, Any]:
