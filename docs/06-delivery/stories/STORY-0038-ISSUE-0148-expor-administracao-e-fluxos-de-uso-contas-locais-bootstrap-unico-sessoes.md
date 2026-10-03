@@ -152,3 +152,18 @@ Leia `AGENTS.md`, `.codex/roles/ROLE-005-frontend.md`, este documento, o épico 
 - **Controles aplicáveis:** `CTO-001, CTO-003, CTO-004, CTO-005, CTO-006, CTO-008, CTO-011, CTO-012, CTO-013, CTO-014, CTO-015`
 - **Gate de produção:** `BENCHMARK_AND_OPERATIONS_GATES`
 - **Regra:** implementação não pode publicar claim de custo, escala, latência, GPU, RPO/RTO ou segurança sem a evidência listada no TaskEnvelope.
+
+## Shared foundation delivery gate — Owner Decision
+
+A dependência funcional continua exclusivamente `STORY-0036` no grafo Story→Story.
+`DG-TASK-0738-A` é hard gate distinto, pertencente a TASK-0738 / BC-016 / EPIC-031.
+TASK-0038 não está READY até o gate estar SATISFIED no consumer base pelo modo
+`--ready-task TASK-0038 --consumer-base <SHA>`. Critérios funcionais e ownership de
+EPIC-008 / BC-002 permanecem inalterados; o write scope continua exclusivo de identidade.
+
+Consumir o artifact gerado de
+`src/frontend/src/contexts/operator_experience/contracts/openapi/generated/`
+e a composição pública da fundação. ADR-013 governa geração exclusiva do OpenAPI
+commitado e consumo do mesmo artifact por frontend/testes. Os comandos canônicos
+`dev`, `build`, `openapi:generate`, `openapi:check`, `openapi:diff` constam de SAR-120.
+É proibido recriar bootstrap, cliente gerado, DTOs, enums ou wrappers.

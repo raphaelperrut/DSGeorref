@@ -70,3 +70,36 @@ Mudança que altere a autoridade, tecnologia estrutural, formato público, trust
 ## Especificações normativas — Fase E
 
 Este boundary é concretizado por `SPEC-001`, `SPEC-004`. Texto, schemas, exemplos e validadores dessas especificações são obrigatórios. Divergência bloqueia implementação e exige reconciliação pelo Arquiteto.
+
+<a id="owner-decision-shared-partial-delivery"></a>
+## Owner Decision — SharedPartialDeliveryGate
+
+Decisão do Project Owner aprovada: `OPTION_A — SharedPartialDeliveryGate`,
+`CANONICAL_GATE_MODEL_APPROVED`; refinamento `REFINE_EXISTING` de ADR-006 / BC-001.
+Esta seção materializa a autorização recebida para a ISSUE-0148 / ISSUE-0848,
+sem criar outra autoridade normativa. Sequenciamento: SAR-120.
+
+TaskEnvelope 1.7.0 estende 1.6.0 aditivamente: `delivery_gate_dependencies` é opcional
+(ausência = lista vazia); `delivery_gate_scope` identifica entrega parcial do owner
+por `gate_id` e `definition_sha256`. No snapshot de aprovação, exige também
+`acceptance_manifest_sha256`. `dependencies` permanece exclusivamente igual aos
+predecessores Story→Story; o registry não altera esse grafo nem conclui a Story owner.
+
+O registry canônico é `docs/06-delivery/DELIVERY_GATES.json`, validado por seu schema
+2020-12 fechado. Satisfação é derivada de definição vigente, outputs, checks PASS,
+AcceptanceManifest, snapshot do envelope, aprovação independente pelo verifier DAA
+existente e IntegrationReceipt com integração humana verificável na baseline exigida.
+Não existe campo autoral de satisfação. Gate desconhecido, inválido ou pendente
+bloqueia READY/execução do consumer, mas pendência não invalida o planejamento.
+
+Autoriza-se somente `DG-TASK-0738-A`: fundação técnica compartilhada de BC-016 / EPIC-031,
+executada por TASK-0738 no SPRINT-002, sem dependências funcionais de Story para essa
+etapa. Os outputs, checks e paths autorizados constam de SAR-120 e TASK-0738.
+Stage B preserva escopo, requisitos e dependência STORY-0185 no SPRINT-009.
+STORY-0038 / TASK-0038 preserva STORY-0036 e seu write scope exclusivo de identidade,
+consumindo a fundação integrada sem recriá-la.
+
+ADR-013/014 permanecem autoridades da fundação. A seleção de gerador cabe ao Tech Lead
+com Frontend como detalhe local e reversível compatível com ADR-013; escolha material
+exige decisão adicional. Este passe não seleciona ferramenta nem executa Stage A.
+Não altera contratos HTTP, autoridade/trust DAA ou ownership de requisitos.

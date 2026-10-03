@@ -1,0 +1,309 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsgeorref.local/schemas/delivery-gates/1.0.0",
+  "title": "SharedPartialDeliveryGate registry and acceptance evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "gates"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "gates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Gate"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "Path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*[\\\\:*?\\[\\]#\\x00-\\x1f])(?!.*//)(?!.*\\/$).+$"
+    },
+    "SHA256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "GitCommit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "GateId": {
+      "type": "string",
+      "pattern": "^DG-TASK-[0-9]{4}-[A-Z]$"
+    },
+    "ArtifactReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/Path"
+        },
+        "sha256": {
+          "$ref": "#/$defs/SHA256"
+        }
+      }
+    },
+    "Output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "output_id",
+        "path"
+      ],
+      "properties": {
+        "output_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "$ref": "#/$defs/Path"
+        }
+      }
+    },
+    "Check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "check_id",
+        "reference"
+      ],
+      "properties": {
+        "check_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "Gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gate_id",
+        "owner_task_id",
+        "owner_story_id",
+        "stage",
+        "authorization_ref",
+        "stage_story_dependencies",
+        "required_outputs",
+        "acceptance_checks",
+        "required_baseline_ref"
+      ],
+      "properties": {
+        "gate_id": {
+          "$ref": "#/$defs/GateId"
+        },
+        "owner_task_id": {
+          "type": "string",
+          "pattern": "^TASK-[0-9]{4}$"
+        },
+        "owner_story_id": {
+          "type": "string",
+          "pattern": "^STORY-[0-9]{4}$"
+        },
+        "stage": {
+          "type": "string",
+          "pattern": "^[A-Z]$"
+        },
+        "authorization_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stage_story_dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^STORY-[0-9]{4}$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "required_outputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Output"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "acceptance_checks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Check"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "required_baseline_ref": {
+          "type": "string",
+          "pattern": "^refs/heads/[A-Za-z0-9_./-]+$"
+        }
+      }
+    },
+    "AcceptedOutput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "output_id",
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "output_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "$ref": "#/$defs/Path"
+        },
+        "sha256": {
+          "$ref": "#/$defs/SHA256"
+        }
+      }
+    },
+    "CheckEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "check_id",
+        "reference",
+        "path",
+        "sha256",
+        "result"
+      ],
+      "properties": {
+        "check_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "$ref": "#/$defs/Path"
+        },
+        "sha256": {
+          "$ref": "#/$defs/SHA256"
+        },
+        "result": {
+          "enum": [
+            "PASS",
+            "FAIL"
+          ]
+        }
+      }
+    },
+    "AcceptanceManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "gate_id",
+        "definition_sha256",
+        "candidate_sha",
+        "owner_task_envelope_sha256",
+        "outputs",
+        "checks"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "1.0.0"
+        },
+        "gate_id": {
+          "$ref": "#/$defs/GateId"
+        },
+        "definition_sha256": {
+          "$ref": "#/$defs/SHA256"
+        },
+        "candidate_sha": {
+          "$ref": "#/$defs/GitCommit"
+        },
+        "owner_task_envelope_sha256": {
+          "$ref": "#/$defs/SHA256"
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AcceptedOutput"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CheckEvidence"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "IntegrationReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "gate_id",
+        "definition_sha256",
+        "acceptance_manifest",
+        "task_envelope_snapshot",
+        "daa_evidence",
+        "required_baseline_ref",
+        "integration_commit",
+        "human_integration_record"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "1.0.0"
+        },
+        "gate_id": {
+          "$ref": "#/$defs/GateId"
+        },
+        "definition_sha256": {
+          "$ref": "#/$defs/SHA256"
+        },
+        "acceptance_manifest": {
+          "$ref": "#/$defs/ArtifactReference"
+        },
+        "task_envelope_snapshot": {
+          "$ref": "#/$defs/ArtifactReference"
+        },
+        "daa_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ArtifactReference"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "required_baseline_ref": {
+          "type": "string",
+          "pattern": "^refs/heads/[A-Za-z0-9_./-]+$"
+        },
+        "integration_commit": {
+          "$ref": "#/$defs/GitCommit"
+        },
+        "human_integration_record": {
+          "$ref": "#/$defs/ArtifactReference"
+        }
+      }
+    }
+  }
+}
