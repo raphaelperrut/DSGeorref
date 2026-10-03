@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "gates": [
+    {
+      "gate_id": "DG-TASK-0738-A",
+      "owner_task_id": "TASK-0738",
+      "owner_story_id": "STORY-0738",
+      "stage": "A",
+      "authorization_ref": "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md#owner-decision-shared-partial-delivery",
+      "stage_story_dependencies": [],
+      "required_outputs": [
+        {
+          "output_id": "frontend-package",
+          "path": "src/frontend/package.json"
+        },
+        {
+          "output_id": "typescript-config",
+          "path": "src/frontend/tsconfig.json"
+        },
+        {
+          "output_id": "vite-bootstrap",
+          "path": "src/frontend/vite.config.ts"
+        },
+        {
+          "output_id": "html-bootstrap",
+          "path": "src/frontend/index.html"
+        },
+        {
+          "output_id": "spa-entry",
+          "path": "src/frontend/src/main.tsx"
+        },
+        {
+          "output_id": "openapi-config",
+          "path": "src/frontend/openapi-client.config.json"
+        }
+      ],
+      "acceptance_checks": [
+        {
+          "check_id": "bootstrap",
+          "reference": "docs/02-architecture/sar/SAR-120-DELIVERY-DEPENDENCY-VIEW.md#dg-task-0738-a-bootstrap"
+        },
+        {
+          "check_id": "public-composition",
+          "reference": "docs/02-architecture/sar/SAR-120-DELIVERY-DEPENDENCY-VIEW.md#dg-task-0738-a-public-composition"
+        },
+        {
+          "check_id": "deterministic-generation",
+          "reference": "docs/02-architecture/sar/SAR-120-DELIVERY-DEPENDENCY-VIEW.md#dg-task-0738-a-deterministic-generation"
+        },
+        {
+          "check_id": "canonical-scripts",
+          "reference": "docs/02-architecture/sar/SAR-120-DELIVERY-DEPENDENCY-VIEW.md#dg-task-0738-a-canonical-scripts"
+        },
+        {
+          "check_id": "versioned-artifact",
+          "reference": "docs/02-architecture/sar/SAR-120-DELIVERY-DEPENDENCY-VIEW.md#dg-task-0738-a-versioned-artifact"
+        },
+        {
+          "check_id": "shared-artifact",
+          "reference": "docs/02-architecture/sar/SAR-120-DELIVERY-DEPENDENCY-VIEW.md#dg-task-0738-a-shared-artifact"
+        },
+        {
+          "check_id": "semantic-diff",
+          "reference": "docs/02-architecture/sar/SAR-120-DELIVERY-DEPENDENCY-VIEW.md#dg-task-0738-a-semantic-diff"
+        },
+        {
+          "check_id": "execution-evidence",
+          "reference": "docs/02-architecture/sar/SAR-120-DELIVERY-DEPENDENCY-VIEW.md#dg-task-0738-a-execution-evidence"
+        },
+        {
+          "check_id": "make-verify",
+          "reference": "docs/02-architecture/sar/SAR-120-DELIVERY-DEPENDENCY-VIEW.md#dg-task-0738-a-make-verify"
+        },
+        {
+          "check_id": "independent-approval",
+          "reference": "docs/02-architecture/sar/SAR-120-DELIVERY-DEPENDENCY-VIEW.md#dg-task-0738-a-independent-approval"
+        }
+      ],
+      "required_baseline_ref": "refs/heads/main"
+    }
+  ]
+}

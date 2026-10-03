@@ -100,3 +100,10 @@
 | `STORY-0513` | `ISSUE-0623` | `TASK-0513` | Frontend | STORY-0511 |
 | `STORY-0514` | `ISSUE-0624` | `TASK-0514` | Security | STORY-0512, STORY-0513 |
 | `STORY-0515` | `ISSUE-0625` | `TASK-0515` | Reviewer | STORY-0514 |
+
+## Entrega técnica parcial antecipada
+
+Stage A de TASK-0738 / ISSUE-0848 participa deste incremento somente como fundação
+técnica compartilhada de BC-016. Não conclui STORY-0738 nem move sua Stage B.
+STORY-0038 preserva STORY-0036 e exige adicionalmente DG-TASK-0738-A SATISFIED
+no consumer base antes da execução. A tabela de predecessores continua Story→Story.

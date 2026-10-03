@@ -5,7 +5,7 @@
   "epic_id": "EPIC-031",
   "sprint_id": "SPRINT-009",
   "role": "Frontend",
-  "outcome": "Entregar Slice 1/3 — Integrar contratos e cliente tipado: React/TypeScript/Vite, design system, cliente OpenAPI, seletor visual, acessibilidade e E2E [REQ-EPIC, REQ-FS1, REQ-RUN] com testes e evidência verificável.",
+  "outcome": "Entregar Slice 1/3 — Integrar contratos e cliente tipado: React/TypeScript/Vite, design system, cliente OpenAPI, seletor visual, acessibilidade e E2E [REQ-EPIC, REQ-FS1, REQ-RUN] com testes e evidência verificável. Stage A: fundacao tecnica parcial antecipada no SPRINT-002 conforme DG-TASK-0738-A; Stage B: escopo funcional original no SPRINT-009, dependente de STORY-0185. Stage A nao conclui STORY-0738.",
   "references": [
     "AGENTS.md",
     ".codex/roles/ROLE-005-frontend.md",
@@ -64,14 +64,32 @@
     "contracts/privacy/lgpd-control-matrix.csv",
     "docs/04-quality/LGPD_CONTROL_MODEL.md",
     "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
-    "docs/05-operations/PRODUCTION_READINESS_GATES.md"
+    "docs/05-operations/PRODUCTION_READINESS_GATES.md",
+    "docs/06-delivery/DELIVERY_GATES.json",
+    "docs/02-architecture/sar/SAR-120-DELIVERY-DEPENDENCY-VIEW.md"
   ],
   "allow_paths": [
-    "src/frontend/src/contexts/operator_experience/features/react-typescript-vite-design-system-cliente-openapi-se/requirements-epic-fs1-run-parte-1/**"
+    "src/frontend/src/contexts/operator_experience/features/react-typescript-vite-design-system-cliente-openapi-se/requirements-epic-fs1-run-parte-1/**",
+    "package.json",
+    "pnpm-lock.yaml",
+    "Makefile",
+    "src/frontend/package.json",
+    "src/frontend/tsconfig.json",
+    "src/frontend/vite.config.ts",
+    "src/frontend/index.html",
+    "src/frontend/openapi-client.config.json",
+    "src/frontend/src/main.tsx",
+    "src/frontend/src/contexts/operator_experience/adapters/web/bootstrap/**",
+    "src/frontend/src/contexts/operator_experience/contracts/frontend-shell/**",
+    "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/**",
+    "src/frontend/tools/openapi/**",
+    "src/frontend/tests/foundation/**",
+    ".github/workflows/openapi-cliente-typescript-e-contratos-cli-jobs-evento.yaml"
   ],
   "deny_paths": [
     "src/**/epic-*",
-    "src/**/issue-*"
+    "src/**/issue-*",
+    "contracts/http/**"
   ],
   "acceptance_criteria": [
     "Cada requisito do slice possui evidência explícita: REQ-EPIC-031, REQ-FS1-001, REQ-FS1-002, REQ-FS1-003, REQ-FS1-004, REQ-FS1-006, REQ-FS1-008, REQ-FS1-009, REQ-FS1-010, REQ-RUN-001.",
@@ -102,7 +120,9 @@
     "Decisão material não resolvida.",
     "Contrato obrigatório ausente ou contraditório.",
     "Write scope sobrepõe lane ativa.",
-    "Aceitação não pode ser demonstrada por teste ou evidência."
+    "Aceitação não pode ser demonstrada por teste ou evidência.",
+    "contracts/http/** e somente leitura; execucao e escrita compartilhada serializadas.",
+    "stage_story_dependencies=[] libera somente Stage A por Owner Decision; Stage B preserva dependencies=[STORY-0185]. Aprovar Stage A exige acceptance_manifest_sha256 no snapshot DAA; nao concluir Story nem recriar artifacts na Stage B."
   ],
   "acceptance_criterion_ids": [
     "AC-ISSUE-0848-01",
@@ -161,11 +181,27 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
-        "src/frontend/src/contexts/operator_experience/features/react-typescript-vite-design-system-cliente-openapi-se/requirements-epic-fs1-run-parte-1/**"
+        "src/frontend/src/contexts/operator_experience/features/react-typescript-vite-design-system-cliente-openapi-se/requirements-epic-fs1-run-parte-1/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "Makefile",
+        "src/frontend/package.json",
+        "src/frontend/tsconfig.json",
+        "src/frontend/vite.config.ts",
+        "src/frontend/index.html",
+        "src/frontend/openapi-client.config.json",
+        "src/frontend/src/main.tsx",
+        "src/frontend/src/contexts/operator_experience/adapters/web/bootstrap/**",
+        "src/frontend/src/contexts/operator_experience/contracts/frontend-shell/**",
+        "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/**",
+        "src/frontend/tools/openapi/**",
+        "src/frontend/tests/foundation/**",
+        ".github/workflows/openapi-cliente-typescript-e-contratos-cli-jobs-evento.yaml"
       ],
       "deny_paths": [
         "src/**/epic-*",
-        "src/**/issue-*"
+        "src/**/issue-*",
+        "contracts/http/**"
       ]
     },
     "api": {
@@ -300,5 +336,9 @@
     "production_gate": "SECURITY_AND_PRIVACY_GATES"
   },
   "cto_review_status": "PASS",
-  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+  "cto_review_baseline": "SAR-v3.0-PHASE-G",
+  "delivery_gate_scope": {
+    "gate_id": "DG-TASK-0738-A",
+    "definition_sha256": "5ec3611d42cc10d28564c6f9da2b136043cfdf5c313beddff7613ae84e3bb0f2"
+  }
 }

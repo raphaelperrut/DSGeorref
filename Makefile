@@ -6,6 +6,7 @@ RUFF_PATHS := tools/governance/migrations-ci-secret-dependency-scan-e-telemetria
 MYPY_PATHS := tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/decision_controls.py
 
 verify: python-quality frontend-quality
+	$(PYTHON) -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/delivery_gates
 	$(PYTHON) -X utf8 tools/validate_repository.py
 	$(PYTHON) -X utf8 tools/run_architecture_review.py
 	$(PYTHON) -X utf8 tools/run_requirements_review.py

@@ -108,3 +108,10 @@
 | `STORY-0525` | `ISSUE-0635` | `TASK-0525` | Frontend | STORY-0522 |
 | `STORY-0526` | `ISSUE-0636` | `TASK-0526` | QA | STORY-0523, STORY-0524, STORY-0525 |
 | `STORY-0527` | `ISSUE-0637` | `TASK-0527` | Reviewer | STORY-0526 |
+
+## Fundação compartilhada antecipada
+
+Stage B de STORY-0738 / TASK-0738 permanece neste incremento e continua dependente
+de STORY-0185. Stage A técnica é entregue parcialmente no SPRINT-002 sob
+DG-TASK-0738-A, sem concluir a Story. Reutilizar seus artifacts; STORY-0186 continua
+consolidando a conclusão integral dos slices. Nenhum requisito funcional é antecipado.

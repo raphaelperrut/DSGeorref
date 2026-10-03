@@ -152,3 +152,24 @@ Leia `AGENTS.md`, o papel `.codex/roles/ROLE-005-frontend.md`, esta história e 
 - **Controles aplicáveis:** `CTO-001, CTO-003, CTO-004, CTO-005, CTO-006, CTO-008, CTO-009, CTO-010, CTO-011, CTO-012, CTO-013, CTO-014, CTO-015`
 - **Gate de produção:** `SECURITY_AND_PRIVACY_GATES`
 - **Regra:** implementação não pode publicar claim de custo, escala, latência, GPU, RPO/RTO ou segurança sem a evidência listada no TaskEnvelope.
+
+## Stage A / Stage B — Owner Decision
+
+Stage A é partial technical delivery antecipada exclusivamente para SPRINT-002,
+com ownership único desta Story / ISSUE-0848 / TASK-0738, em EPIC-031 / BC-016.
+`DG-TASK-0738-A` materializa outputs e checks; paths compartilhados autorizados constam
+do envelope. ADR-006 refina o modelo de entrega e SAR-120 concretiza sequenciamento,
+outputs e comandos. O scope de execução parcial usa `stage_story_dependencies=[]`
+apenas para Stage A por Owner Decision; não altera `dependencies=[STORY-0185]`.
+
+Stage A entrega apenas bootstrap, composição pública, geração/configuração/comandos,
+artifact único e diff gate com evidência e aprovação independentes. Não conclui
+STORY-0738 nem comprova requisitos funcionais do slice. Nenhum manifest ou receipt
+de Stage A é produzido neste passe; satisfação permanece PENDING calculado.
+
+Stage B mantém escopo funcional, requirements ownership e aceitação originais no
+SPRINT-009, dependente de STORY-0185. Executa sem scope parcial de Stage A. Reutiliza
+artifacts já integrados e nunca recria bootstrap ou cliente. STORY-0186 continua
+consolidando a conclusão integral de STORY-0738/0739/0740. Escrita compartilhada e
+execução das etapas são serializadas, com uma issue e um envelope por branch/worktree.
+`contracts/http/**` é somente leitura; deny scopes existentes permanecem.

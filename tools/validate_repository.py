@@ -1,10 +1,12 @@
 from __future__ import annotations
-import csv, json, re, sys, tomllib
+import argparse, csv, json, re, sys, tomllib
 from pathlib import Path
 import yaml
 from jsonschema import Draft202012Validator
 
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from tools.governance.delivery_gates.validation import planning_errors, ready_errors
 errors=[]
 CURRENT_ADR_COUNT=59
 PHASE_D_ADR_BASELINE=58
@@ -426,6 +428,16 @@ if len(phase_g_rows)!=871: errors.append(f'Phase G matrix expected 871, found {l
 for p in ROOT.glob('.codex/tasks/TASK-*.json'):
     o=json.loads(p.read_text(encoding="utf-8"))
     if o.get('cto_review_status')!='PASS' or o.get('cto_review_baseline')!='SAR-v3.0-PHASE-G': errors.append(f'{p.name}: Phase G metadata invalid')
+
+parser = argparse.ArgumentParser(description='Repository and delivery gate validation')
+parser.add_argument('--ready-task')
+parser.add_argument('--consumer-base')
+args = parser.parse_args()
+if bool(args.ready_task) != bool(args.consumer_base):
+    parser.error('--ready-task and --consumer-base must be provided together')
+errors.extend(planning_errors(ROOT))
+if args.ready_task and not errors:
+    errors.extend(ready_errors(ROOT, args.ready_task, args.consumer_base))
 
 if errors:
     print('VALIDATION FAILED')

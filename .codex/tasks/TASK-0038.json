@@ -44,7 +44,10 @@
     "contracts/privacy/lgpd-control-matrix.csv",
     "docs/04-quality/LGPD_CONTROL_MODEL.md",
     "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
-    "docs/05-operations/PRODUCTION_READINESS_GATES.md"
+    "docs/05-operations/PRODUCTION_READINESS_GATES.md",
+    "docs/06-delivery/DELIVERY_GATES.json",
+    "docs/02-architecture/sar/SAR-120-DELIVERY-DEPENDENCY-VIEW.md",
+    "docs/02-architecture/adrs/ADR-013-cliente-typescript-gerado-e-diff-gate-openapi.md"
   ],
   "allow_paths": [
     "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**"
@@ -76,7 +79,8 @@
     "Decisão material de produto ou arquitetura não resolvida.",
     "Contrato obrigatório ausente ou contraditório.",
     "Write scope sobrepõe lane ativa.",
-    "Aceitação não pode ser demonstrada por teste ou evidência."
+    "Aceitação não pode ser demonstrada por teste ou evidência.",
+    "Implementacao bloqueada ate DG-TASK-0738-A SATISFIED no consumer base pelo modo --ready-task. Consumir o artifact gerado de BC-016 e os comandos canonicos definidos em SAR-120; nao recriar bootstrap, cliente, DTOs, enums ou wrappers."
   ],
   "acceptance_criterion_ids": [
     "AC-ISSUE-0148-01",
@@ -93,7 +97,8 @@
     "ADR-010",
     "ADR-011",
     "ADR-014",
-    "ADR-016"
+    "ADR-016",
+    "ADR-013"
   ],
   "requirement_basis": "DERIVED_CONTROL",
   "requirements_review_status": "PASS",
@@ -162,7 +167,8 @@
       "authorities": [
         "ADR-010",
         "ADR-011",
-        "ADR-014"
+        "ADR-014",
+        "ADR-013"
       ]
     },
     "geo": {
@@ -254,5 +260,8 @@
     "production_gate": "BENCHMARK_AND_OPERATIONS_GATES"
   },
   "cto_review_status": "PASS",
-  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+  "cto_review_baseline": "SAR-v3.0-PHASE-G",
+  "delivery_gate_dependencies": [
+    "DG-TASK-0738-A"
+  ]
 }

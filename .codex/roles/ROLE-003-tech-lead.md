@@ -57,3 +57,12 @@ Atue como **Tech Lead** do DSGeorref. Execute somente a história e o TaskEnvelo
 ## Prompt Bundle — Fase E
 
 Este papel executa somente bundles conformes à `SPEC-001` e templates conformes à `SPEC-004`. Hash, lock, assinatura, versão e TaskEnvelope devem ser verificados antes da execução. Contradição ou especificação ausente é condição de parada.
+
+## SharedPartialDeliveryGate — ADR-006 / SAR-120
+
+Preservar TaskEnvelope.dependencies igual aos predecessores Story→Story. Validar
+registry, scope owner e ciclos da projeção de execução. Antes de liberar consumer,
+executar python tools/validate_repository.py --ready-task <TASK-ID> --consumer-base <SHA>.
+Gate parcial não conclui Story owner; pendência é válida em planejamento, mas bloqueia
+execução. Aceite exige manifest, snapshot com acceptance_manifest_sha256, DAA vigente
+e integração humana na baseline canônica. Não alterar trust ou aprovar o próprio trabalho.
