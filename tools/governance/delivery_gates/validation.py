@@ -7,10 +7,11 @@ import csv
 import io
 import sys
 from pathlib import Path
+from typing import Any
 
 from jsonschema.exceptions import SchemaError, ValidationError
 
-from .model import REGISTRY, SCHEMA, TASK_SCHEMA, GateError, require
+from .model import REGISTRY, SCHEMA, TASK_SCHEMA, GateError, definition_digest, require
 from .planning import validate_planning
 from .repository import GitRepository, WorkingRepository
 from .satisfaction import require_satisfied
@@ -26,22 +27,36 @@ def planning_errors(root: Path) -> list[str]:
         return [f"delivery gate planning: {error}"]
 
 
+def bound_current_task(
+    root: Path, repository: GitRepository, task_id: str
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    current = WorkingRepository(root)
+    for path in (REGISTRY, SCHEMA, TASK_SCHEMA):
+        require(
+            repository.json(path) == current.json(path),
+            "consumer base does not contain current canonical gate definitions/schemas",
+        )
+    current_tasks, gates = validate_planning(current)
+    base_tasks, _ = validate_planning(repository)
+    require(task_id in current_tasks and task_id in base_tasks, "current/base ready task missing")
+    task, snapshot = current_tasks[task_id], base_tasks[task_id]
+    # Bind the complete validated authorization, including references and write scope.
+    # The only normalization is the approved absent gate list == [] default.
+    authorizations = [
+        {**envelope, "delivery_gate_dependencies": envelope.get("delivery_gate_dependencies", [])}
+        for envelope in (task, snapshot)
+    ]
+    require(
+        definition_digest(authorizations[0]) == definition_digest(authorizations[1]),
+        f"consumer base differs from current canonical TaskEnvelope authorization: {task_id}",
+    )
+    return task, gates
+
+
 def ready_errors(root: Path, task_id: str, consumer_base: str) -> list[str]:
     try:
         repository = GitRepository(root, consumer_base)
-        tasks, gates = validate_planning(repository)
-        require(
-            repository.json(REGISTRY) == WorkingRepository(root).json(REGISTRY),
-            "consumer base does not contain current canonical gate definitions",
-        )
-        for path in (SCHEMA, TASK_SCHEMA):
-            require(
-                repository.json(path) == WorkingRepository(root).json(path),
-                "consumer base does not contain current canonical schemas",
-            )
-        task = tasks.get(task_id)
-        if task is None:
-            raise GateError("unknown ready task")
+        task, gates = bound_current_task(root, repository, task_id)
         statuses = {
             row["story_id"]: row["status"].lower()
             for row in csv.DictReader(

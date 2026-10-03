@@ -90,17 +90,10 @@ def validate_gate(reader: Reader, gate: dict[str, Any], tasks: dict[str, Any]) -
         owner is not None and owner["story_id"] == gate["owner_story_id"],
         "gate owner Task/Story missing or incoherent",
     )
-    scope = owner.get("delivery_gate_scope")
     require(
         gate["gate_id"] == f"DG-{gate['owner_task_id']}-{gate['stage']}",
         "gate ID/owner/stage mismatch",
     )
-    if scope:
-        require(scope.get("gate_id") == gate["gate_id"], "gate owner scope mismatch")
-        require(
-            scope.get("definition_sha256") == definition_digest(gate),
-            "gate definition digest mismatch",
-        )
     require(
         re.fullmatch(r"refs/heads/(?!.*\.\.|.*//)[A-Za-z0-9_./-]+", gate["required_baseline_ref"])
         is not None,
@@ -133,6 +126,15 @@ def validate_gate(reader: Reader, gate: dict[str, Any], tasks: dict[str, Any]) -
 def validate_bindings(tasks: dict[str, Any], gates: dict[str, Any]) -> None:
     consumers: set[str] = set()
     for task in tasks.values():
+        for gate_id in task.get("delivery_gate_dependencies", []):
+            require(gate_id in gates, "consumer references unknown gate")
+            require(gates[gate_id]["owner_task_id"] != task["task_id"], "gate autoconsumption")
+            consumers.add(gate_id)
+    require(consumers == set(gates), "orphan gate: no consumer")
+
+
+def validate_scopes(tasks: dict[str, Any], gates: dict[str, Any]) -> None:
+    for task in tasks.values():
         scope = task.get("delivery_gate_scope")
         if scope:
             require(scope["gate_id"] in gates, "scope references unknown gate")
@@ -142,11 +144,10 @@ def validate_bindings(tasks: dict[str, Any], gates: dict[str, Any]) -> None:
                 == (task["task_id"], task["story_id"]),
                 "scope owner is not owned by task",
             )
-        for gate_id in task.get("delivery_gate_dependencies", []):
-            require(gate_id in gates, "consumer references unknown gate")
-            require(gates[gate_id]["owner_task_id"] != task["task_id"], "gate autoconsumption")
-            consumers.add(gate_id)
-    require(consumers == set(gates), "orphan gate: no consumer")
+            require(
+                scope["definition_sha256"] == definition_digest(gate),
+                "gate definition digest mismatch",
+            )
 
 
 def validate_execution_cycles(
@@ -154,17 +155,18 @@ def validate_execution_cycles(
 ) -> None:
     adjacency: dict[str, set[str]] = {node["id"]: set() for node in graph["nodes"]}
     adjacency.update({gate_id: set() for gate_id in gates})
+    owned_gates: dict[str, set[str]] = {task_id: set() for task_id in tasks}
     for edge in graph["edges"]:
         adjacency[edge["from"]].add(edge["to"])
     for gate_id, gate in gates.items():
+        owned_gates[gate["owner_task_id"]].add(gate_id)
         adjacency[gate_id].add(gate["owner_story_id"])
         for story in gate["stage_story_dependencies"]:
             adjacency[story].add(gate_id)
     for task in tasks.values():
         for gate_id in task.get("delivery_gate_dependencies", []):
             adjacency[gate_id].add(task["story_id"])
-            if scope := task.get("delivery_gate_scope"):
-                adjacency[gate_id].add(scope["gate_id"])
+            adjacency[gate_id].update(owned_gates[task["task_id"]])
     incoming = dict.fromkeys(adjacency, 0)
     for targets in adjacency.values():
         for target in targets:
@@ -194,4 +196,5 @@ def validate_planning(reader: Reader) -> tuple[dict[str, Any], dict[str, Any]]:
     for gate in gates.values():
         validate_gate(reader, gate, tasks)
     validate_execution_cycles(graph, tasks, gates)
+    validate_scopes(tasks, gates)
     return tasks, gates
