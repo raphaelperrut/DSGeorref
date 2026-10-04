@@ -1,0 +1,290 @@
+{
+  "issue_id": "ISSUE-0148",
+  "github_issue": 114,
+  "story_id": "STORY-0038",
+  "task_id": "TASK-0038",
+  "owner": "BC-002",
+  "checked_at": "2026-10-04T15:49:32.734183+00:00",
+  "baseline_sha": "7d60a213a9286aa34ad20f5204890ece13e2f35f",
+  "branch": "codex/issue-0148-task-0038",
+  "candidate_binding": "The single commit containing this report, HANDOFF.md and the feature files. Resolve exact SHA with git log -1 --format=%H -- evidence/implementation/epic-008/story-0038/VALIDATION-REPORT.json; the same SHA is reported at handoff. Independent QA/Reviewer must target that SHA.",
+  "approval": "NOT_PERFORMED_IMPLEMENTATION_ONLY",
+  "readiness": {
+    "command": "python tools/validate_repository.py --ready-task TASK-0038 --consumer-base 7d60a213a9286aa34ad20f5204890ece13e2f35f",
+    "exit_code": 0,
+    "result": "PASS",
+    "STORY-0036": "DONE",
+    "DG-TASK-0738-A": "SATISFIED",
+    "TASK-0038": "READY",
+    "main_equals_origin_main_at_branch_creation": true,
+    "worktree_clean_before_branch_creation": true
+  },
+  "workdir_cleanup": {
+    "root_cause": "Ignored local pytest fixtures scanned by the validator: invalid JSON log payloads and one Markdown fixture with broken links.",
+    "tracked_files": [],
+    "discarded_file_count": 120,
+    "invalid_json_file_count": 119,
+    "broken_link_fixture_count": 1,
+    "reported_error_count": 142,
+    "audit": "cleanup-audit.txt",
+    "method": "Exact literal-path deletion after tracked-file, root-containment and reparse-point checks. Other workdir artifacts retained."
+  },
+  "scope": {
+    "task_envelope": ".codex/tasks/TASK-0038.json",
+    "allow_paths": [
+      "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**"
+    ],
+    "declared_evidence_path": "evidence/implementation/epic-008/story-0038/",
+    "write_scope_valid": true,
+    "contract_http_changed": false,
+    "backend_changed": false,
+    "foundation_changed": false,
+    "generated_client_changed": false,
+    "stage_a_or_task0738_changed": false
+  },
+  "operations_used": {
+    "post_auth_bootstrap": "postAuthBootstrap",
+    "post_auth_session": "postAuthSession",
+    "delete_auth_session": "deleteAuthSession",
+    "post_auth_tokens": "postAuthTokens",
+    "get_auth_oidc_callback": "getAuthOidcCallback",
+    "get_projects_projectid_members": "getProjectsProjectidMembers",
+    "post_projects_projectid_members": "postProjectsProjectidMembers",
+    "get_authorization_check": "getAuthorizationCheck"
+  },
+  "same_generated_client": {
+    "used": true,
+    "diff": "NONE",
+    "file_count": 4,
+    "aggregate_sha256": "f7e49e3dee856b886fa460052c68c58aeff9cbea4c0231fcc79d54522d28435d",
+    "aggregate_algorithm": "SHA256 of sorted repository-relative UTF-8 path + NUL + bytes normalized CRLF to LF (Git checkout conversion); no regeneration"
+  },
+  "content_manifest_algorithm": "SHA256 of text file bytes normalized CRLF to LF; report and manifest excluded to avoid self-reference. No canonical image asset included.",
+  "pat_revoke_required_by_issue": false,
+  "pat_revoke_implemented": false,
+  "bootstrap_availability_endpoint_required": false,
+  "bootstrap_availability_endpoint_implemented": false,
+  "acceptance": {
+    "AC-ISSUE-0148-01": {
+      "implementation_result": "PASS",
+      "evidence": [
+        "mandatory.log",
+        "browser.log",
+        "browser-production.log"
+      ],
+      "limit": "Positive identity backend integration unavailable; real published HTTP request path and fail-closed composition exercised."
+    },
+    "AC-ISSUE-0148-02": {
+      "implementation_result": "PASS",
+      "evidence": [
+        "HANDOFF.md",
+        "VALIDATION-REPORT.json",
+        "content-sha256.txt"
+      ],
+      "individual_requirement_ids": [],
+      "requirement_basis": "ARCHITECTURAL_CONTROL in canonical acceptance traceability; no invented requirement linkage"
+    },
+    "AC-ISSUE-0148-03": {
+      "implementation_result": "PASS",
+      "evidence": [
+        "focused.log"
+      ],
+      "coverage": [
+        "bootstrap success/repeat/invalid/Problem Details/401/403",
+        "session success/error/expired/malformed",
+        "logout success/failure clears local confirmation",
+        "PAT issue success/error/ephemeral value/no logging or storage",
+        "member list/link success/401/403",
+        "OIDC callback success/400/409/500/502/malformed",
+        "authorization denied/malformed",
+        "pending duplicate prevention",
+        "Problem Details rendering/redaction",
+        "unchanged retry idempotency",
+        "Equivalent UUID casing accepted; foreign-project identities still rejected"
+      ]
+    },
+    "AC-ISSUE-0148-04": {
+      "implementation_result": "PASS",
+      "evidence": [
+        "focused.log",
+        "HANDOFF.md"
+      ],
+      "idempotency": "Stable generated keys for unchanged failed mutation retries; server remains replay authority.",
+      "authorization": "Valid server session required locally; backend remains permission authority; boolean false never grants permission.",
+      "problem_details": "Available type/title/status/detail/instance/code preserved as text, with known sensitive reflections/internal traces redacted."
+    }
+  },
+  "checks": {
+    "focused_frontend": {
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": 42,
+      "command": "pnpm --dir src/frontend exec vitest run src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx --environment jsdom",
+      "log": "focused.log"
+    },
+    "mandatory_test_epic_008_superficie": {
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": 1,
+      "tests_skipped": 41,
+      "log": "mandatory.log"
+    },
+    "frontend_typecheck": {
+      "result": "PASS",
+      "exit_code": 0,
+      "command": "pnpm --dir src/frontend typecheck",
+      "log": "typecheck.log"
+    },
+    "canonical_frontend_build": {
+      "result": "PASS",
+      "exit_code": 0,
+      "command": "pnpm --dir src/frontend build",
+      "log": "build.log"
+    },
+    "feature_frontend_build": {
+      "result": "PASS",
+      "exit_code": 0,
+      "log": "feature-build.log"
+    },
+    "runtime_dev_smoke": {
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": 1,
+      "log": "browser.log"
+    },
+    "runtime_production_smoke": {
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": 1,
+      "log": "browser-production.log"
+    },
+    "repository_validation_final": {
+      "result": "PASS",
+      "exit_code": 0,
+      "command": ".venv/Scripts/python.exe -X utf8 tools/validate_repository.py",
+      "log": "repository-validation.log",
+      "executed_via": "make verify final"
+    },
+    "make_verify_initial": {
+      "result": "FAIL",
+      "raw_exit_code": 2,
+      "classification": "ENVIRONMENTAL_MISSING_REQUIRED_FOUNDATION_SERVICES",
+      "cause": "FOUNDATION_INTEGRATION was unset; canonical test requires pinned PostgreSQL/RabbitMQ services.",
+      "log": "make-verify-initial.log"
+    },
+    "make_verify_final": {
+      "result": "PASS",
+      "raw_exit_code": 0,
+      "classification": "PASS_NO_STAGE_A_EXCEPTION",
+      "command": "make verify PYTHON=.venv/Scripts/python.exe PNPM=pnpm.cmd",
+      "log": "make-verify-final.log",
+      "environment": {
+        "FOUNDATION_INTEGRATION": "1",
+        "postgres": "postgres:18.4 (isolated loopback port 55438)",
+        "rabbitmq": "rabbitmq:4.3.4 (isolated loopback port 56738)",
+        "node": "24.20.0",
+        "python": "3.12.10"
+      }
+    },
+    "make_verify_asset_attempt": {
+      "result": "FAIL",
+      "raw_exit_code": 2,
+      "classification": "EVIDENCE_ASSET_LICENSE_RECORD_MISSING_CORRECTED",
+      "cause": "New untracked screenshot PNG lacked required asset license record. Removed only this optional artifact; no registry or protected file changed. Real browser logs retained.",
+      "log": "make-verify-asset-attempt.log"
+    },
+    "license_fix": {
+      "result": "PASS",
+      "exit_code": 0,
+      "log": "license-fix.log"
+    },
+    "remaining_make_commands_after_license_fix": {
+      "result": "PASS",
+      "exit_code": 0,
+      "log": "make-tail.log"
+    },
+    "canonical_openapi_check_and_diff": {
+      "result": "PASS",
+      "exit_code": 0,
+      "executed_via": "make verify final",
+      "log": "make-verify-final.log"
+    }
+  },
+  "runtime_backend_integration": {
+    "result": "ENVIRONMENTAL_NOT_AVAILABLE",
+    "cause": "No configured identity HTTP host composing the published routes in this checkout. Domain/application/PostgreSQL adapters and engineering skeleton do not supply an identity API.",
+    "not_claimed": "Successful identity API/bootstrap/session/PAT/OIDC backend integration",
+    "inspected_boundary": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/web.py (WebResponses formats headers/cookies; not an HTTP route host)",
+    "route_host_search": "rg FastAPI|APIRouter|uvicorn|/auth/session|/auth/bootstrap|create_app|serve_forever|ThreadingHTTPServer in src/backend and infra: no matches"
+  },
+  "runtime_http_observation": {
+    "request_method": "POST",
+    "request_path": "/api/v1/auth/session",
+    "host": "Actual Vite dev server and built-feature preview",
+    "response_status": 404,
+    "request_interception": false,
+    "outcome": "Session remains unconfirmed; protected controls disabled"
+  },
+  "runtime_versions": {
+    "focused_frontend": {
+      "node": "24.20.0",
+      "pnpm": "10.26.1"
+    },
+    "python_validation_venv": "3.12.10"
+  },
+  "sensitive_data_leak_found": false,
+  "residual_risks": [
+    "Independent successful identity HTTP-host integration remains necessary, including same-origin TLS/cookies and authoritative CSRF transport/enforcement.",
+    "Successful logout needs authoritative If-Match/ETag; no revision is fabricated.",
+    "OIDC callback UI consumes code/state from server flow; no initiation endpoint is invented.",
+    "QA/Reviewer approval and production gates remain independent."
+  ],
+  "feature_files": [
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/assets.d.ts",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/identity-surface.tsx",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/index.html",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/index.tsx",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/main.tsx",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/operation-panel.tsx",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/playwright.config.ts",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/README.md",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/response-safety.ts",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.browser.spec.ts",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.css",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/use-identity-access.ts"
+  ],
+  "normative_inputs_sha256": {
+    ".codex/tasks/TASK-0038.json": "b13f61a75ad77db00d0bf8a7d2656749ce8b0564e67618b2fe92eeae02bc1c4b",
+    "contracts/http/openapi.yaml": "0f236a4937a5226b1c57cf8c6731750153b5d4cd9d6381c88a6bd2fceca30d52",
+    "docs/06-delivery/DELIVERY_GATES.json": "8268df06ada2bcddab0a809250dd9be9f963be4237bd12e931ee2662e4c4ab46"
+  },
+  "visual_inspection": {
+    "result": "PASS",
+    "artifact": "Ignored local node_modules/.cache/identity-access-browser/surface-production.png",
+    "canonical_image_included": false,
+    "reason": "No asset license registry expansion in consumer scope."
+  },
+  "implementation_state": "CANDIDATE_READY_FOR_QA",
+  "evidence_files": [
+    "evidence/implementation/epic-008/story-0038/HANDOFF.md",
+    "evidence/implementation/epic-008/story-0038/VALIDATION-REPORT.json",
+    "evidence/implementation/epic-008/story-0038/browser-production.log",
+    "evidence/implementation/epic-008/story-0038/browser.log",
+    "evidence/implementation/epic-008/story-0038/build.log",
+    "evidence/implementation/epic-008/story-0038/cleanup-audit.txt",
+    "evidence/implementation/epic-008/story-0038/content-sha256.txt",
+    "evidence/implementation/epic-008/story-0038/feature-build.log",
+    "evidence/implementation/epic-008/story-0038/focused.log",
+    "evidence/implementation/epic-008/story-0038/license-fix.log",
+    "evidence/implementation/epic-008/story-0038/make-tail.log",
+    "evidence/implementation/epic-008/story-0038/make-verify-asset-attempt.log",
+    "evidence/implementation/epic-008/story-0038/make-verify-final.log",
+    "evidence/implementation/epic-008/story-0038/make-verify-initial.log",
+    "evidence/implementation/epic-008/story-0038/mandatory.log",
+    "evidence/implementation/epic-008/story-0038/readiness.log",
+    "evidence/implementation/epic-008/story-0038/repository-validation.log",
+    "evidence/implementation/epic-008/story-0038/typecheck.log"
+  ],
+  "evidence_transcript_normalization": "UTF-8 LF text, trailing spaces/tabs and surplus EOF blank lines removed for Git whitespace policy; original execution logs remain in ignored workdir. Command meaning, output values and exit codes unchanged."
+}

@@ -1,0 +1,702 @@
+{
+  "tracked_files": [],
+  "failures": [
+    {
+      "path": "workdir/dgt2/test_valid_results_valid_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/ca0ce782565d0e7dfa28646fbdd0f4fb0b483a31/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed17/environmental/evidence/delivery-gates/DG-TASK-0738-A/756b9b0223d2b251a9cf047912ff71c463968241/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_valid_results_PASS_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/b64fc54e2c88921669d6bc4d2cfd5feda72782eb/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed16/environmental/evidence/delivery-gates/DG-TASK-0738-A/afaf81d859e75907f0df95db232a7837138e5d5e/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed15/environmental/evidence/delivery-gates/DG-TASK-0738-A/c7ad57d70a72a7dbd243f6232bc6379743d8f949/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed14/environmental/evidence/delivery-gates/DG-TASK-0738-A/daa56ca6f03f63504f2994cf3e8af83bd658c711/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed9/environmental/evidence/delivery-gates/DG-TASK-0738-A/964cd62d0307ba7fa0590c327c2e93e7f2328636/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt/test_valid_results_valid_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/610e428528c6854abc33f91a755363ff5708503f/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed13/environmental/evidence/delivery-gates/DG-TASK-0738-A/d9a2dbad8fac78e91e2e407e52b429aeeb369be1/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed8/environmental/evidence/delivery-gates/DG-TASK-0738-A/fae0c7617a90c1e778a76c470ba03b11c06ec772/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt/test_valid_results_PASS_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/ae8b592e4caef809d968d208db1a6d19d2d88d85/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed12/environmental/evidence/delivery-gates/DG-TASK-0738-A/8f2b8aa77ce1f505a87978c0c0a3890908b7f10f/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed7/environmental/evidence/delivery-gates/DG-TASK-0738-A/7199ab1f5a98734eee4571770397ff696cf26680/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_valid_results_valid_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/c3577183a60b28bf3e65f17bd254c252bd690d76/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed11/environmental/evidence/delivery-gates/DG-TASK-0738-A/377ee4ccfdfc14dab26a3d2f6edea0ee15f53c89/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_valid_results_valid_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/df3a539a7a34c3cd3d574ceb5aac6a3311458e15/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_valid_results_PASS_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/a29b9a7a9b58c12a55a218bc6fc394145fb94e05/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed6/environmental/evidence/delivery-gates/DG-TASK-0738-A/e1bd2b3a01874b9518c8b4bda3d45a95727cbd48/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed10/environmental/evidence/delivery-gates/DG-TASK-0738-A/b5c149156ea6e3e8a45dbc0a33de3c79482625b3/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_valid_results_PASS_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/f070a84697cba609930015b59ba372df5b6c5332/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed5/environmental/evidence/delivery-gates/DG-TASK-0738-A/0282e80b00b52cd0e4721914629cdfc10e0c0ff3/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed1/environmental/evidence/delivery-gates/DG-TASK-0738-A/33cd676f62097141a8b75709679e595722cc5b01/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed4/environmental/evidence/delivery-gates/DG-TASK-0738-A/c652fe97593ec4cf7a0e71d963d82bd1e1290897/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed0/environmental/evidence/delivery-gates/DG-TASK-0738-A/270a2f5e3718d1ee4495830d37fb41c2a05bdc6c/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed3/environmental/evidence/delivery-gates/DG-TASK-0738-A/29c1d4a6956402587d801fa0022149dfdeb5095d/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/20530da5bd2ac0567eb36849ff063afed3608489/make-verify.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/20530da5bd2ac0567eb36849ff063afed3608489/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed19/environmental/evidence/delivery-gates/DG-TASK-0738-A/ff398386f049ee1b66e69f31b76d8a3b87bf4d46/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgt2/test_environmental_fail_closed18/environmental/evidence/delivery-gates/DG-TASK-0738-A/b0bd2b35dc311385f6d895744d673843bc346546/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_valid_results_valid_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/efe987cd75d923a5c6eaef26ddf3bb0fbeb12e9f/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed6/environmental/evidence/delivery-gates/DG-TASK-0738-A/c1e4d78286dab687f21cc773569d595ee59805bc/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_valid_results_PASS_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/f15e439624e0d5f5b38de4f3d4ba198d6f92d584/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed5/environmental/evidence/delivery-gates/DG-TASK-0738-A/ca5a97abeed3e7d89f95c044c96974b637e0dd25/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed4/environmental/evidence/delivery-gates/DG-TASK-0738-A/d07d5474dccf11b882acb2fc617e0a7c44181a9f/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/b34b453906c68d5409d4aa3c9b43b19d60144fde/make-verify.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/b34b453906c68d5409d4aa3c9b43b19d60144fde/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed3/environmental/evidence/delivery-gates/DG-TASK-0738-A/110e1756256cead984845f96484079b3e964c8ed/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed19/environmental/evidence/delivery-gates/DG-TASK-0738-A/5314e0fb08732f01e86072832c0c42e646b96cf1/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/a679f9f25a3835b212dda9473203d2aff46a5362/make-verify.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/a679f9f25a3835b212dda9473203d2aff46a5362/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed19/environmental/evidence/delivery-gates/DG-TASK-0738-A/b5cdfce995fb03a99492125ade30c9eb1d4a4340/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed18/environmental/evidence/delivery-gates/DG-TASK-0738-A/71141b2317e2b1bb95813d5407bfd1b37399963e/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed7/environmental/evidence/delivery-gates/DG-TASK-0738-A/b72837fdcdaaae77aee7b8bfcf7a4079279450d8/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed14/environmental/evidence/delivery-gates/DG-TASK-0738-A/f7c1e029be1f27ea28e7b7f1299e3a8079d1c71a/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed18/environmental/evidence/delivery-gates/DG-TASK-0738-A/0a8d8300a2aceffdbb2cd14e44cea887108331f7/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed17/environmental/evidence/delivery-gates/DG-TASK-0738-A/7d2488b8f648014f37dcd655dc7f847d9aacfd93/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed13/environmental/evidence/delivery-gates/DG-TASK-0738-A/5a8337a090c29efccabee9d97dcae437b5c27cc9/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed6/environmental/evidence/delivery-gates/DG-TASK-0738-A/97941957e2231afc78a1e3677db1ae57df38bd3e/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed17/environmental/evidence/delivery-gates/DG-TASK-0738-A/09df1894a59e56f4a84175f4e7e0e6563715548b/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed16/environmental/evidence/delivery-gates/DG-TASK-0738-A/b13d914cd63ae917f34090c31c267dd52a851576/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed12/environmental/evidence/delivery-gates/DG-TASK-0738-A/b23fd1fe17441937049a1f308d5e59be7510aaf7/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed5/environmental/evidence/delivery-gates/DG-TASK-0738-A/df55ecd667daf62420c612ed1c6b596baa9cbf49/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed16/environmental/evidence/delivery-gates/DG-TASK-0738-A/c6b37d3e11d28544cbb6b5ce2b390effbbed6e53/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed15/environmental/evidence/delivery-gates/DG-TASK-0738-A/0300eebd1971cd56c0647e1adafc3463c72d40be/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed11/environmental/evidence/delivery-gates/DG-TASK-0738-A/17d557f7031b82b520c30a8e624392fc681752be/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed4/environmental/evidence/delivery-gates/DG-TASK-0738-A/ae5669ca5183bcb8bf26464a5ce0052f29c0d4fe/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed15/environmental/evidence/delivery-gates/DG-TASK-0738-A/562cf76b14134aff2b749b7c3647b11cf3c988e6/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed14/environmental/evidence/delivery-gates/DG-TASK-0738-A/fb2a77495ab95ec598917841be06d4326f2f5916/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed10/environmental/evidence/delivery-gates/DG-TASK-0738-A/a8c84be681989b187b9a813569fa70e4412e7476/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed3/environmental/evidence/delivery-gates/DG-TASK-0738-A/c40b76b2c597e511ce8c4504a74ed08fbdeb07b0/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed14/environmental/evidence/delivery-gates/DG-TASK-0738-A/d2c415ec6b40f0bda2f375fe7349ccd89b00a67c/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed13/environmental/evidence/delivery-gates/DG-TASK-0738-A/eb20eb6a0a1408b8c2605557aa9c196589e450ae/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed1/environmental/evidence/delivery-gates/DG-TASK-0738-A/6f7a9ee053febdf3a888771a298fedb88050c147/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/2362d953ae464e9af35c90888458c14da313165d/make-verify.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/2362d953ae464e9af35c90888458c14da313165d/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed12/environmental/evidence/delivery-gates/DG-TASK-0738-A/4548346ba93b8e5911b71f210f6aa56ea38391df/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed0/environmental/evidence/delivery-gates/DG-TASK-0738-A/5e2e3b676b8bac7d62e44fc1cd5515f39e877cc5/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed13/environmental/evidence/delivery-gates/DG-TASK-0738-A/f61076f55a014ceedea22984e4d06ca635ed0f87/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed11/environmental/evidence/delivery-gates/DG-TASK-0738-A/ce523e2f9dc53eaad2b3fdd713609320a308f15a/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed12/environmental/evidence/delivery-gates/DG-TASK-0738-A/920f692e03b7ffaa161894302b0d7f34f3a5f4d1/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed19/environmental/evidence/delivery-gates/DG-TASK-0738-A/d7bd74b63a38ecfaca5aec792af3404252029487/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed10/environmental/evidence/delivery-gates/DG-TASK-0738-A/3102cd78f431e006d9c1771967c655fdf5ba0623/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed11/environmental/evidence/delivery-gates/DG-TASK-0738-A/7b02cd7ea408ac6d7c05512b286cccf284d85d83/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed18/environmental/evidence/delivery-gates/DG-TASK-0738-A/89a480751bc95a72ce88d077b7ddc8a2d16641f1/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed1/environmental/evidence/delivery-gates/DG-TASK-0738-A/23af3be5e59ad12fad303b9a1f3fe408c29c93ac/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed17/environmental/evidence/delivery-gates/DG-TASK-0738-A/9d3c4076bcd801af0c546ce515c9d3a573c10c21/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed10/environmental/evidence/delivery-gates/DG-TASK-0738-A/c762ba88a49035ec031df0d389ebcd7dc446a6b3/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed0/environmental/evidence/delivery-gates/DG-TASK-0738-A/033471b6059a9c94145b1c26e7de7c5b3a1eace4/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed1/environmental/evidence/delivery-gates/DG-TASK-0738-A/2b99ad39c78ef5192c5da66640dd183882843c40/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed16/environmental/evidence/delivery-gates/DG-TASK-0738-A/380faed17c165a39c763097d3cd9369d082e9741/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed0/environmental/evidence/delivery-gates/DG-TASK-0738-A/412083020cd8aabe82c4263c102c77152a504a3e/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed15/environmental/evidence/delivery-gates/DG-TASK-0738-A/7cb9407ca2d0fa72b15f0d033b19ce1aa4950fd5/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed9/environmental/evidence/delivery-gates/DG-TASK-0738-A/8b24885902a7188e1a665303eaa4ab559b4ed8ca/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed8/environmental/evidence/delivery-gates/DG-TASK-0738-A/3a0524ec5a0aec81eefebed368a110fb79cd2cfc/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed9/environmental/evidence/delivery-gates/DG-TASK-0738-A/9bc9c9db1180b8e440f052d5c002ee330339d70e/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed7/environmental/evidence/delivery-gates/DG-TASK-0738-A/b3ee1dd5d22b2159e5fdccf27aebd97fe8521da9/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed6/environmental/evidence/delivery-gates/DG-TASK-0738-A/41b7770a8d3e5639b307f20ed6ed90cbb7a55839/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed8/environmental/evidence/delivery-gates/DG-TASK-0738-A/658a61f787487265dadc83e6dd8c9d9b43b3966b/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed9/environmental/evidence/delivery-gates/DG-TASK-0738-A/acea235f0b4e888abc23a3b34da36f8e0d6a1866/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed5/environmental/evidence/delivery-gates/DG-TASK-0738-A/315699f2187c35645912f979aa6662c6479ae576/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dgf/test_environmental_fail_closed7/environmental/evidence/delivery-gates/DG-TASK-0738-A/5fa37b6ff4f0c56d25556bd8a6cf4a17b3cb5dd9/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed8/environmental/evidence/delivery-gates/DG-TASK-0738-A/9c79274ce276bccd5c18b9baff2f79aeadbba20b/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed4/environmental/evidence/delivery-gates/DG-TASK-0738-A/8632718ddd052e555c0c97a06436b699cff8ad4d/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/af/test_environmental_fail_closed3/environmental/evidence/delivery-gates/DG-TASK-0738-A/01460a3299a9f73ca95ef5ce7d4a29f604f2dba4/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_valid_results_valid_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/ff12ecb8bfdbd4511d26913818bb0d34a6ebeb83/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed19/environmental/evidence/delivery-gates/DG-TASK-0738-A/beefeb22ea6675e08f913c79c2bbb8b5d8b3df4c/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed13/environmental/evidence/delivery-gates/DG-TASK-0738-A/e81b4ec282086c1e8ca81690542d9a435377b26c/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_valid_results_PASS_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/99f1d04760e3e3acf588cd223d7c19c9a6d2af9e/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed10/environmental/evidence/delivery-gates/DG-TASK-0738-A/405e1d611a0841de5e72dbb6a9d1f6d61521eb86/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed9/environmental/evidence/delivery-gates/DG-TASK-0738-A/d9a345a8705dde8b20358ff6c17d5c650fdb67a9/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed6/environmental/evidence/delivery-gates/DG-TASK-0738-A/8500d09185a7ffccd74ce90c2f6bab74520d3e71/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed18/environmental/evidence/delivery-gates/DG-TASK-0738-A/0f0cc0030c1d7b8d31c4b9f223c8a264023f53d9/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed1/environmental/evidence/delivery-gates/DG-TASK-0738-A/0bf1626e84866bb6ce3db535d5639ddb3398d64b/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed12/environmental/evidence/delivery-gates/DG-TASK-0738-A/0a10aa9c95b59562ab1bfb86f9dc55dc6add561f/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed8/environmental/evidence/delivery-gates/DG-TASK-0738-A/f1bd841baad8283eaf831db1da10d7acd5cc79b3/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed17/environmental/evidence/delivery-gates/DG-TASK-0738-A/1b40d4dae7ea679bddca03db2185b9ac7e5139c7/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed5/environmental/evidence/delivery-gates/DG-TASK-0738-A/3ce608ccfe1511c77d9bded9aeca23149d0685b9/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed0/environmental/evidence/delivery-gates/DG-TASK-0738-A/dcac81897dcb7153af36b658635a7b2ff6753cee/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed11/environmental/evidence/delivery-gates/DG-TASK-0738-A/02d012aeed73af124d84f0725c3c22e5a5f7cc9f/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed7/environmental/evidence/delivery-gates/DG-TASK-0738-A/18592536b9297be4523f336ae088053696f3b4b3/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed16/environmental/evidence/delivery-gates/DG-TASK-0738-A/0dac49245c56403013361647ba90711011d7cbd2/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed4/environmental/evidence/delivery-gates/DG-TASK-0738-A/5dc4038fb9e99cdb30c23edb7d94cdc66f7c5de0/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae2/test_valid_results_valid_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/e7c035cde1ead7f220fabf95c60d769e84fa564a/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed15/environmental/evidence/delivery-gates/DG-TASK-0738-A/b0ec3bd8ad626c81a2fcd966722e23fc850dfced/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed3/environmental/evidence/delivery-gates/DG-TASK-0738-A/ccd26cfd34d078dd636cd1c23de66fab9fc78e44/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae2/test_valid_results_PASS_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/74f4fe77f27e1aa8053729fdb4a2cd326c341c5b/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed14/environmental/evidence/delivery-gates/DG-TASK-0738-A/191cccb9bd5b15465a54600c69c038c9cbf88807/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/93fc3d6b2505d63fdcd46feacef3e4a7fcae7f8f/make-verify.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/ae3/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/93fc3d6b2505d63fdcd46feacef3e4a7fcae7f8f/log.json",
+      "reason": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/PHASE_ROADMAP.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/02-architecture/sar/SAR-000-START-HERE.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/ROADMAP.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/PHASE_ROADMAP.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/07-assurance/PHASE-F-SPRINT-REVIEW-REPORT.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/sprint-backlogs/SPRINT-001-BACKLOG.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/sprint-backlogs/SPRINT-002-BACKLOG.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/sprint-backlogs/SPRINT-003-BACKLOG.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/sprint-backlogs/SPRINT-004-BACKLOG.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/sprint-backlogs/SPRINT-005-BACKLOG.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/sprint-backlogs/SPRINT-006-BACKLOG.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/sprint-backlogs/SPRINT-007-BACKLOG.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/sprint-backlogs/SPRINT-008-BACKLOG.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/sprint-backlogs/SPRINT-009-BACKLOG.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/sprint-backlogs/SPRINT-010-BACKLOG.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/sprint-backlogs/SPRINT-011-BACKLOG.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/sprint-backlogs/SPRINT-012-BACKLOG.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/02-architecture/sar/SAR-000-START-HERE.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/ROADMAP.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/06-delivery/PHASE_ROADMAP.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/07-assurance/PHASE-F-SPRINT-REVIEW-REPORT.md"
+    },
+    {
+      "path": "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+      "reason": "broken link: docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md"
+    }
+  ],
+  "cleanup_paths": [
+    "workdir/ae2/test_valid_results_PASS_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/74f4fe77f27e1aa8053729fdb4a2cd326c341c5b/log.json",
+    "workdir/ae2/test_valid_results_valid_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/e7c035cde1ead7f220fabf95c60d769e84fa564a/log.json",
+    "workdir/ae3/test_environmental_fail_closed0/environmental/evidence/delivery-gates/DG-TASK-0738-A/dcac81897dcb7153af36b658635a7b2ff6753cee/log.json",
+    "workdir/ae3/test_environmental_fail_closed1/environmental/evidence/delivery-gates/DG-TASK-0738-A/0bf1626e84866bb6ce3db535d5639ddb3398d64b/log.json",
+    "workdir/ae3/test_environmental_fail_closed10/environmental/evidence/delivery-gates/DG-TASK-0738-A/405e1d611a0841de5e72dbb6a9d1f6d61521eb86/log.json",
+    "workdir/ae3/test_environmental_fail_closed11/environmental/evidence/delivery-gates/DG-TASK-0738-A/02d012aeed73af124d84f0725c3c22e5a5f7cc9f/log.json",
+    "workdir/ae3/test_environmental_fail_closed12/environmental/evidence/delivery-gates/DG-TASK-0738-A/0a10aa9c95b59562ab1bfb86f9dc55dc6add561f/log.json",
+    "workdir/ae3/test_environmental_fail_closed13/environmental/evidence/delivery-gates/DG-TASK-0738-A/e81b4ec282086c1e8ca81690542d9a435377b26c/log.json",
+    "workdir/ae3/test_environmental_fail_closed14/environmental/evidence/delivery-gates/DG-TASK-0738-A/191cccb9bd5b15465a54600c69c038c9cbf88807/log.json",
+    "workdir/ae3/test_environmental_fail_closed15/environmental/evidence/delivery-gates/DG-TASK-0738-A/b0ec3bd8ad626c81a2fcd966722e23fc850dfced/log.json",
+    "workdir/ae3/test_environmental_fail_closed16/environmental/evidence/delivery-gates/DG-TASK-0738-A/0dac49245c56403013361647ba90711011d7cbd2/log.json",
+    "workdir/ae3/test_environmental_fail_closed17/environmental/evidence/delivery-gates/DG-TASK-0738-A/1b40d4dae7ea679bddca03db2185b9ac7e5139c7/log.json",
+    "workdir/ae3/test_environmental_fail_closed18/environmental/evidence/delivery-gates/DG-TASK-0738-A/0f0cc0030c1d7b8d31c4b9f223c8a264023f53d9/log.json",
+    "workdir/ae3/test_environmental_fail_closed19/environmental/evidence/delivery-gates/DG-TASK-0738-A/beefeb22ea6675e08f913c79c2bbb8b5d8b3df4c/log.json",
+    "workdir/ae3/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/93fc3d6b2505d63fdcd46feacef3e4a7fcae7f8f/log.json",
+    "workdir/ae3/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/93fc3d6b2505d63fdcd46feacef3e4a7fcae7f8f/make-verify.json",
+    "workdir/ae3/test_environmental_fail_closed3/environmental/evidence/delivery-gates/DG-TASK-0738-A/ccd26cfd34d078dd636cd1c23de66fab9fc78e44/log.json",
+    "workdir/ae3/test_environmental_fail_closed4/environmental/evidence/delivery-gates/DG-TASK-0738-A/5dc4038fb9e99cdb30c23edb7d94cdc66f7c5de0/log.json",
+    "workdir/ae3/test_environmental_fail_closed5/environmental/evidence/delivery-gates/DG-TASK-0738-A/3ce608ccfe1511c77d9bded9aeca23149d0685b9/log.json",
+    "workdir/ae3/test_environmental_fail_closed6/environmental/evidence/delivery-gates/DG-TASK-0738-A/8500d09185a7ffccd74ce90c2f6bab74520d3e71/log.json",
+    "workdir/ae3/test_environmental_fail_closed7/environmental/evidence/delivery-gates/DG-TASK-0738-A/18592536b9297be4523f336ae088053696f3b4b3/log.json",
+    "workdir/ae3/test_environmental_fail_closed8/environmental/evidence/delivery-gates/DG-TASK-0738-A/f1bd841baad8283eaf831db1da10d7acd5cc79b3/log.json",
+    "workdir/ae3/test_environmental_fail_closed9/environmental/evidence/delivery-gates/DG-TASK-0738-A/d9a345a8705dde8b20358ff6c17d5c650fdb67a9/log.json",
+    "workdir/ae3/test_valid_results_PASS_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/99f1d04760e3e3acf588cd223d7c19c9a6d2af9e/log.json",
+    "workdir/ae3/test_valid_results_valid_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/ff12ecb8bfdbd4511d26913818bb0d34a6ebeb83/log.json",
+    "workdir/af/test_environmental_fail_closed0/environmental/evidence/delivery-gates/DG-TASK-0738-A/033471b6059a9c94145b1c26e7de7c5b3a1eace4/log.json",
+    "workdir/af/test_environmental_fail_closed1/environmental/evidence/delivery-gates/DG-TASK-0738-A/23af3be5e59ad12fad303b9a1f3fe408c29c93ac/log.json",
+    "workdir/af/test_environmental_fail_closed10/environmental/evidence/delivery-gates/DG-TASK-0738-A/3102cd78f431e006d9c1771967c655fdf5ba0623/log.json",
+    "workdir/af/test_environmental_fail_closed11/environmental/evidence/delivery-gates/DG-TASK-0738-A/ce523e2f9dc53eaad2b3fdd713609320a308f15a/log.json",
+    "workdir/af/test_environmental_fail_closed12/environmental/evidence/delivery-gates/DG-TASK-0738-A/4548346ba93b8e5911b71f210f6aa56ea38391df/log.json",
+    "workdir/af/test_environmental_fail_closed13/environmental/evidence/delivery-gates/DG-TASK-0738-A/eb20eb6a0a1408b8c2605557aa9c196589e450ae/log.json",
+    "workdir/af/test_environmental_fail_closed14/environmental/evidence/delivery-gates/DG-TASK-0738-A/fb2a77495ab95ec598917841be06d4326f2f5916/log.json",
+    "workdir/af/test_environmental_fail_closed15/environmental/evidence/delivery-gates/DG-TASK-0738-A/0300eebd1971cd56c0647e1adafc3463c72d40be/log.json",
+    "workdir/af/test_environmental_fail_closed16/environmental/evidence/delivery-gates/DG-TASK-0738-A/b13d914cd63ae917f34090c31c267dd52a851576/log.json",
+    "workdir/af/test_environmental_fail_closed17/environmental/evidence/delivery-gates/DG-TASK-0738-A/7d2488b8f648014f37dcd655dc7f847d9aacfd93/log.json",
+    "workdir/af/test_environmental_fail_closed18/environmental/evidence/delivery-gates/DG-TASK-0738-A/71141b2317e2b1bb95813d5407bfd1b37399963e/log.json",
+    "workdir/af/test_environmental_fail_closed19/environmental/evidence/delivery-gates/DG-TASK-0738-A/5314e0fb08732f01e86072832c0c42e646b96cf1/log.json",
+    "workdir/af/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/b34b453906c68d5409d4aa3c9b43b19d60144fde/log.json",
+    "workdir/af/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/b34b453906c68d5409d4aa3c9b43b19d60144fde/make-verify.json",
+    "workdir/af/test_environmental_fail_closed3/environmental/evidence/delivery-gates/DG-TASK-0738-A/01460a3299a9f73ca95ef5ce7d4a29f604f2dba4/log.json",
+    "workdir/af/test_environmental_fail_closed4/environmental/evidence/delivery-gates/DG-TASK-0738-A/8632718ddd052e555c0c97a06436b699cff8ad4d/log.json",
+    "workdir/af/test_environmental_fail_closed5/environmental/evidence/delivery-gates/DG-TASK-0738-A/315699f2187c35645912f979aa6662c6479ae576/log.json",
+    "workdir/af/test_environmental_fail_closed6/environmental/evidence/delivery-gates/DG-TASK-0738-A/41b7770a8d3e5639b307f20ed6ed90cbb7a55839/log.json",
+    "workdir/af/test_environmental_fail_closed7/environmental/evidence/delivery-gates/DG-TASK-0738-A/b3ee1dd5d22b2159e5fdccf27aebd97fe8521da9/log.json",
+    "workdir/af/test_environmental_fail_closed8/environmental/evidence/delivery-gates/DG-TASK-0738-A/3a0524ec5a0aec81eefebed368a110fb79cd2cfc/log.json",
+    "workdir/af/test_environmental_fail_closed9/environmental/evidence/delivery-gates/DG-TASK-0738-A/8b24885902a7188e1a665303eaa4ab559b4ed8ca/log.json",
+    "workdir/af/test_valid_results_PASS_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/f070a84697cba609930015b59ba372df5b6c5332/log.json",
+    "workdir/af/test_valid_results_valid_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/df3a539a7a34c3cd3d574ceb5aac6a3311458e15/log.json",
+    "workdir/dat2/test_delivery_approval_operati0/governed-repository/README.md",
+    "workdir/dgf/test_environmental_fail_closed0/environmental/evidence/delivery-gates/DG-TASK-0738-A/412083020cd8aabe82c4263c102c77152a504a3e/log.json",
+    "workdir/dgf/test_environmental_fail_closed1/environmental/evidence/delivery-gates/DG-TASK-0738-A/2b99ad39c78ef5192c5da66640dd183882843c40/log.json",
+    "workdir/dgf/test_environmental_fail_closed10/environmental/evidence/delivery-gates/DG-TASK-0738-A/c762ba88a49035ec031df0d389ebcd7dc446a6b3/log.json",
+    "workdir/dgf/test_environmental_fail_closed11/environmental/evidence/delivery-gates/DG-TASK-0738-A/7b02cd7ea408ac6d7c05512b286cccf284d85d83/log.json",
+    "workdir/dgf/test_environmental_fail_closed12/environmental/evidence/delivery-gates/DG-TASK-0738-A/920f692e03b7ffaa161894302b0d7f34f3a5f4d1/log.json",
+    "workdir/dgf/test_environmental_fail_closed13/environmental/evidence/delivery-gates/DG-TASK-0738-A/f61076f55a014ceedea22984e4d06ca635ed0f87/log.json",
+    "workdir/dgf/test_environmental_fail_closed14/environmental/evidence/delivery-gates/DG-TASK-0738-A/d2c415ec6b40f0bda2f375fe7349ccd89b00a67c/log.json",
+    "workdir/dgf/test_environmental_fail_closed15/environmental/evidence/delivery-gates/DG-TASK-0738-A/562cf76b14134aff2b749b7c3647b11cf3c988e6/log.json",
+    "workdir/dgf/test_environmental_fail_closed16/environmental/evidence/delivery-gates/DG-TASK-0738-A/c6b37d3e11d28544cbb6b5ce2b390effbbed6e53/log.json",
+    "workdir/dgf/test_environmental_fail_closed17/environmental/evidence/delivery-gates/DG-TASK-0738-A/09df1894a59e56f4a84175f4e7e0e6563715548b/log.json",
+    "workdir/dgf/test_environmental_fail_closed18/environmental/evidence/delivery-gates/DG-TASK-0738-A/0a8d8300a2aceffdbb2cd14e44cea887108331f7/log.json",
+    "workdir/dgf/test_environmental_fail_closed19/environmental/evidence/delivery-gates/DG-TASK-0738-A/b5cdfce995fb03a99492125ade30c9eb1d4a4340/log.json",
+    "workdir/dgf/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/a679f9f25a3835b212dda9473203d2aff46a5362/log.json",
+    "workdir/dgf/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/a679f9f25a3835b212dda9473203d2aff46a5362/make-verify.json",
+    "workdir/dgf/test_environmental_fail_closed3/environmental/evidence/delivery-gates/DG-TASK-0738-A/110e1756256cead984845f96484079b3e964c8ed/log.json",
+    "workdir/dgf/test_environmental_fail_closed4/environmental/evidence/delivery-gates/DG-TASK-0738-A/d07d5474dccf11b882acb2fc617e0a7c44181a9f/log.json",
+    "workdir/dgf/test_environmental_fail_closed5/environmental/evidence/delivery-gates/DG-TASK-0738-A/ca5a97abeed3e7d89f95c044c96974b637e0dd25/log.json",
+    "workdir/dgf/test_environmental_fail_closed6/environmental/evidence/delivery-gates/DG-TASK-0738-A/c1e4d78286dab687f21cc773569d595ee59805bc/log.json",
+    "workdir/dgf/test_environmental_fail_closed7/environmental/evidence/delivery-gates/DG-TASK-0738-A/5fa37b6ff4f0c56d25556bd8a6cf4a17b3cb5dd9/log.json",
+    "workdir/dgf/test_environmental_fail_closed8/environmental/evidence/delivery-gates/DG-TASK-0738-A/658a61f787487265dadc83e6dd8c9d9b43b3966b/log.json",
+    "workdir/dgf/test_environmental_fail_closed9/environmental/evidence/delivery-gates/DG-TASK-0738-A/9bc9c9db1180b8e440f052d5c002ee330339d70e/log.json",
+    "workdir/dgf/test_valid_results_PASS_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/a29b9a7a9b58c12a55a218bc6fc394145fb94e05/log.json",
+    "workdir/dgf/test_valid_results_valid_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/c3577183a60b28bf3e65f17bd254c252bd690d76/log.json",
+    "workdir/dgt/test_valid_results_PASS_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/ae8b592e4caef809d968d208db1a6d19d2d88d85/log.json",
+    "workdir/dgt/test_valid_results_valid_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/610e428528c6854abc33f91a755363ff5708503f/log.json",
+    "workdir/dgt2/test_environmental_fail_closed0/environmental/evidence/delivery-gates/DG-TASK-0738-A/270a2f5e3718d1ee4495830d37fb41c2a05bdc6c/log.json",
+    "workdir/dgt2/test_environmental_fail_closed1/environmental/evidence/delivery-gates/DG-TASK-0738-A/33cd676f62097141a8b75709679e595722cc5b01/log.json",
+    "workdir/dgt2/test_environmental_fail_closed10/environmental/evidence/delivery-gates/DG-TASK-0738-A/b5c149156ea6e3e8a45dbc0a33de3c79482625b3/log.json",
+    "workdir/dgt2/test_environmental_fail_closed11/environmental/evidence/delivery-gates/DG-TASK-0738-A/377ee4ccfdfc14dab26a3d2f6edea0ee15f53c89/log.json",
+    "workdir/dgt2/test_environmental_fail_closed12/environmental/evidence/delivery-gates/DG-TASK-0738-A/8f2b8aa77ce1f505a87978c0c0a3890908b7f10f/log.json",
+    "workdir/dgt2/test_environmental_fail_closed13/environmental/evidence/delivery-gates/DG-TASK-0738-A/d9a2dbad8fac78e91e2e407e52b429aeeb369be1/log.json",
+    "workdir/dgt2/test_environmental_fail_closed14/environmental/evidence/delivery-gates/DG-TASK-0738-A/daa56ca6f03f63504f2994cf3e8af83bd658c711/log.json",
+    "workdir/dgt2/test_environmental_fail_closed15/environmental/evidence/delivery-gates/DG-TASK-0738-A/c7ad57d70a72a7dbd243f6232bc6379743d8f949/log.json",
+    "workdir/dgt2/test_environmental_fail_closed16/environmental/evidence/delivery-gates/DG-TASK-0738-A/afaf81d859e75907f0df95db232a7837138e5d5e/log.json",
+    "workdir/dgt2/test_environmental_fail_closed17/environmental/evidence/delivery-gates/DG-TASK-0738-A/756b9b0223d2b251a9cf047912ff71c463968241/log.json",
+    "workdir/dgt2/test_environmental_fail_closed18/environmental/evidence/delivery-gates/DG-TASK-0738-A/b0bd2b35dc311385f6d895744d673843bc346546/log.json",
+    "workdir/dgt2/test_environmental_fail_closed19/environmental/evidence/delivery-gates/DG-TASK-0738-A/ff398386f049ee1b66e69f31b76d8a3b87bf4d46/log.json",
+    "workdir/dgt2/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/20530da5bd2ac0567eb36849ff063afed3608489/log.json",
+    "workdir/dgt2/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/20530da5bd2ac0567eb36849ff063afed3608489/make-verify.json",
+    "workdir/dgt2/test_environmental_fail_closed3/environmental/evidence/delivery-gates/DG-TASK-0738-A/29c1d4a6956402587d801fa0022149dfdeb5095d/log.json",
+    "workdir/dgt2/test_environmental_fail_closed4/environmental/evidence/delivery-gates/DG-TASK-0738-A/c652fe97593ec4cf7a0e71d963d82bd1e1290897/log.json",
+    "workdir/dgt2/test_environmental_fail_closed5/environmental/evidence/delivery-gates/DG-TASK-0738-A/0282e80b00b52cd0e4721914629cdfc10e0c0ff3/log.json",
+    "workdir/dgt2/test_environmental_fail_closed6/environmental/evidence/delivery-gates/DG-TASK-0738-A/e1bd2b3a01874b9518c8b4bda3d45a95727cbd48/log.json",
+    "workdir/dgt2/test_environmental_fail_closed7/environmental/evidence/delivery-gates/DG-TASK-0738-A/7199ab1f5a98734eee4571770397ff696cf26680/log.json",
+    "workdir/dgt2/test_environmental_fail_closed8/environmental/evidence/delivery-gates/DG-TASK-0738-A/fae0c7617a90c1e778a76c470ba03b11c06ec772/log.json",
+    "workdir/dgt2/test_environmental_fail_closed9/environmental/evidence/delivery-gates/DG-TASK-0738-A/964cd62d0307ba7fa0590c327c2e93e7f2328636/log.json",
+    "workdir/dgt2/test_valid_results_PASS_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/b64fc54e2c88921669d6bc4d2cfd5feda72782eb/log.json",
+    "workdir/dgt2/test_valid_results_valid_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/ca0ce782565d0e7dfa28646fbdd0f4fb0b483a31/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed0/environmental/evidence/delivery-gates/DG-TASK-0738-A/5e2e3b676b8bac7d62e44fc1cd5515f39e877cc5/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed1/environmental/evidence/delivery-gates/DG-TASK-0738-A/6f7a9ee053febdf3a888771a298fedb88050c147/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed10/environmental/evidence/delivery-gates/DG-TASK-0738-A/a8c84be681989b187b9a813569fa70e4412e7476/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed11/environmental/evidence/delivery-gates/DG-TASK-0738-A/17d557f7031b82b520c30a8e624392fc681752be/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed12/environmental/evidence/delivery-gates/DG-TASK-0738-A/b23fd1fe17441937049a1f308d5e59be7510aaf7/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed13/environmental/evidence/delivery-gates/DG-TASK-0738-A/5a8337a090c29efccabee9d97dcae437b5c27cc9/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed14/environmental/evidence/delivery-gates/DG-TASK-0738-A/f7c1e029be1f27ea28e7b7f1299e3a8079d1c71a/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed15/environmental/evidence/delivery-gates/DG-TASK-0738-A/7cb9407ca2d0fa72b15f0d033b19ce1aa4950fd5/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed16/environmental/evidence/delivery-gates/DG-TASK-0738-A/380faed17c165a39c763097d3cd9369d082e9741/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed17/environmental/evidence/delivery-gates/DG-TASK-0738-A/9d3c4076bcd801af0c546ce515c9d3a573c10c21/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed18/environmental/evidence/delivery-gates/DG-TASK-0738-A/89a480751bc95a72ce88d077b7ddc8a2d16641f1/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed19/environmental/evidence/delivery-gates/DG-TASK-0738-A/d7bd74b63a38ecfaca5aec792af3404252029487/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/2362d953ae464e9af35c90888458c14da313165d/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed2/environmental/evidence/delivery-gates/DG-TASK-0738-A/2362d953ae464e9af35c90888458c14da313165d/make-verify.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed3/environmental/evidence/delivery-gates/DG-TASK-0738-A/c40b76b2c597e511ce8c4504a74ed08fbdeb07b0/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed4/environmental/evidence/delivery-gates/DG-TASK-0738-A/ae5669ca5183bcb8bf26464a5ce0052f29c0d4fe/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed5/environmental/evidence/delivery-gates/DG-TASK-0738-A/df55ecd667daf62420c612ed1c6b596baa9cbf49/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed6/environmental/evidence/delivery-gates/DG-TASK-0738-A/97941957e2231afc78a1e3677db1ae57df38bd3e/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed7/environmental/evidence/delivery-gates/DG-TASK-0738-A/b72837fdcdaaae77aee7b8bfcf7a4079279450d8/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed8/environmental/evidence/delivery-gates/DG-TASK-0738-A/9c79274ce276bccd5c18b9baff2f79aeadbba20b/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_environmental_fail_closed9/environmental/evidence/delivery-gates/DG-TASK-0738-A/acea235f0b4e888abc23a3b34da36f8e0d6a1866/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_valid_results_PASS_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/f15e439624e0d5f5b38de4f3d4ba198d6f92d584/log.json",
+    "workdir/pr1015/pytest-of-rapha/pytest-1/test_valid_results_valid_0/environmental/evidence/delivery-gates/DG-TASK-0738-A/efe987cd75d923a5c6eaef26ddf3bb0fbeb12e9f/log.json"
+  ],
+  "canonical_workdir_reference_files": [
+    "evidence/delivery-gates/DG-TASK-0738-A/e14f7e4f23a8bb4e7d16827d9cb2312a1d03d912/validation/delivery-gates-initial.log",
+    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/HANDOFF.md",
+    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/VALIDATION-REPORT.json",
+    "evidence/implementation/epic-008/story-0037/VALIDATION-REPORT.json"
+  ]
+}

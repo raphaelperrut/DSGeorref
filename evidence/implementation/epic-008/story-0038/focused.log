@@ -1,0 +1,8 @@
+
+ RUN  v4.1.11 C:/Users/rapha/OneDrive/Documentos/Asimov/GitHub/DSGeorref/src/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  42 passed (42)
+   Start at  11:43:54
+   Duration  25.73s (transform 604ms, setup 0ms, import 3.40s, tests 9.61s, environment 10.04s)

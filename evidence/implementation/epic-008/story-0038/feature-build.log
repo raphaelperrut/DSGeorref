@@ -1,0 +1,10 @@
+vite v8.1.5 building client environment for production...
+[2K
+transforming...✓ 26 modules transformed.
+rendering chunks...
+computing gzip size...
+../../node_modules/.cache/identity-access-dist/index.html                   0.46 kB │ gzip:  0.30 kB
+../../node_modules/.cache/identity-access-dist/assets/index-COXhBPw4.css    1.38 kB │ gzip:  0.60 kB
+../../node_modules/.cache/identity-access-dist/assets/index-CrywzqDF.js   213.68 kB │ gzip: 67.51 kB
+
+✓ built in 695ms
