@@ -13,6 +13,8 @@ from tools.governance.delivery_gates.repository import GitRepository, WorkingRep
 
 from .fixture import ROOT, commit, git, write
 
+EVIDENCE_CANDIDATE = "e14f7e4f23a8bb4e7d16827d9cb2312a1d03d912"
+
 
 def evaluate(tmp_path: Path, mutation: str = "valid") -> None:
     root = tmp_path / "environmental"
@@ -37,7 +39,9 @@ def evaluate(tmp_path: Path, mutation: str = "valid") -> None:
     destination = root / SOURCE
     destination.parent.mkdir(parents=True)
     destination.write_bytes(log)
-    (root / "Makefile").write_bytes((ROOT / "Makefile").read_bytes())
+    # The immutable historical execution log belongs to this candidate's recipes.
+    historical = GitRepository(ROOT, EVIDENCE_CANDIDATE)
+    (root / "Makefile").write_bytes(historical.read("Makefile"))
     candidate = commit(root, "test: attributable candidate log mutation")
     prefix = f"evidence/delivery-gates/DG-TASK-0738-A/{candidate}"
     log_ref = write(root, prefix + "/log.json", {})

@@ -1,0 +1,12 @@
+title = "DSGeorref public SPDX value exception"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-api-key"
+
+[[rules.allowlists]]
+description = "Exact public SPDX identifier https://spdx.org/licenses/AGPL-3.0-or-later.html"
+regexTarget = "secret"
+regexes = ['''^AGPL-3\.0-or-later$''']
