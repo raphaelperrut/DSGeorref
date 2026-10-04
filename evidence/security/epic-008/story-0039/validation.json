@@ -10,7 +10,15 @@
     "mypy_transactions": "PASS",
     "git_diff_check": "PASS",
     "envelope_exact_change": "PASS",
-    "scope": "PASS"
+    "scope": "Six runtime/profile/test/evidence files PASS within corrected envelope; TASK-0039.json is a separately authorized control-plane exception"
+  },
+  "results_reused_from_candidate_sha": "57e715789a8a35b69ccebaa161a19ee5bc642233",
+  "control_plane_exception": {
+    "file": ".codex/tasks/TASK-0039.json",
+    "authorization": "Explicit Project Owner authorization in the ISSUE-0149 session to repair omissions in this TaskEnvelope",
+    "covered_by_previous_allow_paths": false,
+    "retroactive_self_authorization": false,
+    "functional_expansion": false
   },
   "tests": [
     {
@@ -81,7 +89,7 @@
   "source_sha256": {
     ".codex/tasks/TASK-0039.json": "50a42a0537338644cb15eb832ccb41a4dd7dba5e3ca5000662ace2c151fbccd6",
     "docs/03-engineering/application-profiles/AP-003-web-security-runtime-profile.md": "c0e63c7c29aa72f13361262a81394a68f0a300af0cb3637f078d9bcd646d7611",
-    "evidence/security/epic-008/story-0039/README.md": "313942555fcd81ece54246de04afb8673af189c75c66285c8618772b54b88965",
+    "evidence/security/epic-008/story-0039/README.md": "63b3cd1d887b25cfadc6b34427b81ab671d1768d6897d78f7ec8368e64634f2d",
     "src/backend/dsgeorref/contexts/identity_access/application/local_identity/transactions.py": "b8bee17af2ce6111001618b667809b1e4b5889b95f0b531ac3667fe57dfbfde1",
     "tests/security/contexts/identity_access/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/conftest.py": "24d647ec23878fb89e32eebcb054e71a7b87c9b7e4fd29d5a2f03d68c6f2d233",
     "tests/security/contexts/identity_access/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/test_security.py": "cc8ad28238a0f5d2ef10d8b8f25f1e56fc0939062f61d521f83b671e57fc882a",

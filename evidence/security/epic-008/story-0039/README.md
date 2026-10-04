@@ -41,6 +41,13 @@ git diff --check
 
 ## Escopo e limites
 
+- Os seis arquivos de runtime/profile/testes/evidence (`transactions.py`, AP-003,
+  `conftest.py`, `test_security.py`, este README e `validation.json`) estão dentro
+  do envelope corrigido. A alteração de `.codex/tasks/TASK-0039.json` é uma
+  exceção de control plane, sob autorização explícita do Project Owner nesta
+  sessão da ISSUE-0149 para reparar omissões do próprio envelope. Esse arquivo
+  não estava coberto pelos allow_paths anteriores e não foi incluído neles para
+  autoautorização retroativa. A correção não introduziu expansão funcional.
 - TaskEnvelope corrigido com autorização explícita: arquivo exato de application,
   diretório de evidence já obrigatório e arquivo exato AP-003, sem ampliar globs
   de código ou alterar deny_paths; ambas as listas allow_paths sincronizadas.
@@ -70,3 +77,13 @@ git diff --check
 - `make verify` não executado: instrução explícita deste passe limita a validação
   a lint/typecheck/testes focados; esse target também executa frontend e gates
   alheios. Nenhum gate global, Sentinel QA ou aprovação independente é declarado.
+
+## Correção incremental do finding MEDIUM de QA
+
+Os resultados AC 01–04 PASS, REQ-EPIC-076 PASS, REQ-INS-002 PASS e 4/4 testes
+obrigatórios PASS são reutilizados do candidato
+`57e715789a8a35b69ccebaa161a19ee5bc642233`. Apenas a evidência de escopo foi
+corrigida; runtime, testes, AP-003, TaskEnvelope e controles de segurança não foram
+alterados neste incremento. Os quatro testes não foram reexecutados. A validação
+incremental limita-se à sintaxe/JSON da evidência, `git diff --check` e confirmação
+de que o diff contém somente evidence. As limitações anteriores permanecem.
