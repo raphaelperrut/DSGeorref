@@ -1,0 +1,241 @@
+.venv/Scripts/python.exe -m ruff check tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/decision_controls.py tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_srg_srp_part_4.py
+All checks passed!
+.venv/Scripts/python.exe -m mypy tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/decision_controls.py
+Success: no issues found in 1 source file
+pnpm.cmd --dir src/frontend openapi:check
+
+> @dsgeorref/frontend-tooling@0.0.0 openapi:check C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> node tools/openapi/cli.mjs check
+
+OpenAPI check: PASS
+pnpm.cmd --dir src/frontend openapi:diff 7d60a213a9286aa34ad20f5204890ece13e2f35f
+
+> @dsgeorref/frontend-tooling@0.0.0 openapi:diff C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> node tools/openapi/cli.mjs diff "7d60a213a9286aa34ad20f5204890ece13e2f35f"
+
+OpenAPI diff: PASS
+pnpm.cmd run frontend:typecheck
+
+> dsgeorref-workspace@ frontend:typecheck C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling typecheck
+
+
+> @dsgeorref/frontend-tooling@0.0.0 typecheck C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> tsc --noEmit
+
+pnpm.cmd run frontend:test:unit
+
+> dsgeorref-workspace@ frontend:test:unit C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling test:unit
+
+
+> @dsgeorref/frontend-tooling@0.0.0 test:unit C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> vitest run tests/tooling/testing-library.unit.test.ts tests/foundation/openapi.test.mjs tests/foundation/shell.test.tsx --environment jsdom
+
+
+ RUN  v4.1.11 C:/Users/rapha/OneDrive/Documentos/Asimov/GitHub/DSGeorref/src/frontend
+
+
+ Test Files  3 passed (3)
+      Tests  17 passed (17)
+   Start at  11:54:12
+   Duration  47.86s (transform 965ms, setup 0ms, import 11.18s, tests 38.75s, environment 28.66s)
+
+pnpm.cmd run frontend:test:browser
+
+> dsgeorref-workspace@ frontend:test:browser C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling test:browser
+
+
+> @dsgeorref/frontend-tooling@0.0.0 test:browser C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> playwright test tests/tooling/playwright.browser.spec.ts --browser=chromium
+
+
+Running 1 test using 1 worker
+
+(node:37304) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › tests\tooling\playwright.browser.spec.ts:3:1 › executes the browser gate (1.7s)
+
+  1 passed (8.8s)
+pnpm.cmd run frontend:build
+
+> dsgeorref-workspace@ frontend:build C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling build
+
+
+> @dsgeorref/frontend-tooling@0.0.0 build C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> tsc --noEmit && vite build
+
+vite v8.1.5 building client environment for production...
+[2K
+transforming...✓ 20 modules transformed.
+rendering chunks...
+computing gzip size...
+../../node_modules/.cache/frontend-stage-a-dist/.vite/manifest.json         0.13 kB │ gzip:  0.11 kB
+../../node_modules/.cache/frontend-stage-a-dist/index.html                  0.33 kB │ gzip:  0.24 kB
+../../node_modules/.cache/frontend-stage-a-dist/assets/index-BuLayxLg.js  197.26 kB │ gzip: 62.50 kB
+
+✓ built in 344ms
+pnpm.cmd --dir src/frontend test:smoke
+> @dsgeorref/frontend-tooling@0.0.0 test:smoke C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> playwright test --config tests/foundation/playwright.config.ts
+
+[WebServer] (node:17204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:31012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:14564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\foundation\shell.browser.spec.ts:3:1 › the built shell bootstraps with the generated client and no backend (1.7s)
+
+  1 passed (13.6s)
+.venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/delivery_gates
+........................................................................ [ 93%]
+.....                                                                    [100%]
+77 passed in 377.84s (0:06:17)
+.venv/Scripts/python.exe -X utf8 tools/validate_repository.py
+VALIDATION PASS
+adrs: 59
+components: 18
+modules: 18
+sprints: 12
+epics: 110
+parent_issues: 110
+stories: 761
+tasks: 761
+requirements: 376
+issues total: 871
+.venv/Scripts/python.exe -X utf8 tools/run_architecture_review.py
+{
+  "status": "PASS",
+  "architecture_approved": true,
+  "phase_b_entry_approved": true,
+  "findings": {
+    "provisional_task_scopes": 0,
+    "stories_over_10_requirements": 0,
+    "generic_command_requests": 0,
+    "generic_resource_responses": 0,
+    "contracts_not_frozen": 0,
+    "cycles": false
+  },
+  "stories": 761,
+  "edges": 1170
+}
+.venv/Scripts/python.exe -X utf8 tools/run_requirements_review.py
+REQUIREMENTS REVIEW VALIDATION PASS
+issues: 871
+criteria: 3704
+requirements: 376
+sprint gates: 84
+.venv/Scripts/python.exe -X utf8 tools/run_domain_driven_design_review.py
+DOMAIN DRIVEN DESIGN REVIEW PASS
+contexts: 16
+context_map_edges: 70
+contracts_owned: 235
+.venv/Scripts/python.exe -X utf8 tools/run_adr_review.py
+{
+  "status": "PASS",
+  "adrs": 59,
+  "total_adr_records": 59,
+  "active_accepted_adrs": 58,
+  "superseded_adrs": 1,
+  "phase_d_historical_adr_records": 57,
+  "requirements": 376,
+  "cycles": 0,
+  "open_decisions": 0,
+  "open_architectural_decisions": 0
+}
+.venv/Scripts/python.exe -X utf8 tools/run_specification_review.py
+SPECIFICATION REVIEW PASS
+specifications: 5
+task envelopes: 761
+.venv/Scripts/python.exe -X utf8 tools/run_sprint_review.py
+SPRINT REVIEW PASS
+sprints: 12
+issues: 871
+stories: 761
+matrix rows: 871
+.venv/Scripts/python.exe -X utf8 tools/check_python_architecture.py
+PYTHON ARCHITECTURE PASS
+python_files: 22
+modules: 22
+.venv/Scripts/python.exe -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py
+{
+  "checks": {
+    "checkpoint": {
+      "status": "PASS"
+    },
+    "ci_integration": {
+      "mechanism": "make verify",
+      "python": "$(PYTHON)",
+      "status": "PASS"
+    },
+    "citation": {
+      "artifact": "CITATION.cff",
+      "status": "PASS",
+      "version": "0.0.0"
+    },
+    "contribution": {
+      "cla": "NOT_REQUIRED",
+      "origin_certification": "DCO-1.1",
+      "status": "PASS"
+    },
+    "dco": {
+      "reason": "no external commit range",
+      "status": "NOT_REQUESTED"
+    },
+    "dependencies": {
+      "direct_dependencies": 23,
+      "runtime_dependencies": 3,
+      "status": "PASS"
+    },
+    "licensing": {
+      "assigned_paths": 3545,
+      "dep5_license_classes": 3,
+      "license_classes": [
+        "AGPL-3.0-or-later",
+        "Apache-2.0",
+        "CC-BY-4.0"
+      ],
+      "license_text_digests": {
+        "LICENSES/AGPL-3.0-or-later.txt": "d8a6cc31abc16b6748c7a21f21611f5a1ec33f67d22ca23d7da1c19b95496bee",
+        "LICENSES/Apache-2.0.txt": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+        "LICENSES/CC-BY-4.0.txt": "d557539df68e771cc1eedcc91d13f70fca930e508d11eedcafa4b15db49e3744"
+      },
+      "status": "PASS"
+    }
+  },
+  "decision": "PASS",
+  "issue_id": "ISSUE-0142",
+  "schema_version": "1.0.0"
+}
+.venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py
+.................................................                        [100%]
+49 passed in 11.43s
+.venv/Scripts/python.exe -X utf8 tools/governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/foundation_validation.py --foundation docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/foundation-plan.json --contract contracts/contexts/engineering_governance/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/examples/monorepo-foundation.json
+{"findings": [], "foundation": "docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/foundation-plan.json", "status": "PASS"}
+.venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation.py
+......                                                                   [100%]
+6 passed in 6.37s
+.venv/Scripts/python.exe -X utf8 tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/foundation_validation.py --policy docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/del-ism-sprint-001-parte-1/foundation-policy.json --repository-root .
+{"findings": [], "status": "PASS"}
+.venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_implementation.py
+.......                                                                  [100%]
+7 passed in 3.38s
+.venv/Scripts/python.exe -X utf8 tools/governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/foundation_validation.py --policy docs/03-engineering/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/sprint-001-parte-2/foundation-policy.json --repository-root .
+{"findings": [], "status": "PASS"}
+.venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_completion.py tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_09 tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_materialization.py::test_sprint_zero_baseline_decision_10
+.........                                                                [100%]
+9 passed in 920.11s (0:15:20)
+.venv/Scripts/python.exe -X utf8 tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/foundation_validation.py
+{"acceptance_evidence": {"AC-ISSUE-0671-01": "test_epic_091_fundacao", "AC-ISSUE-0671-02": "test_epic_091_fundacao", "AC-ISSUE-0671-03": "test_epic_091_fundacao", "AC-ISSUE-0671-04": "test_epic_091_fundacao"}, "checks": {"checkpoint": "PASS", "ci_integration": "PASS", "codeowners": "PASS", "contract": "PASS", "registry": "PASS", "ruleset": "PASS"}, "ci": {"ci_entrypoint": "make verify", "command": "python -X utf8 tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/foundation_validation.py", "status": "PASS"}, "decision": "PASS", "issue_id": "ISSUE-0671", "live_ruleset_enforcement": "NOT_ASSERTED_BY_FOUNDATION", "owners": ["@raphaelperrut"], "required_checks": ["verify-foundation", "validate-main-ruleset-controls"], "requirement_evidence": {"REQ-FRZ-003": "test_issue_adr_decision_package_impact_boundary_and_no_silent_divergence", "REQ-GOV-004": "test_codex_issue_scope_required_pr_no_direct_main_or_automerge", "REQ-ISS-003": "test_no_orphan_issue_without_adr_or_local_decision_justification", "REQ-ISS-006": "test_idempotent_dry_run_managed_field_issue_sync", "REQ-PUB-002": "test_contribution_origin_dco_signoff_and_inbound_outbound_policy"}}
+.venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_main_ruleset_foundation.py
+.....                                                                    [100%]
+5 passed in 1.80s
+.venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py
+..                                                                       [100%]
+2 passed in 454.15s (0:07:34)

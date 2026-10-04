@@ -1,0 +1,12 @@
+.venv/Scripts/python.exe -X utf8 tools/validate_repository.py
+VALIDATION PASS
+adrs: 59
+components: 18
+modules: 18
+sprints: 12
+epics: 110
+parent_issues: 110
+stories: 761
+tasks: 761
+requirements: 376
+issues total: 871

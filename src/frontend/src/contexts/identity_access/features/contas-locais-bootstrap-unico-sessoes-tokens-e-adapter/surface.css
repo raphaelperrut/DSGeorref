@@ -1,0 +1,15 @@
+.identity-surface { font: 16px/1.5 system-ui, sans-serif; color: #182b43; max-width: 1200px; margin: auto; padding: 1rem; }
+.identity-surface header { padding: 1rem 1.4rem; background: #eef4fa; border-left: 4px solid #24629d; margin-bottom: 1rem; }
+.identity-surface h2, .identity-surface h3 { margin-top: 0; }
+.identity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 1rem; align-items: start; }
+.identity-grid section { padding: 1.3rem; border: 1px solid #cad5e0; border-radius: 8px; background: white; }
+.identity-surface fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.identity-surface label { display: block; font-weight: 600; margin-bottom: .8rem; }
+.identity-surface input, .identity-surface select { display: block; box-sizing: border-box; width: 100%; padding: .55rem; font: inherit; border: 1px solid #8196ad; border-radius: 4px; }
+.identity-surface button { padding: .6rem .9rem; margin: .2rem .4rem .2rem 0; font: inherit; border: 1px solid #24629d; border-radius: 4px; color: white; background: #24629d; cursor: pointer; }
+.identity-surface button:disabled { opacity: .55; cursor: default; }
+.identity-surface :focus-visible { outline: 3px solid #d48b12; outline-offset: 2px; }
+.identity-error { border-left: 3px solid #a32938; padding: .6rem; margin-top: 1rem; background: #fff4f4; overflow-wrap: anywhere; }
+.identity-surface dt { font-weight: 600; }
+.identity-surface dd { margin: 0 0 .5rem; }
+.identity-surface [role="status"], .identity-secret { overflow-wrap: anywhere; }
