@@ -90,6 +90,43 @@
     ".webp",
     ".zip"
   ],
-  "asset_records": [],
+  "asset_records": [
+    {
+      "path": "evidence/delivery-gates/DG-TASK-0738-A/e14f7e4f23a8bb4e7d16827d9cb2312a1d03d912/signing-request/executor-attestation.message.bin",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "evidence/delivery-gates/DG-TASK-0738-A/e14f7e4f23a8bb4e7d16827d9cb2312a1d03d912/signing-request/executor-binding.message.bin",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "evidence/delivery-gates/DG-TASK-0738-A/e14f7e4f23a8bb4e7d16827d9cb2312a1d03d912/signing-request/profile.message.bin",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "evidence/delivery-gates/DG-TASK-0738-A/e14f7e4f23a8bb4e7d16827d9cb2312a1d03d912/signing-request/project-owner-attestation.message.bin",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "evidence/delivery-gates/DG-TASK-0738-A/e14f7e4f23a8bb4e7d16827d9cb2312a1d03d912/signing-request/project-owner-binding.message.bin",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "evidence/delivery-gates/DG-TASK-0738-A/e14f7e4f23a8bb4e7d16827d9cb2312a1d03d912/signing-request/qa-attestation.message.bin",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "evidence/delivery-gates/DG-TASK-0738-A/e14f7e4f23a8bb4e7d16827d9cb2312a1d03d912/signing-request/qa-binding.message.bin",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "evidence/delivery-gates/DG-TASK-0738-A/e14f7e4f23a8bb4e7d16827d9cb2312a1d03d912/signing-request/reviewer-attestation.message.bin",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "evidence/delivery-gates/DG-TASK-0738-A/e14f7e4f23a8bb4e7d16827d9cb2312a1d03d912/signing-request/reviewer-binding.message.bin",
+      "license": "CC-BY-4.0"
+    }
+  ],
   "unknown_or_ambiguous": "REJECT"
 }
