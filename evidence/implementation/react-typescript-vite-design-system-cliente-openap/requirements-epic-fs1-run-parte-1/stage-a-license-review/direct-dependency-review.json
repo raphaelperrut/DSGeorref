@@ -1,0 +1,311 @@
+{
+  "record_kind": "STAGE_A_DIRECT_DEPENDENCY_RELEASE_REVIEW",
+  "task_id": "TASK-0738",
+  "gate_id": "DG-TASK-0738-A",
+  "baseline_sha": "6d52ea0ea5f587e9ee6b57e478c3720282cb7062",
+  "previous_implementation_sha": "88a54be7b542e7a942460e7765ce4f30f13234b3",
+  "inventory_scope": "DIRECT_DECLARED_DEPENDENCIES",
+  "classification_changes_required": false,
+  "manifests_and_lock_unchanged": true,
+  "new_direct_dependencies": [
+    {
+      "ecosystem": "npm",
+      "name": "@hey-api/client-fetch",
+      "exact_version": "0.13.1",
+      "scope": "runtime",
+      "reason": "Fetch transport imported by generated client and mounted shell",
+      "license_expression": "MIT",
+      "metadata_source": "src/frontend/node_modules/@hey-api/client-fetch/package.json",
+      "metadata_sha256": "681b51839d4fba8e82a3742f522166837e192d4f77c451faa16b1458ca3d7212",
+      "upstream_repository": {
+        "type": "git",
+        "url": "git+https://github.com/hey-api/openapi-ts.git"
+      },
+      "license_sources": [
+        {
+          "path": "src/frontend/node_modules/@hey-api/client-fetch/LICENSE.md",
+          "sha256": "7354457f471fda3d2ef7ae7b7dc758c98a57054875ccc1e211b950646b03bf10"
+        }
+      ],
+      "lock_entry": {
+        "specifier": "0.13.1",
+        "version": "0.13.1(@hey-api/openapi-ts@0.87.5(typescript@6.0.3))"
+      },
+      "lock_integrity": "sha512-29jBRYNdxVGlx5oewFgOrkulZckpIpBIRHth3uHFn1PrL2ucMy52FvWOY3U3dVx2go1Z3kUmMi6lr07iOpUqqA==",
+      "redistributed_in_application_build": true,
+      "upstream_notice_files": [],
+      "additional_notice_for_application_build": "Preserve upstream MIT copyright and permission notice when redistributing runtime code; release candidate must verify complete notices/SBOM"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "react",
+      "exact_version": "19.2.4",
+      "scope": "runtime",
+      "reason": "React shell component runtime",
+      "license_expression": "MIT",
+      "metadata_source": "src/frontend/node_modules/react/package.json",
+      "metadata_sha256": "e60b92f6031f023907bbfab8f96e63e44307776ec1488f310ba61d41b8cda8cc",
+      "upstream_repository": {
+        "type": "git",
+        "url": "https://github.com/facebook/react.git",
+        "directory": "packages/react"
+      },
+      "license_sources": [
+        {
+          "path": "src/frontend/node_modules/react/LICENSE",
+          "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+        }
+      ],
+      "lock_entry": {
+        "specifier": "19.2.4",
+        "version": "19.2.4"
+      },
+      "lock_integrity": "sha512-9nfp2hYpCwOjAN+8TZFGhtWEwgvWHXqESH8qT89AT/lWklpLON22Lc8pEtnpsZz7VmawabSU0gCjnj8aC0euHQ==",
+      "redistributed_in_application_build": true,
+      "upstream_notice_files": [],
+      "additional_notice_for_application_build": "Preserve upstream MIT copyright and permission notice when redistributing runtime code; release candidate must verify complete notices/SBOM"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "react-dom",
+      "exact_version": "19.2.4",
+      "scope": "runtime",
+      "reason": "createRoot mounts/unmounts React shell",
+      "license_expression": "MIT",
+      "metadata_source": "src/frontend/node_modules/react-dom/package.json",
+      "metadata_sha256": "b8448092689c7e6191595a98526ced808288f35138d97fbce5801a94922e3c36",
+      "upstream_repository": {
+        "type": "git",
+        "url": "https://github.com/facebook/react.git",
+        "directory": "packages/react-dom"
+      },
+      "license_sources": [
+        {
+          "path": "src/frontend/node_modules/react-dom/LICENSE",
+          "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+        }
+      ],
+      "lock_entry": {
+        "specifier": "19.2.4",
+        "version": "19.2.4(react@19.2.4)"
+      },
+      "lock_integrity": "sha512-AXJdLo8kgMbimY95O2aKQqsz2iWi9jMgKJhRBAxECE4IFxfcazB2LmzloIoibJI3C12IlY20+KFaLv+71bUJeQ==",
+      "redistributed_in_application_build": true,
+      "upstream_notice_files": [],
+      "additional_notice_for_application_build": "Preserve upstream MIT copyright and permission notice when redistributing runtime code; release candidate must verify complete notices/SBOM"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@hey-api/openapi-ts",
+      "exact_version": "0.87.5",
+      "scope": "development_and_validation",
+      "reason": "Offline deterministic OpenAPI SDK/types generation",
+      "license_expression": "MIT",
+      "metadata_source": "src/frontend/node_modules/@hey-api/openapi-ts/package.json",
+      "metadata_sha256": "86737bff5e96721b860ed5b60b79356ce4d48e24720ec7f472bb3a9fd46c3582",
+      "upstream_repository": {
+        "type": "git",
+        "url": "git+https://github.com/hey-api/openapi-ts.git"
+      },
+      "license_sources": [
+        {
+          "path": "src/frontend/node_modules/@hey-api/openapi-ts/LICENSE.md",
+          "sha256": "7354457f471fda3d2ef7ae7b7dc758c98a57054875ccc1e211b950646b03bf10"
+        }
+      ],
+      "lock_entry": {
+        "specifier": "0.87.5",
+        "version": "0.87.5(typescript@6.0.3)"
+      },
+      "lock_integrity": "sha512-WtmBCfbRKzsz578haTe1bh7FJWbqGyPmZ4dD8bynvQjQ6qtXk7mmI/3Nmev70Hl41VHoEoQNEL+BulfwJiJO/g==",
+      "redistributed_in_application_build": false,
+      "upstream_notice_files": [],
+      "additional_notice_for_application_build": "No tooling distribution in application build; preserve upstream license/NOTICE if tooling is separately redistributed"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@oasdiff-js/oasdiff-js",
+      "exact_version": "1.0.0",
+      "scope": "development_and_validation",
+      "reason": "OpenAPI semantic compatibility diff gate",
+      "license_expression": "Apache-2.0",
+      "metadata_source": "src/frontend/node_modules/@oasdiff-js/oasdiff-js/package.json",
+      "metadata_sha256": "aa904a5a776a64a87ab818687c3130a218343e4a2297d0670d8704091b7a81b7",
+      "upstream_repository": {
+        "type": "git",
+        "url": "git+https://github.com/mattiacerutti/oasdiff-js.git"
+      },
+      "license_sources": [
+        {
+          "path": "src/frontend/node_modules/@oasdiff-js/oasdiff-js/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        }
+      ],
+      "lock_entry": {
+        "specifier": "1.0.0",
+        "version": "1.0.0"
+      },
+      "lock_integrity": "sha512-wCOoORvAzEnt7AKBLplpn8vb86pz3jZ3mdncV6SVIh6mWR8jfhWMF6OGUA/ozUhOmG5azQRZ4Tklrli25mKBCw==",
+      "redistributed_in_application_build": false,
+      "upstream_notice_files": [],
+      "additional_notice_for_application_build": "No tooling distribution in application build; preserve upstream license/NOTICE if tooling is separately redistributed"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@types/react",
+      "exact_version": "19.2.14",
+      "scope": "development_and_validation",
+      "reason": "React compile-time declarations; erased by TypeScript",
+      "license_expression": "MIT",
+      "metadata_source": "src/frontend/node_modules/@types/react/package.json",
+      "metadata_sha256": "e8beff67b2575112eff5757dc8e9310a78fc6e7d2d44d9d7a8204026f4ab81b7",
+      "upstream_repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/react"
+      },
+      "license_sources": [
+        {
+          "path": "src/frontend/node_modules/@types/react/LICENSE",
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+        }
+      ],
+      "lock_entry": {
+        "specifier": "19.2.14",
+        "version": "19.2.14"
+      },
+      "lock_integrity": "sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==",
+      "redistributed_in_application_build": false,
+      "upstream_notice_files": [],
+      "additional_notice_for_application_build": "No tooling distribution in application build; preserve upstream license/NOTICE if tooling is separately redistributed"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@types/react-dom",
+      "exact_version": "19.2.3",
+      "scope": "development_and_validation",
+      "reason": "React DOM compile-time declarations; erased by TypeScript",
+      "license_expression": "MIT",
+      "metadata_source": "src/frontend/node_modules/@types/react-dom/package.json",
+      "metadata_sha256": "bf90986beaec5f757c164bf1d374f3038dc41b0b06673de4a55fd975d1e5deca",
+      "upstream_repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/react-dom"
+      },
+      "license_sources": [
+        {
+          "path": "src/frontend/node_modules/@types/react-dom/LICENSE",
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+        }
+      ],
+      "lock_entry": {
+        "specifier": "19.2.3",
+        "version": "19.2.3(@types/react@19.2.14)"
+      },
+      "lock_integrity": "sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==",
+      "redistributed_in_application_build": false,
+      "upstream_notice_files": [],
+      "additional_notice_for_application_build": "No tooling distribution in application build; preserve upstream license/NOTICE if tooling is separately redistributed"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "vite",
+      "exact_version": "8.1.5",
+      "scope": "development_and_validation",
+      "reason": "Frontend build/dev/preview tool",
+      "license_expression": "MIT",
+      "metadata_source": "src/frontend/node_modules/vite/package.json",
+      "metadata_sha256": "2f482c846a1c5b9e5883b458b3e54a171a320c2e8d9b924c7383c4baef607b09",
+      "upstream_repository": {
+        "type": "git",
+        "url": "git+https://github.com/vitejs/vite.git",
+        "directory": "packages/vite"
+      },
+      "license_sources": [
+        {
+          "path": "src/frontend/node_modules/vite/LICENSE.md",
+          "sha256": "b1d741c26b53de1bbc0d4d7d3365b79888f9fe511527544a8a7b8e24dec43147"
+        }
+      ],
+      "lock_entry": {
+        "specifier": "8.1.5",
+        "version": "8.1.5(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.8.3)"
+      },
+      "lock_integrity": "sha512-7ULLwsCdYx/nRyrpiEwvqb5TFHrMVZyBt+rg/OAXT7rgj/z+DtTDyKFeLAdDkubDVDKD8jOsndmy7m55XcfUsw==",
+      "redistributed_in_application_build": false,
+      "upstream_notice_files": [],
+      "additional_notice_for_application_build": "No tooling distribution in application build; preserve upstream license/NOTICE if tooling is separately redistributed",
+      "bundled_tooling_license_note": "LICENSE.md includes additional licenses for dependencies bundled into Vite itself. These are outside the direct inventory and are not included in the application runtime. Complete SBOM remains required at release candidate."
+    },
+    {
+      "ecosystem": "npm",
+      "name": "yaml",
+      "exact_version": "2.8.3",
+      "scope": "development_and_validation",
+      "reason": "Parse and validate local OpenAPI for generation/diff tests",
+      "license_expression": "ISC",
+      "metadata_source": "src/frontend/node_modules/yaml/package.json",
+      "metadata_sha256": "22e05edaafe0a061ea394ed427e86de560b83151528d9c5e9ca31c30487108e0",
+      "upstream_repository": "github:eemeli/yaml",
+      "license_sources": [
+        {
+          "path": "src/frontend/node_modules/yaml/LICENSE",
+          "sha256": "5bba27375d93e9119f76c1015f7672cf9ad5f70952296e0842fb2243d6376869"
+        }
+      ],
+      "lock_entry": {
+        "specifier": "2.8.3",
+        "version": "2.8.3"
+      },
+      "lock_integrity": "sha512-AvbaCLOO2Otw/lW5bmh9d/WEdcDFdQp2Z2ZUH3pX9U2ihyUY0nvLv7J6TrWowklRGPYbB/IuIMfYgxaCPg5Bpg==",
+      "redistributed_in_application_build": false,
+      "upstream_notice_files": [],
+      "additional_notice_for_application_build": "No tooling distribution in application build; preserve upstream license/NOTICE if tooling is separately redistributed"
+    }
+  ],
+  "python_manifests_preserved": true,
+  "stage_a_added_file_license_assignments": {
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/IMPLEMENTATION_EVIDENCE.md": "CC-BY-4.0",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/contract-validator.log": "CC-BY-4.0",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/dependency-audit.log": "CC-BY-4.0",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/execution-results.json": "CC-BY-4.0",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/focused-tests.log": "CC-BY-4.0",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/generation.log": "CC-BY-4.0",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/install.log": "CC-BY-4.0",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/make-verify.log": "CC-BY-4.0",
+    "src/frontend/index.html": "AGPL-3.0-or-later",
+    "src/frontend/openapi-client.config.json": "AGPL-3.0-or-later",
+    "src/frontend/src/contexts/operator_experience/adapters/web/bootstrap/mount.tsx": "AGPL-3.0-or-later",
+    "src/frontend/src/contexts/operator_experience/adapters/web/bootstrap/shell.tsx": "AGPL-3.0-or-later",
+    "src/frontend/src/contexts/operator_experience/contracts/frontend-shell/index.ts": "AGPL-3.0-or-later",
+    "src/frontend/src/contexts/operator_experience/contracts/frontend-shell/types.ts": "AGPL-3.0-or-later",
+    "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/client.gen.ts": "AGPL-3.0-or-later",
+    "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/index.ts": "AGPL-3.0-or-later",
+    "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/sdk.gen.ts": "AGPL-3.0-or-later",
+    "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/types.gen.ts": "AGPL-3.0-or-later",
+    "src/frontend/src/main.tsx": "AGPL-3.0-or-later",
+    "src/frontend/tests/foundation/openapi.test.mjs": "AGPL-3.0-or-later",
+    "src/frontend/tests/foundation/playwright.config.ts": "AGPL-3.0-or-later",
+    "src/frontend/tests/foundation/shell.browser.spec.ts": "AGPL-3.0-or-later",
+    "src/frontend/tests/foundation/shell.test.tsx": "AGPL-3.0-or-later",
+    "src/frontend/tools/openapi/cli.mjs": "AGPL-3.0-or-later",
+    "src/frontend/tools/openapi/config.mjs": "AGPL-3.0-or-later",
+    "src/frontend/tools/openapi/generation.mjs": "AGPL-3.0-or-later",
+    "src/frontend/tools/openapi/semantic-diff.mjs": "AGPL-3.0-or-later",
+    "src/frontend/vite.config.ts": "AGPL-3.0-or-later"
+  },
+  "existing_dep5_equivalent": true,
+  "license_inventory_extension_required": false,
+  "publication_review": {
+    "decision": "BLOCKED",
+    "blockers": [
+      "DCO_AUTOMATED_CHECK",
+      "DEPENDENCY_INVENTORY_AND_SBOM",
+      "LEGAL_REVIEW_BEFORE_G6",
+      "SECURITY_LICENSE_RESTORE_COMPATIBILITY_SCIENTIFIC_GATES"
+    ],
+    "status": "PASS"
+  },
+  "legal_approval_claimed": false
+}

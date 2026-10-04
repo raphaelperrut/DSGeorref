@@ -5,6 +5,10 @@ on:
     paths:
       - ".codex/tasks/TASK-0018.json"
       - "contracts/**"
+      - "src/frontend/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "Makefile"
       - "tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/**"
       - "tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/**"
       - "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/**"
@@ -19,6 +23,39 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  frontend-stage-a:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
+        with:
+          version: '10.26.1'
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24.20.0'
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - name: Frozen workspace install
+        run: pnpm install --frozen-lockfile
+      - name: Compare temporary generation with committed artifact
+        run: pnpm --dir src/frontend run openapi:check
+      - name: Semantic diff against PR base (main for manual runs)
+        env:
+          OPENAPI_BASE_SHA: ${{ github.event.pull_request.base.sha || 'origin/main' }}
+        run: pnpm --dir src/frontend run openapi:diff "$OPENAPI_BASE_SHA"
+      - name: Typecheck, foundation tests and production build
+        run: |
+          pnpm --dir src/frontend run typecheck
+          pnpm --dir src/frontend run test:unit
+          pnpm --dir src/frontend run build
+      - name: Install Chromium
+        run: pnpm --dir src/frontend exec playwright install --with-deps chromium
+      - name: Real shell smoke without backend services
+        run: pnpm --dir src/frontend run test:smoke
+
   validate-versioned-contract-controls:
     runs-on: ubuntu-latest
     timeout-minutes: 10

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "source": "contracts/http/openapi.yaml",
+  "output": "src/frontend/src/contexts/operator_experience/contracts/openapi/generated",
+  "generator": { "name": "@hey-api/openapi-ts", "version": "0.87.5" },
+  "transport": { "name": "@hey-api/client-fetch", "version": "0.13.1", "bundle": false },
+  "semanticDiff": {
+    "name": "@oasdiff-js/oasdiff-js",
+    "version": "1.0.0",
+    "engineVersion": "1.15.0",
+    "baseline": "origin/main"
+  },
+  "selectionRationale": "Small Node-only generator with static SDK/types and official precompiled Fetch transport (bundle=false preserves the workspace's exactOptionalPropertyTypes). No runtime generator, external service, additional API framework or manual DTO wrappers. oasdiff's prebuilt semantic engine is pinned through platform packages in pnpm-lock.yaml; no JVM or Go toolchain is required.",
+  "references": [
+    "https://heyapi.dev/docs/openapi/typescript/get-started",
+    "https://github.com/mattiacerutti/oasdiff-js",
+    "https://github.com/oasdiff/oasdiff"
+  ]
+}

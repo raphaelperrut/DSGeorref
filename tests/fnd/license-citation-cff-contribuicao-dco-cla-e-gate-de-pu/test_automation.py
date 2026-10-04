@@ -74,9 +74,7 @@ def _snapshot(root: Path) -> tuple[tuple[str, str], ...]:
         sorted(
             (path.relative_to(root).as_posix(), _sha256(path.read_bytes()))
             for path in root.rglob("*")
-            if path.is_file()
-            and ".git" not in path.parts
-            and "__pycache__" not in path.parts
+            if path.is_file() and ".git" not in path.parts and "__pycache__" not in path.parts
         )
     )
 
@@ -95,7 +93,16 @@ def _git(root: Path, *arguments: str) -> str:
 
 def _copy_sources(root: Path) -> None:
     quality_sources = [path.relative_to(ROOT) for path in (ROOT / QUALITY_REL).glob("*.py")]
-    sources = [*SOURCE_FILES, *quality_sources]
+    inventory = json.loads(
+        (ROOT / DOC_ROOT_REL / "license-inventory.json").read_text(encoding="utf-8")
+    )
+    assets = [Path(record["path"]) for record in inventory["asset_records"]]
+    assert len(assets) == len(set(assets)), "duplicate asset record"
+    tracked = _git(ROOT, "ls-files").splitlines()
+    assert set(assets) == {
+        Path(path) for path in tracked if Path(path).suffix.lower() in inventory["asset_extensions"]
+    }, "asset records diverge from tracked assets"
+    sources = [*SOURCE_FILES, *quality_sources, *assets]
     for relative in sources:
         source = ROOT / relative
         destination = root / relative
@@ -163,6 +170,32 @@ def _write_json(root: Path, relative: Path, value: dict[str, object]) -> None:
 
 def _missing_contract(root: Path) -> None:
     (root / CONTRACT_EXAMPLE_REL).unlink()
+
+
+def _missing_asset(root: Path) -> None:
+    inventory = _read_json(root, DOC_ROOT_REL / "license-inventory.json")
+    _git(root, "rm", "--", inventory["asset_records"][0]["path"])
+
+
+def _stale_asset(root: Path) -> None:
+    relative = DOC_ROOT_REL / "license-inventory.json"
+    inventory = _read_json(root, relative)
+    inventory["asset_records"].append({"path": "evidence/stale.bin", "license": "CC-BY-4.0"})
+    _write_json(root, relative, inventory)
+
+
+def _duplicate_asset(root: Path) -> None:
+    relative = DOC_ROOT_REL / "license-inventory.json"
+    inventory = _read_json(root, relative)
+    inventory["asset_records"].append(inventory["asset_records"][0])
+    _write_json(root, relative, inventory)
+
+
+def _unregistered_asset(root: Path) -> None:
+    path = root / "evidence/unregistered.bin"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(b"synthetic asset\n")
+    _git(root, "add", "--", "evidence/unregistered.bin")
 
 
 def _invalid_citation(root: Path) -> None:
@@ -268,6 +301,10 @@ def test_epic_007_automacao() -> None:
         ("invalid-task", "TASK_CONTROL_INVALID", _invalid_task),
         ("invalid-workflow", "WORKFLOW_INVALID", _invalid_workflow),
         ("publication-drift", "PUBLICATION_GATE_INVALID", _publication_state_drift),
+        ("missing-asset", "FOUNDATION_VALIDATION_FAILED", _missing_asset),
+        ("stale-asset", "FOUNDATION_VALIDATION_FAILED", _stale_asset),
+        ("duplicate-asset", "FOUNDATION_VALIDATION_FAILED", _duplicate_asset),
+        ("unregistered-asset", "FOUNDATION_VALIDATION_FAILED", _unregistered_asset),
     )
     for name, code, mutate in cases:
         with tempfile.TemporaryDirectory(prefix=f"issue-0143-{name}-") as temporary:

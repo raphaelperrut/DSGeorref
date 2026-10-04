@@ -8,6 +8,7 @@ from typing import Any
 from jsonschema import Draft202012Validator
 from tools.governance.delivery_approval_authority.crypto import digest
 
+from .environmental import validate_environmental
 from .model import TASK_SCHEMA, definition_digest, relative_path, require, sha256, validate_schema
 from .planning import authorized_output, unique_ids
 from .repository import GitRepository
@@ -58,8 +59,12 @@ def validate_checks(
     observed = {item["check_id"]: item["reference"] for item in manifest["checks"]}
     require(observed == expected, "acceptance checks missing or incompatible")
     for check in manifest["checks"]:
-        require(check["result"] == "PASS", f"check did not PASS: {check['check_id']}")
-        require(bool(read_evidence(repository, check, evidence_root)), "empty check evidence")
+        content = read_evidence(repository, check, evidence_root)
+        require(bool(content), "empty check evidence")
+        if check["result"] == "NONBLOCKING":
+            validate_environmental(repository, gate, manifest, check, content, evidence_root)
+        else:
+            require(check["result"] == "PASS", f"check did not PASS: {check['check_id']}")
 
 
 def validate_manifest(

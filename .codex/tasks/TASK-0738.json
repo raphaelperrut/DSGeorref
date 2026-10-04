@@ -84,7 +84,14 @@
     "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/**",
     "src/frontend/tools/openapi/**",
     "src/frontend/tests/foundation/**",
-    ".github/workflows/openapi-cliente-typescript-e-contratos-cli-jobs-evento.yaml"
+    ".github/workflows/openapi-cliente-typescript-e-contratos-cli-jobs-evento.yaml",
+    ".codex/tasks/TASK-0738.json",
+    "THIRD_PARTY_NOTICES.md",
+    "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/dependency-inventory.json",
+    "tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
+    "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a-license-review/**",
+    "evidence/delivery-gates/DG-TASK-0738-A/*/implementation-evidence.json"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -111,7 +118,8 @@
   ],
   "evidence": [
     "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/",
-    "commit candidato e relatório de testes"
+    "commit candidato e relatório de testes",
+    "release/license compliance required by dependencies explicitly approved for Stage A"
   ],
   "dependencies": [
     "STORY-0185"
@@ -196,7 +204,14 @@
         "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/**",
         "src/frontend/tools/openapi/**",
         "src/frontend/tests/foundation/**",
-        ".github/workflows/openapi-cliente-typescript-e-contratos-cli-jobs-evento.yaml"
+        ".github/workflows/openapi-cliente-typescript-e-contratos-cli-jobs-evento.yaml",
+        ".codex/tasks/TASK-0738.json",
+        "THIRD_PARTY_NOTICES.md",
+        "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/dependency-inventory.json",
+        "tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
+        "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py",
+        "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a-license-review/**",
+        "evidence/delivery-gates/DG-TASK-0738-A/*/implementation-evidence.json"
       ],
       "deny_paths": [
         "src/**/epic-*",
@@ -267,7 +282,8 @@
       "kinds": [],
       "evidence": [
         "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/",
-        "commit candidato e relatório de testes"
+        "commit candidato e relatório de testes",
+        "release/license compliance required by dependencies explicitly approved for Stage A"
       ],
       "contract": "SPEC-005"
     },

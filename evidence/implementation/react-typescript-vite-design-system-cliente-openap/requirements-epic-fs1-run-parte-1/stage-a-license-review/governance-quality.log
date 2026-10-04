@@ -1,0 +1,4 @@
+COMMAND = C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\.venv\Scripts\python.exe -m ruff check tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py
+All checks passed!
+
+EXIT_CODE = 0

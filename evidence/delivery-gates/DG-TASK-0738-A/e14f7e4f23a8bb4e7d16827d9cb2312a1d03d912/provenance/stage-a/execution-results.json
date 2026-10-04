@@ -1,0 +1,85 @@
+[
+  {
+    "name": "install",
+    "command": [
+      "pnpm.cmd",
+      "install",
+      "--store-dir",
+      ".pnpm-store",
+      "--frozen-lockfile",
+      "--offline"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 1.17,
+    "log": "install.log"
+  },
+  {
+    "name": "generation",
+    "command": [
+      "pnpm.cmd",
+      "--dir",
+      "src/frontend",
+      "run",
+      "openapi:generate"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 3.45,
+    "log": "generation.log"
+  },
+  {
+    "name": "make-verify",
+    "command": [
+      "make",
+      "verify",
+      "PYTHON=.venv/Scripts/python.exe",
+      "PNPM=pnpm.cmd"
+    ],
+    "exit_code": 2,
+    "duration_seconds": 503.25,
+    "log": "make-verify.log"
+  },
+  {
+    "name": "focused-tests",
+    "command": [
+      ".venv/Scripts/python.exe",
+      "-X",
+      "utf8",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "tests/fnd/delivery_gates",
+      "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_automation.py::test_epic_004_automacao"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 338.64,
+    "log": "focused-tests.log"
+  },
+  {
+    "name": "contract-validator",
+    "command": [
+      ".venv/Scripts/python.exe",
+      "-X",
+      "utf8",
+      "tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/validator.py",
+      "--dry-run"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 1.59,
+    "log": "contract-validator.log"
+  },
+  {
+    "name": "dependency-audit",
+    "command": [
+      "pnpm.cmd",
+      "audit",
+      "--audit-level",
+      "high",
+      "--json"
+    ],
+    "exit_code": 1,
+    "duration_seconds": 1.48,
+    "log": "dependency-audit.log"
+  }
+]

@@ -1,0 +1,244 @@
+COMMAND = make verify PYTHON=.venv/Scripts/python.exe PNPM=pnpm.cmd
+.venv/Scripts/python.exe -m ruff check tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/decision_controls.py tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_srg_srp_part_4.py
+All checks passed!
+.venv/Scripts/python.exe -m mypy tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/decision_controls.py
+Success: no issues found in 1 source file
+pnpm.cmd run frontend:verify
+
+> dsgeorref-workspace@ frontend:verify C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref
+> pnpm --dir src/frontend openapi:check && pnpm --dir src/frontend openapi:diff && pnpm run frontend:typecheck && pnpm run frontend:test:unit && pnpm run frontend:test:browser && pnpm run frontend:build && pnpm --dir src/frontend test:smoke
+
+
+> @dsgeorref/frontend-tooling@0.0.0 openapi:check C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> node tools/openapi/cli.mjs check
+
+OpenAPI check: PASS
+
+> @dsgeorref/frontend-tooling@0.0.0 openapi:diff C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> node tools/openapi/cli.mjs diff
+
+OpenAPI diff: PASS
+
+> dsgeorref-workspace@ frontend:typecheck C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling typecheck
+
+
+> @dsgeorref/frontend-tooling@0.0.0 typecheck C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> tsc --noEmit
+
+
+> dsgeorref-workspace@ frontend:test:unit C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling test:unit
+
+
+> @dsgeorref/frontend-tooling@0.0.0 test:unit C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> vitest run tests/tooling/testing-library.unit.test.ts tests/foundation/openapi.test.mjs tests/foundation/shell.test.tsx --environment jsdom
+
+
+ RUN  v4.1.11 C:/Users/rapha/OneDrive/Documentos/Asimov/GitHub/DSGeorref/src/frontend
+
+
+ Test Files  3 passed (3)
+      Tests  17 passed (17)
+   Start at  14:27:01
+   Duration  16.71s (transform 279ms, setup 0ms, import 3.22s, tests 15.22s, environment 10.70s)
+
+
+> dsgeorref-workspace@ frontend:test:browser C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling test:browser
+
+
+> @dsgeorref/frontend-tooling@0.0.0 test:browser C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> playwright test tests/tooling/playwright.browser.spec.ts --browser=chromium
+
+
+Running 1 test using 1 worker
+
+(node:21724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › tests\tooling\playwright.browser.spec.ts:3:1 › executes the browser gate (381ms)
+
+  1 passed (1.9s)
+
+> dsgeorref-workspace@ frontend:build C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling build
+
+
+> @dsgeorref/frontend-tooling@0.0.0 build C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> tsc --noEmit && vite build
+
+vite v8.1.5 building client environment for production...
+[2Ktransforming...✓ 20 modules transformed.
+rendering chunks...
+computing gzip size...
+../../node_modules/.cache/frontend-stage-a-dist/.vite/manifest.json         0.13 kB │ gzip:  0.11 kB
+../../node_modules/.cache/frontend-stage-a-dist/index.html                  0.32 kB │ gzip:  0.23 kB
+../../node_modules/.cache/frontend-stage-a-dist/assets/index-BuLayxLg.js  197.26 kB │ gzip: 62.50 kB
+
+✓ built in 225ms
+
+> @dsgeorref/frontend-tooling@0.0.0 test:smoke C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> playwright test --config tests/foundation/playwright.config.ts
+
+[WebServer] (node:28596) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:2528) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:13504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\foundation\shell.browser.spec.ts:3:1 › the built shell bootstraps with the generated client and no backend (433ms)
+
+  1 passed (4.3s)
+.venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/delivery_gates
+.......................................................                  [100%]
+55 passed in 271.78s (0:04:31)
+.venv/Scripts/python.exe -X utf8 tools/validate_repository.py
+VALIDATION PASS
+adrs: 59
+components: 18
+modules: 18
+sprints: 12
+epics: 110
+parent_issues: 110
+stories: 761
+tasks: 761
+requirements: 376
+issues total: 871
+.venv/Scripts/python.exe -X utf8 tools/run_architecture_review.py
+{
+  "status": "PASS",
+  "architecture_approved": true,
+  "phase_b_entry_approved": true,
+  "findings": {
+    "provisional_task_scopes": 0,
+    "stories_over_10_requirements": 0,
+    "generic_command_requests": 0,
+    "generic_resource_responses": 0,
+    "contracts_not_frozen": 0,
+    "cycles": false
+  },
+  "stories": 761,
+  "edges": 1170
+}
+.venv/Scripts/python.exe -X utf8 tools/run_requirements_review.py
+REQUIREMENTS REVIEW VALIDATION PASS
+issues: 871
+criteria: 3704
+requirements: 376
+sprint gates: 84
+.venv/Scripts/python.exe -X utf8 tools/run_domain_driven_design_review.py
+DOMAIN DRIVEN DESIGN REVIEW PASS
+contexts: 16
+context_map_edges: 70
+contracts_owned: 235
+.venv/Scripts/python.exe -X utf8 tools/run_adr_review.py
+{
+  "status": "PASS",
+  "adrs": 59,
+  "total_adr_records": 59,
+  "active_accepted_adrs": 58,
+  "superseded_adrs": 1,
+  "phase_d_historical_adr_records": 57,
+  "requirements": 376,
+  "cycles": 0,
+  "open_decisions": 0,
+  "open_architectural_decisions": 0
+}
+.venv/Scripts/python.exe -X utf8 tools/run_specification_review.py
+SPECIFICATION REVIEW PASS
+specifications: 5
+task envelopes: 761
+.venv/Scripts/python.exe -X utf8 tools/run_sprint_review.py
+SPRINT REVIEW PASS
+sprints: 12
+issues: 871
+stories: 761
+matrix rows: 871
+.venv/Scripts/python.exe -X utf8 tools/check_python_architecture.py
+PYTHON ARCHITECTURE PASS
+python_files: 22
+modules: 22
+.venv/Scripts/python.exe -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py
+{
+  "checks": {
+    "checkpoint": {
+      "status": "PASS"
+    },
+    "ci_integration": {
+      "mechanism": "make verify",
+      "python": "$(PYTHON)",
+      "status": "PASS"
+    },
+    "citation": {
+      "artifact": "CITATION.cff",
+      "status": "PASS",
+      "version": "0.0.0"
+    },
+    "contribution": {
+      "cla": "NOT_REQUIRED",
+      "origin_certification": "DCO-1.1",
+      "status": "PASS"
+    },
+    "dco": {
+      "reason": "no external commit range",
+      "status": "NOT_REQUESTED"
+    },
+    "dependencies": {
+      "direct_dependencies": 23,
+      "runtime_dependencies": 3,
+      "status": "PASS"
+    },
+    "licensing": {
+      "assigned_paths": 3431,
+      "dep5_license_classes": 3,
+      "license_classes": [
+        "AGPL-3.0-or-later",
+        "Apache-2.0",
+        "CC-BY-4.0"
+      ],
+      "license_text_digests": {
+        "LICENSES/AGPL-3.0-or-later.txt": "d8a6cc31abc16b6748c7a21f21611f5a1ec33f67d22ca23d7da1c19b95496bee",
+        "LICENSES/Apache-2.0.txt": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+        "LICENSES/CC-BY-4.0.txt": "d557539df68e771cc1eedcc91d13f70fca930e508d11eedcafa4b15db49e3744"
+      },
+      "status": "PASS"
+    }
+  },
+  "decision": "PASS",
+  "issue_id": "ISSUE-0142",
+  "schema_version": "1.0.0"
+}
+.venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py
+.................................................                        [100%]
+49 passed in 10.05s
+.venv/Scripts/python.exe -X utf8 tools/governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/foundation_validation.py --foundation docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/foundation-plan.json --contract contracts/contexts/engineering_governance/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/examples/monorepo-foundation.json
+{"findings": [], "foundation": "docs/03-engineering/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/foundation-plan.json", "status": "PASS"}
+.venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation.py
+F.....                                                                   [100%]
+================================== FAILURES ===================================
+___ test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done ____
+
+tmp_path = WindowsPath('C:/Users/rapha/AppData/Local/Temp/pytest-of-rapha/pytest-2/test_walking_skeleton_end_to_e0')
+
+    def test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done(
+        tmp_path: Path,
+    ) -> None:
+>       assert os.environ.get("FOUNDATION_INTEGRATION") == "1", (
+            "FOUNDATION_INTEGRATION=1 and the pinned PostgreSQL/RabbitMQ services are required"
+        )
+E       AssertionError: FOUNDATION_INTEGRATION=1 and the pinned PostgreSQL/RabbitMQ services are required
+E       assert None == '1'
+E        +  where None = get('FOUNDATION_INTEGRATION')
+E        +    where get = environ({'__COMPAT_LAYER': 'DetectorsAppHealth', 'ALLUSERSPROFILE': 'C:\\ProgramData', 'APPDATA': 'C:\\Users\\rapha\\A...minimos-e-checks-r/test_foundation.py::test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done (call)'}).get
+E        +      where environ({'__COMPAT_LAYER': 'DetectorsAppHealth', 'ALLUSERSPROFILE': 'C:\\ProgramData', 'APPDATA': 'C:\\Users\\rapha\\A...minimos-e-checks-r/test_foundation.py::test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done (call)'}) = os.environ
+
+tests\fnd\monorepo-greenfield-com-cli-api-web-minimos-e-checks-r\test_foundation.py:67: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation.py::test_walking_skeleton_end_to_end_and_vertical_slice_definition_of_done
+1 failed, 5 passed in 4.52s
+make: *** [Makefile:21: verify] Error 1
+
+EXIT_CODE = 2

@@ -1,0 +1,369 @@
+{
+  "record_kind": "IMPLEMENTATION_EVIDENCE_ONLY",
+  "task_id": "TASK-0738",
+  "issue_id": "ISSUE-0848",
+  "stage": "A",
+  "branch": "codex/issue-0848-stage-a",
+  "baseline_sha": "6d52ea0ea5f587e9ee6b57e478c3720282cb7062",
+  "candidate_sha": "88a54be7b542e7a942460e7765ce4f30f13234b3",
+  "gate_id": "DG-TASK-0738-A",
+  "definition_sha256": "5ec3611d42cc10d28564c6f9da2b136043cfdf5c313beddff7613ae84e3bb0f2",
+  "task_envelope_canonical_sha256": "0f682bc6c75c90d227353f7b9ec4d9854dba21e40dabc08a30caa2f418c3943d",
+  "gate_state_at_candidate": "PENDING",
+  "gate_state_reason": "DG-TASK-0738-A: PENDING (no integrated acceptance receipt)",
+  "acceptance_manifest_state": "NOT_CREATED",
+  "integration_receipt_state": "NOT_CREATED",
+  "independent_approvals": [],
+  "generator": {
+    "name": "@hey-api/openapi-ts",
+    "version": "0.87.5"
+  },
+  "transport": {
+    "name": "@hey-api/client-fetch",
+    "version": "0.13.1",
+    "bundle": false
+  },
+  "generator_selection_rationale": "Small Node-only generator with static SDK/types and official precompiled Fetch transport (bundle=false preserves the workspace's exactOptionalPropertyTypes). No runtime generator, external service, additional API framework or manual DTO wrappers. oasdiff's prebuilt semantic engine is pinned through platform packages in pnpm-lock.yaml; no JVM or Go toolchain is required.",
+  "semantic_diff_tool": {
+    "name": "@oasdiff-js/oasdiff-js",
+    "version": "1.0.0",
+    "engineVersion": "1.15.0",
+    "baseline": "origin/main"
+  },
+  "generation_command": "pnpm --dir src/frontend run openapi:generate",
+  "source": {
+    "path": "contracts/http/openapi.yaml",
+    "sha256": "0f236a4937a5226b1c57cf8c6731750153b5d4cd9d6381c88a6bd2fceca30d52"
+  },
+  "contracts_http_changed": false,
+  "outputs": [
+    {
+      "path": ".github/workflows/openapi-cliente-typescript-e-contratos-cli-jobs-evento.yaml",
+      "sha256": "56c484624e4925cfe2a8b2d46f27604ac82e6ec70583a318f79c2ad653523c9c"
+    },
+    {
+      "path": "package.json",
+      "sha256": "b0eaaed0accbdef9e45c5117bb2921feaf6ea9882b4bb15aa37460a513e3957e"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "b59a69749fdb52977eb614221b61f1556dd7cec7bf76170c3ec3711b05309245"
+    },
+    {
+      "path": "src/frontend/index.html",
+      "sha256": "1b0b5053b846265f45589e54fb6295540ef2e6c87166cad7facc408ee054708d"
+    },
+    {
+      "path": "src/frontend/openapi-client.config.json",
+      "sha256": "99e99469b7f10e731cc082d47fcea7915f7929fef4471bdc874c6959d67e63d5"
+    },
+    {
+      "path": "src/frontend/package.json",
+      "sha256": "aa0d23f870f72f65730c5e01a6acd0f3500eb95542bd2f5c56413f22ca0272a9"
+    },
+    {
+      "path": "src/frontend/src/contexts/operator_experience/adapters/web/bootstrap/mount.tsx",
+      "sha256": "9900a5424563f47d907a96f3ac6549e233148d23494b8c5c60c9ec3d21a5938e"
+    },
+    {
+      "path": "src/frontend/src/contexts/operator_experience/adapters/web/bootstrap/shell.tsx",
+      "sha256": "cb9d78881f99ac847eba68733b71a91f796cb4689bda8698603241766fbb7f9d"
+    },
+    {
+      "path": "src/frontend/src/contexts/operator_experience/contracts/frontend-shell/index.ts",
+      "sha256": "7a4d3b73d48266d6aab6f4b7793d26f24716191d22ff322b6b48ec360f051429"
+    },
+    {
+      "path": "src/frontend/src/contexts/operator_experience/contracts/frontend-shell/types.ts",
+      "sha256": "51c63a8ce5863d9856859e4abbf6d0d5e7fae77ca672d53defa8bd1fa17d9206"
+    },
+    {
+      "path": "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/client.gen.ts",
+      "sha256": "2d1d0115782345104c9cb4cb44793bc65278b23bbffe3ae1af6897795f01bf0f"
+    },
+    {
+      "path": "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/index.ts",
+      "sha256": "cce1610e47965fbdc5382f989cabb454b83622e3735545abf90d82e21cc50d71"
+    },
+    {
+      "path": "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/sdk.gen.ts",
+      "sha256": "be83ae07efe17c017e4a29728fa81640d4c6161cb275f0c817359b88edfc79a1"
+    },
+    {
+      "path": "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/types.gen.ts",
+      "sha256": "144514bda6df0828f709b73754b957d5539f2ac040abd556ba188183aab3aa0d"
+    },
+    {
+      "path": "src/frontend/src/main.tsx",
+      "sha256": "2136f7a14c5885bd85ec33a45117c2ecf2e68eebeede3fc87f231799e4d4c11d"
+    },
+    {
+      "path": "src/frontend/tests/foundation/openapi.test.mjs",
+      "sha256": "3fa29a2bec37227d0eb2b5632234a62c2dd1429d434a2c0dd6205360ec29ae00"
+    },
+    {
+      "path": "src/frontend/tests/foundation/playwright.config.ts",
+      "sha256": "755db99f08576d89c4fc0d12111ac18f272f90f2ae34f038f05e3669e7a9f348"
+    },
+    {
+      "path": "src/frontend/tests/foundation/shell.browser.spec.ts",
+      "sha256": "bbad09122a03e8f34e6289503a9e601a38241bd3f6e3d63ba4feaecff256e0f9"
+    },
+    {
+      "path": "src/frontend/tests/foundation/shell.test.tsx",
+      "sha256": "1fe0217a859243ae607e935e400a2e221e2d9f95991f4bc0e84142b6aee4000f"
+    },
+    {
+      "path": "src/frontend/tools/openapi/cli.mjs",
+      "sha256": "5d1afea48edda55f2cc3278c18829bd2a4761fd4bde611ce48aec6e1e78e7bdd"
+    },
+    {
+      "path": "src/frontend/tools/openapi/config.mjs",
+      "sha256": "d67aed6951e0f08c423ccaad32ee9d1e5b73d69eeb827ee1ad7fcc123ecefcfb"
+    },
+    {
+      "path": "src/frontend/tools/openapi/generation.mjs",
+      "sha256": "d4d12fd33821d0e07d7c427649079ea6e6988dd7590b6a6bdca6f86505bed121"
+    },
+    {
+      "path": "src/frontend/tools/openapi/semantic-diff.mjs",
+      "sha256": "65d956a3f989559631a903a94d375d21e03caec84eccfecf34537627a6d8a2d3"
+    },
+    {
+      "path": "src/frontend/tsconfig.json",
+      "sha256": "6e7ee73cf822cea0f73eeb0ad7dc373be7bbbe8b1139b03aa499f976303ab63b"
+    },
+    {
+      "path": "src/frontend/vite.config.ts",
+      "sha256": "155d0365c3303fb932f3547619f50ffe4fcef1dda58188ed60b44d2aca7c29ab"
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/IMPLEMENTATION_EVIDENCE.md",
+      "sha256": "f353c679ff69a3e3f45bb96ccd7f36fc2be30f068aac44cda4f50d8ab0df7faa"
+    },
+    {
+      "path": "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/contract-validator.log",
+      "sha256": "c0994f0ce5a473cc7f9e0ec40de6e7d91daf44e5a25054dc212200b444ca00f8"
+    },
+    {
+      "path": "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/dependency-audit.log",
+      "sha256": "0da6fe942f2785ac512bda2d96b5a6f1fdff7adb376da57ebe7a83dd4382ade6"
+    },
+    {
+      "path": "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/execution-results.json",
+      "sha256": "ba5fcb859b8002ffab82cb4fc8ef2f3c178783e8cbc47754461362223989d23a"
+    },
+    {
+      "path": "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/focused-tests.log",
+      "sha256": "ffd7317405c36dba3ce4301154e02eb604e7b09ef6ca3d4b4313c2c5d1b3d9c3"
+    },
+    {
+      "path": "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/generation.log",
+      "sha256": "6d2bdf030967ffd9d87bf77ebad248438bb1ee8e2c332558ccbe8bb5012f4192"
+    },
+    {
+      "path": "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/install.log",
+      "sha256": "f32b0f11096c94efc8db2072ade257b840f327b0c45d11c574324cad04dc1858"
+    },
+    {
+      "path": "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/make-verify.log",
+      "sha256": "01754d86fc1534c3947c837d30cf73b390fa3963703ceda8a894e71de090479c"
+    }
+  ],
+  "changed_files": [
+    ".github/workflows/openapi-cliente-typescript-e-contratos-cli-jobs-evento.yaml",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/IMPLEMENTATION_EVIDENCE.md",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/contract-validator.log",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/dependency-audit.log",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/execution-results.json",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/focused-tests.log",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/generation.log",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/install.log",
+    "evidence/implementation/react-typescript-vite-design-system-cliente-openap/requirements-epic-fs1-run-parte-1/stage-a/make-verify.log",
+    "package.json",
+    "pnpm-lock.yaml",
+    "src/frontend/index.html",
+    "src/frontend/openapi-client.config.json",
+    "src/frontend/package.json",
+    "src/frontend/src/contexts/operator_experience/adapters/web/bootstrap/mount.tsx",
+    "src/frontend/src/contexts/operator_experience/adapters/web/bootstrap/shell.tsx",
+    "src/frontend/src/contexts/operator_experience/contracts/frontend-shell/index.ts",
+    "src/frontend/src/contexts/operator_experience/contracts/frontend-shell/types.ts",
+    "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/client.gen.ts",
+    "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/index.ts",
+    "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/sdk.gen.ts",
+    "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/types.gen.ts",
+    "src/frontend/src/main.tsx",
+    "src/frontend/tests/foundation/openapi.test.mjs",
+    "src/frontend/tests/foundation/playwright.config.ts",
+    "src/frontend/tests/foundation/shell.browser.spec.ts",
+    "src/frontend/tests/foundation/shell.test.tsx",
+    "src/frontend/tools/openapi/cli.mjs",
+    "src/frontend/tools/openapi/config.mjs",
+    "src/frontend/tools/openapi/generation.mjs",
+    "src/frontend/tools/openapi/semantic-diff.mjs",
+    "src/frontend/tsconfig.json",
+    "src/frontend/vite.config.ts"
+  ],
+  "write_scope_valid": true,
+  "write_scope_note": "Implementation outputs satisfy TASK-0738 allow/deny paths; implementation evidence is explicitly authorized by user sections 15/16 and the TaskEnvelope evidence root.",
+  "readiness": {
+    "task_id": "TASK-0738",
+    "consumer_base": "6d52ea0ea5f587e9ee6b57e478c3720282cb7062",
+    "result": "PASS",
+    "command": ".venv/Scripts/python.exe -X utf8 -m tools.governance.delivery_gates.validation --ready-task TASK-0738 --consumer-base 6d52ea0ea5f587e9ee6b57e478c3720282cb7062"
+  },
+  "results": {
+    "install": "PASS_FROZEN_OFFLINE",
+    "generation": "PASS",
+    "reproducibility": "PASS",
+    "semantic_diff": "PASS_POSITIVE_AND_NEGATIVE",
+    "typecheck": "PASS",
+    "build": "PASS",
+    "foundation_tests": "16_PASS",
+    "unit_tests_including_foundation": "17_PASS",
+    "existing_browser_tooling": "1_PASS",
+    "runtime_smoke": "1_PASS",
+    "focused_repository_tests": "56_PASS",
+    "contract_validator": "PASS",
+    "repository_validation": "PASS",
+    "architecture_requirements_ddd_adr_specification_sprint_reviews": "PASS",
+    "make_verify": "FAIL_EXIT_2",
+    "make_verify_classification": "GOVERNANCE / BLOCKING",
+    "dependency_audit": {
+      "exit_code": 1,
+      "moderate": 1,
+      "high": 0,
+      "critical": 0
+    }
+  },
+  "execution_results": [
+    {
+      "name": "install",
+      "command": [
+        "pnpm.cmd",
+        "install",
+        "--store-dir",
+        ".pnpm-store",
+        "--frozen-lockfile",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 1.17,
+      "log": "install.log"
+    },
+    {
+      "name": "generation",
+      "command": [
+        "pnpm.cmd",
+        "--dir",
+        "src/frontend",
+        "run",
+        "openapi:generate"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 3.45,
+      "log": "generation.log"
+    },
+    {
+      "name": "make-verify",
+      "command": [
+        "make",
+        "verify",
+        "PYTHON=.venv/Scripts/python.exe",
+        "PNPM=pnpm.cmd"
+      ],
+      "exit_code": 2,
+      "duration_seconds": 503.25,
+      "log": "make-verify.log"
+    },
+    {
+      "name": "focused-tests",
+      "command": [
+        ".venv/Scripts/python.exe",
+        "-X",
+        "utf8",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/fnd/delivery_gates",
+        "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_automation.py::test_epic_004_automacao"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 338.64,
+      "log": "focused-tests.log"
+    },
+    {
+      "name": "contract-validator",
+      "command": [
+        ".venv/Scripts/python.exe",
+        "-X",
+        "utf8",
+        "tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/validator.py",
+        "--dry-run"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 1.59,
+      "log": "contract-validator.log"
+    },
+    {
+      "name": "dependency-audit",
+      "command": [
+        "pnpm.cmd",
+        "audit",
+        "--audit-level",
+        "high",
+        "--json"
+      ],
+      "exit_code": 1,
+      "duration_seconds": 1.48,
+      "log": "dependency-audit.log"
+    }
+  ],
+  "runtime": {
+    "action": "Build the actual application; serve with Vite preview; open / in Chromium via Playwright.",
+    "expected": "React shell mounts; generated client resolves; no exception or backend request.",
+    "observed": "HTTP 200, visible DSGeorref heading, generated client /api/v1 attribute, zero page/console errors and zero API requests.",
+    "generated_module": "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/client.gen.ts"
+  },
+  "same_generated_artifact_used_by_frontend_and_tests": true,
+  "manual_duplicate_dtos_found": false,
+  "failure_modes": {
+    "source_missing": "FAIL_AS_EXPECTED",
+    "config_invalid": "FAIL_AS_EXPECTED",
+    "generated_drift": "FAIL_AS_EXPECTED_EDITED_MISSING_EXTRA",
+    "breaking_change": "FAIL_AS_EXPECTED_OPERATION_REQUEST_RESPONSE_ENUM",
+    "nonbreaking_change": "PASS_IDENTICAL_AND_DOCUMENTATION_ADDITION"
+  },
+  "blocker_findings": [
+    {
+      "message": "runtime npm dependencies require release review",
+      "validator": "tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py:543",
+      "reason": "Existing license validator rejects all runtime npm dependencies and requires an exact canonical dependency inventory plus third-party notices. Required validator/inventory/notice changes are outside Stage A write scope.",
+      "classification": "GOVERNANCE / BLOCKING"
+    }
+  ],
+  "environmental_limits": [
+    "Python venv is 3.12.10 rather than pinned 3.12.13.",
+    "Final frontend execution used exact Node 24.20.0 and pnpm 10.26.1.",
+    "Windows sandbox failures were rerun outside the sandbox.",
+    "PostgreSQL/RabbitMQ integration checks were not reached after the governance blocker.",
+    "Remote CI has not run."
+  ],
+  "residual_risks": [
+    "MODERATE CVE-2026-48819 in generator parameter template; bundle=false does not emit this template and generated SDK does not call buildClientParams.",
+    "Official precompiled Fetch transport is deprecated; replacement requires strict-typecheck compatibility work.",
+    "Pinned semantic engine does not claim exhaustive coverage of all OpenAPI/JSON Schema extension and generated-name changes."
+  ],
+  "story_0738_status": "OPEN",
+  "stage_b_implemented": false,
+  "issue_0148_implemented": false,
+  "task_0038_ready": false,
+  "contract_impact": "NONE",
+  "final_state": "BLOCKED",
+  "binding_note": "This evidence-only record is committed after the immutable implementation candidate to avoid a self-referential commit hash. The candidate includes implementation, tests, CI and execution logs; its outputs remain unchanged."
+}

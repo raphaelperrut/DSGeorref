@@ -1,0 +1,103 @@
+{
+  "task_id": "TASK-0738",
+  "stage": "A",
+  "previous_implementation_sha": "88a54be7b542e7a942460e7765ce4f30f13234b3",
+  "new_direct_dependencies": 9,
+  "total_direct_dependencies": 23,
+  "runtime_dependencies": 3,
+  "development_and_validation_dependencies": 20,
+  "license_findings": [],
+  "dependency_classification_valid": true,
+  "dependency_licenses_verified": true,
+  "package_or_lock_changed": false,
+  "focused_governance_tests": "49_PASS",
+  "required_regression_tests": {
+    "UNKNOWN_RUNTIME_DEPENDENCY_TEST": {
+      "result": "PASS",
+      "test": "test_unknown_manifest_dependency_fails[dependencies] and test_unknown_dependency_even_with_matching_manifest_and_lock_fails[runtime]"
+    },
+    "MISSING_RUNTIME_INVENTORY_TEST": {
+      "result": "PASS",
+      "test": "test_dependency_inventory_rejects_drift[missing-runtime]"
+    },
+    "MISSING_DEV_INVENTORY_TEST": {
+      "result": "PASS",
+      "test": "test_dependency_inventory_rejects_drift[missing-development_and_validation]"
+    },
+    "RUNTIME_DEV_MISCLASSIFICATION_TEST": {
+      "result": "PASS",
+      "test": "test_dependency_inventory_rejects_drift[swap-*] and test_manifest_classification_and_pins_fail_closed[swap-*]"
+    },
+    "VERSION_DRIFT_TEST": {
+      "result": "PASS",
+      "test": "test_dependency_inventory_rejects_drift[version-*] and test_manifest_classification_and_pins_fail_closed[version-*]"
+    },
+    "LOCKFILE_DRIFT_TEST": {
+      "result": "PASS",
+      "test": "test_lockfile_scope_and_resolved_pin_fail_closed"
+    },
+    "LICENSE_DRIFT_TEST": {
+      "result": "PASS",
+      "test": "test_dependency_inventory_rejects_drift[license-*] and historical unknown-license test"
+    },
+    "NOTICE_DRIFT_TEST": {
+      "result": "PASS",
+      "test": "test_notices_fail_closed"
+    },
+    "STALE_INVENTORY_TEST": {
+      "result": "PASS",
+      "test": "test_manifest_classification_and_pins_fail_closed[removed-*]"
+    }
+  },
+  "dependency_inventory_validator": "PASS",
+  "license_inventory_validator": "PASS",
+  "repository_validation": "PASS",
+  "stage_a_checks": {
+    "openapi_check": "PASS",
+    "semantic_diff": "PASS",
+    "typecheck": "PASS",
+    "frontend_unit_tests": "17_PASS",
+    "chromium_browser_tooling": "1_PASS",
+    "build": "PASS",
+    "chromium_runtime_smoke": "1_PASS",
+    "delivery_gates_tests": "55_PASS"
+  },
+  "make_verify": {
+    "exit_code": 2,
+    "classification": "ENVIRONMENTAL / NONBLOCKING",
+    "sole_remaining_stop": "FOUNDATION_INTEGRATION=1 and the pinned PostgreSQL/RabbitMQ services are required",
+    "downstream_service_dependent_checks": "NOT_EXECUTED"
+  },
+  "advisory": {
+    "package": "@hey-api/openapi-ts@0.87.5",
+    "severity": "MODERATE",
+    "id": "GHSA-hhx9-57xq-r5rw",
+    "applicability": "NOT_APPLICABLE_TO_STAGE_A_OUTPUT_OR_EXECUTION",
+    "blocking": false,
+    "evidence": "advisory-review.json"
+  },
+  "write_scope_justification": "release/license compliance required by dependencies explicitly approved for Stage A",
+  "new_story_or_issue_created": false,
+  "license_inventory_extension_required": false,
+  "dep5_extension_required": false,
+  "gate_id": "DG-TASK-0738-A",
+  "gate_state": "PENDING",
+  "acceptance_manifest_state": "NOT_CREATED",
+  "integration_receipt_state": "NOT_CREATED",
+  "independent_approvals": [],
+  "foundation_checkpoint_changed": false,
+  "publication_decision": "BLOCKED",
+  "openapi_source_changed": false,
+  "frontend_behavior_changed": false,
+  "contract_http_changed": false,
+  "blocker_findings": [],
+  "high_findings": [],
+  "residual_risks": [
+    "Service-dependent integration is not demonstrated in this environment.",
+    "Upstream installed distributions retain an unused vulnerable helper; reassess future imports/generation/configuration/distribution.",
+    "Complete transitive SBOM, redistribution license texts/notices and G6 legal/security review remain required for publication.",
+    "Available Python is 3.12.10, rather than pinned 3.12.13; Node is exact 24.20.0 and pnpm 10.26.1.",
+    "Remote CI and independent QA/reviewer approval have not run; official Fetch transport is deprecated."
+  ],
+  "final_state": "STAGE_A_CANDIDATE_READY_FOR_QA"
+}

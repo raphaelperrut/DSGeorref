@@ -32,7 +32,13 @@ python-quality:
 	$(PYTHON) -m mypy $(MYPY_PATHS)
 
 frontend-quality:
-	$(PNPM) run frontend:verify
+	$(PNPM) --dir src/frontend openapi:check
+	$(PNPM) --dir src/frontend openapi:diff $(OPENAPI_BASE_SHA)
+	$(PNPM) run frontend:typecheck
+	$(PNPM) run frontend:test:unit
+	$(PNPM) run frontend:test:browser
+	$(PNPM) run frontend:build
+	$(PNPM) --dir src/frontend test:smoke
 
 architecture:
 	python tools/run_architecture_review.py

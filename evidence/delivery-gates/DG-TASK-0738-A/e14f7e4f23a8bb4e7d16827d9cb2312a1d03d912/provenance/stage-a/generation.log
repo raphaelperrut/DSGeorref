@@ -1,0 +1,8 @@
+COMMAND = pnpm.cmd --dir src/frontend run openapi:generate
+
+> @dsgeorref/frontend-tooling@0.0.0 openapi:generate C:\Users\rapha\OneDrive\Documentos\Asimov\GitHub\DSGeorref\src\frontend
+> node tools/openapi/cli.mjs generate
+
+OpenAPI generate: PASS
+
+EXIT_CODE = 0

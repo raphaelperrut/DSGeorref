@@ -1,0 +1,63 @@
+{
+  "package": "@hey-api/openapi-ts",
+  "version": "0.87.5",
+  "advisory": "GHSA-hhx9-57xq-r5rw",
+  "cve": "CVE-2026-48819",
+  "severity": "MODERATE",
+  "source": "https://github.com/hey-api/hey-api/security/advisories/GHSA-hhx9-57xq-r5rw",
+  "affected_template": {
+    "path": "src/frontend/node_modules/@hey-api/openapi-ts/dist/clients/core/params.ts",
+    "sha256": "79d9c458ba90bbe087e540534a6ecc1ea9a58d19c8134fb7603435908c2e6e98"
+  },
+  "installed_runtime_distribution": {
+    "path": "src/frontend/node_modules/@hey-api/client-fetch/dist/index.js",
+    "sha256": "15461b5dae53082e98a74322b0b748e79d8e27bb0703b817e2df7cf9b1f760d3",
+    "vulnerable_assignment_shapes": [
+      "e[c][t.slice(d.length)]=l"
+    ]
+  },
+  "generated_outputs": [
+    {
+      "path": "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/client.gen.ts",
+      "sha256": "2d1d0115782345104c9cb4cb44793bc65278b23bbffe3ae1af6897795f01bf0f",
+      "buildClientParams_reference": false
+    },
+    {
+      "path": "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/index.ts",
+      "sha256": "cce1610e47965fbdc5382f989cabb454b83622e3735545abf90d82e21cc50d71",
+      "buildClientParams_reference": false
+    },
+    {
+      "path": "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/sdk.gen.ts",
+      "sha256": "be83ae07efe17c017e4a29728fa81640d4c6161cb275f0c817359b88edfc79a1",
+      "buildClientParams_reference": false
+    },
+    {
+      "path": "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/types.gen.ts",
+      "sha256": "144514bda6df0828f709b73754b957d5539f2ac040abd556ba188183aab3aa0d",
+      "buildClientParams_reference": false
+    }
+  ],
+  "generated_params_template_emitted": false,
+  "bundles": [
+    {
+      "path": "node_modules/.cache/frontend-stage-a-dist/assets/index-BuLayxLg.js",
+      "sha256": "a7d438dc25f4d9503963277d951110d870d64cc45d27233eb3ff2b764c082934",
+      "vulnerable_assignment_shapes": [],
+      "buildClientParams_reference": false,
+      "allowExtra_reference": false
+    },
+    {
+      "path": "node_modules/.cache/stage-a-license-review-readable-dist/assets/index-8QWR5_ZG.js",
+      "sha256": "91077ee8c59352998a5c2ea6baa39675957f749a9a53c78fea73d260fbb72358",
+      "vulnerable_assignment_shapes": [],
+      "buildClientParams_reference": false,
+      "allowExtra_reference": false
+    }
+  ],
+  "classification": "NOT_APPLICABLE_TO_STAGE_A_OUTPUT_OR_EXECUTION",
+  "blocking": false,
+  "explanation": "Generator template exists and client-fetch distribution also exports the vulnerable helper. No generated SDK/application source imports or calls buildClientParams; no params.gen.ts is emitted. Vite eliminates the unused helper, including the prefix-controlled indexed assignment. Only an unused Object.entries prefix-map expression remains in builds. Stage A mounts a static shell and initializes the client without forwarding untrusted parameters or making backend requests.",
+  "residual_risk": "Reassess any future generator configuration, build format, helper import, SDK regeneration, or distribution of unbundled runtime packages. The installed upstream distributions still contain the vulnerable helper; this review is not a general vulnerability waiver.",
+  "readable_build_command": "pnpm --dir src/frontend exec vite build --minify false --outDir ../../node_modules/.cache/stage-a-license-review-readable-dist"
+}
