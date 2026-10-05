@@ -46,7 +46,10 @@
   ],
   "allow_paths": [
     "src/backend/dsgeorref/contexts/identity_access/adapters/security/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**",
-    "tests/security/contexts/identity_access/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**"
+    "tests/security/contexts/identity_access/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**",
+    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/transactions.py",
+    "evidence/security/epic-008/story-0039/**",
+    "docs/03-engineering/application-profiles/AP-003-web-security-runtime-profile.md"
   ],
   "deny_paths": [
     "src/frontend/**",
@@ -125,7 +128,10 @@
       "status": "PASS",
       "allow_paths": [
         "src/backend/dsgeorref/contexts/identity_access/adapters/security/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**",
-        "tests/security/contexts/identity_access/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**"
+        "tests/security/contexts/identity_access/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**",
+        "src/backend/dsgeorref/contexts/identity_access/application/local_identity/transactions.py",
+        "evidence/security/epic-008/story-0039/**",
+        "docs/03-engineering/application-profiles/AP-003-web-security-runtime-profile.md"
       ],
       "deny_paths": [
         "src/frontend/**",

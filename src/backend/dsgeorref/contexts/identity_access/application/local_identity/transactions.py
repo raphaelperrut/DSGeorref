@@ -36,7 +36,7 @@ class IdentityTransactions:
         eligibility: Eligibility,
         replay_key: bytes,
     ) -> None:
-        if not replay_key or not callable(eligibility):
+        if not isinstance(replay_key, bytes) or len(replay_key) < 32 or not callable(eligibility):
             raise Denied("internal_error")
         self.access, self.passwords, self.web = access, passwords, web
         self.eligibility, self._replay_key = eligibility, replay_key

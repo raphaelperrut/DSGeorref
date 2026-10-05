@@ -1,0 +1,101 @@
+{
+  "issue": "ISSUE-0149",
+  "task": "TASK-0039",
+  "base_sha": "471ec4e1d3a2a376b080973f5395dc8634a04918",
+  "branch": "codex/issue-0149-task-0039",
+  "checks": {
+    "mandatory_tests": "4/4 PASS; 0 skipped",
+    "ruff": "PASS",
+    "ruff_format": "PASS",
+    "mypy_transactions": "PASS",
+    "git_diff_check": "PASS",
+    "envelope_exact_change": "PASS",
+    "scope": "Six runtime/profile/test/evidence files PASS within corrected envelope; TASK-0039.json is a separately authorized control-plane exception"
+  },
+  "results_reused_from_candidate_sha": "57e715789a8a35b69ccebaa161a19ee5bc642233",
+  "control_plane_exception": {
+    "file": ".codex/tasks/TASK-0039.json",
+    "authorization": "Explicit Project Owner authorization in the ISSUE-0149 session to repair omissions in this TaskEnvelope",
+    "covered_by_previous_allow_paths": false,
+    "retroactive_self_authorization": false,
+    "functional_expansion": false
+  },
+  "tests": [
+    {
+      "test": "test_secret_permissions_rotation_redaction_fail_closed",
+      "result": "PASS",
+      "action_expected_observed": [
+        [
+          "replay_key 0 bytes",
+          "startup denied",
+          "internal_error"
+        ],
+        [
+          "replay_key 1 bytes",
+          "startup denied",
+          "internal_error"
+        ],
+        [
+          "replay_key 31 bytes",
+          "startup denied",
+          "internal_error"
+        ],
+        [
+          "CSPRNG replay_key 32 bytes",
+          "startup accepted",
+          "accepted"
+        ],
+        [
+          "remove grant / rotate / inspect metadata",
+          "deny escalation; old session denied; no plaintext",
+          "forbidden; rotated + unauthorized; plaintext absent"
+        ]
+      ]
+    },
+    {
+      "test": "test_one_time_bootstrap_no_default_credentials_secret_generation_expiry_and_recovery",
+      "result": "PASS",
+      "action_expected_observed": [
+        [
+          "bootstrap / recovery / credential reuse / idle expiry",
+          "no defaults; one administrator; one-use kit; revoked/expired credentials denied",
+          "invalid_credentials; one admin; rotated kit; forbidden/conflict/unauthorized; expired"
+        ]
+      ]
+    },
+    {
+      "test": "test_epic_008_seguranca_happy_path",
+      "result": "PASS",
+      "action_expected_observed": [
+        [
+          "local bootstrap / signed OIDC link+login / PAT / revoke+unlink+logout",
+          "same account; scoped PAT; terminal credentials denied; explicit local login works",
+          "same account; authorization true; unauthorized after revocation; local login succeeds"
+        ]
+      ]
+    },
+    {
+      "test": "test_epic_008_seguranca_negative_paths",
+      "result": "PASS",
+      "action_expected_observed": [
+        [
+          "abuse / authorization / invalid OIDC / unsafe config + redirect",
+          "deny; no unauthorized credentials/link or silent fallback; reject insecure egress",
+          "asserted published denials; counts unchanged; failed single-use state; redirects denied"
+        ]
+      ]
+    }
+  ],
+  "source_sha256": {
+    ".codex/tasks/TASK-0039.json": "50a42a0537338644cb15eb832ccb41a4dd7dba5e3ca5000662ace2c151fbccd6",
+    "docs/03-engineering/application-profiles/AP-003-web-security-runtime-profile.md": "c0e63c7c29aa72f13361262a81394a68f0a300af0cb3637f078d9bcd646d7611",
+    "evidence/security/epic-008/story-0039/README.md": "63b3cd1d887b25cfadc6b34427b81ab671d1768d6897d78f7ec8368e64634f2d",
+    "src/backend/dsgeorref/contexts/identity_access/application/local_identity/transactions.py": "b8bee17af2ce6111001618b667809b1e4b5889b95f0b531ac3667fe57dfbfde1",
+    "tests/security/contexts/identity_access/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/conftest.py": "24d647ec23878fb89e32eebcb054e71a7b87c9b7e4fd29d5a2f03d68c6f2d233",
+    "tests/security/contexts/identity_access/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/test_security.py": "cc8ad28238a0f5d2ef10d8b8f25f1e56fc0939062f61d521f83b671e57fc882a",
+    "tests/backend/identity_access/local_identity/oidc_fixture.py": "c96f135b99a34421c0ff084cc45128c7a1f3d5240171f610a9be57f45ea4a46e"
+  },
+  "evidence_boundary": "Real application/domain/crypto/JWT code; test-only Store/UnitOfWork, upstream eligibility and OIDC transport. No PostgreSQL, UI, stack or live provider. Limits in README.md.",
+  "independent_review": "PENDING; no self-approval",
+  "source_digest_encoding": "UTF8_LF"
+}
