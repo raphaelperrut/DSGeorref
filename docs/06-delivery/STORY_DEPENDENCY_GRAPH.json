@@ -8372,6 +8372,17 @@
       "role": "Security",
       "title": "Materializar verifier e trust operacional da Delivery Approval Authority",
       "file": "docs/06-delivery/stories/STORY-0761-ISSUE-0871-materializar-verifier-e-trust-operacional-da-daa.md"
+    },
+    {
+      "id": "STORY-0762",
+      "issue_id": "ISSUE-0873",
+      "task_id": "TASK-0769",
+      "epic_id": "EPIC-008",
+      "sprint": "SPRINT-002",
+      "domain": "PLT",
+      "role": "Security",
+      "title": "Calibrar e promover o perfil quantitativo de throttling",
+      "file": "docs/06-delivery/stories/STORY-0762-ISSUE-0873-calibrar-e-promover-perfil-quantitativo-de-throttling.md"
     }
   ],
   "edges": [
@@ -14223,6 +14234,21 @@
     {
       "from": "STORY-0761",
       "to": "STORY-0689",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0036",
+      "to": "STORY-0762",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0762",
+      "to": "STORY-0712",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0712",
+      "to": "STORY-0040",
       "relation": "blocks"
     }
   ],

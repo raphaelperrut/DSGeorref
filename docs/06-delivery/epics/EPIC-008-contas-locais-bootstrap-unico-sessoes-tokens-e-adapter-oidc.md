@@ -37,7 +37,7 @@ Contas locais, bootstrap único, sessões, tokens e adapter oidc.
 ## Histórias implementáveis
 
 
-Este épico possui **7** histórias filhas:
+Este épico possui **8** histórias filhas:
 
 - `STORY-0036` / `ISSUE-0146` / `TASK-0036` — Definir política, estados e contratos: contas locais, bootstrap único, sessões, tokens e adapter OIDC
 - `STORY-0037` / `ISSUE-0147` / `TASK-0037` — Consolidar slices e liberar integração: contas locais, bootstrap único, sessões, tokens e adapter OIDC
@@ -46,6 +46,8 @@ Este épico possui **7** histórias filhas:
 - `STORY-0040` / `ISSUE-0150` / `TASK-0040` — Executar QA e auditoria final: contas locais, bootstrap único, sessões, tokens e adapter OIDC
 - `STORY-0712` / `ISSUE-0822` / `TASK-0712` — Slice 1/2 — Implementar domínio e persistência: contas locais, bootstrap único, sessões, tokens e adapter OIDC [REQ-AUTH-IMPL, REQ-DBSCHEMA]
 - `STORY-0713` / `ISSUE-0823` / `TASK-0713` — Slice 2/2 — Implementar domínio e persistência: contas locais, bootstrap único, sessões, tokens e adapter OIDC [REQ-ID]
+
+- `STORY-0762` / `ISSUE-0873` / `TASK-0769` — Calibrar e promover o perfil quantitativo de throttling requerido por REQ-AUTH-IMPL-007
 
 A ordem efetiva é governada por `STORY_DEPENDENCY_GRAPH.json`; IDs não substituem dependências.
 

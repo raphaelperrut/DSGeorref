@@ -103,7 +103,8 @@
     "commit candidato e relatório de testes"
   ],
   "dependencies": [
-    "STORY-0036"
+    "STORY-0036",
+    "STORY-0762"
   ],
   "stop_conditions": [
     "Decisão material não resolvida.",
@@ -151,9 +152,10 @@
     "status": "PASS",
     "dependencies": {
       "status": "PASS",
-      "count": 1,
+      "count": 2,
       "items": [
-        "STORY-0036"
+        "STORY-0036",
+        "STORY-0762"
       ]
     },
     "files": {

@@ -1,7 +1,7 @@
 # STORY-0040 / ISSUE-0150 — Executar QA e auditoria final: contas locais, bootstrap único, sessões, tokens e adapter OIDC
 
 - **Tipo:** `História implementável`
-- **Estado:** `Planned`
+- **Estado:** `Blocked`
 - **Épico pai:** `EPIC-008`
 - **Sprint:** `SPRINT-002`
 - **Domínio:** `PLT`
@@ -40,7 +40,7 @@ Nenhum requisito exclusivo; valida integração do épico.
 ## Dependências
 
 
-`STORY-0039`
+`STORY-0039`, `STORY-0712`
 
 ## Critérios de aceitação
 
@@ -152,3 +152,7 @@ Leia `AGENTS.md`, `.codex/roles/ROLE-011-reviewer.md`, este documento, o épico 
 - **Controles aplicáveis:** `CTO-003, CTO-004, CTO-006, CTO-011, CTO-012, CTO-013, CTO-014, CTO-015`
 - **Gate de produção:** `IMPLEMENTATION_AUTHORIZATION`
 - **Regra:** implementação não pode publicar claim de custo, escala, latência, GPU, RPO/RTO ou segurança sem a evidência listada no TaskEnvelope.
+
+## Prerequisite de throttling — bloqueio vigente
+
+STORY-0762 / ISSUE-0873 / TASK-0769 calibra BP-003 e promove somente o recorte de throttling em AP-003. Cadeia: STORY-0762 -> STORY-0712 -> STORY-0040. O perfil aprovado deve estar integrado antes da correcao de ISSUE-0822; ISSUE-0150 depende tambem da implementacao e dos testes reais dessa correcao. O diagnostico 11df6dff79e7eaa33ac287cd576bcafd5344391c permanece preservado; nenhum gate foi aprovado por esta materializacao.

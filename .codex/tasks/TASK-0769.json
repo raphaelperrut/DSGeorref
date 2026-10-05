@@ -1,0 +1,242 @@
+{
+  "task_id": "TASK-0769",
+  "issue_id": "ISSUE-0873",
+  "story_id": "STORY-0762",
+  "epic_id": "EPIC-008",
+  "sprint_id": "SPRINT-002",
+  "role": "Security",
+  "outcome": "Calibrar e promover o perfil quantitativo de throttling requerido por REQ-AUTH-IMPL-007 conforme AP-003/BP-003, sem implementar STORY-0712 nem ampliar outros parametros de seguranca.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-010-security.md",
+    "docs/06-delivery/stories/STORY-0762-ISSUE-0873-calibrar-e-promover-perfil-quantitativo-de-throttling.md",
+    "docs/06-delivery/epics/EPIC-008-contas-locais-bootstrap-unico-sessoes-tokens-e-adapter-oidc.md",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    "docs/00-governance/ROLE_AUTHORITY_MATRIX.md",
+    "docs/00-governance/DEFINITION_OF_READY.md",
+    "docs/03-engineering/application-profiles/AP-003-web-security-runtime-profile.md",
+    "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
+    "docs/01-product/requirements/REQ-AUTH-IMPL-007-throttling-possui-estado-e-evidencia-observavel.md",
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.json",
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/boundary-evidence.schema.json",
+    "docs/04-quality/THREAT_MODEL.md",
+    "docs/03-engineering/PYTHON_CODE_ARCHITECTURE_STANDARD.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
+    "docs/02-architecture/adrs/ADR-028-contas-locais-sessoes-server-side-e-argon2id.md",
+    "docs/02-architecture/adrs/ADR-031-csrf-cors-security-headers-e-protecao-web.md",
+    "docs/02-architecture/adrs/ADR-034-oci-compose-instalacao-bootstrap-e-readiness.md"
+  ],
+  "allow_paths": [
+    "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
+    "docs/03-engineering/application-profiles/AP-003-web-security-runtime-profile.md",
+    "tests/security/throttling_calibration/**",
+    "evidence/security/throttling-calibration/**",
+    ".codex/tasks/TASK-0769.json"
+  ],
+  "deny_paths": [
+    "src/**",
+    "infra/**",
+    ".github/**",
+    "contracts/**",
+    "**/migrations/**",
+    ".codex/tasks/TASK-0712.json",
+    ".codex/tasks/TASK-0040.json",
+    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/**",
+    "evidence/reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**"
+  ],
+  "acceptance_criteria": [
+    "Executar somente a calibração de throttling de BP-003 no hardware mínimo suportado identificado por autoridade existente, registrando comandos, runtime/dependências, carga, concorrência, entradas, configurações candidatas, resultados brutos e digests para reprodução.",
+    "Justificar cada valor selecionado por medições e threat tests de brute force, carga legítima e abuso; demonstrar preservação dos pisos de segurança, ausência de enumeração/bypass e ausência de DoS operacional evidente por CPU/memória, documentando limites da evidência sem inventar metas.",
+    "Promover em AP-003 somente valores sustentados pela calibração, com versão, unidades, aplicabilidade, semântica de contagem/janela/cooldown/lockout e validade explícitas conforme o contrato; verificar consumo determinístico e rejeição de perfil ausente/inválido sem implementar throttling funcional.",
+    "Produzir evidência reproduzível e obter revisão técnica aplicável do Arquiteto e validações independentes de QA e Reviewer no mesmo commit candidato, antes da promoção/integração que libera STORY-0712; preservar demais parâmetros e registrar rollback do perfil."
+  ],
+  "tests": [
+    "Reexecutar comando/script focado de calibracao, conferir ambiente, entradas/configuracoes, digests e registrar variacao das medicoes.",
+    "Threat tests de brute force e carga legitima/abusiva; medir CPU/memoria e concorrencia no recorte de throttling sem reduzir pisos ou recalibrar outros parametros.",
+    "Verificar valor -> medicao -> versao AP-003 e consumo deterministico; perfil ausente/invalido => DENY, sem implementar enforcement funcional.",
+    "make verify antes do handoff; revisao tecnica e QA/Reviewer independentes no mesmo candidato."
+  ],
+  "evidence": [
+    "evidence/security/throttling-calibration/",
+    "Comandos/script versionado, hardware minimo e ambiente, entradas/configuracoes candidatas, resultados brutos, digests, analise de brute force/DoS e limitacoes.",
+    "Manifest de promocao valor -> evidencia -> versao AP-003; revisao tecnica do Arquiteto e QA/Reviewer independentes no mesmo candidato."
+  ],
+  "dependencies": [
+    "STORY-0036"
+  ],
+  "stop_conditions": [
+    "Hardware minimo, pisos, carga/threat model ou autoridade aplicavel ausentes: registrar insumo faltante sem inventa-lo.",
+    "Valor sem calibracao reproduzivel ou necessidade de reduzir pisos, permitir enumeracao ou contornar autorizacao/CSRF.",
+    "Acoplamento normativo inevitavel a outro parametro de BP-003 nao demonstrado: retornar ao owner antes de ampliar slice.",
+    "Semantica exige alterar contrato compartilhado ou decisao material: retornar ao owner.",
+    "Colisao de paths ou necessidade de codigo de producao, migrations ou infraestrutura permanente.",
+    "Revisoes independentes ausentes para o candidato: nao promover/integrar perfil nem liberar consumers."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0873-01",
+    "AC-ISSUE-0873-02",
+    "AC-ISSUE-0873-03",
+    "AC-ISSUE-0873-04"
+  ],
+  "governing_adrs": [
+    "ADR-006",
+    "ADR-007",
+    "ADR-008",
+    "ADR-028",
+    "ADR-031",
+    "ADR-034"
+  ],
+  "requirement_basis": "DIRECT_REQUIREMENT",
+  "requirements_review_status": "BLOCKED",
+  "bounded_context": "BC-002",
+  "context_map_dependencies": [],
+  "domain_model_impact": "NONE",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 1,
+      "items": [
+        "STORY-0036"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
+        "docs/03-engineering/application-profiles/AP-003-web-security-runtime-profile.md",
+        "tests/security/throttling_calibration/**",
+        "evidence/security/throttling-calibration/**",
+        ".codex/tasks/TASK-0769.json"
+      ],
+      "deny_paths": [
+        "src/**",
+        "infra/**",
+        ".github/**",
+        "contracts/**",
+        "**/migrations/**",
+        ".codex/tasks/TASK-0712.json",
+        ".codex/tasks/TASK-0040.json",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/**",
+        "evidence/reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "Reexecutar comando/script focado de calibracao, conferir ambiente, entradas/configuracoes, digests e registrar variacao das medicoes.",
+        "Threat tests de brute force e carga legitima/abusiva; medir CPU/memoria e concorrencia no recorte de throttling sem reduzir pisos ou recalibrar outros parametros.",
+        "Verificar valor -> medicao -> versao AP-003 e consumo deterministico; perfil ausente/invalido => DENY, sem implementar enforcement funcional.",
+        "make verify antes do handoff; revisao tecnica e QA/Reviewer independentes no mesmo candidato."
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "PASS",
+      "kinds": [
+        "calibration evidence",
+        "versioned quantitative profile"
+      ],
+      "evidence": [
+        "evidence/security/throttling-calibration/",
+        "Comandos/script versionado, hardware minimo e ambiente, entradas/configuracoes candidatas, resultados brutos, digests, analise de brute force/DoS e limitacoes.",
+        "Manifest de promocao valor -> evidencia -> versao AP-003; revisao tecnica do Arquiteto e QA/Reviewer independentes no mesmo candidato."
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 4,
+      "ids": [
+        "AC-ISSUE-0873-01",
+        "AC-ISSUE-0873-02",
+        "AC-ISSUE-0873-03",
+        "AC-ISSUE-0873-04"
+      ]
+    },
+    "review": {
+      "status": "BLOCKED",
+      "required_roles": [
+        "Arquiteto",
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "CRITICAL",
+    "applicable_controls": [
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-006",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-005",
+      "CTO-007",
+      "CTO-008",
+      "CTO-009",
+      "CTO-010",
+      "CTO-011",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "evidence/security/throttling-calibration/",
+      "Comandos/script versionado, hardware minimo e ambiente, entradas/configuracoes candidatas, resultados brutos, digests, analise de brute force/DoS e limitacoes.",
+      "Manifest de promocao valor -> evidencia -> versao AP-003; revisao tecnica do Arquiteto e QA/Reviewer independentes no mesmo candidato."
+    ],
+    "production_gate": "BENCHMARK_AND_OPERATIONS_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

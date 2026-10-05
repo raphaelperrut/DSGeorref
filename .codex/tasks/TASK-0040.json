@@ -63,7 +63,8 @@
     "commit candidato e relatório de testes"
   ],
   "dependencies": [
-    "STORY-0039"
+    "STORY-0039",
+    "STORY-0712"
   ],
   "stop_conditions": [
     "Decisão material de produto ou arquitetura não resolvida.",
@@ -102,9 +103,10 @@
     "status": "PASS",
     "dependencies": {
       "status": "PASS",
-      "count": 1,
+      "count": 2,
       "items": [
-        "STORY-0039"
+        "STORY-0039",
+        "STORY-0712"
       ]
     },
     "files": {
