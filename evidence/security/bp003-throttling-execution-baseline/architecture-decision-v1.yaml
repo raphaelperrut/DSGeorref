@@ -1,0 +1,112 @@
+decision_id: TASK-0770-BP-003-execution-baseline-v1
+story_id: STORY-0767
+issue_id: ISSUE-0874
+author_role: ROLE-002-arquiteto
+base_sha: aba94afbadc0a73af09fae5f950192b09bae793e
+state: PENDING_INDEPENDENT_REVIEW
+benchmark_executed: false
+runtime_throttling_values_defined: false
+normative_inputs:
+  - AGENTS.md
+  - evidence/AGENTS.md
+  - docs/00-governance/START_HERE.md
+  - .codex/roles/ROLE-002-arquiteto.md
+  - .codex/tasks/TASK-0770.json
+  - docs/06-delivery/stories/STORY-0767-ISSUE-0874-definir-e-aprovar-baseline-de-execucao-bp-003-throttling.md
+  - docs/00-governance/ROLE_AUTHORITY_MATRIX.md
+  - docs/00-governance/OWNER_DECISION_GATE.md
+  - docs/00-governance/DEFINITION_OF_READY.md
+  - docs/04-quality/RELEASE_GATES.md
+  - docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md
+  - docs/03-engineering/TECHNOLOGY_BASELINE.yaml
+  - docs/05-operations/CAPACITY_AND_SCALING.md
+  - docs/03-engineering/application-profiles/AP-003-web-security-runtime-profile.md
+  - docs/04-quality/THREAT_MODEL.md
+  - docs/01-product/requirements/REQ-AUTH-IMPL-007-throttling-possui-estado-e-evidencia-observavel.md
+  - docs/02-architecture/adrs/ADR-028-contas-locais-sessoes-server-side-e-argon2id.md
+  - docs/02-architecture/adrs/ADR-031-csrf-cors-security-headers-e-protecao-web.md
+  - contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.json#policies.throttling
+value_authority_rationale:
+  hardware.classification:
+    value: reference_benchmark; no minimum_supported claim
+    authority: TASK-0770 / STORY-0767; CAPACITY_AND_SCALING classes of test
+    rationale: Resolves reversible experimental sizing; BP-003 minimum-supported production gate remains open.
+  hardware.cpu:
+    value: x86_64 AMD EPYC 7313P; 4 physical cores; nominal 3000 MHz; no boost/SMT; 2 API + 2 PostgreSQL
+    authority: ROLE-002 technical choice delegated by TASK-0770, not a measured capacity fact
+    rationale: One explicit CPU model eliminates model selection; isolates password CPU from authoritative state updates.
+  hardware.ram:
+    value: 16 GiB host; API 4 GiB; PostgreSQL 8 GiB; OS/measurement 4 GiB; no swap
+    authority: TASK-0770 reversible reference sizing; TECHNOLOGY_BASELINE quotas evidence-bound
+    rationale: Bounded CPU-only experiment with separate database allocation and explicit memory headroom; no support claim.
+  hardware.storage:
+    value: Dedicated local NVMe/ext4; 100 GiB free; durable WAL/fsync; no shared I/O
+    authority: CAPACITY_AND_SCALING local filesystem authority and NVMe test classes; frozen PostgreSQL authority
+    rationale: Isolate persistent throttle/audit write pressure; free space is experiment admission, not product minimum.
+  hardware.gpu_runtime:
+    value: GPU not required; Linux/cgroup v2; signed OCI/Compose; CPython 3.12.13; PostgreSQL 18.x
+    authority: CAPACITY_AND_SCALING CPU-only; TECHNOLOGY_BASELINE pinning/deployment
+    rationale: Exact build/OS/device pins are execution fingerprints; no dependency or security profile changes.
+  workload.operations:
+    value: post_auth_session only, existing POST /auth/session, 202 and rate_limited mapping
+    authority: Frozen EPIC-008 throttling guard and TASK-0770 bounded authentication workload
+    rationale: Password guessing exercises local session authentication; other operations require separate evidence, not invented coverage.
+  workload.fixtures:
+    value: 16 legitimate + 8 attacked + 3 probe accounts; 8 missing identities; 16 legitimate/32 abusive origins
+    authority: TASK-0770 architect-defined experimental cardinality
+    rationale: Isolated legitimate controls, matched existence pairs and three pre-existing throttle states; synthetic data only.
+  workload.rates:
+    value: 2 legitimate rps; 40 repeated rps; 160 brute-force rps; max in-flight 8 + 512
+    authority: TASK-0770 architect-defined load; THREAT_MODEL CPU/resource abuse; BP-003 brute-force/DoS question
+    rationale: Twenty- and eighty-fold offered abuse relative to control; finite four-fold escalation tests persistence and resource pressure.
+  workload.schedule:
+    value: Warmup 60 s; baseline 120 s; repeated 300 s; distributed 300 s; recovery 120 s; 1 s samples/60 s windows; 3 repetitions
+    authority: TASK-0770 reproducibility and observation design
+    rationale: Warm caches before baseline; two control windows, five windows per attack, two recovery windows; independent repeatability check.
+  workload.transport:
+    value: Timeout 2000 ms; p99 scheduling lag <= 10 ms; all scheduled requests dispatched
+    authority: TASK-0770 experimental scheduling/concurrency
+    rationale: 512 attacker slots exceed 160 rps * 2 s timeout; generator saturation cannot masquerade as suppression.
+  workload.security:
+    value: Zero bypass/invalid successes/leaks; authoritative state + restart preservation; <=10 percent verifier calls in last attack window
+    authority: Frozen throttling section; REQ-AUTH-IMPL-007; AP-003 floors; BP-003 abuse resistance
+    rationale: Require observable persistent enforcement and measurable expensive-work suppression; percentage is a candidate rejection criterion.
+  workload.enumeration:
+    value: Identical canonical errors for equal guard/state facts; paired median/p95 difference <=20 percent with >=30 samples
+    authority: AP-003 no enumeration and frozen first-failing-guard errors
+    rationale: Compare like states without remapping account_locked; timing tolerance is an experimental screen, not universal proof of absence of side channels.
+  workload.resource_dos:
+    value: CPU <=80 percent/60 s; memory API<=3 GiB/DB<=7 GiB/sum<=10 GiB; success>=99 percent/window; p95<=1000 ms and <=2x baseline
+    authority: TASK-0770 reversible acceptance design; BP-003 absence of CPU/memory operational DoS
+    rationale: Retain 20 percent CPU and 25/12.5 percent API/DB memory headroom; reject loss of isolated legitimate service and non-recovery; no product SLO.
+  workload.fault_probes:
+    value: Six state/restart probes, three authority-unavailable probes; 30 s restart deadline; 2000 ms request timeout
+    authority: Frozen throttling restart/authority fail-closed semantics
+    rationale: Observe persisted states and absence of fallback, after performance timeline; no benchmark is run in TASK-0770.
+owner_decision_gate:
+  state: NOT_APPLICABLE
+  condition_1: Alternative sizing choices exist.
+  condition_2: No public promise, scope, trust boundary, topology, data ownership or product acceptance semantics changed.
+  condition_3: Experiment sizing and workload are reversible/versioned.
+  condition_4: TASK-0770 explicitly assigns these experimental choices to the architect.
+  conclusion: All four gate conditions are not met; no Owner or additional CTO gate invented.
+approvals:
+  independent_architectural_review: PENDING; authorship is not approval
+  qa_documentary_reproduction: PENDING; author structural checks are not QA approval
+  reviewer_scope_traceability: PENDING; author scope checks are not final review
+  tech_lead_consumer_release: PENDING
+handoff:
+  consumer: TASK-0769 / Security
+  hardware: docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml@1.0.0
+  workload: docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml@1.0.0
+  digest_record: execution-artifact-manifest-v1.json
+  ready: false
+  activation: Independent approval of both exact digests, required QA/Reviewer evidence on same integrated candidate and Tech Lead release.
+  permitted_next_work: After activation, execute fixed experiment and select/calibrate throttling candidates under TASK-0769; no hardware/load/acceptance replanning.
+  blocked_now: No approval or integrated handoff; cannot consume draft profiles as approved defaults.
+  rollback: Rejection/change invalidates handoff; retain evidence and issue a newly versioned/reviewed pair, never silent replacement.
+limitations:
+  - Working tree already contained separate task materialization and unrelated tracked changes; none are adopted, reverted or committed by this decision.
+  - Signed runtime/approved non-throttling security inputs must be present at execution; this task does not attest their availability.
+  - Focused author structural checks only; global make verify omitted per explicit user instruction.
+  - BP-003 is not linked to approved profiles while approval is pending.
