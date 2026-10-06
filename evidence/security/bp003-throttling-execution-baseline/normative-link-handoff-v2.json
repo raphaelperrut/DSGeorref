@@ -1,0 +1,62 @@
+{
+  "task_id": "TASK-0770",
+  "story_id": "STORY-0767",
+  "issue_id": "ISSUE-0874",
+  "finding": "HIGH / AC-ISSUE-0874-05: missing formal BP-003 -> profiles link",
+  "previous_candidate_sha": "2e5b5ce79476f5961523ad622274ae63b079c007",
+  "normative_link_candidate_sha": "ae634e7354bf6464be35e8caf926ef3cac9746ae",
+  "delivery_candidate_resolution": "Commit containing this append-only handoff; normative BP-003/profile bytes must match normative_link_candidate_sha.",
+  "change_kind": "NORMATIVE_TRACEABILITY_ONLY",
+  "bp003": {
+    "path": "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
+    "file_sha256": "b4640606efb929d693694007faff37c5a75be7d12f3a93c474c99c462ae18404",
+    "references": [
+      "BP-003-throttling-hardware-reference.yaml",
+      "BP-003-throttling-threat-workload.yaml",
+      "../../03-engineering/application-profiles/AP-003-web-security-runtime-profile.md"
+    ]
+  },
+  "unchanged_approved_profiles": [
+    {
+      "path": "docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml",
+      "profile_id": "BP-003-throttling-hardware-reference",
+      "version": "1.0.0",
+      "file_sha256": "61701f6dc26b06a0c13809afff0da6e60f0535f2731fd10d1c10a006a5623a12",
+      "definition_sha256": "94b021a00de1ae785e9b19111bd6b03dfb31dd736b7662a79c33464071fb4a39"
+    },
+    {
+      "path": "docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml",
+      "profile_id": "BP-003-throttling-threat-workload",
+      "version": "1.0.0",
+      "file_sha256": "0e6f526c0afb6c5c79b5660867d91dcd2bad5669eec1fd2c5e5c6b900c33e95d",
+      "definition_sha256": "b360cb2e458a86e85029c871f3394a1b7d083577bfce235d0d0e2f7d322942a2"
+    }
+  ],
+  "prior_opinions": {
+    "approval_source": "User confirmation in this correction request: previous candidate and profiles approved.",
+    "preserved_scope": "Prior opinions remain valid for the unchanged profile content, versions, raw SHA-256 and definition SHA-256; no decisions reopened.",
+    "historical_evidence": "Existing v1 decision/manifest/handoff/checks preserved without editing.",
+    "new_diff": "Only normative traceability and this handoff; final re-review pending, no author self-approval."
+  },
+  "applicability": "reference_benchmark, not minimum_supported; post_auth_session experiment only; workload values are benchmark load/criteria, not runtime thresholds.",
+  "promotion_owner": "TASK-0769 / AP-003 after benchmark execution and independent review; no runtime promotion in this correction.",
+  "focused_checks": {
+    "references_and_paths": "PASS",
+    "profile_bytes_vs_previous_and_new_candidate": "PASS",
+    "versions_and_SHA256": "PASS",
+    "canonical_definition_digests": "PASS",
+    "cross_references": "PASS",
+    "profile_YAML_and_handoff_JSON_parse": "PASS",
+    "BP003_whitespace": "PASS",
+    "committed_diff_scope": "PASS",
+    "normative_profile_schema": "No supplied normative schema; YAML structure/digest bindings checked."
+  },
+  "re_review": {
+    "ready": true,
+    "consumer_release": "Not issued by correction author.",
+    "ac_issue_0874_05": "Missing-link correction implemented; awaits final re-review."
+  },
+  "benchmark_executed": false,
+  "runtime_values_defined": false,
+  "global_make_verify": "NOT_RUN_EXPLICIT_USER_SCOPE"
+}
