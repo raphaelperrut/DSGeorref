@@ -43,9 +43,13 @@ Repositório, governança e fundação executável.
 - Lanes Backend, Frontend, Geo, IA e Operações só executam em paralelo após freeze do contrato.
 - QA e final review permanecem independentes e sequenciais após integração.
 
+## Prerequisite operacional acrescentada
+
+STORY-0768 / ISSUE-0875 / TASK-0771: Aprovar o grafo Python do workspace para materialização determinística de uv.lock. Planned, sem implementação ou aprovação independente nesta materialização. As duas lanes novas são paralelas e TASK-0769 permanece BLOCKED. Revisões e contagens históricas abaixo não aprovam o trabalho novo.
+
 ## Backlog implementável
 
-- **Histórias:** `94`
+- **Histórias:** `95`
 - **Documento detalhado:** `docs/06-delivery/sprint-backlogs/SPRINT-001-BACKLOG.md`
 - **TaskEnvelopes:** `.codex/tasks/TASK-*.json`
 - **Grafo:** `docs/06-delivery/STORY_DEPENDENCY_GRAPH.json`

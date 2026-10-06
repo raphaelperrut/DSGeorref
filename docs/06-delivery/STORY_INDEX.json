@@ -41044,12 +41044,14 @@
       "sprint": "SPRINT-002",
       "domain": "PLT",
       "type": "Story",
-      "status": "ready",
+      "status": "blocked",
       "role": "Security",
       "title": "Calibrar e promover o perfil quantitativo de throttling",
       "dependencies": [
         "STORY-0036",
-        "STORY-0767"
+        "STORY-0767",
+        "STORY-0768",
+        "STORY-0769"
       ],
       "requirements": [
         "REQ-AUTH-IMPL-007"
@@ -41069,7 +41071,7 @@
         "AC-ISSUE-0873-03",
         "AC-ISSUE-0873-04"
       ],
-      "rr_status": "PASS",
+      "rr_status": "BLOCKED",
       "file": "STORY-0762-ISSUE-0873-calibrar-e-promover-perfil-quantitativo-de-throttling.md",
       "allow_paths": [
         "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
@@ -41171,6 +41173,154 @@
         "QA verifica reprodução documental da sequência de carga e que nenhuma escolha de planejamento necessária reste para TASK-0769; conferir versões e SHA-256.",
         "Reviewer verifica diff limitado, ausência de parâmetros finais de enforcement, aprovações atribuíveis e handoff no mesmo candidato; aprovação arquitetural independente da autoria.",
         "Validar TaskEnvelope pelo JSON Schema, índices, identidade sem colisão e DAG/dependencies; executar make verify antes do handoff e registrar limitações ambientais sem investigar EPERM/ruff."
+      ]
+    },
+    {
+      "story_id": "STORY-0768",
+      "issue_id": "ISSUE-0875",
+      "task_id": "TASK-0771",
+      "epic_id": "EPIC-001",
+      "sprint": "SPRINT-001",
+      "domain": "FND",
+      "type": "Story",
+      "status": "planned",
+      "role": "Arquiteto",
+      "title": "Aprovar o grafo Python do workspace para materialização determinística de uv.lock",
+      "dependencies": [],
+      "requirements": [
+        "REQ-TOOL-002"
+      ],
+      "governing_adrs": [
+        "ADR-001",
+        "ADR-006",
+        "ADR-007",
+        "ADR-008",
+        "ADR-009",
+        "ADR-033"
+      ],
+      "requirement_basis": "DIRECT_REQUIREMENT",
+      "criterion_ids": [
+        "AC-ISSUE-0875-01",
+        "AC-ISSUE-0875-02",
+        "AC-ISSUE-0875-03",
+        "AC-ISSUE-0875-04",
+        "AC-ISSUE-0875-05"
+      ],
+      "rr_status": "BLOCKED",
+      "file": "STORY-0768-ISSUE-0875-aprovar-grafo-python-workspace-para-uv-lock.md",
+      "allow_paths": [
+        "docs/02-architecture/design-reviews/python-workspace-dependency-graph/approved-dependency-graph.yaml",
+        "docs/02-architecture/design-reviews/python-workspace-dependency-graph/constraints.txt",
+        "docs/02-architecture/design-reviews/python-workspace-dependency-graph/rationale.md",
+        "docs/02-architecture/design-reviews/python-workspace-dependency-graph/devops-handoff.md",
+        "evidence/architecture/python-workspace-dependency-graph/**"
+      ],
+      "deny_paths": [
+        "src/**",
+        "pyproject.toml",
+        "uv.lock",
+        "requirements-validation.txt",
+        "infra/images/**",
+        ".github/**",
+        "contracts/**",
+        "tests/**",
+        "tools/**",
+        "**/migrations/**",
+        "docs/04-quality/benchmark-profiles/**",
+        "docs/03-engineering/application-profiles/AP-003-web-security-runtime-profile.md",
+        ".codex/tasks/TASK-0769.json",
+        ".codex/tasks/TASK-0712.json",
+        ".codex/tasks/TASK-0040.json",
+        "infra/**",
+        "evidence/operations/bp003-throttling-venue/**"
+      ],
+      "acceptance_criteria": [
+        "Inventário versionado e rastreável somente das dependências Python realmente requeridas pelo backend/workspace atual, com origem em imports/manifests/uso, classificação runtime/validação e fronteiras de workspace; reconciliar dependencies=[] e inventários parciais sem adições por oportunidade.",
+        "Grafo direto e pins/constraints necessários aprovados por autoridade técnica independente da autoria; divergências de versão, inclusive psycopg, resolvidas com rationale de compatibilidade/ABI e fontes, sem alterar stack nativa ou fazer upgrades dispensáveis.",
+        "Política de resolução transitiva aprovada fixa escopo, Python/plataforma, fontes, versão/digest do resolver, markers/extras e constraints ou snapshot/fechamento suficiente para reprodução; nenhuma escolha transitiva ad hoc ou dependência sem autoridade pode restar para DevOps.",
+        "Fonte approved-dependency-graph.yaml e constraints versionadas, digests e candidate SHA vinculados a aprovação arquitetural independente, validação QA e final review; ausência de aprovação ou ambiguidade de fechamento mantém TASK-0769 bloqueada.",
+        "Handoff exato para DevOps identifica fontes, versões/SHA-256, transformações para pyproject/workspace, procedimento determinístico de lock/frozen install, validações e scope compartilhado que Tech Lead deverá autorizar e serializar; não gera uv.lock, não modifica pyproject, produto, stack nativa ou semântica BP-003 nesta tarefa."
+      ],
+      "tests": [
+        "Conferir rastreabilidade imports/uso -> inventário -> grafo direto -> pins/constraints, excluindo dependências não requeridas e distinguindo runtime/tooling/native.",
+        "Conferir fundamento de cada divergência e coerência Python/plataforma/ABI; demonstrar documentalmente que a política transitiva é determinística e rejeita fontes/pins ausentes.",
+        "Verificar YAML/constraints, versionamento/SHA-256/candidate e handoff DevOps por revisão independente; não gerar lock nem instalar/atualizar dependências nesta tarefa.",
+        "Verificar diff limitado aos outputs declarados e ausência de mudanças em pyproject/uv.lock, stack nativa, código de produto e BP-003/profiles; make verify antes do handoff."
+      ]
+    },
+    {
+      "story_id": "STORY-0769",
+      "issue_id": "ISSUE-0876",
+      "task_id": "TASK-0772",
+      "epic_id": "EPIC-008",
+      "sprint": "SPRINT-002",
+      "domain": "PLT",
+      "type": "Story",
+      "status": "planned",
+      "role": "DevOps",
+      "title": "Provisionar e evidenciar o venue de referência do benchmark de throttling BP-003",
+      "dependencies": [
+        "STORY-0036",
+        "STORY-0767"
+      ],
+      "requirements": [
+        "REQ-AUTH-IMPL-007"
+      ],
+      "governing_adrs": [
+        "ADR-006",
+        "ADR-007",
+        "ADR-008",
+        "ADR-009",
+        "ADR-028",
+        "ADR-031",
+        "ADR-033",
+        "ADR-034"
+      ],
+      "requirement_basis": "DERIVED_CONTROL",
+      "criterion_ids": [
+        "AC-ISSUE-0876-01",
+        "AC-ISSUE-0876-02",
+        "AC-ISSUE-0876-03",
+        "AC-ISSUE-0876-04",
+        "AC-ISSUE-0876-05"
+      ],
+      "rr_status": "BLOCKED",
+      "file": "STORY-0769-ISSUE-0876-provisionar-venue-referencia-bp-003-throttling.md",
+      "allow_paths": [
+        "infra/benchmarks/bp003-throttling-venue/**",
+        "evidence/operations/bp003-throttling-venue/**"
+      ],
+      "deny_paths": [
+        "src/**",
+        "pyproject.toml",
+        "uv.lock",
+        "requirements-validation.txt",
+        "infra/images/**",
+        ".github/**",
+        "contracts/**",
+        "tests/**",
+        "tools/**",
+        "**/migrations/**",
+        "docs/04-quality/benchmark-profiles/**",
+        "docs/03-engineering/application-profiles/AP-003-web-security-runtime-profile.md",
+        ".codex/tasks/TASK-0769.json",
+        ".codex/tasks/TASK-0712.json",
+        ".codex/tasks/TASK-0040.json",
+        "docs/02-architecture/design-reviews/python-workspace-dependency-graph/**",
+        "evidence/architecture/python-workspace-dependency-graph/**"
+      ],
+      "acceptance_criteria": [
+        "Venue real identificado, acesso operacional e autorização de uso registrados sem secrets, host Linux conforme o profile 1.0.0 aprovado no SHA 4b634381328bd969679abe48ee6936aaf8fe4319; nenhum hardware equivalente ou claim minimum_supported.",
+        "Evidências objetivas completas do profile: AMD EPYC 7313P x86_64, quatro cores físicos dedicados, threads/SMT/boost/clocks/afinidade/NUMA conforme spec, 16 GiB e limites/reservas cgroup, sem swap/overcommit; configuração observada corresponde aos requisitos, sem valores presumidos.",
+        "NVMe local dedicado, ext4, espaço livre, WAL/data, fsync/commits duráveis e ausência de contenção/quota conforme profile; manifest registra identidade/settings/I/O e comprovantes atribuíveis ao venue.",
+        "PostgreSQL/backend executáveis por artifacts imutáveis existentes e bindings aprovados, Python 3.12.13, OCI assinado/Compose/cgroup v2, processo/CPU/RAM/isolamento e TLS/provenance conforme profile; gerador em host separado e condições reproduzíveis para três repetições, sem executar a carga BP-003.",
+        "Provisioning/reproduction instructions, hardware/runtime manifest e checks de startup/readiness sem benchmark possuem comandos, resultados reais, versões/digests e candidate SHA; revisão técnica Arquiteto, QA e Reviewer independentes no mesmo candidato validam correspondência integral e handoff exato para Security/TASK-0769. Evidência parcial não conclui a prerequisite."
+      ],
+      "tests": [
+        "Conferir venue manifest campo a campo contra o hardware profile aprovado, distinguindo requisitos de observações e comprovando CPU/SMT/boost/NUMA/cgroups/RAM/NVMe/ext4/durabilidade.",
+        "Reproduzir provisionamento/readiness com target autorizado, registrar comandos/saídas reais e digests, isolamento e rollback; nenhum traffic loop, fase ou medição de BP-003.",
+        "Validar startup/conectividade/durabilidade do PostgreSQL/backend e gerador separado usando bindings aprovados; falta de runtime/lock/perfil/assinatura é BLOCKED, sem fallback.",
+        "Arquiteto/QA/Reviewer independentes validam o mesmo candidate SHA e handoff; conferir diff sem código de produto, alteração de profiles ou políticas runtime; make verify antes do handoff."
       ]
     }
   ]

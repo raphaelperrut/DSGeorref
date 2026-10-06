@@ -33,7 +33,9 @@
     "docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml",
     "docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml",
     "evidence/security/bp003-throttling-execution-baseline/normative-link-handoff-v2.json",
-    "evidence/security/throttling-calibration/readiness-reconciliation-v1.json"
+    "evidence/security/throttling-calibration/readiness-reconciliation-v1.json",
+    "docs/06-delivery/stories/STORY-0768-ISSUE-0875-aprovar-grafo-python-workspace-para-uv-lock.md",
+    "docs/06-delivery/stories/STORY-0769-ISSUE-0876-provisionar-venue-referencia-bp-003-throttling.md"
   ],
   "allow_paths": [
     "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
@@ -72,7 +74,9 @@
   ],
   "dependencies": [
     "STORY-0036",
-    "STORY-0767"
+    "STORY-0767",
+    "STORY-0768",
+    "STORY-0769"
   ],
   "stop_conditions": [
     "Perfis de hardware/workload aprovados em 4b634381328bd969679abe48ee6936aaf8fe4319 ausentes, inválidos ou inaplicáveis; pisos/runtime/observáveis exigidos pelos perfis ausentes: parar sem defaults ou extrapolação a minimum_supported.",
@@ -97,7 +101,7 @@
     "ADR-034"
   ],
   "requirement_basis": "DIRECT_REQUIREMENT",
-  "requirements_review_status": "PASS",
+  "requirements_review_status": "BLOCKED",
   "bounded_context": "BC-002",
   "context_map_dependencies": [],
   "domain_model_impact": "NONE",
@@ -113,11 +117,13 @@
   "phase_f_review": {
     "status": "PASS",
     "dependencies": {
-      "status": "PASS",
-      "count": 2,
+      "status": "BLOCKED",
+      "count": 4,
       "items": [
         "STORY-0036",
-        "STORY-0767"
+        "STORY-0767",
+        "STORY-0768",
+        "STORY-0769"
       ]
     },
     "files": {

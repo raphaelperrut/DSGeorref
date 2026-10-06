@@ -8394,6 +8394,28 @@
       "role": "Arquiteto",
       "title": "Definir e aprovar o baseline de execução do BP-003 para throttling",
       "file": "docs/06-delivery/stories/STORY-0767-ISSUE-0874-definir-e-aprovar-baseline-de-execucao-bp-003-throttling.md"
+    },
+    {
+      "id": "STORY-0768",
+      "issue_id": "ISSUE-0875",
+      "task_id": "TASK-0771",
+      "epic_id": "EPIC-001",
+      "sprint": "SPRINT-001",
+      "domain": "FND",
+      "role": "Arquiteto",
+      "title": "Aprovar o grafo Python do workspace para materialização determinística de uv.lock",
+      "file": "docs/06-delivery/stories/STORY-0768-ISSUE-0875-aprovar-grafo-python-workspace-para-uv-lock.md"
+    },
+    {
+      "id": "STORY-0769",
+      "issue_id": "ISSUE-0876",
+      "task_id": "TASK-0772",
+      "epic_id": "EPIC-008",
+      "sprint": "SPRINT-002",
+      "domain": "PLT",
+      "role": "DevOps",
+      "title": "Provisionar e evidenciar o venue de referência do benchmark de throttling BP-003",
+      "file": "docs/06-delivery/stories/STORY-0769-ISSUE-0876-provisionar-venue-referencia-bp-003-throttling.md"
     }
   ],
   "edges": [
@@ -14269,6 +14291,26 @@
     },
     {
       "from": "STORY-0767",
+      "to": "STORY-0762",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0768",
+      "to": "STORY-0762",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0036",
+      "to": "STORY-0769",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0767",
+      "to": "STORY-0769",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0769",
       "to": "STORY-0762",
       "relation": "blocks"
     }

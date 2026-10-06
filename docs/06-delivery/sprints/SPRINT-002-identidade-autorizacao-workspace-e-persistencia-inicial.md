@@ -39,9 +39,13 @@ Identidade, autorização, workspace e persistência inicial.
 - Lanes Backend, Frontend, Geo, IA e Operações só executam em paralelo após freeze do contrato.
 - QA e final review permanecem independentes e sequenciais após integração.
 
+## Prerequisite operacional acrescentada
+
+STORY-0769 / ISSUE-0876 / TASK-0772: Provisionar e evidenciar o venue de referência do benchmark de throttling BP-003. Planned, sem implementação ou aprovação independente nesta materialização. As duas lanes novas são paralelas e TASK-0769 permanece BLOCKED. Revisões e contagens históricas abaixo não aprovam o trabalho novo.
+
 ## Backlog implementável
 
-- **Histórias:** `57`
+- **Histórias:** `58`
 - **Documento detalhado:** `docs/06-delivery/sprint-backlogs/SPRINT-002-BACKLOG.md`
 - **TaskEnvelopes:** `.codex/tasks/TASK-*.json`
 - **Grafo:** `docs/06-delivery/STORY_DEPENDENCY_GRAPH.json`
@@ -49,8 +53,8 @@ Identidade, autorização, workspace e persistência inicial.
 STORY-0767 / ISSUE-0874 / TASK-0770 acrescenta uma única prerequisite de decisão
 (hardware + workload) antes da calibração STORY-0762 / ISSUE-0873 / TASK-0769.
 STORY-0767 está Done, aprovada no SHA 4b634381328bd969679abe48ee6936aaf8fe4319.
-TASK-0769 está Ready para o benchmark reference_benchmark após integração
-administrativa; ISSUE-0873 permanece aberta e sua calibração ainda não ocorreu. As
+TASK-0769 está BLOCKED por grafo/lock Python e venue, com prerequisites
+paralelas STORY-0768 e STORY-0769; ISSUE-0873 permanece aberta e sua calibração ainda não ocorreu. As
 contagens e aprovações históricas abaixo cobrem as 55 histórias anteriores e não
 aprovam estas prerequisites. ISSUE-0822 e ISSUE-0150 permanecem bloqueadas.
 

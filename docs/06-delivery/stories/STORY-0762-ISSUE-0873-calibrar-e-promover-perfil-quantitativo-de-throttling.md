@@ -1,7 +1,7 @@
 # STORY-0762 / ISSUE-0873 — Calibrar e promover o perfil quantitativo de throttling
 
 - **Tipo:** `História implementável — prerequisite técnica`
-- **Estado:** `Ready` — somente execução do benchmark de referência; ISSUE-0873 permanece aberta
+- **Estado:** `Blocked` — grafo Python/uv.lock e venue pendentes; ISSUE-0873 permanece aberta
 - **Épico pai:** `EPIC-008`
 - **Sprint:** `SPRINT-002`
 - **Domínio:** `PLT`
@@ -73,13 +73,13 @@ com unidades, limites de validade e rastreabilidade, sem nova autoridade.
 
 ## Dependências
 
-`STORY-0036`, `STORY-0767`
+`STORY-0036`, `STORY-0767`, `STORY-0768`, `STORY-0769`
 
 STORY-0767 / ISSUE-0874 / TASK-0770 está satisfeita no baseline aprovado
 `4b634381328bd969679abe48ee6936aaf8fe4319`, que contém os dois perfis 1.0.0 e
 o vínculo formal em BP-003. Aprovações independentes architecture/QA/final
 re-review PASS e ausência de decisões materiais foram confirmadas pelo usuário.
-TASK-0769 deixa de estar bloqueada por hardware/workload. Security/ROLE-010
+TASK-0769 não tem decisão aberta nos perfis hardware/workload, mas está bloqueada operacionalmente por grafo/lock e venue. Security/ROLE-010
 permanece executor; os predecessores são preservados como rastreabilidade.
 
 Consumir os arquivos imutáveis e seus digests a partir desse SHA:
@@ -95,6 +95,8 @@ aprovações posteriores confirmadas, sem repetir QA/review. O gate de produçã
 em hardware mínimo suportado continua fora da prontidão deste experimento.
 
 ## Relação de desbloqueio
+
+STORY-0768 / ISSUE-0875 / TASK-0771 decide o grafo Python e o handoff para DevOps materializar uv.lock com scope autorizado. STORY-0769 / ISSUE-0876 / TASK-0772 provisiona e evidencia o venue exato. As duas prerequisites são paralelas, sem aresta entre si; STORY-0239 não é predecessor. TASK-0769 permanece BLOCKED até ambos os handoffs aprovados, uv.lock efetivamente materializado e preflight de runtime/venue conforme os perfis. A aprovação de ISSUE-0874 permanece válida, mas não atesta disponibilidade operacional.
 
 `STORY-0767 / ISSUE-0874 / TASK-0770` blocks
 `STORY-0762 / ISSUE-0873 / TASK-0769` blocks
@@ -158,7 +160,7 @@ STORY-0712, não escolha valores arbitrários e não aprove seu próprio trabalh
 
 ## Gates de planejamento e revisão
 
-Estado Ready para o experimento de referência, após integração administrativa
+Estado Blocked por prerequisites operacionais; a prontidão anteriormente registrada se limitava ao planejamento do experimento. Após resolver os blockers e integração administrativa
 do envelope/índices no consumer base; hardware/workload e suas aprovações estão
 satisfeitos. Security deve conferir runtime, locks, pisos e observáveis fixados
 pelos perfis antes de medir, sem escolher outro baseline. Arquiteto valida a
