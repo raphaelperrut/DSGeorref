@@ -1,0 +1,43 @@
+task_id: TASK-0770
+consumer_task_id: TASK-0769
+base_sha: aba94afbadc0a73af09fae5f950192b09bae793e
+artifact_candidate_sha: 5ab36b5d58a98203be4cb1d8bcd0290005bbb4e2
+state: PENDING_INDEPENDENT_REVIEW
+hardware:
+  path: docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml
+  version: '1.0.0'
+  classification: reference_benchmark
+  file_sha256: 61701f6dc26b06a0c13809afff0da6e60f0535f2731fd10d1c10a006a5623a12
+  definition_sha256: 94b021a00de1ae785e9b19111bd6b03dfb31dd736b7662a79c33464071fb4a39
+workload:
+  path: docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml
+  version: '1.0.0'
+  file_sha256: 0e6f526c0afb6c5c79b5660867d91dcd2bad5669eec1fd2c5e5c6b900c33e95d
+  definition_sha256: b360cb2e458a86e85029c871f3394a1b7d083577bfce235d0d0e2f7d322942a2
+file_digest_rule: Raw UTF-8/LF bytes; reject silent CRLF conversion, use immutable candidate blobs if checkout changes line endings.
+applicability: Single-host local-session/password throttling experiment; no minimum-supported/product/production readiness claim.
+approval_evidence:
+  independent_architectural_review: ABSENT
+  qa_documentary_reproduction: ABSENT
+  reviewer_scope_traceability: ABSENT
+  independent_delegation: Explicit authorization requested in session; no approval or consent inferred from silence.
+  owner_decision_gate: NOT_APPLICABLE; reversible experimental sizing/load only
+  author_checks: focused-structural-checks-v1.json; 18 checks PASS; not independent approval
+  candidate_whitespace_check: git diff --cached --check PASS before artifact candidate commit
+integration:
+  candidate_artifacts_committed: true
+  task_story_materialization_integrated: false
+  note: TASK-0770 and STORY-0767 were untracked on entry and remain outside this task's write scope.
+  consumer_release: NOT_AUTHORIZED
+  tech_lead_readiness: PENDING
+task_0769_ready: false
+exact_next_handoff:
+  - Independently review both file/definition digests and the rationale against the recorded normative input digests on the same candidate.
+  - Obtain required documentary QA and scope/traceability Reviewer evidence; authorship cannot satisfy any independent gate.
+  - Integrate authorized task/story materialization and the approved pair; Tech Lead reconciles readiness before releasing TASK-0769.
+  - Only after release, Security binds locked runtime/existing security profiles, then executes the fixed three-repetition workload and calibrates throttling candidates.
+  - TASK-0769 must not select a different hardware class, workload, duration, cardinality or acceptance rule without a newly reviewed profile version.
+rollback: Rejection or spec changes invalidate this handoff; preserve candidate evidence and version the replacement; no fallback to local hardware/defaults.
+global_make_verify: NOT_RUN; explicit user instruction limits this decision to focused structural checks.
+benchmark_executed: false
+runtime_throttling_values_defined: false
