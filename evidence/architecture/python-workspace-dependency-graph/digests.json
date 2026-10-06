@@ -1,0 +1,286 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_version": "1.0.0",
+  "algorithm": "SHA-256",
+  "encoding": "UTF-8",
+  "newlines": "LF",
+  "base_sha": "926a6a8c9a69a838b165cca9df6c4ebb9c03c8d6",
+  "candidate_binding": "Commit containing these blobs; manifest excluded from own hashes to avoid circularity",
+  "files": [
+    {
+      "path": "docs/02-architecture/design-reviews/python-workspace-dependency-graph/approved-dependency-graph.yaml",
+      "bytes": 36949,
+      "sha256": "3a935da374f08cd79c4707577d699120c1fcf5fa31614ff978226e20661d756f"
+    },
+    {
+      "path": "docs/02-architecture/design-reviews/python-workspace-dependency-graph/constraints.txt",
+      "bytes": 705,
+      "sha256": "388cbb2efb5305cb7a1ea46c4e6cf5a139feb5d48bf518c720c6b5d52ac4c07d"
+    },
+    {
+      "path": "docs/02-architecture/design-reviews/python-workspace-dependency-graph/devops-handoff.md",
+      "bytes": 9864,
+      "sha256": "dd99435bc338851222412b54836f3ea0052445e9681a8391e741cd1eeb41e9d9"
+    },
+    {
+      "path": "docs/02-architecture/design-reviews/python-workspace-dependency-graph/rationale.md",
+      "bytes": 9294,
+      "sha256": "a369b91e2dcd9201ad302490d795e0a161accac3c2792044cec19fc35bd3514b"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/capture-resolution-inputs.py",
+      "bytes": 9066,
+      "sha256": "baa6ec79bb0858202556f09583a54108c9caf42bc2bc6801ec8d4806f8867439"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/check-structure.py",
+      "bytes": 8205,
+      "sha256": "943ad0e47daac236b7511333984052fa345327196fbe4baf818d4b9d8d25c2f7"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/pyproject-additions.toml",
+      "bytes": 1148,
+      "sha256": "038d1f10bfc4f6b87de2db2ae9ab7b8c9ce591a2e8fbbbebcb8dbe5a100a9b96"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/pyproject-proposed.toml",
+      "bytes": 1933,
+      "sha256": "5d1331e4619dad2a470856e47cb45bebbb5261cf32440cc6e2cc67f2da63f0ae"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json",
+      "bytes": 99484,
+      "sha256": "9d2718f7d3d3838a2d0297003ca84289e4d1ac8a957c9cb2c3a12b30b4fc3326"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/resolver-config.toml",
+      "bytes": 15999,
+      "sha256": "358e81fdb92588d25cfcaaf14beb7b5c76db6c3089544cfa1c36307b5a7336d6"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/alembic/index.html",
+      "bytes": 338,
+      "sha256": "2efcfcb4208de5db2621640bb239a8d510bbb13c4d6fdb04a20afeffcff35f4f"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/amqp/index.html",
+      "bytes": 330,
+      "sha256": "446d593057134639863ce4250cc9459065b4ae26a46324d7b713c3cd110cdc10"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/ast-serialize/index.html",
+      "bytes": 429,
+      "sha256": "416466f000c917c4452d626112d94ed0c1613c477fac553aff7576e5abe43e13"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/attrs/index.html",
+      "bytes": 333,
+      "sha256": "8ece8037a8baec472224063b7ffee29d390dc9b55ff19c16067d10f1862a0482"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/billiard/index.html",
+      "bytes": 338,
+      "sha256": "82c9da21789b76f46d71bff917e58d12c0c0e739bed108a2360214710d488641"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/celery/index.html",
+      "bytes": 333,
+      "sha256": "3c9ff3cb1bec2610c31e04f12f1ac4ab8fe21975112e10ec7e59702b54ddbff1"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/cffi/index.html",
+      "bytes": 414,
+      "sha256": "d1c6551e5393800bd0386486ed075d5e0897575c2909d32f5f515d9cbe0bbfb5"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/click/index.html",
+      "bytes": 332,
+      "sha256": "55b8199032ef9befefa80a2c8191d71b2bbb172a5e0b04314ba6dcc3dba868dd"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/click-didyoumean/index.html",
+      "bytes": 355,
+      "sha256": "79b189427c71680a8cd925feed07c45cc60db17b9c7bdaa2a5e6a81566deb26c"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/click-plugins/index.html",
+      "bytes": 351,
+      "sha256": "209f26de1d0f57325ed7186a6e9a37da715a0615dd1ff4315fc974005e7a8d21"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/click-repl/index.html",
+      "bytes": 341,
+      "sha256": "0e770eb34735392e4c6a672bcb064ee4400624870262e6c71e4cb91852445334"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/cryptography/index.html",
+      "bytes": 1560,
+      "sha256": "07dc7ee79f8b8bfb135af9848051211174b093e4b0ac7f6535f64390ef9cf45d"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/index.html",
+      "bytes": 1693,
+      "sha256": "a8fe03f96640e8a91a67248768abd13596211fe0a30eab5866d3546183d656c2"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/iniconfig/index.html",
+      "bytes": 340,
+      "sha256": "3747c2e185bd40b7b6b425f89d3bfe5ed50c4ec5f9c6dc0259392c6d27517bb7"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/jsonschema/index.html",
+      "bytes": 344,
+      "sha256": "420b2ad5e7449fd29065a76985284e96fcf7f017be87d8b9e913ad786b5bb509"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/jsonschema-specifications/index.html",
+      "bytes": 377,
+      "sha256": "473929918d8ce60b142bb120e9600aa0ce92d325fc899cbdb25ad093a6aa358b"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/kombu/index.html",
+      "bytes": 331,
+      "sha256": "65010a73b77a13631a9962283d6ad072900e63ac054afa60d94a0f066a9780e8"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/librt/index.html",
+      "bytes": 461,
+      "sha256": "a157745b65b8b03daa8eeeccd9e1d71d78ee995eeef111f814b0f406813999c9"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/mako/index.html",
+      "bytes": 330,
+      "sha256": "20f173d1fd8d82d0438c5dbb14989cb8a941a7336b996363fc10448823180672"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/markupsafe/index.html",
+      "bytes": 469,
+      "sha256": "2a09b27886d4adfc0d3b6eea7753b07e342a9bd55cdf0199d2475d0ef623acdc"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/mypy/index.html",
+      "bytes": 744,
+      "sha256": "22e2854012ab3bd104d29f7c98d6189eaf241e229d14cdfe3405f19abe497a04"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/mypy-extensions/index.html",
+      "bytes": 351,
+      "sha256": "99be84a7d0f0a173eed83ecf2f3673f81c87389e90f900b66e8ff73d9512c251"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/packaging/index.html",
+      "bytes": 337,
+      "sha256": "b997885cabd4a79369a302ff7441195869042615ed7b61849aabcfe2dae08f0b"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/pathspec/index.html",
+      "bytes": 337,
+      "sha256": "d6f07de6d68838057f79b4ca4c60f1f9a71ef6394a29ddc0ec28c2c173076854"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/pluggy/index.html",
+      "bytes": 333,
+      "sha256": "c1e22502d12ba703ebd80118f229da77f1bbc2466eb7f44d5da1d14ca27c4c6c"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/prompt-toolkit/index.html",
+      "bytes": 352,
+      "sha256": "1a8f28d49089e3bf6846ffb5a5070165d1572b02b987d9f7cbc5c782119ac544"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/psycopg/index.html",
+      "bytes": 336,
+      "sha256": "670a6c333e2d32c6fb6660e0117631011c7dd21dae4bc0870a8fbcdb2c88ef38"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/psycopg-binary/index.html",
+      "bytes": 434,
+      "sha256": "64dc801eeb8e2cbb74f0e6c06ec69d1c0e813ded045580165c24235985967aeb"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/pycparser/index.html",
+      "bytes": 336,
+      "sha256": "c818d48c38b9cfdd585457f6c9815c76a4c2abee2e7628e7616b656520ae1923"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/pygments/index.html",
+      "bytes": 339,
+      "sha256": "9543eed7d847ceba4f7168877f733d33d41322d249f4b1835abe1f8d9fbb7043"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/pyjwt/index.html",
+      "bytes": 333,
+      "sha256": "669fd827684c866e6108465b200c1e36ef6235ef8ec59a1901e9c3798d97f02e"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/pytest/index.html",
+      "bytes": 334,
+      "sha256": "e3a8159954b9ac80373ec15e5e505e6952fbdad789595d073fb59072b2ab05c0"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/python-dateutil/index.html",
+      "bytes": 395,
+      "sha256": "83221f2cff3192199766e91f16f3f4d80ff06279cc2f4be45c7b616446720f4b"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/pyyaml/index.html",
+      "bytes": 461,
+      "sha256": "3ff5150047ff8f712af12f3da7b3a8962a2c927b262839d0e35f16e88ab15d25"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/referencing/index.html",
+      "bytes": 346,
+      "sha256": "b2e9b8511cb9a0e3b293311fbeef9852e67470ea7921d22590c7cd1f432ee4cb"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/rpds-py/index.html",
+      "bytes": 426,
+      "sha256": "6a3414e38b7b0f2181635234e9b0446991a7ded8720d55c21c166b1ff8d30bf2"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/ruff/index.html",
+      "bytes": 409,
+      "sha256": "b66c1513dd046bd9b029d81a4005171e60d8f893fdba9c02a2a4f7513d9e5393"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/six/index.html",
+      "bytes": 361,
+      "sha256": "d0517492d142370abab3a3e67b3cf59f7677cecd5555f038f3718fcbe36c973d"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/sqlalchemy/index.html",
+      "bytes": 768,
+      "sha256": "36900660abe09d7696dfa502212591861a894d1122b95f0fc3f6c4562d424041"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/typing-extensions/index.html",
+      "bytes": 357,
+      "sha256": "8dd7f876c802e72d5dd29e6e0e123b4f457002aa5450c6eff8506e39e6831bab"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/tzdata/index.html",
+      "bytes": 341,
+      "sha256": "fb83ed23e1685b63601e67086e1d6c59d8a19373994dd3cbd6ca736973c5fc19"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/tzlocal/index.html",
+      "bytes": 336,
+      "sha256": "1ceb36d0d7d51b6468168f3111f752ec520c9120b8fce65e0cdea8dfa4114ddf"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/vine/index.html",
+      "bytes": 329,
+      "sha256": "a2a21b2c2aa045a856b40556720c088b16b024c442bcceae5ba201764b786c5e"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/simple/wcwidth/index.html",
+      "bytes": 708,
+      "sha256": "d71589252ceb777e05f3f94c4dcfc2661c50ab5382c7605c6c8247d0b02391aa"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/structural-checks.json",
+      "bytes": 1852,
+      "sha256": "70014ed329f2da00b1b7357bc47585a563722e119be18efa58a22236b9f24234"
+    }
+  ]
+}

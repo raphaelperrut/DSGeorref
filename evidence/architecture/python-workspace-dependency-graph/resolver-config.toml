@@ -1,0 +1,314 @@
+required-version = "==0.12.19"
+resolution = "highest"
+prerelease = "disallow"
+index-strategy = "first-index"
+python-downloads = "never"
+python-preference = "only-system"
+no-build = true
+keyring-provider = "disabled"
+
+[[index]]
+name = "approved-python-snapshot"
+url = "file:///opt/dsgeorref-python-inputs/simple"
+default = true
+
+[[dependency-metadata]]
+name = "alembic"
+version = "1.18.4"
+requires-python = ">=3.10"
+requires-dist = ["SQLAlchemy>=1.4.23", "Mako", "typing-extensions>=4.12", "tomli; python_version < \"3.11\"", "tzdata; extra == \"tz\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "amqp"
+version = "5.4.1"
+requires-python = ">=3.10"
+requires-dist = ["vine<6.0.0,>=5.0.0"]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "ast-serialize"
+version = "0.12.1"
+requires-python = ">=3.7"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "attrs"
+version = "26.1.0"
+requires-python = ">=3.9"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "billiard"
+version = "4.3.1"
+requires-python = ">=3.10"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "celery"
+version = "5.6.3"
+requires-python = ">=3.9"
+requires-dist = ["billiard<5.0,>=4.2.1", "kombu>=5.6.0", "vine<6.0,>=5.1.0", "click<9.0,>=8.1.2", "click-didyoumean>=0.3.0", "click-repl>=0.2.0", "click-plugins>=1.1.1", "python-dateutil>=2.8.2", "exceptiongroup>=1.3.0; python_version < \"3.11\"", "tzlocal", "pyArango>=2.0.2; extra == \"arangodb\"", "cryptography==46.0.5; extra == \"auth\"", "azure-storage-blob>=12.15.0; extra == \"azureblockblob\"", "azure-identity>=1.19.0; extra == \"azureblockblob\"", "brotlipy>=0.7.0; platform_python_implementation == \"PyPy\" and extra == \"brotli\"", "brotli>=1.0.0; platform_python_implementation == \"CPython\" and extra == \"brotli\"", "cassandra-driver<4,>=3.25.0; extra == \"cassandra\"", "python-consul2==0.1.5; extra == \"consul\"", "pydocumentdb==2.3.5; extra == \"cosmosdbsql\"", "couchbase>=3.0.0; (platform_python_implementation != \"PyPy\" and (platform_system != \"Windows\" or python_version < \"3.10\")) and extra == \"couchbase\"", "pycouchdb==1.16.0; extra == \"couchdb\"", "Django>=2.2.28; extra == \"django\"", "boto3>=1.26.143; extra == \"dynamodb\"", "elasticsearch<=9.3.0; extra == \"elasticsearch\"", "elastic-transport<=9.2.1; extra == \"elasticsearch\"", "eventlet>=0.32.0; python_version < \"3.10\" and extra == \"eventlet\"", "gevent>=1.5.0; extra == \"gevent\"", "google-cloud-storage>=2.10.0; extra == \"gcs\"", "grpcio==1.76.0; extra == \"gcs\"", "google-cloud-firestore==2.23.0; extra == \"gcs\"", "librabbitmq>=2.0.0; python_version < \"3.11\" and extra == \"librabbitmq\"", "pylibmc==1.6.3; platform_system != \"Windows\" and extra == \"memcache\"", "kombu[mongodb]; extra == \"mongodb\"", "kombu[msgpack]; extra == \"msgpack\"", "python-memcached>=1.61; extra == \"pymemcache\"", "pydantic>=2.4; python_version < \"3.14\" and extra == \"pydantic\"", "pydantic>=2.12.0a1; python_version >= \"3.14\" and extra == \"pydantic\"", "pyro4==4.82; python_version < \"3.11\" and extra == \"pyro\"", "pytest-celery[all]>=1.3.0; extra == \"pytest\"", "kombu[redis]; extra == \"redis\"", "boto3>=1.26.143; extra == \"s3\"", "softlayer_messaging>=1.0.3; extra == \"slmq\"", "ephem==4.2; platform_python_implementation != \"PyPy\" and extra == \"solar\"", "kombu[sqlalchemy]; extra == \"sqlalchemy\"", "boto3>=1.26.143; extra == \"sqs\"", "pycurl<7.45.4,>=7.43.0.5; (sys_platform != \"win32\" and platform_python_implementation == \"CPython\" and python_version < \"3.9\") and extra == \"sqs\"", "pycurl>=7.45.4; (sys_platform != \"win32\" and platform_python_implementation == \"CPython\" and python_version >= \"3.9\") and extra == \"sqs\"", "urllib3>=1.26.16; extra == \"sqs\"", "kombu[sqs]>=5.5.0; extra == \"sqs\"", "tblib==3.2.2; extra == \"tblib\"", "kombu[yaml]; extra == \"yaml\"", "kazoo>=1.3.1; extra == \"zookeeper\"", "zstandard==0.23.0; extra == \"zstd\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "cffi"
+version = "2.1.1"
+requires-python = ">=3.10"
+requires-dist = ["pycparser; implementation_name != \"PyPy\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "click"
+version = "8.5.0"
+requires-python = ">=3.10"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "click-didyoumean"
+version = "0.3.1"
+requires-python = ">=3.6.2"
+requires-dist = ["click>=7"]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "click-plugins"
+version = "1.1.1.2"
+requires-python = ""
+requires-dist = ["click>=4.0", "pytest>=3.6; extra == \"dev\"", "pytest-cov; extra == \"dev\"", "wheel; extra == \"dev\"", "coveralls; extra == \"dev\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "click-repl"
+version = "0.4.1"
+requires-python = ">=3.9"
+requires-dist = ["click<9.0,>=7.0", "prompt_toolkit>=3.0.36", "typing-extensions>=4.7.0", "pytest>=7.2.1; extra == \"testing\"", "pytest-cov>=4.0.0; extra == \"testing\"", "tox>=4.4.3; extra == \"testing\"", "flake8>=6.0.0; extra == \"testing\"", "mypy>=1.9.0; extra == \"testing\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "cryptography"
+version = "50.0.1"
+requires-python = "!=3.9.0,!=3.9.1,>=3.9"
+requires-dist = ["cffi>=2.0.0; platform_python_implementation != \"PyPy\"", "typing-extensions>=4.13.2; python_full_version < \"3.11\"", "bcrypt>=3.1.5; extra == \"ssh\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "iniconfig"
+version = "2.3.0"
+requires-python = ">=3.10"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "jsonschema"
+version = "4.26.0"
+requires-python = ">=3.10"
+requires-dist = ["attrs>=22.2.0", "jsonschema-specifications>=2023.03.6", "referencing>=0.28.4", "rpds-py>=0.25.0", "fqdn; extra == \"format\"", "idna; extra == \"format\"", "isoduration; extra == \"format\"", "jsonpointer>1.13; extra == \"format\"", "rfc3339-validator; extra == \"format\"", "rfc3987; extra == \"format\"", "uri-template; extra == \"format\"", "webcolors>=1.11; extra == \"format\"", "fqdn; extra == \"format-nongpl\"", "idna; extra == \"format-nongpl\"", "isoduration; extra == \"format-nongpl\"", "jsonpointer>1.13; extra == \"format-nongpl\"", "rfc3339-validator; extra == \"format-nongpl\"", "rfc3986-validator>0.1.0; extra == \"format-nongpl\"", "rfc3987-syntax>=1.1.0; extra == \"format-nongpl\"", "uri-template; extra == \"format-nongpl\"", "webcolors>=24.6.0; extra == \"format-nongpl\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "jsonschema-specifications"
+version = "2025.9.1"
+requires-python = ">=3.9"
+requires-dist = ["referencing>=0.31.0"]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "kombu"
+version = "5.6.2"
+requires-python = ">=3.9"
+requires-dist = ["amqp<6.0.0,>=5.1.1", "vine==5.1.0", "tzdata>=2025.2", "packaging", "msgpack==1.1.2; extra == \"msgpack\"", "PyYAML>=3.10; extra == \"yaml\"", "redis!=4.5.5,!=5.0.2,<6.5,>=4.5.2; extra == \"redis\"", "pymongo==4.15.3; extra == \"mongodb\"", "boto3>=1.26.143; extra == \"sqs\"", "pycurl>=7.43.0.5; (sys_platform != \"win32\" and platform_python_implementation == \"CPython\") and extra == \"sqs\"", "urllib3>=1.26.16; extra == \"sqs\"", "google-cloud-pubsub>=2.18.4; extra == \"gcpubsub\"", "google-cloud-monitoring>=2.16.0; extra == \"gcpubsub\"", "grpcio==1.75.1; extra == \"gcpubsub\"", "protobuf==6.32.1; extra == \"gcpubsub\"", "kazoo>=2.8.0; extra == \"zookeeper\"", "sqlalchemy<2.1,>=1.4.48; extra == \"sqlalchemy\"", "librabbitmq>=2.0.0; python_version < \"3.11\" and extra == \"librabbitmq\"", "pyro4==4.82; extra == \"pyro\"", "softlayer_messaging>=1.0.3; extra == \"slmq\"", "azure-storage-queue>=12.6.0; extra == \"azurestoragequeues\"", "azure-identity>=1.12.0; extra == \"azurestoragequeues\"", "azure-servicebus>=7.10.0; extra == \"azureservicebus\"", "qpid-python==1.36.0-1; extra == \"qpid\"", "qpid-tools==1.36.0-1; extra == \"qpid\"", "python-consul2==0.1.5; extra == \"consul\"", "confluent-kafka>=2.2.0; extra == \"confluentkafka\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "librt"
+version = "0.16.0"
+requires-python = ">=3.9"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "mako"
+version = "1.4.3"
+requires-python = ">=3.10"
+requires-dist = ["MarkupSafe>=2.0", "pytest; extra == \"testing\"", "Babel; extra == \"babel\"", "lingua>=4.16; extra == \"lingua\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "markupsafe"
+version = "3.0.3"
+requires-python = ">=3.9"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "mypy"
+version = "2.3.1"
+requires-python = ">=3.10"
+requires-dist = ["typing_extensions>=4.6.0; python_version < \"3.15\"", "typing_extensions>=4.14.0; python_version >= \"3.15\"", "mypy_extensions>=1.0.0", "pathspec>=1.0.0", "tomli>=1.1.0; python_version < \"3.11\"", "librt>=0.13.0; platform_python_implementation != \"PyPy\"", "ast-serialize<1.0.0,>=0.6.0", "psutil>=4.0; extra == \"dmypy\"", "setuptools>=50; extra == \"mypyc\"", "lxml; extra == \"reports\"", "pip; extra == \"install-types\"", "orjson; extra == \"faster-cache\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "mypy-extensions"
+version = "1.1.0"
+requires-python = ">=3.8"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "packaging"
+version = "26.3"
+requires-python = ">=3.9"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "pathspec"
+version = "1.1.1"
+requires-python = ">=3.9"
+requires-dist = ["hyperscan>=0.7; extra == \"hyperscan\"", "typing-extensions>=4; extra == \"optional\"", "google-re2>=1.1; extra == \"re2\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "pluggy"
+version = "1.6.0"
+requires-python = ">=3.9"
+requires-dist = ["pre-commit; extra == \"dev\"", "tox; extra == \"dev\"", "pytest; extra == \"testing\"", "pytest-benchmark; extra == \"testing\"", "coverage; extra == \"testing\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "prompt-toolkit"
+version = "3.0.53"
+requires-python = ">=3.10"
+requires-dist = ["wcwidth>=0.1.4"]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "psycopg"
+version = "3.3.6"
+requires-python = ">=3.10"
+requires-dist = ["typing-extensions>=4.6; python_version < \"3.13\"", "tzdata; sys_platform == \"win32\"", "psycopg-c==3.3.6; implementation_name != \"pypy\" and extra == \"c\"", "psycopg-binary==3.3.6; implementation_name != \"pypy\" and extra == \"binary\"", "psycopg-pool; extra == \"pool\"", "anyio>=4.0; extra == \"test\"", "mypy>=2.1.0; implementation_name != \"pypy\" and extra == \"test\"", "pproxy>=2.7; extra == \"test\"", "pytest>=6.2.5; extra == \"test\"", "pytest-cov>=3.0; extra == \"test\"", "pytest-randomly>=3.5; extra == \"test\"", "ast-comments>=1.1.2; extra == \"dev\"", "black>=26.1.0; extra == \"dev\"", "codespell>=2.2; extra == \"dev\"", "cython-lint>=0.21; extra == \"dev\"", "dnspython>=2.1; extra == \"dev\"", "flake8>=4.0; extra == \"dev\"", "isort[colors]>=6.0; extra == \"dev\"", "isort-psycopg>=0.0.3; extra == \"dev\"", "mypy>=2.1.0; extra == \"dev\"", "pre-commit>=4.0.1; extra == \"dev\"", "types-setuptools>=57.4; extra == \"dev\"", "types-shapely>=2.0; extra == \"dev\"", "wheel>=0.37; extra == \"dev\"", "Sphinx>=9.1; extra == \"docs\"", "furo==2025.12.19; extra == \"docs\"", "sphinx-autobuild>=2025.8.25; extra == \"docs\"", "sphinx-autodoc-typehints>=3.10.2; extra == \"docs\""]
+provides-extra = ["binary"]
+
+[[dependency-metadata]]
+name = "psycopg-binary"
+version = "3.3.6"
+requires-python = ">=3.10"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "pycparser"
+version = "3.0"
+requires-python = ">=3.10"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "pygments"
+version = "2.21.0"
+requires-python = ">=3.9"
+requires-dist = ["colorama>=0.4.6; extra == \"windows-terminal\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "pyjwt"
+version = "2.15.0"
+requires-python = ">=3.9"
+requires-dist = ["typing_extensions>=4.0; python_version < \"3.11\"", "cryptography>=3.4.0; extra == \"crypto\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "pytest"
+version = "9.1.1"
+requires-python = ">=3.10"
+requires-dist = ["colorama>=0.4; sys_platform == \"win32\"", "exceptiongroup>=1; python_version < \"3.11\"", "iniconfig>=1.0.1", "packaging>=22", "pluggy<2,>=1.5", "pygments>=2.7.2", "tomli>=1; python_version < \"3.11\"", "argcomplete; extra == \"dev\"", "attrs>=19.2; extra == \"dev\"", "hypothesis>=3.56; extra == \"dev\"", "mock; extra == \"dev\"", "requests; extra == \"dev\"", "setuptools; extra == \"dev\"", "xmlschema; extra == \"dev\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "python-dateutil"
+version = "2.9.0.post0"
+requires-python = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
+requires-dist = ["six >=1.5"]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "pyyaml"
+version = "6.0.3"
+requires-python = ">=3.8"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "referencing"
+version = "0.37.0"
+requires-python = ">=3.10"
+requires-dist = ["attrs>=22.2.0", "rpds-py>=0.7.0", "typing-extensions>=4.4.0; python_version < \"3.13\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "rpds-py"
+version = "2026.9.1"
+requires-python = ">=3.11"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "ruff"
+version = "0.16.9"
+requires-python = ">=3.7"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "six"
+version = "1.17.0"
+requires-python = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "sqlalchemy"
+version = "2.1.2"
+requires-python = ">=3.11"
+requires-dist = ["typing-extensions>=4.6.0", "greenlet>=1; extra == \"asyncio\"", "mypy>=2.4; extra == \"mypy\"", "types-greenlet>=2; extra == \"mypy\"", "pyodbc; extra == \"mssql\"", "pymssql; extra == \"mssql-pymssql\"", "pyodbc; extra == \"mssql-pyodbc\"", "mssql-python>=1.9.0; extra == \"mssql-python\"", "mysqlclient>=1.4.0; extra == \"mysql\"", "mysql-connector-python; extra == \"mysql-connector\"", "mariadb!=1.1.10,!=1.1.2,!=1.1.5,>=1.0.1; extra == \"mariadb-connector\"", "oracledb>=2.0.1; extra == \"oracle\"", "cx_oracle>=8; extra == \"oracle-cxoracle\"", "oracledb>=2.0.1; extra == \"oracle-oracledb\"", "psycopg!=3.1.15,>=3.0.7; extra == \"postgresql\"", "pg8000>=1.29.3; extra == \"postgresql-pg8000\"", "sqlalchemy[asyncio]; extra == \"postgresql-asyncpg\"", "asyncpg; extra == \"postgresql-asyncpg\"", "psycopg2-binary; extra == \"postgresql-psycopg2binary\"", "psycopg2cffi; extra == \"postgresql-psycopg2cffi\"", "psycopg!=3.1.15,>=3.0.7; extra == \"postgresql-psycopg\"", "psycopg[binary]!=3.1.15,>=3.0.7; extra == \"postgresql-psycopgbinary\"", "pymysql; extra == \"pymysql\"", "cymysql; extra == \"cymysql\"", "sqlalchemy[asyncio]; extra == \"aiomysql\"", "aiomysql; extra == \"aiomysql\"", "sqlalchemy[asyncio]; extra == \"aioodbc\"", "aioodbc; extra == \"aioodbc\"", "sqlalchemy[asyncio]; extra == \"asyncmy\"", "asyncmy>=0.2.12; extra == \"asyncmy\"", "sqlalchemy[asyncio]; extra == \"aiosqlite\"", "aiosqlite; extra == \"aiosqlite\"", "sqlcipher3_binary; extra == \"sqlcipher\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "typing-extensions"
+version = "4.16.0"
+requires-python = ">=3.9"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "tzdata"
+version = "2026.5"
+requires-python = ">=2"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "tzlocal"
+version = "5.4.4"
+requires-python = ">=3.10"
+requires-dist = ["tzdata; platform_system == \"Windows\"", "pytest>=4.3; extra == \"testing\"", "pytest-mock>=3.3; extra == \"testing\"", "pytest-cov; extra == \"testing\"", "check_manifest; extra == \"testing\"", "pyroma; extra == \"testing\"", "ruff; extra == \"testing\"", "zest.releaser; extra == \"devenv\""]
+provides-extra = []
+
+[[dependency-metadata]]
+name = "vine"
+version = "5.1.0"
+requires-python = ">=3.6"
+requires-dist = []
+provides-extra = []
+
+[[dependency-metadata]]
+name = "wcwidth"
+version = "0.9.2"
+requires-python = ">=3.9"
+requires-dist = []
+provides-extra = []
