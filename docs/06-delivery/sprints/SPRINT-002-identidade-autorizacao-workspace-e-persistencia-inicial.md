@@ -41,16 +41,18 @@ Identidade, autorização, workspace e persistência inicial.
 
 ## Backlog implementável
 
-- **Histórias:** `56`
+- **Histórias:** `57`
 - **Documento detalhado:** `docs/06-delivery/sprint-backlogs/SPRINT-002-BACKLOG.md`
 - **TaskEnvelopes:** `.codex/tasks/TASK-*.json`
 - **Grafo:** `docs/06-delivery/STORY_DEPENDENCY_GRAPH.json`
 
-A STORY-0762 / ISSUE-0873 / TASK-0769 acrescenta somente a prerequisite de
-calibração de throttling BP-003/AP-003. Está Planned, com revisão independente
-pendente. As contagens e aprovações nas revisões históricas abaixo cobrem as
-55 histórias anteriores e não aprovam esta prerequisite. ISSUE-0822 e ISSUE-0150
-permanecem bloqueadas conforme o grafo atualizado.
+STORY-0767 / ISSUE-0874 / TASK-0770 acrescenta uma única prerequisite de decisão
+(hardware + workload) antes da calibração STORY-0762 / ISSUE-0873 / TASK-0769.
+STORY-0767 está Done, aprovada no SHA 4b634381328bd969679abe48ee6936aaf8fe4319.
+TASK-0769 está Ready para o benchmark reference_benchmark após integração
+administrativa; ISSUE-0873 permanece aberta e sua calibração ainda não ocorreu. As
+contagens e aprovações históricas abaixo cobrem as 55 histórias anteriores e não
+aprovam estas prerequisites. ISSUE-0822 e ISSUE-0150 permanecem bloqueadas.
 
 
 ## Revisão SAR da sprint

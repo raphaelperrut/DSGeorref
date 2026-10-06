@@ -37,7 +37,7 @@ Contas locais, bootstrap único, sessões, tokens e adapter oidc.
 ## Histórias implementáveis
 
 
-Este épico possui **8** histórias filhas:
+Este épico possui **9** histórias filhas:
 
 - `STORY-0036` / `ISSUE-0146` / `TASK-0036` — Definir política, estados e contratos: contas locais, bootstrap único, sessões, tokens e adapter OIDC
 - `STORY-0037` / `ISSUE-0147` / `TASK-0037` — Consolidar slices e liberar integração: contas locais, bootstrap único, sessões, tokens e adapter OIDC
@@ -48,6 +48,8 @@ Este épico possui **8** histórias filhas:
 - `STORY-0713` / `ISSUE-0823` / `TASK-0713` — Slice 2/2 — Implementar domínio e persistência: contas locais, bootstrap único, sessões, tokens e adapter OIDC [REQ-ID]
 
 - `STORY-0762` / `ISSUE-0873` / `TASK-0769` — Calibrar e promover o perfil quantitativo de throttling requerido por REQ-AUTH-IMPL-007
+
+- `STORY-0767` / `ISSUE-0874` / `TASK-0770` — Definir e aprovar o baseline de execução do BP-003 para throttling (hardware + workload)
 
 A ordem efetiva é governada por `STORY_DEPENDENCY_GRAPH.json`; IDs não substituem dependências.
 

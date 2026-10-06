@@ -19,9 +19,9 @@
 - 18 módulos
 - 12 sprints
 - 110 épicos
-- 762 histórias implementáveis
-- 872 issues canônicas (IDs operacionais reservados permanecem separados)
-- 762 tarefas Codex canônicas e 7 envelopes operacionais
+- 763 histórias implementáveis
+- 873 issues canônicas (IDs operacionais reservados permanecem separados)
+- 763 tarefas Codex canônicas e 7 envelopes operacionais
 
 ## Regra de execução
 

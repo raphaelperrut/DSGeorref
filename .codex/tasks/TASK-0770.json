@@ -1,0 +1,263 @@
+{
+  "task_id": "TASK-0770",
+  "issue_id": "ISSUE-0874",
+  "story_id": "STORY-0767",
+  "epic_id": "EPIC-008",
+  "sprint_id": "SPRINT-002",
+  "role": "Arquiteto",
+  "outcome": "Definir e aprovar o baseline de execução do BP-003 para throttling: classe de hardware de referência + workload/threat envelope quantitativo, sem benchmark, política final de throttling ou mudança de produto.",
+  "references": [
+    "AGENTS.md",
+    "evidence/AGENTS.md",
+    ".codex/roles/ROLE-002-arquiteto.md",
+    "docs/06-delivery/stories/STORY-0767-ISSUE-0874-definir-e-aprovar-baseline-de-execucao-bp-003-throttling.md",
+    "docs/06-delivery/epics/EPIC-008-contas-locais-bootstrap-unico-sessoes-tokens-e-adapter-oidc.md",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    "docs/00-governance/ROLE_AUTHORITY_MATRIX.md",
+    "docs/00-governance/OWNER_DECISION_GATE.md",
+    "docs/00-governance/DEFINITION_OF_READY.md",
+    "docs/03-engineering/TECHNOLOGY_BASELINE.yaml",
+    "docs/05-operations/CAPACITY_AND_SCALING.md",
+    "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
+    "docs/03-engineering/application-profiles/AP-003-web-security-runtime-profile.md",
+    "docs/04-quality/THREAT_MODEL.md",
+    "docs/01-product/requirements/REQ-AUTH-IMPL-007-throttling-possui-estado-e-evidencia-observavel.md",
+    "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.json",
+    "docs/06-delivery/stories/STORY-0748-ISSUE-0858-slice-2-3-definir-politicas-e-contratos-fail-closed-threat-model-validado-scanning-e-t.md",
+    ".codex/tasks/TASK-0748.json",
+    "docs/06-delivery/stories/STORY-0762-ISSUE-0873-calibrar-e-promover-perfil-quantitativo-de-throttling.md",
+    ".codex/tasks/TASK-0769.json",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
+    "docs/02-architecture/adrs/ADR-028-contas-locais-sessoes-server-side-e-argon2id.md",
+    "docs/02-architecture/adrs/ADR-031-csrf-cors-security-headers-e-protecao-web.md",
+    "docs/02-architecture/adrs/ADR-034-oci-compose-instalacao-bootstrap-e-readiness.md",
+    "evidence/security/throttling-calibration/readiness-reconciliation-v1.json"
+  ],
+  "allow_paths": [
+    "docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml",
+    "docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml",
+    "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
+    "evidence/security/bp003-throttling-execution-baseline/**"
+  ],
+  "deny_paths": [
+    "src/**",
+    "tools/**",
+    "tests/**",
+    "infra/**",
+    ".github/**",
+    "contracts/**",
+    "**/migrations/**",
+    "docs/03-engineering/application-profiles/AP-003-web-security-runtime-profile.md",
+    ".codex/tasks/TASK-0769.json",
+    ".codex/tasks/TASK-0712.json",
+    ".codex/tasks/TASK-0040.json",
+    ".codex/tasks/TASK-0748.json",
+    "docs/06-delivery/stories/STORY-0748-ISSUE-0858-slice-2-3-definir-politicas-e-contratos-fail-closed-threat-model-validado-scanning-e-t.md",
+    "evidence/security/throttling-calibration/**"
+  ],
+  "acceptance_criteria": [
+    "Hardware de referência aprovado independentemente e versionado, com CPU, RAM, armazenamento/I/O material, GPU, sistema/runtime, identificação da classe, distinção minimum supported/reference e aplicabilidade suficiente para satisfazer o recorte de BP-003/TASK-0769 sem claim de suporte não medido.",
+    "Workload/threat profile aprovado independentemente e versionado, com operações existentes, padrões legítimos/abusivos, rate, concorrência, duração/janelas, distribuição brute-force/repeated attempts, critérios objetivos de segurança e CPU/memória/DoS e protocolo de reprodução.",
+    "Ambos os perfis possuem unidades, versões e vínculo entre si e determinam todas as entradas de planejamento necessárias; TASK-0769 executa sem escolher novo hardware, carga ou critério de aceitação, preservando a seleção posterior de candidatos de throttling por calibração.",
+    "Nenhuma política quantitativa de throttling é promovida, nenhum benchmark é executado, e código, contratos de produto, AP-003, Argon2id, sessões e parâmetros fora de REQ-AUTH-IMPL-007 permanecem intactos.",
+    "Handoff identifica exatamente os dois arquivos, versões, SHA-256, candidato/base integrada, aplicabilidade e evidências de aprovação independente que TASK-0769 consumirá; BP-003 referencia os insumos aprovados e registra limitações e rollback."
+  ],
+  "tests": [
+    "Validar parse YAML e completude/coerência das unidades, versões, hardware, workload e critérios, sem executar benchmark ou operações de autenticação.",
+    "QA verifica reprodução documental da sequência de carga e que nenhuma escolha de planejamento necessária reste para TASK-0769; conferir versões e SHA-256.",
+    "Reviewer verifica diff limitado, ausência de parâmetros finais de enforcement, aprovações atribuíveis e handoff no mesmo candidato; aprovação arquitetural independente da autoria.",
+    "Validar TaskEnvelope pelo JSON Schema, índices, identidade sem colisão e DAG/dependencies; executar make verify antes do handoff e registrar limitações ambientais sem investigar EPERM/ruff."
+  ],
+  "evidence": [
+    "docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml",
+    "docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml",
+    "evidence/security/bp003-throttling-execution-baseline/",
+    "Fundamento de decisão, aprovações arquiteturais independentes, QA/Reviewer, versões/SHA-256 e handoff de aplicabilidade para TASK-0769; nenhuma evidência de benchmark nesta prerequisite."
+  ],
+  "dependencies": [
+    "STORY-0036"
+  ],
+  "stop_conditions": [
+    "Contradição de autoridade, operação/endpoint ausente no contrato ou necessidade de alterar contrato de produto/ADR estrutural: retornar ao owner, sem inferência.",
+    "Owner Decision Gate aplicável a promessa pública duradoura/escopo/aceitação sem decisão explícita; sizing reversível permanece com o Arquiteto.",
+    "Baseline não resolve a relação minimum supported/reference exigida por BP-003/TASK-0769 ou transforma classe sem benchmark em suportada.",
+    "Necessidade de benchmark, valores finais de throttling, Argon2id, session timeout, código ou parâmetro fora de REQ-AUTH-IMPL-007.",
+    "Colisão de paths ou ausência de aprovação arquitetural independente, QA/Reviewer e handoff do mesmo candidato: não liberar TASK-0769."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0874-01",
+    "AC-ISSUE-0874-02",
+    "AC-ISSUE-0874-03",
+    "AC-ISSUE-0874-04",
+    "AC-ISSUE-0874-05"
+  ],
+  "governing_adrs": [
+    "ADR-006",
+    "ADR-007",
+    "ADR-008",
+    "ADR-028",
+    "ADR-031",
+    "ADR-034"
+  ],
+  "requirement_basis": "DIRECT_REQUIREMENT",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-002",
+  "context_map_dependencies": [],
+  "domain_model_impact": "NONE",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 1,
+      "items": [
+        "STORY-0036"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml",
+        "docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml",
+        "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
+        "evidence/security/bp003-throttling-execution-baseline/**"
+      ],
+      "deny_paths": [
+        "src/**",
+        "tools/**",
+        "tests/**",
+        "infra/**",
+        ".github/**",
+        "contracts/**",
+        "**/migrations/**",
+        "docs/03-engineering/application-profiles/AP-003-web-security-runtime-profile.md",
+        ".codex/tasks/TASK-0769.json",
+        ".codex/tasks/TASK-0712.json",
+        ".codex/tasks/TASK-0040.json",
+        ".codex/tasks/TASK-0748.json",
+        "docs/06-delivery/stories/STORY-0748-ISSUE-0858-slice-2-3-definir-politicas-e-contratos-fail-closed-threat-model-validado-scanning-e-t.md",
+        "evidence/security/throttling-calibration/**"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "Validar parse YAML e completude/coerência das unidades, versões, hardware, workload e critérios, sem executar benchmark ou operações de autenticação.",
+        "QA verifica reprodução documental da sequência de carga e que nenhuma escolha de planejamento necessária reste para TASK-0769; conferir versões e SHA-256.",
+        "Reviewer verifica diff limitado, ausência de parâmetros finais de enforcement, aprovações atribuíveis e handoff no mesmo candidato; aprovação arquitetural independente da autoria.",
+        "Validar TaskEnvelope pelo JSON Schema, índices, identidade sem colisão e DAG/dependencies; executar make verify antes do handoff e registrar limitações ambientais sem investigar EPERM/ruff."
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "PASS",
+      "kinds": [
+        "hardware reference profile",
+        "threat workload profile",
+        "decision and approval evidence"
+      ],
+      "evidence": [
+        "docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml",
+        "docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml",
+        "evidence/security/bp003-throttling-execution-baseline/",
+        "Fundamento de decisão, aprovações arquiteturais independentes, QA/Reviewer, versões/SHA-256 e handoff de aplicabilidade para TASK-0769; nenhuma evidência de benchmark nesta prerequisite."
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 5,
+      "ids": [
+        "AC-ISSUE-0874-01",
+        "AC-ISSUE-0874-02",
+        "AC-ISSUE-0874-03",
+        "AC-ISSUE-0874-04",
+        "AC-ISSUE-0874-05"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "Arquiteto",
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "CRITICAL",
+    "applicable_controls": [
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-006",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-005",
+      "CTO-007",
+      "CTO-008",
+      "CTO-009",
+      "CTO-010",
+      "CTO-011",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml",
+      "docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml",
+      "evidence/security/bp003-throttling-execution-baseline/",
+      "Fundamento de decisão, aprovações arquiteturais independentes, QA/Reviewer, versões/SHA-256 e handoff de aplicabilidade para TASK-0769; nenhuma evidência de benchmark nesta prerequisite."
+    ],
+    "production_gate": "BENCHMARK_AND_OPERATIONS_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

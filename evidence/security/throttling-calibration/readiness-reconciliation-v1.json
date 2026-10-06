@@ -1,0 +1,80 @@
+{
+  "task_id": "TASK-0769",
+  "issue_id": "ISSUE-0873",
+  "story_id": "STORY-0762",
+  "approved_baseline_sha": "4b634381328bd969679abe48ee6936aaf8fe4319",
+  "approval_source": {
+    "kind": "EXPLICIT_USER_CONFIRMATION",
+    "date": "2026-10-06",
+    "scope": "User confirms STORY-0767/ISSUE-0874/TASK-0770 completed and approved at approved_baseline_sha; independent architecture PASS, independent QA PASS, final re-review PASS, zero BLOCKER/HIGH and no open material execution-baseline decision."
+  },
+  "approval_gates": {
+    "independent_architecture": "PASS",
+    "independent_qa": "PASS",
+    "final_re_review": "PASS",
+    "new_qa_or_review_performed": false
+  },
+  "approval_state_provenance": "PENDING/ABSENT flags in immutable v1 candidate profiles/manifests/handoffs are historical. Later independent approvals are confirmed by the user for these exact bytes at approved_baseline_sha. This administrative record consumes those approvals; it does not issue author self-approval or edit the reviewed artifacts.",
+  "artifacts": [
+    {
+      "path": "docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml",
+      "commit": "4b634381328bd969679abe48ee6936aaf8fe4319",
+      "file_sha256": "61701f6dc26b06a0c13809afff0da6e60f0535f2731fd10d1c10a006a5623a12",
+      "file_digest_encoding": "Immutable Git blob bytes, UTF-8/LF",
+      "profile_id": "BP-003-throttling-hardware-reference",
+      "version": "1.0.0",
+      "definition_sha256": "94b021a00de1ae785e9b19111bd6b03dfb31dd736b7662a79c33464071fb4a39"
+    },
+    {
+      "path": "docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml",
+      "commit": "4b634381328bd969679abe48ee6936aaf8fe4319",
+      "file_sha256": "0e6f526c0afb6c5c79b5660867d91dcd2bad5669eec1fd2c5e5c6b900c33e95d",
+      "file_digest_encoding": "Immutable Git blob bytes, UTF-8/LF",
+      "profile_id": "BP-003-throttling-threat-workload",
+      "version": "1.0.0",
+      "definition_sha256": "b360cb2e458a86e85029c871f3394a1b7d083577bfce235d0d0e2f7d322942a2"
+    },
+    {
+      "path": "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
+      "commit": "4b634381328bd969679abe48ee6936aaf8fe4319",
+      "file_sha256": "5654cd551e1097064ce80dd36946e5f766f4e3d6aa90c13128c7914165d5223e",
+      "file_digest_encoding": "Immutable Git blob bytes, UTF-8/LF"
+    }
+  ],
+  "bp003_checkout_digest_note": "The normative-link handoff records the CRLF checkout digest b4640606efb929d693694007faff37c5a75be7d12f3a93c474c99c462ae18404. The approved immutable Git blob has the LF digest recorded above; content is identical after EOL normalization. Profile file digests match both the approved blobs and checkout bytes exactly.",
+  "applicability": {
+    "hardware": "reference_benchmark",
+    "minimum_supported_claim": false,
+    "operation_ids": [
+      "post_auth_session"
+    ],
+    "workload_kind": "benchmark_load_and_acceptance_criteria",
+    "runtime_policy": false,
+    "production_minimum_supported_gate_satisfied": false
+  },
+  "deterministic_consumption": [
+    "hardware class/allocation/runtime fingerprint and unsupported conditions fixed by hardware profile",
+    "operations, fixtures, traffic rates/concurrency/duration/distributions and replay fixed by workload profile",
+    "security acceptance and CPU/memory/operational DoS acceptance fixed by workload profile",
+    "both versions, raw Git blob digests, canonical definition digests and companion bindings confirmed",
+    "Security captures concrete runtime/image/lock/fixture/generator/candidate-policy digests under the approved rules at execution; no alternative hardware/workload/acceptance planning is delegated"
+  ],
+  "dependency_chain": [
+    "STORY-0767 / ISSUE-0874 / TASK-0770",
+    "STORY-0762 / ISSUE-0873 / TASK-0769",
+    "STORY-0712 / ISSUE-0822",
+    "STORY-0040 / ISSUE-0150"
+  ],
+  "prerequisite_satisfied": true,
+  "hardware_workload_blockers_remaining": [],
+  "security_owner": "Security / ROLE-010",
+  "readiness_scope": "TASK-0769 execution planning on the approved reference experiment; administrative metadata must be bound in an immutable consumer base before dispatch.",
+  "task_0769_execution_ready_after_admin_integration": true,
+  "issue_0873_closed": false,
+  "task_0712_ready": false,
+  "issue_0150_ready": false,
+  "benchmark_executed": false,
+  "runtime_throttling_promoted": false,
+  "profiles_changed": false,
+  "global_make_verify_run": false
+}

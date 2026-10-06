@@ -41044,11 +41044,12 @@
       "sprint": "SPRINT-002",
       "domain": "PLT",
       "type": "Story",
-      "status": "planned",
+      "status": "ready",
       "role": "Security",
       "title": "Calibrar e promover o perfil quantitativo de throttling",
       "dependencies": [
-        "STORY-0036"
+        "STORY-0036",
+        "STORY-0767"
       ],
       "requirements": [
         "REQ-AUTH-IMPL-007"
@@ -41068,7 +41069,7 @@
         "AC-ISSUE-0873-03",
         "AC-ISSUE-0873-04"
       ],
-      "rr_status": "BLOCKED",
+      "rr_status": "PASS",
       "file": "STORY-0762-ISSUE-0873-calibrar-e-promover-perfil-quantitativo-de-throttling.md",
       "allow_paths": [
         "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
@@ -41089,7 +41090,7 @@
         "evidence/reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**"
       ],
       "acceptance_criteria": [
-        "Executar somente a calibração de throttling de BP-003 no hardware mínimo suportado identificado por autoridade existente, registrando comandos, runtime/dependências, carga, concorrência, entradas, configurações candidatas, resultados brutos e digests para reprodução.",
+        "Executar somente a calibração de throttling de BP-003 no hardware reference_benchmark aprovado em STORY-0767 e vinculado por BP-003, sem claim minimum_supported, registrando comandos, runtime/dependências, carga, concorrência, entradas, configurações candidatas, resultados brutos e digests para reprodução.",
         "Justificar cada valor selecionado por medições e threat tests de brute force, carga legítima e abuso; demonstrar preservação dos pisos de segurança, ausência de enumeração/bypass e ausência de DoS operacional evidente por CPU/memória, documentando limites da evidência sem inventar metas.",
         "Promover em AP-003 somente valores sustentados pela calibração, com versão, unidades, aplicabilidade, semântica de contagem/janela/cooldown/lockout e validade explícitas conforme o contrato; verificar consumo determinístico e rejeição de perfil ausente/inválido sem implementar throttling funcional.",
         "Produzir evidência reproduzível e obter revisão técnica aplicável do Arquiteto e validações independentes de QA e Reviewer no mesmo commit candidato, antes da promoção/integração que libera STORY-0712; preservar demais parâmetros e registrar rollback do perfil."
@@ -41099,6 +41100,77 @@
         "Threat tests de brute force e carga legitima/abusiva; medir CPU/memoria e concorrencia no recorte de throttling sem reduzir pisos ou recalibrar outros parametros.",
         "Verificar valor -> medicao -> versao AP-003 e consumo deterministico; perfil ausente/invalido => DENY, sem implementar enforcement funcional.",
         "make verify antes do handoff; revisao tecnica e QA/Reviewer independentes no mesmo candidato."
+      ]
+    },
+    {
+      "story_id": "STORY-0767",
+      "issue_id": "ISSUE-0874",
+      "task_id": "TASK-0770",
+      "epic_id": "EPIC-008",
+      "sprint": "SPRINT-002",
+      "domain": "PLT",
+      "type": "Story",
+      "status": "done",
+      "role": "Arquiteto",
+      "title": "Definir e aprovar o baseline de execução do BP-003 para throttling",
+      "dependencies": [
+        "STORY-0036"
+      ],
+      "requirements": [
+        "REQ-AUTH-IMPL-007"
+      ],
+      "governing_adrs": [
+        "ADR-006",
+        "ADR-007",
+        "ADR-008",
+        "ADR-028",
+        "ADR-031",
+        "ADR-034"
+      ],
+      "requirement_basis": "DIRECT_REQUIREMENT",
+      "criterion_ids": [
+        "AC-ISSUE-0874-01",
+        "AC-ISSUE-0874-02",
+        "AC-ISSUE-0874-03",
+        "AC-ISSUE-0874-04",
+        "AC-ISSUE-0874-05"
+      ],
+      "rr_status": "PASS",
+      "file": "STORY-0767-ISSUE-0874-definir-e-aprovar-baseline-de-execucao-bp-003-throttling.md",
+      "allow_paths": [
+        "docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml",
+        "docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml",
+        "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
+        "evidence/security/bp003-throttling-execution-baseline/**"
+      ],
+      "deny_paths": [
+        "src/**",
+        "tools/**",
+        "tests/**",
+        "infra/**",
+        ".github/**",
+        "contracts/**",
+        "**/migrations/**",
+        "docs/03-engineering/application-profiles/AP-003-web-security-runtime-profile.md",
+        ".codex/tasks/TASK-0769.json",
+        ".codex/tasks/TASK-0712.json",
+        ".codex/tasks/TASK-0040.json",
+        ".codex/tasks/TASK-0748.json",
+        "docs/06-delivery/stories/STORY-0748-ISSUE-0858-slice-2-3-definir-politicas-e-contratos-fail-closed-threat-model-validado-scanning-e-t.md",
+        "evidence/security/throttling-calibration/**"
+      ],
+      "acceptance_criteria": [
+        "Hardware de referência aprovado independentemente e versionado, com CPU, RAM, armazenamento/I/O material, GPU, sistema/runtime, identificação da classe, distinção minimum supported/reference e aplicabilidade suficiente para satisfazer o recorte de BP-003/TASK-0769 sem claim de suporte não medido.",
+        "Workload/threat profile aprovado independentemente e versionado, com operações existentes, padrões legítimos/abusivos, rate, concorrência, duração/janelas, distribuição brute-force/repeated attempts, critérios objetivos de segurança e CPU/memória/DoS e protocolo de reprodução.",
+        "Ambos os perfis possuem unidades, versões e vínculo entre si e determinam todas as entradas de planejamento necessárias; TASK-0769 executa sem escolher novo hardware, carga ou critério de aceitação, preservando a seleção posterior de candidatos de throttling por calibração.",
+        "Nenhuma política quantitativa de throttling é promovida, nenhum benchmark é executado, e código, contratos de produto, AP-003, Argon2id, sessões e parâmetros fora de REQ-AUTH-IMPL-007 permanecem intactos.",
+        "Handoff identifica exatamente os dois arquivos, versões, SHA-256, candidato/base integrada, aplicabilidade e evidências de aprovação independente que TASK-0769 consumirá; BP-003 referencia os insumos aprovados e registra limitações e rollback."
+      ],
+      "tests": [
+        "Validar parse YAML e completude/coerência das unidades, versões, hardware, workload e critérios, sem executar benchmark ou operações de autenticação.",
+        "QA verifica reprodução documental da sequência de carga e que nenhuma escolha de planejamento necessária reste para TASK-0769; conferir versões e SHA-256.",
+        "Reviewer verifica diff limitado, ausência de parâmetros finais de enforcement, aprovações atribuíveis e handoff no mesmo candidato; aprovação arquitetural independente da autoria.",
+        "Validar TaskEnvelope pelo JSON Schema, índices, identidade sem colisão e DAG/dependencies; executar make verify antes do handoff e registrar limitações ambientais sem investigar EPERM/ruff."
       ]
     }
   ]

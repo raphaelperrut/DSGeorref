@@ -28,7 +28,12 @@
     "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
     "docs/02-architecture/adrs/ADR-028-contas-locais-sessoes-server-side-e-argon2id.md",
     "docs/02-architecture/adrs/ADR-031-csrf-cors-security-headers-e-protecao-web.md",
-    "docs/02-architecture/adrs/ADR-034-oci-compose-instalacao-bootstrap-e-readiness.md"
+    "docs/02-architecture/adrs/ADR-034-oci-compose-instalacao-bootstrap-e-readiness.md",
+    "docs/06-delivery/stories/STORY-0767-ISSUE-0874-definir-e-aprovar-baseline-de-execucao-bp-003-throttling.md",
+    "docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml",
+    "docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml",
+    "evidence/security/bp003-throttling-execution-baseline/normative-link-handoff-v2.json",
+    "evidence/security/throttling-calibration/readiness-reconciliation-v1.json"
   ],
   "allow_paths": [
     "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
@@ -49,7 +54,7 @@
     "evidence/reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**"
   ],
   "acceptance_criteria": [
-    "Executar somente a calibração de throttling de BP-003 no hardware mínimo suportado identificado por autoridade existente, registrando comandos, runtime/dependências, carga, concorrência, entradas, configurações candidatas, resultados brutos e digests para reprodução.",
+    "Executar somente a calibração de throttling de BP-003 no hardware reference_benchmark aprovado em STORY-0767 e vinculado por BP-003, sem claim minimum_supported, registrando comandos, runtime/dependências, carga, concorrência, entradas, configurações candidatas, resultados brutos e digests para reprodução.",
     "Justificar cada valor selecionado por medições e threat tests de brute force, carga legítima e abuso; demonstrar preservação dos pisos de segurança, ausência de enumeração/bypass e ausência de DoS operacional evidente por CPU/memória, documentando limites da evidência sem inventar metas.",
     "Promover em AP-003 somente valores sustentados pela calibração, com versão, unidades, aplicabilidade, semântica de contagem/janela/cooldown/lockout e validade explícitas conforme o contrato; verificar consumo determinístico e rejeição de perfil ausente/inválido sem implementar throttling funcional.",
     "Produzir evidência reproduzível e obter revisão técnica aplicável do Arquiteto e validações independentes de QA e Reviewer no mesmo commit candidato, antes da promoção/integração que libera STORY-0712; preservar demais parâmetros e registrar rollback do perfil."
@@ -62,14 +67,15 @@
   ],
   "evidence": [
     "evidence/security/throttling-calibration/",
-    "Comandos/script versionado, hardware minimo e ambiente, entradas/configuracoes candidatas, resultados brutos, digests, analise de brute force/DoS e limitacoes.",
+    "Comandos/script versionado, hardware reference_benchmark aprovado e ambiente, entradas/configuracoes candidatas, resultados brutos, digests, analise de brute force/DoS e limitacoes.",
     "Manifest de promocao valor -> evidencia -> versao AP-003; revisao tecnica do Arquiteto e QA/Reviewer independentes no mesmo candidato."
   ],
   "dependencies": [
-    "STORY-0036"
+    "STORY-0036",
+    "STORY-0767"
   ],
   "stop_conditions": [
-    "Hardware minimo, pisos, carga/threat model ou autoridade aplicavel ausentes: registrar insumo faltante sem inventa-lo.",
+    "Perfis de hardware/workload aprovados em 4b634381328bd969679abe48ee6936aaf8fe4319 ausentes, inválidos ou inaplicáveis; pisos/runtime/observáveis exigidos pelos perfis ausentes: parar sem defaults ou extrapolação a minimum_supported.",
     "Valor sem calibracao reproduzivel ou necessidade de reduzir pisos, permitir enumeracao ou contornar autorizacao/CSRF.",
     "Acoplamento normativo inevitavel a outro parametro de BP-003 nao demonstrado: retornar ao owner antes de ampliar slice.",
     "Semantica exige alterar contrato compartilhado ou decisao material: retornar ao owner.",
@@ -91,7 +97,7 @@
     "ADR-034"
   ],
   "requirement_basis": "DIRECT_REQUIREMENT",
-  "requirements_review_status": "BLOCKED",
+  "requirements_review_status": "PASS",
   "bounded_context": "BC-002",
   "context_map_dependencies": [],
   "domain_model_impact": "NONE",
@@ -108,9 +114,10 @@
     "status": "PASS",
     "dependencies": {
       "status": "PASS",
-      "count": 1,
+      "count": 2,
       "items": [
-        "STORY-0036"
+        "STORY-0036",
+        "STORY-0767"
       ]
     },
     "files": {
@@ -181,7 +188,7 @@
       ],
       "evidence": [
         "evidence/security/throttling-calibration/",
-        "Comandos/script versionado, hardware minimo e ambiente, entradas/configuracoes candidatas, resultados brutos, digests, analise de brute force/DoS e limitacoes.",
+        "Comandos/script versionado, hardware reference_benchmark aprovado e ambiente, entradas/configuracoes candidatas, resultados brutos, digests, analise de brute force/DoS e limitacoes.",
         "Manifest de promocao valor -> evidencia -> versao AP-003; revisao tecnica do Arquiteto e QA/Reviewer independentes no mesmo candidato."
       ],
       "contract": null
@@ -232,7 +239,7 @@
     ],
     "required_evidence": [
       "evidence/security/throttling-calibration/",
-      "Comandos/script versionado, hardware minimo e ambiente, entradas/configuracoes candidatas, resultados brutos, digests, analise de brute force/DoS e limitacoes.",
+      "Comandos/script versionado, hardware reference_benchmark aprovado e ambiente, entradas/configuracoes candidatas, resultados brutos, digests, analise de brute force/DoS e limitacoes.",
       "Manifest de promocao valor -> evidencia -> versao AP-003; revisao tecnica do Arquiteto e QA/Reviewer independentes no mesmo candidato."
     ],
     "production_gate": "BENCHMARK_AND_OPERATIONS_GATES"

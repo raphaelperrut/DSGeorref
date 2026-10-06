@@ -1,7 +1,7 @@
 # STORY-0762 / ISSUE-0873 — Calibrar e promover o perfil quantitativo de throttling
 
 - **Tipo:** `História implementável — prerequisite técnica`
-- **Estado:** `Planned`
+- **Estado:** `Ready` — somente execução do benchmark de referência; ISSUE-0873 permanece aberta
 - **Épico pai:** `EPIC-008`
 - **Sprint:** `SPRINT-002`
 - **Domínio:** `PLT`
@@ -73,10 +73,30 @@ com unidades, limites de validade e rastreabilidade, sem nova autoridade.
 
 ## Dependências
 
-`STORY-0036`
+`STORY-0036`, `STORY-0767`
+
+STORY-0767 / ISSUE-0874 / TASK-0770 está satisfeita no baseline aprovado
+`4b634381328bd969679abe48ee6936aaf8fe4319`, que contém os dois perfis 1.0.0 e
+o vínculo formal em BP-003. Aprovações independentes architecture/QA/final
+re-review PASS e ausência de decisões materiais foram confirmadas pelo usuário.
+TASK-0769 deixa de estar bloqueada por hardware/workload. Security/ROLE-010
+permanece executor; os predecessores são preservados como rastreabilidade.
+
+Consumir os arquivos imutáveis e seus digests a partir desse SHA:
+- `docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml`
+- `docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml`
+
+Versões, file/definition SHA-256, aplicabilidade e origem das aprovações estão em
+`evidence/security/throttling-calibration/readiness-reconciliation-v1.json`.
+Hardware é reference_benchmark sem claim minimum_supported; carga e critérios
+são do experimento post_auth_session, sem política runtime. Os flags PENDING
+dos artifacts v1 são históricos e preservados; esta reconciliação consome as
+aprovações posteriores confirmadas, sem repetir QA/review. O gate de produção
+em hardware mínimo suportado continua fora da prontidão deste experimento.
 
 ## Relação de desbloqueio
 
+`STORY-0767 / ISSUE-0874 / TASK-0770` blocks
 `STORY-0762 / ISSUE-0873 / TASK-0769` blocks
 `STORY-0712 / ISSUE-0822 / TASK-0712` blocks
 `STORY-0040 / ISSUE-0150 / TASK-0040`.
@@ -86,7 +106,7 @@ nem o aceite final do EPIC-008.
 
 ## Critérios de aceitação
 
-- [ ] AC-ISSUE-0873-01: Executar somente a calibração de throttling de BP-003 no hardware mínimo suportado identificado por autoridade existente, registrando comandos, runtime/dependências, carga, concorrência, entradas, configurações candidatas, resultados brutos e digests para reprodução.
+- [ ] AC-ISSUE-0873-01: Executar somente a calibração de throttling de BP-003 no hardware reference_benchmark aprovado em STORY-0767 e vinculado por BP-003, sem claim minimum_supported, registrando comandos, runtime/dependências, carga, concorrência, entradas, configurações candidatas, resultados brutos e digests para reprodução.
 - [ ] AC-ISSUE-0873-02: Justificar cada valor selecionado por medições e threat tests de brute force, carga legítima e abuso; demonstrar preservação dos pisos de segurança, ausência de enumeração/bypass e ausência de DoS operacional evidente por CPU/memória, documentando limites da evidência sem inventar metas.
 - [ ] AC-ISSUE-0873-03: Promover em AP-003 somente valores sustentados pela calibração, com versão, unidades, aplicabilidade, semântica de contagem/janela/cooldown/lockout e validade explícitas conforme o contrato; verificar consumo determinístico e rejeição de perfil ausente/inválido sem implementar throttling funcional.
 - [ ] AC-ISSUE-0873-04: Produzir evidência reproduzível e obter revisão técnica aplicável do Arquiteto e validações independentes de QA e Reviewer no mesmo commit candidato, antes da promoção/integração que libera STORY-0712; preservar demais parâmetros e registrar rollback do perfil.
@@ -100,7 +120,7 @@ nem o aceite final do EPIC-008.
 
 ## Evidências obrigatórias
 
-- `evidence/security/throttling-calibration/`: comandos/script versionado, ambiente e hardware mínimo, fixtures atribuíveis, configurações candidatas e resultados brutos, hashes, análise de segurança/DoS e limitações.
+- `evidence/security/throttling-calibration/`: comandos/script versionado, ambiente e hardware de referência aprovado, fixtures atribuíveis, configurações candidatas e resultados brutos, hashes, análise de segurança/DoS e limitações.
 - Manifest de promoção ligando versão do AP-003, valores/unidades e evidências por path/digest ao candidato; sem secrets, identidades/IPs reais ou credenciais.
 - Resultados de reprodução e revisões independentes; a evidência atual do diagnóstico permanece intacta.
 
@@ -123,7 +143,7 @@ perfil válido aprovado; não substitui valores por defaults silenciosos.
 
 ## Condições de parada
 
-- Hardware mínimo, pisos de segurança, carga/threat model ou autoridade aplicável ausentes: registrar o insumo faltante, sem inventá-lo.
+- Perfis aprovados de hardware/workload ausentes, inválidos ou inaplicáveis, ou pisos/runtime/observáveis requeridos ausentes: parar sem defaults nem extrapolação a minimum_supported.
 - Qualquer valor não pode ser ligado à calibração reproduzível ou requer reduzir piso, permitir enumeração ou contornar autorização/CSRF.
 - Acoplamento normativo inevitável com outro parâmetro de BP-003 não está explicitamente demonstrado: retornar ao owner antes de ampliar o slice.
 - Semântica necessária exige alterar contrato compartilhado ou decisão material de produto/arquitetura: retornar ao owner.
@@ -138,12 +158,15 @@ STORY-0712, não escolha valores arbitrários e não aprove seu próprio trabalh
 
 ## Gates de planejamento e revisão
 
-Estado Planned; o Tech Lead libera execução somente após prontidão dos insumos,
-ausência de colisão e revisões de planejamento aplicáveis. Arquiteto valida a
+Estado Ready para o experimento de referência, após integração administrativa
+do envelope/índices no consumer base; hardware/workload e suas aprovações estão
+satisfeitos. Security deve conferir runtime, locks, pisos e observáveis fixados
+pelos perfis antes de medir, sem escolher outro baseline. Arquiteto valida a
 promoção técnica; QA e Reviewer validam independentemente o mesmo candidato.
 Campos PASS constantes exigidos pelo schema do envelope identificam sua baseline
 estrutural; não atestam benchmark, promoção ou aprovação independente realizada.
-O review independente do envelope permanece BLOCKED até evidência real.
+O review independente do candidato de calibração permanece BLOCKED até a
+execução do benchmark e evidência real; isso não reabre a prerequisite aprovada.
 
 ## Verificação da materialização
 
