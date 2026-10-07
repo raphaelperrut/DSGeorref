@@ -1,7 +1,7 @@
 # STORY-0768 / ISSUE-0875 — Aprovar o grafo Python do workspace para materialização determinística de uv.lock
 
 - **Tipo:** `História implementável — prerequisite técnica`
-- **Estado:** `Planned` — execução e review independente pendentes
+- **Estado:** grafo aprovado em `cb198c9e8340e0675c36679de426abf922e1c569`; materialização operacional pendente em `TASK-0773`
 - **Épico pai:** `EPIC-001`
 - **Sprint:** `SPRINT-001`
 - **Domínio:** `FND`
@@ -87,3 +87,37 @@ Handoff identifica outputs exatos, versões/SHA-256/candidate SHA, limites e com
 ## Planejamento e prompt
 
 Leia AGENTS.md, papel, esta história, TaskEnvelope e referências aplicáveis. Execute somente o recorte autorizado após liberação do Tech Lead. Campos PASS constantes exigidos pelo schema descrevem a baseline estrutural; não comprovam execução ou aprovação. Estado Planned e review BLOCKED até evidência independente. A criação destes documentos não libera TASK-0769 nem conclui ISSUE-0873/0822/0150.
+
+## Reconciliação administrativa — materialização DevOps (2026-10-07)
+
+Autoridade humana desta reconciliação: `APPROVED_GRAPH_SHA = cb198c9e8340e0675c36679de426abf922e1c569`. Architect Review, QA e Final Review = PASS no mesmo SHA; BLOCKER/HIGH = NONE e MATERIAL_DECISION_OPEN = NONE, conforme aprovação final informada pelo usuário. Essa informação encerra o objetivo arquitetural do TASK-0771 e supera seus estados históricos Planned/review pendente para o dependency graph, sem alterar nenhum artifact aprovado ou atribuir aprovação à execução DevOps futura.
+
+Foi verificada ausência de task DevOps filha com escopo suficiente. Existe somente TASK-0771 para esta Story/Issue, sem autorização de pyproject.toml/uv.lock. Cria-se UMA task operacional filha, preservando o TaskEnvelope arquitetural e os índices canônicos de Story/Issue:
+
+- **Task:** `TASK-0773` — `.codex/tasks/operations/TASK-0773.json`.
+- **Owner:** DevOps / ROLE-009.
+- **Outcome:** materializar deterministicamente o dependency graph aprovado e gerar uv.lock sem qualquer nova escolha técnica.
+- **Autoridade imutável:** os quatro artifacts approved-dependency-graph.yaml, constraints.txt, rationale.md e devops-handoff.md, com seus inputs/digests/evidência, no SHA acima. Consumir os blobs desse commit, não regenerar ou editar o graph/snapshot/handoff.
+- **Allow paths de execução:** `pyproject.toml` exclusivamente pela transformação do handoff aprovado; `uv.lock`; `evidence/operations/python-workspace-lock/**`. O envelope é criado por esta autorização administrativa e permanece read-only durante execução DevOps; não há necessidade de conceder autoedição.
+- **Serialização:** uma branch/worktree exclusiva de TASK-0773/ISSUE-0875; pyproject.toml e uv.lock reservados apenas para esta execução, sem colisão com outra lane. Não descartar trabalho alheio, transportar evidência da ISSUE-0876 ou ampliar scope.
+- **Estado da execução:** não realizada; lock ausente; QA/Reviewer do candidate de execução pendentes. O PASS arquitetural não atesta lock/frozen install.
+
+A tarefa fica em `.codex/tasks/operations/` conforme o padrão existente de envelopes operacionais filhos; não substitui o task_id arquitetural canônico da Story, não cria nova Story/Issue nem modifica o grafo de dependências entre histórias. A proibição original de criar terceira task descreve a decomposição/escopo anteriores; esta autorização humana posterior permite apenas essa única tarefa filha de materialização, dentro da mesma Story/Issue.
+
+### Aceite da task operacional
+
+Os IDs abaixo são critérios da tarefa filha autorizados neste pedido, não novos requisitos nem decisões de versão; os cinco critérios arquiteturais originais permanecem preservados.
+
+- AC-1 / AC-ISSUE-0875-06: workspace materializado exatamente conforme approved-dependency-graph.yaml no SHA cb198c9e8340e0675c36679de426abf922e1c569; pyproject.toml deve corresponder aos bytes de pyproject-proposed.toml desse SHA. Somente os dois arquivos raiz pyproject.toml e uv.lock podem ser alterados fora da evidência própria; nenhum manifest filho ou package novo.
+- AC-2 / AC-ISSUE-0875-07: uv.lock gerado com CPython 3.12.13/Linux amd64, uv 0.12.19 e seu digest oficial, índice local canônico, metadados, markers/extras e política transitiva do handoff aprovado no SHA cb198c9e8340e0675c36679de426abf922e1c569; não regenerar snapshot nem consultar outro índice.
+- AC-3 / AC-ISSUE-0875-08: nenhuma dependência, versão, constraint, extra, origem ou parâmetro de resolução escolhido manualmente pelo DevOps; sem upgrade/downgrade, override, fallback ou atualização por conveniência; preservar todos os inputs aprovados.
+- AC-4 / AC-ISSUE-0875-09: uv lock --check equivalente PASS, com o resolver/config/intérprete aprovados, e check-structure.py --verify-digests --check-lock uv.lock PASS; registrar resultados reais.
+- AC-5 / AC-ISSUE-0875-10: sync --frozen reproduzível PASS no ambiente aplicável do graph, para runtime e dev/test conforme handoff; segunda geração independente em checkout limpa produz o mesmo SHA-256 de uv.lock, sem usar o primeiro lock como preferência; repetir frozen sync offline com cache completo verificado. Não depender do venue BP-003/ISSUE-0876.
+- AC-6 / AC-ISSUE-0875-11: registrar em evidence/operations/python-workspace-lock/** os comandos e saídas reais, identidade/digest do CPython e uv, plataforma, APPROVED_GRAPH_SHA=cb198c9e8340e0675c36679de426abf922e1c569, SHA-256 dos quatro artifacts e de todos os inputs consumidos, pyproject.toml, uv.lock, duas reproduções e frozen installs; sem secrets nem PASS presumido.
+- AC-7 / AC-ISSUE-0875-12: diff e inventário efetivamente materializados correspondem à autoridade aprovada: mesmos grupos/direct pins, 43 distribuições, 31 constraints, markers/extras e URLs/hashes admitidos. Comparação explícita graph -> pyproject -> uv.lock -> instalação; nenhum diff no graph aprovado, sua evidência, código, manifests históricos ou Conda/native. QA e Reviewer independentes validam o mesmo candidate SHA de execução.
+
+### Paralelismo e bloqueio downstream
+
+TASK-0773 consome somente o TASK-0771 concluído e a autoridade imutável aprovada. ISSUE-0876 / TASK-0772 não é sua dependência; ambas as lanes continuam paralelas. Lock/frozen install deve usar o ambiente aplicável do graph e não aguardar ou substituir o venue BP-003. A task operacional não autoriza mudanças de código, manifests históricos, graph, Conda/native, upgrades/downgrades, choices por conveniência ou execução de benchmark.
+
+TASK-0769 permanece BLOCKED por dois fatos independentes: uv.lock ainda não materializado e venue ISSUE-0876 ainda indisponível. Criar este envelope não satisfaz nenhum desses blockers, não libera execução de benchmark e não conclui ISSUE-0873/0822/0150. Próxima ação: DevOps executar TASK-0773 sob o escopo reservado, produzir lock/reprodução/frozen install e submetê-los a QA/Reviewer independentes no mesmo candidate SHA.
