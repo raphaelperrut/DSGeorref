@@ -1,0 +1,86 @@
+{
+  "classification_authorities": {
+    "docs/02-architecture/design-reviews/python-workspace-dependency-graph/devops-handoff.md": {
+      "sha256": "dd99435bc338851222412b54836f3ea0052445e9681a8391e741cd1eeb41e9d9",
+      "bytes": 9864
+    },
+    "docs/02-architecture/design-reviews/python-workspace-dependency-graph/approved-dependency-graph.yaml": {
+      "sha256": "3a935da374f08cd79c4707577d699120c1fcf5fa31614ff978226e20661d756f",
+      "bytes": 36949
+    },
+    "docs/02-architecture/design-reviews/python-workspace-dependency-graph/constraints.txt": {
+      "sha256": "388cbb2efb5305cb7a1ea46c4e6cf5a139feb5d48bf518c720c6b5d52ac4c07d",
+      "bytes": 705
+    },
+    "docs/02-architecture/design-reviews/python-workspace-dependency-graph/rationale.md": {
+      "sha256": "a369b91e2dcd9201ad302490d795e0a161accac3c2792044cec19fc35bd3514b",
+      "bytes": 9294
+    },
+    ".python-version": {
+      "sha256": "aa0d6581054e6e4ff3f91839deca7a854ad37221b8784d060b42d0f847ff1a3b",
+      "bytes": 8
+    },
+    "pyproject.toml": {
+      "sha256": "dbda77fcae1fb41df059c905a318c2dbc807c067cf51909047fcc9f2b936255a",
+      "bytes": 662
+    },
+    "docs/02-architecture/adrs/ADR-009-runtime-python-3-12-toolchain-e-stack-nativa-reproduzivel.md": {
+      "sha256": "223bac84797f8d7171c6896365f930930175cd0240483842e6e94e4e2ca6f7cd",
+      "bytes": 3814
+    },
+    "docs/03-engineering/TECHNOLOGY_BASELINE.yaml": {
+      "sha256": "ff24cad28b02493c18a3a8ab84b166a90c2ea61d5f38199594bcfa50a1626bcc",
+      "bytes": 7781
+    },
+    "docs/03-engineering/TECHNOLOGY_BASELINE.md": {
+      "sha256": "147a443f1e81edc49f0219a2c1ee86587c8a4c533d938a1b0e654fef3909428e",
+      "bytes": 6599
+    },
+    "docs/03-engineering/TECHNOLOGY_VERIFICATION.md": {
+      "sha256": "84abd31194ac22c17729a7e23cf5517c98a1671620058483af1ed18d63567aa9",
+      "bytes": 1913
+    },
+    "infra/images/native-stack.Dockerfile": {
+      "sha256": "b6fb55f5364bc0fd228f9671d4479d426495aea7e4dfadebcabecaed5e8d879f",
+      "bytes": 1405
+    },
+    "infra/images/native-stack.lock.yaml": {
+      "sha256": "16970dbaba6b1a5494a2003626a53bf0d6d9cfc5ed64471804bc888551d49a9e",
+      "bytes": 3337
+    },
+    "infra/images/native-stack.conda-lock.txt": {
+      "sha256": "dafb10f30d967d18c7417104d0bb417aaea8ea23a1a67937dd28dc6168db4848",
+      "bytes": 20064
+    },
+    "infra/images/native-stack.resolved.yaml": {
+      "sha256": "e1e24d73354110587d3ea45e84763882d4f3f6e2d8d61101c0b9a04c56f1ab9e",
+      "bytes": 2022
+    }
+  },
+  "source_sha": "cb198c9e8340e0675c36679de426abf922e1c569",
+  "authority_digests_valid": "PASS",
+  "scope": "PASS: only own appended evidence; tracked diff empty",
+  "existing_evidence_changed": false,
+  "pyproject_changed": false,
+  "uv_lock_generated": false,
+  "evidence_files": {
+    "classification.md": {
+      "sha256": "a019726bd07d7cf73fb6fd21c3ca85c19fc8dbba227918e1868fa736b1daebc8",
+      "bytes": 2631
+    },
+    "provision-approved-inputs.py": {
+      "sha256": "b0125f126f5c1c207b53f4dca24777c7303312c583ae91f0131a95d6a21870a6",
+      "bytes": 10573
+    },
+    "provisioning-result.json": {
+      "sha256": "37f33e79c5af5852358c95beadfec06e8f4189d6f6b2a1efc3fbd14e4eb76807",
+      "bytes": 81678
+    },
+    "uv-attestation.json": {
+      "sha256": "a45320cf9d1c357e7b2ff2d65db59e5c0d17aaebd07de84692c359ba7488898f",
+      "bytes": 20458
+    }
+  },
+  "collection_command": "python -B evidence/operations/python-workspace-lock/runtime-inputs-20261007-v1/provision-approved-inputs.py",
+  "candidate_kind": "evidence-only; external approved Python input still missing"
+}
