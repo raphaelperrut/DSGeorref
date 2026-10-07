@@ -29,7 +29,7 @@ def repository(tmp_path: Path) -> Path:
 
 def test_canonical_registry_schema_and_all_envelopes() -> None:
     tasks, gates = validate_planning(WorkingRepository(ROOT))
-    assert len(tasks) == 761
+    assert len(tasks) == 765
     assert set(gates) == {GATE_ID}
     assert tasks["TASK-0038"]["dependencies"] == ["STORY-0036"]
     assert tasks["TASK-0738"]["dependencies"] == ["STORY-0185"]
