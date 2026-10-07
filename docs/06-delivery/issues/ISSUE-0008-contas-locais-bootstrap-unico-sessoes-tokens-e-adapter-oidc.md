@@ -1,7 +1,7 @@
 # ISSUE-0008 — contas locais, bootstrap único, sessões, tokens e adapter OIDC
 
 - **Tipo:** `Envelope de entrega do épico`
-- **Status:** `qa` — fechamento com deferimento proposto; QA e depois Reviewer independentes pendentes
+- **Status:** `CLOSED_WITH_ACCEPTED_DEFERRAL` — encerramento administrativo da fase atual
 - **Épico pai:** `EPIC-008`
 - **Sprint:** `SPRINT-002`
 - **Bounded Context owner:** `BC-002 — Identidade e Controle de Acesso`
@@ -135,14 +135,19 @@ A evidência integrada identifica atendimento histórico dos demais requisitos;
 REQ-AUTH-IMPL-007 possui contrato/teste de contrato, mas runtime persistente final
 permanece ausente. Não há novo defeito funcional conhecido fora de REQ-007 nas
 fontes consultadas. Os dois testes finais ausentes/não executados, a integração
-HTTP de sucesso não demonstrada e QA independente pendente são limitações
+HTTP de sucesso não demonstrada são limitações
 explícitas; não recebem PASS nem são escondidas pela exceção de REQ-007.
 Os PASS das revisões estruturais Fases B–G abaixo não são QA atual ou production readiness.
 
-ISSUE-0150 e EPIC-008 têm classificação de fechamento proposta
+ISSUE-0150 e EPIC-008 têm classificação de fechamento administrativo
 CLOSED_WITH_ACCEPTED_DEFERRAL; EPIC_008_DEVELOPMENT_COMPLETE = YES_FOR_CURRENT_PHASE;
-EPIC_008_PRODUCTION_READY = NO. FINAL_QA = PENDING e FINAL_REVIEW = PENDING para
-esta aceitação documental alterada. CLOSURE_ALLOWED = NO até os dois registros
-independentes no mesmo commit documental e confirmação de ausência de outro
-BLOCKER/HIGH independente. Nenhuma autoaprovação ou PASS técnico é emitido.
-O próximo gate é revisão documental; não é nova prerequisite de infraestrutura.
+EPIC_008_PRODUCTION_READY = NO. FINAL_QA = PASS_WITH_ACCEPTED_DEFERRAL;
+FINAL_REVIEW = PASS_WITH_ACCEPTED_DEFERRAL.
+QA_APPROVED_SHA = bd8caa9bb40bf8093767a1f8800c132747392f56;
+REVIEW_SHA = bd8caa9bb40bf8093767a1f8800c132747392f56;
+APPROVED_SHA = bd8caa9bb40bf8093767a1f8800c132747392f56.
+CLOSURE_ALLOWED = YES, somente administrativo, autorizado pelo usuário em 2026-10-07
+após QA independente informado e parecer independente do Reviewer no mesmo SHA.
+Nenhum outro BLOCKER/HIGH independente identificado nas fontes revisadas.
+Registro posterior dos gates; nenhum PASS técnico integral ou de produção é emitido.
+O DEFERRED_ID acima e sua quitação em SPRINT-012 / GitHub #816 permanecem vigentes.

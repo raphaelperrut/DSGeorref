@@ -2079,7 +2079,7 @@
       "sprint": "SPRINT-002",
       "domain": "PLT",
       "type": "Story",
-      "status": "qa",
+      "status": "closed-with-accepted-deferral",
       "role": "Reviewer",
       "title": "Executar QA e auditoria final: contas locais, bootstrap único, sessões, tokens e adapter OIDC",
       "dependencies": [

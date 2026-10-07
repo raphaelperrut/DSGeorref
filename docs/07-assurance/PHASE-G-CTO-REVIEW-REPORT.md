@@ -1157,18 +1157,19 @@ fail-closed herdados; rastreabilidade distingue requisito parcial/obrigação tr
 testes/runtime finais ausentes não recebem PASS; QA e Reviewer continuam independentes.
 Esta decisão aceita desenvolvimento da fase atual, **não implementação integral**.
 
-- **ISSUE_0150_CLOSURE_CLASSIFICATION proposta:** `CLOSED_WITH_ACCEPTED_DEFERRAL`.
-- **EPIC_008_CLOSURE_CLASSIFICATION proposta:** `CLOSED_WITH_ACCEPTED_DEFERRAL`.
+- **ISSUE_0150_CLOSURE_CLASSIFICATION:** `CLOSED_WITH_ACCEPTED_DEFERRAL`.
+- **EPIC_008_CLOSURE_CLASSIFICATION:** `CLOSED_WITH_ACCEPTED_DEFERRAL`.
 - **EPIC_008_DEVELOPMENT_COMPLETE:** `YES_FOR_CURRENT_PHASE` por aceitação explícita.
 - **EPIC_008_PRODUCTION_READY:** `NO`.
-- **FINAL_QA:** `PENDING` para a aceitação documental alterada.
-- **FINAL_REVIEW:** `PENDING` para a aceitação documental alterada.
-- **CLOSURE_ALLOWED:** `NO` até QA e Reviewer independentes verificarem este mesmo
-  commit documental, incluindo os limites de integração acima e a inexistência de
-  outro BLOCKER/HIGH independente. Não há autoaprovação nem PASS_WITH_ACCEPTED_DEFERRAL
-  emitido neste passe. Esse próximo gate é documental, sem continuar a cadeia de
-  infraestrutura. A regra vem de DEFINITION_OF_DONE, ROLE_AUTHORITY_MATRIX e
-  AC-ISSUE-0150-04; encerramento como Done sem ela contrariaria a governança.
+- **FINAL_QA:** `PASS_WITH_ACCEPTED_DEFERRAL` — QA independente informado pelo usuário.
+- **QA_APPROVED_SHA:** `bd8caa9bb40bf8093767a1f8800c132747392f56`.
+- **FINAL_REVIEW:** `PASS_WITH_ACCEPTED_DEFERRAL` — parecer independente anterior a este registro administrativo.
+- **REVIEW_SHA:** `bd8caa9bb40bf8093767a1f8800c132747392f56`.
+- **APPROVED_SHA:** `bd8caa9bb40bf8093767a1f8800c132747392f56`.
+- **CLOSURE_ALLOWED:** `YES`, somente administrativo, autorizado pelo usuário em
+  2026-10-07 após QA e Reviewer no mesmo SHA; nenhum outro BLOCKER/HIGH independente
+  identificado nas fontes revisadas. Este registro posterior não amplia a aprovação
+  técnica do candidato nem altera os critérios de quitação do DEFERRED_ID acima.
 
 No parecer independente, se não houver outro blocker, a classificação de fechamento
 é obrigatoriamente `CLOSED_WITH_ACCEPTED_DEFERRAL`; um eventual
