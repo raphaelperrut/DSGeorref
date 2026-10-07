@@ -35,7 +35,8 @@
     "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
     "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
     "docs/02-architecture/adrs/ADR-009-runtime-python-3-12-toolchain-e-stack-nativa-reproduzivel.md",
-    "docs/02-architecture/adrs/ADR-033-supply-chain-sbom-assinaturas-e-dependencias.md"
+    "docs/02-architecture/adrs/ADR-033-supply-chain-sbom-assinaturas-e-dependencias.md",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md"
   ],
   "allow_paths": [
     "docs/02-architecture/design-reviews/python-workspace-dependency-graph/approved-dependency-graph.yaml",
@@ -82,6 +83,7 @@
   ],
   "dependencies": [],
   "stop_conditions": [
+    "TASK-0771: grafo aprovado independentemente em cb198c9e8340e0675c36679de426abf922e1c569 e não reaberto. TASK-0773 operacional foi DEFERRED_TO_SPRINT_012 sob EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS; não inferir lock/frozen install aprovados.",
     "Decisão/entrada normativa ausente ou contraditória, ou escolha ainda ad hoc: registrar blocker e retornar ao owner.",
     "Necessidade de mudar produto, stack nativa, profiles BP-003/AP-003, executar benchmark ou promover throttling.",
     "Colisão de paths ou necessidade de escrever fora do escopo; ausência de target/autorização operacional para ação externa.",

@@ -41,7 +41,7 @@ Slice 1/2 concluído com contrato, implementação ou evidência compatível com
 ## Dependências
 
 
-`STORY-0036`, `STORY-0762`
+`STORY-0036`
 
 ## Critérios de aceitação
 
@@ -154,6 +154,12 @@ Leia `AGENTS.md`, o papel `.codex/roles/ROLE-004-backend.md`, esta história e `
 - **Gate de produção:** `SECURITY_AND_PRIVACY_GATES`
 - **Regra:** implementação não pode publicar claim de custo, escala, latência, GPU, RPO/RTO ou segurança sem a evidência listada no TaskEnvelope.
 
-## Prerequisite de throttling — bloqueio vigente
+## Throttling — obrigação de production readiness
 
-STORY-0762 / ISSUE-0873 / TASK-0769 calibra BP-003 e promove somente o recorte de throttling em AP-003. Cadeia: STORY-0762 -> STORY-0712 -> STORY-0040. O perfil aprovado deve estar integrado antes da correcao de ISSUE-0822; ISSUE-0150 depende tambem da implementacao e dos testes reais dessa correcao. O diagnostico 11df6dff79e7eaa33ac287cd576bcafd5344391c permanece preservado; nenhum gate foi aprovado por esta materializacao.
+A aresta STORY-0762 → STORY-0712 deixa de bloquear desenvolvimento corrente.
+REQ-007 permanece parcialmente entregue e não atendido em runtime; sua implementação
+final continua pertencendo a identity_access/Backend. A quitação completa de
+[EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS](../../07-assurance/PHASE-G-CTO-REVIEW-REPORT.md#epic-008-req-auth-impl-007-production-readiness)
+é prerequisite de release em EPIC-108 / SPRINT-012. Não há promoção de AP-003,
+benchmark, implementação final ou novos testes neste passe. A atribuição de
+execução futura continua sujeita ao envelope autorizado e aprovação independente.

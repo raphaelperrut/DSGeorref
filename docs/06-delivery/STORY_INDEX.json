@@ -2079,7 +2079,7 @@
       "sprint": "SPRINT-002",
       "domain": "PLT",
       "type": "Story",
-      "status": "blocked",
+      "status": "qa",
       "role": "Reviewer",
       "title": "Executar QA e auditoria final: contas locais, bootstrap único, sessões, tokens e adapter OIDC",
       "dependencies": [
@@ -2104,6 +2104,30 @@
       "rr_status": "PASS",
       "file": "STORY-0040-ISSUE-0150-executar-qa-e-auditoria-final-contas-locais-bootstrap-unico-sessoes-tokens.md",
       "allow_paths": [
+        "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
+        "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
+        "docs/06-delivery/RISK_REGISTER.md",
+        "docs/06-delivery/epics/EPIC-008-contas-locais-bootstrap-unico-sessoes-tokens-e-adapter-oidc.md",
+        "docs/06-delivery/epics/EPIC-108-instalador-bootstrap-readiness-e-suporte-diagnostico.md",
+        "docs/06-delivery/issues/ISSUE-0008-contas-locais-bootstrap-unico-sessoes-tokens-e-adapter-oidc.md",
+        "docs/06-delivery/issues/ISSUE-0108-instalador-bootstrap-readiness-e-suporte-diagnostico.md",
+        "docs/06-delivery/stories/STORY-0040-ISSUE-0150-executar-qa-e-auditoria-final-contas-locais-bootstrap-unico-sessoes-tokens.md",
+        "docs/06-delivery/stories/STORY-0712-ISSUE-0822-slice-1-2-implementar-dominio-e-persistencia-contas-locais-bootstrap-unico-sessoes-tok.md",
+        "docs/06-delivery/stories/STORY-0762-ISSUE-0873-calibrar-e-promover-perfil-quantitativo-de-throttling.md",
+        "docs/06-delivery/stories/STORY-0768-ISSUE-0875-aprovar-grafo-python-workspace-para-uv-lock.md",
+        "docs/06-delivery/stories/STORY-0769-ISSUE-0876-provisionar-venue-referencia-bp-003-throttling.md",
+        "docs/06-delivery/sprints/SPRINT-012-instalacao-release-train-e-publicacao.md",
+        "docs/06-delivery/STORY_INDEX.csv",
+        "docs/06-delivery/STORY_INDEX.json",
+        "docs/06-delivery/ISSUE_INDEX.csv",
+        "docs/06-delivery/STORY_DEPENDENCY_GRAPH.json",
+        "docs/05-operations/PRODUCTION_READINESS_GATES.md",
+        ".codex/tasks/TASK-0040.json",
+        ".codex/tasks/TASK-0712.json",
+        ".codex/tasks/TASK-0769.json",
+        ".codex/tasks/TASK-0771.json",
+        ".codex/tasks/TASK-0772.json",
+        ".codex/tasks/operations/TASK-0773.json",
         "evidence/reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**"
       ],
       "deny_paths": [
@@ -2114,14 +2138,14 @@
         "src/**/issue-*"
       ],
       "acceptance_criteria": [
-        "O resultado de “contas locais, bootstrap único, sessões, tokens e adapter OIDC” é observável por contrato, interface, artifact ou evidência executável.",
-        "Os requisitos vinculados possuem evidência explícita no commit candidato.",
-        "Estados de erro e caminhos fail-closed aplicáveis são testados, sem fallback silencioso.",
-        "QA e Reviewer referenciam o mesmo commit, evidências e riscos residuais; nenhuma aprovação é implícita."
+        "AC-ISSUE-0150-01: a capacidade observável já integrada permanece sustentada por evidência histórica identificada; runtime final de throttling e integração de produção não são declarados executados.",
+        "AC-ISSUE-0150-02: cada requisito do EPIC-008 possui rastreabilidade explícita; REQ-AUTH-IMPL-007 é parcialmente entregue no contrato e permanece não atendido em runtime, sob EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS; nenhum outro requisito pode ser coberto por esse deferimento.",
+        "AC-ISSUE-0150-03: preservar evidência histórica dos caminhos de erro/fail-closed; os dois testes finais obrigatórios permanecem ausentes/não executados e sua produção e execução pertencem ao gate final de readiness, sem converter falta de teste em PASS.",
+        "AC-ISSUE-0150-04: QA e Reviewer independentes devem avaliar esta aceitação alterada no mesmo commit candidato; até seus registros explícitos, FINAL_QA e FINAL_REVIEW permanecem PENDING e o fechamento CLOSED_WITH_ACCEPTED_DEFERRAL não é autorizado."
       ],
       "tests": [
-        "test_epic_008_aceite_happy_path",
-        "test_epic_008_aceite_negative_paths"
+        "Conferência documental de links, identidade, cobertura do deferimento, ownership e retirada da aresta ativa de infraestrutura; não executar testes de produto/benchmark neste passe.",
+        "Antes de production readiness: produzir e executar test_epic_008_aceite_happy_path e test_epic_008_aceite_negative_paths no runtime aplicável, além dos testes obrigatórios do throttling persistente; não há execução neste passe."
       ]
     },
     {
@@ -37825,8 +37849,7 @@
       "role": "Backend",
       "title": "Slice 1/2 — Implementar domínio e persistência: contas locais, bootstrap único, sessões, tokens e adapter OIDC [REQ-AUTH-IMPL, REQ-DBSCHEMA]",
       "dependencies": [
-        "STORY-0036",
-        "STORY-0762"
+        "STORY-0036"
       ],
       "requirements": [
         "REQ-AUTH-IMPL-001",
@@ -41044,7 +41067,7 @@
       "sprint": "SPRINT-002",
       "domain": "PLT",
       "type": "Story",
-      "status": "blocked",
+      "status": "closed-as-deferred",
       "role": "Security",
       "title": "Calibrar e promover o perfil quantitativo de throttling",
       "dependencies": [
@@ -41183,7 +41206,7 @@
       "sprint": "SPRINT-001",
       "domain": "FND",
       "type": "Story",
-      "status": "planned",
+      "status": "closed-as-deferred",
       "role": "Arquiteto",
       "title": "Aprovar o grafo Python do workspace para materialização determinística de uv.lock",
       "dependencies": [],
@@ -41256,7 +41279,7 @@
       "sprint": "SPRINT-002",
       "domain": "PLT",
       "type": "Story",
-      "status": "planned",
+      "status": "closed-as-deferred",
       "role": "DevOps",
       "title": "Provisionar e evidenciar o venue de referência do benchmark de throttling BP-003",
       "dependencies": [

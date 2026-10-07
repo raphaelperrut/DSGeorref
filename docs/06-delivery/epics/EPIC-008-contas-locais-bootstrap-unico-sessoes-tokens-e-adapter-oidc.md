@@ -68,3 +68,28 @@ A ordem efetiva é governada por `STORY_DEPENDENCY_GRAPH.json`; IDs não substit
 
 - **ADRs aplicáveis:** `ADR-003`, `ADR-005`, `ADR-006`, `ADR-007`, `ADR-008`, `ADR-010`, `ADR-011`, `ADR-014`, `ADR-016`, `ADR-028`, `ADR-029`, `ADR-030`, `ADR-031`, `ADR-032`, `ADR-034`, `ADR-043`, `ADR-055`
 - **Resultado:** `PASS`
+
+## Reconciliação excepcional da fase atual — 2026-10-07
+
+Decisão explícita do usuário: DEVELOPMENT_READINESS = ACCEPTED;
+PRODUCTION_RELEASE_READINESS = BLOCKED_BY_DEFERRED_OBLIGATION.
+[Único registro canônico](../../07-assurance/PHASE-G-CTO-REVIEW-REPORT.md#epic-008-req-auth-impl-007-production-readiness):
+EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS, consumido como gate de release
+por EPIC-108 / ISSUE-0108 / GitHub #816 / SPRINT-012, sem transferir REQ-007
+para BC-015. Owner funcional permanece identity_access/Backend; benchmark Security.
+
+A evidência integrada identifica atendimento histórico dos demais requisitos;
+REQ-AUTH-IMPL-007 possui contrato/teste de contrato, mas runtime persistente final
+permanece ausente. Não há novo defeito funcional conhecido fora de REQ-007 nas
+fontes consultadas. Os dois testes finais ausentes/não executados, a integração
+HTTP de sucesso não demonstrada e QA independente pendente são limitações
+explícitas; não recebem PASS nem são escondidas pela exceção de REQ-007.
+Os PASS das revisões estruturais Fases B–G abaixo não são QA atual ou production readiness.
+
+ISSUE-0150 e EPIC-008 têm classificação de fechamento proposta
+CLOSED_WITH_ACCEPTED_DEFERRAL; EPIC_008_DEVELOPMENT_COMPLETE = YES_FOR_CURRENT_PHASE;
+EPIC_008_PRODUCTION_READY = NO. FINAL_QA = PENDING e FINAL_REVIEW = PENDING para
+esta aceitação documental alterada. CLOSURE_ALLOWED = NO até os dois registros
+independentes no mesmo commit documental e confirmação de ausência de outro
+BLOCKER/HIGH independente. Nenhuma autoaprovação ou PASS técnico é emitido.
+O próximo gate é revisão documental; não é nova prerequisite de infraestrutura.

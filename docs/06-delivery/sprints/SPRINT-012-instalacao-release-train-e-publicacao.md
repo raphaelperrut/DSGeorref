@@ -121,3 +121,18 @@ Instalação, release train e publicação.
 - **Risk tier:** Critical `31`, High `27`, Medium `0`
 - **Gates aplicáveis:** `BENCHMARK_AND_OPERATIONS_GATES, SECURITY_AND_PRIVACY_GATES`
 - **Relatório:** `docs/07-assurance/phase-g/SPRINT-012-CTO-REVIEW.md`
+
+## Gate de release — obrigação de EPIC-008
+
+**DEFERRED_ID:** `EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS`.
+[Registro canônico e critérios de quitação](../../07-assurance/PHASE-G-CTO-REVIEW-REPORT.md#epic-008-req-auth-impl-007-production-readiness).
+EPIC-108 / ISSUE-0108 / GitHub #816, na SPRINT-012, consome sua quitação como
+prerequisite de readiness. BC-015/DevOps deve impedir release production-ready
+até toda a evidência e aprovações independentes exigidas pelo registro estarem
+versionadas e vinculadas ao candidato de produção. Ausência, execução parcial,
+digest divergente ou aprovação faltante mantém o gate fail-closed e bloqueia o
+claim; fechamento administrativo de EPIC-008 não quita a obrigação.
+REQ-AUTH-IMPL-007 continua pertencendo a BC-002/identity_access; Backend implementa,
+Security executa/revisa BP-003 quando executável. BC-015 é consumidor da quitação,
+sem mudança de owner funcional. Desenvolvimento dos demais módulos pode continuar.
+Parâmetros quantitativos permanecem evidence-bound por BP-003/AP-003 aprovados.

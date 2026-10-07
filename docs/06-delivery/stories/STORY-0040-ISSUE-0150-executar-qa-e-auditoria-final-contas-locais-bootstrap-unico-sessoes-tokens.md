@@ -1,7 +1,7 @@
 # STORY-0040 / ISSUE-0150 — Executar QA e auditoria final: contas locais, bootstrap único, sessões, tokens e adapter OIDC
 
 - **Tipo:** `História implementável`
-- **Estado:** `Blocked`
+- **Estado:** `QA` — aceitação da fase reconciliada; fechamento condicionado a QA e depois Reviewer independentes
 - **Épico pai:** `EPIC-008`
 - **Sprint:** `SPRINT-002`
 - **Domínio:** `PLT`
@@ -18,6 +18,8 @@ Como administrador da instância, preciso executar qa e auditoria final para “
 Executar QA e auditoria final para a capacidade **contas locais, bootstrap único, sessões, tokens e adapter OIDC**, com saída versionada, testes e evidência no commit candidato.
 
 ## Escopo
+
+A autorização administrativa excepcional de 2026-10-07 estende somente este passe aos paths documentais exatos de TASK-0040; não permite implementação ou autoaprovação.
 
 - `evidence/reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/**`
 ## Fora de escopo
@@ -44,19 +46,19 @@ Nenhum requisito exclusivo; valida integração do épico.
 
 ## Critérios de aceitação
 
-- [ ] O resultado de “contas locais, bootstrap único, sessões, tokens e adapter OIDC” é observável por contrato, interface, artifact ou evidência executável.
-- [ ] Os requisitos vinculados possuem evidência explícita no commit candidato.
-- [ ] Estados de erro e caminhos fail-closed aplicáveis são testados, sem fallback silencioso.
-- [ ] QA e Reviewer referenciam o mesmo commit, evidências e riscos residuais; nenhuma aprovação é implícita.
+- [ ] AC-ISSUE-0150-01: a capacidade observável já integrada permanece sustentada por evidência histórica identificada; runtime final de throttling e integração de produção não são declarados executados.
+- [ ] AC-ISSUE-0150-02: cada requisito do EPIC-008 possui rastreabilidade explícita; REQ-AUTH-IMPL-007 é parcialmente entregue no contrato e permanece não atendido em runtime, sob EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS; nenhum outro requisito pode ser coberto por esse deferimento.
+- [ ] AC-ISSUE-0150-03: preservar evidência histórica dos caminhos de erro/fail-closed; os dois testes finais obrigatórios permanecem ausentes/não executados e sua produção e execução pertencem ao gate final de readiness, sem converter falta de teste em PASS.
+- [ ] AC-ISSUE-0150-04: QA e Reviewer independentes devem avaliar esta aceitação alterada no mesmo commit candidato; até seus registros explícitos, FINAL_QA e FINAL_REVIEW permanecem PENDING e o fechamento CLOSED_WITH_ACCEPTED_DEFERRAL não é autorizado.
 
-## Testes obrigatórios
+## Testes finais obrigatórios — deferred production readiness
 
 - `test_epic_008_aceite_happy_path`
 - `test_epic_008_aceite_negative_paths`
 
 ## Evidências obrigatórias
 
-- Resultado dos testes no commit candidato.
+- Neste passe: conferência documental de links, escopo, índices, aceitação e grafo; sem execução de testes de produto. Resultados dos testes finais exigidos antes de production readiness.
 - Lista de arquivos alterados e justificativa de escopo.
 - Handoff com limitações, riscos residuais e impacto em contratos.
 - Aprovação independente aplicável ao mesmo commit.
@@ -156,3 +158,28 @@ Leia `AGENTS.md`, `.codex/roles/ROLE-011-reviewer.md`, este documento, o épico 
 ## Prerequisite de throttling — bloqueio vigente
 
 STORY-0762 / ISSUE-0873 / TASK-0769 calibra BP-003 e promove somente o recorte de throttling em AP-003. Cadeia: STORY-0762 -> STORY-0712 -> STORY-0040. O perfil aprovado deve estar integrado antes da correcao de ISSUE-0822; ISSUE-0150 depende tambem da implementacao e dos testes reais dessa correcao. O diagnostico 11df6dff79e7eaa33ac287cd576bcafd5344391c permanece preservado; nenhum gate foi aprovado por esta materializacao.
+
+## Reconciliação excepcional da fase atual — 2026-10-07
+
+Decisão explícita do usuário: DEVELOPMENT_READINESS = ACCEPTED;
+PRODUCTION_RELEASE_READINESS = BLOCKED_BY_DEFERRED_OBLIGATION.
+[Único registro canônico](../../07-assurance/PHASE-G-CTO-REVIEW-REPORT.md#epic-008-req-auth-impl-007-production-readiness):
+EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS, consumido como gate de release
+por EPIC-108 / ISSUE-0108 / GitHub #816 / SPRINT-012, sem transferir REQ-007
+para BC-015. Owner funcional permanece identity_access/Backend; benchmark Security.
+
+A evidência integrada identifica atendimento histórico dos demais requisitos;
+REQ-AUTH-IMPL-007 possui contrato/teste de contrato, mas runtime persistente final
+permanece ausente. Não há novo defeito funcional conhecido fora de REQ-007 nas
+fontes consultadas. Os dois testes finais ausentes/não executados, a integração
+HTTP de sucesso não demonstrada e QA independente pendente são limitações
+explícitas; não recebem PASS nem são escondidas pela exceção de REQ-007.
+Os PASS das revisões estruturais Fases B–G abaixo não são QA atual ou production readiness.
+
+ISSUE-0150 e EPIC-008 têm classificação de fechamento proposta
+CLOSED_WITH_ACCEPTED_DEFERRAL; EPIC_008_DEVELOPMENT_COMPLETE = YES_FOR_CURRENT_PHASE;
+EPIC_008_PRODUCTION_READY = NO. FINAL_QA = PENDING e FINAL_REVIEW = PENDING para
+esta aceitação documental alterada. CLOSURE_ALLOWED = NO até os dois registros
+independentes no mesmo commit documental e confirmação de ausência de outro
+BLOCKER/HIGH independente. Nenhuma autoaprovação ou PASS técnico é emitido.
+O próximo gate é revisão documental; não é nova prerequisite de infraestrutura.

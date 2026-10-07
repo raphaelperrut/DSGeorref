@@ -1,7 +1,7 @@
 # STORY-0768 / ISSUE-0875 — Aprovar o grafo Python do workspace para materialização determinística de uv.lock
 
 - **Tipo:** `História implementável — prerequisite técnica`
-- **Estado:** grafo aprovado em `cb198c9e8340e0675c36679de426abf922e1c569`; materialização operacional pendente em `TASK-0773`
+- **Estado:** `CLOSED_AS_DEFERRED` — obrigação consumida pela SPRINT-012; sem PASS de execução pendente
 - **Épico pai:** `EPIC-001`
 - **Sprint:** `SPRINT-001`
 - **Domínio:** `FND`
@@ -121,3 +121,15 @@ Os IDs abaixo são critérios da tarefa filha autorizados neste pedido, não nov
 TASK-0773 consome somente o TASK-0771 concluído e a autoridade imutável aprovada. ISSUE-0876 / TASK-0772 não é sua dependência; ambas as lanes continuam paralelas. Lock/frozen install deve usar o ambiente aplicável do graph e não aguardar ou substituir o venue BP-003. A task operacional não autoriza mudanças de código, manifests históricos, graph, Conda/native, upgrades/downgrades, choices por conveniência ou execução de benchmark.
 
 TASK-0769 permanece BLOCKED por dois fatos independentes: uv.lock ainda não materializado e venue ISSUE-0876 ainda indisponível. Criar este envelope não satisfaz nenhum desses blockers, não libera execução de benchmark e não conclui ISSUE-0873/0822/0150. Próxima ação: DevOps executar TASK-0773 sob o escopo reservado, produzir lock/reprodução/frozen install e submetê-los a QA/Reviewer independentes no mesmo candidate SHA.
+
+TASK-0771: grafo aprovado independentemente em cb198c9e8340e0675c36679de426abf922e1c569, preservado e não reaberto. TASK-0773: DEFERRED_TO_SPRINT_012; uv 0.12.19 e inputs validados, CPython externo ao Conda EXTERNAL_INPUT_MISSING; lock e frozen install não executados.
+
+## Disposição administrativa vigente — 2026-10-07
+
+CLOSED_AS_DEFERRED / DEFERRED_TO_SPRINT_012, por decisão explícita do usuário.
+[Obrigação canônica que absorve o trabalho pendente](../../07-assurance/PHASE-G-CTO-REVIEW-REPORT.md#epic-008-req-auth-impl-007-production-readiness):
+EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS. Este item deixa de bloquear o
+ desenvolvimento corrente; suas instruções de execução anteriores descrevem o
+escopo técnico futuro e não autorizam retomar infraestrutura nesta fase.
+Não há PASS de execução/produção. Evidências anteriores permanecem imutáveis.
+Retomada na fase de readiness exige autoridade operacional e gates existentes.

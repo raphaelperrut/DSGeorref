@@ -1,7 +1,7 @@
 # STORY-0769 / ISSUE-0876 — Provisionar e evidenciar o venue de referência do benchmark de throttling BP-003
 
 - **Tipo:** `História implementável — prerequisite técnica`
-- **Estado:** `Planned` — execução e review independente pendentes
+- **Estado:** `CLOSED_AS_DEFERRED` — obrigação consumida pela SPRINT-012; sem PASS de execução pendente
 - **Épico pai:** `EPIC-008`
 - **Sprint:** `SPRINT-002`
 - **Domínio:** `PLT`
@@ -84,3 +84,13 @@ Handoff identifica outputs exatos, versões/SHA-256/candidate SHA, limites e com
 ## Planejamento e prompt
 
 Leia AGENTS.md, papel, esta história, TaskEnvelope e referências aplicáveis. Execute somente o recorte autorizado após liberação do Tech Lead. Campos PASS constantes exigidos pelo schema descrevem a baseline estrutural; não comprovam execução ou aprovação. Estado Planned e review BLOCKED até evidência independente. A criação destes documentos não libera TASK-0769 nem conclui ISSUE-0873/0822/0150.
+
+## Disposição administrativa vigente — 2026-10-07
+
+CLOSED_AS_DEFERRED / DEFERRED_TO_SPRINT_012, por decisão explícita do usuário.
+[Obrigação canônica que absorve o trabalho pendente](../../07-assurance/PHASE-G-CTO-REVIEW-REPORT.md#epic-008-req-auth-impl-007-production-readiness):
+EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS. Este item deixa de bloquear o
+ desenvolvimento corrente; suas instruções de execução anteriores descrevem o
+escopo técnico futuro e não autorizam retomar infraestrutura nesta fase.
+Não há PASS de execução/produção. Evidências anteriores permanecem imutáveis.
+Retomada na fase de readiness exige autoridade operacional e gates existentes.

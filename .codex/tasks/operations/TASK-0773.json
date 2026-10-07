@@ -37,7 +37,8 @@
     "evidence/architecture/python-workspace-dependency-graph/pyproject-proposed.toml",
     "evidence/architecture/python-workspace-dependency-graph/check-structure.py",
     "evidence/architecture/python-workspace-dependency-graph/simple/index.html",
-    "pyproject.toml"
+    "pyproject.toml",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md"
   ],
   "allow_paths": [
     "pyproject.toml",
@@ -93,6 +94,7 @@
     "TASK-0771"
   ],
   "stop_conditions": [
+    "Disposição administrativa 2026-10-07: trabalho pendente DEFERRED_TO_SPRINT_012 / SUPERSEDED_BY_DEFERRED_OBLIGATION EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS; não iniciar como prerequisite de desenvolvimento corrente. Retomada somente na fase de readiness autorizada, sem PASS de execução presumido.",
     "Parar se os blobs/digests consumidos divergirem de APPROVED_GRAPH_SHA=cb198c9e8340e0675c36679de426abf922e1c569 ou se a execução exigir nova escolha técnica, upgrade/downgrade, mudança de constraint, índice, extra, topologia ou artifact. Registrar falha operacional na evidência própria; não reabrir decisões nem alterar autoridade aprovada.",
     "Parar se precisar escrever fora de pyproject.toml, uv.lock e evidence/operations/python-workspace-lock/**, alterar código, manifest histórico, stack Conda/native, graph ou sua evidência. Não editar este envelope ou criar nova Story/Issue para contornar o limite.",
     "Parar por branch/worktree contaminado, colisão de write scope ou ausência de serialização exclusiva de pyproject.toml/uv.lock. Não descartar trabalho de terceiros nem cherry-pick evidência da ISSUE-0876.",

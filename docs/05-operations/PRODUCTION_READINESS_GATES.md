@@ -9,3 +9,13 @@
 - **G-CTO-07 — LGPD e privacidade**: owner `Product Owner`; bloqueia `personal data/public operation`; evidência: ROPA, papéis, base/finalidade, retenção, direitos e incidente.
 - **G-CTO-08 — Observabilidade e SLO**: owner `DevOps`; bloqueia `production`; evidência: dashboards, alertas e SLI medidos sem cardinalidade indevida.
 - **G-CTO-09 — Release e rollback**: owner `Reviewer`; bloqueia `publication`; evidência: SBOM, assinatura, backup, smoke, rollback e release gate.
+
+## EPIC-008 — quitação obrigatória antes de production readiness
+
+G-CTO-06 e G-CTO-09 consomem
+[EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS](../07-assurance/PHASE-G-CTO-REVIEW-REPORT.md#epic-008-req-auth-impl-007-production-readiness).
+EPIC-108 / ISSUE-0108 / GitHub #816 / SPRINT-012 deve bloquear release production-ready
+até quitação completa e verificável. Ausência ou insuficiência de evidência mantém
+BLOCKED_BY_DEFERRED_OBLIGATION. Aceitação de desenvolvimento ou fechamento administrativo
+não libera exposição/produção nem substitui outros gates existentes. O owner funcional
+permanece identity_access/Backend e o benchmark permanece com Security.

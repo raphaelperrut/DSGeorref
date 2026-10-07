@@ -14275,11 +14275,6 @@
       "relation": "blocks"
     },
     {
-      "from": "STORY-0762",
-      "to": "STORY-0712",
-      "relation": "blocks"
-    },
-    {
       "from": "STORY-0712",
       "to": "STORY-0040",
       "relation": "blocks"

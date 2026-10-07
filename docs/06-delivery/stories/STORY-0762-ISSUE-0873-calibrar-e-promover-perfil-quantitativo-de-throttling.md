@@ -1,7 +1,7 @@
 # STORY-0762 / ISSUE-0873 — Calibrar e promover o perfil quantitativo de throttling
 
 - **Tipo:** `História implementável — prerequisite técnica`
-- **Estado:** `Blocked` — grafo Python/uv.lock e venue pendentes; ISSUE-0873 permanece aberta
+- **Estado:** `CLOSED_AS_DEFERRED` — obrigação consumida pela SPRINT-012; sem PASS de execução pendente
 - **Épico pai:** `EPIC-008`
 - **Sprint:** `SPRINT-002`
 - **Domínio:** `PLT`
@@ -193,3 +193,13 @@ Os registros históricos de revisão não foram ampliados para aprovar esta entr
 Antes de Ready, o Tech Lead deve reconciliar as revisões/inventários aplicáveis e
 validar a baseline conforme a Definition of Ready; não há autorização implícita
 de execução ou promoção por um check de JSON Schema.
+
+## Disposição administrativa vigente — 2026-10-07
+
+CLOSED_AS_DEFERRED / DEFERRED_TO_SPRINT_012, por decisão explícita do usuário.
+[Obrigação canônica que absorve o trabalho pendente](../../07-assurance/PHASE-G-CTO-REVIEW-REPORT.md#epic-008-req-auth-impl-007-production-readiness):
+EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS. Este item deixa de bloquear o
+ desenvolvimento corrente; suas instruções de execução anteriores descrevem o
+escopo técnico futuro e não autorizam retomar infraestrutura nesta fase.
+Não há PASS de execução/produção. Evidências anteriores permanecem imutáveis.
+Retomada na fase de readiness exige autoridade operacional e gates existentes.

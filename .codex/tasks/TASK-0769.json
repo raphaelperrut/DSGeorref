@@ -35,7 +35,8 @@
     "evidence/security/bp003-throttling-execution-baseline/normative-link-handoff-v2.json",
     "evidence/security/throttling-calibration/readiness-reconciliation-v1.json",
     "docs/06-delivery/stories/STORY-0768-ISSUE-0875-aprovar-grafo-python-workspace-para-uv-lock.md",
-    "docs/06-delivery/stories/STORY-0769-ISSUE-0876-provisionar-venue-referencia-bp-003-throttling.md"
+    "docs/06-delivery/stories/STORY-0769-ISSUE-0876-provisionar-venue-referencia-bp-003-throttling.md",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md"
   ],
   "allow_paths": [
     "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
@@ -79,6 +80,7 @@
     "STORY-0769"
   ],
   "stop_conditions": [
+    "Disposição administrativa 2026-10-07: trabalho pendente DEFERRED_TO_SPRINT_012 / SUPERSEDED_BY_DEFERRED_OBLIGATION EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS; não iniciar como prerequisite de desenvolvimento corrente. Retomada somente na fase de readiness autorizada, sem PASS de execução presumido.",
     "Perfis de hardware/workload aprovados em 4b634381328bd969679abe48ee6936aaf8fe4319 ausentes, inválidos ou inaplicáveis; pisos/runtime/observáveis exigidos pelos perfis ausentes: parar sem defaults ou extrapolação a minimum_supported.",
     "Valor sem calibracao reproduzivel ou necessidade de reduzir pisos, permitir enumeracao ou contornar autorizacao/CSRF.",
     "Acoplamento normativo inevitavel a outro parametro de BP-003 nao demonstrado: retornar ao owner antes de ampliar slice.",

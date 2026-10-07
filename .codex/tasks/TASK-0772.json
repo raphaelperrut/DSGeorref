@@ -38,7 +38,8 @@
     "docs/02-architecture/adrs/ADR-028-contas-locais-sessoes-server-side-e-argon2id.md",
     "docs/02-architecture/adrs/ADR-031-csrf-cors-security-headers-e-protecao-web.md",
     "docs/02-architecture/adrs/ADR-033-supply-chain-sbom-assinaturas-e-dependencias.md",
-    "docs/02-architecture/adrs/ADR-034-oci-compose-instalacao-bootstrap-e-readiness.md"
+    "docs/02-architecture/adrs/ADR-034-oci-compose-instalacao-bootstrap-e-readiness.md",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md"
   ],
   "allow_paths": [
     "infra/benchmarks/bp003-throttling-venue/**",
@@ -85,6 +86,7 @@
     "STORY-0767"
   ],
   "stop_conditions": [
+    "Disposição administrativa 2026-10-07: trabalho pendente DEFERRED_TO_SPRINT_012 / SUPERSEDED_BY_DEFERRED_OBLIGATION EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS; não iniciar como prerequisite de desenvolvimento corrente. Retomada somente na fase de readiness autorizada, sem PASS de execução presumido.",
     "Decisão/entrada normativa ausente ou contraditória, ou escolha ainda ad hoc: registrar blocker e retornar ao owner.",
     "Necessidade de mudar produto, stack nativa, profiles BP-003/AP-003, executar benchmark ou promover throttling.",
     "Colisão de paths ou necessidade de escrever fora do escopo; ausência de target/autorização operacional para ação externa.",

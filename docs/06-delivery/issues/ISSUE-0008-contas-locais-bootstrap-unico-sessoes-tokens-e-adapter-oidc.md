@@ -1,7 +1,7 @@
 # ISSUE-0008 — contas locais, bootstrap único, sessões, tokens e adapter OIDC
 
 - **Tipo:** `Envelope de entrega do épico`
-- **Status:** `planned`
+- **Status:** `qa` — fechamento com deferimento proposto; QA e depois Reviewer independentes pendentes
 - **Épico pai:** `EPIC-008`
 - **Sprint:** `SPRINT-002`
 - **Bounded Context owner:** `BC-002 — Identidade e Controle de Acesso`
@@ -121,3 +121,28 @@ O envelope pai não autoriza código. Cada história filha possui TaskEnvelope c
 - **Histórias revisadas:** `7`
 - **Controles aplicáveis:** `CTO-001, CTO-002, CTO-003, CTO-004, CTO-005, CTO-006, CTO-008, CTO-010, CTO-011, CTO-012, CTO-013, CTO-014, CTO-015`
 - **Gate de produção:** `SECURITY_AND_PRIVACY_GATES`
+
+## Reconciliação excepcional da fase atual — 2026-10-07
+
+Decisão explícita do usuário: DEVELOPMENT_READINESS = ACCEPTED;
+PRODUCTION_RELEASE_READINESS = BLOCKED_BY_DEFERRED_OBLIGATION.
+[Único registro canônico](../../07-assurance/PHASE-G-CTO-REVIEW-REPORT.md#epic-008-req-auth-impl-007-production-readiness):
+EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS, consumido como gate de release
+por EPIC-108 / ISSUE-0108 / GitHub #816 / SPRINT-012, sem transferir REQ-007
+para BC-015. Owner funcional permanece identity_access/Backend; benchmark Security.
+
+A evidência integrada identifica atendimento histórico dos demais requisitos;
+REQ-AUTH-IMPL-007 possui contrato/teste de contrato, mas runtime persistente final
+permanece ausente. Não há novo defeito funcional conhecido fora de REQ-007 nas
+fontes consultadas. Os dois testes finais ausentes/não executados, a integração
+HTTP de sucesso não demonstrada e QA independente pendente são limitações
+explícitas; não recebem PASS nem são escondidas pela exceção de REQ-007.
+Os PASS das revisões estruturais Fases B–G abaixo não são QA atual ou production readiness.
+
+ISSUE-0150 e EPIC-008 têm classificação de fechamento proposta
+CLOSED_WITH_ACCEPTED_DEFERRAL; EPIC_008_DEVELOPMENT_COMPLETE = YES_FOR_CURRENT_PHASE;
+EPIC_008_PRODUCTION_READY = NO. FINAL_QA = PENDING e FINAL_REVIEW = PENDING para
+esta aceitação documental alterada. CLOSURE_ALLOWED = NO até os dois registros
+independentes no mesmo commit documental e confirmação de ausência de outro
+BLOCKER/HIGH independente. Nenhuma autoaprovação ou PASS técnico é emitido.
+O próximo gate é revisão documental; não é nova prerequisite de infraestrutura.

@@ -1037,3 +1037,142 @@ A tabela abaixo cobre as 869 issues. A matriz CSV canônica está em `docs/07-as
 | SPRINT-012 | ISSUE-0790 | Story | BC-015 | CRITICAL | CTO-001, CTO-002, CTO-003, CTO-004, CTO-005, CTO-006, CTO-008, CTO-010, CTO-012, CTO-013, CTO-015 | SECURITY_AND_PRIVACY_GATES |
 | SPRINT-012 | ISSUE-0791 | Story | BC-015 | CRITICAL | CTO-001, CTO-003, CTO-004, CTO-005, CTO-006, CTO-008, CTO-010, CTO-012, CTO-013, CTO-014, CTO-015 | SECURITY_AND_PRIVACY_GATES |
 | SPRINT-012 | ISSUE-0792 | Story | BC-015 | HIGH | CTO-001, CTO-003, CTO-004, CTO-005, CTO-006, CTO-008, CTO-010, CTO-012, CTO-013, CTO-015 | BENCHMARK_AND_OPERATIONS_GATES |
+
+## EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS
+
+Registro canônico de limitação conhecida, associado aos riscos existentes RISK-G-027
+(segurança) e RISK-G-038 (release), sem criar nova taxonomia de riscos. A decisão
+humana explícita de 2026-10-07 autoriza o deferimento para a fase de readiness;
+não constitui aprovação técnica emitida pelo executor desta alteração documental.
+
+- **DEFERRED_ID:** `EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS`
+- **Classificação:** `DEFERRED PRODUCTION-READINESS OBLIGATION`
+- **SOURCE_EPIC:** `EPIC-008 / GitHub #104` (`ISSUE-0008`).
+- **SOURCE_ACCEPTANCE:** `STORY-0040 / ISSUE-0150 / GitHub #116`.
+- **REQUIREMENT:** `REQ-AUTH-IMPL-007`; owner semântico preservado em
+  `BC-002 / identity_access`, implementação Backend, benchmark Security.
+- **Estado atual:** contrato integrado e teste canônico de contrato com PASS
+  histórico; guard de elegibilidade fail-closed demonstrado. Throttling persistente
+  final **não implementado**; requisito de runtime **não atendido**. O contrato
+  `APPROVED_PROFILE_ONLY` impede inventar valores quantitativos ou usar fixtures
+  sintéticas como perfil aprovado.
+- **REASON:** infraestrutura de referência indisponível nesta fase; o hardware
+  profile aprovado exige AMD EPYC 7313P e o notebook é incompatível. Não é permitido
+  substituir hardware/workload profile ou inventar parâmetros.
+- **CURRENT_PRODUCT_IMPACT:** não bloqueia continuação do desenvolvimento dos
+  demais módulos. Não se afirma proteção de runtime por throttling inexistente.
+- **RELEASE_IMPACT:** `BLOCKING` antes de release production-ready.
+- **DEVELOPMENT_READINESS:** `ACCEPTED`, por esta decisão de produto para a fase atual.
+- **PRODUCTION_RELEASE_READINESS:** `BLOCKED_BY_DEFERRED_OBLIGATION`.
+
+### Escopo e quitação obrigatória
+
+1. DevOps provisiona execution venue conforme hardware profile BP-003 aprovado.
+2. DevOps fecha o ambiente runtime reproduzível exigido, consumindo o dependency
+   graph já aprovado; CPython 3.12.13 externo ao Conda é input externo ausente.
+3. Security executa BP-003 throttling benchmark no venue e workload aprovados,
+   preservando inputs, digests, resultados brutos e lineage da evidência.
+4. Papéis independentes revisam os resultados conforme os gates existentes.
+5. Security promove somente parâmetros quantitativos aprovados em AP-003.
+6. Backend implementa throttling persistente final no owner `identity_access`,
+   preservando PostgreSQL autoritativo, atomicidade, transições, audit e restart.
+7. Os owners existentes produzem e executam os testes finais obrigatórios
+   aplicáveis, inclusive `test_epic_008_aceite_happy_path` e
+   `test_epic_008_aceite_negative_paths`, atualmente ausentes/não executados.
+8. QA e Reviewer independentes produzem a certificação final de production
+   readiness no mesmo candidato de produção, com rastreabilidade requisito →
+   implementação → teste → evidência → aprovação. Sem essa cadeia, não há quitação.
+
+A quitação exige **todos** os itens comprovados e versionados; aprovação do grafo,
+validação do uv, materialização de inputs ou fechamento administrativo não substituem
+lock/frozen install, venue real, benchmark, runtime, testes ou review de produção.
+Nenhum profile novo, nova decisão de grafo ou prerequisite de infraestrutura é
+criado nesta reconciliação. O gate não exige esse venue no notebook de desenvolvimento.
+
+### Evidência preservada e limites
+
+- Baseline de hardware/workload aprovado:
+  `4b634381328bd969679abe48ee6936aaf8fe4319`; reconciliação em
+  `evidence/security/throttling-calibration/readiness-reconciliation-v1.json`.
+- Dependency graph aprovado independentemente:
+  `cb198c9e8340e0675c36679de426abf922e1c569`; autoridade imutável em
+  `docs/02-architecture/design-reviews/python-workspace-dependency-graph/`.
+- **PREVIOUS_PREFLIGHT_SHA:** `d587a882adf8d0a531b8ac55dc21041fb3b526a6`.
+- **LATEST_CANDIDATE_SHA / base desta reconciliação:**
+  `75006b562a4e2af47debcf9ba5962cdd4a9d9e77`.
+- **PYTHON_BLOCKER_CLASSIFICATION:** `EXTERNAL_INPUT_MISSING`.
+- **UV_0_12_19_VALIDATED:** `PASS`; **PYTHON_INPUTS_MATERIALIZED:** `YES`;
+  **PYTHON_INPUTS_DIGESTS_VALID:** `PASS`; **MATERIAL_DECISION_REQUIRED:** `NO`.
+  Esses resultados são herdados de
+  `evidence/operations/python-workspace-lock/runtime-inputs-20261007-v1/`,
+  especialmente `classification.md` e `verification.json`; não reexecutados aqui.
+- Inspeção de venue: evidência preservada no commit
+  `91baeac62cbf35454f8b1dbd10e829eadb6136b5`,
+  `evidence/operations/bp003-throttling-venue/blocked-20261006-v1/`.
+- Diagnóstico de implementação/ownership preservado em
+  `11df6dff79e7eaa33ac287cd576bcafd5344391c`,
+  `evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/throttling-correction-7424467.md`.
+- Matriz histórica da revisão de ISSUE-0150:
+  `evidence/reviews/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/story-0040/74244676336ed6770749acbfcba1bf6558d09884/REVIEW.md`.
+  AUTH-IMPL-001–006 e 008–010, DBSCHEMA-003, ID-001/002, EPIC-076 e INS-002
+  possuem referências explícitas a E37/E712/E713/E39; isso é evidência integrada
+  herdada, não recertificação no candidato documental. REQ-007 é parcial.
+- Os dois testes finais estão ausentes como executáveis; a falha anterior de
+  coleta por Alembic é ambiental e não demonstra execução nem defeito de assertion.
+  Sucesso do identity HTTP host, TLS/cookies/CSRF no transporte e logout ETag/If-Match
+  também não foram demonstrados pela revisão histórica: continuam sujeitos aos
+  gates de integração/readiness existentes, **não** são declarados satisfeitos ou
+  apagados por este deferimento exclusivo de REQ-007.
+- Nenhum defeito funcional novo independente de REQ-007 foi identificado nas
+  fontes consultadas. Ausência de evidência de integração e aprovações não é PASS.
+
+### Transferência administrativa e gate de release
+
+[SPRINT-012](../06-delivery/sprints/SPRINT-012-instalacao-release-train-e-publicacao.md)
+consome esta obrigação por
+[EPIC-108 / ISSUE-0108 / GitHub #816](../06-delivery/issues/ISSUE-0108-instalador-bootstrap-readiness-e-suporte-diagnostico.md).
+BC-015/DevOps deve impedir release production-ready enquanto a obrigação não estiver
+quitada. Security conserva o benchmark; Backend/BC-002 conserva implementação e
+semântica de REQ-007. EPIC-108 consome a **quitação**, não assume o requisito.
+G-CTO-06 e G-CTO-09 permanecem fail-closed; ausência de registro, digest, resultado
+ou aprovação exigida bloqueia o claim/release. Nenhum automatismo novo é implementado.
+
+| Item existente | Disposição administrativa | Trabalho efetivo preservado |
+|---|---|---|
+| ISSUE-0873 / TASK-0769 | CLOSED_AS_DEFERRED / DEFERRED_TO_SPRINT_012 | Benchmark e promoção não executados; absorvidos por este DEFERRED_ID |
+| ISSUE-0875 / STORY-0768 / TASK-0771 | Grafo aprovado; CLOSED_AS_DEFERRED para o envelope operacional agregado | Aprovação independente do grafo preservada, sem reabrir decisões |
+| ISSUE-0875 / TASK-0773 | DEFERRED_TO_SPRINT_012 / SUPERSEDED_BY_DEFERRED_OBLIGATION como blocker corrente | uv/inputs validados; CPython e lock/frozen install continuam ausentes |
+| ISSUE-0876 / STORY-0769 / TASK-0772 | CLOSED_AS_DEFERRED / DEFERRED_TO_SPRINT_012 | Venue não provisionado; evidência de indisponibilidade preservada |
+
+As arestas de execução **entre prerequisites** são mantidas como ordem técnica;
+a aresta STORY-0762 → STORY-0712 deixa de bloquear desenvolvimento corrente.
+Sua exigência é consumida exclusivamente no gate de quitação de release. Tarefas
+operacionais deferidas não podem iniciar automaticamente sob esta aceitação;
+retomada depende de execução autorizada na fase de readiness, sem nova issue lembrete.
+
+### Aceitação excepcional e fechamento
+
+A aceitação de ISSUE-0150 foi reconciliada nos mesmos quatro IDs: observabilidade e
+fail-closed herdados; rastreabilidade distingue requisito parcial/obrigação transferida;
+testes/runtime finais ausentes não recebem PASS; QA e Reviewer continuam independentes.
+Esta decisão aceita desenvolvimento da fase atual, **não implementação integral**.
+
+- **ISSUE_0150_CLOSURE_CLASSIFICATION proposta:** `CLOSED_WITH_ACCEPTED_DEFERRAL`.
+- **EPIC_008_CLOSURE_CLASSIFICATION proposta:** `CLOSED_WITH_ACCEPTED_DEFERRAL`.
+- **EPIC_008_DEVELOPMENT_COMPLETE:** `YES_FOR_CURRENT_PHASE` por aceitação explícita.
+- **EPIC_008_PRODUCTION_READY:** `NO`.
+- **FINAL_QA:** `PENDING` para a aceitação documental alterada.
+- **FINAL_REVIEW:** `PENDING` para a aceitação documental alterada.
+- **CLOSURE_ALLOWED:** `NO` até QA e Reviewer independentes verificarem este mesmo
+  commit documental, incluindo os limites de integração acima e a inexistência de
+  outro BLOCKER/HIGH independente. Não há autoaprovação nem PASS_WITH_ACCEPTED_DEFERRAL
+  emitido neste passe. Esse próximo gate é documental, sem continuar a cadeia de
+  infraestrutura. A regra vem de DEFINITION_OF_DONE, ROLE_AUTHORITY_MATRIX e
+  AC-ISSUE-0150-04; encerramento como Done sem ela contrariaria a governança.
+
+No parecer independente, se não houver outro blocker, a classificação de fechamento
+é obrigatoriamente `CLOSED_WITH_ACCEPTED_DEFERRAL`; um eventual
+`PASS_WITH_ACCEPTED_DEFERRAL` só certifica a aceitação da fase atual e identifica
+este DEFERRED_ID. Nenhum PASS de produção poderá ser derivado desse parecer.
+Nenhum código, benchmark, lock ou provisionamento foi realizado; `make verify`
+global não foi executado por instrução explícita do usuário.
