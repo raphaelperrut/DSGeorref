@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_version": "1.0.0",
+  "base_sha": "926a6a8c9a69a838b165cca9df6c4ebb9c03c8d6",
+  "role": "ROLE-002",
+  "scope": "STRUCTURAL_ONLY",
+  "result": {
+    "status": "PASS",
+    "scope": "structural only",
+    "direct_dependencies": 11,
+    "transitive_dependencies": 32,
+    "distributions": 43,
+    "active_edges": 47,
+    "constraints": 31,
+    "admitted_wheels": 49,
+    "digests_verified": false,
+    "lock_checked": false,
+    "runtime_or_abi_test": false,
+    "make_verify": "NOT_RUN_USER_INSTRUCTION",
+    "independent_approval": "NOT_CLAIMED"
+  },
+  "additional_checks": {
+    "yaml_1_2_json_semantic_equivalence": "PASS",
+    "active_pep508_edges_and_versions": "PASS",
+    "python_requires_constraints": "PASS",
+    "cp312_linux_wheel_tags": "PASS",
+    "no_unreachable_distributions": "PASS",
+    "no_manifest_change": "PASS",
+    "no_other_lane_files": "PASS",
+    "isolated_branch_parent": "PASS",
+    "handoff_bash_syntax": "PASS; 2 code blocks; syntax only, commands not executed"
+  },
+  "source_boundary": {
+    "before_author_edits": "clean worktree at BASE, separate from ISSUE-0876 checkout",
+    "candidate_parent": "926a6a8c9a69a838b165cca9df6c4ebb9c03c8d6",
+    "cross_lane_contamination": false
+  },
+  "preexisting_gate_limitation": "uv_validation.py requires child manifests absent from BASE; root-only workspace decision needs independent approval and separately scoped validator reconciliation before that downstream gate can pass",
+  "independent_reviews": "PENDING, not performed by author",
+  "digest_verification_command": "python -B evidence/architecture/python-workspace-dependency-graph/check-structure.py --verify-digests",
+  "not_executed": [
+    "uv lock",
+    "uv sync",
+    "package install",
+    "runtime tests",
+    "make verify",
+    "benchmark",
+    "native ABI smoke"
+  ]
+}

@@ -1,0 +1,201 @@
+schema_version: '1.0.0'
+profile_id: BP-003-throttling-threat-workload
+version: '1.0.0'
+approval_state: PENDING_INDEPENDENT_REVIEW
+definition_sha256: b360cb2e458a86e85029c871f3394a1b7d083577bfce235d0d0e2f7d322942a2
+companion:
+  path: docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml
+  profile_id: BP-003-throttling-hardware-reference
+  version: '1.0.0'
+  definition_sha256: 94b021a00de1ae785e9b19111bd6b03dfb31dd736b7662a79c33464071fb4a39
+spec:
+  purpose: Deterministic threat experiment for TASK-0769; no final runtime throttling values.
+  hardware_profile_id: BP-003-throttling-hardware-reference
+  hardware_profile_version: '1.0.0'
+  applicability:
+    benchmark: BP-003
+    requirement: REQ-AUTH-IMPL-007
+    contract_id: identity-access-local-auth-freeze
+    contract_version: '1.0.0'
+    contract_section: policies.throttling and post_auth_session throttle/guard mapping
+    target_operations:
+      - operation_id: post_auth_session
+        method: POST
+        path: /auth/session
+        success_status: 202
+        throttle_error: rate_limited
+    out_of_scope_operations:
+      - post_auth_bootstrap
+      - delete_auth_session
+      - post_auth_tokens
+      - get_auth_oidc_callback
+      - get_projects_projectid_members
+      - post_projects_projectid_members
+      - get_authorization_check
+    limitation: Local password/session throttling only; does not complete all BP-003 or product readiness.
+  fixtures:
+    synthetic_only: true
+    legitimate_active_unlocked_accounts: 16
+    abusive_active_accounts: 8
+    abusive_nonexistent_identities: 8
+    persistence_probe_accounts: 3
+    total_existing_accounts: 27
+    legitimate_origins: 16
+    abusive_origins: 32
+    isolation: Legitimate accounts/origins disjoint from attackers and persistence probes.
+    legitimate_credentials: Existing valid synthetic fixture credentials and server-granted session permission.
+    abusive_credentials: >-
+      Wrong syntactically valid passwords; fixture generation verifies no guess equals
+      a fixture secret. Eight existing/nonexistent pairs have identical request shape
+      and preceding guard facts, with unlocked existing accounts at run start.
+    serialization: Use existing frozen request/provenance schema; no new HTTP fields or trusted-IP bypass.
+    database: Identical fixture snapshot before each repetition; no traffic during fixture setup.
+  traffic:
+    scheduling: Open-loop monotonic deadlines; no retries, jitter, adaptive rates or catch-up bursts.
+    interval_definition: Stream event i at phase_start + i/rate_per_second; i starts at zero.
+    phase_intervals: Half-open [start_second,end_second); warmup is outside measured timeline.
+    request_timeout_ms: 2000
+    concurrency:
+      legitimate_max_in_flight: 8
+      abusive_max_in_flight: 512
+      total_max_in_flight: 520
+    legitimate:
+      rate_requests_per_second: 2
+      distribution: Event i uses legitimate account and origin i modulo 16; correct credentials.
+      throughout_measured_seconds: 840
+      requests_per_repetition: 1680
+    abusive:
+      identity_order: [existing_0, missing_0, existing_1, missing_1, existing_2, missing_2, existing_3, missing_3, existing_4, missing_4, existing_5, missing_5, existing_6, missing_6, existing_7, missing_7]
+      repeated:
+        rate_requests_per_second: 40
+        origin_count: 1
+        pattern: Event i uses identity_order[i modulo 16], origin 0, same wrong password per identity.
+        requests_per_repetition: 12000
+      brute_force:
+        rate_requests_per_second: 160
+        origin_count: 32
+        pattern: >-
+          Event i uses identity_order[i modulo 16], origin floor(i/16) modulo 32,
+          and a unique wrong password derived from phase ID and i. No random seed.
+        requests_per_repetition: 48000
+        pair_distribution: Each of 512 identity/origin pairs receives 93 or 94 requests.
+      requests_per_repetition: 60000
+    warmup:
+      duration_seconds: 60
+      legitimate_rate_requests_per_second: 2
+      abusive_rate_requests_per_second: 0
+      requests: 120
+      rationale: Establish imported code, TLS connections and steady database/cache behavior before comparisons.
+      post_warmup: Restore fixture snapshot and drain pending work; retain warmed processes/connections.
+    phases:
+      - {id: baseline, start_second: 0, end_second: 120, duration_seconds: 120, legitimate_rps: 2, abusive_rps: 0}
+      - {id: repeated_attempts, start_second: 120, end_second: 420, duration_seconds: 300, legitimate_rps: 2, abusive_rps: 40}
+      - {id: distributed_brute_force, start_second: 420, end_second: 720, duration_seconds: 300, legitimate_rps: 2, abusive_rps: 160}
+      - {id: recovery, start_second: 720, end_second: 840, duration_seconds: 120, legitimate_rps: 2, abusive_rps: 0}
+    measured_duration_seconds: 840
+    scheduled_duration_with_warmup_seconds: 900
+    scheduled_requests_with_warmup_per_repetition: 61800
+    sampling:
+      resource_interval_seconds: 1
+      evaluation_window_seconds: 60
+      alignment: Non-overlapping windows aligned to measured second zero; 14 windows, no window crosses a phase.
+      attack_suppression_window: Last 60 seconds of each abusive phase.
+    dispatch_validity: >-
+      Record offered/dispatched/completed/timeout/unsent counts and scheduling lag.
+      All scheduled requests must be dispatched, p99 dispatch lag <= 10 ms, no
+      concurrency-slot drops. Generator failure invalidates the run, never passes it.
+      Tie order: legitimate stream before abusive stream at the same deadline.
+  security_acceptance:
+    unauthorized_successes: 0
+    invalid_credential_session_or_account_mutations: 0
+    denied_guard_bypasses: 0
+    authority: PostgreSQL atomic state/revision; cache, RabbitMQ or audit logs cannot decide eligibility.
+    observable_enforcement: >-
+      Each abusive phase must show at least one persisted open -> limited/locked
+      transition with correlated denial. In its last 60 s, password-verifier
+      invocations for abusive requests <= 10 percent of dispatched abusive requests.
+      This measures suppression, not a runtime rate, window, cooldown or lockout value.
+    enumeration: >-
+      Compare paired existing/nonexistent requests only under identical preceding
+      guard facts and throttle state. With unlocked accounts and open throttle, both
+      yield invalid_credentials; with limited/locked throttle, both yield rate_limited.
+      Preserve published account_locked and first-failing-guard precedence; never
+      add or remap errors. Canonical body excludes correlation IDs and timestamps.
+      Paired canonical status/body mismatch count must be zero. For pairs with at
+      least 30 samples per identity/state in a repetition, median and p95 latency
+      difference / max(pair latencies) <= 0.20; insufficient pairs fail evidence coverage.
+    floors: No reduction of existing Argon2id/session/security floors; valid provenance/TLS and session authorization retained.
+    redaction: Zero passwords/raw identity/IP/cookie/code/bearer in runtime logs, audit or metrics.
+    persistence_probes:
+      when: After measured second 840 and draining traffic; excluded from performance windows.
+      setup: >-
+        Three synthetic buckets in existing open, limited and locked states,
+        versioned candidate policy and revision; blockedUntil for denied fixtures
+        remains in the future through both probes. Fixture values are not runtime policy.
+      sequence: >-
+        One correct-credential request per fixture, restart API only without changing
+        PostgreSQL, repeat one per fixture. Open succeeds with 202; limited/locked
+        deny with rate_limited. Check committed revisions and retained state; no reset.
+      request_count: 6
+      cadence: Sequential; next request after previous completes, same 2000 ms timeout.
+      restart_deadline_seconds: 30
+      unavailable_authority_probes: >-
+        After persistence probes, make PostgreSQL unavailable in isolated fixture
+        environment; send one request for each of the same three accounts, sequentially.
+        All deny with existing internal_error; no alternate authority or session creation.
+      unavailable_authority_request_count: 3
+      total_post_timeline_requests: 9
+  resource_and_dos_acceptance:
+    semantics: Experiment-only rejection criteria; not product SLOs or final throttling policy.
+    cpu:
+      measure: 100 * delta(API + PostgreSQL cgroup CPU seconds) / (4 * window elapsed seconds)
+      max_mean_percent_per_60_second_window: 80
+    memory:
+      measure: memory.current including page cache, sampled every second; no RSS-only subtraction.
+      api_max_bytes_every_sample: 3221225472
+      postgresql_max_bytes_every_sample: 7516192768
+      combined_max_bytes_every_sample: 10737418240
+      oom_kills_or_allocation_failures: 0
+    legitimate_service:
+      minimum_success_fraction_each_60_second_window: 0.99
+      success: Contract success status 202 and committed valid session, completed within timeout.
+      p95_latency_ms_max_each_window: 1000
+      p95_latency_relative_to_baseline_max: 2
+      baseline: Pooled legitimate requests in baseline phase of the same repetition.
+      percentile: Nearest-rank ceil(0.95*n), including failures/timeouts at 2000 ms.
+    unacceptable_operational_dos: >-
+      Any CPU/memory/service criterion failure, crash/restart during measured traffic,
+      OOM, full storage, unsuccessful durable commit, or outstanding work 2 seconds
+      after phase traffic ends rejects the candidate on this reference. Restarts for
+      explicit post-timeline probes are excluded. Recovery must pass both 60 s windows.
+  observables_minimum:
+    - Per-request scheduled/dispatched/completed monotonic times, operationId, status/error and synthetic stream label.
+    - Per-window offered/dispatched/success/denied/timeout counts, latency p50/p95/p99 and in-flight/scheduling lag.
+    - Password-verifier invocation counts correlated by synthetic stream, without credential contents.
+    - API/PostgreSQL cgroup CPU seconds, memory.current, OOM/events, process liveness and disk I/O/free space.
+    - Authoritative throttle before/after, policyVersion, revision, allowed/denied, reason and commit correlation.
+    - Audit operationId/correlationId/server observedAt; metric labels only operationId/state/allowed-denied.
+    - Fixture snapshot, existing security profiles, candidate policy, environment and generator digests.
+  reproduction:
+    repetitions: 3
+    pass_rule: All criteria pass individually in all three repetitions; no averaging failures away.
+    counts_all_repetitions: 185400 scheduled traffic requests plus 27 post-timeline probes.
+    sequence: >-
+      Bind both profile digests, candidate commit/contract, environment, existing
+      non-throttling security profiles and the throttling candidate chosen by TASK-0769.
+      Prepare identical fixtures; warm up, restore, drain; run four phases; drain;
+      run persistence and authority probes. Reset snapshot and repeat with the same
+      candidate and environment. Changing candidate requires a fresh complete set.
+    generator_rule: Serialize deterministic stream/fixture manifest and SHA-256 it before execution; no hidden random defaults.
+    observation_rule: Missing samples, state evidence or fingerprints => inconclusive/fail, never approval.
+  fingerprint:
+    algorithm: SHA-256
+    definition_encoding: UTF-8 JSON of {profile_id,version,spec}, sorted keys, compact separators, ensure_ascii=false, no trailing newline.
+  unsupported_conditions:
+    - Operations other than post_auth_session; OIDC/PAT/bootstrap/recovery/authorization calibration.
+    - Internet/distributed multi-host attacks, proxy-origin forgery or ingress/TLS exhaustion claims.
+    - Other traffic intensities, cardinalities, hardware, runtime locks, security floors or policy candidate within repetitions.
+    - Missing existing approved Argon2id/session profile; no inferred default or recalibration here.
+    - No independent approval/integration of both profiles or unavailable required observables.
+    - Interpreting these load rates, durations, suppression or resource criteria as runtime enforcement settings.
+  change_rule: Change any spec field => new version, digest, independent review and recalibration.

@@ -3,11 +3,11 @@
 - **Fase:** `F — Revisão Sprint por Sprint`
 - **Baseline:** `SAR-v2.9-PHASE-F`
 - **Épicos:** `12`
-- **Histórias:** `92`
-- **Issues totais:** `104`
+- **Histórias:** `95`
+- **Issues totais:** `107`
 - **Resultado:** `PASS`
 
-## Cobertura por dimensão
+## Cobertura por dimensão — snapshot histórico
 
 | Dimensão | Issues/histórias aplicáveis | Resultado |
 |---|---:|---|
@@ -135,3 +135,13 @@
 ## Gate da sprint
 
 A sprint somente pode encerrar quando todas as linhas aplicáveis permanecem `PASS`, os predecessores estão integrados, os testes e artefatos de evidência pertencem ao mesmo commit candidato e QA/Reviewer registram aprovação independente.
+
+## Reconciliação estrutural das novas stories — 2026-10-07
+
+Inventário atual: 95 histórias e 107 issues, derivado de STORY_INDEX e ISSUE_INDEX.
+As tabelas históricas acima preservam a revisão original; a cobertura incremental
+está na matriz PHASE-F-ISSUE-DELIVERY-REVIEW.csv e nas stories abaixo.
+PASS_STRUCTURAL_ONLY (B/F) é qualidade da definição, dependências e cadeia de revisão declaradas.
+Não é execução técnica; não quita EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS.
+
+- STORY-0768 / ISSUE-0875 / TASK-0771: Dependency graph aprovado: Architect Review, QA e Reviewer PASS no SHA cb198c9e8340e0675c36679de426abf922e1c569, conforme reconciliação existente. TASK-0773 DEFERRED_TO_SPRINT_012; uv.lock NÃO GERADO, frozen install não concluído e CPython input EXTERNAL_INPUT_MISSING.

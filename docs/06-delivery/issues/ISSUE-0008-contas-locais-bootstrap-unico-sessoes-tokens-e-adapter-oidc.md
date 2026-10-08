@@ -1,7 +1,7 @@
 # ISSUE-0008 — contas locais, bootstrap único, sessões, tokens e adapter OIDC
 
 - **Tipo:** `Envelope de entrega do épico`
-- **Status:** `planned`
+- **Status:** `CLOSED_WITH_ACCEPTED_DEFERRAL` — encerramento administrativo da fase atual
 - **Épico pai:** `EPIC-008`
 - **Sprint:** `SPRINT-002`
 - **Bounded Context owner:** `BC-002 — Identidade e Controle de Acesso`
@@ -121,3 +121,33 @@ O envelope pai não autoriza código. Cada história filha possui TaskEnvelope c
 - **Histórias revisadas:** `7`
 - **Controles aplicáveis:** `CTO-001, CTO-002, CTO-003, CTO-004, CTO-005, CTO-006, CTO-008, CTO-010, CTO-011, CTO-012, CTO-013, CTO-014, CTO-015`
 - **Gate de produção:** `SECURITY_AND_PRIVACY_GATES`
+
+## Reconciliação excepcional da fase atual — 2026-10-07
+
+Decisão explícita do usuário: DEVELOPMENT_READINESS = ACCEPTED;
+PRODUCTION_RELEASE_READINESS = BLOCKED_BY_DEFERRED_OBLIGATION.
+[Único registro canônico](../../07-assurance/PHASE-G-CTO-REVIEW-REPORT.md#epic-008-req-auth-impl-007-production-readiness):
+EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS, consumido como gate de release
+por EPIC-108 / ISSUE-0108 / GitHub #816 / SPRINT-012, sem transferir REQ-007
+para BC-015. Owner funcional permanece identity_access/Backend; benchmark Security.
+
+A evidência integrada identifica atendimento histórico dos demais requisitos;
+REQ-AUTH-IMPL-007 possui contrato/teste de contrato, mas runtime persistente final
+permanece ausente. Não há novo defeito funcional conhecido fora de REQ-007 nas
+fontes consultadas. Os dois testes finais ausentes/não executados, a integração
+HTTP de sucesso não demonstrada são limitações
+explícitas; não recebem PASS nem são escondidas pela exceção de REQ-007.
+Os PASS das revisões estruturais Fases B–G abaixo não são QA atual ou production readiness.
+
+ISSUE-0150 e EPIC-008 têm classificação de fechamento administrativo
+CLOSED_WITH_ACCEPTED_DEFERRAL; EPIC_008_DEVELOPMENT_COMPLETE = YES_FOR_CURRENT_PHASE;
+EPIC_008_PRODUCTION_READY = NO. FINAL_QA = PASS_WITH_ACCEPTED_DEFERRAL;
+FINAL_REVIEW = PASS_WITH_ACCEPTED_DEFERRAL.
+QA_APPROVED_SHA = bd8caa9bb40bf8093767a1f8800c132747392f56;
+REVIEW_SHA = bd8caa9bb40bf8093767a1f8800c132747392f56;
+APPROVED_SHA = bd8caa9bb40bf8093767a1f8800c132747392f56.
+CLOSURE_ALLOWED = YES, somente administrativo, autorizado pelo usuário em 2026-10-07
+após QA independente informado e parecer independente do Reviewer no mesmo SHA.
+Nenhum outro BLOCKER/HIGH independente identificado nas fontes revisadas.
+Registro posterior dos gates; nenhum PASS técnico integral ou de produção é emitido.
+O DEFERRED_ID acima e sua quitação em SPRINT-012 / GitHub #816 permanecem vigentes.

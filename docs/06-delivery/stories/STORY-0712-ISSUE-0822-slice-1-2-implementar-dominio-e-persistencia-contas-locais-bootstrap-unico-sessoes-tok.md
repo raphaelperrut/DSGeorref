@@ -1,7 +1,7 @@
 # STORY-0712 / ISSUE-0822 — Slice 1/2 — Implementar domínio e persistência: contas locais, bootstrap único, sessões, tokens e adapter OIDC [REQ-AUTH-IMPL, REQ-DBSCHEMA]
 
 - **Tipo:** `História implementável`
-- **Estado:** `Ready-after-authorization`
+- **Estado:** `Blocked`
 - **Épico pai:** `EPIC-008`
 - **Sprint:** `SPRINT-002`
 - **Domínio:** `PLT`
@@ -153,3 +153,13 @@ Leia `AGENTS.md`, o papel `.codex/roles/ROLE-004-backend.md`, esta história e `
 - **Controles aplicáveis:** `CTO-001, CTO-002, CTO-003, CTO-004, CTO-005, CTO-006, CTO-008, CTO-010, CTO-011, CTO-012, CTO-013, CTO-014, CTO-015`
 - **Gate de produção:** `SECURITY_AND_PRIVACY_GATES`
 - **Regra:** implementação não pode publicar claim de custo, escala, latência, GPU, RPO/RTO ou segurança sem a evidência listada no TaskEnvelope.
+
+## Throttling — obrigação de production readiness
+
+A aresta STORY-0762 → STORY-0712 deixa de bloquear desenvolvimento corrente.
+REQ-007 permanece parcialmente entregue e não atendido em runtime; sua implementação
+final continua pertencendo a identity_access/Backend. A quitação completa de
+[EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS](../../07-assurance/PHASE-G-CTO-REVIEW-REPORT.md#epic-008-req-auth-impl-007-production-readiness)
+é prerequisite de release em EPIC-108 / SPRINT-012. Não há promoção de AP-003,
+benchmark, implementação final ou novos testes neste passe. A atribuição de
+execução futura continua sujeita ao envelope autorizado e aprovação independente.

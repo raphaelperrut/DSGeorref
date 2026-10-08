@@ -42,3 +42,5 @@ O registro histórico acumulado foi substituído por 40 riscos ativos, consolida
 - **RISK-G-038 [Critical] Release** — Publicação ocorre sem gates de segurança, restore ou rollback Gate: `G-CTO-09`.
 - **RISK-G-039 [High] Versioning** — Artifact, Prompt Bundle ou ModelPack incompatível é lido silenciosamente Gate: `G-CTO-05`.
 - **RISK-G-040 [High] Data consistency** — Banco, filesystem e broker divergem após crash Gate: `G-CTO-04`.
+
+RISK-G-027 e RISK-G-038 consomem a limitação conhecida [EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS](../07-assurance/PHASE-G-CTO-REVIEW-REPORT.md#epic-008-req-auth-impl-007-production-readiness): desenvolvimento aceito na fase atual; release production-ready bloqueado até quitação. Este link não encerra os riscos nem certifica segurança.

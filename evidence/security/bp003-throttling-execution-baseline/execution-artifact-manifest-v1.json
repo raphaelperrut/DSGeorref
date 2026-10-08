@@ -1,0 +1,100 @@
+{
+  "base_sha": "aba94afbadc0a73af09fae5f950192b09bae793e",
+  "candidate_state": "WORKTREE_PENDING_INDEPENDENT_REVIEW",
+  "digest_encoding": "raw file bytes for file_sha256; canonical {profile_id,version,spec} JSON for definition_sha256",
+  "artifacts": [
+    {
+      "path": "docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml",
+      "profile_id": "BP-003-throttling-hardware-reference",
+      "version": "1.0.0",
+      "file_sha256": "61701f6dc26b06a0c13809afff0da6e60f0535f2731fd10d1c10a006a5623a12",
+      "definition_sha256": "94b021a00de1ae785e9b19111bd6b03dfb31dd736b7662a79c33464071fb4a39"
+    },
+    {
+      "path": "docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml",
+      "profile_id": "BP-003-throttling-threat-workload",
+      "version": "1.0.0",
+      "file_sha256": "0e6f526c0afb6c5c79b5660867d91dcd2bad5669eec1fd2c5e5c6b900c33e95d",
+      "definition_sha256": "b360cb2e458a86e85029c871f3394a1b7d083577bfce235d0d0e2f7d322942a2"
+    }
+  ],
+  "normative_input_digests": [
+    {
+      "path": "AGENTS.md",
+      "file_sha256": "8dd0319325cb942006e98f867780e4bb47b9578d8a04c37d8722baa010e7ed16"
+    },
+    {
+      "path": "evidence/AGENTS.md",
+      "file_sha256": "9e5552c803cf8b2980a365ad39989793232ada2f7ae3fe57862bc7d91aa037b1"
+    },
+    {
+      "path": "docs/00-governance/START_HERE.md",
+      "file_sha256": "12a093cb3649c9720ed3d20090f6d5f089b4b87a3114f9e18163729b61b8742a"
+    },
+    {
+      "path": ".codex/roles/ROLE-002-arquiteto.md",
+      "file_sha256": "2dacd008cddb6104fce30fb440b758bd6422800a8b8752c82746317df5c56a02"
+    },
+    {
+      "path": ".codex/tasks/TASK-0770.json",
+      "file_sha256": "cd021aa3121dc376f73adb73ec36c94999bc242db5c5c97453144a9c20144caf"
+    },
+    {
+      "path": "docs/06-delivery/stories/STORY-0767-ISSUE-0874-definir-e-aprovar-baseline-de-execucao-bp-003-throttling.md",
+      "file_sha256": "ecbb58b240062888ee12cd6bfe31e90ae7bb22e3472590c5c53e2dfe109b5539"
+    },
+    {
+      "path": "docs/00-governance/ROLE_AUTHORITY_MATRIX.md",
+      "file_sha256": "2d40116b051623499081591e9304c9ae96be323013b8ffbf16a5cdb6215ef9c8"
+    },
+    {
+      "path": "docs/00-governance/OWNER_DECISION_GATE.md",
+      "file_sha256": "b8117c7e857e2bde7d303a9f64a7d5f1501a849ec1f6977d16c5a4b30035ca77"
+    },
+    {
+      "path": "docs/00-governance/DEFINITION_OF_READY.md",
+      "file_sha256": "7b6c21b6be351abb4e8cd4850ecc78d12862b460928e87e888e9f0fa69c4dc58"
+    },
+    {
+      "path": "docs/04-quality/RELEASE_GATES.md",
+      "file_sha256": "85ef5e845015450a1438e647239df3616430c45efd64ab61c23568f0ed551041"
+    },
+    {
+      "path": "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
+      "file_sha256": "4e286fdf80817307bbf29c0d492c21df45eef494bba4feffe43dbb5fe25d610c"
+    },
+    {
+      "path": "docs/03-engineering/TECHNOLOGY_BASELINE.yaml",
+      "file_sha256": "b001166fe858002e0977b15bd0863e684e6e59223c2357be260208972d2373fa"
+    },
+    {
+      "path": "docs/05-operations/CAPACITY_AND_SCALING.md",
+      "file_sha256": "7ebd10087d62f017deab6f07bf5867c499a84159fc357c2eb427cb82cc302b09"
+    },
+    {
+      "path": "docs/03-engineering/application-profiles/AP-003-web-security-runtime-profile.md",
+      "file_sha256": "42826804e069486d091e1f7e9f7d4faff821a2f726088835c9790daef4d6987b"
+    },
+    {
+      "path": "docs/04-quality/THREAT_MODEL.md",
+      "file_sha256": "4a591b88e95aebec777d211168f21f0ad9692cfe70f9ba34a58fb3ae3ea40505"
+    },
+    {
+      "path": "docs/01-product/requirements/REQ-AUTH-IMPL-007-throttling-possui-estado-e-evidencia-observavel.md",
+      "file_sha256": "fedda2b5a1d26df0b8e08f4b44e477a3226b5673d98cafccbdd7d7ee1ad4b9eb"
+    },
+    {
+      "path": "docs/02-architecture/adrs/ADR-028-contas-locais-sessoes-server-side-e-argon2id.md",
+      "file_sha256": "5bddc2e19aacec627cb847e9cfdc695701999ebd48af93e0f1388b2a73f9583b"
+    },
+    {
+      "path": "docs/02-architecture/adrs/ADR-031-csrf-cors-security-headers-e-protecao-web.md",
+      "file_sha256": "cf37d76a5f48fecc8acd25dc5151383c67c8599bbde0eb04110d54331c5b576d"
+    },
+    {
+      "path": "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.json#policies.throttling",
+      "file_sha256": "14c148ac33cc87e6cd20124d8b43e9c1a498418147f43ded98ee077e599db429"
+    }
+  ],
+  "decision_sha256": "0e68cf29e9882ce86c1a2f1ea7b0fe6b0e717491b9c599c350988ecfa006aa16"
+}

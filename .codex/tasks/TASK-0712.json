@@ -17,6 +17,7 @@
     "docs/01-product/requirements/REQ-AUTH-IMPL-004-pats-sao-escopados-hash-only-e-revogaveis.md",
     "docs/01-product/requirements/REQ-AUTH-IMPL-005-linking-oidc-e-explicito-e-protegido-contra-account-takeover.md",
     "docs/01-product/requirements/REQ-AUTH-IMPL-006-autorizacao-e-central-e-aplicada-server-side.md",
+    "docs/01-product/requirements/REQ-AUTH-IMPL-007-throttling-possui-estado-e-evidencia-observavel.md",
     "docs/01-product/requirements/REQ-AUTH-IMPL-008-ciclo-de-sessao-rotacao-e-logout-sao-deterministicos.md",
     "docs/01-product/requirements/REQ-AUTH-IMPL-009-recuperacao-administrativa-e-excepcional-auditada-e-segura.md",
     "docs/01-product/requirements/REQ-AUTH-IMPL-010-cors-cookies-e-headers-usam-defaults-restritivos.md",
@@ -76,7 +77,7 @@
     "src/**/issue-*"
   ],
   "acceptance_criteria": [
-    "Cada requisito do slice possui evidência explícita: REQ-AUTH-IMPL-001, REQ-AUTH-IMPL-002, REQ-AUTH-IMPL-003, REQ-AUTH-IMPL-004, REQ-AUTH-IMPL-005, REQ-AUTH-IMPL-006, REQ-AUTH-IMPL-008, REQ-AUTH-IMPL-009, REQ-AUTH-IMPL-010, REQ-DBSCHEMA-003.",
+    "Cada requisito do slice possui evidência explícita: REQ-AUTH-IMPL-001, REQ-AUTH-IMPL-002, REQ-AUTH-IMPL-003, REQ-AUTH-IMPL-004, REQ-AUTH-IMPL-005, REQ-AUTH-IMPL-006, REQ-AUTH-IMPL-007, REQ-AUTH-IMPL-008, REQ-AUTH-IMPL-009, REQ-AUTH-IMPL-010, REQ-DBSCHEMA-003.",
     "O write scope é estável, disjunto e não usa identificador de ticket em código de produção.",
     "Estados de falha aplicáveis são testados sem fallback silencioso.",
     "O handoff registra impacto em contratos, riscos e rollback."
@@ -88,13 +89,17 @@
     "test_req_auth_impl_004",
     "test_req_auth_impl_005",
     "test_req_auth_impl_006",
+    "test_req_auth_impl_007",
     "test_req_auth_impl_008",
     "test_req_auth_impl_009",
     "test_req_auth_impl_0010",
-    "test_req_dbschema_003"
+    "test_req_dbschema_003",
+    "test_epic_008_aceite_happy_path",
+    "test_epic_008_aceite_negative_paths"
   ],
   "evidence": [
     "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/",
+    "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/throttling-correction-7424467.md",
     "commit candidato e relatório de testes"
   ],
   "dependencies": [
@@ -212,10 +217,13 @@
         "test_req_auth_impl_004",
         "test_req_auth_impl_005",
         "test_req_auth_impl_006",
+        "test_req_auth_impl_007",
         "test_req_auth_impl_008",
         "test_req_auth_impl_009",
         "test_req_auth_impl_0010",
-        "test_req_dbschema_003"
+        "test_req_dbschema_003",
+        "test_epic_008_aceite_happy_path",
+        "test_epic_008_aceite_negative_paths"
       ]
     },
     "artifacts": {
@@ -224,6 +232,7 @@
       "kinds": [],
       "evidence": [
         "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/",
+        "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/throttling-correction-7424467.md",
         "commit candidato e relatório de testes"
       ],
       "contract": "SPEC-005"

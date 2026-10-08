@@ -1,0 +1,2591 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_version": "1.0.0",
+  "base_sha": "926a6a8c9a69a838b165cca9df6c4ebb9c03c8d6",
+  "selection_policy": "Preserve manifest pins; for newly required transitives select highest stable wheel-compatible release uploaded no later than source BASE commit timestamp; recompute all active metadata constraints to a fixed point. No package installation, runtime check or uv lock was performed.",
+  "cutoff_utc": "2026-10-06T22:27:26+00:00",
+  "environment": {
+    "implementation_name": "cpython",
+    "implementation_version": "3.12.13",
+    "os_name": "posix",
+    "platform_machine": "x86_64",
+    "platform_release": "",
+    "platform_system": "Linux",
+    "platform_version": "",
+    "python_full_version": "3.12.13",
+    "platform_python_implementation": "CPython",
+    "python_version": "3.12",
+    "sys_platform": "linux",
+    "extra": ""
+  },
+  "selected": {
+    "alembic": "1.18.4",
+    "amqp": "5.4.1",
+    "ast-serialize": "0.12.1",
+    "attrs": "26.1.0",
+    "billiard": "4.3.1",
+    "celery": "5.6.3",
+    "cffi": "2.1.1",
+    "click": "8.5.0",
+    "click-didyoumean": "0.3.1",
+    "click-plugins": "1.1.1.2",
+    "click-repl": "0.4.1",
+    "cryptography": "50.0.1",
+    "iniconfig": "2.3.0",
+    "jsonschema": "4.26.0",
+    "jsonschema-specifications": "2025.9.1",
+    "kombu": "5.6.2",
+    "librt": "0.16.0",
+    "mako": "1.4.3",
+    "markupsafe": "3.0.3",
+    "mypy": "2.3.1",
+    "mypy-extensions": "1.1.0",
+    "packaging": "26.3",
+    "pathspec": "1.1.1",
+    "pluggy": "1.6.0",
+    "prompt-toolkit": "3.0.53",
+    "psycopg": "3.3.6",
+    "psycopg-binary": "3.3.6",
+    "pycparser": "3.0",
+    "pygments": "2.21.0",
+    "pyjwt": "2.15.0",
+    "pytest": "9.1.1",
+    "python-dateutil": "2.9.0.post0",
+    "pyyaml": "6.0.3",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.9.1",
+    "ruff": "0.16.9",
+    "six": "1.17.0",
+    "sqlalchemy": "2.1.2",
+    "typing-extensions": "4.16.0",
+    "tzdata": "2026.5",
+    "tzlocal": "5.4.4",
+    "vine": "5.1.0",
+    "wcwidth": "0.9.2"
+  },
+  "packages": [
+    {
+      "name": "alembic",
+      "version": "1.18.4",
+      "requires_python": ">=3.10",
+      "requires_dist": [
+        "SQLAlchemy>=1.4.23",
+        "Mako",
+        "typing-extensions>=4.12",
+        "tomli; python_version < \"3.11\"",
+        "tzdata; extra == \"tz\""
+      ],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/alembic/1.18.4/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "alembic-1.18.4-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/d2/29/6533c317b74f707ea28f8d633734dbda2119bbadfc61b2f3640ba835d0f7/alembic-1.18.4-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "d2296533c317b74f707ea28f8d633734dbda2119bbadfc61b2f3640ba835d0f7",
+            "md5": "5853ad20cd30f78d359bb2b3d4be7887",
+            "sha256": "a5ed4adcf6d8a4cb575f3d759f071b03cd6e5c7618eb796cb52497be25bfe19a"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-02-10T16:00:49.997126Z"
+        }
+      ]
+    },
+    {
+      "name": "amqp",
+      "version": "5.4.1",
+      "requires_python": ">=3.10",
+      "requires_dist": [
+        "vine<6.0.0,>=5.0.0"
+      ],
+      "license_expression": null,
+      "license": "BSD",
+      "metadata_origin": "https://pypi.org/pypi/amqp/5.4.1/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "amqp-5.4.1-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/28/8e/25f762f8cf0da76c7b1a66a9cadc291168537598c533954b0e2c9de3a0a3/amqp-5.4.1-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "288e25f762f8cf0da76c7b1a66a9cadc291168537598c533954b0e2c9de3a0a3",
+            "md5": "31d6568506e15a99abe8b6ed8904213e",
+            "sha256": "ac2b816a14a380ed10c5ebbf85a334fd68111fa476496867a5ccd2fd09926d5e"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-10-05T14:03:18.610394Z"
+        }
+      ]
+    },
+    {
+      "name": "ast-serialize",
+      "version": "0.12.1",
+      "requires_python": ">=3.7",
+      "requires_dist": [],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/ast-serialize/0.12.1/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "ast_serialize-0.12.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/c0/60/58961e7fd129e226ce36788fe328d20034f3105f5d3380df690050517737/ast_serialize-0.12.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "digests": {
+            "blake2b_256": "c06058961e7fd129e226ce36788fe328d20034f3105f5d3380df690050517737",
+            "md5": "be8ee26569f332d19bfd16dacbceb92b",
+            "sha256": "50a9eaedf1db4857dad7cc47dd757ed70bfcc40b89d44d516c4a2f0d5033bd76"
+          },
+          "requires_python": ">=3.7",
+          "upload_time_iso_8601": "2026-10-03T12:24:39.306087Z"
+        }
+      ]
+    },
+    {
+      "name": "attrs",
+      "version": "26.1.0",
+      "requires_python": ">=3.9",
+      "requires_dist": [],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/attrs/26.1.0/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "attrs-26.1.0-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/64/b4/17d4b0b2a2dc85a6df63d1157e028ed19f90d4cd97c36717afef2bc2f395/attrs-26.1.0-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "64b417d4b0b2a2dc85a6df63d1157e028ed19f90d4cd97c36717afef2bc2f395",
+            "md5": "643aa39724d0b47daf07adb1ba79027f",
+            "sha256": "c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309"
+          },
+          "requires_python": ">=3.9",
+          "upload_time_iso_8601": "2026-03-19T14:22:23.645947Z"
+        }
+      ]
+    },
+    {
+      "name": "billiard",
+      "version": "4.3.1",
+      "requires_python": ">=3.10",
+      "requires_dist": [],
+      "license_expression": null,
+      "license": "BSD",
+      "metadata_origin": "https://pypi.org/pypi/billiard/4.3.1/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "billiard-4.3.1-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/bb/b1/360936699597063a2d9863aa94ccc3a6951e906ced032a9a1d8e562fc56b/billiard-4.3.1-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "bbb1360936699597063a2d9863aa94ccc3a6951e906ced032a9a1d8e562fc56b",
+            "md5": "dc4d114f73c2c2770c14af54d7566193",
+            "sha256": "2c7075283191d9c0add66cf8fca8e06ba599e75fe7319b67186759f8877dfdaf"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-10-05T06:38:28.373756Z"
+        }
+      ]
+    },
+    {
+      "name": "celery",
+      "version": "5.6.3",
+      "requires_python": ">=3.9",
+      "requires_dist": [
+        "billiard<5.0,>=4.2.1",
+        "kombu>=5.6.0",
+        "vine<6.0,>=5.1.0",
+        "click<9.0,>=8.1.2",
+        "click-didyoumean>=0.3.0",
+        "click-repl>=0.2.0",
+        "click-plugins>=1.1.1",
+        "python-dateutil>=2.8.2",
+        "exceptiongroup>=1.3.0; python_version < \"3.11\"",
+        "tzlocal",
+        "pyArango>=2.0.2; extra == \"arangodb\"",
+        "cryptography==46.0.5; extra == \"auth\"",
+        "azure-storage-blob>=12.15.0; extra == \"azureblockblob\"",
+        "azure-identity>=1.19.0; extra == \"azureblockblob\"",
+        "brotlipy>=0.7.0; platform_python_implementation == \"PyPy\" and extra == \"brotli\"",
+        "brotli>=1.0.0; platform_python_implementation == \"CPython\" and extra == \"brotli\"",
+        "cassandra-driver<4,>=3.25.0; extra == \"cassandra\"",
+        "python-consul2==0.1.5; extra == \"consul\"",
+        "pydocumentdb==2.3.5; extra == \"cosmosdbsql\"",
+        "couchbase>=3.0.0; (platform_python_implementation != \"PyPy\" and (platform_system != \"Windows\" or python_version < \"3.10\")) and extra == \"couchbase\"",
+        "pycouchdb==1.16.0; extra == \"couchdb\"",
+        "Django>=2.2.28; extra == \"django\"",
+        "boto3>=1.26.143; extra == \"dynamodb\"",
+        "elasticsearch<=9.3.0; extra == \"elasticsearch\"",
+        "elastic-transport<=9.2.1; extra == \"elasticsearch\"",
+        "eventlet>=0.32.0; python_version < \"3.10\" and extra == \"eventlet\"",
+        "gevent>=1.5.0; extra == \"gevent\"",
+        "google-cloud-storage>=2.10.0; extra == \"gcs\"",
+        "grpcio==1.76.0; extra == \"gcs\"",
+        "google-cloud-firestore==2.23.0; extra == \"gcs\"",
+        "librabbitmq>=2.0.0; python_version < \"3.11\" and extra == \"librabbitmq\"",
+        "pylibmc==1.6.3; platform_system != \"Windows\" and extra == \"memcache\"",
+        "kombu[mongodb]; extra == \"mongodb\"",
+        "kombu[msgpack]; extra == \"msgpack\"",
+        "python-memcached>=1.61; extra == \"pymemcache\"",
+        "pydantic>=2.4; python_version < \"3.14\" and extra == \"pydantic\"",
+        "pydantic>=2.12.0a1; python_version >= \"3.14\" and extra == \"pydantic\"",
+        "pyro4==4.82; python_version < \"3.11\" and extra == \"pyro\"",
+        "pytest-celery[all]>=1.3.0; extra == \"pytest\"",
+        "kombu[redis]; extra == \"redis\"",
+        "boto3>=1.26.143; extra == \"s3\"",
+        "softlayer_messaging>=1.0.3; extra == \"slmq\"",
+        "ephem==4.2; platform_python_implementation != \"PyPy\" and extra == \"solar\"",
+        "kombu[sqlalchemy]; extra == \"sqlalchemy\"",
+        "boto3>=1.26.143; extra == \"sqs\"",
+        "pycurl<7.45.4,>=7.43.0.5; (sys_platform != \"win32\" and platform_python_implementation == \"CPython\" and python_version < \"3.9\") and extra == \"sqs\"",
+        "pycurl>=7.45.4; (sys_platform != \"win32\" and platform_python_implementation == \"CPython\" and python_version >= \"3.9\") and extra == \"sqs\"",
+        "urllib3>=1.26.16; extra == \"sqs\"",
+        "kombu[sqs]>=5.5.0; extra == \"sqs\"",
+        "tblib==3.2.2; extra == \"tblib\"",
+        "kombu[yaml]; extra == \"yaml\"",
+        "kazoo>=1.3.1; extra == \"zookeeper\"",
+        "zstandard==0.23.0; extra == \"zstd\""
+      ],
+      "license_expression": null,
+      "license": "BSD-3-Clause",
+      "metadata_origin": "https://pypi.org/pypi/celery/5.6.3/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "celery-5.6.3-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/cf/c9/6eccdda96e098f7ae843162db2d3c149c6931a24fda69fe4ab84d0027eb5/celery-5.6.3-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "cfc96eccdda96e098f7ae843162db2d3c149c6931a24fda69fe4ab84d0027eb5",
+            "md5": "df6f76cb49a45e46c735199592734239",
+            "sha256": "0808f42f80909c4d5833202360ffafb2a4f83f4d8e23e1285d926610e9a7afa6"
+          },
+          "requires_python": ">=3.9",
+          "upload_time_iso_8601": "2026-03-26T12:14:49.491474Z"
+        }
+      ]
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1",
+      "requires_python": ">=3.10",
+      "requires_dist": [
+        "pycparser; implementation_name != \"PyPy\""
+      ],
+      "license_expression": "MIT-0",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/cffi/2.1.1/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/b1/db/dceb9dd5b231e1da801793f8acc9f3c52a7e1afe40bb1aae37e02b0faad5/cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "digests": {
+            "blake2b_256": "b1dbdceb9dd5b231e1da801793f8acc9f3c52a7e1afe40bb1aae37e02b0faad5",
+            "md5": "fda1989e5b254a2e658883190b6ebed5",
+            "sha256": "c1453022f490d2459a11819d83ad1d586e9ff65a12ac3e705ffebd46d3685dcf"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-08-03T21:19:52.054167Z"
+        }
+      ]
+    },
+    {
+      "name": "click",
+      "version": "8.5.0",
+      "requires_python": ">=3.10",
+      "requires_dist": [],
+      "license_expression": "BSD-3-Clause",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/click/8.5.0/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "click-8.5.0-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "58506c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3",
+            "md5": "2f0b6de9bc2aa6bd8ff4200bc7d14bbe",
+            "sha256": "255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-08-26T13:33:12.928043Z"
+        }
+      ]
+    },
+    {
+      "name": "click-didyoumean",
+      "version": "0.3.1",
+      "requires_python": ">=3.6.2",
+      "requires_dist": [
+        "click>=7"
+      ],
+      "license_expression": null,
+      "license": "MIT",
+      "metadata_origin": "https://pypi.org/pypi/click-didyoumean/0.3.1/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "click_didyoumean-0.3.1-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/1b/5b/974430b5ffdb7a4f1941d13d83c64a0395114503cc357c6b9ae4ce5047ed/click_didyoumean-0.3.1-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "1b5b974430b5ffdb7a4f1941d13d83c64a0395114503cc357c6b9ae4ce5047ed",
+            "md5": "be5e8cf5f80862c7e82e998f648c853a",
+            "sha256": "5c4bb6007cfea5f2fd6583a2fb6701a22a41eb98957e63d0fac41c10e7c3117c"
+          },
+          "requires_python": ">=3.6.2",
+          "upload_time_iso_8601": "2024-03-24T08:22:06.356293Z"
+        }
+      ]
+    },
+    {
+      "name": "click-plugins",
+      "version": "1.1.1.2",
+      "requires_python": null,
+      "requires_dist": [
+        "click>=4.0",
+        "pytest>=3.6; extra == \"dev\"",
+        "pytest-cov; extra == \"dev\"",
+        "wheel; extra == \"dev\"",
+        "coveralls; extra == \"dev\""
+      ],
+      "license_expression": null,
+      "license": "New BSD",
+      "metadata_origin": "https://pypi.org/pypi/click-plugins/1.1.1.2/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "click_plugins-1.1.1.2-py2.py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/3d/9a/2abecb28ae875e39c8cad711eb1186d8d14eab564705325e77e4e6ab9ae5/click_plugins-1.1.1.2-py2.py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "3d9a2abecb28ae875e39c8cad711eb1186d8d14eab564705325e77e4e6ab9ae5",
+            "md5": "ff1be4ecff48993c7cff2c07cf0db85c",
+            "sha256": "008d65743833ffc1f5417bf0e78e8d2c23aab04d9745ba817bd3e71b0feb6aa6"
+          },
+          "requires_python": null,
+          "upload_time_iso_8601": "2025-06-25T00:47:36.731185Z"
+        }
+      ]
+    },
+    {
+      "name": "click-repl",
+      "version": "0.4.1",
+      "requires_python": ">=3.9",
+      "requires_dist": [
+        "click<9.0,>=7.0",
+        "prompt_toolkit>=3.0.36",
+        "typing-extensions>=4.7.0",
+        "pytest>=7.2.1; extra == \"testing\"",
+        "pytest-cov>=4.0.0; extra == \"testing\"",
+        "tox>=4.4.3; extra == \"testing\"",
+        "flake8>=6.0.0; extra == \"testing\"",
+        "mypy>=1.9.0; extra == \"testing\""
+      ],
+      "license_expression": null,
+      "license": "MIT",
+      "metadata_origin": "https://pypi.org/pypi/click-repl/0.4.1/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "click_repl-0.4.1-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/a4/f6/12dc0f2e0159c2b416818b7fedcda15b520043773364a81d7389809a5af5/click_repl-0.4.1-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "a4f612dc0f2e0159c2b416818b7fedcda15b520043773364a81d7389809a5af5",
+            "md5": "30b138e8fb92a1d7481b018ab2c2b0d1",
+            "sha256": "5cb10881d4c5ebaa8695eceb69911af3062ee78342812b713564b17aad333eb5"
+          },
+          "requires_python": ">=3.9",
+          "upload_time_iso_8601": "2026-10-05T06:01:55.611479Z"
+        }
+      ]
+    },
+    {
+      "name": "cryptography",
+      "version": "50.0.1",
+      "requires_python": "!=3.9.0,!=3.9.1,>=3.9",
+      "requires_dist": [
+        "cffi>=2.0.0; platform_python_implementation != \"PyPy\"",
+        "typing-extensions>=4.13.2; python_full_version < \"3.11\"",
+        "bcrypt>=3.1.5; extra == \"ssh\""
+      ],
+      "license_expression": "Apache-2.0 OR BSD-3-Clause",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/cryptography/50.0.1/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "cryptography-50.0.1-cp311-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/57/26/e6d4fc8512a51a5f9ee7bfdbfb853bce1197087df40c9ad993ad370b846f/cryptography-50.0.1-cp311-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "digests": {
+            "blake2b_256": "5726e6d4fc8512a51a5f9ee7bfdbfb853bce1197087df40c9ad993ad370b846f",
+            "md5": "e20b405396d6246d101d577f26dc265b",
+            "sha256": "ff838d62ec1bfce4f9ba7fa16f4a7b554cd8d0c299e6be37502161a660c84eef"
+          },
+          "requires_python": "!=3.9.0,!=3.9.1,>=3.9",
+          "upload_time_iso_8601": "2026-08-25T19:44:07.375092Z"
+        },
+        {
+          "filename": "cryptography-50.0.1-cp311-abi3-manylinux_2_28_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/e1/1b/82f0f0d8858d4432be1af790477edf62aef90324041aa07c57e57bef1af7/cryptography-50.0.1-cp311-abi3-manylinux_2_28_x86_64.whl",
+          "digests": {
+            "blake2b_256": "e11b82f0f0d8858d4432be1af790477edf62aef90324041aa07c57e57bef1af7",
+            "md5": "d0a7216304899e8e16b7f1197f93d1f3",
+            "sha256": "51593d180cf6d179bde5c5d065bed81386b1f381656ae7d042b7ffc87a9895ad"
+          },
+          "requires_python": "!=3.9.0,!=3.9.1,>=3.9",
+          "upload_time_iso_8601": "2026-08-25T19:44:14.051778Z"
+        },
+        {
+          "filename": "cryptography-50.0.1-cp39-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/7e/3c/0e77bd5ffcf078e9dd27d3074aad6c030d9b10d0bf69329d573c927a188c/cryptography-50.0.1-cp39-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "digests": {
+            "blake2b_256": "7e3c0e77bd5ffcf078e9dd27d3074aad6c030d9b10d0bf69329d573c927a188c",
+            "md5": "12937413f1b22da97ca8b733223863ed",
+            "sha256": "e22dfed744bd4002e909464cb23d2f0b05c6f3113a79ef2e9864a53db737c733"
+          },
+          "requires_python": "!=3.9.0,!=3.9.1,>=3.9",
+          "upload_time_iso_8601": "2026-08-25T19:45:02.786244Z"
+        },
+        {
+          "filename": "cryptography-50.0.1-cp39-abi3-manylinux_2_28_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/d6/51/3f9701867a46b6c1740c9b52fc4d3bed6cbdcfedcc9b6e64305c07f39cff/cryptography-50.0.1-cp39-abi3-manylinux_2_28_x86_64.whl",
+          "digests": {
+            "blake2b_256": "d6513f9701867a46b6c1740c9b52fc4d3bed6cbdcfedcc9b6e64305c07f39cff",
+            "md5": "a97c6090cfacf099a4393a56a4c09b80",
+            "sha256": "407fe2b6db00939c05c0e945e9914238f2f0a430974839429dafc82b1ee6bee5"
+          },
+          "requires_python": "!=3.9.0,!=3.9.1,>=3.9",
+          "upload_time_iso_8601": "2026-08-25T19:45:09.396053Z"
+        }
+      ]
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.0",
+      "requires_python": ">=3.10",
+      "requires_dist": [],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/iniconfig/2.3.0/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "iniconfig-2.3.0-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "cbb13846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8",
+            "md5": "d3e156a9abd59ac8b5eb0c2e8b1c5dad",
+            "sha256": "f631c04d2c48c52b84d0d0549c99ff3859c98df65b3101406327ecc7d53fbf12"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2025-10-18T21:55:41.639305Z"
+        }
+      ]
+    },
+    {
+      "name": "jsonschema",
+      "version": "4.26.0",
+      "requires_python": ">=3.10",
+      "requires_dist": [
+        "attrs>=22.2.0",
+        "jsonschema-specifications>=2023.03.6",
+        "referencing>=0.28.4",
+        "rpds-py>=0.25.0",
+        "fqdn; extra == \"format\"",
+        "idna; extra == \"format\"",
+        "isoduration; extra == \"format\"",
+        "jsonpointer>1.13; extra == \"format\"",
+        "rfc3339-validator; extra == \"format\"",
+        "rfc3987; extra == \"format\"",
+        "uri-template; extra == \"format\"",
+        "webcolors>=1.11; extra == \"format\"",
+        "fqdn; extra == \"format-nongpl\"",
+        "idna; extra == \"format-nongpl\"",
+        "isoduration; extra == \"format-nongpl\"",
+        "jsonpointer>1.13; extra == \"format-nongpl\"",
+        "rfc3339-validator; extra == \"format-nongpl\"",
+        "rfc3986-validator>0.1.0; extra == \"format-nongpl\"",
+        "rfc3987-syntax>=1.1.0; extra == \"format-nongpl\"",
+        "uri-template; extra == \"format-nongpl\"",
+        "webcolors>=24.6.0; extra == \"format-nongpl\""
+      ],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/jsonschema/4.26.0/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "jsonschema-4.26.0-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "6990f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee",
+            "md5": "2b7e04c1ca5e5c280087b9765d9f3970",
+            "sha256": "d489f15263b8d200f8387e64b4c3a75f06629559fb73deb8fdfb525f2dab50ce"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-01-07T13:41:05.306692Z"
+        }
+      ]
+    },
+    {
+      "name": "jsonschema-specifications",
+      "version": "2025.9.1",
+      "requires_python": ">=3.9",
+      "requires_dist": [
+        "referencing>=0.31.0"
+      ],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/jsonschema-specifications/2025.9.1/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "jsonschema_specifications-2025.9.1-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/41/45/1a4ed80516f02155c51f51e8cedb3c1902296743db0bbc66608a0db2814f/jsonschema_specifications-2025.9.1-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "41451a4ed80516f02155c51f51e8cedb3c1902296743db0bbc66608a0db2814f",
+            "md5": "3bc19f16b4b7bf78e337a39664d3d7ac",
+            "sha256": "98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe"
+          },
+          "requires_python": ">=3.9",
+          "upload_time_iso_8601": "2025-09-08T01:34:57.871954Z"
+        }
+      ]
+    },
+    {
+      "name": "kombu",
+      "version": "5.6.2",
+      "requires_python": ">=3.9",
+      "requires_dist": [
+        "amqp<6.0.0,>=5.1.1",
+        "vine==5.1.0",
+        "tzdata>=2025.2",
+        "packaging",
+        "msgpack==1.1.2; extra == \"msgpack\"",
+        "PyYAML>=3.10; extra == \"yaml\"",
+        "redis!=4.5.5,!=5.0.2,<6.5,>=4.5.2; extra == \"redis\"",
+        "pymongo==4.15.3; extra == \"mongodb\"",
+        "boto3>=1.26.143; extra == \"sqs\"",
+        "pycurl>=7.43.0.5; (sys_platform != \"win32\" and platform_python_implementation == \"CPython\") and extra == \"sqs\"",
+        "urllib3>=1.26.16; extra == \"sqs\"",
+        "google-cloud-pubsub>=2.18.4; extra == \"gcpubsub\"",
+        "google-cloud-monitoring>=2.16.0; extra == \"gcpubsub\"",
+        "grpcio==1.75.1; extra == \"gcpubsub\"",
+        "protobuf==6.32.1; extra == \"gcpubsub\"",
+        "kazoo>=2.8.0; extra == \"zookeeper\"",
+        "sqlalchemy<2.1,>=1.4.48; extra == \"sqlalchemy\"",
+        "librabbitmq>=2.0.0; python_version < \"3.11\" and extra == \"librabbitmq\"",
+        "pyro4==4.82; extra == \"pyro\"",
+        "softlayer_messaging>=1.0.3; extra == \"slmq\"",
+        "azure-storage-queue>=12.6.0; extra == \"azurestoragequeues\"",
+        "azure-identity>=1.12.0; extra == \"azurestoragequeues\"",
+        "azure-servicebus>=7.10.0; extra == \"azureservicebus\"",
+        "qpid-python==1.36.0-1; extra == \"qpid\"",
+        "qpid-tools==1.36.0-1; extra == \"qpid\"",
+        "python-consul2==0.1.5; extra == \"consul\"",
+        "confluent-kafka>=2.2.0; extra == \"confluentkafka\""
+      ],
+      "license_expression": null,
+      "license": "BSD-3-Clause",
+      "metadata_origin": "https://pypi.org/pypi/kombu/5.6.2/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "kombu-5.6.2-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/fb/0f/834427d8c03ff1d7e867d3db3d176470c64871753252b21b4f4897d1fa45/kombu-5.6.2-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "fb0f834427d8c03ff1d7e867d3db3d176470c64871753252b21b4f4897d1fa45",
+            "md5": "1e49f9efd2758fa80998e0fbbf603ca2",
+            "sha256": "efcfc559da324d41d61ca311b0c64965ea35b4c55cc04ee36e55386145dace93"
+          },
+          "requires_python": ">=3.9",
+          "upload_time_iso_8601": "2025-12-29T20:30:05.740303Z"
+        }
+      ]
+    },
+    {
+      "name": "librt",
+      "version": "0.16.0",
+      "requires_python": ">=3.9",
+      "requires_dist": [],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/librt/0.16.0/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "librt-0.16.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/ad/f7/7ce72cbf19d0addd05090b339152fd0548a02562c2866a603e6e3b3da2df/librt-0.16.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+          "digests": {
+            "blake2b_256": "adf77ce72cbf19d0addd05090b339152fd0548a02562c2866a603e6e3b3da2df",
+            "md5": "b353bbc462d356f6cf620dd0328a7bf2",
+            "sha256": "36e53948e99bbe3ffea257124cfcae1cfb01831555c9a9c903c9f9a72db7fd07"
+          },
+          "requires_python": ">=3.9",
+          "upload_time_iso_8601": "2026-09-29T00:52:49.816320Z"
+        }
+      ]
+    },
+    {
+      "name": "mako",
+      "version": "1.4.3",
+      "requires_python": ">=3.10",
+      "requires_dist": [
+        "MarkupSafe>=2.0",
+        "pytest; extra == \"testing\"",
+        "Babel; extra == \"babel\"",
+        "lingua>=4.16; extra == \"lingua\""
+      ],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/mako/1.4.3/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "mako-1.4.3-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/6d/a0/053d6af3e8f871e0073b4a36732d9e65be77a72e5434c31b94f6af78a6bb/mako-1.4.3-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "6da0053d6af3e8f871e0073b4a36732d9e65be77a72e5434c31b94f6af78a6bb",
+            "md5": "64b44e389cd17c32f3673a52e4bfbf45",
+            "sha256": "723296007c870bfd6b3f0c3230dba7198096e5269297ebf5e4eff9e7ffa39d4f"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-09-22T20:54:33.128860Z"
+        }
+      ]
+    },
+    {
+      "name": "markupsafe",
+      "version": "3.0.3",
+      "requires_python": ">=3.9",
+      "requires_dist": [],
+      "license_expression": "BSD-3-Clause",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/markupsafe/3.0.3/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/3c/2e/8d0c2ab90a8c1d9a24f0399058ab8519a3279d1bd4289511d74e909f060e/markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+          "digests": {
+            "blake2b_256": "3c2e8d0c2ab90a8c1d9a24f0399058ab8519a3279d1bd4289511d74e909f060e",
+            "md5": "fcd28e22417988c5b5916dbff4f791a1",
+            "sha256": "d6dd0be5b5b189d31db7cda48b91d7e0a9795f31430b7f271219ab30f1d3ac9d"
+          },
+          "requires_python": ">=3.9",
+          "upload_time_iso_8601": "2025-09-27T18:36:33.860371Z"
+        }
+      ]
+    },
+    {
+      "name": "mypy",
+      "version": "2.3.1",
+      "requires_python": ">=3.10",
+      "requires_dist": [
+        "typing_extensions>=4.6.0; python_version < \"3.15\"",
+        "typing_extensions>=4.14.0; python_version >= \"3.15\"",
+        "mypy_extensions>=1.0.0",
+        "pathspec>=1.0.0",
+        "tomli>=1.1.0; python_version < \"3.11\"",
+        "librt>=0.13.0; platform_python_implementation != \"PyPy\"",
+        "ast-serialize<1.0.0,>=0.6.0",
+        "psutil>=4.0; extra == \"dmypy\"",
+        "setuptools>=50; extra == \"mypyc\"",
+        "lxml; extra == \"reports\"",
+        "pip; extra == \"install-types\"",
+        "orjson; extra == \"faster-cache\""
+      ],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/mypy/2.3.1/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "mypy-2.3.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/8d/fe/7c42327a3b21e84681f691982cbfe43f334a3685f3b683b72c376476c4fa/mypy-2.3.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+          "digests": {
+            "blake2b_256": "8dfe7c42327a3b21e84681f691982cbfe43f334a3685f3b683b72c376476c4fa",
+            "md5": "b4e217ad9d0406da153b52b3ba2b0050",
+            "sha256": "858fc57d3d91fa728e33e7ad71def60fc6272694607b306cd3292db53ae39080"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-08-15T03:03:31.620926Z"
+        },
+        {
+          "filename": "mypy-2.3.1-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/8e/41/9675c7a1e78edecfba0b79e587a52594c56e189368261dc7b3a7fffb9527/mypy-2.3.1-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "8e419675c7a1e78edecfba0b79e587a52594c56e189368261dc7b3a7fffb9527",
+            "md5": "998b6b056a2503afef545f22d9c178d4",
+            "sha256": "6ed5c7e3419083268e5c9258bd1c1ef91af44a9e89374dbcaf37b775716e72eb"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-08-15T03:02:53.400044Z"
+        }
+      ]
+    },
+    {
+      "name": "mypy-extensions",
+      "version": "1.1.0",
+      "requires_python": ">=3.8",
+      "requires_dist": [],
+      "license_expression": null,
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/mypy-extensions/1.1.0/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "mypy_extensions-1.1.0-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/79/7b/2c79738432f5c924bef5071f933bcc9efd0473bac3b4aa584a6f7c1c8df8/mypy_extensions-1.1.0-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "797b2c79738432f5c924bef5071f933bcc9efd0473bac3b4aa584a6f7c1c8df8",
+            "md5": "625a3dc37151717cabf87b13a0b152b9",
+            "sha256": "1be4cccdb0f2482337c4743e60421de3a356cd97508abadd57d47403e94f5505"
+          },
+          "requires_python": ">=3.8",
+          "upload_time_iso_8601": "2025-04-22T14:54:22.983092Z"
+        }
+      ]
+    },
+    {
+      "name": "packaging",
+      "version": "26.3",
+      "requires_python": ">=3.9",
+      "requires_dist": [],
+      "license_expression": "Apache-2.0 OR BSD-2-Clause",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/packaging/26.3/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "packaging-26.3-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "6334ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527",
+            "md5": "e5b3bd8ce52e8a8fe1ab400079171a1e",
+            "sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"
+          },
+          "requires_python": ">=3.9",
+          "upload_time_iso_8601": "2026-08-04T18:15:27.159957Z"
+        }
+      ]
+    },
+    {
+      "name": "pathspec",
+      "version": "1.1.1",
+      "requires_python": ">=3.9",
+      "requires_dist": [
+        "hyperscan>=0.7; extra == \"hyperscan\"",
+        "typing-extensions>=4; extra == \"optional\"",
+        "google-re2>=1.1; extra == \"re2\""
+      ],
+      "license_expression": null,
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/pathspec/1.1.1/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "pathspec-1.1.1-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/f1/d9/7fb5aa316bc299258e68c73ba3bddbc499654a07f151cba08f6153988714/pathspec-1.1.1-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "f1d97fb5aa316bc299258e68c73ba3bddbc499654a07f151cba08f6153988714",
+            "md5": "124d4c96d90978265c9e7b4d8eefa288",
+            "sha256": "a00ce642f577bf7f473932318056212bc4f8bfdf53128c78bbd5af0b9b20b189"
+          },
+          "requires_python": ">=3.9",
+          "upload_time_iso_8601": "2026-04-27T01:46:07.060850Z"
+        }
+      ]
+    },
+    {
+      "name": "pluggy",
+      "version": "1.6.0",
+      "requires_python": ">=3.9",
+      "requires_dist": [
+        "pre-commit; extra == \"dev\"",
+        "tox; extra == \"dev\"",
+        "pytest; extra == \"testing\"",
+        "pytest-benchmark; extra == \"testing\"",
+        "coverage; extra == \"testing\""
+      ],
+      "license_expression": null,
+      "license": "MIT",
+      "metadata_origin": "https://pypi.org/pypi/pluggy/1.6.0/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "pluggy-1.6.0-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "54204d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf",
+            "md5": "e107bd9fd0c26746617d74bac26fa0c5",
+            "sha256": "e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746"
+          },
+          "requires_python": ">=3.9",
+          "upload_time_iso_8601": "2025-05-15T12:30:06.134003Z"
+        }
+      ]
+    },
+    {
+      "name": "prompt-toolkit",
+      "version": "3.0.53",
+      "requires_python": ">=3.10",
+      "requires_dist": [
+        "wcwidth>=0.1.4"
+      ],
+      "license_expression": null,
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/prompt-toolkit/3.0.53/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "prompt_toolkit-3.0.53-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/54/6f/84908cad2d6aa5144abcf7b42709fe4fdb459bc640ec7ac5786e7693dabc/prompt_toolkit-3.0.53-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "546f84908cad2d6aa5144abcf7b42709fe4fdb459bc640ec7ac5786e7693dabc",
+            "md5": "9b85feafa2b04d259025720ecec511a3",
+            "sha256": "01c0891d7f9237d5e339f7d3e42cdae80b7534abb1c7c0e3352efba6231492f2"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-07-26T20:56:12.512245Z"
+        }
+      ]
+    },
+    {
+      "name": "psycopg",
+      "version": "3.3.6",
+      "requires_python": ">=3.10",
+      "requires_dist": [
+        "typing-extensions>=4.6; python_version < \"3.13\"",
+        "tzdata; sys_platform == \"win32\"",
+        "psycopg-c==3.3.6; implementation_name != \"pypy\" and extra == \"c\"",
+        "psycopg-binary==3.3.6; implementation_name != \"pypy\" and extra == \"binary\"",
+        "psycopg-pool; extra == \"pool\"",
+        "anyio>=4.0; extra == \"test\"",
+        "mypy>=2.1.0; implementation_name != \"pypy\" and extra == \"test\"",
+        "pproxy>=2.7; extra == \"test\"",
+        "pytest>=6.2.5; extra == \"test\"",
+        "pytest-cov>=3.0; extra == \"test\"",
+        "pytest-randomly>=3.5; extra == \"test\"",
+        "ast-comments>=1.1.2; extra == \"dev\"",
+        "black>=26.1.0; extra == \"dev\"",
+        "codespell>=2.2; extra == \"dev\"",
+        "cython-lint>=0.21; extra == \"dev\"",
+        "dnspython>=2.1; extra == \"dev\"",
+        "flake8>=4.0; extra == \"dev\"",
+        "isort[colors]>=6.0; extra == \"dev\"",
+        "isort-psycopg>=0.0.3; extra == \"dev\"",
+        "mypy>=2.1.0; extra == \"dev\"",
+        "pre-commit>=4.0.1; extra == \"dev\"",
+        "types-setuptools>=57.4; extra == \"dev\"",
+        "types-shapely>=2.0; extra == \"dev\"",
+        "wheel>=0.37; extra == \"dev\"",
+        "Sphinx>=9.1; extra == \"docs\"",
+        "furo==2025.12.19; extra == \"docs\"",
+        "sphinx-autobuild>=2025.8.25; extra == \"docs\"",
+        "sphinx-autodoc-typehints>=3.10.2; extra == \"docs\""
+      ],
+      "license_expression": "LGPL-3.0-only",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/psycopg/3.3.6/json",
+      "extras": [
+        "binary"
+      ],
+      "files": [
+        {
+          "filename": "psycopg-3.3.6-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/4e/de/748bd7609c71cae5d737f0ba9192f19329f70180ecda8fff3cac02c5abe3/psycopg-3.3.6-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "4ede748bd7609c71cae5d737f0ba9192f19329f70180ecda8fff3cac02c5abe3",
+            "md5": "f5a10db0ad0c2d8b0d633b353849a39f",
+            "sha256": "a1db9f7148b06a28606767efaca51fa6f9398c5c0a3810519be69d7000bdb631"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-09-18T13:15:29.374570Z"
+        }
+      ]
+    },
+    {
+      "name": "psycopg-binary",
+      "version": "3.3.6",
+      "requires_python": ">=3.10",
+      "requires_dist": [],
+      "license_expression": "LGPL-3.0-only",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/psycopg-binary/3.3.6/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/0a/42/948bb3d2617795093512613fd96ba380e922992c7908fbc073858147d196/psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "digests": {
+            "blake2b_256": "0a42948bb3d2617795093512613fd96ba380e922992c7908fbc073858147d196",
+            "md5": "32568b51d82106df38d5e721d6ff0ad4",
+            "sha256": "1679a1cb93fbe5a6d1fd58d82cbddcc6fcb8c61446ba7cae6eb2a7b19bc585de"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-09-18T13:18:27.071369Z"
+        }
+      ]
+    },
+    {
+      "name": "pycparser",
+      "version": "3.0",
+      "requires_python": ">=3.10",
+      "requires_dist": [],
+      "license_expression": "BSD-3-Clause",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/pycparser/3.0/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "pycparser-3.0-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "0cc344f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3",
+            "md5": "dfc689e63af0e21be54c80938cc8ac46",
+            "sha256": "b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-01-21T14:26:50.693739Z"
+        }
+      ]
+    },
+    {
+      "name": "pygments",
+      "version": "2.21.0",
+      "requires_python": ">=3.9",
+      "requires_dist": [
+        "colorama>=0.4.6; extra == \"windows-terminal\""
+      ],
+      "license_expression": "BSD-2-Clause",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/pygments/2.21.0/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "pygments-2.21.0-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/71/46/17f022dd3e953bf20a04a028a21ec746d942f8d2af30fa0f124fa0e6a684/pygments-2.21.0-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "714617f022dd3e953bf20a04a028a21ec746d942f8d2af30fa0f124fa0e6a684",
+            "md5": "eaaa46b6eef9ba4d6abd73d4f45be371",
+            "sha256": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9"
+          },
+          "requires_python": ">=3.9",
+          "upload_time_iso_8601": "2026-08-17T08:02:44.912148Z"
+        }
+      ]
+    },
+    {
+      "name": "pyjwt",
+      "version": "2.15.0",
+      "requires_python": ">=3.9",
+      "requires_dist": [
+        "typing_extensions>=4.0; python_version < \"3.11\"",
+        "cryptography>=3.4.0; extra == \"crypto\""
+      ],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/pyjwt/2.15.0/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "pyjwt-2.15.0-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/e8/55/40e45bf052ee8ee12a4dfd785519660f8effa7b065442b91646ec6828619/pyjwt-2.15.0-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "e85540e45bf052ee8ee12a4dfd785519660f8effa7b065442b91646ec6828619",
+            "md5": "fd5e9bf5fd48779809db07fec0de8bd8",
+            "sha256": "7a3742debf6b879e912dbb9819ceec1594be812452b78c5f2e2dfc56564954f8"
+          },
+          "requires_python": ">=3.9",
+          "upload_time_iso_8601": "2026-09-23T16:55:59.241512Z"
+        }
+      ]
+    },
+    {
+      "name": "pytest",
+      "version": "9.1.1",
+      "requires_python": ">=3.10",
+      "requires_dist": [
+        "colorama>=0.4; sys_platform == \"win32\"",
+        "exceptiongroup>=1; python_version < \"3.11\"",
+        "iniconfig>=1.0.1",
+        "packaging>=22",
+        "pluggy<2,>=1.5",
+        "pygments>=2.7.2",
+        "tomli>=1; python_version < \"3.11\"",
+        "argcomplete; extra == \"dev\"",
+        "attrs>=19.2; extra == \"dev\"",
+        "hypothesis>=3.56; extra == \"dev\"",
+        "mock; extra == \"dev\"",
+        "requests; extra == \"dev\"",
+        "setuptools; extra == \"dev\"",
+        "xmlschema; extra == \"dev\""
+      ],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/pytest/9.1.1/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "pytest-9.1.1-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "24251de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f",
+            "md5": "fd1dd7f62af8bb92733c0d20bcff497e",
+            "sha256": "37a86b45efb9a47a61a36449063e8e18d0cab3161329fc099eb21783169c4f0c"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-06-19T10:58:31.347074Z"
+        }
+      ]
+    },
+    {
+      "name": "python-dateutil",
+      "version": "2.9.0.post0",
+      "requires_python": "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7",
+      "requires_dist": [
+        "six >=1.5"
+      ],
+      "license_expression": null,
+      "license": "Dual License",
+      "metadata_origin": "https://pypi.org/pypi/python-dateutil/2.9.0.post0/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "python_dateutil-2.9.0.post0-py2.py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "ec5756b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b",
+            "md5": "2178749b926fe0e2c25905cdfebe3361",
+            "sha256": "a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"
+          },
+          "requires_python": "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7",
+          "upload_time_iso_8601": "2024-03-01T18:36:18.570437Z"
+        }
+      ]
+    },
+    {
+      "name": "pyyaml",
+      "version": "6.0.3",
+      "requires_python": ">=3.8",
+      "requires_dist": [],
+      "license_expression": null,
+      "license": "MIT",
+      "metadata_origin": "https://pypi.org/pypi/pyyaml/6.0.3/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/8b/9d/b3589d3877982d4f2329302ef98a8026e7f4443c765c46cfecc8858c6b4b/pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+          "digests": {
+            "blake2b_256": "8b9db3589d3877982d4f2329302ef98a8026e7f4443c765c46cfecc8858c6b4b",
+            "md5": "b3baaa03751fc90073221c5ec847048e",
+            "sha256": "ba1cc08a7ccde2d2ec775841541641e4548226580ab850948cbfda66a1befcdc"
+          },
+          "requires_python": ">=3.8",
+          "upload_time_iso_8601": "2025-09-25T21:32:16.431392Z"
+        }
+      ]
+    },
+    {
+      "name": "referencing",
+      "version": "0.37.0",
+      "requires_python": ">=3.10",
+      "requires_dist": [
+        "attrs>=22.2.0",
+        "rpds-py>=0.7.0",
+        "typing-extensions>=4.4.0; python_version < \"3.13\""
+      ],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/referencing/0.37.0/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "referencing-0.37.0-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/2c/58/ca301544e1fa93ed4f80d724bf5b194f6e4b945841c5bfd555878eea9fcb/referencing-0.37.0-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "2c58ca301544e1fa93ed4f80d724bf5b194f6e4b945841c5bfd555878eea9fcb",
+            "md5": "0be0d0a9f3691df1a295018982a60ce9",
+            "sha256": "381329a9f99628c9069361716891d34ad94af76e461dcb0335825aecc7692231"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2025-10-13T15:30:47.625937Z"
+        }
+      ]
+    },
+    {
+      "name": "rpds-py",
+      "version": "2026.9.1",
+      "requires_python": ">=3.11",
+      "requires_dist": [],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/rpds-py/2026.9.1/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/1d/6d/b26eb1e75395925b3a142ed351cbed2ec8212f5c9d937aee3df32c701baa/rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "digests": {
+            "blake2b_256": "1d6db26eb1e75395925b3a142ed351cbed2ec8212f5c9d937aee3df32c701baa",
+            "md5": "48cf18fe872608d83def94378354d360",
+            "sha256": "addeda51556dac7c1a2f14cda62db8b621cd12afba3091d03a96c72932387eab"
+          },
+          "requires_python": ">=3.11",
+          "upload_time_iso_8601": "2026-10-04T16:29:25.100395Z"
+        }
+      ]
+    },
+    {
+      "name": "ruff",
+      "version": "0.16.9",
+      "requires_python": ">=3.7",
+      "requires_dist": [],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/ruff/0.16.9/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "ruff-0.16.9-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/bc/b8/9c543074918061abbefc3bd139bee22de35abedb00dde0f2d27288838962/ruff-0.16.9-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "digests": {
+            "blake2b_256": "bcb89c543074918061abbefc3bd139bee22de35abedb00dde0f2d27288838962",
+            "md5": "a09d62b72bf5ee78a603a7ca215d4e35",
+            "sha256": "a21713e629d3e5bdb2f5c2def1cc7f04f47fa8e1a7eb0571b4a28e1da64bc728"
+          },
+          "requires_python": ">=3.7",
+          "upload_time_iso_8601": "2026-09-24T20:37:30.624820Z"
+        }
+      ]
+    },
+    {
+      "name": "six",
+      "version": "1.17.0",
+      "requires_python": "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7",
+      "requires_dist": [],
+      "license_expression": null,
+      "license": "MIT",
+      "metadata_origin": "https://pypi.org/pypi/six/1.17.0/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "six-1.17.0-py2.py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "b7ce149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e",
+            "md5": "090bac7d568f9c1f64b671de641ccdee",
+            "sha256": "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"
+          },
+          "requires_python": "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7",
+          "upload_time_iso_8601": "2024-12-04T17:35:26.475808Z"
+        }
+      ]
+    },
+    {
+      "name": "sqlalchemy",
+      "version": "2.1.2",
+      "requires_python": ">=3.11",
+      "requires_dist": [
+        "typing-extensions>=4.6.0",
+        "greenlet>=1; extra == \"asyncio\"",
+        "mypy>=2.4; extra == \"mypy\"",
+        "types-greenlet>=2; extra == \"mypy\"",
+        "pyodbc; extra == \"mssql\"",
+        "pymssql; extra == \"mssql-pymssql\"",
+        "pyodbc; extra == \"mssql-pyodbc\"",
+        "mssql-python>=1.9.0; extra == \"mssql-python\"",
+        "mysqlclient>=1.4.0; extra == \"mysql\"",
+        "mysql-connector-python; extra == \"mysql-connector\"",
+        "mariadb!=1.1.10,!=1.1.2,!=1.1.5,>=1.0.1; extra == \"mariadb-connector\"",
+        "oracledb>=2.0.1; extra == \"oracle\"",
+        "cx_oracle>=8; extra == \"oracle-cxoracle\"",
+        "oracledb>=2.0.1; extra == \"oracle-oracledb\"",
+        "psycopg!=3.1.15,>=3.0.7; extra == \"postgresql\"",
+        "pg8000>=1.29.3; extra == \"postgresql-pg8000\"",
+        "sqlalchemy[asyncio]; extra == \"postgresql-asyncpg\"",
+        "asyncpg; extra == \"postgresql-asyncpg\"",
+        "psycopg2-binary; extra == \"postgresql-psycopg2binary\"",
+        "psycopg2cffi; extra == \"postgresql-psycopg2cffi\"",
+        "psycopg!=3.1.15,>=3.0.7; extra == \"postgresql-psycopg\"",
+        "psycopg[binary]!=3.1.15,>=3.0.7; extra == \"postgresql-psycopgbinary\"",
+        "pymysql; extra == \"pymysql\"",
+        "cymysql; extra == \"cymysql\"",
+        "sqlalchemy[asyncio]; extra == \"aiomysql\"",
+        "aiomysql; extra == \"aiomysql\"",
+        "sqlalchemy[asyncio]; extra == \"aioodbc\"",
+        "aioodbc; extra == \"aioodbc\"",
+        "sqlalchemy[asyncio]; extra == \"asyncmy\"",
+        "asyncmy>=0.2.12; extra == \"asyncmy\"",
+        "sqlalchemy[asyncio]; extra == \"aiosqlite\"",
+        "aiosqlite; extra == \"aiosqlite\"",
+        "sqlcipher3_binary; extra == \"sqlcipher\""
+      ],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/sqlalchemy/2.1.2/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "sqlalchemy-2.1.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/19/49/25634ece624724aadd6cc1168e182c7e6a5028ac47e0aa1babae710225b0/sqlalchemy-2.1.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+          "digests": {
+            "blake2b_256": "194925634ece624724aadd6cc1168e182c7e6a5028ac47e0aa1babae710225b0",
+            "md5": "72d990333d5e2d136a33e5e7b588cdb3",
+            "sha256": "a97af8b01c81946387dbf3605d58c615d12b9e449f9d697c36997b0f0ef95b0e"
+          },
+          "requires_python": ">=3.11",
+          "upload_time_iso_8601": "2026-10-02T05:24:54.816980Z"
+        },
+        {
+          "filename": "sqlalchemy-2.1.2-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/80/df/e54318f5d645b8bf0c76b02fdd4430610afee31eada2d7ac59bee30b4715/sqlalchemy-2.1.2-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "80dfe54318f5d645b8bf0c76b02fdd4430610afee31eada2d7ac59bee30b4715",
+            "md5": "bbb283a96b0692fa21a6ea18d6371ece",
+            "sha256": "d82dbb7e9fad337c1cfb1ecf042dc9507c0b9d287c3c6a0e0b7fdd621e2d7c27"
+          },
+          "requires_python": ">=3.11",
+          "upload_time_iso_8601": "2026-10-02T05:14:19.853836Z"
+        }
+      ]
+    },
+    {
+      "name": "typing-extensions",
+      "version": "4.16.0",
+      "requires_python": ">=3.9",
+      "requires_dist": [],
+      "license_expression": "PSF-2.0",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/typing-extensions/4.16.0/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "typing_extensions-4.16.0-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "49d3b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80",
+            "md5": "aaa249e7f620bbcecbcbf2b7b11fbd12",
+            "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
+          },
+          "requires_python": ">=3.9",
+          "upload_time_iso_8601": "2026-07-02T08:40:04.659120Z"
+        }
+      ]
+    },
+    {
+      "name": "tzdata",
+      "version": "2026.5",
+      "requires_python": ">=2",
+      "requires_dist": [],
+      "license_expression": null,
+      "license": "Apache-2.0",
+      "metadata_origin": "https://pypi.org/pypi/tzdata/2026.5/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "tzdata-2026.5-py2.py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/94/21/1e5995a1c920cce14e4bffae20c665ec10e7ed03ab25e006cd741092b718/tzdata-2026.5-py2.py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "94211e5995a1c920cce14e4bffae20c665ec10e7ed03ab25e006cd741092b718",
+            "md5": "81bb8d8df7440eab17d70cbd902b8c51",
+            "sha256": "b683bd1b6659ddcd810ff02ad09ba821d4bf1065072805063eb35c49617905ac"
+          },
+          "requires_python": ">=2",
+          "upload_time_iso_8601": "2026-10-03T09:23:12.535688Z"
+        }
+      ]
+    },
+    {
+      "name": "tzlocal",
+      "version": "5.4.4",
+      "requires_python": ">=3.10",
+      "requires_dist": [
+        "tzdata; platform_system == \"Windows\"",
+        "pytest>=4.3; extra == \"testing\"",
+        "pytest-mock>=3.3; extra == \"testing\"",
+        "pytest-cov; extra == \"testing\"",
+        "check_manifest; extra == \"testing\"",
+        "pyroma; extra == \"testing\"",
+        "ruff; extra == \"testing\"",
+        "zest.releaser; extra == \"devenv\""
+      ],
+      "license_expression": "MIT",
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/tzlocal/5.4.4/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "tzlocal-5.4.4-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/9e/a4/017a7a6cbe387d961a688ec31364ae60a5c4e22c96ae9921b79a947c855d/tzlocal-5.4.4-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "9ea4017a7a6cbe387d961a688ec31364ae60a5c4e22c96ae9921b79a947c855d",
+            "md5": "7b83daf4996f8e10e01c75dfdb5ba92c",
+            "sha256": "aae09f0126a8a86fa736be266eb4a471380d26a0de3bc14844e7821fee3e2a15"
+          },
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-06-29T08:03:38.666573Z"
+        }
+      ]
+    },
+    {
+      "name": "vine",
+      "version": "5.1.0",
+      "requires_python": ">=3.6",
+      "requires_dist": [],
+      "license_expression": null,
+      "license": "BSD",
+      "metadata_origin": "https://pypi.org/pypi/vine/5.1.0/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "vine-5.1.0-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/03/ff/7c0c86c43b3cbb927e0ccc0255cb4057ceba4799cd44ae95174ce8e8b5b2/vine-5.1.0-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "03ff7c0c86c43b3cbb927e0ccc0255cb4057ceba4799cd44ae95174ce8e8b5b2",
+            "md5": "596860bdba2d7965dbeb9b3d07601679",
+            "sha256": "40fdf3c48b2cfe1c38a49e9ae2da6fda88e4794c810050a728bd7413811fb1dc"
+          },
+          "requires_python": ">=3.6",
+          "upload_time_iso_8601": "2023-11-05T08:46:51.205302Z"
+        }
+      ]
+    },
+    {
+      "name": "wcwidth",
+      "version": "0.9.2",
+      "requires_python": ">=3.9",
+      "requires_dist": [],
+      "license_expression": null,
+      "license": null,
+      "metadata_origin": "https://pypi.org/pypi/wcwidth/0.9.2/json",
+      "extras": [],
+      "files": [
+        {
+          "filename": "wcwidth-0.9.2-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/db/6c/f940133c71427c208575910e981942bd78c98b1f7cd0d1425ca4b7457c04/wcwidth-0.9.2-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "digests": {
+            "blake2b_256": "db6cf940133c71427c208575910e981942bd78c98b1f7cd0d1425ca4b7457c04",
+            "md5": "964422f0927b06a2860a19af399e62af",
+            "sha256": "751bef0ab404b6a1dc028b56b4b85d46486be1c55833f80da533e42dc691f389"
+          },
+          "requires_python": ">=3.9",
+          "upload_time_iso_8601": "2026-10-05T00:23:40.175985Z"
+        },
+        {
+          "filename": "wcwidth-0.9.2-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/9c/b4/0bfa065af506540d9d558e3e5548cff00bc1f9b24e6e2a8512498e8628de/wcwidth-0.9.2-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "9cb40bfa065af506540d9d558e3e5548cff00bc1f9b24e6e2a8512498e8628de",
+            "md5": "f9a57411499012ca52d17f641a7568a8",
+            "sha256": "89ca642c5bf0101157a09366be69fad0379db1f700ae39a920e103234573670e"
+          },
+          "requires_python": ">=3.9",
+          "upload_time_iso_8601": "2026-10-05T00:23:21.097514Z"
+        }
+      ]
+    }
+  ],
+  "active_edges": [
+    {
+      "parent": "alembic",
+      "child": "sqlalchemy",
+      "requirement": "SQLAlchemy>=1.4.23"
+    },
+    {
+      "parent": "alembic",
+      "child": "mako",
+      "requirement": "Mako"
+    },
+    {
+      "parent": "alembic",
+      "child": "typing-extensions",
+      "requirement": "typing-extensions>=4.12"
+    },
+    {
+      "parent": "amqp",
+      "child": "vine",
+      "requirement": "vine<6.0.0,>=5.0.0"
+    },
+    {
+      "parent": "celery",
+      "child": "billiard",
+      "requirement": "billiard<5.0,>=4.2.1"
+    },
+    {
+      "parent": "celery",
+      "child": "kombu",
+      "requirement": "kombu>=5.6.0"
+    },
+    {
+      "parent": "celery",
+      "child": "vine",
+      "requirement": "vine<6.0,>=5.1.0"
+    },
+    {
+      "parent": "celery",
+      "child": "click",
+      "requirement": "click<9.0,>=8.1.2"
+    },
+    {
+      "parent": "celery",
+      "child": "click-didyoumean",
+      "requirement": "click-didyoumean>=0.3.0"
+    },
+    {
+      "parent": "celery",
+      "child": "click-repl",
+      "requirement": "click-repl>=0.2.0"
+    },
+    {
+      "parent": "celery",
+      "child": "click-plugins",
+      "requirement": "click-plugins>=1.1.1"
+    },
+    {
+      "parent": "celery",
+      "child": "python-dateutil",
+      "requirement": "python-dateutil>=2.8.2"
+    },
+    {
+      "parent": "celery",
+      "child": "tzlocal",
+      "requirement": "tzlocal"
+    },
+    {
+      "parent": "cffi",
+      "child": "pycparser",
+      "requirement": "pycparser; implementation_name != \"PyPy\""
+    },
+    {
+      "parent": "click-didyoumean",
+      "child": "click",
+      "requirement": "click>=7"
+    },
+    {
+      "parent": "click-plugins",
+      "child": "click",
+      "requirement": "click>=4.0"
+    },
+    {
+      "parent": "click-repl",
+      "child": "click",
+      "requirement": "click<9.0,>=7.0"
+    },
+    {
+      "parent": "click-repl",
+      "child": "prompt-toolkit",
+      "requirement": "prompt_toolkit>=3.0.36"
+    },
+    {
+      "parent": "click-repl",
+      "child": "typing-extensions",
+      "requirement": "typing-extensions>=4.7.0"
+    },
+    {
+      "parent": "cryptography",
+      "child": "cffi",
+      "requirement": "cffi>=2.0.0; platform_python_implementation != \"PyPy\""
+    },
+    {
+      "parent": "jsonschema",
+      "child": "attrs",
+      "requirement": "attrs>=22.2.0"
+    },
+    {
+      "parent": "jsonschema",
+      "child": "jsonschema-specifications",
+      "requirement": "jsonschema-specifications>=2023.03.6"
+    },
+    {
+      "parent": "jsonschema",
+      "child": "referencing",
+      "requirement": "referencing>=0.28.4"
+    },
+    {
+      "parent": "jsonschema",
+      "child": "rpds-py",
+      "requirement": "rpds-py>=0.25.0"
+    },
+    {
+      "parent": "jsonschema-specifications",
+      "child": "referencing",
+      "requirement": "referencing>=0.31.0"
+    },
+    {
+      "parent": "kombu",
+      "child": "amqp",
+      "requirement": "amqp<6.0.0,>=5.1.1"
+    },
+    {
+      "parent": "kombu",
+      "child": "vine",
+      "requirement": "vine==5.1.0"
+    },
+    {
+      "parent": "kombu",
+      "child": "tzdata",
+      "requirement": "tzdata>=2025.2"
+    },
+    {
+      "parent": "kombu",
+      "child": "packaging",
+      "requirement": "packaging"
+    },
+    {
+      "parent": "mako",
+      "child": "markupsafe",
+      "requirement": "MarkupSafe>=2.0"
+    },
+    {
+      "parent": "mypy",
+      "child": "typing-extensions",
+      "requirement": "typing_extensions>=4.6.0; python_version < \"3.15\""
+    },
+    {
+      "parent": "mypy",
+      "child": "mypy-extensions",
+      "requirement": "mypy_extensions>=1.0.0"
+    },
+    {
+      "parent": "mypy",
+      "child": "pathspec",
+      "requirement": "pathspec>=1.0.0"
+    },
+    {
+      "parent": "mypy",
+      "child": "librt",
+      "requirement": "librt>=0.13.0; platform_python_implementation != \"PyPy\""
+    },
+    {
+      "parent": "mypy",
+      "child": "ast-serialize",
+      "requirement": "ast-serialize<1.0.0,>=0.6.0"
+    },
+    {
+      "parent": "prompt-toolkit",
+      "child": "wcwidth",
+      "requirement": "wcwidth>=0.1.4"
+    },
+    {
+      "parent": "psycopg",
+      "child": "typing-extensions",
+      "requirement": "typing-extensions>=4.6; python_version < \"3.13\""
+    },
+    {
+      "parent": "psycopg",
+      "child": "psycopg-binary",
+      "requirement": "psycopg-binary==3.3.6; implementation_name != \"pypy\" and extra == \"binary\""
+    },
+    {
+      "parent": "pytest",
+      "child": "iniconfig",
+      "requirement": "iniconfig>=1.0.1"
+    },
+    {
+      "parent": "pytest",
+      "child": "packaging",
+      "requirement": "packaging>=22"
+    },
+    {
+      "parent": "pytest",
+      "child": "pluggy",
+      "requirement": "pluggy<2,>=1.5"
+    },
+    {
+      "parent": "pytest",
+      "child": "pygments",
+      "requirement": "pygments>=2.7.2"
+    },
+    {
+      "parent": "python-dateutil",
+      "child": "six",
+      "requirement": "six >=1.5"
+    },
+    {
+      "parent": "referencing",
+      "child": "attrs",
+      "requirement": "attrs>=22.2.0"
+    },
+    {
+      "parent": "referencing",
+      "child": "rpds-py",
+      "requirement": "rpds-py>=0.7.0"
+    },
+    {
+      "parent": "referencing",
+      "child": "typing-extensions",
+      "requirement": "typing-extensions>=4.4.0; python_version < \"3.13\""
+    },
+    {
+      "parent": "sqlalchemy",
+      "child": "typing-extensions",
+      "requirement": "typing-extensions>=4.6.0"
+    }
+  ],
+  "source_inputs": [
+    {
+      "path": "requirements-validation.txt",
+      "git_blob_sha256": "4946ec4a16b7e2ab51d974dd102ce5be3d2f97443e469aa1734d045f18332301",
+      "worktree_bytes_sha256": "11226eb46cad23c26564e85c452e6776cdc0c01d9d890c21274c7b67cd41d33d"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt",
+      "git_blob_sha256": "51d4a1594856031c908a79b778af6ad17749b3dd80927023a01b3d482487f758",
+      "worktree_bytes_sha256": "1b62510d7d3698723a5e9d3ebcb7a96b93b101aceb173999de72d419872433ea"
+    },
+    {
+      "path": "pyproject.toml",
+      "git_blob_sha256": "dbda77fcae1fb41df059c905a318c2dbc807c067cf51909047fcc9f2b936255a",
+      "worktree_bytes_sha256": "b08fc88e91b02a979e1f734a6c05f3a1c19ce0b82daa4893ee1db15ea0efbd6e"
+    },
+    {
+      "path": ".python-version",
+      "git_blob_sha256": "aa0d6581054e6e4ff3f91839deca7a854ad37221b8784d060b42d0f847ff1a3b",
+      "worktree_bytes_sha256": "50b10393ce287fb4af7616d016dd16ac1a56412af4d2c74cde7ddc5ad5c78761"
+    },
+    {
+      "path": "docs/03-engineering/TECHNOLOGY_BASELINE.yaml",
+      "git_blob_sha256": "ff24cad28b02493c18a3a8ab84b166a90c2ea61d5f38199594bcfa50a1626bcc",
+      "worktree_bytes_sha256": "b001166fe858002e0977b15bd0863e684e6e59223c2357be260208972d2373fa"
+    },
+    {
+      "path": "docs/03-engineering/TECHNOLOGY_BASELINE.md",
+      "git_blob_sha256": "147a443f1e81edc49f0219a2c1ee86587c8a4c533d938a1b0e654fef3909428e",
+      "worktree_bytes_sha256": "d122253b8b23e53461d328f4506314a67e2390e6217486f1e131e0cc23380dde"
+    },
+    {
+      "path": "infra/images/native-stack.lock.yaml",
+      "git_blob_sha256": "16970dbaba6b1a5494a2003626a53bf0d6d9cfc5ed64471804bc888551d49a9e",
+      "worktree_bytes_sha256": "dcb7824673273a0db58fce862d22fed8733b981b26174104f3972c462c2f63b7"
+    },
+    {
+      "path": "infra/images/native-stack.conda-lock.txt",
+      "git_blob_sha256": "dafb10f30d967d18c7417104d0bb417aaea8ea23a1a67937dd28dc6168db4848",
+      "worktree_bytes_sha256": "28965ab1d295974088053c0f7e8aa6891b33796b34cf134d71897eae27c369d0"
+    },
+    {
+      "path": "infra/images/native-stack.Dockerfile",
+      "git_blob_sha256": "b6fb55f5364bc0fd228f9671d4479d426495aea7e4dfadebcabecaed5e8d879f",
+      "worktree_bytes_sha256": "6adce892ad9be6178af22c25e78656a8b31e0b1155a99ab2a23318e803767f46"
+    },
+    {
+      "path": "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/dependency-inventory.json",
+      "git_blob_sha256": "c84bfc57fb09eb414d6f18fdfef8e458f278383221d287473a7b870975bea24b",
+      "worktree_bytes_sha256": "dfe8fc900d2fa415e43b0629589738b178d7995f12cc4ed194c54bc8cd844680"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/VALIDATION-REPORT.json",
+      "git_blob_sha256": "b0566f768575c6bd85a175757ff608b95a2eb61584db3d7a773e7aaff00f7284",
+      "worktree_bytes_sha256": "11768c193848a6503ff86c446b8a22522fd4fb9550a95a4fa3f9b5291a59b23b"
+    },
+    {
+      "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+      "git_blob_sha256": "bc07937fc914267527d7370092663f7f246a6ed588bceaeceb22253fc58de87f",
+      "worktree_bytes_sha256": "c7517d1def4ed78b95c72f5a87e09f18f80d8a46745a01dc67afb73d3872bc34"
+    }
+  ],
+  "import_evidence": {
+    "alembic": [
+      {
+        "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migration.py",
+        "line": 5
+      },
+      {
+        "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migration.py",
+        "line": 6
+      },
+      {
+        "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/env.py",
+        "line": 3
+      },
+      {
+        "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/versions/link_session_binding.py",
+        "line": 12
+      },
+      {
+        "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migrations/versions/local_identity.py",
+        "line": 5
+      }
+    ],
+    "sqlalchemy": [
+      {
+        "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migration.py",
+        "line": 7
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/conftest.py",
+        "line": 28
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/runtime_evidence.py",
+        "line": 38
+      }
+    ],
+    "cryptography": [
+      {
+        "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/crypto.py",
+        "line": 6
+      },
+      {
+        "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/crypto.py",
+        "line": 7
+      },
+      {
+        "path": "tools/run_specification_review.py",
+        "line": 6
+      },
+      {
+        "path": "tools/governance/delivery_approval_authority/crypto.py",
+        "line": 9
+      },
+      {
+        "path": "tools/governance/delivery_approval_authority/crypto.py",
+        "line": 10
+      },
+      {
+        "path": "tests/security/delivery_approval_authority/fixture.py",
+        "line": 13
+      },
+      {
+        "path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_delivery_approval_authority_contract.py",
+        "line": 14
+      },
+      {
+        "path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_delivery_approval_authority_contract.py",
+        "line": 15
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/oidc_fixture.py",
+        "line": 6
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/test_requirements.py",
+        "line": 9
+      }
+    ],
+    "jwt": [
+      {
+        "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/oidc.py",
+        "line": 12
+      },
+      {
+        "path": "tests/security/contexts/identity_access/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/test_security.py",
+        "line": 13
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/oidc_fixture.py",
+        "line": 5
+      }
+    ],
+    "psycopg": [
+      {
+        "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/postgres.py",
+        "line": 9
+      },
+      {
+        "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/postgres.py",
+        "line": 12
+      },
+      {
+        "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/postgres.py",
+        "line": 13
+      },
+      {
+        "path": "tools/quality/native_stack/abi_smoke.py",
+        "line": 173
+      },
+      {
+        "path": "tools/governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/walking_skeleton_runtime.py",
+        "line": 14
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/conftest.py",
+        "line": 8
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/runtime_evidence.py",
+        "line": 12
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/test_identity_requirements.py",
+        "line": 6
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/test_requirements.py",
+        "line": 6
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/test_revoke_authorization.py",
+        "line": 7
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/test_slice_consolidation.py",
+        "line": 10
+      }
+    ],
+    "yaml": [
+      {
+        "path": "tools/check_python_architecture.py",
+        "line": 9
+      },
+      {
+        "path": "tools/run_architecture_review.py",
+        "line": 4
+      },
+      {
+        "path": "tools/run_cto_review.py",
+        "line": 2
+      },
+      {
+        "path": "tools/run_specification_review.py",
+        "line": 4
+      },
+      {
+        "path": "tools/validate_repository.py",
+        "line": 4
+      },
+      {
+        "path": "tools/quality/native_stack/validate.py",
+        "line": 11
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/automation_validation.py",
+        "line": 10
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/validator.py",
+        "line": 14
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/manifest_validation.py",
+        "line": 7
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/manifest_validation.py",
+        "line": 6
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/validator.py",
+        "line": 14
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/control_validation.py",
+        "line": 11
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/artifact_validation.py",
+        "line": 8
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/repository_validation.py",
+        "line": 6
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/artifact_validation.py",
+        "line": 10
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artifact_validation.py",
+        "line": 8
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/registry_validation.py",
+        "line": 8
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/repository_validation.py",
+        "line": 6
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/artifact_validation.py",
+        "line": 10
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/validator.py",
+        "line": 14
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/validator.py",
+        "line": 10
+      },
+      {
+        "path": "tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/catalog_validation.py",
+        "line": 7
+      },
+      {
+        "path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/repository_integration.py",
+        "line": 13
+      },
+      {
+        "path": "tools/governance/issue-forms-templates-e-taxonomia-de-tipos-com-validac/validate_issue_forms.py",
+        "line": 10
+      },
+      {
+        "path": "tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
+        "line": 14
+      },
+      {
+        "path": "tools/governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/repository_integration.py",
+        "line": 15
+      },
+      {
+        "path": "tools/governance/repositorio-privado-project-central-views-campos-label/repository_integration.py",
+        "line": 12
+      },
+      {
+        "path": "tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/integration_validation.py",
+        "line": 10
+      },
+      {
+        "path": "tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/main_ruleset_policy_validation.py",
+        "line": 7
+      },
+      {
+        "path": "tools/governance/repositorio-privado-project-central-views-campos-label/sprint-001-tool-worker-parte-8/foundation_validation.py",
+        "line": 11
+      },
+      {
+        "path": "tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artlayout-dbschema-fs1-parte-1/validate_foundation.py",
+        "line": 8
+      },
+      {
+        "path": "tools/governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/runtime-tool-upg-parte-3/validate_runtime_tool_upgrade_foundation.py",
+        "line": 9
+      },
+      {
+        "path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/governed_artifacts.py",
+        "line": 12
+      },
+      {
+        "path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/scope_validation.py",
+        "line": 8
+      },
+      {
+        "path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/sprint-001-tool-parte-2/repository_surfaces.py",
+        "line": 8
+      },
+      {
+        "path": "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/consolidacao/test_slice_consolidation.py",
+        "line": 10
+      },
+      {
+        "path": "tests/infra/native_stack/test_native_stack.py",
+        "line": 15
+      },
+      {
+        "path": "tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_automation.py",
+        "line": 13
+      },
+      {
+        "path": "tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_contract.py",
+        "line": 9
+      },
+      {
+        "path": "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_contract.py",
+        "line": 9
+      },
+      {
+        "path": "tests/fnd/github-actions-usage/test_workflow_policy.py",
+        "line": 6
+      },
+      {
+        "path": "tests/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/test_automation.py",
+        "line": 17
+      },
+      {
+        "path": "tests/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/test_epic_110_contract.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py",
+        "line": 12
+      },
+      {
+        "path": "tests/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/test_contract.py",
+        "line": 9
+      },
+      {
+        "path": "tests/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/test_foundation.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_contract.py",
+        "line": 9
+      },
+      {
+        "path": "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py",
+        "line": 14
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_automation.py",
+        "line": 13
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_contract_foundation.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_conformance.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_slice_consolidation.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_story_0022_slice_consolidation.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation_contract.py",
+        "line": 9
+      },
+      {
+        "path": "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_automation.py",
+        "line": 13
+      },
+      {
+        "path": "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_contract_foundation.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_runtime_schema_contract.py",
+        "line": 12
+      },
+      {
+        "path": "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_slice_consolidation.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_foundation_conformance.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_slice_consolidation.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_governance.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_contract.py",
+        "line": 9
+      },
+      {
+        "path": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_automation.py",
+        "line": 12
+      },
+      {
+        "path": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_contract.py",
+        "line": 9
+      }
+    ],
+    "jsonschema": [
+      {
+        "path": "tools/run_cto_review.py",
+        "line": 3
+      },
+      {
+        "path": "tools/run_domain_driven_design_review.py",
+        "line": 4
+      },
+      {
+        "path": "tools/run_specification_review.py",
+        "line": 5
+      },
+      {
+        "path": "tools/validate_repository.py",
+        "line": 5
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/automation_validation.py",
+        "line": 11
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/automation_validation.py",
+        "line": 12
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/artifact_validation.py",
+        "line": 7
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/governanca-continua-do-backlog-e-decomposicao-de-epico/artifact_validation.py",
+        "line": 8
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validator.py",
+        "line": 14
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/validator.py",
+        "line": 15
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/control_validation.py",
+        "line": 12
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/control_validation.py",
+        "line": 13
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/artifact_validation.py",
+        "line": 9
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/artifact_validation.py",
+        "line": 10
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/repository_validation.py",
+        "line": 7
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/repository_validation.py",
+        "line": 8
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/artifact_validation.py",
+        "line": 11
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/artifact_validation.py",
+        "line": 12
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artifact_validation.py",
+        "line": 9
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/artifact_validation.py",
+        "line": 10
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/registry_validation.py",
+        "line": 9
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/registry_validation.py",
+        "line": 10
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/repository_validation.py",
+        "line": 7
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/repository_validation.py",
+        "line": 8
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/artifact_validation.py",
+        "line": 11
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/repositorio-privado-project-central-views-campos-label/artifact_validation.py",
+        "line": 12
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/validator.py",
+        "line": 11
+      },
+      {
+        "path": "tools/quality/contexts/engineering_governance/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/validator.py",
+        "line": 12
+      },
+      {
+        "path": "tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/catalog_validation.py",
+        "line": 22
+      },
+      {
+        "path": "tools/governance/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/catalog_validation.py",
+        "line": 23
+      },
+      {
+        "path": "tools/governance/delivery_approval_authority/schemas.py",
+        "line": 6
+      },
+      {
+        "path": "tools/governance/delivery_gates/acceptance.py",
+        "line": 8
+      },
+      {
+        "path": "tools/governance/delivery_gates/model.py",
+        "line": 10
+      },
+      {
+        "path": "tools/governance/delivery_gates/model.py",
+        "line": 11
+      },
+      {
+        "path": "tools/governance/delivery_gates/planning.py",
+        "line": 10
+      },
+      {
+        "path": "tools/governance/delivery_gates/validation.py",
+        "line": 12
+      },
+      {
+        "path": "tools/governance/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/foundation_validation.py",
+        "line": 12
+      },
+      {
+        "path": "tools/governance/ruleset-de-main-checks-unicos-codeowners-politica-de-b/foundation_validation.py",
+        "line": 9
+      },
+      {
+        "path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/contract_validation.py",
+        "line": 7
+      },
+      {
+        "path": "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/contract_validation.py",
+        "line": 8
+      },
+      {
+        "path": "tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_contract.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/delivery_gates/test_planning.py",
+        "line": 7
+      },
+      {
+        "path": "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_contract.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/github-actions-usage/test_workflow_policy.py",
+        "line": 7
+      },
+      {
+        "path": "tests/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/test_epic_110_contract.py",
+        "line": 12
+      },
+      {
+        "path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_contract.py",
+        "line": 13
+      },
+      {
+        "path": "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_delivery_approval_authority_contract.py",
+        "line": 19
+      },
+      {
+        "path": "tests/fnd/issue-forms-templates-e-taxonomia-de-tipos-com-validac/test_contract.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_contract.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_aie_bex_part_1.py",
+        "line": 12
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_bex_epic_frz_part_2.py",
+        "line": 12
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_contract_foundation.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_fs1_gov_sgvcal_part_3.py",
+        "line": 12
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_conformance.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_srg_srp_part_4.py",
+        "line": 15
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_slice_consolidation.py",
+        "line": 12
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_story_0022_slice_consolidation.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation_contract.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_contract_foundation.py",
+        "line": 12
+      },
+      {
+        "path": "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_runtime_schema_contract.py",
+        "line": 13
+      },
+      {
+        "path": "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_slice_consolidation.py",
+        "line": 12
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_foundation_conformance.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_slice_consolidation.py",
+        "line": 12
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_governance.py",
+        "line": 12
+      },
+      {
+        "path": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_contract.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_contract.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_slice_consolidation.py",
+        "line": 12
+      }
+    ],
+    "celery": [
+      {
+        "path": "tools/quality/native_stack/abi_smoke.py",
+        "line": 63
+      },
+      {
+        "path": "tools/governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/walking_skeleton_runtime.py",
+        "line": 15
+      }
+    ],
+    "pytest": [
+      {
+        "path": "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/ism-iss-parte-1/test_backlog_governance.py",
+        "line": 12
+      },
+      {
+        "path": "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/iss-pln-parte-2/test_policy_validation.py",
+        "line": 11
+      },
+      {
+        "path": "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/prj-prm-parte-3/test_policy_validation.py",
+        "line": 10
+      },
+      {
+        "path": "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/prm-sprint-001-parte-4/test_policy_validation.py",
+        "line": 11
+      },
+      {
+        "path": "tools/governance/governanca-continua-do-backlog-e-decomposicao-de-epico/sprint-001-parte-5/test_policy_validation.py",
+        "line": 11
+      },
+      {
+        "path": "tests/security/delivery_approval_authority/test_operational_verifier.py",
+        "line": 10
+      },
+      {
+        "path": "tests/security/delivery_approval_authority/test_signing_requests.py",
+        "line": 5
+      },
+      {
+        "path": "tests/security/contexts/identity_access/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/conftest.py",
+        "line": 15
+      },
+      {
+        "path": "tests/security/contexts/identity_access/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/test_security.py",
+        "line": 14
+      },
+      {
+        "path": "tests/infra/native_stack/test_native_stack.py",
+        "line": 14
+      },
+      {
+        "path": "tests/fnd/delivery_gates/signed_approval.py",
+        "line": 9
+      },
+      {
+        "path": "tests/fnd/delivery_gates/test_environmental.py",
+        "line": 8
+      },
+      {
+        "path": "tests/fnd/delivery_gates/test_execution_cycles.py",
+        "line": 6
+      },
+      {
+        "path": "tests/fnd/delivery_gates/test_planning.py",
+        "line": 6
+      },
+      {
+        "path": "tests/fnd/delivery_gates/test_readiness_binding.py",
+        "line": 6
+      },
+      {
+        "path": "tests/fnd/delivery_gates/test_satisfaction.py",
+        "line": 8
+      },
+      {
+        "path": "tests/fnd/fechamento-da-sprint-001-e-autorizacao-da-primeira-fat/test_sprint_001_foundation.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/test_automation.py",
+        "line": 16
+      },
+      {
+        "path": "tests/fnd/governanca-continua-do-backlog-e-decomposicao-de-epico/test_epic_110_contract.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py",
+        "line": 13
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_aie_bex_part_1.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_bex_epic_frz_part_2.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_fs1_gov_sgvcal_part_3.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_srg_srp_part_4.py",
+        "line": 14
+      },
+      {
+        "path": "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_contract_foundation.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_runtime_schema_contract.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_classicprofile_governance.py",
+        "line": 9
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_ism_issue_native_governance.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_native_planning_governance.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_planning_project_governance.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_portfolio_runtime_foundation.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_project_portfolio_materialization.py",
+        "line": 10
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_runtime_sprint_foundation.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_tool_worker_foundation.py",
+        "line": 12
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_governance.py",
+        "line": 11
+      },
+      {
+        "path": "tests/fnd/repositorio-privado-project-central-views-campos-label/test_worker_progress_cancellation_foundation.py",
+        "line": 12
+      },
+      {
+        "path": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_integration.py",
+        "line": 13
+      },
+      {
+        "path": "tests/fnd/ruleset-de-main-checks-unicos-codeowners-politica-de-b/test_main_ruleset_foundation.py",
+        "line": 12
+      },
+      {
+        "path": "tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_automation.py",
+        "line": 11
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/conftest.py",
+        "line": 9
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/test_identity_requirements.py",
+        "line": 7
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/test_requirements.py",
+        "line": 7
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/test_revoke_authorization.py",
+        "line": 8
+      },
+      {
+        "path": "tests/backend/identity_access/local_identity/test_slice_consolidation.py",
+        "line": 11
+      }
+    ],
+    "fastapi": [
+      {
+        "path": "tools/quality/native_stack/abi_smoke.py",
+        "line": 64
+      }
+    ],
+    "pydantic": [
+      {
+        "path": "tools/quality/native_stack/abi_smoke.py",
+        "line": 66
+      }
+    ],
+    "numpy": [
+      {
+        "path": "tools/quality/native_stack/abi_smoke.py",
+        "line": 65
+      }
+    ],
+    "rasterio": [
+      {
+        "path": "tools/quality/native_stack/abi_smoke.py",
+        "line": 67
+      },
+      {
+        "path": "tools/quality/native_stack/abi_smoke.py",
+        "line": 70
+      },
+      {
+        "path": "tools/quality/native_stack/abi_smoke.py",
+        "line": 71
+      },
+      {
+        "path": "tools/quality/native_stack/abi_smoke.py",
+        "line": 72
+      }
+    ],
+    "shapely": [
+      {
+        "path": "tools/quality/native_stack/abi_smoke.py",
+        "line": 68
+      },
+      {
+        "path": "tools/quality/native_stack/abi_smoke.py",
+        "line": 73
+      }
+    ]
+  }
+}

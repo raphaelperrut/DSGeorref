@@ -10,6 +10,9 @@ from tools.governance.delivery_gates.validation import planning_errors, ready_er
 errors=[]
 CURRENT_ADR_COUNT=59
 PHASE_D_ADR_BASELINE=58
+# Exact canonical IDs; reserved operational IDs remain outside this discovery.
+CANONICAL_STORY_IDS=tuple(range(1,763))+(767,768,769)
+CANONICAL_TASK_IDS=tuple(range(1,762))+(769,770,771,772)
 GENERATED_DIRS=frozenset({
     '.npm-cache',
     '.playwright-browsers',
@@ -31,7 +34,9 @@ def check_sequence(paths, pattern, prefix, start=1):
     for p in paths:
         m=rx.search(p.name)
         if m: ids.append(int(m.group(1)))
-    ids=sorted(set(ids)); expected=list(range(start,start+len(ids)))
+    if len(ids)!=len(set(ids)): errors.append(f'{prefix} duplicate ID')
+    ids=sorted(ids)
+    expected=list({'STORY':CANONICAL_STORY_IDS,'TASK':CANONICAL_TASK_IDS}.get(prefix,range(start,start+len(ids))))
     if ids!=expected: errors.append(f'{prefix} sequence invalid')
     return len(ids)
 
@@ -46,7 +51,7 @@ counts={
  'tasks':check_sequence(ROOT.glob('.codex/tasks/TASK-*.json'),r'TASK-(\d{4})','TASK'),
  'requirements':len(list(ROOT.glob('docs/01-product/requirements/REQ-*.md'))),
 }
-expected={'adrs':CURRENT_ADR_COUNT,'components':18,'modules':18,'sprints':12,'epics':110,'parent_issues':110,'stories':761,'tasks':761,'requirements':376}
+expected={'adrs':CURRENT_ADR_COUNT,'components':18,'modules':18,'sprints':12,'epics':110,'parent_issues':110,'stories':765,'tasks':765,'requirements':376}
 for k,v in expected.items():
     if counts[k]!=v: errors.append(f'{k}: expected {v}, found {counts[k]}')
 
@@ -99,8 +104,8 @@ issue_rows=rows('docs/06-delivery/ISSUE_INDEX.csv')
 story_rows=rows('docs/06-delivery/STORY_INDEX.csv')
 req_rows=rows('docs/01-product/REQUIREMENT_INDEX.csv')
 trace_rows=rows('docs/06-delivery/TRACEABILITY_MATRIX.csv')
-if len(issue_rows)!=871: errors.append(f'ISSUE_INDEX expected 871, found {len(issue_rows)}')
-if len(story_rows)!=761: errors.append(f'STORY_INDEX expected 761, found {len(story_rows)}')
+if len(issue_rows)!=875: errors.append(f'ISSUE_INDEX expected 875, found {len(issue_rows)}')
+if len(story_rows)!=765: errors.append(f'STORY_INDEX expected 765, found {len(story_rows)}')
 if len(req_rows)!=376: errors.append(f'REQUIREMENT_INDEX expected 376, found {len(req_rows)}')
 if len(trace_rows)!=376: errors.append(f'TRACEABILITY expected 376, found {len(trace_rows)}')
 if any(not r['stories'] for r in trace_rows): errors.append('active requirement without story coverage')
@@ -324,7 +329,7 @@ if rr.get('approved') is not True or rr.get('blocking_findings_open') != 0: erro
 crit_rows=rows('docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv')
 issue_rr_rows=rows('docs/07-assurance/ISSUE_REQUIREMENTS_REVIEW.csv')
 req_rr_rows=rows('docs/07-assurance/REQUIREMENT_REVIEW_MATRIX.csv')
-if len(issue_rr_rows)!=871: errors.append(f'Phase B issue review expected 871, found {len(issue_rr_rows)}')
+if len(issue_rr_rows)!=875: errors.append(f'Phase B issue review expected 875, found {len(issue_rr_rows)}')
 if len(req_rr_rows)!=376: errors.append(f'Phase B requirement review expected 376, found {len(req_rr_rows)}')
 for r in crit_rows:
     if r.get('status')!='PASS' or not r.get('adr_ids'): errors.append(f"bad criterion review {r.get('criterion_id')}")
@@ -405,7 +410,7 @@ if phase_e_report_path.exists():
 phase_f=json.loads((ROOT/'docs/07-assurance/PHASE-F-SPRINT-REVIEW-REPORT.json').read_text(encoding="utf-8"))
 if phase_f.get('status')!='APPROVED' or phase_f.get('blocking_findings_open')!=0: errors.append('Phase F review not approved')
 phase_f_rows=rows('docs/07-assurance/PHASE-F-ISSUE-DELIVERY-REVIEW.csv')
-if len(phase_f_rows)!=871: errors.append(f'Phase F matrix expected 871, found {len(phase_f_rows)}')
+if len(phase_f_rows)!=875: errors.append(f'Phase F matrix expected 875, found {len(phase_f_rows)}')
 if {r['issue_id'] for r in phase_f_rows}!={r['issue_id'] for r in issue_rows}: errors.append('Phase F issue coverage drift')
 for p in ROOT.glob('.codex/tasks/TASK-*.json'):
     o=json.loads(p.read_text(encoding="utf-8")); rv=o.get('phase_f_review',{})

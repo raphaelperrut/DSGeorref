@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "checks": [
+    "YAML_PARSE_NO_DUPLICATE_KEYS",
+    "PROFILE_ID_VERSION_AND_DIGEST",
+    "CROSS_REFERENCES_AND_DIGESTS",
+    "REFERENCE_ONLY_NO_GPU_NO_SUPPORT_CLAIM",
+    "CPU_RAM_ALLOCATION_CONSISTENCY",
+    "RESOURCE_HEADROOM",
+    "FIXTURE_CARDINALITIES",
+    "PHASE_BASELINE",
+    "PHASE_REPEATED_ATTEMPTS",
+    "PHASE_DISTRIBUTED_BRUTE_FORCE",
+    "PHASE_RECOVERY",
+    "DURATION_AND_REQUEST_TOTALS",
+    "DETERMINISTIC_BRUTE_FORCE_DISTRIBUTION",
+    "CONCURRENCY_TIMEOUT_BOUND",
+    "FROZEN_THROTTLING_OPERATION_MAPPING",
+    "POST_TIMELINE_PROBES",
+    "APPROVAL_NOT_SELF_DECLARED",
+    "NO_OWNER_GATE_OR_RUNTIME_PROMOTION"
+  ],
+  "normative_profile_schema": "NONE_PROVIDED; schema_version identifies document format, not an invented normative schema",
+  "runtime_used_for_structural_checks": "Python tooling only; no production runtime/authentication execution",
+  "benchmark_executed": false,
+  "independent_approval": false,
+  "global_make_verify": "NOT_RUN_EXPLICIT_USER_SCOPE"
+}

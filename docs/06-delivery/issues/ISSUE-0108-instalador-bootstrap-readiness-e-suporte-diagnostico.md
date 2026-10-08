@@ -120,3 +120,18 @@ O envelope pai não autoriza código. Cada história filha possui TaskEnvelope c
 - **Histórias revisadas:** `6`
 - **Controles aplicáveis:** `CTO-001, CTO-002, CTO-003, CTO-004, CTO-005, CTO-006, CTO-008, CTO-010, CTO-011, CTO-012, CTO-013, CTO-014, CTO-015`
 - **Gate de produção:** `SECURITY_AND_PRIVACY_GATES`
+
+## Gate de release — obrigação de EPIC-008
+
+**DEFERRED_ID:** `EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS`.
+[Registro canônico e critérios de quitação](../../07-assurance/PHASE-G-CTO-REVIEW-REPORT.md#epic-008-req-auth-impl-007-production-readiness).
+EPIC-108 / ISSUE-0108 / GitHub #816, na SPRINT-012, consome sua quitação como
+prerequisite de readiness. BC-015/DevOps deve impedir release production-ready
+até toda a evidência e aprovações independentes exigidas pelo registro estarem
+versionadas e vinculadas ao candidato de produção. Ausência, execução parcial,
+digest divergente ou aprovação faltante mantém o gate fail-closed e bloqueia o
+claim; fechamento administrativo de EPIC-008 não quita a obrigação.
+REQ-AUTH-IMPL-007 continua pertencendo a BC-002/identity_access; Backend implementa,
+Security executa/revisa BP-003 quando executável. BC-015 é consumidor da quitação,
+sem mudança de owner funcional. Desenvolvimento dos demais módulos pode continuar.
+Parâmetros quantitativos permanecem evidence-bound por BP-003/AP-003 aprovados.

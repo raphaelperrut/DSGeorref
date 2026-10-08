@@ -1,0 +1,283 @@
+{
+  "task_id": "TASK-0773",
+  "issue_id": "ISSUE-0875",
+  "story_id": "STORY-0768",
+  "epic_id": "EPIC-001",
+  "sprint_id": "SPRINT-001",
+  "role": "DevOps",
+  "outcome": "Materializar deterministicamente o dependency graph aprovado da STORY-0768 / ISSUE-0875 e gerar uv.lock sem qualquer nova escolha técnica. Owner DevOps / ROLE-009. Autoridade imutável: APPROVED_GRAPH_SHA=cb198c9e8340e0675c36679de426abf922e1c569. Task operacional filha de TASK-0771, cujo objetivo arquitetural foi concluído; esta autorização é administrativa e não reabre decisões.",
+  "references": [
+    "AGENTS.md",
+    "evidence/AGENTS.md",
+    ".codex/roles/ROLE-009-devops.md",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    ".codex/tasks/TASK-0771.json",
+    "docs/06-delivery/stories/STORY-0768-ISSUE-0875-aprovar-grafo-python-workspace-para-uv-lock.md",
+    "docs/06-delivery/epics/EPIC-001-governanca-de-decisoes-arquiteturais-e-manutencao-da-baseline-normativ.md",
+    "docs/00-governance/ROLE_AUTHORITY_MATRIX.md",
+    "docs/00-governance/FILE_OWNERSHIP_MATRIX.md",
+    "docs/00-governance/DEFINITION_OF_READY.md",
+    "docs/03-engineering/PYTHON_CODE_ARCHITECTURE_STANDARD.md",
+    "docs/02-architecture/sar/SAR-140-IMPLEMENTATION-GUARDRAILS.md",
+    "docs/01-product/requirements/REQ-TOOL-002-dependencias-python-usam-uv-workspace-e-lock-frozen.md",
+    "docs/02-architecture/adrs/ADR-001-topologia-do-repositorio-monorepo-e-workspaces.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-008-granularidade-de-historias-e-limites-anti-monolito.md",
+    "docs/02-architecture/adrs/ADR-009-runtime-python-3-12-toolchain-e-stack-nativa-reproduzivel.md",
+    "docs/02-architecture/adrs/ADR-033-supply-chain-sbom-assinaturas-e-dependencias.md",
+    "docs/02-architecture/design-reviews/python-workspace-dependency-graph/approved-dependency-graph.yaml",
+    "docs/02-architecture/design-reviews/python-workspace-dependency-graph/constraints.txt",
+    "docs/02-architecture/design-reviews/python-workspace-dependency-graph/rationale.md",
+    "docs/02-architecture/design-reviews/python-workspace-dependency-graph/devops-handoff.md",
+    "evidence/architecture/python-workspace-dependency-graph/digests.json",
+    "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json",
+    "evidence/architecture/python-workspace-dependency-graph/resolver-config.toml",
+    "evidence/architecture/python-workspace-dependency-graph/pyproject-additions.toml",
+    "evidence/architecture/python-workspace-dependency-graph/pyproject-proposed.toml",
+    "evidence/architecture/python-workspace-dependency-graph/check-structure.py",
+    "evidence/architecture/python-workspace-dependency-graph/simple/index.html",
+    "pyproject.toml",
+    "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md"
+  ],
+  "allow_paths": [
+    "pyproject.toml",
+    "uv.lock",
+    "evidence/operations/python-workspace-lock/**"
+  ],
+  "deny_paths": [
+    "requirements*.txt",
+    "**/requirements*.txt",
+    "src/**",
+    "infra/**",
+    ".github/**",
+    "contracts/**",
+    "tests/**",
+    "tools/**",
+    "docs/**",
+    ".codex/**",
+    "**/migrations/**",
+    "evidence/architecture/**",
+    "evidence/security/**",
+    "evidence/reviews/**",
+    "evidence/qa/**",
+    "evidence/operations/bp003-throttling-venue/**",
+    "pnpm-lock.yaml",
+    "package.json",
+    "pnpm-workspace.yaml"
+  ],
+  "acceptance_criteria": [
+    "AC-1 / AC-ISSUE-0875-06: workspace materializado exatamente conforme approved-dependency-graph.yaml no SHA cb198c9e8340e0675c36679de426abf922e1c569; pyproject.toml deve corresponder aos bytes de pyproject-proposed.toml desse SHA. Somente os dois arquivos raiz pyproject.toml e uv.lock podem ser alterados fora da evidência própria; nenhum manifest filho ou package novo.",
+    "AC-2 / AC-ISSUE-0875-07: uv.lock gerado com CPython 3.12.13/Linux amd64, uv 0.12.19 e seu digest oficial, índice local canônico, metadados, markers/extras e política transitiva do handoff aprovado no SHA cb198c9e8340e0675c36679de426abf922e1c569; não regenerar snapshot nem consultar outro índice.",
+    "AC-3 / AC-ISSUE-0875-08: nenhuma dependência, versão, constraint, extra, origem ou parâmetro de resolução escolhido manualmente pelo DevOps; sem upgrade/downgrade, override, fallback ou atualização por conveniência; preservar todos os inputs aprovados.",
+    "AC-4 / AC-ISSUE-0875-09: uv lock --check equivalente PASS, com o resolver/config/intérprete aprovados, e check-structure.py --verify-digests --check-lock uv.lock PASS; registrar resultados reais.",
+    "AC-5 / AC-ISSUE-0875-10: sync --frozen reproduzível PASS no ambiente aplicável do graph, para runtime e dev/test conforme handoff; segunda geração independente em checkout limpa produz o mesmo SHA-256 de uv.lock, sem usar o primeiro lock como preferência; repetir frozen sync offline com cache completo verificado. Não depender do venue BP-003/ISSUE-0876.",
+    "AC-6 / AC-ISSUE-0875-11: registrar em evidence/operations/python-workspace-lock/** os comandos e saídas reais, identidade/digest do CPython e uv, plataforma, APPROVED_GRAPH_SHA=cb198c9e8340e0675c36679de426abf922e1c569, SHA-256 dos quatro artifacts e de todos os inputs consumidos, pyproject.toml, uv.lock, duas reproduções e frozen installs; sem secrets nem PASS presumido.",
+    "AC-7 / AC-ISSUE-0875-12: diff e inventário efetivamente materializados correspondem à autoridade aprovada: mesmos grupos/direct pins, 43 distribuições, 31 constraints, markers/extras e URLs/hashes admitidos. Comparação explícita graph -> pyproject -> uv.lock -> instalação; nenhum diff no graph aprovado, sua evidência, código, manifests históricos ou Conda/native. QA e Reviewer independentes validam o mesmo candidate SHA de execução."
+  ],
+  "tests": [
+    "Antes de executar, confirmar branch/worktree exclusivo de TASK-0773/ISSUE-0875, checkout limpa, ausência de mudanças alheias e nenhuma outra lane escrevendo em pyproject.toml/uv.lock. Serializar esses dois arquivos exclusivamente nesta execução; não alterar a lane ISSUE-0876.",
+    "Consumir as versões Git dos quatro artifacts e de toda evidence/architecture/python-workspace-dependency-graph/** exatamente em cb198c9e8340e0675c36679de426abf922e1c569; conferir os blobs e SHA-256 do digests.json aprovado, antes e depois. Não aceitar arquivos equivalentes de outro commit ou metadados PyPI recapturados.",
+    "Validar este envelope com .codex/tasks/TASK_ENVELOPE.schema.json. Aplicar unicamente a transformação pyproject-proposed.toml aprovada e executar os comandos exatos de devops-handoff.md; não editar o handoff.",
+    "Executar uv lock e uv lock --check no runtime/índice aprovados, seguidos de check-structure.py --verify-digests --check-lock uv.lock; conferir o conjunto exato de versões e artifacts.",
+    "Executar runtime sync --frozen e dev/test sync --frozen conforme handoff; reproduzir lock em segunda checkout limpa do mesmo candidate, comparar SHA-256 e repetir sync --frozen --offline com cache completo; registrar cada resultado real.",
+    "Conferir graph aprovado versus pyproject, lock e distribuições instaladas; nenhuma escolha manual, alteração de input técnico, código, stack native/Conda ou manifest histórico. Executar make verify antes do handoff de execução conforme AGENTS.md, registrando resultado real; não executar neste passe administrativo nem mudar o graph para sanar falha.",
+    "QA e Reviewer independentes revisam o mesmo candidate SHA de execução; o PASS do graph em cb198c9e8340e0675c36679de426abf922e1c569 não é evidência de lock gerado, sync realizado, benchmark ou prontidão de venue."
+  ],
+  "evidence": [
+    "evidence/operations/python-workspace-lock/",
+    "Autorização administrativa humana de 2026-10-07: graph aprovado no SHA cb198c9e8340e0675c36679de426abf922e1c569; Architect Review=PASS, QA=PASS, Final Review=PASS, BLOCKER/HIGH=NONE e MATERIAL_DECISION_OPEN=NONE, conforme informado pelo usuário. Esse binding é imutável e não constitui aprovação da execução DevOps futura.",
+    "Estado inicial da task: execução DevOps NÃO REALIZADA; uv.lock NÃO MATERIALIZADO; revisão independente do futuro candidate PENDENTE. Campos PASS constantes do schema são metadados de baseline/planejamento, não resultados de execução.",
+    "Handoff e evidência futura registram SHA de autorização deste envelope, SHA do candidate de execução, digests/commands/resultados reais e reprodução/frozen install. TASK-0769 continua BLOCKED por lock não materializado e venue ISSUE-0876 indisponível; as lanes são paralelas, sem dependência desta task em ISSUE-0876/TASK-0772."
+  ],
+  "dependencies": [
+    "TASK-0771"
+  ],
+  "stop_conditions": [
+    "Disposição administrativa 2026-10-07: trabalho pendente DEFERRED_TO_SPRINT_012 / SUPERSEDED_BY_DEFERRED_OBLIGATION EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS; não iniciar como prerequisite de desenvolvimento corrente. Retomada somente na fase de readiness autorizada, sem PASS de execução presumido.",
+    "Parar se os blobs/digests consumidos divergirem de APPROVED_GRAPH_SHA=cb198c9e8340e0675c36679de426abf922e1c569 ou se a execução exigir nova escolha técnica, upgrade/downgrade, mudança de constraint, índice, extra, topologia ou artifact. Registrar falha operacional na evidência própria; não reabrir decisões nem alterar autoridade aprovada.",
+    "Parar se precisar escrever fora de pyproject.toml, uv.lock e evidence/operations/python-workspace-lock/**, alterar código, manifest histórico, stack Conda/native, graph ou sua evidência. Não editar este envelope ou criar nova Story/Issue para contornar o limite.",
+    "Parar por branch/worktree contaminado, colisão de write scope ou ausência de serialização exclusiva de pyproject.toml/uv.lock. Não descartar trabalho de terceiros nem cherry-pick evidência da ISSUE-0876.",
+    "Parar se o runtime aplicável, resolver ou artifact imutável exigido pelo handoff não estiver disponível/validável; não substituir versões ou fontes. A ausência do venue ISSUE-0876 não é dependência desta task: usar o ambiente aplicável aprovado para lock/frozen install.",
+    "Falha em lock --check, correspondência do graph, hashes ou reprodução/frozen sync mantém a execução incompleta; não fabricar evidência, marcar PASS ou modificar graph/validator fora de scope para passar.",
+    "Não executar benchmark, provisionar/promover o venue BP-003 nem liberar TASK-0769. Sem lock aprovado/materializado e venue disponível, os dois blockers de TASK-0769 permanecem.",
+    "Aprovações QA/Reviewer da execução DevOps ausentes ou não vinculadas ao mesmo candidate SHA impedem conclusão/handoff de execução; o executor não aprova o próprio trabalho."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0875-06",
+    "AC-ISSUE-0875-07",
+    "AC-ISSUE-0875-08",
+    "AC-ISSUE-0875-09",
+    "AC-ISSUE-0875-10",
+    "AC-ISSUE-0875-11",
+    "AC-ISSUE-0875-12"
+  ],
+  "governing_adrs": [
+    "ADR-001",
+    "ADR-006",
+    "ADR-007",
+    "ADR-008",
+    "ADR-009",
+    "ADR-033"
+  ],
+  "requirement_basis": "DIRECT_REQUIREMENT",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-001",
+  "context_map_dependencies": [],
+  "domain_model_impact": "NONE",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 1,
+      "items": [
+        "TASK-0771"
+      ]
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "pyproject.toml",
+        "uv.lock",
+        "evidence/operations/python-workspace-lock/**"
+      ],
+      "deny_paths": [
+        "requirements*.txt",
+        "**/requirements*.txt",
+        "src/**",
+        "infra/**",
+        ".github/**",
+        "contracts/**",
+        "tests/**",
+        "tools/**",
+        "docs/**",
+        ".codex/**",
+        "**/migrations/**",
+        "evidence/architecture/**",
+        "evidence/security/**",
+        "evidence/reviews/**",
+        "evidence/qa/**",
+        "evidence/operations/bp003-throttling-venue/**",
+        "pnpm-lock.yaml",
+        "package.json",
+        "pnpm-workspace.yaml"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "Antes de executar, confirmar branch/worktree exclusivo de TASK-0773/ISSUE-0875, checkout limpa, ausência de mudanças alheias e nenhuma outra lane escrevendo em pyproject.toml/uv.lock. Serializar esses dois arquivos exclusivamente nesta execução; não alterar a lane ISSUE-0876.",
+        "Consumir as versões Git dos quatro artifacts e de toda evidence/architecture/python-workspace-dependency-graph/** exatamente em cb198c9e8340e0675c36679de426abf922e1c569; conferir os blobs e SHA-256 do digests.json aprovado, antes e depois. Não aceitar arquivos equivalentes de outro commit ou metadados PyPI recapturados.",
+        "Validar este envelope com .codex/tasks/TASK_ENVELOPE.schema.json. Aplicar unicamente a transformação pyproject-proposed.toml aprovada e executar os comandos exatos de devops-handoff.md; não editar o handoff.",
+        "Executar uv lock e uv lock --check no runtime/índice aprovados, seguidos de check-structure.py --verify-digests --check-lock uv.lock; conferir o conjunto exato de versões e artifacts.",
+        "Executar runtime sync --frozen e dev/test sync --frozen conforme handoff; reproduzir lock em segunda checkout limpa do mesmo candidate, comparar SHA-256 e repetir sync --frozen --offline com cache completo; registrar cada resultado real.",
+        "Conferir graph aprovado versus pyproject, lock e distribuições instaladas; nenhuma escolha manual, alteração de input técnico, código, stack native/Conda ou manifest histórico. Executar make verify antes do handoff de execução conforme AGENTS.md, registrando resultado real; não executar neste passe administrativo nem mudar o graph para sanar falha.",
+        "QA e Reviewer independentes revisam o mesmo candidate SHA de execução; o PASS do graph em cb198c9e8340e0675c36679de426abf922e1c569 não é evidência de lock gerado, sync realizado, benchmark ou prontidão de venue."
+      ]
+    },
+    "artifacts": {
+      "applicability": "PRODUCT_AND_EVIDENCE",
+      "status": "PASS",
+      "kinds": [
+        "root Python workspace manifest",
+        "uv.lock",
+        "deterministic reproduction and frozen-install evidence"
+      ],
+      "evidence": [
+        "evidence/operations/python-workspace-lock/"
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 7,
+      "ids": [
+        "AC-ISSUE-0875-06",
+        "AC-ISSUE-0875-07",
+        "AC-ISSUE-0875-08",
+        "AC-ISSUE-0875-09",
+        "AC-ISSUE-0875-10",
+        "AC-ISSUE-0875-11",
+        "AC-ISSUE-0875-12"
+      ]
+    },
+    "review": {
+      "status": "BLOCKED",
+      "required_roles": [
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "CRITICAL",
+    "applicable_controls": [
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-006",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-005",
+      "CTO-007",
+      "CTO-008",
+      "CTO-009",
+      "CTO-010",
+      "CTO-011",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "evidence/operations/python-workspace-lock/",
+      "Grafo imutável aprovado em cb198c9e8340e0675c36679de426abf922e1c569; runtime/lock digests, commands, reproducibility/frozen-install results and independent reviews on the execution candidate."
+    ],
+    "production_gate": "BENCHMARK_AND_OPERATIONS_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}

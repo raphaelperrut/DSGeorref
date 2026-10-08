@@ -1,0 +1,920 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_version": "1.0.0",
+  "artifact_id": "python-workspace-dependency-graph",
+  "story_id": "STORY-0768",
+  "issue_id": "ISSUE-0875",
+  "task_id": "TASK-0771",
+  "author_role": "ROLE-002",
+  "status": "AUTHOR_DECISION_PENDING_INDEPENDENT_REVIEW",
+  "base_sha": "926a6a8c9a69a838b165cca9df6c4ebb9c03c8d6",
+  "review": {
+    "required_roles": [
+      "independent Arquiteto",
+      "DevOps",
+      "QA",
+      "Reviewer"
+    ],
+    "same_candidate_sha": true,
+    "approval_claimed": false,
+    "downstream_task_0769": "BLOCKED until independent review, real uv.lock and operational prerequisites"
+  },
+  "scope": {
+    "workspace_root": ".",
+    "project_name": "dsgeorref",
+    "project_version": "0.0.0",
+    "project_install_mode": "virtual root; existing src/backend import path supplied by PYTHONPATH",
+    "workspace_members": [],
+    "workspace_semantics": "single root Python project is an implicit uv workspace; no extra member manifests exist at BASE",
+    "native_stack": "separate immutable Conda environment; excluded from this Python closure",
+    "platform": "linux/amd64; glibc wheels compatible with >=2.28",
+    "python_metadata": ">=3.12,<3.13",
+    "python_resolution_and_sync": "CPython ==3.12.13",
+    "python_authority": [
+      ".python-version",
+      "pyproject.toml",
+      "docs/02-architecture/adrs/ADR-009-runtime-python-3-12-toolchain-e-stack-nativa-reproduzivel.md"
+    ]
+  },
+  "groups": {
+    "runtime": [
+      "alembic==1.18.4",
+      "celery==5.6.3",
+      "cryptography==50.0.1",
+      "psycopg[binary]==3.3.6",
+      "pyjwt==2.15.0",
+      "sqlalchemy==2.1.2"
+    ],
+    "dev": [
+      "jsonschema==4.26.0",
+      "mypy==2.3.1",
+      "pyyaml==6.0.3",
+      "ruff==0.16.9"
+    ],
+    "test": [
+      "pytest==9.1.1"
+    ]
+  },
+  "direct_dependencies": [
+    {
+      "name": "alembic",
+      "classification": "runtime_direct",
+      "group": "runtime",
+      "version": "1.18.4",
+      "requirement": "alembic==1.18.4",
+      "extras": [],
+      "authority": [
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt",
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migration.py"
+      ],
+      "rationale": "Exclusive migration controller; not a dependency of domain services.",
+      "applicability": "migration controller and migration fixture"
+    },
+    {
+      "name": "celery",
+      "classification": "runtime_direct",
+      "group": "runtime",
+      "version": "5.6.3",
+      "requirement": "celery==5.6.3",
+      "extras": [],
+      "authority": [
+        "requirements-validation.txt",
+        "tools/governance/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/walking_skeleton_runtime.py"
+      ],
+      "rationale": "Existing foundation executable worker; included in current workspace scope.",
+      "applicability": "foundation executable worker and integration fixture"
+    },
+    {
+      "name": "cryptography",
+      "classification": "runtime_direct",
+      "group": "runtime",
+      "version": "50.0.1",
+      "requirement": "cryptography==50.0.1",
+      "extras": [],
+      "authority": [
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt",
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/crypto.py"
+      ],
+      "rationale": "Argon2id PHC credentials; also signed governance/test evidence.",
+      "applicability": "local identity adapter; governance signatures; tests"
+    },
+    {
+      "name": "jsonschema",
+      "classification": "tooling_dev",
+      "group": "dev",
+      "version": "4.26.0",
+      "requirement": "jsonschema==4.26.0",
+      "extras": [],
+      "authority": [
+        "requirements-validation.txt",
+        "tools/validate_repository.py"
+      ],
+      "rationale": "Repository schema validators; also used in tests; no format extras enabled.",
+      "applicability": "repository governance and tests"
+    },
+    {
+      "name": "mypy",
+      "classification": "tooling_dev",
+      "group": "dev",
+      "version": "2.3.1",
+      "requirement": "mypy==2.3.1",
+      "extras": [],
+      "authority": [
+        "requirements-validation.txt",
+        "pyproject.toml",
+        "Makefile"
+      ],
+      "rationale": "Existing strict type checker; no optional extras enabled.",
+      "applicability": "quality command"
+    },
+    {
+      "name": "psycopg",
+      "classification": "runtime_direct",
+      "group": "runtime",
+      "version": "3.3.6",
+      "requirement": "psycopg[binary]==3.3.6",
+      "extras": [
+        "binary"
+      ],
+      "authority": [
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt",
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/postgres.py"
+      ],
+      "rationale": "PostgreSQL adapter and foundation runtime; binary extra already declared.",
+      "applicability": "local identity persistence; migration DBAPI; foundation integration"
+    },
+    {
+      "name": "pyjwt",
+      "classification": "runtime_direct",
+      "group": "runtime",
+      "version": "2.15.0",
+      "requirement": "pyjwt==2.15.0",
+      "extras": [],
+      "authority": [
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt",
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/oidc.py"
+      ],
+      "rationale": "Integrated optional OIDC adapter; import is present even when OIDC capability is disabled.",
+      "applicability": "local identity OIDC adapter and OIDC test fixture"
+    },
+    {
+      "name": "pytest",
+      "classification": "test",
+      "group": "test",
+      "version": "9.1.1",
+      "requirement": "pytest==9.1.1",
+      "extras": [],
+      "authority": [
+        "requirements-validation.txt",
+        "pyproject.toml"
+      ],
+      "rationale": "Existing Python test runner; no pytest extra dependencies enabled.",
+      "applicability": "Python tests"
+    },
+    {
+      "name": "pyyaml",
+      "classification": "tooling_dev",
+      "group": "dev",
+      "version": "6.0.3",
+      "requirement": "pyyaml==6.0.3",
+      "extras": [],
+      "authority": [
+        "requirements-validation.txt",
+        "tools/validate_repository.py"
+      ],
+      "rationale": "Repository YAML validators; also used in tests.",
+      "applicability": "repository governance and tests"
+    },
+    {
+      "name": "ruff",
+      "classification": "tooling_dev",
+      "group": "dev",
+      "version": "0.16.9",
+      "requirement": "ruff==0.16.9",
+      "extras": [],
+      "authority": [
+        "requirements-validation.txt",
+        "pyproject.toml",
+        "Makefile"
+      ],
+      "rationale": "Existing code quality tooling.",
+      "applicability": "quality command"
+    },
+    {
+      "name": "sqlalchemy",
+      "classification": "runtime_direct",
+      "group": "runtime",
+      "version": "2.1.2",
+      "requirement": "sqlalchemy==2.1.2",
+      "extras": [],
+      "authority": [
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt",
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/migration.py"
+      ],
+      "rationale": "Synchronous migration engine integrated and rehearsed at 2.1.2; preserve this exact pin.",
+      "applicability": "migration controller and fixture engine; no asyncio/mypy/database extras"
+    }
+  ],
+  "transitive_dependencies": [
+    {
+      "name": "amqp",
+      "version": "5.4.1",
+      "constraint": "==5.4.1",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/amqp/5.4.1/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "ast-serialize",
+      "version": "0.12.1",
+      "constraint": "==0.12.1",
+      "classification": "transitive",
+      "groups": [
+        "dev"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/ast-serialize/0.12.1/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "attrs",
+      "version": "26.1.0",
+      "constraint": "==26.1.0",
+      "classification": "transitive",
+      "groups": [
+        "dev"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/attrs/26.1.0/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "billiard",
+      "version": "4.3.1",
+      "constraint": "==4.3.1",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/billiard/4.3.1/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1",
+      "constraint": "==2.1.1",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/cffi/2.1.1/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "click",
+      "version": "8.5.0",
+      "constraint": "==8.5.0",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/click/8.5.0/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "click-didyoumean",
+      "version": "0.3.1",
+      "constraint": "==0.3.1",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/click-didyoumean/0.3.1/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "click-plugins",
+      "version": "1.1.1.2",
+      "constraint": "==1.1.1.2",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/click-plugins/1.1.1.2/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "click-repl",
+      "version": "0.4.1",
+      "constraint": "==0.4.1",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/click-repl/0.4.1/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.0",
+      "constraint": "==2.3.0",
+      "classification": "transitive",
+      "groups": [
+        "test"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/iniconfig/2.3.0/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "jsonschema-specifications",
+      "version": "2025.9.1",
+      "constraint": "==2025.9.1",
+      "classification": "transitive",
+      "groups": [
+        "dev"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/jsonschema-specifications/2025.9.1/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "kombu",
+      "version": "5.6.2",
+      "constraint": "==5.6.2",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/kombu/5.6.2/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "librt",
+      "version": "0.16.0",
+      "constraint": "==0.16.0",
+      "classification": "transitive",
+      "groups": [
+        "dev"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/librt/0.16.0/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "mako",
+      "version": "1.4.3",
+      "constraint": "==1.4.3",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt"
+      ],
+      "rationale": "Preserve previously adopted adapter transitive pin.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "markupsafe",
+      "version": "3.0.3",
+      "constraint": "==3.0.3",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt"
+      ],
+      "rationale": "Preserve previously adopted adapter transitive pin.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "mypy-extensions",
+      "version": "1.1.0",
+      "constraint": "==1.1.0",
+      "classification": "transitive",
+      "groups": [
+        "dev"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/mypy-extensions/1.1.0/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "packaging",
+      "version": "26.3",
+      "constraint": "==26.3",
+      "classification": "transitive",
+      "groups": [
+        "runtime",
+        "test"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/packaging/26.3/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "pathspec",
+      "version": "1.1.1",
+      "constraint": "==1.1.1",
+      "classification": "transitive",
+      "groups": [
+        "dev"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/pathspec/1.1.1/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "pluggy",
+      "version": "1.6.0",
+      "constraint": "==1.6.0",
+      "classification": "transitive",
+      "groups": [
+        "test"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/pluggy/1.6.0/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "prompt-toolkit",
+      "version": "3.0.53",
+      "constraint": "==3.0.53",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/prompt-toolkit/3.0.53/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "psycopg-binary",
+      "version": "3.3.6",
+      "constraint": "==3.3.6",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/psycopg-binary/3.3.6/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "Exact ABI sibling version required by psycopg[binary] metadata; no redundant constraint.",
+      "constraint_file_entry": false,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "pycparser",
+      "version": "3.0",
+      "constraint": "==3.0",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/pycparser/3.0/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "pygments",
+      "version": "2.21.0",
+      "constraint": "==2.21.0",
+      "classification": "transitive",
+      "groups": [
+        "test"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/pygments/2.21.0/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "python-dateutil",
+      "version": "2.9.0.post0",
+      "constraint": "==2.9.0.post0",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/python-dateutil/2.9.0.post0/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "referencing",
+      "version": "0.37.0",
+      "constraint": "==0.37.0",
+      "classification": "transitive",
+      "groups": [
+        "dev"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/referencing/0.37.0/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "rpds-py",
+      "version": "2026.9.1",
+      "constraint": "==2026.9.1",
+      "classification": "transitive",
+      "groups": [
+        "dev"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/rpds-py/2026.9.1/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "six",
+      "version": "1.17.0",
+      "constraint": "==1.17.0",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/six/1.17.0/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "typing-extensions",
+      "version": "4.16.0",
+      "constraint": "==4.16.0",
+      "classification": "transitive",
+      "groups": [
+        "dev",
+        "runtime"
+      ],
+      "authority": [
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt"
+      ],
+      "rationale": "Preserve previously adopted adapter transitive pin.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "tzdata",
+      "version": "2026.5",
+      "constraint": "==2026.5",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/tzdata/2026.5/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "tzlocal",
+      "version": "5.4.4",
+      "constraint": "==5.4.4",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/tzlocal/5.4.4/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "vine",
+      "version": "5.1.0",
+      "constraint": "==5.1.0",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/vine/5.1.0/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    },
+    {
+      "name": "wcwidth",
+      "version": "0.9.2",
+      "constraint": "==0.9.2",
+      "classification": "transitive",
+      "groups": [
+        "runtime"
+      ],
+      "authority": [
+        "https://pypi.org/pypi/wcwidth/0.9.2/json",
+        "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json"
+      ],
+      "rationale": "First explicit transitive closure; metadata-compatible stable candidate before BASE timestamp, frozen by this author decision.",
+      "constraint_file_entry": true,
+      "applicability": "CPython 3.12.13; linux x86_64; activated extras only"
+    }
+  ],
+  "excluded_inventory": [
+    {
+      "names": [
+        "fastapi",
+        "pydantic",
+        "numpy",
+        "rasterio",
+        "shapely"
+      ],
+      "classification": "external_native_validation",
+      "authority": [
+        "infra/images/native-stack.lock.yaml",
+        "infra/images/native-stack.conda-lock.txt",
+        "infra/images/native-stack.Dockerfile",
+        "tools/quality/native_stack/abi_smoke.py"
+      ],
+      "applicability": "native-stack OCI ABI smoke only; no current src imports",
+      "decision": "remain in Conda/OCI; not installed into workspace by this decision"
+    },
+    {
+      "names": [
+        "psycopg",
+        "psycopg-c"
+      ],
+      "classification": "authority_scoped_to_native_environment",
+      "version": "3.2.9",
+      "authority": [
+        "infra/images/native-stack.conda-lock.txt",
+        "infra/images/native-stack.lock.yaml"
+      ],
+      "decision": "do not overwrite; no shared Python site-packages or in-process ABI contract between environments"
+    },
+    {
+      "names": [
+        "Mako",
+        "MarkupSafe",
+        "typing_extensions"
+      ],
+      "classification": "declared_as_direct_but_used_transitively",
+      "authority": [
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt"
+      ],
+      "decision": "preserve exact versions as transitive constraints; no current direct imports"
+    },
+    {
+      "names": [],
+      "classification": "obsolete_unused",
+      "decision": "no distribution conclusively obsolete; absence of direct imports is not evidence of unused transitive dependency"
+    },
+    {
+      "names": [
+        "SQLAlchemy"
+      ],
+      "classification": "conflicting_historical_authority",
+      "authority": [
+        "docs/03-engineering/TECHNOLOGY_BASELINE.yaml",
+        "docs/03-engineering/TECHNOLOGY_BASELINE.md",
+        "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt"
+      ],
+      "decision": "2.0.x predates integrated 2.1.2; local ROLE-002 reconciliation retains 2.1.2 with recorded adapter validation, pending independent technical approval"
+    }
+  ],
+  "resolver": {
+    "name": "uv",
+    "version": "0.12.19",
+    "selection_authority": "ROLE-002 TASK-0771 local technical bootstrap decision under ADR-001/ADR-009; no prior exact uv bootstrap in BASE",
+    "release_url": "https://github.com/astral-sh/uv/releases/tag/0.12.19",
+    "release_published_at": "2026-09-25T00:33:02Z",
+    "release_immutable": true,
+    "linux_amd64_archive_url": "https://github.com/astral-sh/uv/releases/download/0.12.19/uv-x86_64-unknown-linux-gnu.tar.gz",
+    "linux_amd64_archive_sha256": "23bf5552d220e0842b65c862097b2ebaeba0064b74eda5e565e77fd25969d8c8",
+    "checksum_authority": "https://releases.astral.sh/github/uv/releases/download/0.12.19/uv-x86_64-unknown-linux-gnu.tar.gz.sha256",
+    "config": "evidence/architecture/python-workspace-dependency-graph/resolver-config.toml"
+  },
+  "transitive_policy": {
+    "decision": "CLOSED_EXACT_VERSION_AND_ARTIFACT_SNAPSHOT",
+    "cutoff_utc": "2026-10-06T22:27:26+00:00",
+    "selection": "Preserve manifest pins; for newly required transitives select highest stable wheel-compatible release uploaded no later than source BASE commit timestamp; recompute all active metadata constraints to a fixed point. No package installation, runtime check or uv lock was performed.",
+    "preserved_transitive_pins": [
+      "mako==1.4.3",
+      "markupsafe==3.0.3",
+      "typing-extensions==4.16.0"
+    ],
+    "distribution_count": 43,
+    "constraint_count": 31,
+    "active_edge_count": 47,
+    "metadata_snapshot": "evidence/architecture/python-workspace-dependency-graph/resolution-inputs.json",
+    "index_snapshot": "evidence/architecture/python-workspace-dependency-graph/simple",
+    "sole_resolution_index": "file:///opt/dsgeorref-python-inputs/simple",
+    "upstream_metadata_origin": "https://pypi.org/pypi/<name>/<version>/json",
+    "allowed_wheel_origin": "https://files.pythonhosted.org/",
+    "network_metadata_lookup": "disabled by static dependency-metadata and local simple snapshot; no live PyPI index fallback",
+    "builds": "disabled; wheel only; no Conda ABI replacement",
+    "prereleases": "disallowed",
+    "extras": "psycopg[binary] only; all other direct extras empty; no --all-extras",
+    "markers": "sys_platform == 'linux' and platform_machine == 'x86_64' and implementation_name == 'cpython' and python_full_version == '3.12.13'",
+    "hashes": "all admitted wheel URL/SHA-256 pairs are frozen in snapshot; changed, missing or additional artifacts fail closed",
+    "future_addition": "requires revised graph and independent review, never manual DevOps choice",
+    "capture_script": "historical capture record, not a regeneration command; reuse committed snapshot bytes"
+  },
+  "resolution_inputs": {
+    "source_authorities": [
+      {
+        "path": "requirements-validation.txt",
+        "git_blob_sha256": "4946ec4a16b7e2ab51d974dd102ce5be3d2f97443e469aa1734d045f18332301",
+        "worktree_bytes_sha256": "11226eb46cad23c26564e85c452e6776cdc0c01d9d890c21274c7b67cd41d33d"
+      },
+      {
+        "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt",
+        "git_blob_sha256": "51d4a1594856031c908a79b778af6ad17749b3dd80927023a01b3d482487f758",
+        "worktree_bytes_sha256": "1b62510d7d3698723a5e9d3ebcb7a96b93b101aceb173999de72d419872433ea"
+      },
+      {
+        "path": "pyproject.toml",
+        "git_blob_sha256": "dbda77fcae1fb41df059c905a318c2dbc807c067cf51909047fcc9f2b936255a",
+        "worktree_bytes_sha256": "b08fc88e91b02a979e1f734a6c05f3a1c19ce0b82daa4893ee1db15ea0efbd6e"
+      },
+      {
+        "path": ".python-version",
+        "git_blob_sha256": "aa0d6581054e6e4ff3f91839deca7a854ad37221b8784d060b42d0f847ff1a3b",
+        "worktree_bytes_sha256": "50b10393ce287fb4af7616d016dd16ac1a56412af4d2c74cde7ddc5ad5c78761"
+      },
+      {
+        "path": "docs/03-engineering/TECHNOLOGY_BASELINE.yaml",
+        "git_blob_sha256": "ff24cad28b02493c18a3a8ab84b166a90c2ea61d5f38199594bcfa50a1626bcc",
+        "worktree_bytes_sha256": "b001166fe858002e0977b15bd0863e684e6e59223c2357be260208972d2373fa"
+      },
+      {
+        "path": "docs/03-engineering/TECHNOLOGY_BASELINE.md",
+        "git_blob_sha256": "147a443f1e81edc49f0219a2c1ee86587c8a4c533d938a1b0e654fef3909428e",
+        "worktree_bytes_sha256": "d122253b8b23e53461d328f4506314a67e2390e6217486f1e131e0cc23380dde"
+      },
+      {
+        "path": "infra/images/native-stack.lock.yaml",
+        "git_blob_sha256": "16970dbaba6b1a5494a2003626a53bf0d6d9cfc5ed64471804bc888551d49a9e",
+        "worktree_bytes_sha256": "dcb7824673273a0db58fce862d22fed8733b981b26174104f3972c462c2f63b7"
+      },
+      {
+        "path": "infra/images/native-stack.conda-lock.txt",
+        "git_blob_sha256": "dafb10f30d967d18c7417104d0bb417aaea8ea23a1a67937dd28dc6168db4848",
+        "worktree_bytes_sha256": "28965ab1d295974088053c0f7e8aa6891b33796b34cf134d71897eae27c369d0"
+      },
+      {
+        "path": "infra/images/native-stack.Dockerfile",
+        "git_blob_sha256": "b6fb55f5364bc0fd228f9671d4479d426495aea7e4dfadebcabecaed5e8d879f",
+        "worktree_bytes_sha256": "6adce892ad9be6178af22c25e78656a8b31e0b1155a99ab2a23318e803767f46"
+      },
+      {
+        "path": "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/dependency-inventory.json",
+        "git_blob_sha256": "c84bfc57fb09eb414d6f18fdfef8e458f278383221d287473a7b870975bea24b",
+        "worktree_bytes_sha256": "dfe8fc900d2fa415e43b0629589738b178d7995f12cc4ed194c54bc8cd844680"
+      },
+      {
+        "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/id-parte-2/VALIDATION-REPORT.json",
+        "git_blob_sha256": "b0566f768575c6bd85a175757ff608b95a2eb61584db3d7a773e7aaff00f7284",
+        "worktree_bytes_sha256": "11768c193848a6503ff86c446b8a22522fd4fb9550a95a4fa3f9b5291a59b23b"
+      },
+      {
+        "path": "evidence/implementation/contas-locais-bootstrap-unico-sessoes-tokens-e-ada/auth-impl-dbschema-parte-1/VALIDATION-REPORT.json",
+        "git_blob_sha256": "bc07937fc914267527d7370092663f7f246a6ed588bceaeceb22253fc58de87f",
+        "worktree_bytes_sha256": "c7517d1def4ed78b95c72f5a87e09f18f80d8a46745a01dc67afb73d3872bc34"
+      }
+    ],
+    "graph_groups": "exact PEP 508 requirements in groups; runtime becomes project.dependencies; dev/test become dependency-groups",
+    "constraints_file": "docs/02-architecture/design-reviews/python-workspace-dependency-graph/constraints.txt",
+    "pyproject_additions": "evidence/architecture/python-workspace-dependency-graph/pyproject-additions.toml",
+    "integrity_manifest": "evidence/architecture/python-workspace-dependency-graph/digests.json"
+  },
+  "validation_limits": {
+    "performed": "static syntax, imports/manifests, upstream version metadata, active-edge compatibility, wheel tags, cross-artifact integrity",
+    "not_performed": [
+      "uv lock",
+      "package installation",
+      "runtime tests",
+      "benchmark",
+      "make verify",
+      "native ABI smoke"
+    ],
+    "historical_rehearsal_python": "3.12.10, not certification of 3.12.13 native runtime",
+    "existing_validator_topology_assumption": "uv_validation.py requires non-root governed members; BASE has none. Do not invent empty member to satisfy it. Single-root topology decision is explicit; any validator reconciliation needs separately authorized future scope, not a version prerequisite."
+  },
+  "serialization": "YAML 1.2 JSON-compatible syntax; bootstrap structural validator uses Python stdlib json parser",
+  "integrity": {
+    "algorithm": "SHA-256",
+    "encoding": "UTF-8",
+    "newlines": "LF",
+    "manifest": "evidence/architecture/python-workspace-dependency-graph/digests.json",
+    "candidate_binding": "Git commit containing these exact artifact blobs; independent reviews bind that commit SHA; digest manifest excludes itself"
+  }
+}

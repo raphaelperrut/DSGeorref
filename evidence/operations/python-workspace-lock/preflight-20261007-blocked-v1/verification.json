@@ -1,0 +1,19 @@
+{
+  "authority_digests_after": "PASS",
+  "scope_check": "PASS (only own evidence untracked; tracked diff empty)",
+  "pyproject_changed": false,
+  "uv_lock_exists": false,
+  "report_integrity": "PASS",
+  "evidence_collection_command": "python -B evidence/operations/python-workspace-lock/preflight-20261007-blocked-v1/preflight.py",
+  "evidence_files": {
+    "preflight.json": {
+      "sha256": "b77bd1afb0b9a2d9d21ce7137953899109e274bd775797c5e510b907ffdc6df9",
+      "bytes": 631217
+    },
+    "preflight.py": {
+      "sha256": "02f7fc61cc19f4ffc40e826358141d55e358bb69f5918782085fa1225b3fa04a",
+      "bytes": 8013
+    }
+  },
+  "candidate_kind": "evidence-only; execution incomplete; no QA or Reviewer approval claimed"
+}

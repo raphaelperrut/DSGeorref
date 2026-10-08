@@ -1,0 +1,54 @@
+{
+  "base_sha": "3dc47304a66b029cdc9cec9aa5a5a531e8a26743",
+  "result": "PASS",
+  "created_prerequisites": [
+    {
+      "issue": "ISSUE-0875",
+      "story": "STORY-0768",
+      "task": "TASK-0771",
+      "role": "Arquiteto",
+      "approval": "PENDING"
+    },
+    {
+      "issue": "ISSUE-0876",
+      "story": "STORY-0769",
+      "task": "TASK-0772",
+      "role": "DevOps",
+      "approval": "PENDING"
+    }
+  ],
+  "schema_and_existing_references": "PASS",
+  "allocation_including_operational_envelopes": "PASS",
+  "index_and_all_dag_predecessor_mirrors": "PASS",
+  "nodes": 765,
+  "edges": 1179,
+  "waves": 93,
+  "cycles": 0,
+  "prerequisites_parallel": true,
+  "write_scopes_disjoint": true,
+  "story_0239_not_prerequisite": true,
+  "task_0769_dependencies": [
+    "STORY-0036",
+    "STORY-0767",
+    "STORY-0768",
+    "STORY-0769"
+  ],
+  "task_0769_ready": false,
+  "production_code_changed": false,
+  "profiles_changed": false,
+  "uv_lock_generated": false,
+  "host_provisioned": false,
+  "benchmark_executed": false,
+  "new_architectural_decision_or_adr": false,
+  "global_make_verify": "NOT_RUN: user scope remains administrative decomposition; prior instruction excludes global make/review and EPERM investigation.",
+  "limits": [
+    "Checks validate materialization only, not graph approval, lock generation, hardware attestation or independent review.",
+    "Approval of graph alone is not a materialized uv.lock; its future DevOps write scope must be explicitly authorized and serialized."
+  ],
+  "artifacts_sha256": {
+    ".codex/tasks/TASK-0771.json": "179d6d464a5777c9f61e29c2dab7bb32fa2be331cf192477eba4adacdaaba188",
+    ".codex/tasks/TASK-0772.json": "e72f3284b0f15e23770d2b326c882639b6b5c886eb85dd5f151a5eb155bde5d7",
+    ".codex/tasks/TASK-0769.json": "6f6360224af8d183fdf2f10dfb8f82a11fa74e4861c0b01e7a718285d1dd2b45"
+  },
+  "future_task_make_verify": "Required before execution handoff; no change to AGENTS rule."
+}

@@ -1,0 +1,97 @@
+schema_version: '1.0.0'
+profile_id: BP-003-throttling-hardware-reference
+version: '1.0.0'
+approval_state: PENDING_INDEPENDENT_REVIEW
+definition_sha256: 94b021a00de1ae785e9b19111bd6b03dfb31dd736b7662a79c33464071fb4a39
+companion:
+  path: docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml
+  profile_id: BP-003-throttling-threat-workload
+  version: '1.0.0'
+  definition_sha256: b360cb2e458a86e85029c871f3394a1b7d083577bfce235d0d0e2f7d322942a2
+spec:
+  purpose: Reversible execution baseline for TASK-0769 local-session throttling calibration.
+  classification: reference_benchmark
+  minimum_supported_claim: false
+  support_status: UNSUPPORTED_UNTIL_BENCHMARK
+  applicability:
+    benchmark: BP-003
+    requirement: REQ-AUTH-IMPL-007
+    operation_ids: [post_auth_session]
+    deployment: Single installation; API and authoritative PostgreSQL on one dedicated host.
+    minimum_relation: >-
+      This is the smallest allocation admitted to this reference experiment, not a
+      minimum supported product class. It resolves TASK-0769 execution planning only.
+      BP-003 production promotion on minimum supported hardware remains unsatisfied;
+      results cannot establish general product support, throughput or capacity.
+  cpu:
+    architecture: x86_64
+    processor_model: AMD EPYC 7313P
+    physical_cores_allocated: 4
+    threads_per_core_used: 1
+    nominal_frequency_mhz: 3000
+    boost: disabled
+    allocation: Dedicated physical cores; no SMT siblings or other workloads on these cores.
+    api_physical_cores: 2
+    postgresql_physical_cores: 2
+    affinity: Disjoint cpusets; choose lowest four online physical core IDs in the first NUMA node.
+    variability: Record actual clocks, microcode, topology and governor; do not normalize to other CPUs.
+  ram:
+    host_allocation_bytes: 17179869184
+    api_cgroup_max_bytes: 4294967296
+    postgresql_cgroup_max_bytes: 8589934592
+    os_and_measurement_reserve_bytes: 4294967296
+    swap: disabled
+    numa: CPU and memory bound to the same node; no memory overcommit.
+  storage:
+    medium: Dedicated local NVMe SSD
+    filesystem: ext4
+    free_bytes_before_each_repetition_min: 107374182400
+    durability: PostgreSQL WAL and data on this device; fsync and durable commits enabled.
+    io_requirement: >-
+      No network filesystem, RAM disk, volatile-only WAL, shared I/O load or external
+      I/O quota. Record device identity/firmware, mount options, block scheduler,
+      read/write bytes, operations and latency; preserve the same device and settings
+      across repetitions. No unmeasured IOPS or throughput capability is asserted.
+  gpu:
+    required: false
+    use: none
+  runtime:
+    os: Linux with cgroup v2 and CPU affinity/memory accounting
+    deployment: Signed OCI images with Compose Specification
+    python: '3.12.13'
+    postgresql_family: '18.x'
+    exact_pins: >-
+      Use the candidate's existing uv.lock and signed OCI digests as required by
+      TECHNOLOGY_BASELINE.yaml. Record exact OS/kernel, Compose/engine, image digests,
+      dependency lock hash, configuration hash and existing approved Argon2id profile
+      ID/version/digest. Do not upgrade or select Argon2id/session parameters here.
+    api_processes: 1
+    load_generator: Separate host; cannot consume the four CPU cores or 16 GiB allocation.
+    transport: Existing TLS/same-origin/provenance contract; no authentication bypass.
+    environment_pinning: >-
+      First repetition captures the concrete environment fingerprint; all later
+      repetitions must match it exactly. Missing runtime locks, signatures or existing
+      approved non-throttling security parameters block execution, not default values.
+  fingerprint:
+    algorithm: SHA-256
+    definition_encoding: >-
+      UTF-8 JSON of {profile_id,version,spec}, recursively sorted object keys,
+      compact separators, ensure_ascii=false, no trailing newline.
+    execution_encoding: Same canonical JSON encoding over the recorded environment manifest.
+    execution_fields:
+      - CPU model/stepping/microcode/topology/affinity/governor/boost
+      - RAM/cgroup/cpuset/NUMA/swap configuration
+      - NVMe model/serial/firmware/filesystem/mount/block scheduler
+      - OS/kernel/OCI engine/Compose versions
+      - signed API/PostgreSQL image digests and dependency/configuration hashes
+      - candidate commit and frozen contract digest
+      - existing Argon2id/session profile versions and digests
+      - generator version/environment/clock and TLS path
+  unsupported_conditions:
+    - Other CPU model, architecture, allocation, GPU use or shared/oversubscribed cores.
+    - Other RAM allocation, swap, memory overcommit or different NUMA placement.
+    - Different storage/durability/settings, full filesystem or I/O contention.
+    - Multi-host application/database, production traffic or concurrent raster/AI/worker jobs.
+    - Missing immutable runtime bindings or fingerprint drift between repetitions.
+    - Extrapolation to minimum supported hardware or any general product capacity claim.
+  change_rule: Change any spec field => new version, digest, independent review and recalibration.

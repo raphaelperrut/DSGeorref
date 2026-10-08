@@ -1,7 +1,7 @@
 # SPRINT-002 — Backlog implementável
 
 - **Sprint:** `SPRINT-002`
-- **Histórias:** `55`
+- **Histórias:** `58`
 - **Épicos:** `8`
 
 ## Histórias por épico
@@ -14,9 +14,14 @@
 | `STORY-0037` | `ISSUE-0147` | `TASK-0037` | Backend | STORY-0712, STORY-0713 |
 | `STORY-0038` | `ISSUE-0148` | `TASK-0038` | Frontend | STORY-0036 |
 | `STORY-0039` | `ISSUE-0149` | `TASK-0039` | Security | STORY-0037, STORY-0038 |
-| `STORY-0040` | `ISSUE-0150` | `TASK-0040` | Reviewer | STORY-0039 |
-| `STORY-0712` | `ISSUE-0822` | `TASK-0712` | Backend | STORY-0036 |
+| `STORY-0040` | `ISSUE-0150` | `TASK-0040` | Reviewer | STORY-0039, STORY-0712 |
+| `STORY-0712` | `ISSUE-0822` | `TASK-0712` | Backend | STORY-0036, STORY-0762 |
 | `STORY-0713` | `ISSUE-0823` | `TASK-0713` | Backend | STORY-0036 |
+| `STORY-0762` | `ISSUE-0873` | `TASK-0769` | Security | STORY-0036, STORY-0767, STORY-0768, STORY-0769 |
+| `STORY-0767` | `ISSUE-0874` | `TASK-0770` | Arquiteto | STORY-0036 |
+| `STORY-0769` | `ISSUE-0876` | `TASK-0772` | DevOps | STORY-0036, STORY-0767 |
+
+Prerequisite única de decisão STORY-0767 -> calibração STORY-0762 -> correção STORY-0712 -> aceite STORY-0040. STORY-0767 satisfeita no SHA 4b634381328bd969679abe48ee6936aaf8fe4319; TASK-0769 BLOCKED por prerequisites paralelas ISSUE-0875 (grafo Python) e ISSUE-0876 (venue); uv.lock e preflight completo ainda requeridos. ISSUE-0873 continua aberta; ISSUE-0822 e ISSUE-0150 aguardam promoção e correção posterior.
 
 ### EPIC-009 — usuários e papéis da instância
 

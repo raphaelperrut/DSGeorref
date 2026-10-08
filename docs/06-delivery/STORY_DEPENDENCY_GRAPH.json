@@ -8372,6 +8372,50 @@
       "role": "Security",
       "title": "Materializar verifier e trust operacional da Delivery Approval Authority",
       "file": "docs/06-delivery/stories/STORY-0761-ISSUE-0871-materializar-verifier-e-trust-operacional-da-daa.md"
+    },
+    {
+      "id": "STORY-0762",
+      "issue_id": "ISSUE-0873",
+      "task_id": "TASK-0769",
+      "epic_id": "EPIC-008",
+      "sprint": "SPRINT-002",
+      "domain": "PLT",
+      "role": "Security",
+      "title": "Calibrar e promover o perfil quantitativo de throttling",
+      "file": "docs/06-delivery/stories/STORY-0762-ISSUE-0873-calibrar-e-promover-perfil-quantitativo-de-throttling.md"
+    },
+    {
+      "id": "STORY-0767",
+      "issue_id": "ISSUE-0874",
+      "task_id": "TASK-0770",
+      "epic_id": "EPIC-008",
+      "sprint": "SPRINT-002",
+      "domain": "PLT",
+      "role": "Arquiteto",
+      "title": "Definir e aprovar o baseline de execução do BP-003 para throttling",
+      "file": "docs/06-delivery/stories/STORY-0767-ISSUE-0874-definir-e-aprovar-baseline-de-execucao-bp-003-throttling.md"
+    },
+    {
+      "id": "STORY-0768",
+      "issue_id": "ISSUE-0875",
+      "task_id": "TASK-0771",
+      "epic_id": "EPIC-001",
+      "sprint": "SPRINT-001",
+      "domain": "FND",
+      "role": "Arquiteto",
+      "title": "Aprovar o grafo Python do workspace para materialização determinística de uv.lock",
+      "file": "docs/06-delivery/stories/STORY-0768-ISSUE-0875-aprovar-grafo-python-workspace-para-uv-lock.md"
+    },
+    {
+      "id": "STORY-0769",
+      "issue_id": "ISSUE-0876",
+      "task_id": "TASK-0772",
+      "epic_id": "EPIC-008",
+      "sprint": "SPRINT-002",
+      "domain": "PLT",
+      "role": "DevOps",
+      "title": "Provisionar e evidenciar o venue de referência do benchmark de throttling BP-003",
+      "file": "docs/06-delivery/stories/STORY-0769-ISSUE-0876-provisionar-venue-referencia-bp-003-throttling.md"
     }
   ],
   "edges": [
@@ -14223,6 +14267,46 @@
     {
       "from": "STORY-0761",
       "to": "STORY-0689",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0036",
+      "to": "STORY-0762",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0712",
+      "to": "STORY-0040",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0036",
+      "to": "STORY-0767",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0767",
+      "to": "STORY-0762",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0768",
+      "to": "STORY-0762",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0036",
+      "to": "STORY-0769",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0767",
+      "to": "STORY-0769",
+      "relation": "blocks"
+    },
+    {
+      "from": "STORY-0769",
+      "to": "STORY-0762",
       "relation": "blocks"
     }
   ],
