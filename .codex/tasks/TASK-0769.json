@@ -103,7 +103,7 @@
     "ADR-034"
   ],
   "requirement_basis": "DIRECT_REQUIREMENT",
-  "requirements_review_status": "BLOCKED",
+  "requirements_review_status": "PASS",
   "bounded_context": "BC-002",
   "context_map_dependencies": [],
   "domain_model_impact": "NONE",
@@ -119,7 +119,7 @@
   "phase_f_review": {
     "status": "PASS",
     "dependencies": {
-      "status": "BLOCKED",
+      "status": "PASS",
       "count": 4,
       "items": [
         "STORY-0036",
@@ -212,7 +212,7 @@
       ]
     },
     "review": {
-      "status": "BLOCKED",
+      "status": "PASS",
       "required_roles": [
         "Arquiteto",
         "QA",

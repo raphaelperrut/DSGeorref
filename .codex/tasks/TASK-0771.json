@@ -106,7 +106,7 @@
     "ADR-033"
   ],
   "requirement_basis": "DIRECT_REQUIREMENT",
-  "requirements_review_status": "BLOCKED",
+  "requirements_review_status": "PASS",
   "bounded_context": "BC-001",
   "context_map_dependencies": [],
   "domain_model_impact": "NONE",
@@ -217,7 +217,7 @@
       ]
     },
     "review": {
-      "status": "BLOCKED",
+      "status": "PASS",
       "required_roles": [
         "Arquiteto",
         "DevOps",

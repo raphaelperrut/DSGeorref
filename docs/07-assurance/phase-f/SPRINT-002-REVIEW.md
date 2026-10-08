@@ -3,11 +3,11 @@
 - **Fase:** `F — Revisão Sprint por Sprint`
 - **Baseline:** `SAR-v2.9-PHASE-F`
 - **Épicos:** `8`
-- **Histórias:** `55`
-- **Issues totais:** `63`
+- **Histórias:** `58`
+- **Issues totais:** `66`
 - **Resultado:** `PASS`
 
-## Cobertura por dimensão
+## Cobertura por dimensão — snapshot histórico
 
 | Dimensão | Issues/histórias aplicáveis | Resultado |
 |---|---:|---|
@@ -94,3 +94,17 @@
 ## Gate da sprint
 
 A sprint somente pode encerrar quando todas as linhas aplicáveis permanecem `PASS`, os predecessores estão integrados, os testes e artefatos de evidência pertencem ao mesmo commit candidato e QA/Reviewer registram aprovação independente.
+
+## Reconciliação estrutural das novas stories — 2026-10-07
+
+Inventário atual: 58 histórias e 66 issues, derivado de STORY_INDEX e ISSUE_INDEX.
+As tabelas históricas acima preservam a revisão original; a cobertura incremental
+está na matriz PHASE-F-ISSUE-DELIVERY-REVIEW.csv e nas stories abaixo.
+PASS_STRUCTURAL_ONLY (B/F) é qualidade da definição, dependências e cadeia de revisão declaradas.
+Não é execução técnica; não quita EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS.
+
+- STORY-0762 / ISSUE-0873 / TASK-0769: Execução DEFERRED_TO_SPRINT_012; BP-003 NÃO EXECUTADO e AP-003 NÃO PROMOVIDO. PASS_STRUCTURAL_ONLY (B/F) = definição, DAG e cadeia futura de revisão; não atesta execução ou quitação de lock/venue.
+
+- STORY-0767 / ISSUE-0874 / TASK-0770: Decisão arquitetural e hardware/workload profiles aprovados independentemente no SHA 4b634381328bd969679abe48ee6936aaf8fe4319, conforme registro existente. Sem benchmark ou promoção AP-003; estados PASS anteriores preservados.
+
+- STORY-0769 / ISSUE-0876 / TASK-0772: Execução DEFERRED_TO_SPRINT_012; venue NÃO PROVISIONADO. PASS_STRUCTURAL_ONLY (B/F) = definição e cadeia de revisão declarada; não atesta hardware, startup, benchmark ou readiness.

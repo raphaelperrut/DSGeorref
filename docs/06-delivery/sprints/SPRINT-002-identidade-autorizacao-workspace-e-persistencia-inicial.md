@@ -63,7 +63,7 @@ aprovam estas prerequisites. ISSUE-0822 e ISSUE-0150 permanecem bloqueadas.
 
 - **Baseline arquitetural de entrada:** ADRs 001–058 aceitas, tecnologia fechada em `TECHNOLOGY_BASELINE`, contratos compartilhados versionados.
 - **Decisões tecnológicas em aberto:** `0`.
-- **Histórias:** `55`.
+- **Histórias:** `58`.
 - **Ondas topológicas globais presentes:** `12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31`.
 - **Papéis executores:** `Arquiteto`, `Backend`, `DevOps`, `Frontend`, `Reviewer`, `Security`.
 - **Regra de capacidade:** WIP por classe; nenhuma história inicia sem predecessores integrados e write scope disponível.

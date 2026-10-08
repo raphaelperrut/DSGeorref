@@ -193,3 +193,26 @@ explícita do usuário para o SHA indicado, sem self-approval ou repetição de 
 TASK-0769 fica Ready para execução do experimento após integração administrativa.
 ISSUE-0873 permanece aberta, ISSUE-0822/0150 bloqueadas e o gate de produção
 em minimum_supported não foi satisfeito por hardware reference_benchmark.
+
+## Revisão SAR
+
+Reconciliação estrutural de 2026-10-07, conforme os charters das Fases B e F. Aprovação humana explícita de 2026-10-08: os campos PASS de B/F neste recorte significam PASS_STRUCTURAL_ONLY; não certificam execução.
+B revisa definição, conflitos, critérios/ADRs, requisitos e dependências.
+F revisa planejamento por dimensão e não concede autorização de implementação.
+Neste passe: IDs, JSON Schema, owner Story/Issue, paths, referências, DAG e
+predecessores declarados conferidos; PASS estrutural não é execução técnica.
+
+- **Definição/requisitos:** PASS estrutural; critérios e requisito preservados.
+- **Dependências:** PASS estrutural do DAG e da ordem declarada, sem quitação operacional.
+- **Review:** PASS estrutural dos papéis requeridos e obrigação de mesmo candidato, sem presumir review de execução.
+- **Estado real:** Decisão arquitetural e hardware/workload profiles aprovados independentemente no SHA 4b634381328bd969679abe48ee6936aaf8fe4319, conforme registro existente. Sem benchmark ou promoção AP-003; estados PASS anteriores preservados.
+- **DEFERRED_ID preservado:** EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS.
+- **Gate:** EPIC-108 / GitHub #816 / SPRINT-012 permanece fail-closed.
+- **Ownership:** Backend / identity_access funcional; benchmark Security; BC-015 consome/enforce release gate.
+
+## Domain-Driven Design — Fase C
+
+- **Contexto owner:** BC-002, conforme TaskEnvelope e STORY_INDEX existentes.
+- **Impacto no modelo:** NONE; nenhum modelo/código de produto alterado.
+- **Regra:** boundaries e contratos publicados preservados; sem transferir ownership funcional.
+- **Resultado:** PASS estrutural de definição/ownership; não atesta execução ou produção.

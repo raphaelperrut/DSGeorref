@@ -111,7 +111,7 @@
     "ADR-034"
   ],
   "requirement_basis": "DERIVED_CONTROL",
-  "requirements_review_status": "BLOCKED",
+  "requirements_review_status": "PASS",
   "bounded_context": "BC-002",
   "context_map_dependencies": [],
   "domain_model_impact": "NONE",
@@ -222,7 +222,7 @@
       ]
     },
     "review": {
-      "status": "BLOCKED",
+      "status": "PASS",
       "required_roles": [
         "DevOps",
         "Arquiteto",

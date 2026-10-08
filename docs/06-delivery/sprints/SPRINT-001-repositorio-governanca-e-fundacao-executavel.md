@@ -59,7 +59,7 @@ STORY-0768 / ISSUE-0875 / TASK-0771: Aprovar o grafo Python do workspace para ma
 
 - **Baseline arquitetural de entrada:** ADRs 001–058 aceitas, tecnologia fechada em `TECHNOLOGY_BASELINE`, contratos compartilhados versionados.
 - **Decisões tecnológicas em aberto:** `0`.
-- **Histórias:** `94`.
+- **Histórias:** `95`.
 - **Ondas topológicas globais presentes:** `0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19`.
 - **Papéis executores:** `Arquiteto`, `DevOps`, `QA`, `Reviewer`, `Tech Lead`.
 - **Regra de capacidade:** WIP por classe; nenhuma história inicia sem predecessores integrados e write scope disponível.

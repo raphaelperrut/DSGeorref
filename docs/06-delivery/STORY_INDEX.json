@@ -41094,7 +41094,7 @@
         "AC-ISSUE-0873-03",
         "AC-ISSUE-0873-04"
       ],
-      "rr_status": "BLOCKED",
+      "rr_status": "PASS",
       "file": "STORY-0762-ISSUE-0873-calibrar-e-promover-perfil-quantitativo-de-throttling.md",
       "allow_paths": [
         "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
@@ -41229,7 +41229,7 @@
         "AC-ISSUE-0875-04",
         "AC-ISSUE-0875-05"
       ],
-      "rr_status": "BLOCKED",
+      "rr_status": "PASS",
       "file": "STORY-0768-ISSUE-0875-aprovar-grafo-python-workspace-para-uv-lock.md",
       "allow_paths": [
         "docs/02-architecture/design-reviews/python-workspace-dependency-graph/approved-dependency-graph.yaml",
@@ -41307,7 +41307,7 @@
         "AC-ISSUE-0876-04",
         "AC-ISSUE-0876-05"
       ],
-      "rr_status": "BLOCKED",
+      "rr_status": "PASS",
       "file": "STORY-0769-ISSUE-0876-provisionar-venue-referencia-bp-003-throttling.md",
       "allow_paths": [
         "infra/benchmarks/bp003-throttling-venue/**",
