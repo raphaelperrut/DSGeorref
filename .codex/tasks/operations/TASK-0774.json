@@ -1,0 +1,287 @@
+{
+  "task_id": "TASK-0774",
+  "issue_id": "ISSUE-1024",
+  "story_id": "STORY-0503",
+  "epic_id": "EPIC-080",
+  "sprint_id": "SPRINT-011",
+  "role": "DevOps",
+  "outcome": "Remediate the preexisting HIGH vulnerability in transitive source-map-js 1.2.1 by moving every affected resolution to a non-vulnerable version at or above 1.2.2 through the minimum dependency-graph change, without application code, audit suppression, unrelated dependency upgrades or broad lockfile churn.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-009-devops.md",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    "https://github.com/raphaelperrut/DSGeorref/issues/1024",
+    "docs/06-delivery/issues/ISSUE-0080-lockfiles-pins-por-digest-sha-scanners-sbom-assinatura-oci-attestation.md",
+    "docs/06-delivery/stories/STORY-0503-ISSUE-0613-instrumentar-deteccao-resposta-e-runbook-lockfiles-pins-por-digest-sha-sca.md",
+    "docs/06-delivery/epics/EPIC-080-lockfiles-pins-por-digest-sha-scanners-sbom-assinatura-oci-attestation.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-033-supply-chain-sbom-assinaturas-e-dependencias.md",
+    "docs/02-architecture/specifications/SPEC-001-PROMPT-BUNDLE-CONTRACT.md",
+    "docs/02-architecture/specifications/SPEC-004-TEMPLATE-CONTRACT.md",
+    "package.json",
+    "src/frontend/package.json",
+    "pnpm-workspace.yaml",
+    "pnpm-lock.yaml",
+    "docs/00-governance/START_HERE.md",
+    ".codex/tasks/README.md",
+    ".codex/tasks/operations/TASK-0768.json (read-only structural precedent; closed issue #1003 is not reused)",
+    "https://github.com/raphaelperrut/DSGeorref/issues/1003 (closed structural precedent)",
+    "Owner / Tech Lead authorization: issue #1024; STORY-0503 / EPIC-080 / SPRINT-011 are existing administrative lineage required by the schema; no new Story, Epic or prerequisite.",
+    "Owner-confirmed context: source-map-js 1.2.1; vulnerable range >=1.0.0 <1.2.2; src/frontend > jsdom > css-tree > source-map-js; pnpm audit --audit-level high; preexisting on origin/main, not introduced by PR #1021; PR #1021 READY_BUT_BLOCKED_BY_PREEXISTING_SECURITY_GATE; PR #1022 closed without merge.",
+    "Authorization-only pass: create issue and envelope and validate authorization; no lockfile edit, dependency update, implementation PR, package.json edit or change to PR #1021.",
+    "Inherited review-baseline fields describe the structural planning precedent, not executed remediation tests or independent approval of this candidate."
+  ],
+  "allow_paths": [
+    "pnpm-lock.yaml",
+    ".codex/tasks/operations/TASK-0774.json"
+  ],
+  "deny_paths": [
+    "package.json",
+    "pnpm-workspace.yaml",
+    ".npmrc",
+    "**/package.json",
+    "src/**",
+    ".github/**",
+    "docs/**",
+    "contracts/**",
+    "tests/**",
+    "infra/**",
+    "tools/**",
+    "data/**",
+    "models/**",
+    "evidence/**",
+    "**/migrations/**",
+    "**/.env*",
+    "secrets/**",
+    "credentials/**",
+    "config/secrets/**",
+    "config/credentials/**",
+    "**/*.pem",
+    "**/*.key"
+  ],
+  "acceptance_criteria": [
+    "AC-01: No vulnerable resolution of source-map-js below 1.2.2 remains in the lockfile or installed dependency graph.",
+    "AC-02: pnpm install --frozen-lockfile passes with canonical Node 24.20.0 and pnpm 10.26.1.",
+    "AC-03: pnpm audit --audit-level high does not report source-map-js HIGH; no audit suppression is permitted.",
+    "AC-04: pnpm run frontend:typecheck and the minimum applicable frontend unit tests (pnpm run frontend:test:unit) pass.",
+    "AC-05: The functional diff contains only the necessary transitive resolution change, with no unrelated dependency or lockfile churn."
+  ],
+  "tests": [
+    "python -m jsonschema -i .codex/tasks/operations/TASK-0774.json .codex/tasks/TASK_ENVELOPE.schema.json",
+    "Verify canonical runtime with node --version and pnpm --version: Node 24.20.0 and pnpm 10.26.1.",
+    "pnpm why source-map-js -r",
+    "Inspect every source-map-js package, snapshot and dependency reference in pnpm-lock.yaml and the installed graph; no resolution below 1.2.2 may remain.",
+    "pnpm install --frozen-lockfile",
+    "pnpm audit --audit-level high",
+    "pnpm run frontend:typecheck",
+    "pnpm run frontend:test:unit",
+    "pnpm --dir src/frontend openapi:check (applicable to the existing frontend tooling)",
+    "Inspect git diff -- pnpm-lock.yaml and the complete changed-path inventory; functional changes must be confined to the necessary source-map-js resolution, and only this envelope is additionally allowed.",
+    "make verify before handoff, as required by AGENTS.md",
+    "Authorization-only pass: validate schema, issue/AC identity, existing administrative lineage, exact allow/deny paths and unchanged lockfile/manifests; implementation validation commands above are requirements for the future remediation, not claimed results."
+  ],
+  "evidence": [
+    "GitHub issue #1024 and authorization-envelope schema/consistency validation",
+    "Future remediation evidence only: canonical Node and pnpm version output",
+    "Future remediation evidence only: pnpm why source-map-js -r and complete final lockfile/installed-graph resolution inventory",
+    "Future remediation evidence only: frozen installation and pnpm audit --audit-level high results",
+    "Future remediation evidence only: frontend typecheck, unit tests and openapi:check results",
+    "Future remediation evidence only: pnpm-lock.yaml diff and exact changed-path inventory",
+    "Future remediation evidence only: make verify result and independent QA, Security and Reviewer results on the same candidate commit; logs/checks only, no evidence/** writes"
+  ],
+  "dependencies": [],
+  "stop_conditions": [
+    "A safe source-map-js resolution at or above 1.2.2 cannot be obtained exclusively through pnpm-lock.yaml without changing package.json, another manifest, an override or a direct dependency; STOP and obtain new explicit authorization, never expand this scope.",
+    "The functional write scope must expand beyond pnpm-lock.yaml or requires application code, tests, workflows, contracts, schemas, ADRs, evidence files or package-manager configuration changes.",
+    "Any unrelated dependency upgrade or package/integrity churn appears.",
+    "Any source-map-js resolution below 1.2.2 remains in the lockfile or installed dependency graph.",
+    "pnpm install --frozen-lockfile fails under canonical Node 24.20.0 and pnpm 10.26.1.",
+    "Frontend typecheck, minimum frontend unit tests or applicable openapi:check fails.",
+    "pnpm audit --audit-level high still reports source-map-js HIGH or the high-severity gate fails; do not suppress the audit.",
+    "The branch or worktree contains changes from another issue, another TaskEnvelope or unrelated changes, or a write-scope collision exists.",
+    "Independent QA, Security and Reviewer validation cannot be performed on the same candidate commit.",
+    "The canonical runtime or an applicable governing authority is missing or contradictory."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-1024-01",
+    "AC-ISSUE-1024-02",
+    "AC-ISSUE-1024-03",
+    "AC-ISSUE-1024-04",
+    "AC-ISSUE-1024-05"
+  ],
+  "governing_adrs": [
+    "ADR-006",
+    "ADR-007",
+    "ADR-033"
+  ],
+  "requirement_basis": "DERIVED_CONTROL",
+  "requirements_review_status": "PASS",
+  "bounded_context": "BC-015",
+  "context_map_dependencies": [],
+  "domain_model_impact": "NONE",
+  "ddd_review_status": "PASS",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 0,
+      "items": []
+    },
+    "files": {
+      "status": "PASS",
+      "allow_paths": [
+        "pnpm-lock.yaml",
+        ".codex/tasks/operations/TASK-0774.json"
+      ],
+      "deny_paths": [
+        "package.json",
+        "pnpm-workspace.yaml",
+        ".npmrc",
+        "**/package.json",
+        "src/**",
+        ".github/**",
+        "docs/**",
+        "contracts/**",
+        "tests/**",
+        "infra/**",
+        "tools/**",
+        "data/**",
+        "models/**",
+        "evidence/**",
+        "**/migrations/**",
+        "**/.env*",
+        "secrets/**",
+        "credentials/**",
+        "config/secrets/**",
+        "config/credentials/**",
+        "**/*.pem",
+        "**/*.key"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "APPLICABLE",
+      "status": "PASS",
+      "authorities": [
+        "src/frontend/package.json (read-only direct-dependency authority)",
+        "pnpm-lock.yaml"
+      ]
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "PASS",
+      "items": [
+        "TaskEnvelope JSON Schema and authorization consistency validation",
+        "canonical Node 24.20.0 and pnpm 10.26.1 runtime check",
+        "pnpm why source-map-js -r and complete lockfile/installed-graph resolution proof",
+        "frozen pnpm installation",
+        "pnpm audit --audit-level high without source-map-js HIGH",
+        "focused frontend typecheck, unit tests and applicable openapi:check",
+        "exact lockfile and changed-path diff inspection",
+        "make verify before handoff"
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "PASS",
+      "kinds": [
+        "dependency-resolution evidence",
+        "focused validation output"
+      ],
+      "evidence": [
+        "GitHub issue #1024 and authorization-envelope validation; no remediation result claimed in this pass",
+        "Future runtime, graph, frozen-install, audit, frontend, OpenAPI, diff and make verify results recorded in pull-request checks or logs",
+        "Future independent QA, Security and Reviewer results on the same candidate commit"
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "PASS",
+      "count": 5,
+      "ids": [
+        "AC-ISSUE-1024-01",
+        "AC-ISSUE-1024-02",
+        "AC-ISSUE-1024-03",
+        "AC-ISSUE-1024-04",
+        "AC-ISSUE-1024-05"
+      ]
+    },
+    "review": {
+      "status": "PASS",
+      "required_roles": [
+        "QA",
+        "Security",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "MEDIUM",
+    "applicable_controls": [
+      "CTO-002",
+      "CTO-003",
+      "CTO-004",
+      "CTO-006",
+      "CTO-008",
+      "CTO-010",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-005",
+      "CTO-007",
+      "CTO-009",
+      "CTO-011",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "complete final source-map-js graph with no resolution below 1.2.2",
+      "frozen installation under canonical Node 24.20.0 and pnpm 10.26.1",
+      "pnpm audit --audit-level high result without source-map-js HIGH and without suppression",
+      "focused frontend typecheck/unit-test and applicable openapi:check results",
+      "pnpm-lock.yaml-only functional diff with no unrelated dependency churn",
+      "make verify before handoff",
+      "independent QA, Security and Reviewer results on the same candidate commit"
+    ],
+    "production_gate": "SECURITY_AND_PRIVACY_GATES"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}
