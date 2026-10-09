@@ -44,7 +44,7 @@
     {
       "ecosystem": "pypi",
       "name": "cryptography",
-      "version": "50.0.1",
+      "version": "50.0.2",
       "license": "Apache-2.0 OR BSD-3-Clause"
     },
     {
@@ -68,13 +68,13 @@
     {
       "ecosystem": "pypi",
       "name": "ruff",
-      "version": "0.16.9",
+      "version": "0.16.10",
       "license": "MIT"
     },
     {
       "ecosystem": "pypi",
       "name": "mypy",
-      "version": "2.3.1",
+      "version": "2.4.0",
       "license": "MIT"
     },
     {
