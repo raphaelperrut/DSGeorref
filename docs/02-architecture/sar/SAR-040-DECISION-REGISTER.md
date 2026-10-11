@@ -87,3 +87,42 @@ Assim, “22 ADRs” permanece somente como snapshot histórico das Fases A/B, �
 - parâmetros reversíveis permanecem em profiles/benchmarks;
 - detalhes de implementação permanecem nas issues;
 - a matriz `ADR_APPLICABILITY_MATRIX.csv` e o grafo `ADR_DEPENDENCY_GRAPH.json` são canônicos.
+
+
+## Registro prévio à atribuição de ID — recuperação #1026
+
+- **Fonte:** [decisão consolidada do Owner](https://github.com/raphaelperrut/DSGeorref/issues/1026#issuecomment-6102594277).
+- **Baseline:** `eb22e2e34d9080a6486851cc609b848df7871ae5`.
+- **Classificação anterior ao identificador:** `NEW_ADR`, em conformidade com REQ-GOV-DEC-001.
+- **Objeto aprovado:** uma única sucessora da ADR-006, para reconciliação
+  permanente da governança operacional solo e recuperação excepcional de uso
+  único da #1026, em BC-001.
+- **Boundary a substituir:** prompts permanentes, TaskEnvelope e precedência
+  de instruções, quanto ao modelo de competências e à comprovação prévia de
+  atribuição/execução na recuperação. As demais decisões e refinamentos da
+  ADR-006, inclusive SharedPartialDeliveryGate, devem ser preservados.
+- **Autoridades preservadas:** ADR-007 para scopes, lanes, isolamento e handoff;
+  ADR-058/ADR-059 para DAA e trust, sem nova autorização de regime ou identidade.
+- **ID e filename da sucessora:** não atribuídos; sequência do inventário não
+  constitui ato de atribuição.
+- **TaskEnvelope operacional da #1026:** não atribuído; TASK-0041 não é reutilizado.
+- **Eficácia da alteração e da exceção:** não declarada; autorização técnica
+  específica e avaliações segregadas continuam exigidas.
+- **Registro do ato e do procedimento aprovado:** [CHANGE_CONTROL](../../00-governance/CHANGE_CONTROL.md#issue-1026-owner-decision).
+
+Este registro administrativo de classificação não é uma ADR Accepted, não
+reserva identificador e não altera os totais ou o grafo vigentes. A ADR-006
+permanece Accepted e autoritativa até sucessão legitimamente formalizada.
+
+
+## Registro prévio de integração — recuperação #1026
+
+- **Fonte:** [reconstrução autorizada pelo Owner](https://github.com/raphaelperrut/DSGeorref/issues/1026#issuecomment-6113485169).
+- **Baseline:** `be97cea01ea2a812e4206cfe0d446f5919b2a8dc`.
+- **Classificação anterior ao identificador:** `NEW_ADR`, para reconstituir a prova anterior à rematerialização.
+- **Objeto aprovado:** uma única sucessora da ADR-006, conservando o boundary e a identidade lógica originais.
+- **Identidades:** sem nova atribuição lógica; unicidade conferida em main antes da rematerialização.
+- **Controles preservados:** ADR-007, SharedPartialDeliveryGate, DAA/trust, scopes e fail-closed.
+- **Sequência:** este registro antecede a primeira adição da sucessora no histórico de integração.
+- **Evidências originais:** classificação em 19d5dd00064d03f581b45881a5db73ada8344a74 e candidato 8b8a97923bc573b08724a5aa9090f4b853417940 preservados.
+- **QA/Reviewer:** novas avaliações exigidas; nenhuma aprovação anterior é transferida.
