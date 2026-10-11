@@ -1,6 +1,6 @@
 # ADR-006 — Prompts permanentes, TaskEnvelope e precedência de instruções
 
-- **Status:** `Accepted`
+- **Status:** `Superseded prospectivamente por ADR-060; preservada para snapshots históricos`
 - **Baseline:** `SAR v2.8 — Fase E`
 - **Aprovador:** `Project Owner`
 - **Owner normativo:** `ADR-006`
@@ -103,3 +103,10 @@ ADR-013/014 permanecem autoridades da fundação. A seleção de gerador cabe ao
 com Frontend como detalhe local e reversível compatível com ADR-013; escolha material
 exige decisão adicional. Este passe não seleciona ferramenta nem executa Stage A.
 Não altera contratos HTTP, autoridade/trust DAA ou ownership de requisitos.
+
+## Sucessão prospectiva — #1026
+
+ADR-060 sucede este boundary por decisão executiva do Owner: https://github.com/raphaelperrut/DSGeorref/issues/1026#issuecomment-6103942173.
+Os refinamentos acima, inclusive SharedPartialDeliveryGate, são herdados
+integralmente. Referências históricas mantêm seu significado. A emergência não
+aprova QA, final review, DAA ou merge do candidato.

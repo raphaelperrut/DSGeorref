@@ -8,7 +8,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from tools.governance.delivery_gates.validation import planning_errors, ready_errors
 errors=[]
-CURRENT_ADR_COUNT=59
+CURRENT_ADR_COUNT=60
 PHASE_D_ADR_BASELINE=58
 # Exact canonical IDs; reserved operational IDs remain outside this discovery.
 CANONICAL_STORY_IDS=tuple(range(1,763))+(767,768,769)

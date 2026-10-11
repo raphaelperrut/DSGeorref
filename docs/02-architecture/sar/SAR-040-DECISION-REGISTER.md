@@ -87,3 +87,74 @@ Assim, “22 ADRs” permanece somente como snapshot histórico das Fases A/B, �
 - parâmetros reversíveis permanecem em profiles/benchmarks;
 - detalhes de implementação permanecem nas issues;
 - a matriz `ADR_APPLICABILITY_MATRIX.csv` e o grafo `ADR_DEPENDENCY_GRAPH.json` são canônicos.
+
+
+## Registro prévio à atribuição de ID — recuperação #1026
+
+- **Fonte:** [decisão consolidada do Owner](https://github.com/raphaelperrut/DSGeorref/issues/1026#issuecomment-6102594277).
+- **Baseline:** `eb22e2e34d9080a6486851cc609b848df7871ae5`.
+- **Classificação anterior ao identificador:** `NEW_ADR`, em conformidade com REQ-GOV-DEC-001.
+- **Objeto aprovado:** uma única sucessora da ADR-006, para reconciliação
+  permanente da governança operacional solo e recuperação excepcional de uso
+  único da #1026, em BC-001.
+- **Boundary a substituir:** prompts permanentes, TaskEnvelope e precedência
+  de instruções, quanto ao modelo de competências e à comprovação prévia de
+  atribuição/execução na recuperação. As demais decisões e refinamentos da
+  ADR-006, inclusive SharedPartialDeliveryGate, devem ser preservados.
+- **Autoridades preservadas:** ADR-007 para scopes, lanes, isolamento e handoff;
+  ADR-058/ADR-059 para DAA e trust, sem nova autorização de regime ou identidade.
+- **ID e filename da sucessora:** não atribuídos; sequência do inventário não
+  constitui ato de atribuição.
+- **TaskEnvelope operacional da #1026:** não atribuído; TASK-0041 não é reutilizado.
+- **Eficácia da alteração e da exceção:** não declarada; autorização técnica
+  específica e avaliações segregadas continuam exigidas.
+- **Registro do ato e do procedimento aprovado:** [CHANGE_CONTROL](../../00-governance/CHANGE_CONTROL.md#issue-1026-owner-decision).
+
+Este registro administrativo de classificação não é uma ADR Accepted, não
+reserva identificador e não altera os totais ou o grafo vigentes. A ADR-006
+permanece Accepted e autoritativa até sucessão legitimamente formalizada.
+
+## Atribuição manual e estado corrente — #1026
+
+Fonte executiva: https://github.com/raphaelperrut/DSGeorref/issues/1026#issuecomment-6103942173. Origem autenticada no GitHub: raphaelperrut, user ID
+110496238. O registro prévio acima é histórico e permanece preservado.
+Sua classificação está no commit 19d5dd00064d03f581b45881a5db73ada8344a74, digest do blob Git SHA-256
+2b8c72b35bdb518f8cb5981d84ceeaed213d3d65843941c452cc99d2eaa59e22, anterior à atribuição dos IDs.
+
+Conferência real: 59 ADRs contínuas, 774 envelopes únicos (765 canônicos e nove
+operacionais), maiores IDs ADR-059/TASK-0774, sem colisão com ADR-060/TASK-0775.
+Por delegação executiva do Owner, atribuição MANUAL de ADR-060 (docs/02-architecture/adrs/ADR-060-governanca-operacional-solo-e-recuperacao-excepcional-de-bootstrap.md) e
+TASK-0775 (.codex/tasks/operations/TASK-0775.json), exclusivamente para #1026.
+STORY-0688/EPIC-001/SPRINT-001 são linhagem existente, sem criar história canônica.
+
+Estado prospectivo: TOTAL_ADR_RECORDS=60, ACTIVE_ACCEPTED_ADRS=58,
+SUPERSEDED_ADRS=2 (ADR-006/ADR-058), OPEN_ARCHITECTURAL_DECISIONS=0.
+A direção ADR-060 é Accepted por ato do Owner; QA/final review e merge pendentes.
+Histórico, matrizes congeladas e DAA 1.0.0/2.0.0 permanecem preservados.
+
+
+## Registro prévio de integração — recuperação #1026
+
+- **Fonte:** [reconstrução autorizada pelo Owner](https://github.com/raphaelperrut/DSGeorref/issues/1026#issuecomment-6113485169).
+- **Baseline:** `be97cea01ea2a812e4206cfe0d446f5919b2a8dc`.
+- **Classificação anterior ao identificador:** `NEW_ADR`, para reconstituir a prova anterior à rematerialização.
+- **Objeto aprovado:** uma única sucessora da ADR-006, conservando o boundary e a identidade lógica originais.
+- **Identidades:** sem nova atribuição lógica; unicidade conferida em main antes da rematerialização.
+- **Controles preservados:** ADR-007, SharedPartialDeliveryGate, DAA/trust, scopes e fail-closed.
+- **Sequência:** este registro antecede a primeira adição da sucessora no histórico de integração.
+- **Evidências originais:** classificação em 19d5dd00064d03f581b45881a5db73ada8344a74 e candidato 8b8a97923bc573b08724a5aa9090f4b853417940 preservados.
+- **QA/Reviewer:** novas avaliações exigidas; nenhuma aprovação anterior é transferida.
+
+
+## Rematerialização autorizada das identidades — integração #1026
+
+A decisão https://github.com/raphaelperrut/DSGeorref/issues/1026#issuecomment-6113485169 mantém as identidades lógicas ADR-060/TASK-0775.
+Conferência sobre main be97cea01ea2a812e4206cfe0d446f5919b2a8dc: 59 ADRs, 774 envelopes únicos,
+sem colisão de ADR-060/TASK-0775; rematerialização não cria outro registro lógico.
+Classificação substituta real: d1e62d26b5902e82dda5b96744ce5ac9e45fd65b; blob SHA-256 b848e98486728be4fd7b116a7ab80c6d9864fdf957b2a4069ba8dede773503dd.
+A primeira adição de ADR-060 e TASK-0775 no novo histórico é este commit de
+materialização, que constitui o checkpoint substituto autorizado uma única vez.
+Envelope mantido com bytes originais; o digest canônico será recalculado, e a
+correspondência do SHA real será registrada no commit candidato descendente.
+A conferência administrativa é MANUAL / DEVIATION_DECLARED, sem PASS ordinário
+retroativo. QA/Review incrementais permanecem pendentes.

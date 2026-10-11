@@ -2,13 +2,19 @@ from __future__ import annotations
 
 import csv
 import re
+import subprocess
 from collections.abc import Iterable
 from io import StringIO
 from pathlib import Path, PurePosixPath
 
+from canonical_json import CanonicalizationError, load_json_bytes
 from foundation_validation_types import Finding
-from governed_artifacts import git_blob, revision_is_ancestor
-
+from governed_artifacts import (
+    GovernedArtifact,
+    git_blob,
+    resolve_governed_artifact,
+    revision_is_ancestor,
+)
 
 DECISION_CLASSIFICATIONS = frozenset(
     {"NEW_ADR", "REFINE_EXISTING", "APPLICATION_PROFILE", "BENCHMARK_PROFILE", "ISSUE_DETAIL"}
@@ -71,6 +77,72 @@ def _identifier_from_path(proposal_path: str) -> str | None:
     return None
 
 
+def _prior_classification_valid(
+    repository_root: Path, candidate_revision: str, proposal_path: str, identifier: str
+) -> bool:
+    """Resolve the prior SAR registration from immutable Git evidence, never a caller claim."""
+    try:
+        text = git_blob(repository_root, candidate_revision, proposal_path).decode("utf-8")
+        raw = _metadata_value(text, "Registro prévio de classificação")
+        reference = load_json_bytes((raw or "").encode("utf-8"))
+        if not isinstance(reference, dict) or set(reference) != {"path", "source_revision", "sha256"}:
+            return False
+        if reference["path"] != "docs/02-architecture/sar/SAR-040-DECISION-REGISTER.md":
+            return False
+        evidence = resolve_governed_artifact(repository_root, reference)
+        additions = subprocess.run(
+            ["git", "-C", str(repository_root), "log", "--format=%H", "--diff-filter=A",
+             candidate_revision, "--", proposal_path],
+            check=True, capture_output=True, encoding="ascii", timeout=20,
+        ).stdout.splitlines()
+        if len(additions) != 1 or evidence.source_revision == additions[0]:
+            return False
+        if not revision_is_ancestor(repository_root, evidence.source_revision, additions[0]):
+            return False
+        index = _adr_index(repository_root, evidence.source_revision)
+        if identifier in index or identifier != f"ADR-{max(int(a[4:]) for a in index) + 1:03d}":
+            return False
+        return _registered_classification_matches(repository_root, text, evidence, index)
+    except (CanonicalizationError, ValueError, UnicodeDecodeError, KeyError,
+            subprocess.SubprocessError):
+        return False
+
+
+def _registered_classification_matches(
+    repository_root: Path, text: str, evidence: GovernedArtifact,
+    index: dict[str, dict[str, str]],
+) -> bool:
+    title = _metadata_value(text, "Seção prévia de classificação")
+    issue = _metadata_value(text, "Issue")
+    if not title or not issue or not title.endswith(" — recuperação " + issue):
+        return False
+    sections = re.findall(
+        rf"^## {re.escape(title)}\r?\n(.*?)(?=^## |\Z)",
+        evidence.content.decode("utf-8"), re.MULTILINE | re.DOTALL,
+    )
+    if len(sections) != 1:
+        return False
+    section = sections[0]
+    classification = re.findall(
+        r"^- \*\*Classificação anterior ao identificador:\*\* `([^`]+)`",
+        section, re.MULTILINE,
+    )
+    sources = re.findall(r"^- \*\*Fonte:\*\* \[[^\]]+\]\(([^)]+)\)\.", section, re.MULTILINE)
+    owners = re.findall(r"uma única sucessora da (ADR-[0-9]{3})", section)
+    if classification != ["NEW_ADR"] or sources != [_metadata_value(text, "Autoridade da classificação")]:
+        return False
+    if len(owners) != 1 or _explicit_superseded_ids(text) != frozenset(owners):
+        return False
+    owner = index.get(owners[0])
+    if owner is None or owner["status"] != "Accepted":
+        return False
+    owner_text = git_blob(repository_root, evidence.source_revision,
+                          str(ADR_DIRECTORY / owner["file"])).decode("utf-8")
+    return (_metadata_value(owner_text, "Owner normativo") == owners[0]
+            and _metadata_value(owner_text, "Aprovador") == "Project Owner"
+            and _metadata_value(owner_text, "Status") == "Accepted")
+
+
 def validate_classification_before_identifier(
     repository_root: Path,
     *,
@@ -97,12 +169,15 @@ def validate_classification_before_identifier(
     path_identifier = _identifier_from_path(proposal_path)
     if allocated_identifier != path_identifier:
         findings.append(Finding("IDENTIFIER_MISMATCH", "allocated_identifier", "identifier differs from governed artifact identity"))
-    if authoritative == "NEW_ADR" and path_identifier is not None:
+    if (authoritative == "NEW_ADR" and path_identifier is not None
+            and not _prior_classification_valid(
+                repository_root, candidate_revision, proposal_path, path_identifier
+            )):
         findings.append(
             Finding(
                 "IDENTIFIER_ALLOCATED_EARLY",
                 "allocated_identifier",
-                "no governed pre-allocation classification record exists in the base revision",
+                "no valid governed classification record predates the first identifier allocation",
             )
         )
     return sorted(findings)
@@ -131,8 +206,8 @@ def _adr_text(repository_root: Path, revision: str, proposal_path: str) -> str:
 
 def _metadata_value(text: str, label: str) -> str | None:
     pattern = rf"^- \*\*{re.escape(label)}:\*\* `?([^`\r\n]+)`?\s*$"
-    match = re.search(pattern, text, re.MULTILINE)
-    return match.group(1).strip() if match else None
+    matches = re.findall(pattern, text, re.MULTILINE)
+    return matches[0].strip() if len(matches) == 1 else None
 
 
 def validate_new_adr_eligibility(

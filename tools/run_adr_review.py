@@ -3,9 +3,9 @@ import csv,json,re,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 errors=[]
-TOTAL_ADR_RECORDS=59
+TOTAL_ADR_RECORDS=60
 ACTIVE_ACCEPTED_ADRS=58
-SUPERSEDED_ADRS=1
+SUPERSEDED_ADRS=2
 OPEN_ARCHITECTURAL_DECISIONS=0
 PHASE_D_HISTORICAL_ADR_RECORDS=57
 adr_files=sorted(ROOT.glob('docs/02-architecture/adrs/ADR-*.md'))
@@ -21,6 +21,11 @@ if accepted!=ACTIVE_ACCEPTED_ADRS: errors.append(f'ADR_INDEX Accepted count {acc
 if superseded!=SUPERSEDED_ADRS: errors.append(f'ADR_INDEX Superseded count {superseded}')
 if next((r['status'] for r in idx if r['adr_id']=='ADR-058'),None)!='Superseded': errors.append('ADR-058 status')
 if next((r['status'] for r in idx if r['adr_id']=='ADR-059'),None)!='Accepted': errors.append('ADR-059 status')
+if next((r['status'] for r in idx if r['adr_id']=='ADR-006'),None)!='Superseded': errors.append('ADR-006 status')
+if next((r['status'] for r in idx if r['adr_id']=='ADR-060'),None)!='Accepted': errors.append('ADR-060 status')
+if len(known)!=TOTAL_ADR_RECORDS: errors.append('ADR_INDEX duplicate identity')
+if {r['adr_id'] for r in idx if r['status']=='Superseded'}!={'ADR-006','ADR-058'}: errors.append('ADR_INDEX supersession set')
+
 for p in adr_files:
  t=p.read_text(encoding='utf-8')
  for h in ['## Contexto','## Decisão','## Invariantes','## Alternativas consideradas','## Racional da seleção','## Consequências e trade-offs','## Dependências arquiteturais','## Gate de mudança','## Verificação de conformidade','## Rastreabilidade SAR']:
