@@ -444,6 +444,13 @@
       "contexts": [
         "BC-001"
       ]
+    },
+    {
+      "id": "ADR-060",
+      "title": "Governança operacional solo e recuperação excepcional de bootstrap",
+      "contexts": [
+        "BC-001"
+      ]
     }
   ],
   "edges": [
@@ -1140,6 +1147,31 @@
     {
       "from": "ADR-058",
       "to": "ADR-059",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-001",
+      "to": "ADR-060",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-003",
+      "to": "ADR-060",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-007",
+      "to": "ADR-060",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-059",
+      "to": "ADR-060",
+      "type": "ARCHITECTURAL_PREREQUISITE"
+    },
+    {
+      "from": "ADR-006",
+      "to": "ADR-060",
       "type": "ARCHITECTURAL_PREREQUISITE"
     }
   ],

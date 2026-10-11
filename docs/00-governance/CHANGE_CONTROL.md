@@ -140,6 +140,46 @@ de envelope/autorização específicos e de final review impede declarar eficác
 ou iniciar os patches. Este registro conserva ADR-006 como autoridade vigente
 e não modifica o inventário Accepted/Superseded.
 
+## Decisão executiva emergencial eficaz para execução — #1026
+
+Fonte: https://github.com/raphaelperrut/DSGeorref/issues/1026#issuecomment-6103942173. Origem autenticada no GitHub: raphaelperrut, user ID 110496238,
+obtida pelo conector autenticado. Competências acumuladas: Project Owner,
+Product Owner, Arquiteto e Tech Lead. Candidato preservado: 19d5dd00064d03f581b45881a5db73ada8344a74;
+branch exclusiva codex/issue-1026-control-plane-recovery.
+Este ato autoriza execução supervisionada, com desvio declarado, e sucede os
+impedimentos executivos anteriores, cujos registros são conservados como histórico.
+
+Scope exato: arquivos normativos da decisão 6102594277, os três arquivos técnicos
+daquela decisão, decision_governance.py pela ampliação 6103899107, uma ADR sucessora,
+um TaskEnvelope operacional e os registros indispensáveis autorizados pela emergência.
+Nenhuma norma fora desse scope, READY, DAA/trust, contrato, EPIC-009 ou código
+funcional da #117 integra a execução.
+
+Substituições documentadas: atribuição de ID, impedida por NEW_ADR não reconhecer
+classificação prévia; ativação do envelope, impedida pela rejeição de operations;
+formação/validação de checkpoint dependente desses mecanismos e do papel divergente.
+Resultado substituído: MANUAL / DEVIATION_DECLARED; ORDINARY_GATE_PASS=NOT_CLAIMED.
+Scope e checkpoint ordinários serão testados depois dos reparos; nenhum PASS é
+presumido dessa substituição. Gates de integração, DAA, QA, final review e merge
+não são substituídos.
+
+A conferência usou inventário e Git reais, classificação prévia no commit 19d5dd00064d03f581b45881a5db73ada8344a74,
+fonte autenticada, scope e denies explícitos. Atribuição manual ADR-060/TASK-0775
+está registrada em SAR-040. Não há reuso de TASK-0041 ou de aprovação de outra tarefa.
+O checkpoint administrativo é o SHA real de materialização, sem certificado
+ordinário. Digests são calculados dos bytes Git e do envelope canônico.
+O Executor é esta sessão Codex supervisionada pelo Owner; a origem humana é a
+conta autenticada do ato. Nenhum principal criptográfico, binding ou assinatura
+foi inventado, nem foi alegada independência pessoal.
+
+EMERGENCY_EXECUTION_AUTHORIZED_BY_OWNER=YES;
+NORMATIVE_CONFORMANCE=DEVIATION_DECLARED_PENDING_RECONCILIATION;
+MERGE_AUTHORIZED=NO. A política ADR-060 é prospectiva após formalização e integração.
+A sessão executora não emite QA/final review. QA/Reviewer separados avaliam o mesmo
+SHA e a conformidade residual; integração exige decisão humana.
+A exceção termina após recuperação integrada e validada ou revogação expressa,
+sem reutilização. Rollback é reversão humana dos commits, mantendo a trilha.
+
 
 ## Reconstrução autorizada da ancestralidade de integração — #1026
 

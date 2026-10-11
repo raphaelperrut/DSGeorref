@@ -4,7 +4,7 @@ ADR-002,Accepted,Topologia do produto: monólito modular e instância única,ADR
 ADR-003,Accepted,"Bounded Contexts, subdomínios e linguagem ubíqua",ADR-003-bounded-contexts-subdominios-e-linguagem-ubiqua.md,true,BC-001,ADR-002,0
 ADR-004,Accepted,Integração entre contexts e modelos publicados,ADR-004-integracao-entre-contexts-e-modelos-publicados.md,true,BC-001,ADR-003,1
 ADR-005,Accepted,Layout context-first e direção de dependências,ADR-005-layout-context-first-e-direcao-de-dependencias.md,true,BC-001,ADR-003/ADR-004,2
-ADR-006,Accepted,"Prompts permanentes, TaskEnvelope e precedência de instruções",ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md,true,BC-001,ADR-001/ADR-003,16
+ADR-006,Superseded,"Prompts permanentes, TaskEnvelope e precedência de instruções",ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md,true,BC-001,ADR-001/ADR-003,16
 ADR-007,Accepted,"Write scopes, lanes paralelas e isolamento de mudança",ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md,true,BC-001,ADR-005/ADR-006,1
 ADR-008,Accepted,Granularidade de histórias e limites anti-monólito,ADR-008-granularidade-de-historias-e-limites-anti-monolito.md,true,BC-001,ADR-006/ADR-007,13
 ADR-009,Accepted,"Runtime Python 3.12, toolchain e stack nativa reproduzível",ADR-009-runtime-python-3-12-toolchain-e-stack-nativa-reproduzivel.md,true,BC-001/BC-015,ADR-001,14
@@ -58,3 +58,4 @@ ADR-056,Accepted,"Licenciamento, contribuições, provider attribution e citaç�
 ADR-057,Accepted,"Release train, publicação e gates de distribuição",ADR-057-release-train-publicacao-e-gates-de-distribuicao.md,true,BC-015/BC-001,ADR-026/ADR-033/ADR-034/ADR-035/ADR-056,6
 ADR-058,Superseded,Delivery Approval Authority e attestations criptográficas independentes,ADR-058-delivery-approval-authority-e-attestations-criptograficas-independentes.md,true,BC-001,ADR-003/ADR-006/ADR-007/ADR-010,0
 ADR-059,Accepted,Delivery Approval Authority em desenvolvimento solo,ADR-059-delivery-approval-authority-em-desenvolvimento-solo.md,true,BC-001,ADR-058,0
+ADR-060,Accepted,Governança operacional solo e recuperação excepcional de bootstrap,ADR-060-governanca-operacional-solo-e-recuperacao-excepcional-de-bootstrap.md,true,BC-001,ADR-001/ADR-003/ADR-007/ADR-059,16
