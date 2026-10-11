@@ -14,6 +14,8 @@ from pathlib import Path
 from typing import Any
 from unittest import mock
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[3]
 MODULE_ROOT = ROOT / (
@@ -2870,3 +2872,281 @@ def test_make_ci_parity() -> None:
     assert "MAKE_TARGET_NOT_SUBSTANTIVE" in _codes(
         validate_make_ci_parity(repository, empty_target_revision)
     )
+
+
+# ISSUE #1026: disposable Git fixtures, never operational approvals or identities.
+def _recovery_classification_fixture(
+    mutation: str = "valid",
+) -> tuple[Path, str, str, str]:
+    repository = _fixture_directory("recovery-classification")
+    _init_repository(repository)
+    _git(repository, "config", "core.autocrlf", "false")
+    _git(repository, "config", "core.longpaths", "true")
+    index_path = "docs/00-governance/ADR_INDEX.csv"
+    record_path = "docs/02-architecture/sar/SAR-040-DECISION-REGISTER.md"
+    owner_path = "docs/02-architecture/adrs/ADR-001-owner.md"
+    _write(repository, index_path, (
+        "adr_id,status,title,file,independent_boundary,bounded_contexts,depends_on,owned_requirement_count\n"
+        "ADR-001,Accepted,Owner,ADR-001-owner.md,true,BC-001,,0\n"
+    ).encode())
+    _write(repository, owner_path, (
+        "- **Status:** `Accepted`\n- **Aprovador:** `Project Owner`\n"
+        "- **Owner normativo:** `ADR-001`\n"
+    ).encode())
+    before = _commit(repository, "test: accepted classification owner")
+    section = (
+        "## Registro prévio à atribuição de ID — recuperação #1026\n\n"
+        "- **Fonte:** [Synthetic fixture authority](https://example.invalid/fixture).\n"
+        "- **Classificação anterior ao identificador:** `NEW_ADR`\n"
+        "- **Objeto aprovado:** uma única sucessora da ADR-001.\n"
+    )
+    if mutation == "missing-classification":
+        section = section.replace("- **Classificação anterior ao identificador:** `NEW_ADR`\n", "")
+    if mutation == "invalid-classification":
+        section = section.replace("`NEW_ADR`", "`ISSUE_DETAIL`")
+    if mutation == "duplicate-section":
+        section += "\n" + section
+    if mutation not in {"posterior-classification", "simultaneous-classification"}:
+        _write(repository, record_path, section.encode())
+    prior = (before if mutation in {"posterior-classification", "simultaneous-classification"}
+             else _commit(repository, "test: prior classification, no allocated identifier"))
+    path = "docs/02-architecture/adrs/ADR-002-successor.md"
+    reference = (
+        {"path": record_path, "source_revision": prior, "sha256": "0" * 64}
+        if mutation in {"posterior-classification", "simultaneous-classification"}
+        else _reference(repository, prior, record_path)
+    )
+    if mutation == "adulterated-digest":
+        reference["sha256"] = "0" * 64
+    if mutation == "wrong-path":
+        reference["path"] = "docs/untrusted-record.md"
+    text = (
+        "# ADR-002\n- **Status:** `Accepted`\n- **Substitui:** `ADR-001`\n"
+        "- **Issue:** `#1026`\n"
+        "- **Seção prévia de classificação:** `Registro prévio à atribuição de ID — recuperação #1026`\n"
+        "- **Autoridade da classificação:** `https://example.invalid/fixture`\n"
+        f"- **Registro prévio de classificação:** `{json.dumps(reference)}`\n"
+    )
+    if mutation == "missing-reference":
+        text = "\n".join(line for line in text.splitlines() if "Registro prévio de classificação:" not in line)
+    if mutation == "unrelated-issue":
+        text = text.replace("- **Issue:** `#1026`", "- **Issue:** `#9999`")
+    if mutation == "duplicate-reference":
+        text += f"- **Registro prévio de classificação:** `{json.dumps(reference)}`\n"
+    _write(repository, path, text.encode())
+    if mutation == "simultaneous-classification":
+        _write(repository, record_path, section.encode())
+    allocated = _commit(repository, "test: first identifier allocation")
+    if mutation in {"posterior-classification", "simultaneous-classification"}:
+        if mutation == "posterior-classification":
+            _write(repository, record_path, section.encode())
+            allocated = _commit(repository, "test: first classification after allocation")
+        late = _reference(repository, allocated, record_path)
+        _write(repository, path, text.replace(json.dumps(reference), json.dumps(late)).encode())
+        allocated = _commit(repository, "test: posterior reference cannot authorize allocation")
+    if mutation == "identifier-already-registered":
+        _write(repository, index_path, (repository / index_path).read_bytes() + (
+            "ADR-002,Accepted,Preallocated,ADR-002-successor.md,true,BC-001,,0\n"
+        ).encode())
+        preallocated = _commit(repository, "test: classification after identifier registration")
+        late = _reference(repository, preallocated, record_path)
+        _write(repository, path, text.replace(json.dumps(reference), json.dumps(late)).encode())
+        allocated = _commit(repository, "test: attempted reuse of prior allocation")
+    return repository, before, allocated, path
+
+
+def test_recovery_prior_classification_accepts_verified_history() -> None:
+    repository, base, candidate, path = _recovery_classification_fixture()
+    assert validate_classification_before_identifier(
+        repository, base_revision=base, candidate_revision=candidate,
+        proposal_path=path, declared_classification="NEW_ADR", allocated_identifier="ADR-002",
+    ) == []
+
+
+@pytest.mark.parametrize("mutation", [
+    "missing-reference", "missing-classification", "invalid-classification",
+    "adulterated-digest", "wrong-path", "unrelated-issue", "duplicate-section",
+    "duplicate-reference", "posterior-classification", "simultaneous-classification",
+    "identifier-already-registered",
+])
+def test_recovery_prior_classification_rejects_invalid_evidence(mutation: str) -> None:
+    repository, base, candidate, path = _recovery_classification_fixture(mutation)
+    findings = validate_classification_before_identifier(
+        repository, base_revision=base, candidate_revision=candidate,
+        proposal_path=path, declared_classification="NEW_ADR", allocated_identifier="ADR-002",
+    )
+    assert "IDENTIFIER_ALLOCATED_EARLY" in _codes(findings)
+
+
+def _recovery_scope_fixture(
+    mutation: str = "valid", operational: bool = True,
+) -> tuple[Path, str, str, str, str]:
+    repository = _fixture_directory("recovery-scope")
+    _init_repository(repository)
+    _git(repository, "config", "core.autocrlf", "false")
+    _git(repository, "config", "core.longpaths", "true")
+    schema_path = ".codex/tasks/TASK_ENVELOPE.schema.json"
+    _write(repository, schema_path, (ROOT / schema_path).read_bytes())
+    policy_path = ".codex/policies/file-scopes.yaml"
+    _write(repository, policy_path, (ROOT / policy_path).read_bytes())
+    path = ".codex/tasks/" + ("operations/" if operational else "") + "TASK-9942.json"
+    task = json.loads((ROOT / ".codex/tasks/operations/TASK-0775.json").read_text(encoding="utf-8"))
+    task.update(task_id="TASK-9942", issue_id="ISSUE-9942", role="Tech Lead",
+                allow_paths=["data/**"], deny_paths=["data/forbidden.txt"])
+    task["phase_f_review"]["files"] = {
+        "status": "PASS", "allow_paths": task["allow_paths"], "deny_paths": task["deny_paths"],
+    }
+    if mutation == "collision":
+        _write(repository, ".codex/tasks/TASK-9942.json", canonical_json_bytes(task))
+    if mutation == "role-deny":
+        policy = (repository / policy_path).read_text()
+        policy = policy.replace("  - role: Tech Lead\n", "  - role: Tech Lead\n    deny: [\".codex/tasks/**\"]\n")
+        _write(repository, policy_path, policy.encode())
+    if mutation == "invalid-schema":
+        _write(repository, schema_path, b'{"type":42}')
+    if mutation == "missing-schema":
+        (repository / schema_path).unlink()
+    base = _commit(repository, "test: baseline scope authority")
+    if mutation == "invalid-envelope":
+        task.pop("outcome")
+    if mutation == "identity-mismatch":
+        task["task_id"] = "TASK-9943"
+    if mutation == "invalid-role":
+        task["role"] = "Architect"
+    _write(repository, path, canonical_json_bytes(task))
+    checkpoint = _commit(repository, "test: frozen envelope checkpoint")
+    _write(repository, "data/allowed.txt", b"allowed")
+    if mutation == "deny":
+        _write(repository, "data/forbidden.txt", b"denied")
+    if mutation == "outside":
+        _write(repository, "unrelated.txt", b"outside")
+    if mutation == "changed-envelope":
+        task["outcome"] += " mutated after checkpoint"
+        _write(repository, path, canonical_json_bytes(task))
+    if mutation == "candidate-collision":
+        _write(repository, ".codex/tasks/TASK-9942.json", canonical_json_bytes(task))
+    candidate = _commit(repository, "test: effective candidate")
+    return repository, base, checkpoint, candidate, path
+
+
+@pytest.mark.parametrize("operational", [False, True])
+def test_recovery_scope_accepts_frozen_canonical_and_operational(operational: bool) -> None:
+    repository, base, checkpoint, candidate, path = _recovery_scope_fixture(operational=operational)
+    assert validate_effective_task_scope(
+        repository, base_revision=base, authority_checkpoint=checkpoint,
+        candidate_revision=candidate, task_envelope_path=path,
+    ) == []
+
+
+@pytest.mark.parametrize("mutation,code", [
+    ("invalid-envelope", "SCOPE_AUTHORITY_INVALID"),
+    ("identity-mismatch", "SCOPE_AUTHORITY_INVALID"),
+    ("invalid-role", "SCOPE_AUTHORITY_INVALID"),
+    ("collision", "SCOPE_AUTHORITY_INVALID"),
+    ("candidate-collision", "SCOPE_AUTHORITY_INVALID"),
+    ("invalid-schema", "SCOPE_AUTHORITY_INVALID"),
+    ("missing-schema", "SCOPE_AUTHORITY_INVALID"),
+    ("deny", "DENIED_PATH_CHANGED"),
+    ("outside", "PATH_OUTSIDE_EFFECTIVE_SCOPE"),
+    ("changed-envelope", "TASK_CONTROL_PLANE_UNAUTHORIZED"),
+    ("role-deny", "TASK_CONTROL_PLANE_UNAUTHORIZED"),
+])
+def test_recovery_scope_rejects_invalid_authority_and_mutations(mutation: str, code: str) -> None:
+    repository, base, checkpoint, candidate, path = _recovery_scope_fixture(mutation)
+    findings = validate_effective_task_scope(
+        repository, base_revision=base, authority_checkpoint=checkpoint,
+        candidate_revision=candidate, task_envelope_path=path,
+    )
+    assert code in _codes(findings)
+
+
+@pytest.mark.parametrize("path", [
+    "../.codex/tasks/operations/TASK-9942.json",
+    ".codex/tasks/operations/nested/TASK-9942.json",
+    ".codex/tasks/operations/TASK-invalid.json",
+    ".codex/tasks/operations/TASK-9942.txt",
+    ".codex/tasks//operations/TASK-9942.json",
+    ".codex\\tasks\\operations\\TASK-9942.json",
+])
+def test_recovery_scope_rejects_noncanonical_paths(path: str) -> None:
+    findings = validate_effective_task_scope(
+        ROOT, base_revision=BASE, authority_checkpoint=CHECKPOINT,
+        candidate_revision=REJECTED, task_envelope_path=path,
+    )
+    assert "TASK_ENVELOPE_PATH_INVALID" in _codes(findings)
+
+
+def test_recovery_scope_requires_checkpoint_ancestry() -> None:
+    repository, base, checkpoint, candidate, path = _recovery_scope_fixture()
+    _git(repository, "checkout", "--orphan", "unrelated-checkpoint")
+    foreign = _commit(repository, "test: checkpoint without baseline ancestry")
+    findings = validate_effective_task_scope(
+        repository, base_revision=base, authority_checkpoint=foreign,
+        candidate_revision=candidate, task_envelope_path=path,
+    )
+    assert "CHECKPOINT_INVALID" in _codes(findings)
+    assert validate_effective_task_scope(
+        repository, base_revision=base, authority_checkpoint=base,
+        candidate_revision=candidate, task_envelope_path=path,
+    )
+
+
+def _recovery_current_history() -> tuple[str, str]:
+    adr_path = "docs/02-architecture/adrs/ADR-060-governanca-operacional-solo-e-recuperacao-excepcional-de-bootstrap.md"
+    lines = (ROOT / adr_path).read_text(encoding="utf-8").splitlines()
+    reference = next(line for line in lines if line.startswith("- **Registro prévio de classificação:**"))
+    prior = json.loads(reference.split("`", 2)[1])["source_revision"]
+    additions = str(_git(ROOT, "log", "--format=%H", "--diff-filter=A", "HEAD", "--",
+                         ".codex/tasks/operations/TASK-0775.json")).splitlines()
+    assert len(additions) == 1
+    return prior, additions[0]
+
+
+def test_recovery_role_policy_preserves_all_permissions() -> None:
+    import yaml
+
+    prior, _ = _recovery_current_history()
+    old = yaml.safe_load(_git(ROOT, "show", f"{prior}:.codex/policies/file-scopes.yaml"))
+    current = yaml.safe_load((ROOT / ".codex/policies/file-scopes.yaml").read_text())
+    old["rules"][1]["role"] = "Arquiteto"
+    assert current == old
+    assert len([rule for rule in current["rules"] if rule["role"] == "Arquiteto"]) == 1
+    assert not any(rule["role"] == "Architect" for rule in current["rules"])
+
+
+def test_recovery_inventory_lineage_and_shared_gate_preservation() -> None:
+    import csv
+
+    prior, checkpoint = _recovery_current_history()
+    assert _git(ROOT, "merge-base", "--is-ancestor", prior, checkpoint) == ""
+    assert _git(ROOT, "merge-base", "--is-ancestor", checkpoint, "HEAD") == ""
+    rows = list(csv.DictReader((ROOT / "docs/00-governance/ADR_INDEX.csv").open(encoding="utf-8")))
+    assert [row["adr_id"] for row in rows] == [f"ADR-{i:03d}" for i in range(1, 61)]
+    assert sum(row["status"] == "Accepted" for row in rows) == 58
+    assert {row["adr_id"] for row in rows if row["status"] == "Superseded"} == {"ADR-006", "ADR-058"}
+    canonical = list(ROOT.glob(".codex/tasks/TASK-*.json"))
+    operational = list(ROOT.glob(".codex/tasks/operations/TASK-*.json"))
+    ids = [json.loads(p.read_text(encoding="utf-8"))["task_id"] for p in canonical + operational]
+    assert len(canonical) == 765 and len(operational) == 10
+    assert len(ids) == len(set(ids)) == 775
+    assert _git(ROOT, "show", f"{checkpoint}:.codex/tasks/TASK-0041.json", text=False) == _git(
+        ROOT, "show", f"{prior}:.codex/tasks/TASK-0041.json", text=False
+    )
+    old_path = "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md"
+    new_path = "docs/02-architecture/adrs/ADR-060-governanca-operacional-solo-e-recuperacao-excepcional-de-bootstrap.md"
+    old = str(_git(ROOT, "show", f"{prior}:{old_path}"))
+    new = (ROOT / new_path).read_text(encoding="utf-8")
+    anchor = '<a id="owner-decision-shared-partial-delivery"></a>'
+    assert old[old.index(anchor):] == new[new.index(anchor):]
+    assert validate_classification_before_identifier(
+        ROOT, base_revision=prior, candidate_revision=checkpoint, proposal_path=new_path,
+        declared_classification="NEW_ADR", allocated_identifier="ADR-060",
+    ) == []
+    assert validate_new_adr_eligibility(
+        ROOT, base_revision=prior, candidate_revision=checkpoint,
+        proposal_path=new_path, declared_classification="NEW_ADR",
+    ) == []
+    assert validate_effective_task_scope(
+        ROOT, base_revision=prior, authority_checkpoint=checkpoint,
+        candidate_revision=checkpoint, task_envelope_path=".codex/tasks/operations/TASK-0775.json",
+    ) == []

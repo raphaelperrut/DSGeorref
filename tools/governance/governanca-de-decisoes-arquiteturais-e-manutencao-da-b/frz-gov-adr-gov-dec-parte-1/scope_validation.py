@@ -1,15 +1,16 @@
 from __future__ import annotations
 
 import fnmatch
+import re
 import subprocess
 from pathlib import Path, PurePosixPath
 from typing import Any
 
 import yaml
-
 from canonical_json import CanonicalizationError, load_json_bytes
 from foundation_validation_types import Finding
-
+from jsonschema import Draft202012Validator
+from jsonschema.exceptions import SchemaError
 
 FILE_SCOPE_POLICY_PATH = ".codex/policies/file-scopes.yaml"
 
@@ -19,6 +20,7 @@ def _git_bytes(repository_root: Path, revision: str, path: str) -> bytes:
         ["git", "-C", str(repository_root), "show", f"{revision}:{path}"],
         check=False,
         capture_output=True,
+        timeout=20,
     )
     if completed.returncode != 0:
         raise ValueError(f"repository path is unavailable at {revision}: {path}")
@@ -30,6 +32,7 @@ def _changed_paths(repository_root: Path, start: str, end: str) -> tuple[str, ..
         ["git", "-C", str(repository_root), "diff", "--name-only", f"{start}..{end}"],
         check=False,
         capture_output=True,
+        timeout=20,
         encoding="utf-8",
     )
     if completed.returncode != 0:
@@ -45,6 +48,7 @@ def _is_ancestor(repository_root: Path, ancestor: str, descendant: str) -> bool:
         ["git", "-C", str(repository_root), "merge-base", "--is-ancestor", ancestor, descendant],
         check=False,
         capture_output=True,
+        timeout=20,
     )
     return completed.returncode == 0
 
@@ -62,6 +66,25 @@ def _task_at_revision(
         raise ValueError(f"invalid TaskEnvelope authority: {error}") from error
     if not isinstance(task, dict):
         raise ValueError("TaskEnvelope authority must be a JSON object")
+    if PurePosixPath(task_envelope_path).parent == PurePosixPath(".codex/tasks/operations"):
+        try:
+            schema = load_json_bytes(_git_bytes(
+                repository_root, revision, ".codex/tasks/TASK_ENVELOPE.schema.json"
+            ))
+            validator = Draft202012Validator(schema)
+            validator.check_schema(schema)
+            errors = sorted(validator.iter_errors(task), key=lambda error: str(error.path))
+        except (CanonicalizationError, ValueError, TypeError, SchemaError) as error:
+            raise ValueError(f"invalid operational TaskEnvelope schema: {error}") from error
+        if errors or str(task.get("task_id")) + ".json" != PurePosixPath(task_envelope_path).name:
+            raise ValueError("operational TaskEnvelope schema or identity is invalid")
+        canonical_path = ".codex/tasks/" + PurePosixPath(task_envelope_path).name
+        try:
+            _git_bytes(repository_root, revision, canonical_path)
+        except ValueError:
+            pass
+        else:
+            raise ValueError("operational TaskEnvelope collides with canonical inventory")
     return task
 
 
@@ -103,6 +126,8 @@ def _scope_authorities(
 ) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...], tuple[str, ...], tuple[str, ...], set[str], bool]:
     task = _task_at_revision(repository_root, authority_checkpoint, task_envelope_path)
     checkpoint_task = _git_bytes(repository_root, authority_checkpoint, task_envelope_path)
+    if PurePosixPath(task_envelope_path).parent == PurePosixPath(".codex/tasks/operations"):
+        _task_at_revision(repository_root, candidate_revision, task_envelope_path)
     candidate_task = _git_bytes(repository_root, candidate_revision, task_envelope_path)
     role_allow, role_deny = _role_scope_at_revision(
         repository_root, authority_checkpoint, task.get("role")
@@ -148,9 +173,10 @@ def _task_path_findings(task_envelope_path: str) -> list[Finding]:
     valid = (
         not pure.is_absolute()
         and ".." not in pure.parts
-        and pure.parent == PurePosixPath(".codex/tasks")
-        and pure.name.startswith("TASK-")
-        and pure.suffix == ".json"
+        and str(pure) == task_envelope_path
+        and "\\" not in task_envelope_path
+        and pure.parent in {PurePosixPath(".codex/tasks"), PurePosixPath(".codex/tasks/operations")}
+        and re.fullmatch(r"TASK-[0-9]{4}\.json", pure.name) is not None
     )
     if valid:
         return []
@@ -170,11 +196,16 @@ def _checkpoint_findings(
     candidate_revision: str,
 ) -> list[Finding]:
     findings: list[Finding] = []
-    if not _is_ancestor(repository_root, base_revision, authority_checkpoint):
+    try:
+        base_valid = _is_ancestor(repository_root, base_revision, authority_checkpoint)
+        candidate_valid = _is_ancestor(repository_root, authority_checkpoint, candidate_revision)
+    except subprocess.SubprocessError:
+        base_valid = candidate_valid = False
+    if not base_valid:
         findings.append(
             Finding("CHECKPOINT_INVALID", "authority_checkpoint", "checkpoint is not based on base")
         )
-    if not _is_ancestor(repository_root, authority_checkpoint, candidate_revision):
+    if not candidate_valid:
         findings.append(
             Finding(
                 "CHECKPOINT_INVALID",
@@ -217,7 +248,7 @@ def validate_effective_task_scope(
             candidate_revision,
             task_envelope_path,
         )
-    except ValueError as error:
+    except (ValueError, subprocess.SubprocessError) as error:
         return [Finding("SCOPE_AUTHORITY_INVALID", "$", str(error))]
 
     task_control_plane_authorized = (

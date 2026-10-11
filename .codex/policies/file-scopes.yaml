@@ -3,7 +3,7 @@ rules:
   - role: Product Owner
     allow: ["docs/01-product/**", "docs/06-delivery/epics/**"]
     deny: ["src/**", "contracts/**", "tests/**"]
-  - role: Architect
+  - role: Arquiteto
     allow: ["docs/02-architecture/**", "contracts/**"]
     deny: ["src/**"]
   - role: Tech Lead

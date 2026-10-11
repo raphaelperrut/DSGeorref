@@ -180,6 +180,76 @@ SHA e a conformidade residual; integração exige decisão humana.
 A exceção termina após recuperação integrada e validada ou revogação expressa,
 sem reutilização. Rollback é reversão humana dos commits, mantendo a trilha.
 
+## Relatório do candidato de recuperação — execução e desvio
+
+Autoridade executiva: comentário 6103942173, corpo UTF-8 obtido pelo conector
+com SHA-256 3599a77017239e2375e96823e6ea5575514b10ce132d1e047d9ba4a8cee54262; isso não é assinatura DAA.
+Ancestral preservado: 19d5dd00064d03f581b45881a5db73ada8344a74.
+Checkpoint administrativo real: 5eb0c5522365f27adbb159319c7a9abb3e1ab7ca.
+TASK-0775 congelado: SHA-256 canônico d7d0ee005735bed5b33d5250cb5d659f5b3d60741e13c7d29f41f612dccf98a4.
+Atribuição de ID, ativação do envelope e formação/validação de checkpoint foram
+conferidas manualmente sob a exceção. Não recebem PASS automatizado retroativo.
+
+Reparos: classificação prévia resolve registro SAR por Git/digest e exige anterioridade
+à primeira adição do identificador; classifica ausências, posterioridade e adulteração
+fail-closed. A policy só renomeia Architect para Arquiteto. Operations exige schema,
+ID/filename coerentes, ausência de colisão canônica, role e checkpoint congelado;
+preserva denies, ancestry e rejeição de mutação. Não há flag de bypass permanente.
+
+Resultados reais: 36 testes focados PASS; oito validadores normativos/arquitetura
+PASS; imports/erros Python dos módulos reparados PASS.
+Regressão ampla: 9 PASS, 2 FAIL preexistentes (seleção 94/95 e data fixa de 2026-08-23),
+interrompida pelo limite explícito de duas falhas. Reprodução no código histórico
+do ancestral, com inputs inalterados e SHA histórico fixado, confirmou ambas.
+DAA isolado: 3 PASS, 1 FAIL preexistente, expectativa que omite TASK-0738 do trust.
+Nenhuma dessas assertions ou o trust foi alterado.
+
+make verify terminou com exit 2, sem timeout e sem excluir targets.
+Passaram qualidade Python, frontend, 77 delivery gates, oito validadores,
+49 testes de licenciamento e o validador de foundation do monorepo.
+Parou no teste que exige FOUNDATION_INTEGRATION=1 e serviços PostgreSQL/RabbitMQ:
+falha ambiental real, sem flag artificial ou PASS global. Os targets posteriores
+não foram executados. A interrupção Git anterior não se repetiu.
+Runtime: CPython 3.12.13, Node 24.20.0 e pnpm 10.26.1; instalação pelo lock imutável.
+Verificações Git limitadas a 20s; suítes limitadas a 240/300s e make a 600s.
+Configuração Git byte-preserving para fixtures, sem alterar configuração do repo.
+
+Conformidade residual: o verificador de owner/overlap sobre o ancestral retorna
+OWNER_GATE_REQUIRED: a nova ADR não existia como autoridade Accepted naquela base.
+O gate não foi enfraquecido nem declarado PASS; a emergência permite execução,
+não conformidade ordinária integral. A direção ADR-060 é materializada sob o ato
+do Owner, com integração prospectiva ainda dependente de avaliação explícita.
+Nenhum binding/attestation DAA, QA, final review, READY ou merge foi emitido.
+O módulo decision_governance.py tem 408 linhas, com revisão obrigatória pelo
+padrão Python; os dois helpers adicionados têm 29/33 linhas e o módulo 19
+definições top-level. A revisão separada deve abranger esse requisito.
+
+Riscos: ausência de independência pessoal, desvio de bootstrap declarado,
+OWNER_GATE_REQUIRED residual, regressões históricas e integração ambiental não
+concluída. A integração continua bloqueada até os controles aplicáveis, avaliações
+separadas no mesmo SHA e decisão humana. Nenhuma nova cadeia administrativa foi criada.
+Rollback: reversão humana do commit técnico final e, se necessário, do checkpoint
+5eb0c5522365f27adbb159319c7a9abb3e1ab7ca, preservando 19d5dd00064d03f581b45881a5db73ada8344a74, registros e evidências.
+Não há migration, estado de produto ou alteração funcional da #117.
+
+Os logs integrais ficam no diretório temporário dsgeorref-1026-validation-tools;
+os resultados e digests abaixo são preservados neste registro versionado:
+- focused: 1026-focused-1-attempt2.log; SHA-256 ea7c40dceca442770cc180a7c0bf9416cdffc99abdc7d1e197fc837255c78935; exit=0, timeout=False.
+- normative: 1026-normative-1.log; SHA-256 c41fb8505e284d901df85e11a282c986c55c3990678d39f5ab8920d8fdfa2000; exit=0, timeout=False.
+- normative: 1026-normative-2.log; SHA-256 f48889736bab128991fa356409bd825504e605c16af7598420bd600379fc0e24; exit=0, timeout=False.
+- normative: 1026-normative-3.log; SHA-256 20d2be304bb0cf82dbf62b742a75a319a5c3ca719b721ad28ef4cecb154c641f; exit=0, timeout=False.
+- normative: 1026-normative-4.log; SHA-256 b8eba27ee6b5eb4f5f727c066f866ae89400a0064484629710f9a3d81baaf734; exit=0, timeout=False.
+- normative: 1026-normative-5.log; SHA-256 76439ec01a4a2cc01d68c47b2d01ad6b6a36d7737f7d1e54f11118b57d637984; exit=0, timeout=False.
+- normative: 1026-normative-6.log; SHA-256 73e3364f4bc2414a818e4bc691f61e8413c3ebdaa6bf3a3bb977b523ed7caaf4; exit=0, timeout=False.
+- normative: 1026-normative-7.log; SHA-256 599913df38a972474ede3b546e0aec389af752d40675ee1ab69fbae6d2ed90b5; exit=0, timeout=False.
+- normative: 1026-normative-8.log; SHA-256 cdb36b0e1e4e8601839bd57923fa551c54ad44c61d1b960ffc6d36d7237826b7; exit=0, timeout=False.
+- quality: 1026-quality-1-attempt2.log; SHA-256 a47ad41e8914addb3b14a8d4f259158474ddb580d4a5b510ed35efb3938bd21a; exit=0, timeout=False.
+- regressions: 1026-regressions-1.log; SHA-256 43bc41c39cc8ca5907f7d4f9acc05d633d1150b90b3cd9969b0f92de4a41bfed; exit=1, timeout=False.
+- daa: 1026-daa-1.log; SHA-256 d18ba2da25dc11284dc1db2c732160c4a40f01d315f122e67058d4af2589d2c1; exit=1, timeout=False.
+- baseline: 1026-baseline-1.log; SHA-256 d2513712999e98731226804883ac36e73ccba9a5694e1245aaabfbb74278af10; exit=0, timeout=False.
+- make: 1026-make-1.log; SHA-256 63a420cac73d233fed5f17c66e2f95e443c523cca7c8cce4b07beb90bef05925; exit=2, timeout=False.
+- ADR owner/overlap: 1026-adr-conformance.log; SHA-256 9eddc86df19dbf72b9e284e95ecde1748dab33e412a0df2306be2fd4dcdc2292; OWNER_GATE_REQUIRED.
+
 
 ## Reconstrução autorizada da ancestralidade de integração — #1026
 
@@ -197,3 +267,41 @@ TASK-0041, push, PR ou merge nesta reconstrução. A nova classificação deve a
 a primeira adição da ADR; bytes/digests e checkpoint serão vinculados a commits reais.
 A exceção administrativa permanece MANUAL / DEVIATION_DECLARED; não é PASS
 ordinário retroativo. QA e Reviewer incrementais no novo SHA continuam obrigatórios.
+
+
+### Correspondência verificável dos estados de integração
+
+| Evidência original preservada | Substituta no histórico de integração |
+|---|---|
+| Baseline eb22e2e34d9080a6486851cc609b848df7871ae5, com artefatos TASK-0041 | origin/main be97cea01ea2a812e4206cfe0d446f5919b2a8dc, sem transplantar esses artefatos |
+| Classificação 19d5dd00064d03f581b45881a5db73ada8344a74 | d1e62d26b5902e82dda5b96744ce5ac9e45fd65b |
+| Blob SAR prévio 2b8c72b35bdb518f8cb5981d84ceeaed213d3d65843941c452cc99d2eaa59e22 | b848e98486728be4fd7b116a7ab80c6d9864fdf957b2a4069ba8dede773503dd |
+| Checkpoint 5eb0c5522365f27adbb159319c7a9abb3e1ab7ca | bdae1d434e1e36373e58ef17305daef03cabfaff |
+| TASK-0775, identidade lógica e bytes congelados | TASK-0775 no checkpoint substituto, mesmos bytes |
+| Candidato 8b8a97923bc573b08724a5aa9090f4b853417940 | Commit final descendente do checkpoint substituto; SHA identificado pelo Git e relatório externo de validação |
+
+Digest canônico recalculado de TASK-0775: d7d0ee005735bed5b33d5250cb5d659f5b3d60741e13c7d29f41f612dccf98a4.
+Digest SHA-256 dos bytes Git do envelope: 607cb9aaff288cc3526d71c96802a22d757a5ff515778728535dbff573f4785f.
+O congelamento deve ser verificado entre bdae1d434e1e36373e58ef17305daef03cabfaff e o candidato final.
+A ADR-060 ativa referencia a classificação substituta e sua seção de integração;
+os quatro metadados originais e todos os registros históricos foram preservados.
+
+Diferenças permitidas contra o candidato original: CHANGE_CONTROL e SAR-040
+recebem registros adicionais da reconstrução; ADR-060 substitui somente quatro
+metadados de prova/baseline e preserva os originais; test_materialization deriva
+classificação/checkpoint do histórico real, mantém as assertions e adiciona a
+conferência checkpoint→HEAD. Policy, validadores técnicos e demais arquivos
+permanecem byte a byte idênticos. Não há alteração funcional adicional.
+
+Os resultados históricos acima pertencem ao histórico original. Verificações
+reproduzidas deste candidato são registradas em logs novos com SHA real, comandos,
+exits e hashes, sem sobrescrever logs anteriores. Não constituem QA ou Final Review.
+O desvio histórico OWNER_GATE_REQUIRED não recebe PASS retroativo; a verificação
+prospectiva usa o checkpoint substituto. Exceção de formação do checkpoint é
+MANUAL / DEVIATION_DECLARED sob 6113485169; controles automatizados reparados
+devem ser executados e classificados pelo resultado real.
+
+QA e Reviewer incrementais devem avaliar o mesmo novo SHA, as quatro diferenças
+de evidência, anterioridade, unicidade, frozen envelope, scope/denies, conservação
+de SharedPartialDeliveryGate/ADR-007/DAA, testes negativos e riscos residuais.
+Nenhuma aprovação anterior é transferida; não há push, PR ou merge autorizado.
