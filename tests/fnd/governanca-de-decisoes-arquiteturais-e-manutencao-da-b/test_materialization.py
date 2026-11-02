@@ -3124,11 +3124,61 @@ def test_recovery_inventory_lineage_and_shared_gate_preservation() -> None:
     assert [row["adr_id"] for row in rows] == [f"ADR-{i:03d}" for i in range(1, 61)]
     assert sum(row["status"] == "Accepted" for row in rows) == 58
     assert {row["adr_id"] for row in rows if row["status"] == "Superseded"} == {"ADR-006", "ADR-058"}
-    canonical = list(ROOT.glob(".codex/tasks/TASK-*.json"))
-    operational = list(ROOT.glob(".codex/tasks/operations/TASK-*.json"))
-    ids = [json.loads(p.read_text(encoding="utf-8"))["task_id"] for p in canonical + operational]
-    assert len(canonical) == 765 and len(operational) == 10
-    assert len(ids) == len(set(ids)) == 775
+    import io
+    import tarfile
+
+    from canonical_json import load_json_bytes
+    from jsonschema import Draft202012Validator
+
+    snapshots = {}
+    for revision in (checkpoint, "HEAD"):
+        content = _git(ROOT, "archive", "--format=tar", revision, ".codex/tasks", text=False)
+        with tarfile.open(fileobj=io.BytesIO(content)) as archive:
+            schema_file = archive.extractfile(".codex/tasks/TASK_ENVELOPE.schema.json")
+            assert schema_file is not None
+            schema = load_json_bytes(schema_file.read())
+            Draft202012Validator.check_schema(schema)
+            validator = Draft202012Validator(schema)
+            inventory = {}
+            for member in archive.getmembers():
+                path = Path(member.name)
+                if not path.name.startswith("TASK-") or path.suffix != ".json":
+                    continue
+                assert member.isfile()
+                assert path.parent.as_posix() in {
+                    ".codex/tasks", ".codex/tasks/operations"
+                }
+                task_file = archive.extractfile(member)
+                assert task_file is not None
+                data = task_file.read()
+                task = load_json_bytes(data)
+                validator.validate(task)
+                assert path.name == task["task_id"] + ".json"
+                assert task["task_id"] not in inventory
+                inventory[task["task_id"]] = (path.as_posix(), data)
+            snapshots[revision] = inventory
+    historical = snapshots[checkpoint]
+    assert sum(Path(path).parent.as_posix() == ".codex/tasks"
+               for path, _ in historical.values()) == 765
+    assert sum(Path(path).parent.as_posix() == ".codex/tasks/operations"
+               for path, _ in historical.values()) == 10
+    assert len(historical) == 775
+    current = snapshots["HEAD"]
+    assert historical.keys() <= current.keys()
+    assert all(historical[task_id][0] == current[task_id][0] for task_id in historical)
+    # Historical bytes stay in Git; authorized current amendments use their own revision.
+    # Checkpoint/scope gates establish authority, rather than historical byte equality.
+    worktree_paths = {
+        path.relative_to(ROOT).as_posix()
+        for path in ROOT.glob(".codex/tasks/**/TASK-*.json")
+    }
+    assert worktree_paths == {path for path, _ in current.values()}
+    assert _git(ROOT, "diff", "--exit-code", "HEAD", "--", ".codex/tasks") == ""
+    assert all(
+        canonical_json_bytes(load_json_bytes((ROOT / path).read_bytes()))
+        == canonical_json_bytes(load_json_bytes(data))
+        for path, data in current.values()
+    )
     assert _git(ROOT, "show", f"{checkpoint}:.codex/tasks/TASK-0041.json", text=False) == _git(
         ROOT, "show", f"{prior}:.codex/tasks/TASK-0041.json", text=False
     )
