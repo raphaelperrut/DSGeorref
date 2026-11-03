@@ -1180,9 +1180,10 @@ def test_sprint_zero_baseline_decision_01() -> None:
 
 def test_sprint_zero_baseline_decision_02() -> None:
     expected = derive_canonical_sprint_selection(ROOT)
-    assert len(expected) == 94
+    assert len(expected) == 95
     assert "STORY-0688" in expected
     assert "STORY-0760" in expected
+    assert "STORY-0768" in expected
     assert expected == derive_canonical_sprint_selection(ROOT)
     assert validate_graph_derived_selection(ROOT, expected) == []
     arbitrary = validate_graph_derived_selection(ROOT, ("STORY-0001", "STORY-0688"))
@@ -1692,7 +1693,9 @@ def test_daa_operational_trust_boundary() -> None:
 
 def test_daa_trusted_operational_time() -> None:
     task = json.loads((ROOT / ".codex/tasks/TASK-0689.json").read_text(encoding="utf-8"))
-    candidate = _revision(repository=ROOT)
+    candidate = _revision(
+        "62e577745ed04fc22814b0a40a2254cf708639c5^{commit}", repository=ROOT
+    )
 
     def evidence_at(issued_at: str) -> dict[str, Any]:
         evidence = _signed_daa_evidence(task, candidate)
