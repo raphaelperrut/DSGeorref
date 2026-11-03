@@ -22,7 +22,7 @@ upstream copyright/license texts required for redistribution.
 | npm | @types/node | 24.13.3 | MIT | development |
 | npm | jsdom | 30.0.1 | MIT | development |
 | npm | typescript | 6.0.3 | Apache-2.0 | development |
-| npm | vitest | 4.1.11 | MIT | development |
+| npm | vitest | 4.1.12 | MIT | development |
 | npm | @hey-api/client-fetch | 0.13.1 | MIT | runtime |
 | npm | react | 19.2.4 | MIT | runtime |
 | npm | react-dom | 19.2.4 | MIT | runtime |
@@ -30,7 +30,7 @@ upstream copyright/license texts required for redistribution.
 | npm | @oasdiff-js/oasdiff-js | 1.0.0 | Apache-2.0 | development |
 | npm | @types/react | 19.2.14 | MIT | development |
 | npm | @types/react-dom | 19.2.3 | MIT | development |
-| npm | vite | 8.1.5 | MIT | development |
+| npm | vite | 8.1.6 | MIT | development |
 | npm | yaml | 2.8.3 | ISC | development |
 
 The machine-readable source of this table and its input manifests is
