@@ -705,16 +705,34 @@ def test_delivery_approval_authority_v2_public_material_and_signed_trust() -> No
         "DSGEOREF-DELIVERY-APPROVAL-TRUST-PROFILE-V2",
     )
     policy = profile["governance_policies"]
-    assert policy == [
-        {
-            "governance_mode": "SOLO_FUNCTIONAL_SEGREGATION_V1",
-            "personal_independence": "ABSENT_DECLARED",
-            "task_envelope": {
-                "task_id": "TASK-0764",
-                "digest_sha256": "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35",
-            },
-        }
+    pairs = [
+        (item["task_envelope"]["task_id"], item["task_envelope"]["digest_sha256"])
+        for item in policy
     ]
+    assert len(pairs) == len(set(pairs))
+    assert len(pairs) == len({task_id for task_id, _ in pairs})
+    assert {
+        ("TASK-0764", "0e9e95f25b87143a3ee1905a2908ed1b51273c346cdf43ae899860c46c88bb35"),
+        ("TASK-0738", "f84908d577debb9bc3a4d014b8411d3b548648aebf97dcf63284868dba177270"),
+    } <= set(pairs)
+    for item in policy:
+        assert item["governance_mode"] == "SOLO_FUNCTIONAL_SEGREGATION_V1"
+        assert item["personal_independence"] == "ABSENT_DECLARED"
+        for role in ("Executor", "QA", "Reviewer", "Project Owner"):
+            assert any(
+                role in key["roles"]
+                and key["purpose"] == "DELIVERY_ROLE_BINDING"
+                and item["task_envelope"] in key["task_envelopes"]
+                and key["trust_scope"] == profile["trust_scope"]
+                for key in profile["keys"]
+            )
+            assert any(
+                role in key["roles"]
+                and key["purpose"] == "DELIVERY_APPROVAL_ATTESTATION"
+                and item["task_envelope"] in key["task_envelopes"]
+                and key["trust_scope"] == profile["trust_scope"]
+                for key in profile["keys"]
+            )
 
     evidence_root = ROOT / "evidence/delivery-approval-authority/TASK-0764"
     bindings = [
