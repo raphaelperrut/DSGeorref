@@ -1,6 +1,6 @@
 {
   "acceptance_criteria": [
-    "Pin Hey API 0.97.3 and use embedded Fetch, removing external Fetch and vulnerable resolutions. Synchronize direct inventory and notices.",
+    "Pin Hey API 0.97.3 and use embedded Fetch, removing external Fetch and vulnerable resolutions. Synchronize direct inventory and notices. Validate the exact MIT patch classification, upstream attribution and direct dependency correspondence.",
     "Preserve strict TypeScript options and public HTTP contract, operations and consumed exports. Limit consumer adaptations to migration needs.",
     "Patch the generator only if indispensable, via reproducible pnpm patch, preserving property omission semantics and the upstream security fix.",
     "Prove deterministic generation in two disposable environments and validate the emitted runtime against the advisory exploit.",
@@ -35,7 +35,12 @@
     "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/use-identity-access.ts",
     "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx",
     "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/dependency-inventory.json",
-    "THIRD_PARTY_NOTICES.md"
+    "THIRD_PARTY_NOTICES.md",
+    ".reuse/dep5",
+    "LICENSES/MIT.txt",
+    "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/license-inventory.json",
+    "tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
+    "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py"
   ],
   "applicable_specifications": [
     "SPEC-001",
@@ -53,8 +58,6 @@
     "src/geo/**",
     "src/ai/**",
     "contracts/**",
-    "tests/**",
-    "tools/**",
     "infra/**",
     ".github/**",
     "data/**",
@@ -89,7 +92,9 @@
   "evidence": [
     "https://github.com/raphaelperrut/DSGeorref/issues/1020#issuecomment-6694075473",
     "https://github.com/raphaelperrut/DSGeorref/issues/1020#issuecomment-5987216706",
-    "Administrative lineage only: existing STORY-0503/EPIC-080/SPRINT-011/BC-015 as in TASK-0780. Baseline 29f334caa4a1f4b5f6229c05637da749c53a5f54. No canonical story completion or runtime gate PASS is claimed."
+    "Administrative lineage only: existing STORY-0503/EPIC-080/SPRINT-011/BC-015 as in TASK-0780. Baseline 29f334caa4a1f4b5f6229c05637da749c53a5f54. No canonical story completion or runtime gate PASS is claimed.",
+    "https://github.com/raphaelperrut/DSGeorref/issues/1020#issuecomment-6694395501",
+    "Owner-authorized replacement checkpoint after technical candidate 4051fe9892ff7776b0bb3e514b223a5d906ddfeb. Retains original checkpoint 1f94dc61dfca9377e8bfd7e5a1fe62c988c1e877 and technical candidate as ancestors. Tools and tests remain allowlisted only for the two exact publication validator/test paths."
   ],
   "governing_adrs": [
     "ADR-007",
@@ -133,7 +138,9 @@
       "evidence": [
         "https://github.com/raphaelperrut/DSGeorref/issues/1020#issuecomment-6694075473",
         "https://github.com/raphaelperrut/DSGeorref/issues/1020#issuecomment-5987216706",
-        "Administrative lineage only: existing STORY-0503/EPIC-080/SPRINT-011/BC-015 as in TASK-0780. Baseline 29f334caa4a1f4b5f6229c05637da749c53a5f54. No canonical story completion or runtime gate PASS is claimed."
+        "Administrative lineage only: existing STORY-0503/EPIC-080/SPRINT-011/BC-015 as in TASK-0780. Baseline 29f334caa4a1f4b5f6229c05637da749c53a5f54. No canonical story completion or runtime gate PASS is claimed.",
+        "https://github.com/raphaelperrut/DSGeorref/issues/1020#issuecomment-6694395501",
+        "Owner-authorized replacement checkpoint after technical candidate 4051fe9892ff7776b0bb3e514b223a5d906ddfeb. Retains original checkpoint 1f94dc61dfca9377e8bfd7e5a1fe62c988c1e877 and technical candidate as ancestors. Tools and tests remain allowlisted only for the two exact publication validator/test paths."
       ],
       "kinds": [
         "operational TaskEnvelope",
@@ -174,7 +181,12 @@
         "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/use-identity-access.ts",
         "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx",
         "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/dependency-inventory.json",
-        "THIRD_PARTY_NOTICES.md"
+        "THIRD_PARTY_NOTICES.md",
+        ".reuse/dep5",
+        "LICENSES/MIT.txt",
+        "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/license-inventory.json",
+        "tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
+        "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py"
       ],
       "deny_paths": [
         "package.json",
@@ -183,8 +195,6 @@
         "src/geo/**",
         "src/ai/**",
         "contracts/**",
-        "tests/**",
-        "tools/**",
         "infra/**",
         ".github/**",
         "data/**",
@@ -291,7 +301,8 @@
     ".codex/policies/file-scopes.yaml",
     ".codex/tasks/operations/TASK-0780.json",
     "contracts/http/openapi.yaml",
-    "docs/00-governance/START_HERE.md"
+    "docs/00-governance/START_HERE.md",
+    "https://github.com/raphaelperrut/DSGeorref/issues/1020#issuecomment-6694395501"
   ],
   "requirement_basis": "DERIVED_CONTROL",
   "requirements_review_status": "PASS",
