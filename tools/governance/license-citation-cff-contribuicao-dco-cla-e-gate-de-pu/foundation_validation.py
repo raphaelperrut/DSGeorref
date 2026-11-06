@@ -26,12 +26,15 @@ EXPECTED_REQUIREMENTS = [
     "REQ-OSS-001",
     "REQ-PUB-002",
 ]
+HEY_API_PATCH = "patches/@hey-api__openapi-ts@0.97.3.patch"
 EXPECTED_FILE_CLASSES = {
+    "hey-api-patch": ("MIT", "LICENSES/MIT.txt"),
     "application-code": ("AGPL-3.0-or-later", "LICENSES/AGPL-3.0-or-later.txt"),
     "reusable-contracts": ("Apache-2.0", "LICENSES/Apache-2.0.txt"),
     "original-documentation": ("CC-BY-4.0", "LICENSES/CC-BY-4.0.txt"),
 }
 EXPECTED_LICENSE_DIGESTS = {
+    "LICENSES/MIT.txt": "7354457f471fda3d2ef7ae7b7dc758c98a57054875ccc1e211b950646b03bf10",
     "LICENSES/AGPL-3.0-or-later.txt": (
         "d8a6cc31abc16b6748c7a21f21611f5a1ec33f67d22ca23d7da1c19b95496bee"
     ),
@@ -53,7 +56,6 @@ EXPECTED_DEPENDENCY_LICENSES = {
     ("npm", "jsdom"): "MIT",
     ("npm", "typescript"): "Apache-2.0",
     ("npm", "vitest"): "MIT",
-    ("npm", "@hey-api/client-fetch"): "MIT",
     ("npm", "react"): "MIT",
     ("npm", "react-dom"): "MIT",
     ("npm", "@hey-api/openapi-ts"): "MIT",
@@ -64,7 +66,7 @@ EXPECTED_DEPENDENCY_LICENSES = {
     ("npm", "yaml"): "ISC",
 }
 EXPECTED_RUNTIME_DEPENDENCIES = frozenset(
-    {("npm", "@hey-api/client-fetch"), ("npm", "react"), ("npm", "react-dom")}
+    {("npm", "react"), ("npm", "react-dom")}
 )
 ALLOWED_DEPENDENCY_LICENSES = frozenset(EXPECTED_DEPENDENCY_LICENSES.values())
 EXPECTED_ASSET_EXTENSIONS = frozenset(
@@ -230,6 +232,8 @@ def _validated_inventory_classes(inventory: dict[str, Any]) -> list[dict[str, An
             f"invalid license patterns: {class_id}",
         )
         _require(len(patterns) == len(set(patterns)), f"duplicate license pattern: {class_id}")
+        if class_id == "hey-api-patch":
+            _require(patterns == [HEY_API_PATCH], "Hey API patch class must name the exact patch")
         validated.append(item)
     _require(
         {item["id"] for item in validated} == set(EXPECTED_FILE_CLASSES),
@@ -376,8 +380,9 @@ def validate_dep5_inventory(root: Path, inventory: dict[str, Any]) -> dict[str, 
             f"unknown DEP5 license expression: {license_id}",
         )
         _require(license_id not in dep5_by_license, f"duplicate DEP5 license: {license_id}")
+        expected_copyright = "Hey API" if license_id == "MIT" else "2026 Raphael Perrut"
         _require(
-            paragraph["Copyright"] == "2026 Raphael Perrut",
+            paragraph["Copyright"] == expected_copyright,
             f"DEP5 copyright mismatch: {license_id}",
         )
         patterns = paragraph["Files"].split()

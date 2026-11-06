@@ -64,6 +64,14 @@
         "CITATION.cff",
         "NOTICE"
       ]
+    },
+    {
+      "id": "hey-api-patch",
+      "license": "MIT",
+      "license_text": "LICENSES/MIT.txt",
+      "patterns": [
+        "patches/@hey-api__openapi-ts@0.97.3.patch"
+      ]
     }
   ],
   "license_file_patterns": [

@@ -32,7 +32,7 @@ upstream copyright/license texts required for redistribution.
 | npm | vite | 8.1.6 | MIT | development |
 | npm | yaml | 2.8.3 | ISC | development |
 
-The generated OpenAPI client includes the MIT-licensed Fetch runtime from @hey-api/openapi-ts 0.97.3.
+The generated OpenAPI client includes the Fetch runtime from @hey-api/openapi-ts 0.97.3. The local compatibility patch modifies templates from that release. Both retain Hey API's upstream copyright and [MIT license](LICENSES/MIT.txt).
 
 The machine-readable source of this table and its input manifests is
 `docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/dependency-inventory.json`.
