@@ -110,7 +110,7 @@
     {
       "ecosystem": "npm",
       "name": "vitest",
-      "version": "4.1.11",
+      "version": "4.1.12",
       "license": "MIT"
     },
     {
@@ -140,7 +140,7 @@
     {
       "ecosystem": "npm",
       "name": "vite",
-      "version": "8.1.5",
+      "version": "8.1.6",
       "license": "MIT"
     },
     {
