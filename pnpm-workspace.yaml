@@ -1,2 +1,4 @@
 packages:
   - src/frontend
+patchedDependencies:
+  '@hey-api/openapi-ts@0.97.3': patches/@hey-api__openapi-ts@0.97.3.patch

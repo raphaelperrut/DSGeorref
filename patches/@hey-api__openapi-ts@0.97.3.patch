@@ -1,0 +1,135 @@
+diff --git a/dist/clients/core/params.ts b/dist/clients/core/params.ts
+index 3a22b391d165e30c4a70f9504bccb6b099aeea86..f0f1fa5b220537ecf99da87139ba642c586651e7 100644
+--- a/dist/clients/core/params.ts
++++ b/dist/clients/core/params.ts
+@@ -70,7 +70,7 @@ const buildKeyMap = (fields: FieldsConfig, map?: KeyMap): KeyMap => {
+       if (config.key) {
+         map.set(config.key, {
+           in: config.in,
+-          map: config.map,
++          ...(config.map === undefined ? {} : { map: config.map }),
+         });
+       }
+     } else if ('key' in config) {
+diff --git a/dist/clients/core/pathSerializer.ts b/dist/clients/core/pathSerializer.ts
+index 214fe51848f6f2201482eade918ebfb1453d827c..f82bc76f7acdbd4c67f1e6b0c8ca0fb09afd8f28 100644
+--- a/dist/clients/core/pathSerializer.ts
++++ b/dist/clients/core/pathSerializer.ts
+@@ -95,7 +95,7 @@ export const serializeArrayParam = ({
+       }
+
+       return serializePrimitiveParam({
+-        allowReserved,
++        ...(allowReserved === undefined ? {} : { allowReserved }),
+         name,
+         value: v as string,
+       });
+@@ -159,7 +159,7 @@ export const serializeObjectParam = ({
+   const joinedValues = Object.entries(value)
+     .map(([key, v]) =>
+       serializePrimitiveParam({
+-        allowReserved,
++        ...(allowReserved === undefined ? {} : { allowReserved }),
+         name: style === 'deepObject' ? `${name}[${key}]` : key,
+         value: v as string,
+       }),
+diff --git a/dist/clients/core/serverSentEvents.ts b/dist/clients/core/serverSentEvents.ts
+index 16c6fbb780a3a399ac7d882e405bd24c82e57c7d..af145915894f20decbda962b34ef0cff90249f98 100644
+--- a/dist/clients/core/serverSentEvents.ts
++++ b/dist/clients/core/serverSentEvents.ts
+@@ -114,10 +114,11 @@ export function createSseClient<TData = unknown>({
+       }
+
+       try {
++        const { body: _body, serializedBody, ...requestOptions } = options;
+         const requestInit: RequestInit = {
+           redirect: 'follow',
+-          ...options,
+-          body: options.serializedBody,
++          ...requestOptions,
++          ...(serializedBody === undefined ? {} : { body: serializedBody }),
+           headers,
+           signal,
+         };
+@@ -203,8 +204,8 @@ export function createSseClient<TData = unknown>({
+
+               onSseEvent?.({
+                 data,
+-                event: eventName,
+-                id: lastEventId,
++                ...(eventName === undefined ? {} : { event: eventName }),
++                ...(lastEventId === undefined ? {} : { id: lastEventId }),
+                 retry: retryDelay,
+               });
+
+diff --git a/dist/clients/fetch/client.ts b/dist/clients/fetch/client.ts
+index 013dc139d25f37c5a19b0deb0fb7108e245d2a6e..8a88b5dd72b112fada16d003f4f5692fae965599 100644
+--- a/dist/clients/fetch/client.ts
++++ b/dist/clients/fetch/client.ts
+@@ -225,9 +225,9 @@ export const createClient = (config: Config = {}): Client => {
+
+   const makeSseFn = (method: Uppercase<HttpMethod>) => async (options: RequestOptions) => {
+     const { opts, url } = await beforeRequest(options);
++    const { body: _body, ...sseOptions } = opts;
+     return createSseClient({
+-      ...opts,
+-      body: opts.body as BodyInit | null | undefined,
++      ...sseOptions,
+       method,
+       onRequest: async (url, init) => {
+         let request = new Request(url, init);
+diff --git a/dist/clients/fetch/types.ts b/dist/clients/fetch/types.ts
+index 3b344b1d6507f426b642ec7cbdaf7cab0ba3cc9c..fe194844c06c11d77e088e15e0d0751b722dd12e 100644
+--- a/dist/clients/fetch/types.ts
++++ b/dist/clients/fetch/types.ts
+@@ -92,7 +92,7 @@ export interface ResolvedRequestOptions<
+   Url extends string = string,
+ > extends RequestOptions<unknown, TResponseStyle, ThrowOnError, Url> {
+   headers: Headers;
+-  serializedBody?: string;
++  serializedBody?: string | undefined;
+ }
+
+ export type RequestResult<
+diff --git a/dist/clients/fetch/utils.ts b/dist/clients/fetch/utils.ts
+index 29ebb80e4a91b3ad4db41f9009ee238ac6e48d09..aebbf334581771d3572b6bcbe29adca77b16ff2c 100644
+--- a/dist/clients/fetch/utils.ts
++++ b/dist/clients/fetch/utils.ts
+@@ -27,7 +27,7 @@ export const createQuerySerializer = <T = unknown>({
+
+         if (Array.isArray(value)) {
+           const serializedArray = serializeArrayParam({
+-            allowReserved: options.allowReserved,
++            ...(options.allowReserved === undefined ? {} : { allowReserved: options.allowReserved }),
+             explode: true,
+             name,
+             style: 'form',
+@@ -37,7 +37,7 @@ export const createQuerySerializer = <T = unknown>({
+           if (serializedArray) search.push(serializedArray);
+         } else if (typeof value === 'object') {
+           const serializedObject = serializeObjectParam({
+-            allowReserved: options.allowReserved,
++            ...(options.allowReserved === undefined ? {} : { allowReserved: options.allowReserved }),
+             explode: true,
+             name,
+             style: 'deepObject',
+@@ -47,7 +47,7 @@ export const createQuerySerializer = <T = unknown>({
+           if (serializedObject) search.push(serializedObject);
+         } else {
+           const serializedPrimitive = serializePrimitiveParam({
+-            allowReserved: options.allowReserved,
++            ...(options.allowReserved === undefined ? {} : { allowReserved: options.allowReserved }),
+             name,
+             value: value as string,
+           });
+@@ -155,8 +155,8 @@ export async function setAuthParams(
+ export const buildUrl: Client['buildUrl'] = (options) =>
+   getUrl({
+     baseUrl: options.baseUrl as string,
+-    path: options.path,
+-    query: options.query,
++    ...(options.path === undefined ? {} : { path: options.path }),
++    ...(options.query === undefined ? {} : { query: options.query }),
+     querySerializer:
+       typeof options.querySerializer === 'function'
+         ? options.querySerializer

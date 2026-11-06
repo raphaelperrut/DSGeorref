@@ -20,3 +20,7 @@ Files: docs/** evidence/** exports/** AGENTS.md CONTRIBUTING.md GOVERNANCE.md
  SUPPORT.md THIRD_PARTY_NOTICES.md CITATION.cff NOTICE
 Copyright: 2026 Raphael Perrut
 License: CC-BY-4.0
+
+Files: patches/@hey-api__openapi-ts@0.97.3.patch
+Copyright: Hey API
+License: MIT

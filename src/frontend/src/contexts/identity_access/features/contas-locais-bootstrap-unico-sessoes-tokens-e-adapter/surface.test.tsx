@@ -29,8 +29,8 @@ function problem(status: number, code: string, detail = "Pedido recusado") {
 }
 beforeEach(async () => {
   requests = []; replies = [];
-  client.setConfig({ baseUrl: "/api/v1", fetch: async request => {
-    requests.push(request);
+  client.setConfig({ baseUrl: "/api/v1", fetch: async (input, init) => {
+    requests.push(new Request(input, init));
     const next = replies.shift();
     if (next instanceof Error) throw next;
     if (!next) throw new Error("Unexpected request in test");
@@ -234,7 +234,7 @@ test("malformed OIDC callback cannot authenticate", async () => {
 });
 test("pending operation shows loading and prevents duplicate submissions", async () => {
   let release: ((reply: Response) => void) | undefined;
-  client.setConfig({ fetch: async request => { requests.push(request); return new Promise(resolve => { release = resolve; }); } });
+  client.setConfig({ fetch: async (input, init) => { requests.push(new Request(input, init)); return new Promise(resolve => { release = resolve; }); } });
   await submit("Sessão local", { username: "fixture-user", password });
   expect(region("Sessão local").getByRole("status").textContent).toContain("Enviando");
   await submit("Sessão local"); expect(requests).toHaveLength(1);

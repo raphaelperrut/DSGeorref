@@ -56,25 +56,42 @@ def test_layered_spdx_reuse_license_notices_dependency_and_asset_compatibility(
     tmp_path: Path,
 ) -> None:
     result = TOOL.validate_license_inventory(ROOT)
-    assert result["license_classes"] == ["AGPL-3.0-or-later", "Apache-2.0", "CC-BY-4.0"]
-    assert result["dep5_license_classes"] == 3
+    assert result["license_classes"] == [
+        "AGPL-3.0-or-later", "Apache-2.0", "CC-BY-4.0", "MIT",
+    ]
+    assert result["dep5_license_classes"] == 4
     assert result["license_text_digests"] == TOOL.EXPECTED_LICENSE_DIGESTS
     assert result["assigned_paths"] > 3_000
 
     inventory = _load_json(TOOL.LICENSE_INVENTORY_PATH)
     assignments = TOOL.classify_paths(
         inventory,
-        ["src/backend/app.py", "contracts/example.schema.json", "docs/guide.md", "LICENSE"],
+        [
+            "src/backend/app.py",
+            "contracts/example.schema.json",
+            "docs/guide.md",
+            "LICENSE",
+            "patches/@hey-api__openapi-ts@0.97.3.patch",
+        ],
     )
     assert assignments == {
         "src/backend/app.py": "AGPL-3.0-or-later",
         "contracts/example.schema.json": "Apache-2.0",
         "docs/guide.md": "CC-BY-4.0",
         "LICENSE": "LICENSE-TEXT",
+        "patches/@hey-api__openapi-ts@0.97.3.patch": "MIT",
     }
 
     with pytest.raises(TOOL.FoundationValidationError, match="no license class"):
         TOOL.classify_paths(inventory, ["unclassified.xyz"])
+    with pytest.raises(TOOL.FoundationValidationError, match="no license class"):
+        TOOL.classify_paths(inventory, ["patches/unreviewed.patch"])
+
+    widened = copy.deepcopy(inventory)
+    patch_class = next(item for item in widened["classes"] if item["id"] == "hey-api-patch")
+    patch_class["patterns"] = ["patches/*"]
+    with pytest.raises(TOOL.FoundationValidationError, match="exact patch"):
+        TOOL.classify_paths(widened, ["patches/unreviewed.patch"])
     with pytest.raises(TOOL.FoundationValidationError, match="no explicit license record"):
         TOOL.classify_paths(inventory, ["assets/model.onnx"])
 
@@ -104,9 +121,18 @@ def test_layered_spdx_reuse_license_notices_dependency_and_asset_compatibility(
         TOOL.validate_dep5_inventory(tmp_path, inventory)
 
 
+def test_mit_is_rejected_for_explicit_asset_license_record() -> None:
+    inventory = _load_json(TOOL.LICENSE_INVENTORY_PATH)
+    asset_path = "assets/model.onnx"
+    inventory["asset_records"].append({"path": asset_path, "license": "MIT"})
+
+    with pytest.raises(TOOL.FoundationValidationError, match="unknown asset license expression: MIT"):
+        TOOL.classify_paths(inventory, [asset_path])
+
+
 def test_license_and_dependency_inventory() -> None:
     result = TOOL.validate_dependency_inventory(ROOT)
-    assert result == {"direct_dependencies": 23, "runtime_dependencies": 3, "status": "PASS"}
+    assert result == {"direct_dependencies": 22, "runtime_dependencies": 2, "status": "PASS"}
 
     inventory = _load_json(TOOL.DEPENDENCY_INVENTORY_PATH)
     records = inventory["runtime"] + inventory["development_and_validation"]
@@ -143,8 +169,8 @@ def dependency_root(tmp_path: Path) -> Path:
 
 def test_dependency_review_baseline(dependency_root: Path) -> None:
     assert TOOL.validate_dependency_inventory(dependency_root) == {
-        "direct_dependencies": 23,
-        "runtime_dependencies": 3,
+        "direct_dependencies": 22,
+        "runtime_dependencies": 2,
         "status": "PASS",
     }
 

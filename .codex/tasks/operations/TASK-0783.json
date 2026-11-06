@@ -1,0 +1,332 @@
+{
+  "acceptance_criteria": [
+    "Pin Hey API 0.97.3 and use embedded Fetch, removing external Fetch and vulnerable resolutions. Synchronize direct inventory and notices. Validate the exact MIT patch classification, upstream attribution and direct dependency correspondence.",
+    "Preserve strict TypeScript options and public HTTP contract, operations and consumed exports. Limit consumer adaptations to migration needs.",
+    "Patch the generator only if indispensable, via reproducible pnpm patch, preserving property omission semantics and the upstream security fix.",
+    "Prove deterministic generation in two disposable environments and validate the emitted runtime against the advisory exploit.",
+    "Pass frozen installation, OpenAPI check/diff, typecheck, consumer tests, build, audit, make verify and hosted CI.",
+    "Submit one technical PR and require QA, Reviewer, Security Review and applicable DAA on the final SHA before Owner-gated merge. Verify alerts #17/#18 fixed before closing #1020."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-1020-01",
+    "AC-ISSUE-1020-02",
+    "AC-ISSUE-1020-03",
+    "AC-ISSUE-1020-04",
+    "AC-ISSUE-1020-05",
+    "AC-ISSUE-1020-06"
+  ],
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "adr_review_status": "PASS",
+  "allow_paths": [
+    ".codex/tasks/operations/TASK-0783.json",
+    "src/frontend/package.json",
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+    "patches/@hey-api__openapi-ts@0.97.3.patch",
+    "src/frontend/openapi-client.config.json",
+    "src/frontend/tools/openapi/config.mjs",
+    "src/frontend/tools/openapi/generation.mjs",
+    "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/**",
+    "src/frontend/src/contexts/operator_experience/contracts/frontend-shell/index.ts",
+    "src/frontend/src/contexts/operator_experience/adapters/web/bootstrap/shell.tsx",
+    "src/frontend/tests/foundation/shell.test.tsx",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/identity-surface.tsx",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/response-safety.ts",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/use-identity-access.ts",
+    "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx",
+    "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/dependency-inventory.json",
+    "THIRD_PARTY_NOTICES.md",
+    ".reuse/dep5",
+    "LICENSES/MIT.txt",
+    "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/license-inventory.json",
+    "tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
+    "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py",
+    "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_automation.py"
+  ],
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "bounded_context": "BC-015",
+  "context_map_dependencies": [],
+  "cto_review_baseline": "SAR-v3.0-PHASE-G",
+  "cto_review_status": "PASS",
+  "ddd_review_status": "PASS",
+  "deny_paths": [
+    "package.json",
+    ".npmrc",
+    "src/backend/**",
+    "src/geo/**",
+    "src/ai/**",
+    "contracts/**",
+    "infra/**",
+    ".github/**",
+    "data/**",
+    "models/**",
+    "evidence/**",
+    ".codex/policies/**",
+    ".codex/roles/**",
+    ".codex/AGENT_REGISTRY.json",
+    ".codex/tasks/TASK-*.json",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    ".codex/tasks/operations/TASK-076*.json",
+    ".codex/tasks/operations/TASK-077*.json",
+    "docs/00-governance/**",
+    "docs/01-product/**",
+    "docs/02-architecture/**",
+    "docs/04-quality/**",
+    "docs/05-operations/**",
+    "docs/06-delivery/**",
+    "docs/07-assurance/**",
+    "**/migrations/**",
+    "**/.env*",
+    "secrets/**",
+    "credentials/**",
+    "**/*.pem",
+    "**/*.key",
+    "src/frontend/tsconfig.json",
+    "src/frontend/vite.config.ts"
+  ],
+  "dependencies": [],
+  "domain_model_impact": "NONE",
+  "epic_id": "EPIC-080",
+  "evidence": [
+    "https://github.com/raphaelperrut/DSGeorref/issues/1020#issuecomment-6694075473",
+    "https://github.com/raphaelperrut/DSGeorref/issues/1020#issuecomment-5987216706",
+    "Administrative lineage only: existing STORY-0503/EPIC-080/SPRINT-011/BC-015 as in TASK-0780. Baseline 29f334caa4a1f4b5f6229c05637da749c53a5f54. No canonical story completion or runtime gate PASS is claimed.",
+    "https://github.com/raphaelperrut/DSGeorref/issues/1020#issuecomment-6694395501",
+    "Owner-authorized replacement checkpoint after technical candidate 4051fe9892ff7776b0bb3e514b223a5d906ddfeb. Retains original checkpoint 1f94dc61dfca9377e8bfd7e5a1fe62c988c1e877 and technical candidate as ancestors. Tools and tests remain allowlisted only for the two exact publication validator/test paths.",
+    "Hosted publication check 42286630923 exposed the need to include the upstream MIT text and exact patch in its isolated fixture. The same Owner scope extension covers this directly affected verification. Previous checkpoint 885b6bdcfc69ac0dd18fbea886c8f75772372703 and candidate b261a7365e61ca7a4b47e38c9e0b35e43c33f2d3 remain ancestors."
+  ],
+  "governing_adrs": [
+    "ADR-007",
+    "ADR-009",
+    "ADR-013",
+    "ADR-014",
+    "ADR-033",
+    "ADR-059",
+    "ADR-060"
+  ],
+  "issue_id": "ISSUE-1020",
+  "outcome": "Remediate GHSA-hhx9-57xq-r5rw under the authenticated Owner decision for #1020.",
+  "phase_f_review": {
+    "acceptance_criteria": {
+      "count": 6,
+      "ids": [
+        "AC-ISSUE-1020-01",
+        "AC-ISSUE-1020-02",
+        "AC-ISSUE-1020-03",
+        "AC-ISSUE-1020-04",
+        "AC-ISSUE-1020-05",
+        "AC-ISSUE-1020-06"
+      ],
+      "status": "PASS"
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "authorities": [],
+      "protocol_required": false,
+      "status": "PASS"
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "contract_sources": [],
+      "contracts": [],
+      "status": "PASS"
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "contract": null,
+      "evidence": [
+        "https://github.com/raphaelperrut/DSGeorref/issues/1020#issuecomment-6694075473",
+        "https://github.com/raphaelperrut/DSGeorref/issues/1020#issuecomment-5987216706",
+        "Administrative lineage only: existing STORY-0503/EPIC-080/SPRINT-011/BC-015 as in TASK-0780. Baseline 29f334caa4a1f4b5f6229c05637da749c53a5f54. No canonical story completion or runtime gate PASS is claimed.",
+        "https://github.com/raphaelperrut/DSGeorref/issues/1020#issuecomment-6694395501",
+        "Owner-authorized replacement checkpoint after technical candidate 4051fe9892ff7776b0bb3e514b223a5d906ddfeb. Retains original checkpoint 1f94dc61dfca9377e8bfd7e5a1fe62c988c1e877 and technical candidate as ancestors. Tools and tests remain allowlisted only for the two exact publication validator/test paths.",
+        "Hosted publication check 42286630923 exposed the need to include the upstream MIT text and exact patch in its isolated fixture. The same Owner scope extension covers this directly affected verification. Previous checkpoint 885b6bdcfc69ac0dd18fbea886c8f75772372703 and candidate b261a7365e61ca7a4b47e38c9e0b35e43c33f2d3 remain ancestors."
+      ],
+      "kinds": [
+        "operational TaskEnvelope",
+        "checkpoint",
+        "candidate",
+        "validation and reviews"
+      ],
+      "status": "BLOCKED"
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false,
+      "status": "PASS"
+    },
+    "dependencies": {
+      "count": 0,
+      "items": [],
+      "status": "PASS"
+    },
+    "files": {
+      "allow_paths": [
+        ".codex/tasks/operations/TASK-0783.json",
+        "src/frontend/package.json",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml",
+        "patches/@hey-api__openapi-ts@0.97.3.patch",
+        "src/frontend/openapi-client.config.json",
+        "src/frontend/tools/openapi/config.mjs",
+        "src/frontend/tools/openapi/generation.mjs",
+        "src/frontend/src/contexts/operator_experience/contracts/openapi/generated/**",
+        "src/frontend/src/contexts/operator_experience/contracts/frontend-shell/index.ts",
+        "src/frontend/src/contexts/operator_experience/adapters/web/bootstrap/shell.tsx",
+        "src/frontend/tests/foundation/shell.test.tsx",
+        "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/identity-surface.tsx",
+        "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/response-safety.ts",
+        "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/use-identity-access.ts",
+        "src/frontend/src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx",
+        "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/dependency-inventory.json",
+        "THIRD_PARTY_NOTICES.md",
+        ".reuse/dep5",
+        "LICENSES/MIT.txt",
+        "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/license-inventory.json",
+        "tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py",
+        "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py",
+        "tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_automation.py"
+      ],
+      "deny_paths": [
+        "package.json",
+        ".npmrc",
+        "src/backend/**",
+        "src/geo/**",
+        "src/ai/**",
+        "contracts/**",
+        "infra/**",
+        ".github/**",
+        "data/**",
+        "models/**",
+        "evidence/**",
+        ".codex/policies/**",
+        ".codex/roles/**",
+        ".codex/AGENT_REGISTRY.json",
+        ".codex/tasks/TASK-*.json",
+        ".codex/tasks/TASK_ENVELOPE.schema.json",
+        ".codex/tasks/operations/TASK-076*.json",
+        ".codex/tasks/operations/TASK-077*.json",
+        "docs/00-governance/**",
+        "docs/01-product/**",
+        "docs/02-architecture/**",
+        "docs/04-quality/**",
+        "docs/05-operations/**",
+        "docs/06-delivery/**",
+        "docs/07-assurance/**",
+        "**/migrations/**",
+        "**/.env*",
+        "secrets/**",
+        "credentials/**",
+        "**/*.pem",
+        "**/*.key",
+        "src/frontend/tsconfig.json",
+        "src/frontend/vite.config.ts"
+      ],
+      "status": "BLOCKED"
+    },
+    "frontend": {
+      "applicability": "APPLICABLE",
+      "authorities": [
+        "src/frontend/package.json",
+        "src/frontend/openapi-client.config.json",
+        "src/frontend/tsconfig.json",
+        "pnpm-lock.yaml"
+      ],
+      "status": "BLOCKED"
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "authorities": [],
+      "status": "PASS"
+    },
+    "review": {
+      "required_roles": [
+        "QA",
+        "Reviewer",
+        "Security"
+      ],
+      "same_candidate_commit": true,
+      "status": "BLOCKED"
+    },
+    "status": "PASS",
+    "tests": {
+      "items": [
+        "Validate schema, ID uniqueness, baseline-to-checkpoint and baseline-to-candidate scope, frozen envelope bytes and git diff --check.",
+        "Run pnpm install --frozen-lockfile, generate twice in independent copies and compare all generated paths and bytes, OpenAPI check and diff.",
+        "Run frontend typecheck, consumer unit and applicable browser tests, build and smoke tests.",
+        "Reproduce the prototype injection from GHSA-hhx9-57xq-r5rw against generated runtime and verify legitimate requests still serialize. Run pnpm audit and verify all generator resolutions.",
+        "Run inventory and license validation, make verify, and required hosted checks. Capture separate same-SHA reviews and applicable DAA evidence."
+      ],
+      "status": "BLOCKED"
+    }
+  },
+  "phase_g_review": {
+    "applicable_controls": [
+      "CTO-002",
+      "CTO-003",
+      "CTO-010",
+      "CTO-011",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-004",
+      "CTO-005",
+      "CTO-006",
+      "CTO-007",
+      "CTO-008",
+      "CTO-009",
+      "CTO-014"
+    ],
+    "production_gate": "SECURITY_AND_PRIVACY_GATES",
+    "required_evidence": [
+      "Validate schema, ID uniqueness, baseline-to-checkpoint and baseline-to-candidate scope, frozen envelope bytes and git diff --check.",
+      "Run pnpm install --frozen-lockfile, generate twice in independent copies and compare all generated paths and bytes, OpenAPI check and diff.",
+      "Run frontend typecheck, consumer unit and applicable browser tests, build and smoke tests.",
+      "Reproduce the prototype injection from GHSA-hhx9-57xq-r5rw against generated runtime and verify legitimate requests still serialize. Run pnpm audit and verify all generator resolutions.",
+      "Run inventory and license validation, make verify, and required hosted checks. Capture separate same-SHA reviews and applicable DAA evidence."
+    ],
+    "risk_tier": "HIGH",
+    "status": "PASS"
+  },
+  "references": [
+    "https://github.com/raphaelperrut/DSGeorref/issues/1020",
+    "https://github.com/raphaelperrut/DSGeorref/issues/1020#issuecomment-6694075473",
+    "https://github.com/advisories/GHSA-hhx9-57xq-r5rw",
+    "AGENTS.md",
+    "src/frontend/AGENTS.md",
+    ".codex/policies/file-scopes.yaml",
+    ".codex/tasks/operations/TASK-0780.json",
+    "contracts/http/openapi.yaml",
+    "docs/00-governance/START_HERE.md",
+    "https://github.com/raphaelperrut/DSGeorref/issues/1020#issuecomment-6694395501"
+  ],
+  "requirement_basis": "DERIVED_CONTROL",
+  "requirements_review_status": "PASS",
+  "role": "Tech Lead",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "specification_review_status": "PASS",
+  "sprint_id": "SPRINT-011",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "sprint_review_status": "PASS",
+  "stop_conditions": [
+    "Stop on scope or checkpoint validation failure, or if fixing the generator would require a permanent fork, broad changes or contract changes.",
+    "Do not integrate with missing or failed required checks, same-SHA reviews, DAA or authenticated human integration decision."
+  ],
+  "story_id": "STORY-0503",
+  "task_id": "TASK-0783",
+  "tests": [
+    "Validate schema, ID uniqueness, baseline-to-checkpoint and baseline-to-candidate scope, frozen envelope bytes and git diff --check.",
+    "Run pnpm install --frozen-lockfile, generate twice in independent copies and compare all generated paths and bytes, OpenAPI check and diff.",
+    "Run frontend typecheck, consumer unit and applicable browser tests, build and smoke tests.",
+    "Reproduce the prototype injection from GHSA-hhx9-57xq-r5rw against generated runtime and verify legitimate requests still serialize. Run pnpm audit and verify all generator resolutions.",
+    "Run inventory and license validation, make verify, and required hosted checks. Capture separate same-SHA reviews and applicable DAA evidence."
+  ]
+}

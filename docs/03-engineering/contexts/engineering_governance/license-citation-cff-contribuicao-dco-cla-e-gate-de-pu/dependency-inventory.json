@@ -11,12 +11,6 @@
   "runtime": [
     {
       "ecosystem": "npm",
-      "name": "@hey-api/client-fetch",
-      "version": "0.13.1",
-      "license": "MIT"
-    },
-    {
-      "ecosystem": "npm",
       "name": "react",
       "version": "19.2.4",
       "license": "MIT"
@@ -116,7 +110,7 @@
     {
       "ecosystem": "npm",
       "name": "@hey-api/openapi-ts",
-      "version": "0.87.5",
+      "version": "0.97.3",
       "license": "MIT"
     },
     {
