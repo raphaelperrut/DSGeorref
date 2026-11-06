@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "owner": "BC-002",
+  "task": "TASK-0041",
+  "default_decision": "deny",
+  "account_machine": "account",
+  "project_roles": ["owner", "editor", "reviewer", "viewer"],
+  "role_grant_rule": "explicit_grant_for_current_membership",
+  "instance_grant_rule": "explicit_grant_for_account",
+  "operations": {
+    "post_auth_bootstrap": {"permission": "instance:bootstrap", "grant_source": "installation_capability"},
+    "post_auth_session": {"permission": "session:create", "grant_source": "authentication_policy"},
+    "get_auth_oidc_callback": {"permission": "oidc:callback", "grant_source": "authentication_policy"},
+    "delete_auth_session": {"permission": "session:revoke", "grant_source": "central_policy"},
+    "post_auth_tokens": {"permission": "token:create", "grant_source": "central_policy"},
+    "get_projects_projectid_members": {"permission": "project_member:list", "grant_source": "project_membership"},
+    "post_projects_projectid_members": {"permission": "project_member:create", "grant_source": "project_membership"},
+    "get_authorization_check": {"permission": "authorization:check", "grant_source": "central_policy"}
+  },
+  "throttling": {
+    "requirement": "REQ-AUTH-IMPL-007",
+    "machine": "throttle",
+    "evidence": "boundary-evidence.schema.json#/$defs/throttle",
+    "eligible_states": ["open"]
+  }
+}
