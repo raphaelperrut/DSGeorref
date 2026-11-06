@@ -121,6 +121,15 @@ def test_layered_spdx_reuse_license_notices_dependency_and_asset_compatibility(
         TOOL.validate_dep5_inventory(tmp_path, inventory)
 
 
+def test_mit_is_rejected_for_explicit_asset_license_record() -> None:
+    inventory = _load_json(TOOL.LICENSE_INVENTORY_PATH)
+    asset_path = "assets/model.onnx"
+    inventory["asset_records"].append({"path": asset_path, "license": "MIT"})
+
+    with pytest.raises(TOOL.FoundationValidationError, match="unknown asset license expression: MIT"):
+        TOOL.classify_paths(inventory, [asset_path])
+
+
 def test_license_and_dependency_inventory() -> None:
     result = TOOL.validate_dependency_inventory(ROOT)
     assert result == {"direct_dependencies": 22, "runtime_dependencies": 2, "status": "PASS"}

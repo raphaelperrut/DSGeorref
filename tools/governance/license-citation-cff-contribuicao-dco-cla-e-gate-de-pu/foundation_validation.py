@@ -69,6 +69,7 @@ EXPECTED_RUNTIME_DEPENDENCIES = frozenset(
     {("npm", "react"), ("npm", "react-dom")}
 )
 ALLOWED_DEPENDENCY_LICENSES = frozenset(EXPECTED_DEPENDENCY_LICENSES.values())
+ALLOWED_ASSET_LICENSES = frozenset({"AGPL-3.0-or-later", "Apache-2.0", "CC-BY-4.0"})
 EXPECTED_ASSET_EXTENSIONS = frozenset(
     {
         ".bin",
@@ -268,7 +269,7 @@ def _validated_asset_records(inventory: dict[str, Any]) -> dict[str, dict[str, s
         )
         _require(
             isinstance(license_id, str)
-            and license_id in {item[0] for item in EXPECTED_FILE_CLASSES.values()},
+            and license_id in ALLOWED_ASSET_LICENSES,
             f"unknown asset license expression: {license_id}",
         )
         _require(path not in records, f"duplicate asset record: {path}")
