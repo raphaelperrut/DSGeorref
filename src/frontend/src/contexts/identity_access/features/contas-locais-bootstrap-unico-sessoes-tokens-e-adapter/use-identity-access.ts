@@ -18,7 +18,7 @@ type Responses = {
 export type Outcome<T> = { phase: "pending" } | { phase: "success"; data: T }
   | { phase: "failure"; problem: Problem | null; message: string };
 type Results = { [K in keyof Responses]?: Outcome<Responses[K]> };
-type ApiResult = { data?: unknown; error?: unknown; response: Response };
+type ApiResult = { data?: unknown; error?: unknown; response?: Response };
 
 export function useIdentityAccess() {
   const [results, setResults] = useState<Results>({});
@@ -76,6 +76,7 @@ export function useIdentityAccess() {
     try {
       const result = await request(options(controller.signal));
       if (controller.signal.aborted || currentEpoch !== epoch.current) return false;
+      if (!result.response) throw new Error("Missing HTTP response");
       if (!result.response.ok) {
         const problem = result.response.headers.get("content-type")?.split(";")[0]?.trim() === "application/problem+json"
           ? safety.safeProblem(result.error, result.response.status, secrets) : null;

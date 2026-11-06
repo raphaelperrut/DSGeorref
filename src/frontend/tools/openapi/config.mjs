@@ -19,8 +19,8 @@ export async function loadConfig(filename = configPath) {
     schemaVersion: 1,
     source: "contracts/http/openapi.yaml",
     output: "src/frontend/src/contexts/operator_experience/contracts/openapi/generated",
-    generator: { name: "@hey-api/openapi-ts", version: "0.87.5" },
-    transport: { name: "@hey-api/client-fetch", version: "0.13.1", bundle: false },
+    generator: { name: "@hey-api/openapi-ts", version: "0.97.3" },
+    transport: { name: "@hey-api/client-fetch", bundle: true },
     semanticDiff: { name: "@oasdiff-js/oasdiff-js", version: "1.0.0", engineVersion: "1.15.0", baseline: "origin/main" },
   };
   for (const [key, value] of Object.entries(expected)) {

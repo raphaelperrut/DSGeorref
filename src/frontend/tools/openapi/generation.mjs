@@ -8,8 +8,8 @@ export async function generate(sourceBytes, output) {
   await createClient({
     input: parseLocalSource(sourceBytes),
     tsConfigPath: path.join(repositoryRoot, "src/frontend/tsconfig.json"),
-    output: { path: output, format: false, lint: false },
-    plugins: ["@hey-api/typescript", "@hey-api/sdk", { name: "@hey-api/client-fetch", bundle: false }],
+    output: { path: output, postProcess: [] },
+    plugins: ["@hey-api/typescript", "@hey-api/sdk", "@hey-api/client-fetch"],
     logs: { level: "silent" },
   });
 }
