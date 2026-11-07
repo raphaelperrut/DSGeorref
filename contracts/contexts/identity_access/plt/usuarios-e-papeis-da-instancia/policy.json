@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "owner": "BC-002",
   "task": "TASK-0041",
   "default_decision": "deny",
@@ -7,6 +7,17 @@
   "project_roles": ["owner", "editor", "reviewer", "viewer"],
   "role_grant_rule": "explicit_grant_for_current_membership",
   "instance_grant_rule": "explicit_grant_for_account",
+  "owner_decision": "https://github.com/raphaelperrut/DSGeorref/issues/117#issuecomment-6709165678",
+  "self_service_grants": ["session:revoke", "token:create", "authorization:check"],
+  "self_service_target": "authenticated_account",
+  "project_role_grants": {
+    "owner": ["project_member:list", "project_member:create"],
+    "editor": ["project_member:list"],
+    "reviewer": ["project_member:list"],
+    "viewer": ["project_member:list"]
+  },
+  "administrator_project_bypass": false,
+  "grant_must_be_current": true,
   "operations": {
     "post_auth_bootstrap": {"permission": "instance:bootstrap", "grant_source": "installation_capability"},
     "post_auth_session": {"permission": "session:create", "grant_source": "authentication_policy"},
