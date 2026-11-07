@@ -57,6 +57,54 @@ class Federation:
 
     @audit_denial("get_auth_oidc_callback")
     def callback(self, state: str, browser: str, code: str) -> tuple[IssuedSession, bool]:
+        # The attempt survives business rollback, including a deferred commit failure.
+        # A duplicate never owns the attempt and must not invalidate its first caller.
+        self._claim_callback(state)
+        try:
+            return self._callback(state, browser, code)
+        except Denied:
+            self._fail_callback(state)
+            raise
+
+    def _claim_callback(self, state: str) -> None:
+        with self.tx.access.uow() as store:
+            pending = store.get("oidc_transactions", {"state_hash": digest(state)}, lock=True)
+            if not pending or pending["state"] != "pending":
+                raise Denied("oidc_state_invalid")
+            if store.get(
+                "requests",
+                {
+                    "operation": "get_auth_oidc_callback",
+                    "principal_id": pending["account_id"],
+                    "key_hash": digest(state),
+                },
+            ):
+                raise Denied("oidc_state_invalid")
+            replay = self.tx.request(
+                store,
+                "get_auth_oidc_callback",
+                pending["account_id"],
+                state,
+                {"state_hash": digest(state)},
+            )
+            if replay:
+                raise Denied("oidc_state_invalid")
+
+    def _fail_callback(self, state: str) -> None:
+        with self.tx.access.uow() as store:
+            pending = store.get("oidc_transactions", {"state_hash": digest(state)}, lock=True)
+            if pending and pending["state"] == "pending":
+                store.update("oidc_transactions", {"id": pending["id"]}, {"state": "failed"})
+                store.audit(
+                    None,
+                    "get_auth_oidc_callback",
+                    pending["id"],
+                    "DENIED",
+                    self.tx.access.policy.version,
+                    uuid7(),
+                )
+
+    def _callback(self, state: str, browser: str, code: str) -> tuple[IssuedSession, bool]:
         failure, issued, linked = None, None, False
         with self.tx.access.uow() as store:
             pending = store.get("oidc_transactions", {"state_hash": digest(state)}, lock=True)

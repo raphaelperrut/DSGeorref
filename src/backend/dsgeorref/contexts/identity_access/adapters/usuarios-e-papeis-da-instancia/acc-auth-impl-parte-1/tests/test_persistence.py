@@ -5,6 +5,7 @@ import subprocess
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from pathlib import Path
+from threading import Event
 
 import psycopg
 import pytest
@@ -91,7 +92,76 @@ def test_link_commit_failure_exposes_no_link_or_session(runtime):
         assert not store.rows("oidc_links", {"account_id": r.account.id})
         assert len(store.rows("sessions", {"account_id": r.account.id})) == 1
         assert not store.rows("observations", {"action": "link"})
-        assert store.get("oidc_transactions", {"state_hash": digest(state)})["state"] == "pending"
+        assert store.get("oidc_transactions", {"state_hash": digest(state)})["state"] == "failed"
+        attempt = store.get(
+            "requests",
+            {
+                "operation": "get_auth_oidc_callback",
+                "principal_id": r.account.id,
+                "key_hash": digest(state),
+            },
+        )
+        assert attempt is not None and attempt["outcome_id"] is None
+    with pytest.raises(Denied, match="oidc_state_invalid"):
+        federation.callback(state, "browser", "new-code")
+    state, transport.nonce = federation.begin("browser", r.browser(), r.issued.secret)
+    issued, linked = federation.callback(state, "browser", "fresh-code")
+    assert linked and r.access.authenticate(session=issued.secret).account.id == r.account.id
+
+
+def test_callback_replay_is_denied_before_failed_state_cleanup(runtime, monkeypatch):
+    r = runtime
+    transport = SignedProvider("pending")
+    federation = Federation(r.tx, ValidatingOidcProvider(config(), transport))
+    state, transport.nonce = federation.begin("browser", r.browser(), r.issued.secret)
+    failed, release = Event(), Event()
+    fail_callback = federation._fail_callback
+
+    def delayed_cleanup(value):
+        failed.set()
+        assert release.wait(10)
+        fail_callback(value)
+
+    monkeypatch.setattr(federation, "_fail_callback", delayed_cleanup)
+    with reject_commit(r.dsn, "link"), ThreadPoolExecutor(max_workers=1) as executor:
+        first = executor.submit(federation.callback, state, "browser", "code")
+        try:
+            assert failed.wait(10)
+            with pytest.raises(Denied, match="oidc_state_invalid"):
+                federation.callback(state, "browser", "new-code")
+            with r.uow() as store:
+                assert store.get("oidc_transactions", {"state_hash": digest(state)})[
+                    "state"
+                ] == "pending"
+                assert not store.rows("oidc_links", {"account_id": r.account.id})
+                assert len(store.rows("sessions", {"account_id": r.account.id})) == 1
+        finally:
+            release.set()
+        with pytest.raises(Denied, match="internal_error"):
+            first.result(timeout=10)
+    with r.uow() as store:
+        assert store.get("oidc_transactions", {"state_hash": digest(state)})["state"] == "failed"
+
+
+def test_callback_attempt_survives_unavailable_failed_state_cleanup(runtime, monkeypatch):
+    r = runtime
+    transport = SignedProvider("pending")
+    federation = Federation(r.tx, ValidatingOidcProvider(config(), transport))
+    state, transport.nonce = federation.begin("browser", r.browser(), r.issued.secret)
+
+    def unavailable_cleanup(value):
+        raise Denied("internal_error")
+
+    monkeypatch.setattr(federation, "_fail_callback", unavailable_cleanup)
+    with reject_commit(r.dsn, "link"), pytest.raises(Denied, match="internal_error"):
+        federation.callback(state, "browser", "code")
+    # A different server replay-signing key cannot turn the attempt into a fresh callback.
+    monkeypatch.setattr(r.tx, "_replay_key", b"another-server-replay-key-value-32")
+    with pytest.raises(Denied, match="oidc_state_invalid"):
+        federation.callback(state, "browser", "new-code")
+    with r.uow() as store:
+        assert not store.rows("oidc_links", {"account_id": r.account.id})
+        assert len(store.rows("sessions", {"account_id": r.account.id})) == 1
 
 
 def test_concurrent_membership_replay_commits_exactly_once(runtime, members):
