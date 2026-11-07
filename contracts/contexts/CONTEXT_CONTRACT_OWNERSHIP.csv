@@ -77,6 +77,8 @@ contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tok
 contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.schema.json,BC-002,contexts,VERSIONED,NO
 contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/examples.json,BC-002,contexts,VERSIONED,NO
 contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/test_auth_freeze.py,BC-002,contexts,VERSIONED,NO
+contracts/contexts/identity_access/plt/usuarios-e-papeis-da-instancia/policy.json,BC-002,contexts,VERSIONED,NO
+contracts/contexts/identity_access/plt/usuarios-e-papeis-da-instancia/test_instance_policy.py,BC-002,contexts,VERSIONED,NO
 contracts/domain/asset.schema.json,BC-003,domain,VERSIONED,NO
 contracts/domain/attempt.schema.json,BC-013,domain,VERSIONED,NO
 contracts/domain/backup-set.schema.json,BC-013,domain,VERSIONED,NO
