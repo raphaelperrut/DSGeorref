@@ -77,7 +77,9 @@ class Tokens:
             row = store.get("tokens", {"id": token_id}, lock=True)
             if not row or row["account_id"] != principal.account.id:
                 raise Denied("forbidden")
-            self.tx.access.enforce(store, principal, "token:create", row["project_id"])
+            # Own-credential management is account scoped; project grants never
+            # authorize management of another account's token.
+            self.tx.access.enforce(store, principal, "token:create")
             if row["state"] == "active":
                 store.update(
                     "tokens",

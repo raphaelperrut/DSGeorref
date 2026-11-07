@@ -30,6 +30,7 @@ class Federation:
         self, browser: str, request: Provenance, linking_session: str | None = None
     ) -> tuple[str, str]:
         self.tx.web.validate(request)
+        self._provider_authorized()
         if not browser:
             raise Denied("oidc_state_invalid")
         state, nonce = opaque(), opaque()
@@ -39,9 +40,6 @@ class Federation:
             )
             if principal:
                 self.tx.browser_guard(principal, request)
-                self.tx.access.enforce(store, principal, "oidc:callback")
-            elif "oidc:callback" not in self.tx.access.policy.authentication_actions:
-                raise Denied("oidc_state_invalid")
             store.insert(
                 "oidc_transactions",
                 {
@@ -73,6 +71,7 @@ class Federation:
                     if pending["expires_at"] <= store.now():
                         raise Denied("oidc_state_invalid")
                     self.tx.eligible(store, "get_auth_oidc_callback", pending["account_id"])
+                    self._provider_authorized()
                     identity = self.provider.exchange(code, pending["nonce_hash"])
                     if identity.expires_at <= store.now():
                         raise Denied("oidc_exchange_failed")
@@ -131,6 +130,7 @@ class Federation:
         return account_id, link_id, True
 
     def _link_authorized(self, store: Store, pending: Record, account_id: UUID) -> None:
+        self._provider_authorized()
         if pending["account_id"]:
             session = store.get("sessions", {"id": pending["session_id"]}, lock=True)
             if (
@@ -146,11 +146,12 @@ class Federation:
                 source = store.get("oidc_links", {"id": session["oidc_link_id"]})
                 if not source or source["state"] != "linked" or source["account_id"] != account_id:
                     raise Denied("identity_link_conflict")
-            if "oidc:callback" not in self.tx.access.policy.account_grants.get(
-                account_id, frozenset()
-            ):
-                raise Denied("identity_link_conflict")
-        elif "oidc:callback" not in self.tx.access.policy.authentication_actions:
+
+    def _provider_authorized(self) -> None:
+        """Use authentication policy, never a project role or an external claim."""
+        self.tx.access.policy.validate()
+        self.tx.access.profile.validate()
+        if "oidc:callback" not in self.tx.access.policy.authentication_actions:
             raise Denied("oidc_state_invalid")
 
     @audit_denial("unlink")
@@ -158,7 +159,7 @@ class Federation:
         with self.tx.access.uow() as store:
             principal = self.tx.access.load(store, secret, "session")
             self.tx.browser_guard(principal, request)
-            self.tx.access.enforce(store, principal, "oidc:callback")
+            self._provider_authorized()
             link = store.get("oidc_links", {"id": link_id}, lock=True)
             if not link or link["account_id"] != principal.account.id or link["state"] != "linked":
                 raise Denied("identity_link_conflict")
