@@ -34,8 +34,14 @@ def build_transactions(
     eligibility: Eligibility,
     replay_key: bytes,
     policy_path: Path,
+    *,
+    installation_authorized: bool = False,
 ) -> IdentityTransactions:
-    """Missing policy/profile/eligibility fails closed; no synthetic production defaults."""
+    """Installation capability must be verified by the server composition root.
+
+    Merely loading the published policy never authorizes bootstrap. Missing
+    policy/profile/eligibility fails closed; no synthetic production defaults.
+    """
     try:
         document = json.loads(policy_path.read_text(encoding="utf-8"))
         canonical = json.dumps(document, sort_keys=True, separators=(",", ":")).encode()
@@ -53,7 +59,7 @@ def build_transactions(
         installation = frozenset(
             row["permission"]
             for row in operations
-            if row["grant_source"] == "installation_capability"
+            if row["grant_source"] == "installation_capability" and installation_authorized is True
         )
         policy = AuthorizationPolicy(
             document["version"],

@@ -4,8 +4,9 @@ from dataclasses import replace
 from importlib import import_module
 
 import pytest
-from conftest import ADAPTER, APPLICATION, ORIGIN, POLICY, synthetic_profile
+from conftest import ADAPTER, APPLICATION, ORIGIN, PASSWORD, POLICY, synthetic_profile
 from dsgeorref.contexts.identity_access.adapters.local_identity.oidc import ValidatingOidcProvider
+from dsgeorref.contexts.identity_access.application.local_identity.accounts import LocalAccounts
 from dsgeorref.contexts.identity_access.application.local_identity.federation import Federation
 from dsgeorref.contexts.identity_access.domain.local_identity.credentials import uuid7
 from dsgeorref.contexts.identity_access.domain.local_identity.models import Denied
@@ -128,3 +129,20 @@ def test_unavailable_throttle_or_project_authority_fails_closed(runtime, members
     unknown = import_module(APPLICATION + ".memberships").Memberships(r.tx, lambda *args: None)
     with pytest.raises(Denied, match="internal_error"):
         unknown.list(r.issued.secret, "session", project)
+
+
+@pytest.mark.parametrize("capability", [False, None, "true", 1])
+def test_policy_loading_never_grants_installation_capability(runtime, capability):
+    build = import_module(ADAPTER + ".runtime").build_transactions
+    tx = build(
+        runtime.dsn,
+        synthetic_profile(),
+        WebPolicy(ORIGIN),
+        lambda *args: True,
+        b"x" * 32,
+        POLICY,
+        installation_authorized=capability,
+    )
+    assert not tx.access.policy.installation_actions
+    with pytest.raises(Denied, match="validation_failed"):
+        LocalAccounts(tx).bootstrap("other", PASSWORD, "no-capability", runtime.browser())

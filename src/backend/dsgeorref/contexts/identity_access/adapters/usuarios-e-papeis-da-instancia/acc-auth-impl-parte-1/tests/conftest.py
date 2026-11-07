@@ -51,6 +51,7 @@ def runtime(database):
         lambda store, operation, actor: True,
         opaque().encode(),
         POLICY,
+        installation_authorized=True,
     )
     accounts = LocalAccounts(tx)
     account, issued, recovery = accounts.bootstrap(
