@@ -1,0 +1,252 @@
+{
+  "task_id": "TASK-0784",
+  "issue_id": "ISSUE-0824",
+  "story_id": "STORY-0714",
+  "epic_id": "EPIC-009",
+  "sprint_id": "SPRINT-002",
+  "role": "Tech Lead",
+  "outcome": "Manutenção operacional da Issue física #157 / ISSUE-0824 autorizada pelos comentários 6716854361 e 6716883066: materializar este único envelope e corrigir somente o status de STORY-0041 para registrar a entrega contratual delimitada já integrada. A linhagem STORY-0714/EPIC-009/SPRINT-002 identifica o consumidor; não conclui sua entrega técnica. Nenhum PASS de execução é afirmado pelos metadados de planejamento exigidos pelo schema.",
+  "references": [
+    "AGENTS.md",
+    ".codex/roles/ROLE-003-tech-lead.md",
+    ".codex/policies/file-scopes.yaml",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    ".codex/tasks/operations/TASK-0784.json",
+    "docs/00-governance/START_HERE.md",
+    "docs/00-governance/ROLE_AUTHORITY_MATRIX.md",
+    "docs/00-governance/DEFINITION_OF_READY.md",
+    "docs/00-governance/DEFINITION_OF_DONE.md",
+    "docs/00-governance/CHANGE_CONTROL.md",
+    "docs/02-architecture/adrs/ADR-006-prompts-permanentes-taskenvelope-e-precedencia-de-instrucoes.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-059-delivery-approval-authority-em-desenvolvimento-solo.md",
+    "docs/02-architecture/adrs/ADR-060-governanca-operacional-solo-e-recuperacao-excepcional-de-bootstrap.md",
+    "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/scope_validation.py",
+    "tools/governance/delivery_gates/validation.py",
+    "docs/06-delivery/epics/EPIC-009-usuarios-e-papeis-da-instancia.md",
+    ".codex/tasks/TASK-0714.json",
+    "docs/06-delivery/STORY_INDEX.csv",
+    "https://github.com/raphaelperrut/DSGeorref/issues/157#issuecomment-6716854361",
+    "https://github.com/raphaelperrut/DSGeorref/issues/157#issuecomment-6716883066",
+    "https://github.com/raphaelperrut/DSGeorref/issues/117#issuecomment-6709165678",
+    "https://github.com/raphaelperrut/DSGeorref/issues/117#issuecomment-6710154243",
+    "https://github.com/raphaelperrut/DSGeorref/pull/1041"
+  ],
+  "allow_paths": [
+    ".codex/tasks/operations/TASK-0784.json",
+    "docs/06-delivery/STORY_INDEX.csv"
+  ],
+  "deny_paths": [
+    "src/**",
+    "contracts/**",
+    "tools/**",
+    "tests/**",
+    "infra/**",
+    ".github/**",
+    ".codex/policies/**",
+    ".codex/roles/**",
+    ".codex/AGENT_REGISTRY.json",
+    ".codex/tasks/TASK-*.json",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    "evidence/**",
+    "**/.env*",
+    "**/*.pem",
+    "**/*.key",
+    "secrets/**",
+    "credentials/**"
+  ],
+  "acceptance_criteria": [
+    "Materialize only TASK-0784 under the authenticated operational authorization, validate its schema/identity and form a frozen same-branch checkpoint before touching the CSV; preserve technical PR #1042 and original envelopes.",
+    "Change only status of STORY-0041 in STORY_INDEX.csv from planned to done, preserving the exact delimited contractual meaning, every other CSV cell and all other artifacts; hand off actual tests, scope, risks, rollback and gates through one separate governed PR."
+  ],
+  "tests": [
+    "Before checkpoint: strict UTF-8 JSON without duplicate keys, schema 1.7.0, filename/task_id correspondence, global uniqueness across canonical and operational envelopes; confirm baseline f33429b91194177aad3cbd75c3966b1a8c58ea09 and unallocated TASK-0784.",
+    "At K (only this envelope added): run validate_effective_task_scope with base B=f33429b91194177aad3cbd75c3966b1a8c58ea09, authority_checkpoint=K, candidate_revision=K, this operational envelope path. Require empty findings before CSV mutation.",
+    "After CSV edit: compare parsed CSV records against B; require identical header, row count, ordering and every cell except status of exactly STORY-0041 (planned to done). Preserve all other file bytes and TASK-0714.",
+    "On candidate C: run validate_effective_task_scope with base B, authority_checkpoint=K, candidate_revision=C; require envelope bytes identical between K and C, K ancestor of C, and exact two-path B..C diff. Run git diff --check.",
+    "Run test_recovery_inventory_lineage_and_shared_gate_preservation and make verify with pinned runtime/toolchain and required services; record actual exits. No changes to tests, validators, policies or unrelated reports are permitted.",
+    "Obtain separate same-SHA QA and Reviewer for maintenance candidate and required hosted checks. Preserve actual READY/DAA and native protection results; no self-approval or merge without applicable gates and human authorization.",
+    "Only after legitimate integration: resolve actual main SHA M and run tools/validate_repository.py --ready-task TASK-0714 --consumer-base M. Do not manufacture M or report READY PASS in advance."
+  ],
+  "evidence": [
+    "Owner content authority: https://github.com/raphaelperrut/DSGeorref/issues/157#issuecomment-6716854361; operational materialization authority: https://github.com/raphaelperrut/DSGeorref/issues/157#issuecomment-6716883066.",
+    "Retain exact envelope bytes/digest, checkpoint K, candidate C, parsed one-cell CSV comparison, scope findings, actual verification logs and independent functional review results in the Issue/PR or externally retained workdir records; evidence paths are not authorized for tracked mutation.",
+    "STORY-0041 done means only accepted delimited contract delivery integrated by PR #1041/f33429b. No equivalence to missing historical AC-04 originals or digests; no completion of runtime, historical reconciliation, other Stories or production.",
+    "Planning PASS fields mandated by schema constants are planning metadata only. They are not executed tests, QA/Reviewer approval, DAA, READY or merge authorization. Initial execution-specific gates remain BLOCKED until actual validation.",
+    "Technical PR #1042 and SHA 4c1e3578e670c8b5a89b5d10b6bc7a95ffdd16be must remain untouched. TASK-0714 is read-only lineage, not reused execution authority."
+  ],
+  "dependencies": [],
+  "stop_conditions": [
+    "Owner authority not authentic, identity collision, main/baseline drift, competing write lane or unavailable required Git history.",
+    "Checkpoint schema/identity/scope/ancestry fails, or envelope bytes change after K. CSV remains read-only until K is validated.",
+    "Any edit beyond this envelope and the single authorized CSV status cell; no changes to TASK-0714, PR #1042, contracts, trust, policy, tests, graph, other indexes or historical evidence.",
+    "Mandatory checks, separate reviews, DAA or human integration authority unavailable or failed. Do not relabel failures or infer exceptions.",
+    "Need for a second envelope, issue, ADR or automatic normative repair; stop and report the concrete obstacle without creating it."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0824-02",
+    "AC-ISSUE-0824-04"
+  ],
+  "governing_adrs": [
+    "ADR-007",
+    "ADR-059",
+    "ADR-060"
+  ],
+  "requirement_basis": "DERIVED_CONTROL",
+  "requirements_review_status": "BLOCKED",
+  "bounded_context": "BC-001",
+  "context_map_dependencies": [],
+  "domain_model_impact": "NONE",
+  "ddd_review_status": "BLOCKED",
+  "adr_review_status": "PASS",
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "specification_review_status": "PASS",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "phase_f_review": {
+    "status": "PASS",
+    "dependencies": {
+      "status": "PASS",
+      "count": 0,
+      "items": []
+    },
+    "files": {
+      "status": "BLOCKED",
+      "allow_paths": [
+        ".codex/tasks/operations/TASK-0784.json",
+        "docs/06-delivery/STORY_INDEX.csv"
+      ],
+      "deny_paths": [
+        "src/**",
+        "contracts/**",
+        "tools/**",
+        "tests/**",
+        "infra/**",
+        ".github/**",
+        ".codex/policies/**",
+        ".codex/roles/**",
+        ".codex/AGENT_REGISTRY.json",
+        ".codex/tasks/TASK-*.json",
+        ".codex/tasks/TASK_ENVELOPE.schema.json",
+        "evidence/**",
+        "**/.env*",
+        "**/*.pem",
+        "**/*.key",
+        "secrets/**",
+        "credentials/**"
+      ]
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "contracts": [],
+      "contract_sources": []
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": []
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "status": "PASS",
+      "authorities": [],
+      "protocol_required": false
+    },
+    "tests": {
+      "status": "BLOCKED",
+      "items": [
+        "Before checkpoint: strict UTF-8 JSON without duplicate keys, schema 1.7.0, filename/task_id correspondence, global uniqueness across canonical and operational envelopes; confirm baseline f33429b91194177aad3cbd75c3966b1a8c58ea09 and unallocated TASK-0784.",
+        "At K (only this envelope added): run validate_effective_task_scope with base B=f33429b91194177aad3cbd75c3966b1a8c58ea09, authority_checkpoint=K, candidate_revision=K, this operational envelope path. Require empty findings before CSV mutation.",
+        "After CSV edit: compare parsed CSV records against B; require identical header, row count, ordering and every cell except status of exactly STORY-0041 (planned to done). Preserve all other file bytes and TASK-0714.",
+        "On candidate C: run validate_effective_task_scope with base B, authority_checkpoint=K, candidate_revision=C; require envelope bytes identical between K and C, K ancestor of C, and exact two-path B..C diff. Run git diff --check.",
+        "Run test_recovery_inventory_lineage_and_shared_gate_preservation and make verify with pinned runtime/toolchain and required services; record actual exits. No changes to tests, validators, policies or unrelated reports are permitted.",
+        "Obtain separate same-SHA QA and Reviewer for maintenance candidate and required hosted checks. Preserve actual READY/DAA and native protection results; no self-approval or merge without applicable gates and human authorization.",
+        "Only after legitimate integration: resolve actual main SHA M and run tools/validate_repository.py --ready-task TASK-0714 --consumer-base M. Do not manufacture M or report READY PASS in advance."
+      ]
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "status": "BLOCKED",
+      "kinds": [
+        "operational TaskEnvelope",
+        "frozen authority checkpoint",
+        "single-cell delivery status correction"
+      ],
+      "evidence": [
+        "Owner content authority: https://github.com/raphaelperrut/DSGeorref/issues/157#issuecomment-6716854361; operational materialization authority: https://github.com/raphaelperrut/DSGeorref/issues/157#issuecomment-6716883066.",
+        "Retain exact envelope bytes/digest, checkpoint K, candidate C, parsed one-cell CSV comparison, scope findings, actual verification logs and independent functional review results in the Issue/PR or externally retained workdir records; evidence paths are not authorized for tracked mutation.",
+        "STORY-0041 done means only accepted delimited contract delivery integrated by PR #1041/f33429b. No equivalence to missing historical AC-04 originals or digests; no completion of runtime, historical reconciliation, other Stories or production.",
+        "Planning PASS fields mandated by schema constants are planning metadata only. They are not executed tests, QA/Reviewer approval, DAA, READY or merge authorization. Initial execution-specific gates remain BLOCKED until actual validation.",
+        "Technical PR #1042 and SHA 4c1e3578e670c8b5a89b5d10b6bc7a95ffdd16be must remain untouched. TASK-0714 is read-only lineage, not reused execution authority."
+      ],
+      "contract": null
+    },
+    "acceptance_criteria": {
+      "status": "BLOCKED",
+      "count": 2,
+      "ids": [
+        "AC-ISSUE-0824-02",
+        "AC-ISSUE-0824-04"
+      ]
+    },
+    "review": {
+      "status": "BLOCKED",
+      "required_roles": [
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true
+    }
+  },
+  "sprint_review_status": "PASS",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "phase_g_review": {
+    "status": "PASS",
+    "risk_tier": "MEDIUM",
+    "applicable_controls": [
+      "CTO-003",
+      "CTO-010",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-002",
+      "CTO-004",
+      "CTO-005",
+      "CTO-006",
+      "CTO-007",
+      "CTO-008",
+      "CTO-009",
+      "CTO-011",
+      "CTO-014"
+    ],
+    "required_evidence": [
+      "CTO-003: actual pinned runtime and toolchain for required checks; no production claim.",
+      "CTO-010: before merge abandon the unintegrated maintenance branch; after merge only separately authorized governed revert of the status correction, preserving historical evidence.",
+      "CTO-012: authenticated decisions, exact frozen envelope bytes and Git lineage, actual verification results and delimited status semantics.",
+      "CTO-013: unchanged DAA/trust and security contracts; real same-SHA functional reviews and fail-closed gates.",
+      "CTO-015: only the authorized two-path composition and one CSV cell, isolated branch and PR, no direct main or autonomous merge."
+    ],
+    "production_gate": "IMPLEMENTATION_AUTHORIZATION"
+  },
+  "cto_review_status": "PASS",
+  "cto_review_baseline": "SAR-v3.0-PHASE-G"
+}
