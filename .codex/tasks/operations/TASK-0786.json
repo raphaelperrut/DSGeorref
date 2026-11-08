@@ -1,0 +1,233 @@
+{
+  "acceptance_criteria": [
+    "Compatible opt-in composition requires B ancestor K ancestor C, authenticated canonical I ancestor C, K-frozen envelope/policy, complete inherited per-revision provenance and exact merge content. Preserve legacy semantics and fail closed.",
+    "Cover twelve Owner-requested scenarios, cancelled changes, collisions and deny precedence. Reproduce exact PR #1043 B/K/I/C without publishing C or changing TASK-0784, policies or trust.",
+    "Validate prior envelope-only checkpoint on main I. Run focused tests, regressions, make verify, separate same-SHA QA/Reviewer, hosted CI and one independent PR. No merge."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0824-02",
+    "AC-ISSUE-0824-04"
+  ],
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "adr_review_status": "PASS",
+  "allow_paths": [
+    ".codex/tasks/operations/TASK-0786.json",
+    "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/scope_validation.py",
+    "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/scope_authority.py",
+    "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/scope_composition.py",
+    "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/scope_integration.py",
+    "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_scope_composition.py",
+    "docs/06-delivery/SCOPE_COMPOSITION_CONTRACT.md"
+  ],
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "bounded_context": "BC-001",
+  "context_map_dependencies": [],
+  "cto_review_baseline": "SAR-v3.0-PHASE-G",
+  "cto_review_status": "PASS",
+  "ddd_review_status": "PASS",
+  "deny_paths": [
+    "src/**",
+    "infra/**",
+    ".github/**",
+    "contracts/**",
+    "evidence/**",
+    ".codex/policies/**",
+    ".codex/roles/**",
+    ".codex/AGENT_REGISTRY.json",
+    ".codex/tasks/TASK-*.json",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    ".codex/tasks/operations/TASK-0784.json",
+    ".codex/tasks/operations/TASK-0785.json",
+    "**/.env*",
+    "**/*.pem",
+    "**/*.key",
+    "secrets/**",
+    "credentials/**"
+  ],
+  "dependencies": [],
+  "domain_model_impact": "NONE",
+  "epic_id": "EPIC-009",
+  "evidence": [
+    "https://github.com/raphaelperrut/DSGeorref/issues/157#issuecomment-6724496132",
+    "Assignment is materialized by Tech Lead in this envelope under Owner decision and current user instruction. Planning constants do not assert QA, Reviewer, DAA, CI or merge PASS.",
+    "Preserve TASK-0784 and C=1636cf221b81252e01a63f09d477233f735ee465. One corrective task and one separate PR."
+  ],
+  "governing_adrs": [
+    "ADR-007",
+    "ADR-059",
+    "ADR-060"
+  ],
+  "issue_id": "ISSUE-0824",
+  "outcome": "Single operational assignment by Tech Lead under Owner decision 6724496132 and explicit user execution request. Extend ADR-007 scope composition with separate integration authority I and unchanged legacy semantics. Tech Lead executes tools/tests and minimal contract documentation following authenticated architectural direction. STORY-0714/EPIC-009/SPRINT-002 are consumer lineage only. No self QA/final approval. PERSONAL_INDEPENDENCE=ABSENT_DECLARED. No merge or publication of local C.",
+  "phase_f_review": {
+    "acceptance_criteria": {
+      "count": 2,
+      "ids": [
+        "AC-ISSUE-0824-02",
+        "AC-ISSUE-0824-04"
+      ],
+      "status": "BLOCKED"
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "authorities": [],
+      "protocol_required": false,
+      "status": "PASS"
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "contract_sources": [],
+      "contracts": [],
+      "status": "PASS"
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "contract": "docs/06-delivery/SCOPE_COMPOSITION_CONTRACT.md",
+      "evidence": [
+        "https://github.com/raphaelperrut/DSGeorref/issues/157#issuecomment-6724496132",
+        "Assignment is materialized by Tech Lead in this envelope under Owner decision and current user instruction. Planning constants do not assert QA, Reviewer, DAA, CI or merge PASS.",
+        "Preserve TASK-0784 and C=1636cf221b81252e01a63f09d477233f735ee465. One corrective task and one separate PR."
+      ],
+      "kinds": [
+        "frozen envelope",
+        "composition contract",
+        "validator and tests"
+      ],
+      "status": "BLOCKED"
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false,
+      "status": "PASS"
+    },
+    "dependencies": {
+      "count": 0,
+      "items": [],
+      "status": "PASS"
+    },
+    "files": {
+      "allow_paths": [
+        ".codex/tasks/operations/TASK-0786.json",
+        "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/scope_validation.py",
+        "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/scope_authority.py",
+        "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/scope_composition.py",
+        "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/scope_integration.py",
+        "tests/fnd/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/test_scope_composition.py",
+        "docs/06-delivery/SCOPE_COMPOSITION_CONTRACT.md"
+      ],
+      "deny_paths": [
+        "src/**",
+        "infra/**",
+        ".github/**",
+        "contracts/**",
+        "evidence/**",
+        ".codex/policies/**",
+        ".codex/roles/**",
+        ".codex/AGENT_REGISTRY.json",
+        ".codex/tasks/TASK-*.json",
+        ".codex/tasks/TASK_ENVELOPE.schema.json",
+        ".codex/tasks/operations/TASK-0784.json",
+        ".codex/tasks/operations/TASK-0785.json",
+        "**/.env*",
+        "**/*.pem",
+        "**/*.key",
+        "secrets/**",
+        "credentials/**"
+      ],
+      "status": "BLOCKED"
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "authorities": [],
+      "status": "PASS"
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "authorities": [],
+      "status": "PASS"
+    },
+    "review": {
+      "required_roles": [
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true,
+      "status": "BLOCKED"
+    },
+    "status": "PASS",
+    "tests": {
+      "items": [
+        "All twelve requested cases and malformed/missing integration evidence.",
+        "Legacy scope regressions, envelope/checkpoint scope and architecture checks.",
+        "Exact PR #1043 B/K/I/C reproduction with authenticated GitHub metadata and complete content/history verification.",
+        "make verify; focused lint; hosted CI; distinct same-SHA QA and Reviewer."
+      ],
+      "status": "BLOCKED"
+    }
+  },
+  "phase_g_review": {
+    "applicable_controls": [
+      "CTO-002",
+      "CTO-003",
+      "CTO-010",
+      "CTO-011",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-004",
+      "CTO-005",
+      "CTO-006",
+      "CTO-007",
+      "CTO-008",
+      "CTO-009",
+      "CTO-014"
+    ],
+    "production_gate": "SECURITY_AND_PRIVACY_GATES",
+    "required_evidence": [
+      "Authenticated integration identity, inherited content/provenance and frozen scope.",
+      "Twelve cases, legacy regressions, real reproduction, make verify, hosted CI and same-SHA separate reviews."
+    ],
+    "risk_tier": "CRITICAL",
+    "status": "PASS"
+  },
+  "references": [
+    "AGENTS.md",
+    "docs/00-governance/START_HERE.md",
+    "docs/00-governance/ROLE_AUTHORITY_MATRIX.md",
+    "docs/00-governance/ENGINEERING_OPERATING_MODEL.md",
+    ".codex/roles/ROLE-003-tech-lead.md",
+    "docs/03-engineering/PYTHON_CODE_ARCHITECTURE_STANDARD.md",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    ".codex/tasks/operations/TASK-0786.json",
+    "https://github.com/raphaelperrut/DSGeorref/issues/157#issuecomment-6724496132"
+  ],
+  "requirement_basis": "DERIVED_CONTROL",
+  "requirements_review_status": "PASS",
+  "role": "Tech Lead",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "specification_review_status": "PASS",
+  "sprint_id": "SPRINT-002",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "sprint_review_status": "PASS",
+  "stop_conditions": [
+    "Invalid Owner authority, assignment, uniqueness, schema or prior checkpoint.",
+    "Absent, inconsistent or ambiguous proof; no weakening of policy, legacy gates, denies or trust.",
+    "Change beyond compatible composition, lane collision or path outside the envelope."
+  ],
+  "story_id": "STORY-0714",
+  "task_id": "TASK-0786",
+  "tests": [
+    "All twelve requested cases and malformed/missing integration evidence.",
+    "Legacy scope regressions, envelope/checkpoint scope and architecture checks.",
+    "Exact PR #1043 B/K/I/C reproduction with authenticated GitHub metadata and complete content/history verification.",
+    "make verify; focused lint; hosted CI; distinct same-SHA QA and Reviewer."
+  ]
+}
