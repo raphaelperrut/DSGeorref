@@ -1,0 +1,256 @@
+{
+  "acceptance_criteria": [
+    "Materialize only this schema-valid unique operational envelope under the authenticated Owner assignment, with Tech Lead control-plane checkpoint K from B=f33429b91194177aad3cbd75c3966b1a8c58ea09 and successful effective scope validation before editing trust. Actual contract executor is Arquiteto; preserve all original technical/task candidate bytes.",
+    "Copy the exact profile bytes authenticated in signed package SHA256 4a6ef065041b601f26df3a207afef65fad91a44eef8abb2924e538bced406244; require physical profile SHA256 225904ba56f88cb63686ebbbb13a41742e1ebcba088ea402f4f1327ed328efe3. Change only manifest.profile.sha256, preserve anchors, keys, identities, old scopes and signatures; validate all nine public signatures, temporal validity and revocation.",
+    "Prepare one separate maintenance PR with exact three-path scope, frozen envelope, pinned-runtime verification, hosted checks and functionally separate QA/Reviewer on the same SHA. Record actual DAA applicability and own-task verdict without inferring bootstrap exemption or self-coverage. Do not merge, activate trust, issue attestations or modify PRs #1042/#1043."
+  ],
+  "acceptance_criterion_ids": [
+    "AC-ISSUE-0824-02",
+    "AC-ISSUE-0824-04"
+  ],
+  "adr_baseline": "SAR-v2.9-PHASE-F",
+  "adr_review_status": "PASS",
+  "allow_paths": [
+    ".codex/tasks/operations/TASK-0785.json",
+    "contracts/assurance/delivery-approval-authority/trust/profiles/dsgeorref-daa-operational-2.0.0.json",
+    "contracts/assurance/delivery-approval-authority/trust/manifest.json"
+  ],
+  "applicable_specifications": [
+    "SPEC-001",
+    "SPEC-004"
+  ],
+  "bounded_context": "BC-001",
+  "context_map_dependencies": [],
+  "cto_review_baseline": "SAR-v3.0-PHASE-G",
+  "cto_review_status": "PASS",
+  "ddd_review_status": "PASS",
+  "deny_paths": [
+    "contracts/assurance/delivery-approval-authority/trust/anchors/**",
+    ".codex/tasks/TASK-*.json",
+    ".codex/tasks/operations/TASK-0784.json",
+    ".codex/tasks/operations/TASK-0781.json",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    ".codex/policies/**",
+    ".codex/roles/**",
+    ".codex/AGENT_REGISTRY.json",
+    "src/**",
+    "tools/**",
+    "tests/**",
+    "docs/**",
+    ".github/**",
+    "infra/**",
+    "evidence/**",
+    "**/.env*",
+    "**/*.pem",
+    "**/*.key",
+    "secrets/**",
+    "credentials/**"
+  ],
+  "dependencies": [],
+  "domain_model_impact": "NONE",
+  "epic_id": "EPIC-009",
+  "evidence": [
+    "https://github.com/raphaelperrut/DSGeorref/issues/157#issuecomment-6717487764 authorizes one operational instrument, exact signed-profile installation into a maintenance branch, one manifest hash field and one separate PR; no merge/activation authority.",
+    "Administrative role is Tech Lead for TaskEnvelope/checkpoint authority. Contract executor is Arquiteto under the competent-role assignment and existing role catalog; no role/policy changes. Functional context separation does not create personal independence.",
+    "Authenticated public receipt retained in workdir/daa-joint-0784-0714-received/receipt-validation.json; signed package/profile SHA256 fixed in outcome and acceptance criteria. No new signature or attestation is authorized.",
+    "TASK-0784 canonical digest bba1f7c9019b066a6f88d4e2b5ac40645ad3998ab88783092308e6c2faee38fa at 0de5d1fc62a5a8cb36c0560b63e3530fddfdc462; TASK-0714 digest c092f3d7aee87b49e29258f1f833b1aae62b1df6b765ce921a1123596d4409b5 at 4c1e3578e670c8b5a89b5d10b6bc7a95ffdd16be. They are immutable inputs, not reused execution authority.",
+    "Retain assignment, checkpoint/scope results, same-SHA reviews and actual verification outcomes externally or in PR. Schema-mandated PASS planning constants do not declare QA, DAA, READY, CI, merge or activation PASS."
+  ],
+  "governing_adrs": [
+    "ADR-007",
+    "ADR-059",
+    "ADR-060"
+  ],
+  "issue_id": "ISSUE-0824",
+  "outcome": "Single operational trust maintenance assigned under Owner decision 6717487764 in physical Issue #157 / ISSUE-0824. Tech Lead materializes and freezes the control-plane envelope; Arquiteto executes the two contract-path mutations under the competent-role assignment, preserving the administrative role separation used by TASK-0781. Install only the already signed profile bytes SHA256 225904ba56f88cb63686ebbbb13a41742e1ebcba088ea402f4f1327ed328efe3 in a separate maintenance candidate and update only profile.sha256. No activation, merge, new signatures, attestations, or claim of personal independence. STORY-0714 lineage does not complete its technical delivery.",
+  "phase_f_review": {
+    "acceptance_criteria": {
+      "count": 2,
+      "ids": [
+        "AC-ISSUE-0824-02",
+        "AC-ISSUE-0824-04"
+      ],
+      "status": "BLOCKED"
+    },
+    "ai": {
+      "applicability": "NOT_APPLICABLE",
+      "authorities": [],
+      "protocol_required": false,
+      "status": "PASS"
+    },
+    "api": {
+      "applicability": "NOT_APPLICABLE",
+      "contract_sources": [],
+      "contracts": [],
+      "status": "PASS"
+    },
+    "artifacts": {
+      "applicability": "EVIDENCE_ONLY",
+      "contract": "contracts/assurance/delivery-approval-authority/",
+      "evidence": [
+        "https://github.com/raphaelperrut/DSGeorref/issues/157#issuecomment-6717487764 authorizes one operational instrument, exact signed-profile installation into a maintenance branch, one manifest hash field and one separate PR; no merge/activation authority.",
+        "Administrative role is Tech Lead for TaskEnvelope/checkpoint authority. Contract executor is Arquiteto under the competent-role assignment and existing role catalog; no role/policy changes. Functional context separation does not create personal independence.",
+        "Authenticated public receipt retained in workdir/daa-joint-0784-0714-received/receipt-validation.json; signed package/profile SHA256 fixed in outcome and acceptance criteria. No new signature or attestation is authorized.",
+        "TASK-0784 canonical digest bba1f7c9019b066a6f88d4e2b5ac40645ad3998ab88783092308e6c2faee38fa at 0de5d1fc62a5a8cb36c0560b63e3530fddfdc462; TASK-0714 digest c092f3d7aee87b49e29258f1f833b1aae62b1df6b765ce921a1123596d4409b5 at 4c1e3578e670c8b5a89b5d10b6bc7a95ffdd16be. They are immutable inputs, not reused execution authority.",
+        "Retain assignment, checkpoint/scope results, same-SHA reviews and actual verification outcomes externally or in PR. Schema-mandated PASS planning constants do not declare QA, DAA, READY, CI, merge or activation PASS."
+      ],
+      "kinds": [
+        "frozen operational envelope",
+        "signed public profile",
+        "eight signed public bindings",
+        "one-field manifest update"
+      ],
+      "status": "BLOCKED"
+    },
+    "database": {
+      "applicability": "NOT_APPLICABLE",
+      "authorities": [],
+      "migration_required": false,
+      "rollback_required": false,
+      "status": "PASS"
+    },
+    "dependencies": {
+      "count": 0,
+      "items": [],
+      "status": "PASS"
+    },
+    "files": {
+      "allow_paths": [
+        ".codex/tasks/operations/TASK-0785.json",
+        "contracts/assurance/delivery-approval-authority/trust/profiles/dsgeorref-daa-operational-2.0.0.json",
+        "contracts/assurance/delivery-approval-authority/trust/manifest.json"
+      ],
+      "deny_paths": [
+        "contracts/assurance/delivery-approval-authority/trust/anchors/**",
+        ".codex/tasks/TASK-*.json",
+        ".codex/tasks/operations/TASK-0784.json",
+        ".codex/tasks/operations/TASK-0781.json",
+        ".codex/tasks/TASK_ENVELOPE.schema.json",
+        ".codex/policies/**",
+        ".codex/roles/**",
+        ".codex/AGENT_REGISTRY.json",
+        "src/**",
+        "tools/**",
+        "tests/**",
+        "docs/**",
+        ".github/**",
+        "infra/**",
+        "evidence/**",
+        "**/.env*",
+        "**/*.pem",
+        "**/*.key",
+        "secrets/**",
+        "credentials/**"
+      ],
+      "status": "BLOCKED"
+    },
+    "frontend": {
+      "applicability": "NOT_APPLICABLE",
+      "authorities": [],
+      "status": "PASS"
+    },
+    "geo": {
+      "applicability": "NOT_APPLICABLE",
+      "authorities": [],
+      "status": "PASS"
+    },
+    "review": {
+      "required_roles": [
+        "QA",
+        "Reviewer"
+      ],
+      "same_candidate_commit": true,
+      "status": "BLOCKED"
+    },
+    "status": "PASS",
+    "tests": {
+      "items": [
+        "Validate strict UTF-8 JSON, schema 1.7.0, filename/ID, globally unique TASK-0785 and existing ISSUE-0824/STORY-0714 lineage. Planning PASS constants are not executed approvals.",
+        "At checkpoint K containing only this envelope: validate_effective_task_scope(B,K,K) must return no findings before editing the profile or manifest. Record exact envelope bytes and canonical digest under Tech Lead assignment.",
+        "At candidate C: validate_effective_task_scope(B,K,C), B ancestor K ancestor C, immutable envelope bytes K/C and exact three-file diff; compare manifest structurally with B requiring only profile.sha256 changed, compare exact signed profile physical bytes and preserve anchors and original task candidates.",
+        "Verify received ZIP hash and exactly nine raw signatures/nine signed JSON documents; pending/message equivalence, signed-profile root validation, eight role bindings, exact task/digest pairs and preservation of previous scopes. Probe invalid signature and absent/wrong digest with existing verifier; no fixture keys or helper changes.",
+        "Run existing tests/security/delivery_approval_authority and make verify using Python 3.12.13, Node 24.20.0, pnpm 10.26.1 and required services. Retain real logs externally without tracked evidence/report changes.",
+        "Obtain separate same-SHA QA and Reviewer and hosted checks for this maintenance only. Determine DAA gates actually applicable, record own TASK-0785 verifier result without treating root profile validation as delivery approval. Preserve target task FAIL while attestations are absent; no activation or merge."
+      ],
+      "status": "BLOCKED"
+    }
+  },
+  "phase_g_review": {
+    "applicable_controls": [
+      "CTO-002",
+      "CTO-003",
+      "CTO-010",
+      "CTO-011",
+      "CTO-012",
+      "CTO-013",
+      "CTO-015"
+    ],
+    "non_applicable_controls": [
+      "CTO-001",
+      "CTO-004",
+      "CTO-005",
+      "CTO-006",
+      "CTO-007",
+      "CTO-008",
+      "CTO-009",
+      "CTO-014"
+    ],
+    "production_gate": "SECURITY_AND_PRIVACY_GATES",
+    "required_evidence": [
+      "Authenticated competent-role assignment and frozen checkpoint; exact three-path scope.",
+      "Nine verified signatures; preserve root, prior scope and physical profile hash.",
+      "Pinned validation, same-SHA separated reviews, real DAA results and no activation/merge."
+    ],
+    "risk_tier": "CRITICAL",
+    "status": "PASS"
+  },
+  "references": [
+    "AGENTS.md",
+    "docs/00-governance/START_HERE.md",
+    "docs/00-governance/ROLE_AUTHORITY_MATRIX.md",
+    "docs/00-governance/ENGINEERING_OPERATING_MODEL.md",
+    "docs/00-governance/CHANGE_CONTROL.md",
+    ".codex/roles/ROLE-003-tech-lead.md",
+    ".codex/roles/ROLE-002-arquiteto.md",
+    ".codex/policies/file-scopes.yaml",
+    ".codex/tasks/TASK_ENVELOPE.schema.json",
+    ".codex/tasks/operations/TASK-0785.json",
+    ".codex/tasks/operations/TASK-0781.json",
+    ".codex/tasks/TASK-0714.json",
+    "docs/02-architecture/adrs/ADR-007-write-scopes-lanes-paralelas-e-isolamento-de-mudanca.md",
+    "docs/02-architecture/adrs/ADR-059-delivery-approval-authority-em-desenvolvimento-solo.md",
+    "docs/02-architecture/adrs/ADR-060-governanca-operacional-solo-e-recuperacao-excepcional-de-bootstrap.md",
+    "contracts/assurance/delivery-approval-authority/README.md",
+    "tools/governance/delivery_approval_authority/repository.py",
+    "tools/governance/delivery_approval_authority/records.py",
+    "tools/governance/governanca-de-decisoes-arquiteturais-e-manutencao-da-b/frz-gov-adr-gov-dec-parte-1/scope_validation.py",
+    "https://github.com/raphaelperrut/DSGeorref/issues/157#issuecomment-6717487764",
+    "https://github.com/raphaelperrut/DSGeorref/issues/157#issuecomment-6717152863",
+    "https://github.com/raphaelperrut/DSGeorref/pull/1042",
+    "https://github.com/raphaelperrut/DSGeorref/pull/1043"
+  ],
+  "requirement_basis": "DERIVED_CONTROL",
+  "requirements_review_status": "PASS",
+  "role": "Tech Lead",
+  "specification_baseline": "SAR-v2.9-PHASE-F",
+  "specification_review_status": "PASS",
+  "sprint_id": "SPRINT-002",
+  "sprint_review_baseline": "SAR-v2.9-PHASE-F",
+  "sprint_review_status": "PASS",
+  "stop_conditions": [
+    "Authenticated Owner decision, competent-role assignment, unique ID, schema, checkpoint ancestry or effective write scope is absent or invalid.",
+    "Signed ZIP/profile hashes, root, key identity, canonical digest, temporal validity, revocation or preserved fields differ from the authenticated inputs.",
+    "Scope expansion or changes to signatures, policies, validators, anchors, technical envelopes, original candidate SHAs or other branches would be required.",
+    "An applicable execution gate fails: stop the affected operation. Missing maintenance DAA does not become PASS through Owner comment, profile signature, inference or another automatic envelope. Do not merge or activate while mandatory integration gates remain unsatisfied."
+  ],
+  "story_id": "STORY-0714",
+  "task_id": "TASK-0785",
+  "tests": [
+    "Validate strict UTF-8 JSON, schema 1.7.0, filename/ID, globally unique TASK-0785 and existing ISSUE-0824/STORY-0714 lineage. Planning PASS constants are not executed approvals.",
+    "At checkpoint K containing only this envelope: validate_effective_task_scope(B,K,K) must return no findings before editing the profile or manifest. Record exact envelope bytes and canonical digest under Tech Lead assignment.",
+    "At candidate C: validate_effective_task_scope(B,K,C), B ancestor K ancestor C, immutable envelope bytes K/C and exact three-file diff; compare manifest structurally with B requiring only profile.sha256 changed, compare exact signed profile physical bytes and preserve anchors and original task candidates.",
+    "Verify received ZIP hash and exactly nine raw signatures/nine signed JSON documents; pending/message equivalence, signed-profile root validation, eight role bindings, exact task/digest pairs and preservation of previous scopes. Probe invalid signature and absent/wrong digest with existing verifier; no fixture keys or helper changes.",
+    "Run existing tests/security/delivery_approval_authority and make verify using Python 3.12.13, Node 24.20.0, pnpm 10.26.1 and required services. Retain real logs externally without tracked evidence/report changes.",
+    "Obtain separate same-SHA QA and Reviewer and hosted checks for this maintenance only. Determine DAA gates actually applicable, record own TASK-0785 verifier result without treating root profile validation as delivery approval. Preserve target task FAIL while attestations are absent; no activation or merge."
+  ]
+}
