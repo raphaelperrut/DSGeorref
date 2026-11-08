@@ -340,3 +340,42 @@ def test_github_adapter_pins_host_and_rejects_missing_evidence(
         with pytest.raises(ValueError):
             authority._get("")
     assert calls == [["gh", "api", "--hostname", "github.com", "repos/owner/repo"]]
+
+
+@pytest.mark.parametrize("custom_namespace", [False, True])
+def test_replacement_refs_cannot_hide_unauthorized_merge_content(
+    history: dict,
+    monkeypatch: pytest.MonkeyPatch,
+    custom_namespace: bool,
+) -> None:
+    h = history
+    root = h["root"]
+    write(root, "data/forbidden.txt", b"malicious merge resolution")
+    git(root, "add", ".")
+    git(root, "commit", "--amend", "--no-edit")
+    bad = git(root, "rev-parse", "HEAD")
+    assert validate(h, candidate_revision=bad)
+    if custom_namespace:
+        monkeypatch.setenv("GIT_REPLACE_REF_BASE", "refs/scope-replacement/")
+    git(root, "replace", bad, h["candidate"])
+    findings = validate(h, candidate_revision=bad)
+    assert findings
+    assert "replacement refs" in findings[0].detail
+
+
+@pytest.mark.parametrize("environment_file", [False, True])
+def test_graft_overlays_cannot_redefine_pinned_ancestry(
+    history: dict,
+    monkeypatch: pytest.MonkeyPatch,
+    environment_file: bool,
+) -> None:
+    root = history["root"]
+    if environment_file:
+        graft = root / "custom-grafts"
+        monkeypatch.setenv("GIT_GRAFT_FILE", str(graft))
+    else:
+        graft = root / ".git/info/grafts"
+    graft.write_text("", encoding="utf-8")
+    findings = validate(history)
+    assert findings
+    assert "graft overlays" in findings[0].detail

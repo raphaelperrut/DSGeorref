@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import subprocess
 from pathlib import Path
 
@@ -19,6 +20,21 @@ from scope_authority import (
 from scope_integration import GitHubIntegrationAuthority, IntegrationProof, full_commit, git_text
 
 EVIDENCE_ERRORS = (ValueError, TypeError, KeyError, IndexError, OSError, subprocess.SubprocessError)
+
+
+def _reject_object_overlays(root: Path) -> None:
+    # Replacement/graft overlays can change the bytes represented by a pinned SHA.
+    if (
+        os.environ.get("GIT_REPLACE_REF_BASE")
+        or git_text(root, "replace", "--list")
+        or git_text(root, "for-each-ref", "--format=%(refname)", "refs/replace/")
+    ):
+        raise ValueError("Git replacement refs invalidate immutable composition evidence")
+    grafts = Path(git_text(root, "rev-parse", "--git-path", "info/grafts"))
+    if not grafts.is_absolute():
+        grafts = root / grafts
+    if grafts.exists() or os.environ.get("GIT_GRAFT_FILE"):
+        raise ValueError("Git graft overlays invalidate immutable composition evidence")
 
 
 def _parents(root: Path, commit: str) -> tuple[str, ...]:
@@ -151,18 +167,19 @@ def validate_composed_scope(
     integration_proofs: tuple[IntegrationProof, ...],
     integration_authority: GitHubIntegrationAuthority | None,
 ) -> list[Finding]:
-    findings = _task_path_findings(task_envelope_path)
-    findings.extend(
-        _checkpoint_findings(
-            repository_root,
-            base_revision,
-            authority_checkpoint,
-            candidate_revision,
-        )
-    )
-    if findings:
-        return sorted(set(findings))
     try:
+        _reject_object_overlays(repository_root)
+        findings = _task_path_findings(task_envelope_path)
+        findings.extend(
+            _checkpoint_findings(
+                repository_root,
+                base_revision,
+                authority_checkpoint,
+                candidate_revision,
+            )
+        )
+        if findings:
+            return sorted(set(findings))
         for revision in (
             base_revision,
             authority_checkpoint,
