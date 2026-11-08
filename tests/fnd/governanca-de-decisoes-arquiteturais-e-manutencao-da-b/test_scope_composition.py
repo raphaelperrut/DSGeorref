@@ -7,6 +7,7 @@ import subprocess
 import sys
 from dataclasses import replace
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -309,3 +310,33 @@ def test_candidate_must_preserve_original_checkpoint(history: dict) -> None:
     h = history
     findings = validate(h, candidate_revision=h["integration"])
     assert any(f.code == "CHECKPOINT_INVALID" for f in findings)
+
+
+@pytest.mark.parametrize(
+    "code,body,accepted",
+    [(0, '{"id":42}', True), (1, "{}", False), (0, "[]", False), (0, "invalid", False)],
+)
+def test_github_adapter_pins_host_and_rejects_missing_evidence(
+    monkeypatch: pytest.MonkeyPatch,
+    code: int,
+    body: str,
+    accepted: bool,
+) -> None:
+    import scope_integration
+
+    calls = []
+
+    def run(command: list[str], **kwargs: object) -> SimpleNamespace:
+        calls.append(command)
+        assert kwargs["timeout"] == 20
+        return SimpleNamespace(returncode=code, stdout=body)
+
+    monkeypatch.setenv("GH_HOST", "untrusted.example")
+    monkeypatch.setattr(scope_integration.subprocess, "run", run)
+    authority = GitHubIntegrationAuthority("owner/repo", 42)
+    if accepted:
+        assert authority._get("") == {"id": 42}
+    else:
+        with pytest.raises(ValueError):
+            authority._get("")
+    assert calls == [["gh", "api", "--hostname", "github.com", "repos/owner/repo"]]

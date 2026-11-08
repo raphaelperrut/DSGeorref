@@ -60,7 +60,7 @@ class GitHubIntegrationAuthority:
     def _get(self, resource: str) -> dict[str, Any]:
         endpoint = f"repos/{self.repository}" + (f"/{resource}" if resource else "")
         response = subprocess.run(
-            ["gh", "api", endpoint],
+            ["gh", "api", "--hostname", "github.com", endpoint],
             capture_output=True,
             check=False,
             timeout=20,
