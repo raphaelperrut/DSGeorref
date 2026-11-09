@@ -22,3 +22,60 @@ jobs:
         run: |
           test ! -f .env
           ! git ls-files | grep -E '(^|/)(id_rsa|id_ed25519|.*\.pem|.*\.key)$'
+
+  verify-technical-security:
+    needs: secret-pattern-review
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Require the tracked-secret check to succeed
+        env:
+          CHECK_RESULT: ${{ needs.secret-pattern-review.result }}
+        run: test "$CHECK_RESULT" = success
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: '3.12.13'
+
+      - name: Scan repository history for secrets
+        uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITLEAKS_ENABLE_COMMENTS: 'false'
+          GITLEAKS_CONFIG: .github/gitleaks.toml
+          GITLEAKS_VERSION: '8.24.3'
+
+      - name: Prove SPDX exceptions preserve secret detection
+        env:
+          GITLEAKS_BINARY: /tmp/gitleaks-8.24.3/gitleaks
+        run: python -m unittest discover -s tests/fnd/ci -p 'test_secret_scan.py'
+
+      - name: Audit pinned Python validation dependencies
+        uses: pypa/gh-action-pip-audit@1220774d901786e6f652ae159f7b6bc8fea6d266 # v1.1.0
+        with:
+          inputs: requirements-validation.txt
+
+      - name: Audit pinned Python identity runtime dependencies
+        uses: pypa/gh-action-pip-audit@1220774d901786e6f652ae159f7b6bc8fea6d266 # v1.1.0
+        with:
+          inputs: src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt
+
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
+        with:
+          version: '10.26.1'
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24.20.0'
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - name: Audit pinned Node dependencies
+        run: pnpm audit --audit-level high
