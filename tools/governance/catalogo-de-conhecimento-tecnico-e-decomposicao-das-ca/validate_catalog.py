@@ -15,13 +15,15 @@ def _parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--catalog", type=Path, default=CATALOG_PATH)
     parser.add_argument("--corpus", type=Path, default=CORPUS_PATH)
+    parser.add_argument("--technical", action="store_true")
     parser.add_argument("--checkpoint", type=Path, default=CHECKPOINT_PATH)
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
-    findings = validate_paths(args.catalog, args.corpus, args.checkpoint)
+    checkpoint = None if args.technical else args.checkpoint
+    findings = validate_paths(args.catalog, args.corpus, checkpoint)
     report = {
         "catalog": args.catalog.as_posix(),
         "corpus": args.corpus.as_posix(),

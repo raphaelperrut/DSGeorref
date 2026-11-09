@@ -1,5 +1,7 @@
 # Modelo operacional do Codex
 
+> Registro histórico. A [governança vigente](../../GOVERNANCE.md) define o fluxo a partir da integração da #1047.
+
 Codex executa um TaskEnvelope por vez e segue o `AGENTS.md` mais próximo. TaskEnvelope governa write scope; PRD, ADRs, profiles e contratos governam semântica.
 
 Comportamento obrigatório:

@@ -1,5 +1,7 @@
 # Plano de execução paralela para Codex
 
+> Registro histórico. A [governança vigente](../../GOVERNANCE.md) define o fluxo a partir da integração da #1047.
+
 ## Pré-condições
 
 1. História está Product Ready.

@@ -1,5 +1,7 @@
 # Estado atual
 
+> Registro histórico. A [governança vigente](../../GOVERNANCE.md) define o fluxo a partir da integração da #1047.
+
 - **Baseline SAR:** `3.0`
 - **PRD:** integral e rastreado
 - **Arquitetura:** aceita (`ADR-001` a `ADR-058`)

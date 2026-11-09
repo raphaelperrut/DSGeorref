@@ -305,7 +305,7 @@ def test_no_duplicate_modes_processing_plan_roundtrip() -> None:
     _assert_control_rejected("processing_plan_composition", "duplicate_mode", "ALLOW")
 
 
-def test_contract_package_is_registered_and_envelope_is_contained() -> None:
+def test_contract_package_is_registered() -> None:
     manifest = _load_yaml(MANIFEST_PATH)
     assert manifest["status"] == "FROZEN"
     assert manifest["contract_version"] == _profile()["profile_version"] == "1.0.0"
@@ -332,6 +332,9 @@ def test_contract_package_is_registered_and_envelope_is_contained() -> None:
         }
     assert published <= registered
 
+
+def test_contract_package_is_registered_and_envelope_is_contained() -> None:
+    test_contract_package_is_registered()
     task = _load_json(TASK_PATH)
     allow_paths = set(task["allow_paths"])
     assert ".codex/tasks/TASK-0702.json" in allow_paths

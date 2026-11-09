@@ -1,5 +1,7 @@
 # Registro de correções e dependências de integração
 
+> Registro histórico. A [governança vigente](../../GOVERNANCE.md) define o fluxo a partir da integração da #1047.
+
 Este registro separa **hard blockers**, que pertencem ao DAG executável, de relações de integração ou validação que não devem impedir o início de uma história.
 
 | Relação original | Disposição | Relação corrigida | Racional |

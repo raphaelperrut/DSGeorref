@@ -371,19 +371,7 @@ def test_candidate_evidence_set_is_closed_and_fail_closed() -> None:
         TOOL.evaluate_publication_gate(malformed, dco_verified=False)
 
 
-def test_epic_007_fundacao() -> None:
-    report = TOOL.validate_foundation(ROOT)
-    assert report["decision"] == "PASS"
-    assert {name: check["status"] for name, check in report["checks"].items()} == {
-        "checkpoint": "PASS",
-        "ci_integration": "PASS",
-        "citation": "PASS",
-        "licensing": "PASS",
-        "dependencies": "PASS",
-        "contribution": "PASS",
-        "dco": "NOT_REQUESTED",
-    }
-
+def test_publication_gate_requires_all_applicable_evidence() -> None:
     checkpoint = TOOL.validate_checkpoint(ROOT)
     gate = TOOL.evaluate_publication_gate(checkpoint, dco_verified=False)
     assert gate["decision"] == "BLOCKED"
@@ -407,6 +395,31 @@ def test_epic_007_fundacao() -> None:
         "decision": "BLOCKED",
         "blockers": ["DCO_AUTOMATED_CHECK"],
         "status": "PASS",
+    }
+
+    blocked = subprocess.run(
+        [sys.executable, "-X", "utf8", str(TOOL_PATH), "--publication-gate"],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+    assert blocked.returncode == 1, blocked.stderr
+    assert json.loads(blocked.stdout)["decision"] == "BLOCKED"
+
+
+def test_epic_007_fundacao() -> None:
+    report = TOOL.validate_foundation(ROOT)
+    assert report["decision"] == "PASS"
+    assert {name: check["status"] for name, check in report["checks"].items()} == {
+        "checkpoint": "PASS",
+        "ci_integration": "PASS",
+        "citation": "PASS",
+        "licensing": "PASS",
+        "dependencies": "PASS",
+        "contribution": "PASS",
+        "dco": "NOT_REQUESTED",
     }
 
     task = _load_json(TASK_PATH)
@@ -456,14 +469,3 @@ def test_epic_007_fundacao() -> None:
     )
     assert completed.returncode == 0, completed.stderr
     assert json.loads(completed.stdout)["decision"] == "PASS"
-
-    blocked = subprocess.run(
-        [sys.executable, "-X", "utf8", str(TOOL_PATH), "--publication-gate"],
-        cwd=ROOT,
-        check=False,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-    )
-    assert blocked.returncode == 1, blocked.stderr
-    assert json.loads(blocked.stdout)["decision"] == "BLOCKED"

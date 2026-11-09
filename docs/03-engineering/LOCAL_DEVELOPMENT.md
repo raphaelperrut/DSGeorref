@@ -14,13 +14,13 @@
 - TypeScript 6.0 strict como compilador primário; TypeScript 7.0 em lane obrigatória de compatibilidade; Vitest, Testing Library e Playwright;
 - Make como façade estável da toolchain.
 
-Nesta fundação documental, os verificadores continuam exigindo apenas Python compatível e `make`:
+Use CPython 3.12.13, Node 24.20.0 e pnpm 10.26.1. Instale `requirements-validation.txt`, rode `pnpm install --frozen-lockfile` e instale o Chromium da versão de Playwright do workspace. Execute a partir da raiz:
 
 ```bash
-make verify
+make verify OPENAPI_BASE_SHA=origin/main
 ```
 
-A SPRINT-001 criará os lockfiles, manifests, imagens e testes reais. Nenhum runtime ou package citado neste documento está implementado ainda.
+Para o walking skeleton, configure `FOUNDATION_INTEGRATION=1`, `FOUNDATION_DATABASE_URL` e `FOUNDATION_BROKER_URL` com serviços descartáveis. Use os pins e as variáveis de [.github/workflows/ci.yml](../../.github/workflows/ci.yml) como referência. O mesmo workflow define a execução de identidade e migrations em um banco separado e o uso do SHA exato da base no PR.
 
 ## Regras
 

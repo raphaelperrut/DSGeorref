@@ -1,11 +1,8 @@
 # Roadmap de implementação
 
 - **Baseline:** `2.6.0`
-- **Épicos:** `110`
-- **Histórias implementáveis:** `761`
-- **Issues totais:** `871`
 
-A ordem é dirigida pelo DAG e pelos gates. A Fase A está encerrada; coding continua condicionado ao registro externo de autorização.
+GitHub Issues é a fonte do estado e das dependências. As contagens e os backlogs de sprint abaixo registram a decomposição da baseline. Os milestones existentes agrupam SPRINT-001/002 em **Internal**, SPRINT-003 a 008 em **Alpha**, SPRINT-009 a 011 em **Beta** e SPRINT-012 em **v1.0**.
 
 ## Fechamento da Fase A
 

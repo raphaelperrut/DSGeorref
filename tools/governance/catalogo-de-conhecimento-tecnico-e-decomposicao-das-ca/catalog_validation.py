@@ -263,15 +263,16 @@ def _validate_checkpoint(checkpoint: object) -> list[Finding]:
 def validate_paths(
     catalog_path: Path,
     corpus_path: Path,
-    checkpoint_path: Path,
+    checkpoint_path: Path | None,
 ) -> list[Finding]:
     paths = {
         "CATALOG": catalog_path,
         "CATALOG_SCHEMA": CATALOG_SCHEMA_PATH,
         "CORPUS": corpus_path,
         "CORPUS_SCHEMA": CORPUS_SCHEMA_PATH,
-        "CHECKPOINT": checkpoint_path,
     }
+    if checkpoint_path is not None:
+        paths["CHECKPOINT"] = checkpoint_path
     loaded: dict[str, object] = {}
     findings: list[Finding] = []
     for label, path in paths.items():
@@ -290,5 +291,6 @@ def validate_paths(
     findings.extend(_validate_contract(loaded["CONTRACT"]))
     findings.extend(_validate_catalog(loaded["CATALOG"]))
     findings.extend(_validate_corpus(loaded["CORPUS"]))
-    findings.extend(_validate_checkpoint(loaded["CHECKPOINT"]))
+    if checkpoint_path is not None:
+        findings.extend(_validate_checkpoint(loaded["CHECKPOINT"]))
     return sorted(set(findings))

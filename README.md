@@ -12,7 +12,7 @@ Esses elementos descrevem a direção arquitetural e o produto pretendido. A bas
 
 ## Arquitetura e engenharia
 
-O repositório reúne a baseline técnica necessária para orientar a implementação: requisitos, Domain-Driven Design, ADRs, contratos, especificações executáveis, roadmap, histórias implementáveis, TaskEnvelopes e mecanismos de assurance e gates. O runtime primário canônico é **CPython 3.12.13**.
+O repositório reúne a baseline técnica necessária para orientar a implementação: requisitos, Domain-Driven Design, ADRs, contratos, especificações executáveis, roadmap, histórias implementáveis e controles técnicos. O runtime primário canônico é **CPython 3.12.13**.
 
 O programa de revisão arquitetural das fases A–G está concluído conforme o [roadmap de fases](docs/06-delivery/PHASE_ROADMAP.md). Essas fases registram a construção e a revisão da baseline; não são os 12 sprints de implementação. Os pontos de entrada para a arquitetura e suas revisões são:
 
@@ -22,21 +22,11 @@ O programa de revisão arquitetural das fases A–G está concluído conforme o 
 - [Revisão dos sprints — Fase F](docs/07-assurance/PHASE-F-SPRINT-REVIEW-REPORT.md)
 - [CTO Review — Fase G](docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md)
 
-### Estado atual
-
-- A baseline arquitetural e o programa de revisão A–G estão concluídos.
-- A implementação é conduzida de forma incremental por issues e histórias que recebem autorização formal e escopo de escrita explícito.
-- A conclusão de uma issue, história ou conjunto parcial de entregas não encerra um sprint. O fechamento depende da conclusão formal do backlog, dos gates e das evidências aplicáveis ao sprint inteiro.
-
 ## Roadmap de implementação
 
-O roadmap canônico está organizado em **12 sprints**, **110 épicos**, **761 histórias implementáveis** e **871 issues**.
+O [roadmap](docs/06-delivery/ROADMAP.md) organiza capacidades em 12 sprints e quatro milestones. Consulte [GitHub Issues](https://github.com/raphaelperrut/DSGeorref/issues) para estado e dependências e a [governança](GOVERNANCE.md) para o fluxo de desenvolvimento.
 
-Os sprints oferecem a visão temporal e macroscópica da entrega. A ordem efetiva de implementação é governada pelo DAG de dependências, pelos gates e pelos critérios de aceitação; por isso, progresso em issues individuais não implica conclusão do sprint que as contém.
-
-## Sprints
-
-Um checkbox marcado representa o encerramento formal do sprint inteiro, não progresso parcial. Na ausência dessa evidência canônica, o sprint permanece desmarcado.
+## Sprints da baseline
 
 ### [X] SPRINT-001 — Repositório, governança e fundação executável
 
@@ -160,7 +150,7 @@ Um checkbox marcado representa o encerramento formal do sprint inteiro, não pro
 
 ## Validação
 
-Execute `make verify` como entrada principal de validação do repositório. O target reúne os checks automatizados da baseline e dos controles de arquitetura, requisitos, DDD, ADRs, especificações, sprints e fitness functions aplicáveis.
+Execute `make verify` como entrada principal de validação do repositório. O target executa qualidade, contratos, frontend, licenciamento e integração. A CI executa também os testes de identidade com PostgreSQL e as verificações de segurança.
 
 ## Navegação
 
