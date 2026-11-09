@@ -169,7 +169,7 @@ def _slice_findings(root: Path) -> tuple[dict[str, str], list[Finding]]:
     return requirement_tests, findings
 
 
-def _consolidation_findings(root: Path, requirements: set[str]) -> list[Finding]:
+def _consolidation_findings(root: Path, requirements: set[str], *, technical: bool) -> list[Finding]:
     manifest, findings = _load_yaml(root, CONSOLIDATION_MANIFEST_REL, "CONSOLIDATION_UNREADABLE")
     schema, schema_findings = _load_json(root, CONSOLIDATION_SCHEMA_REL, "CONSOLIDATION_UNREADABLE")
     profile, profile_findings = _load_json(
@@ -189,11 +189,15 @@ def _consolidation_findings(root: Path, requirements: set[str]) -> list[Finding]
         and set(coverage.get("requirement_ids", [])) == requirements
         and coverage.get("duplicates") == []
         and coverage.get("unassigned") == []
-        and isinstance(gate, dict)
-        and gate.get("candidate_state") == "READY_FOR_INDEPENDENT_REVIEW"
-        and "STORY-0018" in gate.get("eligible_dependents", [])
-        and gate.get("self_approval") == "PROHIBITED"
     )
+    if not technical:
+        valid = (
+            valid
+            and isinstance(gate, dict)
+            and gate.get("candidate_state") == "READY_FOR_INDEPENDENT_REVIEW"
+            and "STORY-0018" in gate.get("eligible_dependents", [])
+            and gate.get("self_approval") == "PROHIBITED"
+        )
     expected_artifacts = {
         relative.as_posix()
         for package in SLICE_PACKAGES
@@ -239,9 +243,9 @@ def _consolidation_findings(root: Path, requirements: set[str]) -> list[Finding]
     return findings
 
 
-def validate_contracts(root: Path) -> tuple[list[Finding], list[str]]:
+def validate_contracts(root: Path, *, technical: bool = False) -> tuple[list[Finding], list[str]]:
     resolved = root.resolve()
     requirement_tests, findings = _slice_findings(resolved)
-    findings.extend(_consolidation_findings(resolved, set(requirement_tests)))
+    findings.extend(_consolidation_findings(resolved, set(requirement_tests), technical=technical))
     findings.extend(validate_registry(resolved))
     return sorted(set(findings)), sorted(requirement_tests)

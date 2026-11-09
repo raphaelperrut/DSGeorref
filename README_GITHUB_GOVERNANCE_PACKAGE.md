@@ -1,5 +1,7 @@
 # DSGeorref GitHub Governance Package v3.1.0
 
+> Registro histórico. A [governança vigente](GOVERNANCE.md) define o fluxo a partir da integração da #1047.
+
 Pacote de materialização e hardening para o repositório `raphaelperrut/DSGeorref` e o Project central.
 
 ## Escopo

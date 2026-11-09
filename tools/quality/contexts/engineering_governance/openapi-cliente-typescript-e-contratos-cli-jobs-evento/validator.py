@@ -21,6 +21,7 @@ def _parser() -> argparse.ArgumentParser:
         default=Path(__file__).resolve().parents[5],
         help="Repository root containing the frozen EPIC-004 contract packages.",
     )
+    parser.add_argument("--technical", action="store_true")
     parser.add_argument(
         "--dry-run",
         action="store_true",
@@ -47,8 +48,9 @@ def _report(
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
-        findings, requirements = validate_contracts(args.repository_root)
-        findings = sorted(set(findings + validate_repository_controls(args.repository_root)))
+        findings, requirements = validate_contracts(args.repository_root, technical=args.technical)
+        if not args.technical:
+            findings = sorted(set(findings + validate_repository_controls(args.repository_root)))
     except Exception as error:  # CLI boundary: fail closed without leaking a traceback.
         findings = [Finding("VALIDATOR_INTERNAL_ERROR", ".", str(error))]
         requirements = []

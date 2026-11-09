@@ -1,5 +1,7 @@
 # Modelo operacional de engenharia orientada por IA
 
+> Registro histórico. A [governança vigente](../../GOVERNANCE.md) define o fluxo a partir da integração da #1047.
+
 ## Cadeia de entrega
 
 `Product Owner → Arquiteto → Tech Lead → Implementador Especialista → QA → Reviewer → Autoridade Humana de Merge`

@@ -1,52 +1,8 @@
 # Comece aqui
 
-## Ordem de contexto mínimo
+1. Leia a [governança](../../GOVERNANCE.md) e a issue no GitHub.
+2. Localize o [PRD](../01-product/PRD.md), os requisitos, o [módulo](../02-architecture/MODULE_CATALOG.md) e os ADRs e contratos que a mudança afeta.
+3. Confirme o escopo, os pré-requisitos e os critérios de [Ready](DEFINITION_OF_READY.md). Leia o AGENTS.md aplicável.
+4. Implemente, teste e abra o PR vinculado à issue. Use a [definição de Done](DEFINITION_OF_DONE.md) para conferir a entrega.
 
-1. `docs/01-product/PRD.md`
-2. `docs/02-architecture/MODULE_CATALOG.md` e o módulo atribuído
-3. relatório da Fase A em `docs/07-assurance/PHASE-A-ARCHITECTURE-REVIEW-REPORT.md`
-4. sprint e backlog em `docs/06-delivery/sprints/` e `sprint-backlogs/`
-5. épico pai
-6. história/issue filha
-7. TaskEnvelope em `.codex/tasks/`
-8. requisitos, ADRs e contratos referenciados
-9. `AGENTS.md` aplicável ao path de escrita
-
-## Inventário ativo
-
-- 376 requisitos
-- 58 ADRs Accepted/vigentes (60 registros totais; 2 Superseded)
-- 18 módulos
-- 12 sprints
-- 110 épicos
-- 765 histórias implementáveis
-- 875 issues canônicas (IDs operacionais reservados permanecem separados)
-- 765 tarefas Codex canônicas e 10 envelopes operacionais
-
-## Regra de execução
-
-Nenhum agente escolhe trabalho por conta própria. O Tech Lead atribui uma história cujo grafo esteja liberado e cujo write scope não colida. QA e Reviewer validam o mesmo commit candidato de forma independente.
-
-
-## Fechamento da Fase A (2.6.0)
-
-Arquitetura aprovada, ações AR-ACT-001 a AR-ACT-004 encerradas, snapshot histórico de 22 ADRs aceitas e entrada na Fase B autorizada.
-
-## Fase B — Requirements Review (2.6.0)
-
-Revisão concluída e aprovada: 12 sprints, 869 issues, 376 requisitos, snapshot histórico de 22 ADRs e todos os critérios de aceite reconciliados. Zero conflito, requisito impossível ou ciclo bloqueante permanece aberto.
-## Fase G — CTO Review
-
-A due diligence técnica final está em `docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md`. Custos, capacidade, locks, dependências, saída de tecnologias, SLOs, recuperação, segurança, LGPD e rollback possuem contracts e gates executáveis.
-
-## Modelo solo prospectivo — ADR-060
-
-Uma pessoa humana pode acumular competências formalmente atribuídas de produto,
-arquitetura, liderança técnica e autoridade humana de merge. Uma manifestação
-autenticada pode exercer competências acumuláveis, sem repetição como pessoas
-diferentes. Executor, QA e Reviewer permanecem em passes e contextos separados,
-com evidências reais sobre o mesmo SHA. A independência pessoal é ausente e
-declarada; sessões Codex não representam pessoas ou principais independentes.
-DAA/trust e exigências expressas de independência estrita mantêm suas fontes.
-Os gates obrigatórios de cada etapa permanecem. A exceção operacional da #1026
-é de uso único e consta de CHANGE_CONTROL; não é READY, QA, final review ou merge.
+O [roadmap](../06-delivery/ROADMAP.md) organiza os incrementos. Os relatórios A–G em [assurance](../07-assurance/) registram a formação da baseline.

@@ -30,7 +30,7 @@ Linhas em branco e comentários continuam contando no limite físico porque arqu
 
 ## Anti-alucinação
 
-Antes de escrever código, o agente deve localizar o requisito, ADR, contrato, módulo, história e TaskEnvelope. Endpoint, tabela, estado, evento, path, profile ou regra inexistente não pode ser inventado. Contradição ou ausência interrompe a tarefa.
+Antes de escrever código, o agente deve localizar a issue, o módulo e os requisitos, ADRs e contratos aplicáveis. Endpoint, tabela, estado, evento, path, profile ou regra inexistente não pode ser inventado. Contradição ou ausência interrompe a tarefa.
 
 ## Testes de arquitetura
 

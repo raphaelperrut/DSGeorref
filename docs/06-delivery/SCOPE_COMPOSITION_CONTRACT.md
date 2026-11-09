@@ -1,5 +1,7 @@
 # Composição de scope com autoridade B/K e integração I
 
+> Registro histórico. A [governança vigente](../../GOVERNANCE.md) define o fluxo a partir da integração da #1047.
+
 Extensão compatível sob ADR-007, autorizada pelo Owner na
 [Issue #157, decisão 6724496132](https://github.com/raphaelperrut/DSGeorref/issues/157#issuecomment-6724496132).
 Não substitui ADR, TaskEnvelope, DAA, QA, Reviewer ou decisão humana de merge.

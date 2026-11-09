@@ -1,5 +1,7 @@
 # Gate de decisão do Product Owner
 
+> Registro histórico. A [governança vigente](../../GOVERNANCE.md) define o fluxo a partir da integração da #1047.
+
 Encaminhar ao Product Owner somente quando todas as condições forem verdadeiras:
 
 1. existem pelo menos duas alternativas materialmente diferentes;

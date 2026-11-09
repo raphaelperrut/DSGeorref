@@ -3,7 +3,6 @@ name: native-stack
 on:
   pull_request:
     paths:
-      - .codex/tasks/operations/TASK-0763.json
       - contracts/contexts/release_installation/native-stack-supply-chain/**
       - infra/images/native-stack.Dockerfile
       - infra/images/native-stack.conda-lock.txt
@@ -16,7 +15,6 @@ on:
     branches:
       - codex/issue-973-native-runtime
     paths:
-      - .codex/tasks/operations/TASK-0763.json
       - contracts/contexts/release_installation/native-stack-supply-chain/**
       - infra/images/native-stack.Dockerfile
       - infra/images/native-stack.conda-lock.txt
@@ -53,12 +51,6 @@ jobs:
 
       - name: Install focused validation dependencies
         run: python3 -m pip install --disable-pip-version-check PyYAML==6.0.3 jsonschema==4.26.0 pytest==9.1.1
-
-      - name: Validate TaskEnvelope
-        run: >-
-          python3 -m jsonschema
-          -i .codex/tasks/operations/TASK-0763.json
-          .codex/tasks/TASK_ENVELOPE.schema.json
 
       - name: Validate source lock and workflow
         run: >-

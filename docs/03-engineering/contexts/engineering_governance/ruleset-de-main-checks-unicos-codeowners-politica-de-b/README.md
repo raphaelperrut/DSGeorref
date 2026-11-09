@@ -1,5 +1,7 @@
 # Fundação executável do ruleset de `main`
 
+> Registro histórico. O ruleset ativo no GitHub é a fonte de enforcement. Consulte a [governança vigente](../../../../../GOVERNANCE.md).
+
 Esta fundação materializa o contrato congelado do EPIC-091 como control plane
 versionado. O ruleset desejado, o registry de checks e o checkpoint permanecem
 separados do runtime de produto e não declaram que a configuração já foi aplicada

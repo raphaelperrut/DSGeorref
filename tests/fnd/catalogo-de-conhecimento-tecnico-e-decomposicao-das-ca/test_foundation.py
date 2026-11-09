@@ -46,7 +46,7 @@ def _validator_module() -> ModuleType:
 
 
 def test_reference_capability_inventory_no_code_import() -> None:
-    result = _run_validator()
+    result = _run_validator("--technical")
     catalog = _json(CATALOG)
 
     assert result.returncode == 0, result.stdout + result.stderr
@@ -111,13 +111,10 @@ def test_epic_006_fundacao() -> None:
     assert required_paths <= set(task["allow_paths"])
 
 
-def test_foundation_rejects_contract_drift_silent_fallback_and_corpus_tampering() -> None:
+def test_foundation_rejects_contract_drift_and_corpus_tampering() -> None:
     validator = _validator_module()
     catalog = _json(CATALOG)
     catalog["capabilities"][0]["runtime_import"] = "legacy.module"
-
-    checkpoint = _json(CHECKPOINT)
-    checkpoint["failure_policy"]["silent_fallback"] = True
 
     contract, contract_errors = validator._load_yaml(validator.CONTRACT_PATH, "CONTRACT_UNREADABLE")
     assert not contract_errors and isinstance(contract, dict)
@@ -132,7 +129,6 @@ def test_foundation_rejects_contract_drift_silent_fallback_and_corpus_tampering(
     )
     findings.extend(validator._validate_catalog(catalog))
     findings.extend(validator._validate_contract(contract))
-    findings.extend(validator._validate_checkpoint(checkpoint))
     findings.extend(validator._validate_corpus(corpus))
     codes = {finding.code for finding in findings}
 
@@ -141,12 +137,20 @@ def test_foundation_rejects_contract_drift_silent_fallback_and_corpus_tampering(
         "CORPUS_HASH_MISMATCH",
         "CORPUS_OVERLAP",
         "FOUNDATION_CONTRACT_DRIFT",
-        "SILENT_FALLBACK_PROHIBITED",
     } <= codes
 
 
+def test_historical_checkpoint_rejects_silent_fallback() -> None:
+    validator = _validator_module()
+    checkpoint = _json(CHECKPOINT)
+    checkpoint["failure_policy"]["silent_fallback"] = True
+    assert "SILENT_FALLBACK_PROHIBITED" in {
+        finding.code for finding in validator._validate_checkpoint(checkpoint)
+    }
+
+
 def test_foundation_rejects_missing_catalog_without_fallback() -> None:
-    result = _run_validator("--catalog", ROOT / "missing-issue-0137-catalog.json")
+    result = _run_validator("--technical", "--catalog", ROOT / "missing-issue-0137-catalog.json")
 
     assert result.returncode == 2
     assert {finding["code"] for finding in _report(result)["findings"]} == {"CATALOG_UNREADABLE"}

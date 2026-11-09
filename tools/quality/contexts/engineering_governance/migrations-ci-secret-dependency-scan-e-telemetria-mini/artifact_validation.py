@@ -350,10 +350,11 @@ def _operational_control_findings(root: Path) -> list[Finding]:
     return findings
 
 
-def validate_artifacts(root: Path) -> tuple[list[Finding], list[str]]:
+def validate_artifacts(root: Path, *, technical: bool = False) -> tuple[list[Finding], list[str]]:
     resolved = root.resolve()
     evidence, findings = _contract_findings(resolved)
-    findings.extend(_implementation_findings(resolved, evidence))
-    findings.extend(_consolidation_findings(resolved))
+    if not technical:
+        findings.extend(_implementation_findings(resolved, evidence))
+        findings.extend(_consolidation_findings(resolved))
     findings.extend(_operational_control_findings(resolved))
     return sorted(set(findings)), sorted(evidence)

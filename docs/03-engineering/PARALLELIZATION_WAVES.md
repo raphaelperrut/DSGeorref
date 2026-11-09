@@ -1,5 +1,7 @@
 # Ondas de paralelização
 
+> Registro histórico. A [governança vigente](../../GOVERNANCE.md) define o fluxo a partir da integração da #1047.
+
 - **Histórias:** 759
 - **Ondas topológicas:** 88
 - **Hard blockers:** 1166
