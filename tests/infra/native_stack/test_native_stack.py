@@ -20,7 +20,6 @@ CONDA_LOCK = ROOT / "infra/images/native-stack.conda-lock.txt"
 RESOLVED_LOCK = ROOT / "infra/images/native-stack.resolved.yaml"
 WORKFLOW = ROOT / ".github/workflows/native-stack.yaml"
 DOCKERFILE = ROOT / "infra/images/native-stack.Dockerfile"
-TASK_ENVELOPE = ROOT / ".codex/tasks/operations/TASK-0763.json"
 POLICY = ROOT / "contracts/contexts/release_installation/native-stack-supply-chain/policy.yaml"
 POLICY_SCHEMA = (
     ROOT / "contracts/contexts/release_installation/native-stack-supply-chain/policy.schema.json"
@@ -129,26 +128,6 @@ def test_contract_has_two_independent_approvals_for_exact_bytes() -> None:
         assert review["decision"] == "APPROVE"
         assert review["policy_sha256"] == policy_digest
         assert review["schema_sha256"] == schema_digest
-
-
-def test_task_envelope_authorizes_only_required_issue_973_paths() -> None:
-    envelope = json.loads(TASK_ENVELOPE.read_text(encoding="utf-8"))
-    assert envelope["task_id"] == "TASK-0763"
-    assert envelope["issue_id"] == "ISSUE-0973"
-    assert envelope["phase_f_review"]["dependencies"] == {
-        "status": "PASS",
-        "count": 1,
-        "items": ["ISSUE-0080: OWNER_APPROVED_B_RUNTIME_EQUIVALENT_CONTRACT"],
-    }
-    assert envelope["phase_f_review"]["artifacts"]["contract"] == (
-        "contracts/contexts/release_installation/native-stack-supply-chain/policy.yaml"
-    )
-    allow = set(envelope["allow_paths"])
-    assert ".github/workflows/native-stack.yaml" in allow
-    assert "infra/images/native-stack.lock.yaml" in allow
-    assert "infra/images/native-stack.resolved.yaml" in allow
-    assert "tools/quality/native_stack/abi_smoke.py" in allow
-    assert all("ISSUE-0874" not in path and "EPIC-110" not in path for path in allow)
 
 
 def test_workflow_separates_untrusted_validation_from_publisher_permissions() -> None:

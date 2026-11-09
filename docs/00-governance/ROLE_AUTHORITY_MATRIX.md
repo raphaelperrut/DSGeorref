@@ -1,5 +1,7 @@
 # Matriz de autoridade dos papéis
 
+> Registro histórico. A [governança vigente](../../GOVERNANCE.md) define o fluxo a partir da integração da #1047.
+
 | Papel | Produz | Aprova | Não pode aprovar |
 |---|---|---|---|
 | Product Owner | PRD, épicos, histórias, prioridade | aceitação de produto e decisões materiais de produto | implementação técnica própria |

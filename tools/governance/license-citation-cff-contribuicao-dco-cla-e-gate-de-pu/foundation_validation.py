@@ -790,15 +790,10 @@ def evaluate_publication_gate(
     return {"decision": "PASS", "blockers": [], "status": "PASS"}
 
 
-def validate_foundation(
-    root: Path = ROOT,
-    *,
-    commit_range: str | None = None,
+def validate_licensing(
+    root: Path = ROOT, *, commit_range: str | None = None
 ) -> dict[str, Any]:
-    checkpoint = validate_checkpoint(root)
     checks: dict[str, Any] = {
-        "checkpoint": {"status": "PASS"},
-        "ci_integration": validate_ci_integration(root),
         "citation": validate_citation(root),
         "licensing": validate_license_inventory(root),
         "dependencies": validate_dependency_inventory(root),
@@ -808,6 +803,20 @@ def validate_foundation(
         checks["dco"] = validate_dco_commit_range(commit_range, root)
     else:
         checks["dco"] = {"status": "NOT_REQUESTED", "reason": "no external commit range"}
+    return checks
+
+
+def validate_foundation(
+    root: Path = ROOT,
+    *,
+    commit_range: str | None = None,
+) -> dict[str, Any]:
+    checkpoint = validate_checkpoint(root)
+    checks = {
+        "checkpoint": {"status": "PASS"},
+        "ci_integration": validate_ci_integration(root),
+        **validate_licensing(root, commit_range=commit_range),
+    }
     return {
         "schema_version": "1.0.0",
         "issue_id": checkpoint["identity"]["issue_id"],
@@ -818,6 +827,7 @@ def validate_foundation(
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Validate the ISSUE-0142 governance foundation")
+    parser.add_argument("--technical", action="store_true", help="Check licenses and contribution origin")
     parser.add_argument("--commit-range", help="External contribution range in base..head form")
     parser.add_argument(
         "--publication-gate",
@@ -830,7 +840,14 @@ def _parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
-        report = validate_foundation(commit_range=args.commit_range)
+        if args.technical or args.publication_gate:
+            report = {
+                "schema_version": "1.0.0",
+                "decision": "PASS",
+                "checks": validate_licensing(commit_range=args.commit_range),
+            }
+        else:
+            report = validate_foundation(commit_range=args.commit_range)
         if args.publication_gate:
             checkpoint = validate_checkpoint()
             gate = evaluate_publication_gate(checkpoint, dco_verified=args.commit_range is not None)

@@ -1,5 +1,7 @@
 # Requisitos de governança e entrega
 
+> Registro histórico. A [governança vigente](../../GOVERNANCE.md) define o fluxo a partir da integração da #1047.
+
 Controles do sistema de engenharia orientado por IA, sem registros históricos ou aliases substituídos.
 
 **Total:** 33 requisitos.

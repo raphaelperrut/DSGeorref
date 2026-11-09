@@ -1,5 +1,7 @@
 # Árvore de dependências entre histórias
 
+> Registro histórico. A [governança vigente](../../GOVERNANCE.md) define o fluxo a partir da integração da #1047.
+
 - **Nós:** `765`
 - **Hard blockers:** `1179`
 - **Ondas topológicas:** `93`

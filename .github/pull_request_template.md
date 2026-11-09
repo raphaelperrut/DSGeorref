@@ -1,46 +1,11 @@
-## Stable IDs e vínculo
+## Issue e entrega
 
-- Issue/Story:
-- Epic:
-- TaskEnvelope:
+Vincule a issue e descreva o resultado, o escopo e os contratos afetados.
 
-## Objetivo
+## Testes
 
-Descreva o resultado entregue e por que a mudança é necessária.
+Registre os comandos executados, resultados e limitações aplicáveis.
 
-## Escopo
+## Riscos e reversão
 
-- Caminhos alterados:
-- Contratos/ADRs afetados:
-- Fora de escopo:
-
-## Validação
-
-- [ ] `make verify`
-- [ ] `git diff --check`
-- [ ] Testes específicos executados e registrados abaixo
-- [ ] Evidências persistidas no local canônico
-
-### Comandos e resultados
-
-```text
-
-```
-
-## Segurança, privacidade e compatibilidade
-
-- [ ] Nenhum segredo ou dado sensível foi incluído
-- [ ] Mudanças de contrato foram identificadas
-- [ ] Breaking changes possuem migração/rollback
-- [ ] Dependências novas foram justificadas
-
-## Risco e rollback
-
-Descreva impacto, sinais de falha e procedimento de reversão.
-
-## Checklist de revisão
-
-- [ ] Critérios de aceitação atendidos
-- [ ] Documentação e índices atualizados
-- [ ] CI obrigatória aprovada
-- [ ] Conversas de revisão resolvidas
+Descreva impacto em segurança, dados ou compatibilidade e como reverter, quando aplicável.

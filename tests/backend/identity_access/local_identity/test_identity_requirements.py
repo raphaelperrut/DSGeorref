@@ -1,11 +1,13 @@
 """REQ-ID-001/002 acceptance through existing BC-002 services and PostgreSQL."""
 
 import json
+import os
 from dataclasses import asdict, replace
 
 import psycopg
 import pytest
 from conftest import PASSWORD
+from dsgeorref.contexts.identity_access.adapters.local_identity.migration import migrate
 from dsgeorref.contexts.identity_access.adapters.local_identity.oidc import ValidatingOidcProvider
 from dsgeorref.contexts.identity_access.application.local_identity.federation import Federation
 from dsgeorref.contexts.identity_access.application.local_identity.recovery import (
@@ -14,6 +16,7 @@ from dsgeorref.contexts.identity_access.application.local_identity.recovery impo
 from dsgeorref.contexts.identity_access.domain.local_identity.credentials import digest, uuid7
 from dsgeorref.contexts.identity_access.domain.local_identity.models import Denied
 from oidc_fixture import SignedProvider, config
+from sqlalchemy.exc import DBAPIError
 
 
 def denied(code, action):
@@ -268,3 +271,23 @@ def test_linking_transaction_session_owner_constraint(runtime):
               VALUES (%s,%s,%s,%s,%s,%s,%s,%s)""",
             list(pending.values()),
         )
+
+
+def test_populated_downgrade_preserves_account_and_binding(runtime):
+    dsn = os.environ.get(
+        "IDENTITY_MIGRATION_DSN", runtime.dsn.replace("postgresql://", "postgresql+psycopg://", 1)
+    )
+    with pytest.raises(DBAPIError, match="nonempty identity requires coordinated restore"):
+        migrate(dsn, "downgrade")
+
+    with psycopg.connect(runtime.dsn) as connection:
+        assert connection.execute(
+            "SELECT version_num FROM identity.alembic_version"
+        ).fetchone() == ("identity_link_binding_v2",)
+        assert connection.execute(
+            "SELECT convalidated FROM pg_constraint "
+            "WHERE conname='oidc_transaction_session_owner_fk'"
+        ).fetchone() == (True,)
+    assert (
+        runtime.access.authenticate(session=runtime.issued.secret).account.id == runtime.account.id
+    )

@@ -1,5 +1,7 @@
 # Controle de mudanças
 
+> Registro histórico. A [governança vigente](../../GOVERNANCE.md) define o fluxo a partir da integração da #1047.
+
 - ADR exige autoria/aprovação arquitetural, aprovação do Product Owner e final review.
 - Contratos públicos mudam por revisão de compatibilidade antes das lanes de implementação.
 - Thresholds mudam somente por promoção baseada em corpus e evidência.
