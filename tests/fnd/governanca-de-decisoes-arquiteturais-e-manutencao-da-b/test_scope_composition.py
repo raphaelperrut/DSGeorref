@@ -467,6 +467,21 @@ def test_nested_authority_cannot_be_taken_from_the_proof(nested_history: dict) -
     assert "pinned task authority" in findings[0].detail
 
 
+def test_flattened_proof_cannot_move_envelope_checkpoint(nested_history: dict) -> None:
+    h = nested_history
+    proof = h["nested_proof"]
+    flattened = replace(
+        proof, base_revision=proof.composition_revision,
+        authority_checkpoint=proof.candidate_revision,
+        composition_revision=None, composition_proofs=(),
+    )
+    findings = validate_nested(
+        h, integration_proofs=(h["proof"], flattened),
+        integration_authority=GitHubIntegrationAuthority("owner/repo", 42),
+    )
+    assert "outside its original checkpoint" in findings[0].detail
+
+
 def test_nested_envelope_cannot_grant_its_own_role_authority(history: dict) -> None:
     h = history
     root = h["root"]

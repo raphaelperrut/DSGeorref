@@ -106,6 +106,8 @@ def _history_scope(
             _git_bytes(root, commit, path) != authority_bytes
         ):
             raise ValueError(f"TaskEnvelope changed within history at {commit}")
+        if path in changes and commit != checkpoint:
+            raise ValueError(f"TaskEnvelope changed outside its original checkpoint at {commit}")
         changed.update(changes)
     return changed
 

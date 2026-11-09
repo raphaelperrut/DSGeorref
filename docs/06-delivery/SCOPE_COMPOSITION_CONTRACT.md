@@ -48,9 +48,10 @@ disponível localmente; não há fallback para uma ref local não autenticada.
    exceção de controle do envelope. Alterações intermediárias proibidas são
    rejeitadas mesmo quando revertidas antes do candidato. Renames são examinados
    como remoção e adição, com paths delimitados por NUL.
-4. O envelope de cada tarefa deve manter os mesmos bytes do checkpoint em todas
-   as revisões posteriores, inclusive revisões intermediárias. A política usada
-   para autorizar o controle do envelope é sempre a do checkpoint dessa tarefa.
+4. Uma alteração atribuída ao envelope da tarefa só pode ocorrer no próprio K.
+   O envelope mantém os mesmos bytes em todas as revisões posteriores,
+   inclusive revisões intermediárias. A política que autoriza o controle do
+   envelope é a do checkpoint da tarefa.
 5. Todo merge, herdado ou da tarefa, é reconstruído com `git merge-tree
    --write-tree`. Sua árvore completa deve ser idêntica à árvore real, incluindo
    blobs, remoções e modos. Conflito, múltiplas merge bases, octopus ou resolução
@@ -92,8 +93,10 @@ identifica C e a integração, a invocação confiável também fornece
 `FrozenTaskAuthority(B, K, task_envelope_path)`. Os valores devem vir dos
 registros originais de atribuição e checkpoint, independentemente das provas.
 Quando houver composição herdada, todas as provas da cadeia devem corresponder
-a esse mapa. Quando fornecido, o mapa é exigido mesmo que a prova omita I próprio.
-Chamadas legadas e composições simples dispensam o mapa. Em cada nível são
+a esse mapa. A invocação fornece o mapa sempre que receber uma cadeia de fonte
+não confiável, mesmo que as provas omitam I próprio. Chamadas legadas e
+composições simples podem dispensar o mapa quando seus valores de B, K e
+envelope já vêm da invocação confiável. Em cada nível são
 verificados ancestralidade, schema e identidade do envelope, bytes congelados,
 política original, todas as revisões atribuídas, denies, colisões e árvores
 completas dos merges. O `allow_paths` do envelope não concede autoridade de
