@@ -41,7 +41,8 @@ disponível localmente; não há fallback para uma ref local não autenticada.
 2. A cadeia herdada começa em B. Cada merge de integração tem exatamente dois
    pais: a integração anterior e o candidato autenticado do PR herdado. A última
    prova termina exatamente em I. Cada tarefa herdada passa pelo scope legado
-   com sua própria base, checkpoint e envelope.
+   com sua própria base, checkpoint e envelope, ou pela composição completa
+   descrita abaixo quando declarar uma integração própria.
 3. Além do diff agregado, cada revisão não merge é verificada contra allow/deny
    congelados no respectivo checkpoint. Deny prevalece sobre allow e sobre a
    exceção de controle do envelope. Alterações intermediárias proibidas são
@@ -65,6 +66,56 @@ duas ancestralidades sem conflito e sem colisão de paths entre tarefa e heranç
 Squash, rebase, permissões delegadas de merge e resolução manual exigem evidência
 adicional que esta extensão não presume. Retornar zero findings certifica somente
 este controle de composição; não transfere aprovações antigas para outro SHA.
+
+## Composições herdadas
+
+Extensão compatível autorizada pela
+[decisão 6726868018 na Issue #157](https://github.com/raphaelperrut/DSGeorref/issues/157#issuecomment-6726868018).
+Os seis campos originais de `IntegrationProof` e os resultados da API legada
+permanecem. Dois campos opcionais descrevem uma tarefa já composta:
+
+- `composition_revision`: I próprio do candidato herdado; default `None`;
+- `composition_proofs`: tupla ordenada das provas entre o B original dessa
+  tarefa e seu I próprio; default `()`.
+
+Nessa prova, `base_revision` continua sendo o B original, ancestral do K original.
+O primeiro pai do merge canônico herdado deve ser exatamente `composition_revision`
+e a integração anterior da cadeia externa. O segundo pai deve ser o candidato
+exato autenticado no GitHub. Sem composição, o primeiro pai continua sendo B.
+Não se troca B pelo primeiro pai para acomodar o checkpoint.
+
+Cada dependência é validada pelo mesmo algoritmo de composição e pela mesma
+autoridade GitHub fixada pela invocação confiável. As provas não escolhem outro
+Owner, repositório ou branch e não transferem aprovações. Em cada nível são
+verificados ancestralidade, schema/identidade do envelope, bytes congelados,
+política original, todas as revisões atribuídas, denies, colisões e árvores
+completas dos merges. O conjunto de paths herdados inclui todas as dependências,
+inclusive alterações intermediárias revertidas; nenhuma herança é descartada
+para calcular colisões externas. Provas repetidas em ramos distintos são
+verificadas novamente, sem cache de autorização por SHA.
+
+Uma integração repetida no caminho de dependências ativo é ciclo e falha.
+`MAX_COMPOSITION_DEPTH = 16` limita os níveis de provas herdadas; o nível 17
+falha antes de autenticar ou percorrer suas dependências. São limites locais
+conservadores do algoritmo, sem alterar políticas ou trust. Provas sem I próprio,
+com dependências ausentes, incompletas, fora de ordem ou de tipo inválido retornam
+finding. Erros de autenticação e evidência falham fechados em qualquer nível.
+
+O caso #1042 mantém B/K `f33429b91194177aad3cbd75c3966b1a8c58ea09`, envelope
+TASK-0714, I `890b3dab56e0bd07571832bae686f9af809f5a9f` e candidato local
+`7a35a92709f80263645bc3c000e6b14d61d3360f`. Sua cadeia inclui os PRs #1044,
+#1045 e #1043. A prova do #1043 mantém B
+`f33429b91194177aad3cbd75c3966b1a8c58ea09`, K
+`b9c05b619cdfedd2ad1f63898bbd80194cdfb91e`, candidato aprovado
+`335f312b0b360e110c6062a8fa4203d22eea42c6` e I próprio
+`7310cdf6c64e34158631f5239aa1f677d0039e9c`, com as provas #1044/#1045.
+A reprodução consulta GitHub e objetos originais, sem alterar ou publicar o
+candidato bloqueado, reexecutar READY/DAA ou emitir attestations.
+Com a prova plana, a validação rejeita o checkpoint do #1043 porque exige
+que ele descenda da base de integração. Com a prova herdada, a cadeia passa sem
+findings. A validação integral de C ainda rejeita `federation.py`, `sessions.py`
+e `tokens.py` no commit `b012f34090cb65f0318e37978247836c4354c6ae` por estarem
+fora do escopo congelado da TASK-0714.
 
 ## Regressão, caso real e rollback
 

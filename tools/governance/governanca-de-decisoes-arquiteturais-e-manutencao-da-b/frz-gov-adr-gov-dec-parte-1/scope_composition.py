@@ -20,6 +20,7 @@ from scope_authority import (
 from scope_integration import GitHubIntegrationAuthority, IntegrationProof, full_commit, git_text
 
 EVIDENCE_ERRORS = (ValueError, TypeError, KeyError, IndexError, OSError, subprocess.SubprocessError)
+MAX_COMPOSITION_DEPTH = 16
 
 
 def _reject_object_overlays(root: Path) -> None:
@@ -111,6 +112,7 @@ def _inherited_changes(
     integration: str,
     proofs: tuple[IntegrationProof, ...],
     authority: GitHubIntegrationAuthority,
+    active: tuple[str, ...] = (),
 ) -> set[str]:
     previous = base
     changes: set[str] = set()
@@ -126,34 +128,89 @@ def _inherited_changes(
             proof.integration_revision,
         ):
             full_commit(root, revision)
-        if proof.base_revision != previous:
+        parent = proof.composition_revision or proof.base_revision
+        if parent != previous:
             raise ValueError("inherited provenance is incomplete or out of order")
+        if proof.integration_revision in active:
+            raise ValueError("inherited composition contains a cycle")
+        if len(active) >= MAX_COMPOSITION_DEPTH:
+            raise ValueError("inherited composition exceeds maximum depth")
         authority.authenticate(root, proof)
         if _parents(root, proof.integration_revision) != (previous, proof.candidate_revision):
             raise ValueError("integration parents do not match authenticated task provenance")
-        findings = validate_legacy_scope(
-            root,
-            base_revision=previous,
-            authority_checkpoint=proof.authority_checkpoint,
-            candidate_revision=proof.candidate_revision,
-            task_envelope_path=proof.task_envelope_path,
-        )
-        if findings:
-            raise ValueError(f"inherited task lacks valid frozen scope: {findings}")
-        changes.update(
-            _history_scope(
-                root,
-                previous,
-                proof.authority_checkpoint,
-                proof.candidate_revision,
-                proof.task_envelope_path,
-            )
-        )
+        changes.update(_inherited_task_changes(root, proof, authority, active))
         _merge_content(root, proof.integration_revision, _parents(root, proof.integration_revision))
         previous = proof.integration_revision
     if previous != integration:
         raise ValueError("proof does not terminate at the declared integration identity")
     return changes
+
+
+def _inherited_task_changes(
+    root: Path,
+    proof: IntegrationProof,
+    authority: GitHubIntegrationAuthority,
+    active: tuple[str, ...],
+) -> set[str]:
+    arguments = {
+        "base_revision": proof.base_revision,
+        "authority_checkpoint": proof.authority_checkpoint,
+        "candidate_revision": proof.candidate_revision,
+        "task_envelope_path": proof.task_envelope_path,
+    }
+    if proof.composition_revision is not None:
+        return _composed_changes(
+            root,
+            **arguments,
+            integration_revision=proof.composition_revision,
+            integration_proofs=proof.composition_proofs,
+            integration_authority=authority,
+            active=(*active, proof.integration_revision),
+        )
+    if proof.composition_proofs != ():
+        raise ValueError("nested proofs require a composition revision")
+    findings = validate_legacy_scope(root, **arguments)
+    if findings:
+        raise ValueError(f"inherited task lacks valid frozen scope: {findings}")
+    return _history_scope(
+        root, proof.base_revision, proof.authority_checkpoint,
+        proof.candidate_revision, proof.task_envelope_path,
+    )
+
+
+def _composed_changes(
+    root: Path,
+    *,
+    base_revision: str,
+    authority_checkpoint: str,
+    candidate_revision: str,
+    task_envelope_path: str,
+    integration_revision: str,
+    integration_proofs: tuple[IntegrationProof, ...],
+    integration_authority: GitHubIntegrationAuthority,
+    active: tuple[str, ...] = (),
+) -> set[str]:
+    for revision in (base_revision, authority_checkpoint, candidate_revision, integration_revision):
+        full_commit(root, revision)
+    findings = _task_path_findings(task_envelope_path)
+    findings.extend(
+        _checkpoint_findings(root, base_revision, authority_checkpoint, candidate_revision)
+    )
+    if findings:
+        raise ValueError(f"composition lacks valid checkpoint or envelope path: {findings}")
+    if not _is_ancestor(root, integration_revision, candidate_revision):
+        raise ValueError("integration is not an ancestor of the candidate")
+    inherited = _inherited_changes(
+        root, base_revision, integration_revision, integration_proofs,
+        integration_authority, active,
+    )
+    task = _history_scope(
+        root, base_revision, authority_checkpoint, candidate_revision,
+        task_envelope_path, exclude=integration_revision,
+    )
+    if task & inherited:
+        raise ValueError(f"task and inherited histories collide: {sorted(task & inherited)}")
+    return task | inherited
 
 
 def validate_composed_scope(
@@ -180,34 +237,18 @@ def validate_composed_scope(
         )
         if findings:
             return sorted(set(findings))
-        for revision in (
-            base_revision,
-            authority_checkpoint,
-            candidate_revision,
-            integration_revision,
-        ):
-            full_commit(repository_root, revision)
         if not isinstance(integration_authority, GitHubIntegrationAuthority):
             raise ValueError("authenticated integration authority is required")
-        if not _is_ancestor(repository_root, integration_revision, candidate_revision):
-            raise ValueError("integration is not an ancestor of the candidate")
-        inherited = _inherited_changes(
+        _composed_changes(
             repository_root,
-            base_revision,
-            integration_revision,
-            integration_proofs,
-            integration_authority,
+            base_revision=base_revision,
+            authority_checkpoint=authority_checkpoint,
+            candidate_revision=candidate_revision,
+            task_envelope_path=task_envelope_path,
+            integration_revision=integration_revision,
+            integration_proofs=integration_proofs,
+            integration_authority=integration_authority,
         )
-        task = _history_scope(
-            repository_root,
-            base_revision,
-            authority_checkpoint,
-            candidate_revision,
-            task_envelope_path,
-            exclude=integration_revision,
-        )
-        if task & inherited:
-            raise ValueError(f"task and inherited histories collide: {sorted(task & inherited)}")
         return []
     except EVIDENCE_ERRORS as error:
         return [Finding("COMPOSITION_INVALID", "$", str(error))]

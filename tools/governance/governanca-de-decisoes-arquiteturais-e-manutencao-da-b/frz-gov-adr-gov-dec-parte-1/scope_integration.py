@@ -22,6 +22,8 @@ class IntegrationProof:
     integration_revision: str
     task_envelope_path: str
     pull_request: int
+    composition_revision: str | None = None
+    composition_proofs: tuple[IntegrationProof, ...] = ()
 
 
 def git_text(root: Path, *args: str) -> str:

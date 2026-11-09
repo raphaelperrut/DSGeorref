@@ -379,3 +379,211 @@ def test_graft_overlays_cannot_redefine_pinned_ancestry(
     findings = validate(history)
     assert findings
     assert "graft overlays" in findings[0].detail
+
+
+CONSUMER = ".codex/tasks/operations/TASK-9942.json"
+
+
+@pytest.fixture
+def nested_history(history: dict) -> dict:
+    return compose_consumer(history)
+
+
+def compose_consumer(history: dict) -> dict:
+    h = history
+    root = h["root"]
+    git(root, "checkout", "main")
+    git(root, "merge", "--no-ff", h["candidate"], "-m", "Owner nested integration")
+    integration = git(root, "rev-parse", "HEAD")
+    proof = IntegrationProof(
+        h["base"], h["checkpoint"], h["candidate"], integration, TASK, 2,
+        h["integration"], (h["proof"],),
+    )
+    api = h["api"]
+    api["pulls/2"] = {
+        **api["pulls/1"], "number": 2,
+        "head": {"sha": h["candidate"]}, "merge_commit_sha": integration,
+    }
+    api["branches/main"]["commit"]["sha"] = integration
+    git(root, "checkout", "-b", "consumer", h["base"])
+    envelope(root, CONSUMER, ["data/consumer.txt"], [])
+    checkpoint = commit(root, "consumer checkpoint")
+    write(root, "data/consumer.txt", b"consumer\n")
+    commit(root, "consumer work")
+    git(root, "merge", "--no-ff", integration, "-m", "consumer sync")
+    return {
+        **h, "checkpoint": checkpoint, "integration": integration,
+        "candidate": git(root, "rev-parse", "HEAD"), "nested_proof": proof,
+    }
+
+
+def validate_nested(h: dict, **overrides: object) -> list:
+    args = {
+        "task_envelope_path": CONSUMER,
+        "integration_proofs": (h["proof"], h["nested_proof"]),
+    }
+    args.update(overrides)
+    return validate(h, **args)
+
+
+def test_nested_composition_preserves_original_authorities(nested_history: dict) -> None:
+    h = nested_history
+    assert not validate_nested(h)
+    proof = h["nested_proof"]
+    # Reproduce the old model: integration's first parent substituted for original B.
+    flattened = replace(
+        proof, base_revision=proof.composition_revision,
+        composition_revision=None, composition_proofs=(),
+    )
+    findings = validate_nested(h, integration_proofs=(h["proof"], flattened))
+    assert "checkpoint is not based on base" in findings[0].detail
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    ["missing", "wrong-order", "wrong-I", "wrong-B", "wrong-K", "mutable-I",
+     "bad-type", "orphan-proofs", "cycle", "owner", "head", "merge", "api"],
+)
+def test_nested_dependencies_fail_closed(nested_history: dict, mutation: str) -> None:
+    h = nested_history
+    proof = h["nested_proof"]
+    child = h["proof"]
+    if mutation == "missing":
+        proof = replace(proof, composition_proofs=())
+    elif mutation == "wrong-order":
+        proof = replace(proof, composition_proofs=(child, child))
+    elif mutation == "wrong-I":
+        proof = replace(proof, composition_revision=h["base"])
+    elif mutation == "wrong-B":
+        proof = replace(proof, base_revision=proof.composition_revision)
+    elif mutation == "wrong-K":
+        proof = replace(proof, authority_checkpoint=h["checkpoint"])
+    elif mutation == "mutable-I":
+        proof = replace(proof, composition_revision="main")
+    elif mutation == "bad-type":
+        proof = replace(proof, composition_proofs=[child])
+    elif mutation == "orphan-proofs":
+        child = replace(child, composition_proofs=(child,))
+    elif mutation == "cycle":
+        cyclic = replace(child, integration_revision=proof.integration_revision)
+        proof = replace(proof, composition_proofs=(cyclic,))
+    elif mutation == "api":
+        del h["api"]["pulls/1"]
+    else:
+        field, value = {
+            "owner": ("merged_by", {"id": 99}),
+            "head": ("head", {"sha": h["base"]}),
+            "merge": ("merge_commit_sha", h["base"]),
+        }[mutation]
+        h["api"]["pulls/1"][field] = value
+    findings = validate_nested(h, integration_proofs=(child, proof))
+    assert findings
+    if mutation == "cycle":
+        assert "cycle" in findings[0].detail
+
+
+def test_nested_depth_limit_is_enforced_before_authentication(
+    nested_history: dict, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import scope_composition
+
+    h = nested_history
+    # Two real levels pass; reducing only the algorithm limit forces the next level closed.
+    monkeypatch.setattr(scope_composition, "MAX_COMPOSITION_DEPTH", 2)
+    assert not validate_nested(h)
+    monkeypatch.setattr(scope_composition, "MAX_COMPOSITION_DEPTH", 1)
+    findings = validate_nested(h)
+    assert "maximum depth" in findings[0].detail
+
+
+@pytest.mark.parametrize("mutation", ["owner", "head", "merge", "missing-api"])
+def test_authentication_is_repeated_inside_nested_chain(
+    nested_history: dict, monkeypatch: pytest.MonkeyPatch, mutation: str,
+) -> None:
+    h = nested_history
+    calls: list[str] = []
+
+    def get(self: GitHubIntegrationAuthority, resource: str) -> dict:
+        calls.append(resource)
+        if resource == "pulls/1" and calls.count(resource) == 2:
+            if mutation == "missing-api":
+                raise ValueError("authenticated GitHub authority evidence is unavailable")
+            value = dict(h["api"][resource])
+            field, wrong = {
+                "owner": ("merged_by", {"id": 99}),
+                "head": ("head", {"sha": h["base"]}),
+                "merge": ("merge_commit_sha", h["base"]),
+            }[mutation]
+            value[field] = wrong
+            return value
+        return h["api"][resource]
+
+    monkeypatch.setattr(GitHubIntegrationAuthority, "_get", get)
+    findings = validate_nested(h)
+    assert findings
+    assert calls.count("pulls/1") == 2
+    assert "GitHub" in findings[0].detail or "authenticated canonical" in findings[0].detail
+
+
+@pytest.mark.parametrize(
+    "mutation", ["deny", "cancel-deny", "cancel-envelope", "merge-tree", "policy"],
+)
+def test_nested_candidate_history_cannot_hide_changes(history: dict, mutation: str) -> None:
+    h = history
+    root = h["root"]
+    if mutation == "merge-tree":
+        write(root, "data/task.txt", b"unapproved merge resolution\n")
+        git(root, "add", ".")
+        git(root, "commit", "--amend", "--no-edit")
+    elif mutation == "cancel-envelope":
+        original = (root / TASK).read_bytes()
+        write(root, TASK, original + b"\n")
+        commit(root, "mutate inherited frozen envelope")
+        write(root, TASK, original)
+        commit(root, "restore inherited envelope")
+    else:
+        path = ".codex/policies/file-scopes.yaml" if mutation == "policy" else "data/forbidden.txt"
+        write(root, path, b"unauthorized\n")
+        commit(root, "unauthorized inherited candidate change")
+        if mutation == "cancel-deny":
+            (root / path).unlink()
+            commit(root, "cancel inherited forbidden change")
+    h["candidate"] = git(root, "rev-parse", "HEAD")
+    findings = validate_nested(compose_consumer(h))
+    assert findings
+    expected = {
+        "merge-tree": "merge resolution", "cancel-envelope": "TaskEnvelope changed",
+        "deny": "DENIED_PATH_CHANGED", "cancel-deny": "DENIED_PATH_CHANGED",
+        "policy": "PATH_OUTSIDE_EFFECTIVE_SCOPE",
+    }[mutation]
+    assert expected in findings[0].detail
+
+
+def test_outer_collision_includes_transitive_inherited_paths(nested_history: dict) -> None:
+    h = nested_history
+    root = h["root"]
+    git(root, "checkout", "-b", "collision", h["base"])
+    envelope(root, CONSUMER, ["data/external.txt"], [])
+    checkpoint = commit(root, "consumer allows transitive path")
+    write(root, "data/external.txt", b"external\n")
+    commit(root, "consumer changes transitive inherited path to same content")
+    git(root, "merge", "--no-ff", h["integration"], "-m", "colliding nested sync")
+    findings = validate_nested(
+        h, authority_checkpoint=checkpoint, candidate_revision=git(root, "rev-parse", "HEAD"),
+    )
+    assert findings
+    assert "collide" in findings[0].detail and "data/external.txt" in findings[0].detail
+
+
+def test_default_depth_boundary_and_cycle_precede_authentication(history: dict) -> None:
+    from scope_composition import MAX_COMPOSITION_DEPTH, _inherited_changes
+
+    h = history
+    assert MAX_COMPOSITION_DEPTH == 16
+    authority = GitHubIntegrationAuthority("owner/repo", 42)
+    args = (h["root"], h["base"], h["integration"], (h["proof"],), authority)
+    assert _inherited_changes(*args, active=(h["base"],) * 15)
+    with pytest.raises(ValueError, match="maximum depth"):
+        _inherited_changes(*args, active=(h["base"],) * 16)
+    with pytest.raises(ValueError, match="cycle"):
+        _inherited_changes(*args, active=(h["proof"].integration_revision,))
