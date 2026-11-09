@@ -69,6 +69,15 @@ def merged_coverage():
 
 def test_story_0037_slice_consolidation(runtime: Runtime, record_property):
     owners = merged_coverage()
+    assert_oidc_session_can_issue_and_revoke_pat(runtime, record_property)
+    record_property("coverage", json.dumps(owners, sort_keys=True))
+
+
+def test_oidc_session_can_issue_and_revoke_pat(runtime: Runtime, record_property):
+    assert_oidc_session_can_issue_and_revoke_pat(runtime, record_property)
+
+
+def assert_oidc_session_can_issue_and_revoke_pat(runtime: Runtime, record_property):
     r = runtime
     transport = SignedProvider("pending")
     federation = Federation(r.tx, ValidatingOidcProvider(config(), transport))
@@ -120,7 +129,6 @@ def test_story_0037_slice_consolidation(runtime: Runtime, record_property):
         ).fetchone() == ("identity_link_binding_v2",)
         assert connection.execute("""SELECT convalidated FROM pg_constraint
             WHERE conname='oidc_transaction_session_owner_fk'""").fetchone() == (True,)
-    record_property("coverage", json.dumps(owners, sort_keys=True))
     record_property(
         "runtime_observed",
         "same account/bootstrap; explicit OIDC link -> session -> "

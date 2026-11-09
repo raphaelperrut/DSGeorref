@@ -93,5 +93,38 @@ jobs:
       - name: Verify repository
         run: make verify
 
+      - name: Verify runtime contracts, SGV and native supply chain
+        run: |
+          python -m pytest -q -p no:cacheprovider \
+            tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_contract.py::test_executable_foundation_gate_clean_room_end_to_end \
+            tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_contract.py::test_walking_skeleton_fail_closed_paths \
+            tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_runtime_schema_contract.py \
+            tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_conformance.py \
+            tests/infra/native_stack/test_native_stack.py \
+            -k 'not task_envelope and not independent_approvals'
+
+      - name: Verify identity, authorization and migrations on disposable PostgreSQL
+        env:
+          PYTHONPATH: src/backend
+          IDENTITY_TEST_DSN: postgresql://foundation:foundation@127.0.0.1:5432/local_identity_validation
+          IDENTITY_MIGRATION_DSN: postgresql+psycopg://foundation:foundation@127.0.0.1:5432/local_identity_validation
+        run: |
+          python - <<'PY'
+          import os
+          import psycopg
+
+          with psycopg.connect(os.environ["FOUNDATION_DATABASE_URL"], autocommit=True) as connection:
+              connection.execute("CREATE DATABASE local_identity_validation")
+          PY
+          python -m venv "$RUNNER_TEMP/identity-tests"
+          source "$RUNNER_TEMP/identity-tests/bin/activate"
+          python -m pip install --disable-pip-version-check pytest==9.1.1 \
+            -r src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt
+          python -m pytest -q -p no:cacheprovider \
+            tests/backend/identity_access/local_identity/test_requirements.py \
+            tests/backend/identity_access/local_identity/test_identity_requirements.py \
+            tests/backend/identity_access/local_identity/test_slice_consolidation.py::test_oidc_session_can_issue_and_revoke_pat \
+            tests/security/contexts/identity_access
+
       - name: Check whitespace errors
         run: git diff --check
