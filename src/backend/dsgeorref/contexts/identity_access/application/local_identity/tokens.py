@@ -77,9 +77,12 @@ class Tokens:
             row = store.get("tokens", {"id": token_id}, lock=True)
             if not row or row["account_id"] != principal.account.id:
                 raise Denied("forbidden")
-            # Own-credential management is account scoped; project grants never
-            # authorize management of another account's token.
-            self.tx.access.enforce(store, principal, "token:create")
+            # Sessions manage their own credentials at account scope. A PAT
+            # must still be authorized in the target credential's project scope.
+            project = (
+                row["project_id"] if isinstance(principal.credential, PersonalAccessToken) else None
+            )
+            self.tx.access.enforce(store, principal, "token:create", project)
             if row["state"] == "active":
                 store.update(
                     "tokens",

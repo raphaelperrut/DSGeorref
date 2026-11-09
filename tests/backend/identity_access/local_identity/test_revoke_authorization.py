@@ -88,6 +88,7 @@ def test_revoke_requires_target_project_permission(runtime, record_property):
     caller_a = issue(project_a, ["project_member:list"])
     manager_a = issue(project_a, ["token:create"])
     manager_b = issue(project_b, ["token:create"])
+    manager_unscoped = issue(None, ["token:create"])
     with r.uow() as store:
         before = store.get("tokens", {"id": target.token.id})
         store.update(
@@ -119,7 +120,7 @@ def test_revoke_requires_target_project_permission(runtime, record_property):
         )
 
     denied(caller_a.secret, "pat", "A list-only PAT; B central permission denied; same owner")
-    denied(r.issued.secret, "session", "session owner; B central permission denied")
+    denied(manager_unscoped.secret, "pat", "account-scoped PAT; target is project-scoped")
     with r.uow() as store:
         store.update(
             "memberships",
