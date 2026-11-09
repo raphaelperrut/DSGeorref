@@ -98,6 +98,10 @@ def _history_scope(
         findings = _effective_path_findings(changes, allow, deny, path, control)
         if findings:
             raise ValueError(f"revision {commit} violates frozen scope: {findings}")
+        if path in changes and not control:
+            raise ValueError(
+                "TaskEnvelope mutation lacks frozen checkpoint and role-policy authority"
+            )
         if (path in changes or _is_ancestor(root, checkpoint, commit)) and (
             _git_bytes(root, commit, path) != authority_bytes
         ):
@@ -118,6 +122,10 @@ def _inherited_changes(
     changes: set[str] = set()
     if not isinstance(proofs, tuple) or not proofs:
         raise ValueError("integration requires complete authenticated task provenance")
+    require_task_authority = authority.task_authorities is not None or any(
+        isinstance(proof, IntegrationProof) and proof.composition_revision is not None
+        for proof in proofs
+    )
     for proof in proofs:
         if not isinstance(proof, IntegrationProof):
             raise ValueError("invalid integration proof type")
@@ -135,6 +143,8 @@ def _inherited_changes(
             raise ValueError("inherited composition contains a cycle")
         if len(active) >= MAX_COMPOSITION_DEPTH:
             raise ValueError("inherited composition exceeds maximum depth")
+        if require_task_authority:
+            authority.verify_task_authority(proof)
         authority.authenticate(root, proof)
         if _parents(root, proof.integration_revision) != (previous, proof.candidate_revision):
             raise ValueError("integration parents do not match authenticated task provenance")

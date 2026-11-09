@@ -86,10 +86,19 @@ Não se troca B pelo primeiro pai para acomodar o checkpoint.
 
 Cada dependência é validada pelo mesmo algoritmo de composição e pela mesma
 autoridade GitHub fixada pela invocação confiável. As provas não escolhem outro
-Owner, repositório ou branch e não transferem aprovações. Em cada nível são
-verificados ancestralidade, schema/identidade do envelope, bytes congelados,
+Owner, repositório ou branch e não transferem aprovações. Como o merge autenticado
+identifica C e a integração, a invocação confiável também fornece
+`GitHubIntegrationAuthority.task_authorities`, um mapa de número de PR para
+`FrozenTaskAuthority(B, K, task_envelope_path)`. Os valores devem vir dos
+registros originais de atribuição e checkpoint, independentemente das provas.
+Quando houver composição herdada, todas as provas da cadeia devem corresponder
+a esse mapa. Quando fornecido, o mapa é exigido mesmo que a prova omita I próprio.
+Chamadas legadas e composições simples dispensam o mapa. Em cada nível são
+verificados ancestralidade, schema e identidade do envelope, bytes congelados,
 política original, todas as revisões atribuídas, denies, colisões e árvores
-completas dos merges. O conjunto de paths herdados inclui todas as dependências,
+completas dos merges. O `allow_paths` do envelope não concede autoridade de
+papel para alterar o próprio envelope. O conjunto de paths herdados inclui
+todas as dependências,
 inclusive alterações intermediárias revertidas; nenhuma herança é descartada
 para calcular colisões externas. Provas repetidas em ramos distintos são
 verificadas novamente, sem cache de autorização por SHA.

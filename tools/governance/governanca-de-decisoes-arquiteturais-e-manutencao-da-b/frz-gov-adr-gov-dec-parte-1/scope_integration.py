@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import re
 import subprocess
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -24,6 +25,13 @@ class IntegrationProof:
     pull_request: int
     composition_revision: str | None = None
     composition_proofs: tuple[IntegrationProof, ...] = ()
+
+
+@dataclass(frozen=True)
+class FrozenTaskAuthority:
+    base_revision: str
+    authority_checkpoint: str
+    task_envelope_path: str
 
 
 def git_text(root: Path, *args: str) -> str:
@@ -58,6 +66,15 @@ class GitHubIntegrationAuthority:
     repository: str
     owner_id: int
     branch: str = "main"
+    task_authorities: Mapping[int, FrozenTaskAuthority] | None = None
+
+    def verify_task_authority(self, proof: IntegrationProof) -> None:
+        expected = FrozenTaskAuthority(
+            proof.base_revision, proof.authority_checkpoint, proof.task_envelope_path,
+        )
+        authorities = self.task_authorities
+        if authorities is None or authorities.get(proof.pull_request) != expected:
+            raise ValueError("inherited proof does not match pinned task authority")
 
     def _get(self, resource: str) -> dict[str, Any]:
         endpoint = f"repos/{self.repository}" + (f"/{resource}" if resource else "")

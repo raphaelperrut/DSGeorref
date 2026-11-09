@@ -18,7 +18,11 @@ MODULE = (
     / "frz-gov-adr-gov-dec-parte-1"
 )
 sys.path.insert(0, str(MODULE))
-from scope_integration import GitHubIntegrationAuthority, IntegrationProof  # noqa: E402
+from scope_integration import (  # noqa: E402
+    FrozenTaskAuthority,
+    GitHubIntegrationAuthority,
+    IntegrationProof,
+)
 from scope_validation import validate_effective_task_scope  # noqa: E402
 
 TASK = ".codex/tasks/operations/TASK-9940.json"
@@ -43,9 +47,11 @@ def commit(root: Path, message: str) -> str:
     return git(root, "rev-parse", "HEAD")
 
 
-def envelope(root: Path, path: str, allow: list[str], deny: list[str]) -> None:
+def envelope(
+    root: Path, path: str, allow: list[str], deny: list[str], *, role: str = "Tech Lead",
+) -> None:
     task = json.loads((ROOT / ".codex/tasks/operations/TASK-0785.json").read_bytes())
-    task.update(task_id=Path(path).stem, role="Tech Lead", allow_paths=allow, deny_paths=deny)
+    task.update(task_id=Path(path).stem, role=role, allow_paths=allow, deny_paths=deny)
     task["phase_f_review"]["files"].update(allow_paths=allow, deny_paths=deny)
     write(root, path, (json.dumps(task) + "\n").encode())
 
@@ -418,9 +424,16 @@ def compose_consumer(history: dict) -> dict:
 
 
 def validate_nested(h: dict, **overrides: object) -> list:
+    child, parent = h["proof"], h["nested_proof"]
     args = {
         "task_envelope_path": CONSUMER,
-        "integration_proofs": (h["proof"], h["nested_proof"]),
+        "integration_proofs": (child, parent),
+        "integration_authority": GitHubIntegrationAuthority(
+            "owner/repo", 42, task_authorities={
+                1: FrozenTaskAuthority(h["base"], child.authority_checkpoint, EXTERNAL),
+                2: FrozenTaskAuthority(h["base"], parent.authority_checkpoint, TASK),
+            },
+        ),
     }
     args.update(overrides)
     return validate(h, **args)
@@ -435,8 +448,37 @@ def test_nested_composition_preserves_original_authorities(nested_history: dict)
         proof, base_revision=proof.composition_revision,
         composition_revision=None, composition_proofs=(),
     )
-    findings = validate_nested(h, integration_proofs=(h["proof"], flattened))
+    findings = validate_nested(
+        h, integration_proofs=(h["proof"], flattened),
+        integration_authority=GitHubIntegrationAuthority("owner/repo", 42),
+    )
     assert "checkpoint is not based on base" in findings[0].detail
+    findings = validate_nested(h, integration_proofs=(h["proof"], flattened))
+    assert "pinned task authority" in findings[0].detail
+
+
+def test_nested_authority_cannot_be_taken_from_the_proof(nested_history: dict) -> None:
+    h = nested_history
+    missing = validate_nested(h, integration_authority=GitHubIntegrationAuthority("owner/repo", 42))
+    assert "pinned task authority" in missing[0].detail
+    proof = h["nested_proof"]
+    substituted = replace(proof, authority_checkpoint=proof.candidate_revision)
+    findings = validate_nested(h, integration_proofs=(h["proof"], substituted))
+    assert "pinned task authority" in findings[0].detail
+
+
+def test_nested_envelope_cannot_grant_its_own_role_authority(history: dict) -> None:
+    h = history
+    root = h["root"]
+    git(root, "checkout", "-b", "unprivileged", h["base"])
+    envelope(root, TASK, [TASK, "data/task.txt"], [], role="Backend")
+    h["checkpoint"] = commit(root, "envelope without role authority")
+    write(root, "data/task.txt", b"task\n")
+    commit(root, "task work")
+    git(root, "merge", "--no-ff", h["integration"], "-m", "sync")
+    h["candidate"] = git(root, "rev-parse", "HEAD")
+    findings = validate_nested(compose_consumer(h))
+    assert "role-policy authority" in findings[0].detail
 
 
 @pytest.mark.parametrize(
@@ -580,7 +622,11 @@ def test_default_depth_boundary_and_cycle_precede_authentication(history: dict) 
 
     h = history
     assert MAX_COMPOSITION_DEPTH == 16
-    authority = GitHubIntegrationAuthority("owner/repo", 42)
+    authority = GitHubIntegrationAuthority(
+        "owner/repo", 42, task_authorities={
+            1: FrozenTaskAuthority(h["base"], h["proof"].authority_checkpoint, EXTERNAL),
+        },
+    )
     args = (h["root"], h["base"], h["integration"], (h["proof"],), authority)
     assert _inherited_changes(*args, active=(h["base"],) * 15)
     with pytest.raises(ValueError, match="maximum depth"):
