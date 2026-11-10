@@ -10,7 +10,8 @@ from sqlalchemy import create_engine, text
 def migrate(dsn: str, direction: str) -> None:
     if direction not in {"upgrade", "downgrade"}:
         raise ValueError("unknown migration direction")
-    engine = create_engine(dsn)
+    # A downgrade's preservation check must see writes committed before it acquired its locks.
+    engine = create_engine(dsn, isolation_level="READ COMMITTED")
     try:
         with engine.begin() as connection:
             connection.execute(text("SET LOCAL lock_timeout = '5s'"))

@@ -81,6 +81,9 @@ export function useIdentityAccess() {
         const problem = result.response.headers.get("content-type")?.split(";")[0]?.trim() === "application/problem+json"
           ? safety.safeProblem(result.error, result.response.status, secrets) : null;
         if (!problem || [401, 403].includes(result.response.status)) clearIdentity();
+        if (settings.protected && result.response.status === 401) {
+          setNotice("Sessão expirada ou revogada. Autentique-se novamente.");
+        }
         setResults(previous => ({ ...previous, [operation]: { phase: "failure", problem,
           message: problem ? "Pedido rejeitado pela API." : "Resposta inesperada da API; nenhuma permissão foi confirmada." } }));
         return false;
@@ -112,6 +115,9 @@ export function useIdentityAccess() {
     setSession(value); setSessionEtag(response.headers.get("etag") ?? "");
   }
   const headers = (key: string) => ({ "Idempotency-Key": key });
+  const sessionHeaders = (key: string) => ({
+    ...headers(key), "X-CSRF-Token": session?.csrfToken ?? "",
+  });
   return {
     results, session, sessionEtag, secret, busy, notice, discardSecret: () => setSecret(null),
     bootstrap: (body: PostAuthBootstrapRequest, key: string) => run("bootstrap",
@@ -121,10 +127,10 @@ export function useIdentityAccess() {
       opts => api.postAuthSession({ ...opts, body, headers: headers(key) }), safety.sessionResponse, 202,
       { authentication: true, secrets: [body.password], present: (data, response) => { acceptSession(data.data, response); return data; } }),
     logout: (key: string, ifMatch: string) => run("logout",
-      opts => api.deleteAuthSession({ ...opts, headers: { ...headers(key), "If-Match": ifMatch } }), safety.logoutResponse, 204,
+      opts => api.deleteAuthSession({ ...opts, headers: { ...sessionHeaders(key), "If-Match": ifMatch } }), safety.logoutResponse, 204,
       { protected: true, authentication: true }),
     issueToken: (body: PostAuthTokensRequest, key: string) => run("tokens",
-      opts => api.postAuthTokens({ ...opts, body, headers: headers(key) }), safety.tokenResponse, 201,
+      opts => api.postAuthTokens({ ...opts, body, headers: sessionHeaders(key) }), safety.tokenResponse, 201,
       { protected: true, present: data => {
         const issued = safety.issuedSecret(data.data); setSecret(issued);
         // Retain only the generated nonsecret DTO; discarding removes the sole UI copy.
@@ -141,7 +147,7 @@ export function useIdentityAccess() {
       (value): value is GetProjectsProjectidMembersResponse => safety.membersResponse(value)
         && value.items.every(item => item.projectId.toLowerCase() === projectId.toLowerCase()), 200, { protected: true }),
     addMember: (projectId: string, body: PostProjectsProjectidMembersRequest, key: string) => run("member",
-      opts => api.postProjectsProjectidMembers({ ...opts, path: { projectId }, body, headers: headers(key) }),
+      opts => api.postProjectsProjectidMembers({ ...opts, path: { projectId }, body, headers: sessionHeaders(key) }),
       (value): value is PostProjectsProjectidMembersResponse => safety.memberResponse(value)
         && value.data.projectId.toLowerCase() === projectId.toLowerCase()
         && value.data.userId.toLowerCase() === body.userId.toLowerCase() && value.data.role === body.role,

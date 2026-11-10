@@ -443,7 +443,7 @@ def test_populated_downgrade_preserves_account_and_binding(runtime):
     with psycopg.connect(runtime.dsn) as connection:
         assert connection.execute(
             "SELECT version_num FROM identity.alembic_version"
-        ).fetchone() == ("identity_link_binding_v2",)
+        ).fetchone() == ("identity_login_throttle_v3",)
         assert connection.execute(
             "SELECT convalidated FROM pg_constraint "
             "WHERE conname='oidc_transaction_session_owner_fk'"

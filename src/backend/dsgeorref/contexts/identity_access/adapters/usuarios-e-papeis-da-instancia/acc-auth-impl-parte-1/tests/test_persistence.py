@@ -192,7 +192,7 @@ def test_existing_schema_populated_rollback_refuses_data_loss(runtime):
     with psycopg.connect(r.dsn) as connection:
         assert (
             connection.execute("SELECT version_num FROM identity.alembic_version").fetchone()[0]
-            == "identity_link_binding_v2"
+            == "identity_login_throttle_v3"
         )
 
 
@@ -200,7 +200,8 @@ def test_empty_schema_downgrade_and_reapply(database):
     with psycopg.connect(database) as connection:
         connection.execute("""TRUNCATE identity.accounts,identity.bootstrap,identity.memberships,
           identity.oidc_links,identity.sessions,identity.tokens,identity.requests,
-          identity.oidc_transactions,identity.ceremonies,identity.observations CASCADE""")
+          identity.oidc_transactions,identity.ceremonies,identity.observations,
+          identity.throttle_buckets,identity.throttle_decisions CASCADE""")
     migration_dsn = os.environ["IDENTITY_MIGRATION_DSN"]
     migrate(migration_dsn, "downgrade")
     with psycopg.connect(database) as connection:

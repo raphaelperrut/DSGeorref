@@ -1,6 +1,6 @@
 # Boundary HTTP do BC-002
 
-O entrypoint monta somente `DELETE /api/v1/auth/session`. Ele usa o contrato HTTP
+O entrypoint de produção monta somente `DELETE /api/v1/auth/session`. Ele usa o contrato HTTP
 versionado, a política integrada da instância e a unidade de trabalho PostgreSQL
 existente. A sessão deve ter sido emitida por uma superfície autorizada.
 
@@ -39,3 +39,49 @@ autorizada do provedor. Essas operações ficam fora do roteamento deste entrypo
 
 Para rollback, retire o upstream do proxy e pare o processo ASGI. Revogações
 confirmadas e a trilha de auditoria permanecem no PostgreSQL.
+
+## Integração de desenvolvimento do Sprint 002
+
+Use um banco PostgreSQL local descartável, com a revisão Alembic
+`identity_login_throttle_v3` aplicada pelo controlador existente. Configure as
+variáveis comuns da tabela acima e use `DSGEOREF_IDENTITY_MODE=development`.
+No JSON de segurança use `approved: false` e uma versão com prefixo
+`development-`. A origem HTTPS deve usar loopback e corresponder à porta do
+frontend.
+
+- `DSGEOREF_IDENTITY_THROTTLE_PROFILE` aponta para um JSON com `version`
+  (prefixo `development-`), `limit_after`, `lock_after`, `window_seconds`,
+  `cooldown_seconds` e `lock_seconds`. Use inteiros positivos e configure o
+  limiar de limitação abaixo do limiar de bloqueio e o cooldown abaixo da
+  duração do bloqueio e da janela.
+- `DSGEOREF_IDENTITY_THROTTLE_KEY_HEX` contém um segredo estável com pelo menos
+  32 bytes, distinto da chave de replay. Preserve a chave entre reinícios.
+
+```sh
+python -m uvicorn --factory --host 127.0.0.1 --no-proxy-headers --no-access-log \
+  dsgeorref.contexts.identity_access.adapters.local_identity.asgi:create_development_app
+```
+
+Para montar a tela React no Vite, defina `DSGEOREF_IDENTITY_DEV_BACKEND`
+como a origem HTTP do upstream em `127.0.0.1` e forneça os arquivos TLS locais
+em `DSGEOREF_IDENTITY_DEV_TLS_KEY` e `DSGEOREF_IDENTITY_DEV_TLS_CERT`. Execute
+`pnpm --dir src/frontend dev` e abra a origem HTTPS configurada.
+
+O host que compõe o aplicativo fornece a autoridade de existência de projetos
+pelo port `project_exists`, a autorização de bootstrap por
+`installation_authorized` com custódia offline do kit em `stage_recovery`,
+e o provedor OIDC com resolução do vínculo de
+navegador pelo argumento `oidc`. As operações dependentes dessas capacidades
+rejeitam a tentativa quando a capacidade está ausente. O teste
+`test_epic_009_superficie` usa uma autoridade de projeto de teste e serviços
+BC-002 com PostgreSQL real. A suíte também valida React e o SDK contra o
+upstream FastAPI pelo proxy HTTPS.
+
+O host guarda o kit fora do HTTP e só o libera após confirmar o bootstrap
+da conta correspondente. Falha de custódia aborta o bootstrap. Se o commit
+falhar após a preparação do kit, descarte o material da conta sem commit.
+
+Os parâmetros dessa configuração destinam-se ao desenvolvimento. O gate de
+produção da #816 continua pendente. Para rollback da funcionalidade, retire o
+upstream de desenvolvimento. A migration recusa downgrade se houver estado
+ou evidência de throttling persistidos.

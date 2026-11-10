@@ -51,20 +51,22 @@ def _preconditions(request: Request) -> tuple[str, int]:
     return key, int(revision[1])
 
 
-def _provenance(request: Request) -> Provenance:
+def _provenance(request: Request, error: str = "unauthorized") -> Provenance:
     return Provenance(
-        _single_header(request, "Origin", "unauthorized"),
-        _single_header(request, "Sec-Fetch-Site", "unauthorized"),
-        _single_header(request, "X-CSRF-Token", "unauthorized") or None,
+        _single_header(request, "Origin", error),
+        _single_header(request, "Sec-Fetch-Site", error),
+        _single_header(request, "X-CSRF-Token", error) or None,
     )
 
 
-def _problem(code: str, headers: dict[str, str]) -> JSONResponse:
-    if code == "forbidden":
-        code = "unauthorized"
-    if code not in _ERRORS:
+def _problem(
+    code: str,
+    headers: dict[str, str],
+    errors: dict[str, int] = _ERRORS,
+) -> JSONResponse:
+    if code not in errors:
         code = "internal_error"
-    status = _ERRORS[code]
+    status = errors[code]
     return JSONResponse(
         {
             "type": f"https://dsgeorref.local/problems/{code}",
@@ -90,7 +92,7 @@ def create_app(sessions: Sessions, web: WebResponses) -> FastAPI:
             provenance = _provenance(request) if kind == "session" else None
             sessions.logout(secret, kind, revision, key, provenance)
         except Denied as error:
-            return _problem(error.code, headers)
+            return _problem("unauthorized" if error.code == "forbidden" else error.code, headers)
         headers["Set-Cookie"] = web.clear_cookie()
         return Response(status_code=204, headers=headers)
 

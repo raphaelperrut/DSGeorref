@@ -5,6 +5,7 @@ import socket
 import subprocess
 import threading
 import time
+from contextlib import contextmanager
 from dataclasses import asdict
 from pathlib import Path
 from urllib.error import HTTPError
@@ -42,11 +43,17 @@ def production_app(monkeypatch, runtime, tmp_path):
 
 @pytest.fixture
 def server(production_app):
+    with running_server(production_app) as base_url:
+        yield base_url
+
+
+@contextmanager
+def running_server(app):
     with socket.socket() as listener:
         listener.bind(("127.0.0.1", 0))
         listener.listen()
         port = listener.getsockname()[1]
-        service = Server(Config(production_app, access_log=False, log_level="warning"))
+        service = Server(Config(app, access_log=False, log_level="warning"))
         thread = threading.Thread(target=service.run, kwargs={"sockets": [listener]}, daemon=True)
         thread.start()
         try:

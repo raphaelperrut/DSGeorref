@@ -94,7 +94,8 @@ def installation(database):
     with psycopg.connect(database) as connection:
         connection.execute("""TRUNCATE identity.accounts,identity.bootstrap,identity.memberships,
           identity.oidc_links,identity.sessions,identity.tokens,identity.requests,
-          identity.oidc_transactions,identity.ceremonies,identity.observations CASCADE""")
+          identity.oidc_transactions,identity.ceremonies,identity.observations,
+          identity.throttle_buckets,identity.throttle_decisions CASCADE""")
         connection.execute("INSERT INTO identity.bootstrap VALUES (true,'available',NULL,1)")
     profile = synthetic_profile()
     policy = AuthorizationPolicy(

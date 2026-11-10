@@ -38,8 +38,10 @@ class SecurityProfile:
     pat_lifetime: timedelta
     oidc_lifetime: timedelta
     io_timeout: float
+    development: bool = False
 
     def validate(self) -> None:
+        self._validate_provenance()
         numbers = (
             self.memory_kib,
             self.iterations,
@@ -49,8 +51,6 @@ class SecurityProfile:
             self.max_password_bytes,
         )
         times = (self.session_absolute, self.session_idle, self.pat_lifetime, self.oidc_lifetime)
-        if self.approved is not True or self.benchmark != "BP-003" or not self.version:
-            raise Denied("internal_error")
         if any(type(n) is not int or n <= 0 for n in numbers):
             raise Denied("internal_error")
         if self.memory_kib < 8 * self.lanes or self.max_password_bytes < self.min_password_length:
@@ -59,6 +59,14 @@ class SecurityProfile:
         if not all((valid_times, isfinite(self.io_timeout), self.io_timeout > 0)):
             raise Denied("internal_error")
         if self.session_idle > self.session_absolute:
+            raise Denied("internal_error")
+
+    def _validate_provenance(self) -> None:
+        if not isinstance(self.version, str) or not self.version or self.benchmark != "BP-003":
+            raise Denied("internal_error")
+        development_version = self.version.startswith("development-")
+        expected_approval = not development_version
+        if self.development is not development_version or self.approved is not expected_approval:
             raise Denied("internal_error")
 
     def password_eligible(self, password: str) -> None:
