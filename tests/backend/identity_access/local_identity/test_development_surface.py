@@ -203,20 +203,39 @@ def _assert_audit_failure_is_closed(base_url, runtime, target: UUID):
             )
 
 
-def test_development_profile_cannot_enter_production(development):
+def test_development_profile_cannot_enter_production(development, monkeypatch):
     with pytest.raises(RuntimeError, match="BC-002 runtime configuration"):
         create_production_app()
+    with monkeypatch.context() as configuration:
+        configuration.setenv(
+            "DSGEOREF_IDENTITY_DSN",
+            "dbname=fixture host=127.0.0.1 hostaddr=192.0.2.10",
+        )
+        with pytest.raises(RuntimeError, match="BC-002 development configuration"):
+            create_development_app()
     development.write_text('{"version":"development-invalid"}', encoding="utf-8")
     with pytest.raises(RuntimeError, match="BC-002 development configuration"):
         create_development_app()
 
 
-def test_bootstrap_requires_installation_capability(development):
+def test_bootstrap_requires_installation_capability(development, installation):
     body = {"username": "first-admin", "password": PASSWORD, "displayName": "Administrador"}
-    with running_server(create_development_app()) as base_url:
+    with running_server(create_development_app(installation_authorized=True)) as base_url:
         assert_problem(_post(base_url, "/auth/bootstrap", body), 422, "validation_failed")
 
-    with running_server(create_development_app(installation_authorized=True)) as base_url:
+    def unavailable(_account, _kit):
+        raise OSError("fixture custody failure")
+
+    failing = create_development_app(installation_authorized=True, stage_recovery=unavailable)
+    with running_server(failing) as base_url:
+        assert_problem(_post(base_url, "/auth/bootstrap", body), 500, "internal_error")
+    with installation.access.uow() as store:
+        assert store.get("bootstrap", {"singleton": True})["state"] == "available"
+        assert not store.get("accounts", {"username": body["username"]})
+
+    staged = {}
+    app = create_development_app(installation_authorized=True, stage_recovery=staged.__setitem__)
+    with running_server(app) as base_url:
         with _post(base_url, "/auth/bootstrap", body) as response:
             assert response.status == 202
             assert response.headers.get("Set-Cookie") is None
@@ -228,6 +247,12 @@ def test_bootstrap_requires_installation_capability(development):
             _post(base_url, "/auth/bootstrap", {**body, "displayName": "Outro"}),
             409,
             "bootstrap_already_completed",
+        )
+    account_id = UUID(created["data"]["administratorId"])
+    with installation.access.uow() as store:
+        assert list(staged) == [account_id]
+        assert store.get("accounts", {"id": account_id})["recovery_hash"] == digest(
+            staged[account_id]
         )
 
 

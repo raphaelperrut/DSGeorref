@@ -1,5 +1,6 @@
 """One-time bootstrap and local authentication; no HTTP surface is added."""
 
+from collections.abc import Callable
 from dataclasses import asdict
 from uuid import UUID
 
@@ -40,6 +41,7 @@ class LocalAccounts:
         request: Provenance,
         *,
         display_name: str | None = None,
+        stage_recovery: Callable[[UUID, str], None] | None = None,
     ) -> tuple[Account, IssuedSession, str]:
         self.tx.web.validate(request)
         if "instance:bootstrap" not in self.tx.access.policy.installation_actions:
@@ -87,6 +89,7 @@ class LocalAccounts:
             self.tx.finish(store, "post_auth_bootstrap", None, key, issued.session.id)
             self.tx.observe(store, account.id, "AdminBootstrapped", account.id)
             self.tx.observe(store, account.id, "SessionCreated", issued.session.id)
+            _stage_recovery(stage_recovery, account.id, recovery)
         return account, issued, recovery
 
     @audit_denial("post_auth_session")
@@ -168,3 +171,11 @@ def _bootstrap_payload(username: str, password: str, display_name: str | None) -
     if display_name is not None:
         payload["displayName"] = display_name
     return payload
+
+
+def _stage_recovery(stage: Callable[[UUID, str], None] | None, account: UUID, kit: str) -> None:
+    if stage is not None:
+        try:
+            stage(account, kit)
+        except OSError as error:
+            raise Denied("internal_error") from error

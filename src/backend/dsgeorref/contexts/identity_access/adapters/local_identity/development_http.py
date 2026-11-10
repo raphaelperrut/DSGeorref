@@ -20,7 +20,7 @@ from dsgeorref.contexts.identity_access.domain.local_identity.models import (
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from .http import _credential, _problem, _provenance, _single_header
 from .web import WebResponses
@@ -62,6 +62,13 @@ class TokenBody(BaseModel):
     name: Annotated[str, Field(min_length=1, max_length=100)]
     scopes: Annotated[list[str], Field(min_length=1)]
     expiresAt: datetime | None = None
+
+    @field_validator("expiresAt", mode="before")
+    @classmethod
+    def expiry_is_date_time(cls, value: object) -> object:
+        if value is not None and (not isinstance(value, str) or "T" not in value.upper()):
+            raise ValueError("expected a date-time string")
+        return value
 
 
 class MemberBody(BaseModel):
@@ -107,11 +114,13 @@ class DevelopmentRoutes:
         memberships,
         project_exists: Callable[[Store, UUID], bool],
         oidc: tuple[Federation, Callable[[Request], str]] | None,
+        stage_recovery: Callable[[UUID, str], None] | None,
     ) -> None:
         self.tx, self.web, self.accounts = tx, web, accounts
         self.memberships, self.project_exists = memberships, project_exists
         self.tokens = Tokens(tx)
         self.oidc = oidc
+        self.stage_recovery = stage_recovery
 
     def _respond(self, errors, status, operation) -> JSONResponse:
         headers = self.web.headers()
@@ -145,6 +154,7 @@ class DevelopmentRoutes:
                 _key(request),
                 _provenance(request, "validation_failed"),
                 display_name=body.displayName,
+                stage_recovery=self.stage_recovery,
             )
             created = issued.session.expires_at - self.tx.access.profile.session_absolute
             return {

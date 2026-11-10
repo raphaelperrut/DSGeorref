@@ -23,7 +23,7 @@ from dsgeorref.contexts.identity_access.domain.local_identity.policy import Secu
 from dsgeorref.contexts.identity_access.domain.local_identity.web import WebPolicy
 from fastapi import FastAPI, Request
 from psycopg import ProgrammingError
-from psycopg.conninfo import conninfo_to_dict
+from psycopg.conninfo import conninfo_to_dict, make_conninfo
 
 from .development_http import DevelopmentRoutes
 from .http import create_app
@@ -81,6 +81,7 @@ def create_development_app(
     project_exists: Callable[[Store, UUID], bool] = _project_authority_unavailable,
     installation_authorized: bool = False,
     oidc: tuple[OidcProvider, Callable[[Request], str]] | None = None,
+    stage_recovery: Callable[[UUID, str], None] | None = None,
 ) -> FastAPI:
     """Enable the Sprint 002 surface with explicit local development configuration."""
     try:
@@ -100,27 +101,28 @@ def create_development_app(
         )
         dsn = os.environ["DSGEOREF_IDENTITY_DSN"]
         settings = conninfo_to_dict(dsn)
-        if not settings.get("dbname") or settings.get("host") not in {
-            "127.0.0.1",
-            "::1",
-            "localhost",
-        }:
+        host = settings.get("host")
+        if not settings.get("dbname") or host not in {"127.0.0.1", "::1", "localhost"}:
             raise ValueError("development requires local PostgreSQL")
+        address = settings.get("hostaddr", "127.0.0.1" if host == "localhost" else host)
+        if address not in {"127.0.0.1", "::1"}:
+            raise ValueError("development requires a loopback PostgreSQL address")
         return _development_routes(
-            dsn,
+            make_conninfo(dsn, hostaddr=address),
             profile,
             WebPolicy(origin),
             throttle,
             project_exists,
             installation_authorized,
             oidc,
+            stage_recovery,
         )
     except (Denied, OSError, KeyError, TypeError, ValueError, OverflowError, ProgrammingError):
         raise RuntimeError("Invalid or missing BC-002 development configuration") from None
 
 
 def _development_routes(
-    dsn, profile, policy, throttle, project_exists, installation_authorized, oidc
+    dsn, profile, policy, throttle, project_exists, installation_authorized, oidc, stage_recovery
 ):
     from .postgres import PostgresUnitOfWork
 
@@ -140,7 +142,7 @@ def _development_routes(
         eligibility,
         replay_key,
         Path(os.environ["DSGEOREF_IDENTITY_POLICY"]),
-        installation_authorized=installation_authorized,
+        installation_authorized=installation_authorized is True and callable(stage_recovery),
     )
     web = WebResponses(policy)
     app = create_app(Sessions(tx), web)
@@ -149,6 +151,6 @@ def _development_routes(
     )
     callback = (Federation(tx, oidc[0]), oidc[1]) if oidc is not None else None
     DevelopmentRoutes(
-        tx, web, LocalAccounts(tx, throttle), memberships, project_exists, callback
+        tx, web, LocalAccounts(tx, throttle), memberships, project_exists, callback, stage_recovery
     ).register(app)
     return app

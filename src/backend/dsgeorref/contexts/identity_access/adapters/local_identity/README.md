@@ -69,12 +69,17 @@ em `DSGEOREF_IDENTITY_DEV_TLS_KEY` e `DSGEOREF_IDENTITY_DEV_TLS_CERT`. Execute
 
 O host que compõe o aplicativo fornece a autoridade de existência de projetos
 pelo port `project_exists`, a autorização de bootstrap por
-`installation_authorized` e o provedor OIDC com resolução do vínculo de
+`installation_authorized` com custódia offline do kit em `stage_recovery`,
+e o provedor OIDC com resolução do vínculo de
 navegador pelo argumento `oidc`. As operações dependentes dessas capacidades
 rejeitam a tentativa quando a capacidade está ausente. O teste
 `test_epic_009_superficie` usa uma autoridade de projeto de teste e serviços
 BC-002 com PostgreSQL real. A suíte também valida React e o SDK contra o
 upstream FastAPI pelo proxy HTTPS.
+
+O host guarda o kit fora do HTTP e só o libera após confirmar o bootstrap
+da conta correspondente. Falha de custódia aborta o bootstrap. Se o commit
+falhar após a preparação do kit, descarte o material da conta sem commit.
 
 Os parâmetros dessa configuração destinam-se ao desenvolvimento. O gate de
 produção da #816 continua pendente. Para rollback da funcionalidade, retire o
