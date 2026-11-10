@@ -30,6 +30,7 @@ class Federation:
         self, browser: str, request: Provenance, linking_session: str | None = None
     ) -> tuple[str, str]:
         self.tx.web.validate(request)
+        self._provider_authorized()
         if not browser:
             raise Denied("oidc_state_invalid")
         state, nonce = opaque(), opaque()
@@ -39,9 +40,6 @@ class Federation:
             )
             if principal:
                 self.tx.browser_guard(principal, request)
-                self.tx.access.enforce(store, principal, "oidc:callback")
-            elif "oidc:callback" not in self.tx.access.policy.authentication_actions:
-                raise Denied("oidc_state_invalid")
             store.insert(
                 "oidc_transactions",
                 {
@@ -59,6 +57,54 @@ class Federation:
 
     @audit_denial("get_auth_oidc_callback")
     def callback(self, state: str, browser: str, code: str) -> tuple[IssuedSession, bool]:
+        # The attempt survives business rollback, including a deferred commit failure.
+        # A duplicate never owns the attempt and must not invalidate its first caller.
+        self._claim_callback(state)
+        try:
+            return self._callback(state, browser, code)
+        except Denied:
+            self._fail_callback(state)
+            raise
+
+    def _claim_callback(self, state: str) -> None:
+        with self.tx.access.uow() as store:
+            pending = store.get("oidc_transactions", {"state_hash": digest(state)}, lock=True)
+            if not pending or pending["state"] != "pending":
+                raise Denied("oidc_state_invalid")
+            if store.get(
+                "requests",
+                {
+                    "operation": "get_auth_oidc_callback",
+                    "principal_id": pending["account_id"],
+                    "key_hash": digest(state),
+                },
+            ):
+                raise Denied("oidc_state_invalid")
+            replay = self.tx.request(
+                store,
+                "get_auth_oidc_callback",
+                pending["account_id"],
+                state,
+                {"state_hash": digest(state)},
+            )
+            if replay:
+                raise Denied("oidc_state_invalid")
+
+    def _fail_callback(self, state: str) -> None:
+        with self.tx.access.uow() as store:
+            pending = store.get("oidc_transactions", {"state_hash": digest(state)}, lock=True)
+            if pending and pending["state"] == "pending":
+                store.update("oidc_transactions", {"id": pending["id"]}, {"state": "failed"})
+                store.audit(
+                    None,
+                    "get_auth_oidc_callback",
+                    pending["id"],
+                    "DENIED",
+                    self.tx.access.policy.version,
+                    uuid7(),
+                )
+
+    def _callback(self, state: str, browser: str, code: str) -> tuple[IssuedSession, bool]:
         failure, issued, linked = None, None, False
         with self.tx.access.uow() as store:
             pending = store.get("oidc_transactions", {"state_hash": digest(state)}, lock=True)
@@ -73,6 +119,7 @@ class Federation:
                     if pending["expires_at"] <= store.now():
                         raise Denied("oidc_state_invalid")
                     self.tx.eligible(store, "get_auth_oidc_callback", pending["account_id"])
+                    self._provider_authorized()
                     identity = self.provider.exchange(code, pending["nonce_hash"])
                     if identity.expires_at <= store.now():
                         raise Denied("oidc_exchange_failed")
@@ -131,6 +178,7 @@ class Federation:
         return account_id, link_id, True
 
     def _link_authorized(self, store: Store, pending: Record, account_id: UUID) -> None:
+        self._provider_authorized()
         if pending["account_id"]:
             session = store.get("sessions", {"id": pending["session_id"]}, lock=True)
             if (
@@ -146,11 +194,12 @@ class Federation:
                 source = store.get("oidc_links", {"id": session["oidc_link_id"]})
                 if not source or source["state"] != "linked" or source["account_id"] != account_id:
                     raise Denied("identity_link_conflict")
-            if "oidc:callback" not in self.tx.access.policy.account_grants.get(
-                account_id, frozenset()
-            ):
-                raise Denied("identity_link_conflict")
-        elif "oidc:callback" not in self.tx.access.policy.authentication_actions:
+
+    def _provider_authorized(self) -> None:
+        """Use authentication policy, never a project role or an external claim."""
+        self.tx.access.policy.validate()
+        self.tx.access.profile.validate()
+        if "oidc:callback" not in self.tx.access.policy.authentication_actions:
             raise Denied("oidc_state_invalid")
 
     @audit_denial("unlink")
@@ -158,7 +207,7 @@ class Federation:
         with self.tx.access.uow() as store:
             principal = self.tx.access.load(store, secret, "session")
             self.tx.browser_guard(principal, request)
-            self.tx.access.enforce(store, principal, "oidc:callback")
+            self._provider_authorized()
             link = store.get("oidc_links", {"id": link_id}, lock=True)
             if not link or link["account_id"] != principal.account.id or link["state"] != "linked":
                 raise Denied("identity_link_conflict")
