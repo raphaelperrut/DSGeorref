@@ -90,7 +90,7 @@ def database():
 
 
 @pytest.fixture
-def runtime(database):
+def installation(database):
     with psycopg.connect(database) as connection:
         connection.execute("""TRUNCATE identity.accounts,identity.bootstrap,identity.memberships,
           identity.oidc_links,identity.sessions,identity.tokens,identity.requests,
@@ -114,11 +114,26 @@ def runtime(database):
         lambda store, operation, actor: True,
         opaque().encode(),
     )
+    return tx
+
+
+@pytest.fixture
+def runtime(installation, database):
+    tx = installation
     accounts = LocalAccounts(tx)
     account, issued, recovery = accounts.bootstrap(
         "admin", PASSWORD, "bootstrap", Provenance(ORIGIN, "same-origin")
     )
-    policy.account_grants[account.id] = PUBLIC_ACTIONS
+    tx.access.policy.account_grants[account.id] = PUBLIC_ACTIONS
     return Runtime(
-        uow, access, tx, accounts, Sessions(tx), Tokens(tx), account, issued, recovery, database
+        tx.access.uow,
+        tx.access,
+        tx,
+        accounts,
+        Sessions(tx),
+        Tokens(tx),
+        account,
+        issued,
+        recovery,
+        database,
     )

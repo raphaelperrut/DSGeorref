@@ -74,8 +74,10 @@ class Tokens:
         with self.tx.access.uow() as store:
             principal = self.tx.access.load(store, secret, kind)
             self.tx.browser_guard(principal, request)
-            row = store.get("tokens", {"id": token_id}, lock=True)
-            if not row or row["account_id"] != principal.account.id:
+            row = store.get(
+                "tokens", {"id": token_id, "account_id": principal.account.id}, lock=True
+            )
+            if not row:
                 raise Denied("forbidden")
             # Sessions manage their own credentials at account scope. A PAT
             # must still be authorized in the target credential's project scope.

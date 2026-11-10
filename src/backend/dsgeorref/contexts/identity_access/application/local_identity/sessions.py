@@ -55,8 +55,9 @@ class Sessions:
             self.tx.browser_guard(principal, request)
             if target is None and isinstance(principal.credential, Session):
                 target = principal.credential.id
-            row = store.get("sessions", {"id": target}, lock=True) if target else None
-            if not row or row["account_id"] != principal.account.id:
+            key_fields = {"id": target, "account_id": principal.account.id}
+            row = store.get("sessions", key_fields, lock=True) if target else None
+            if not row:
                 raise Denied("session_not_found")
             assert target is not None
             if row["revision"] != revision or row["state"] != "active":

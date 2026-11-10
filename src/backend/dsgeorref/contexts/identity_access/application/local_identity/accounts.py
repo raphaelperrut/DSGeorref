@@ -76,6 +76,7 @@ class LocalAccounts:
             )
             self.tx.finish(store, "post_auth_bootstrap", None, key, issued.session.id)
             self.tx.observe(store, account.id, "AdminBootstrapped", account.id)
+            self.tx.observe(store, account.id, "SessionCreated", issued.session.id)
         return account, issued, recovery
 
     @audit_denial("post_auth_session")
