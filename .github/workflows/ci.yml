@@ -122,6 +122,7 @@ jobs:
           python -m pytest -q -p no:cacheprovider \
             tests/backend/identity_access/local_identity/test_requirements.py \
             tests/backend/identity_access/local_identity/test_identity_requirements.py \
+            tests/backend/identity_access/local_identity/test_http.py \
             tests/backend/identity_access/local_identity/test_slice_consolidation.py::test_oidc_session_can_issue_and_revoke_pat \
             tests/security/contexts/identity_access
           python -m pytest -q -p no:cacheprovider src/backend/dsgeorref/contexts/identity_access/adapters/usuarios-e-papeis-da-instancia/acc-auth-impl-parte-1/tests/test_slice_consolidation.py::test_story_0042_slice_consolidation
