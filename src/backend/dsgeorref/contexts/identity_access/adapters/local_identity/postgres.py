@@ -11,6 +11,7 @@ from dsgeorref.contexts.identity_access.domain.local_identity.credentials import
 from dsgeorref.contexts.identity_access.domain.local_identity.models import Denied, Record
 from psycopg import sql
 from psycopg.rows import dict_row
+from psycopg.types.json import Jsonb
 
 TABLES = {
     "accounts": "id username password_hash recovery_hash state revision administrator",
@@ -26,6 +27,14 @@ TABLES = {
         "id state_hash nonce_hash browser_hash account_id session_id expires_at state"
     ),
     "ceremonies": "id account_id kit_hash",
+    "throttle_buckets": (
+        "operation bucket_digest policy_version revision failure_count attempt_count "
+        "window_started_at window_ends_at blocked_until state"
+    ),
+    "throttle_decisions": (
+        "id operation bucket_digest observed_at policy_version reason allowed "
+        "before_state after_state"
+    ),
     "observations": (
         "id actor_id action target_id outcome policy_version correlation_id observed_at reason_code"
     ),
@@ -35,6 +44,26 @@ TABLES = {
 class PostgresStore:
     def __init__(self, connection: psycopg.Connection[Record]) -> None:
         self.connection = connection
+
+    def throttle_bucket(self, initial: Record) -> Record:
+        self.connection.execute(
+            """INSERT INTO identity.throttle_buckets
+               (operation, bucket_digest, policy_version, revision, failure_count, attempt_count,
+                window_started_at, window_ends_at, blocked_until, state)
+               VALUES (%(operation)s, %(bucket_digest)s, %(policy_version)s, 1, 0, 0,
+                       %(window_started_at)s, %(window_ends_at)s, NULL, 'open')
+               ON CONFLICT (operation, bucket_digest) DO NOTHING""",
+            initial,
+        )
+        key = {name: initial[name] for name in ("operation", "bucket_digest")}
+        row = self.get("throttle_buckets", key, lock=True)
+        if row is None:
+            raise Denied("internal_error")
+        return row
+
+    def throttle_decision(self, decision: Record) -> None:
+        snapshots = {name: Jsonb(decision[name]) for name in ("before_state", "after_state")}
+        self.insert("throttle_decisions", {**decision, **snapshots})
 
     @contextmanager
     def savepoint(self) -> Iterator[None]:

@@ -18,18 +18,28 @@ from dsgeorref.contexts.identity_access.domain.local_identity.web import Provena
 
 from .observations import audit_denial
 from .ports import Store
+from .throttling import LoginThrottle
 from .transactions import IdentityTransactions
 
 
 class LocalAccounts:
-    def __init__(self, transactions: IdentityTransactions) -> None:
+    def __init__(
+        self, transactions: IdentityTransactions, throttle: LoginThrottle | None = None
+    ) -> None:
         self.tx = transactions
+        self.throttle = throttle
         length = self.tx.access.profile.min_password_length
         self._dummy_hash = self.tx.passwords.hash((opaque() * (length // 43 + 1))[:length])
 
     @audit_denial("post_auth_bootstrap")
     def bootstrap(
-        self, username: str, password: str, key: str, request: Provenance
+        self,
+        username: str,
+        password: str,
+        key: str,
+        request: Provenance,
+        *,
+        display_name: str | None = None,
     ) -> tuple[Account, IssuedSession, str]:
         self.tx.web.validate(request)
         if "instance:bootstrap" not in self.tx.access.policy.installation_actions:
@@ -46,7 +56,7 @@ class LocalAccounts:
                 "post_auth_bootstrap",
                 None,
                 key,
-                {"username": username, "password": password},
+                _bootstrap_payload(username, password, display_name),
             )
             if replay:
                 prior_account = store.get("accounts", {"id": state["administrator_id"]})
@@ -82,34 +92,46 @@ class LocalAccounts:
     @audit_denial("post_auth_session")
     def login(self, username: str, password: str, key: str, request: Provenance) -> IssuedSession:
         self.tx.web.validate(request)
-        failure, issued = None, None
+        if self.throttle is not None:
+            return self._throttled_login(username, password, key)
         with self.tx.access.uow() as store:
             self.tx.eligible(store, "post_auth_session", None)
-            row = store.get("accounts", {"username": username}, lock=True)
-            valid = self._verify(password, row["password_hash"] if row else self._dummy_hash)
-            if row and row["state"] == "locked":
-                failure = Denied("account_locked")
-            elif (
-                not row
-                or row["state"] != "active"
-                or not valid
-                or "session:create" not in self.tx.access.policy.authentication_actions
-            ):
-                failure = Denied("invalid_credentials")
-            if failure:
-                store.audit(
-                    None,
-                    "post_auth_session",
-                    None,
-                    "DENIED",
-                    self.tx.access.policy.version,
-                    uuid7(),
-                )
-            else:
-                assert row is not None
-                issued = self._login_session(store, row["id"], key, username, password)
+            account = self._authenticate(store, username, password)
+            return self._login_session(store, account, key, username, password)
+
+    def _authenticate(self, store: Store, username: str, password: str) -> UUID:
+        row = store.get("accounts", {"username": username}, lock=True)
+        if row and row["state"] == "locked":
+            raise Denied("account_locked")
+        valid = self._verify(password, row["password_hash"] if row else self._dummy_hash)
+        if (
+            not row
+            or row["state"] != "active"
+            or not valid
+            or "session:create" not in self.tx.access.policy.authentication_actions
+        ):
+            raise Denied("invalid_credentials")
+        return row["id"]
+
+    def _throttled_login(self, username: str, password: str, key: str) -> IssuedSession:
+        assert self.throttle is not None
+        issued, failure = None, None
+        with self.tx.access.uow() as store:
+            before, current, now = self.throttle.begin(store, username)
+            current["attempt_count"] += 1
+            try:
+                if current["state"] != "open":
+                    raise Denied("rate_limited")
+                account = self._authenticate(store, username, password)
+                with store.savepoint():
+                    issued = self._login_session(store, account, key, username, password)
+                    if not issued.secret:
+                        raise Denied("invalid_credentials")
+            except Denied as error:
+                failure = error
+            self.throttle.finish(store, before, current, now, failure=failure)
         if failure:
-            raise failure
+            raise Denied(failure.code, observed=True) from failure
         assert issued is not None
         return issued
 
@@ -139,3 +161,10 @@ class LocalAccounts:
         self.tx.finish(store, "post_auth_session", account, key, issued.session.id)
         self.tx.observe(store, account, "SessionCreated", issued.session.id)
         return issued
+
+
+def _bootstrap_payload(username: str, password: str, display_name: str | None) -> dict[str, str]:
+    payload = {"username": username, "password": password}
+    if display_name is not None:
+        payload["displayName"] = display_name
+    return payload

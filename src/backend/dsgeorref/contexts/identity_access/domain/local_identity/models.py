@@ -9,8 +9,9 @@ from uuid import UUID
 class Denied(Exception):
     """Stable failure reason; transport mapping remains operation-specific."""
 
-    def __init__(self, code: str) -> None:
+    def __init__(self, code: str, *, observed: bool = False) -> None:
         self.code = code
+        self.observed = observed
         super().__init__(code)
 
 

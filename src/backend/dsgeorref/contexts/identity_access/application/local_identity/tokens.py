@@ -34,12 +34,13 @@ class Tokens:
         request: Provenance | None,
         project: UUID | None = None,
         expires: datetime | None = None,
+        *,
+        name: str | None = None,
     ) -> IssuedToken:
         with self.tx.access.uow() as store:
             principal = self.tx.access.load(store, secret, kind)
             self.tx.access.enforce(store, principal, "token:create")
             self.tx.browser_guard(principal, request)
-            self.tx.eligible(store, "post_auth_tokens", principal.account.id)
             if not scopes or len(scopes) != len(set(scopes)):
                 raise Denied("validation_failed")
             for scope in scopes:
@@ -51,12 +52,18 @@ class Tokens:
                 or not now < expiry <= now + self.tx.access.profile.pat_lifetime
             ):
                 raise Denied("validation_failed")
+            self.tx.eligible(store, "post_auth_tokens", principal.account.id)
             replay = self.tx.request(
                 store,
                 "post_auth_tokens",
                 principal.account.id,
                 key,
-                {"scopes": scopes, "project": project, "expires": expires},
+                {
+                    "scopes": scopes,
+                    "project": project,
+                    "expires": expires,
+                    **({"name": name} if name is not None else {}),
+                },
             )
             if replay:
                 raise Denied("conflict")

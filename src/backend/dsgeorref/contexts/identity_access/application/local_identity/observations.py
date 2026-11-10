@@ -52,16 +52,17 @@ def audit_denial(
                 return function(self, *args, **kwargs)
             except Denied as error:
                 # Only allowlisted metadata; arguments and exception details are never serialized.
-                with self.tx.access.uow() as store:
-                    store.audit(
-                        None,
-                        operation,
-                        None,
-                        "DENIED",
-                        self.tx.access.policy.version,
-                        uuid7(),
-                        reason=error.code,
-                    )
+                if not error.observed:
+                    with self.tx.access.uow() as store:
+                        store.audit(
+                            None,
+                            operation,
+                            None,
+                            "DENIED",
+                            self.tx.access.policy.version,
+                            uuid7(),
+                            reason=error.code,
+                        )
                 mapped = ERROR_TRANSLATIONS.get(operation, {}).get(error.code, error.code)
                 if mapped != error.code:
                     raise Denied(mapped) from error

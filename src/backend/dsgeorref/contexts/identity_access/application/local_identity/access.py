@@ -1,5 +1,6 @@
 """Authenticate on each use and centrally enforce current grants."""
 
+from collections.abc import Callable
 from datetime import datetime
 from uuid import UUID
 
@@ -126,10 +127,22 @@ class Access:
             action = "SessionExpired" if table == "sessions" else "TokenExpired"
             store.audit(None, action, row["id"], "COMMITTED", self.policy.version, uuid7())
 
-    def check(self, secret: str, kind: str, action: str, project: UUID | None) -> bool:
+    def check(
+        self,
+        secret: str,
+        kind: str,
+        action: str,
+        project: UUID | None,
+        *,
+        guard: Callable[[Store, Principal], None] | None = None,
+    ) -> bool:
         with self.uow() as store:
             principal = self.load(store, secret, kind)
             self.enforce(store, principal, "authorization:check")
+            if action not in PUBLIC_ACTIONS:
+                raise Denied("validation_failed")
+            if guard is not None:
+                guard(store, principal)
             try:
                 self.enforce(store, principal, action, project)
                 return True
