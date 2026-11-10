@@ -32,6 +32,9 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
+    op.execute(
+        "LOCK TABLE identity.throttle_buckets, identity.throttle_decisions IN ACCESS EXCLUSIVE MODE"
+    )
     op.execute("""DO $$ BEGIN
       IF EXISTS (SELECT FROM identity.throttle_buckets)
         OR EXISTS (SELECT FROM identity.throttle_decisions) THEN

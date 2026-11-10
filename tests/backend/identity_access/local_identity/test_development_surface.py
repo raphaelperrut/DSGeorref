@@ -3,6 +3,7 @@
 import json
 import socket
 import subprocess
+import time
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict
 from datetime import UTC, datetime, timedelta
@@ -22,10 +23,12 @@ from dsgeorref.contexts.identity_access.adapters.local_identity.asgi import (
     create_development_app,
     create_production_app,
 )
+from dsgeorref.contexts.identity_access.adapters.local_identity.migration import migrate
 from dsgeorref.contexts.identity_access.adapters.local_identity.oidc import ValidatingOidcProvider
 from dsgeorref.contexts.identity_access.application.local_identity.federation import Federation
 from dsgeorref.contexts.identity_access.domain.local_identity.credentials import digest
 from oidc_fixture import SignedProvider, config
+from sqlalchemy.exc import DBAPIError
 from test_http import POLICY, ROOT, assert_problem, running_server, send
 
 ORIGIN = "https://localhost"
@@ -145,6 +148,67 @@ def _exercise_contention(base_url):
         results = list(pool.map(attempt, range(8)))
     assert results.count((401, "invalid_credentials")) == LIMIT
     assert results.count((429, "rate_limited")) == 8 - LIMIT
+
+
+@pytest.mark.parametrize(
+    ("authority_present", "status", "code"),
+    [(False, 500, "internal_error"), (True, 404, "not_found")],
+)
+def test_project_operations_deny_without_positive_authority(
+    development, runtime, authority_present, status, code
+):
+    project = uuid4()
+    runtime.member(project)
+    app = (
+        create_development_app(project_exists=lambda _store, _project: False)
+        if authority_present
+        else create_development_app()
+    )
+    headers = {
+        **HEADERS,
+        "Cookie": f"dsgeorref_session={runtime.issued.secret}",
+        "X-CSRF-Token": runtime.issued.csrf,
+    }
+    path = f"/projects/{project}/members"
+    check = (
+        "/api/v1/authorization/check?action=project_member:list"
+        f"&resourceType=project&resourceId={project}"
+    )
+    with running_server(app) as base_url:
+        assert_problem(send(base_url, headers, f"/api/v1{path}", "GET"), status, code)
+        body = {"userId": str(runtime.account.id), "role": "viewer"}
+        assert_problem(_post(base_url, path, body, headers), status, code)
+        assert_problem(send(base_url, headers, check, "GET"), status, code)
+    with runtime.uow() as store:
+        assert not store.rows("requests", {"operation": "post_projects_projectid_members"})
+
+
+def test_downgrade_preserves_concurrent_throttle_write(installation, database):
+    migration_dsn = database.replace("postgresql://", "postgresql+psycopg://", 1)
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        with psycopg.connect(database) as writer:
+            writer.execute(
+                """INSERT INTO identity.throttle_buckets
+                   VALUES ('post_auth_session', repeat('a', 64), 'development-test', 1, 0, 1,
+                           now(), now() + interval '1 minute', NULL, 'open')"""
+            )
+            downgrade = pool.submit(migrate, migration_dsn, "downgrade")
+            deadline = time.monotonic() + 3
+            while time.monotonic() < deadline:
+                lock = writer.execute(
+                    """SELECT 1 FROM pg_locks
+                       WHERE relation = 'identity.throttle_buckets'::regclass
+                         AND mode = 'AccessExclusiveLock' AND NOT granted"""
+                ).fetchone()
+                if lock:
+                    break
+                time.sleep(0.01)
+            else:
+                pytest.fail("downgrade did not wait for the throttle writer")
+        with pytest.raises(DBAPIError, match="populated throttle state requires preservation"):
+            downgrade.result(timeout=5)
+    with installation.access.uow() as store:
+        assert store.get("throttle_buckets", {"bucket_digest": "a" * 64})["attempt_count"] == 1
 
 
 def _assert_block_survives_restart(base_url, runtime):
