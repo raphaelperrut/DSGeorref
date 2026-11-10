@@ -35,13 +35,20 @@ class Access:
         if kind not in {"session", "pat"} or not secret:
             raise Denied("unauthorized")
         table = "sessions" if kind == "session" else "tokens"
-        row = store.get(table, {"secret_hash": digest(secret)}, lock=True)
+        key = {"secret_hash": digest(secret)}
+        row = store.get(table, key)
+        if row is None:
+            raise Denied("unauthorized")
+        # Recovery locks the account before invalidating its credentials. Use
+        # the same order and re-read the credential after acquiring the lock.
+        account_id = row["account_id"]
+        account_row = store.get("accounts", {"id": account_id}, lock=True)
+        if account_row is None or account_row["state"] != "active":
+            raise Denied("unauthorized")
+        row = store.get(table, {**key, "account_id": account_id}, lock=True)
         if row is None:
             raise Denied("unauthorized")
         credential = Session(**row) if kind == "session" else PersonalAccessToken(**row)
-        account_row = store.get("accounts", {"id": credential.account_id}, lock=True)
-        if account_row is None or account_row["state"] != "active":
-            raise Denied("unauthorized")
         if credential.state != "active" or self.expired(credential, store.now()):
             raise Denied("unauthorized")
         principal = Principal(Account(**account_row), credential)
@@ -116,6 +123,8 @@ class Access:
             store.update(
                 table, {"id": row["id"]}, {"state": "expired", "revision": row["revision"] + 1}
             )
+            action = "SessionExpired" if table == "sessions" else "TokenExpired"
+            store.audit(None, action, row["id"], "COMMITTED", self.policy.version, uuid7())
 
     def check(self, secret: str, kind: str, action: str, project: UUID | None) -> bool:
         with self.uow() as store:

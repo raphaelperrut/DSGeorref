@@ -2,20 +2,28 @@
 
 import json
 import os
+from concurrent.futures import ThreadPoolExecutor
+from contextlib import contextmanager
 from dataclasses import asdict, replace
+from datetime import timedelta
+from threading import Barrier, Event
 
 import psycopg
 import pytest
-from conftest import PASSWORD
+from conftest import ORIGIN, PASSWORD
 from dsgeorref.contexts.identity_access.adapters.local_identity.migration import migrate
 from dsgeorref.contexts.identity_access.adapters.local_identity.oidc import ValidatingOidcProvider
+from dsgeorref.contexts.identity_access.adapters.local_identity.postgres import PostgresStore
+from dsgeorref.contexts.identity_access.application.local_identity.accounts import LocalAccounts
 from dsgeorref.contexts.identity_access.application.local_identity.federation import Federation
 from dsgeorref.contexts.identity_access.application.local_identity.recovery import (
     AdministrativeRecovery,
 )
 from dsgeorref.contexts.identity_access.domain.local_identity.credentials import digest, uuid7
 from dsgeorref.contexts.identity_access.domain.local_identity.models import Denied
+from dsgeorref.contexts.identity_access.domain.local_identity.web import Provenance
 from oidc_fixture import SignedProvider, config
+from psycopg import sql
 from sqlalchemy.exc import DBAPIError
 
 
@@ -27,6 +35,31 @@ def denied(code, action):
 
 def evidence(record_property, action, expected, observed):
     record_property("runtime_evidence", json.dumps([action, expected, observed]))
+
+
+@contextmanager
+def reject_lifecycle_commit(dsn, action):
+    with psycopg.connect(dsn) as connection:
+        connection.execute("""
+            CREATE FUNCTION identity.reject_lifecycle() RETURNS trigger LANGUAGE plpgsql AS $$
+            BEGIN
+                IF NEW.outcome = 'COMMITTED' AND NEW.action = TG_ARGV[0] THEN
+                    RAISE EXCEPTION 'synthetic deferred commit failure';
+                END IF;
+                RETURN NEW;
+            END $$""")
+        connection.execute(
+            sql.SQL("""
+                CREATE CONSTRAINT TRIGGER reject_lifecycle AFTER INSERT ON identity.observations
+                DEFERRABLE INITIALLY DEFERRED FOR EACH ROW
+                EXECUTE FUNCTION identity.reject_lifecycle({})""").format(sql.Literal(action))
+        )
+    try:
+        yield
+    finally:
+        with psycopg.connect(dsn) as connection:
+            connection.execute("DROP TRIGGER reject_lifecycle ON identity.observations")
+            connection.execute("DROP FUNCTION identity.reject_lifecycle()")
 
 
 def test_network_authentication_local_oidc(runtime, record_property):
@@ -115,6 +148,9 @@ def test_bootstrap_session_token_recovery(runtime, record_property):
         state = store.get("bootstrap", {"singleton": True})
         assert state["state"] == "completed" and state["administrator_id"] == r.account.id
         assert store.rows("observations", {"action": "AdminBootstrapped"})
+        assert store.rows(
+            "observations", {"action": "SessionCreated", "target_id": r.issued.session.id}
+        )
     denied(
         "bootstrap_already_completed",
         lambda: r.accounts.bootstrap("another-admin", PASSWORD, "second-bootstrap", r.browser()),
@@ -163,6 +199,10 @@ def test_bootstrap_session_token_recovery(runtime, record_property):
     recovery = AdministrativeRecovery(r.tx, lambda account, ceremony: True)
     denied("forbidden", lambda: recovery.recover(r.account.id, "invalid-kit", PASSWORD, uuid7()))
     ceremony = uuid7()
+    denied(
+        "password_policy_failed",
+        lambda: recovery.recover(r.account.id, r.recovery, PASSWORD, ceremony),
+    )
     next_kit = recovery.recover(r.account.id, r.recovery, PASSWORD + "-changed", ceremony)
     assert next_kit != r.recovery
     denied("forbidden", lambda: recovery.recover(r.account.id, r.recovery, PASSWORD, uuid7()))
@@ -177,7 +217,11 @@ def test_bootstrap_session_token_recovery(runtime, record_property):
         assert store.get("bootstrap", {"singleton": True})["state"] == "completed"
         observations = store.rows("observations", {"action": "recover"})
         assert len([o for o in observations if o["outcome"] == "COMMITTED"]) == 1
-        assert len([o for o in observations if o["outcome"] == "DENIED"]) == 3
+        assert len([o for o in observations if o["outcome"] == "DENIED"]) == 4
+        for action, target in (("SessionRevoked", session.session.id), ("revoke", pat.token.id)):
+            assert store.rows(
+                "observations", {"action": action, "target_id": target, "outcome": "COMMITTED"}
+            )
         assert all(secret not in str(observations) for secret in (PASSWORD, r.recovery, next_kit))
     evidence(
         record_property,
@@ -186,6 +230,122 @@ def test_bootstrap_session_token_recovery(runtime, record_property):
         "rotated hash; forbidden/conflict/unauthorized/invalid_credentials; "
         "new local login succeeds",
     )
+
+
+def test_bootstrap_commit_failure_then_concurrent_attempts(installation, database):
+    accounts = LocalAccounts(installation)
+    request = Provenance(ORIGIN, "same-origin")
+    with reject_lifecycle_commit(database, "AdminBootstrapped"):
+        denied("internal_error", lambda: accounts.bootstrap("admin", PASSWORD, "first", request))
+    with installation.access.uow() as store:
+        assert store.get("bootstrap", {"singleton": True})["state"] == "available"
+        assert not store.rows("accounts", {"administrator": True})
+        assert not store.rows("sessions", {"state": "active"})
+        assert not store.rows("requests", {"operation": "post_auth_bootstrap"})
+        assert not store.rows("observations", {"outcome": "COMMITTED"})
+
+    ready = Barrier(2, timeout=10)
+
+    def attempt(key):
+        ready.wait()
+        try:
+            _, session, kit = accounts.bootstrap(key, PASSWORD, key, request)
+            assert session.secret and session.csrf and kit
+            return "committed"
+        except Denied as exc:
+            return exc.code
+
+    with ThreadPoolExecutor(max_workers=2) as workers:
+        assert sorted(workers.map(attempt, ("first", "second"))) == [
+            "bootstrap_already_completed",
+            "committed",
+        ]
+    with installation.access.uow() as store:
+        assert len(store.rows("accounts", {"administrator": True})) == 1
+        assert len(store.rows("sessions", {"state": "active"})) == 1
+        assert len(store.rows("observations", {"action": "AdminBootstrapped"})) == 1
+        assert store.rows(
+            "observations",
+            {
+                "action": "post_auth_bootstrap",
+                "outcome": "DENIED",
+                "reason_code": "bootstrap_already_completed",
+            },
+        )
+
+
+def test_recovery_commit_failure_preserves_original_kit_and_credentials(runtime):
+    r = runtime
+    pat = r.tokens.issue(r.issued.secret, "session", ["authorization:check"], "pat", r.browser())
+    recovery = AdministrativeRecovery(r.tx, lambda account, ceremony: True)
+    ceremony = uuid7()
+
+    def recover():
+        return recovery.recover(r.account.id, r.recovery, PASSWORD + "-changed", ceremony)
+
+    with reject_lifecycle_commit(r.dsn, "recover"):
+        denied("internal_error", recover)
+    assert r.access.authenticate(session=r.issued.secret)
+    assert r.access.authenticate(pat=pat.secret)
+    with r.uow() as store:
+        assert store.get("ceremonies", {"id": ceremony}) is None
+        assert store.get("accounts", {"id": r.account.id})["recovery_hash"] == digest(r.recovery)
+        assert not store.rows("observations", {"action": "recover", "outcome": "COMMITTED"})
+        assert not store.rows("observations", {"action": "SessionRevoked"})
+        assert not store.rows("observations", {"action": "revoke"})
+    assert recover() != r.recovery
+    denied("unauthorized", lambda: r.access.authenticate(session=r.issued.secret))
+    denied("unauthorized", lambda: r.access.authenticate(pat=pat.secret))
+
+
+def test_concurrent_authentication_rereads_credential_after_recovery(runtime, monkeypatch):
+    r = runtime
+    recovery = AdministrativeRecovery(r.tx, lambda account, ceremony: True)
+    recovery_locked = Event()
+    auth_waiting = Event()
+    get = PostgresStore.get
+
+    def observe_account_lock(store, table, key, *, lock=False):
+        if table == "accounts" and lock:
+            if recovery_locked.is_set():
+                auth_waiting.set()
+                return get(store, table, key, lock=True)
+            account = get(store, table, key, lock=True)
+            recovery_locked.set()
+            assert auth_waiting.wait(timeout=10)
+            return account
+        return get(store, table, key, lock=lock)
+
+    monkeypatch.setattr(PostgresStore, "get", observe_account_lock)
+    with ThreadPoolExecutor(max_workers=2) as workers:
+        recovered = workers.submit(
+            recovery.recover, r.account.id, r.recovery, PASSWORD + "-changed", uuid7()
+        )
+        assert recovery_locked.wait(timeout=10)
+        auth = workers.submit(r.access.authenticate, session=r.issued.secret)
+        assert recovered.result(timeout=15) != r.recovery
+        denied("unauthorized", lambda: auth.result(timeout=15))
+
+
+def test_session_expiration_is_audited_once(runtime):
+    r = runtime
+    target = r.issued.session.id
+    with r.uow() as store:
+        store.update("sessions", {"id": target}, {"idle_expires_at": store.now() - timedelta(1)})
+    for _ in range(2):
+        denied("unauthorized", lambda: r.access.authenticate(session=r.issued.secret))
+    with r.uow() as store:
+        session = store.get("sessions", {"id": target})
+        assert session["state"] == "expired" and session["revision"] == 2
+        assert (
+            len(
+                store.rows(
+                    "observations",
+                    {"action": "SessionExpired", "target_id": target, "outcome": "COMMITTED"},
+                )
+            )
+            == 1
+        )
 
 
 @pytest.mark.parametrize(

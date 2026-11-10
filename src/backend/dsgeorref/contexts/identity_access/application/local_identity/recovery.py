@@ -31,6 +31,8 @@ class AdministrativeRecovery:
                 raise Denied("forbidden")
             if store.get("ceremonies", {"id": ceremony_id}):
                 raise Denied("conflict")
+            if self.tx.passwords.verify(new_password, account["password_hash"]):
+                raise Denied("password_policy_failed")
             store.insert(
                 "ceremonies", {"id": ceremony_id, "account_id": account_id, "kit_hash": digest(kit)}
             )
@@ -44,13 +46,13 @@ class AdministrativeRecovery:
                     "revision": account["revision"] + 1,
                 },
             )
-            for table in ("sessions", "tokens"):
-                for row in store.rows(table, {"account_id": account_id}):
-                    if row["state"] == "active":
-                        store.update(
-                            table,
-                            {"id": row["id"]},
-                            {"state": "revoked", "revision": row["revision"] + 1},
-                        )
+            for table, action in (("sessions", "SessionRevoked"), ("tokens", "revoke")):
+                for row in store.rows(table, {"account_id": account_id, "state": "active"}):
+                    store.update(
+                        table,
+                        {"id": row["id"]},
+                        {"state": "revoked", "revision": row["revision"] + 1},
+                    )
+                    self.tx.observe(store, account_id, action, row["id"])
             self.tx.observe(store, account_id, "recover", account_id)
         return next_kit
