@@ -12,11 +12,11 @@ upstream copyright/license texts required for redistribution.
 | Python | PyYAML | 6.0.3 | MIT | validation |
 | Python | jsonschema | 4.26.0 | MIT | validation |
 | Python | cryptography | 50.0.2 | Apache-2.0 OR BSD-3-Clause | validation |
-| Python | celery | 5.6.3 | BSD-3-Clause | validation |
-| Python | psycopg[binary] | 3.3.6 | LGPL-3.0-only | validation |
-| Python | pytest | 9.1.1 | MIT | validation |
-| Python | ruff | 0.16.10 | MIT | validation |
-| Python | mypy | 2.4.0 | MIT | validation |
+| Python | celery | 5.7.0 | BSD-3-Clause | validation |
+| Python | psycopg[binary] | 3.3.8 | LGPL-3.0-only | validation |
+| Python | pytest | 9.2.0 | MIT | validation |
+| Python | ruff | 0.17.4 | MIT | validation |
+| Python | mypy | 2.4.1 | MIT | validation |
 | npm | @playwright/test | 1.62.1 | Apache-2.0 | development |
 | npm | @testing-library/dom | 10.4.1 | MIT | development |
 | npm | @types/node | 24.13.3 | MIT | development |
