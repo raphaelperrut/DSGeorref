@@ -22,7 +22,10 @@ class Sessions:
         with self.tx.access.uow() as store:
             principal = self.tx.access.load(store, secret, "session")
             self.tx.browser_guard(principal, request)
-            self.tx.access.enforce(store, principal, "session:create")
+            # Rotation replaces only this authenticated session, never another owner's.
+            self.tx.access.enforce(store, principal, "session:revoke")
+            if "session:create" not in self.tx.access.policy.authentication_actions:
+                raise Denied("forbidden")
             session = principal.credential
             assert isinstance(session, Session)
             if session.revision != revision:
