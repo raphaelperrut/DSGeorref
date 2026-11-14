@@ -1,0 +1,171 @@
+{
+  "issue": 125,
+  "baseline_sha": "bb2b2795ec414a7656c3f93aee32085f96b953bf",
+  "candidate_binding": "The commit containing validation.json and the listed LF digests; resolve via git log.",
+  "task_only_authorized_allow_paths_changed": true,
+  "scope_valid": true,
+  "dependencies": {
+    "123": {
+      "status": "INTEGRATED",
+      "commit": "41544a2a52320ba27edfb5c9eb2b6877dd30cd01",
+      "outputs_identical_to_baseline": [
+        ".codex/tasks/TASK-0047.json",
+        "evidence/implementation/epic-010/story-0047/.gitignore",
+        "evidence/implementation/epic-010/story-0047/HANDOFF.md",
+        "evidence/implementation/epic-010/story-0047/consolidation.json",
+        "evidence/implementation/epic-010/story-0047/make-verify.log",
+        "evidence/implementation/epic-010/story-0047/native-gate-diagnosis.json",
+        "evidence/implementation/epic-010/story-0047/tests.xml",
+        "evidence/implementation/epic-010/story-0047/validation.json",
+        "tests/backend/identity_access/resource_authorization/test_consolidation.py"
+      ]
+    },
+    "124": {
+      "status": "INTEGRATED",
+      "commit": "b4a53403d4751b14652175e2bf8ea76f1c06df3b",
+      "outputs_identical_to_baseline": [
+        ".codex/tasks/TASK-0048.json",
+        "evidence/implementation/epic-010/story-0048/HANDOFF.md",
+        "evidence/implementation/epic-010/story-0048/browser-tests.log",
+        "evidence/implementation/epic-010/story-0048/build.log",
+        "evidence/implementation/epic-010/story-0048/frontend-tests.log",
+        "evidence/implementation/epic-010/story-0048/frontend-tests.xml",
+        "evidence/implementation/epic-010/story-0048/make-verify-initial.log",
+        "evidence/implementation/epic-010/story-0048/make-verify.log",
+        "evidence/implementation/epic-010/story-0048/native-gate-diagnosis.json",
+        "evidence/implementation/epic-010/story-0048/qa-medium-finding/DUPLICATION-ASSESSMENT.md",
+        "evidence/implementation/epic-010/story-0048/qa-medium-finding/HANDOFF.md",
+        "evidence/implementation/epic-010/story-0048/qa-medium-finding/assessment.json",
+        "evidence/implementation/epic-010/story-0048/qa-medium-finding/evidence-only-tests.log",
+        "evidence/implementation/epic-010/story-0048/qa-medium-finding/evidence-only-tests.xml",
+        "evidence/implementation/epic-010/story-0048/qa-medium-finding/focused-tests.log",
+        "evidence/implementation/epic-010/story-0048/qa-medium-finding/focused-tests.xml",
+        "evidence/implementation/epic-010/story-0048/qa-medium-finding/validation.json",
+        "evidence/implementation/epic-010/story-0048/security-remediation/HANDOFF.md",
+        "evidence/implementation/epic-010/story-0048/security-remediation/focused-tests.log",
+        "evidence/implementation/epic-010/story-0048/security-remediation/focused-tests.xml",
+        "evidence/implementation/epic-010/story-0048/security-remediation/gitleaks.json",
+        "evidence/implementation/epic-010/story-0048/security-remediation/gitleaks.log",
+        "evidence/implementation/epic-010/story-0048/security-remediation/rewrite_evidence.py",
+        "evidence/implementation/epic-010/story-0048/security-remediation/validation.json",
+        "evidence/implementation/epic-010/story-0048/typecheck.log",
+        "evidence/implementation/epic-010/story-0048/validation.json",
+        "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/README.md",
+        "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/index.html",
+        "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/index.tsx",
+        "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/main.tsx",
+        "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/playwright.config.ts",
+        "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.browser.spec.ts",
+        "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.css",
+        "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx",
+        "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.tsx",
+        "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/use-project-access.ts"
+      ]
+    }
+  },
+  "tests_passed": 38,
+  "new_security_cases": 27,
+  "direct_resource_security_regressions": 11,
+  "test_names": [
+    "test_epic_010_seguranca_happy_path",
+    "test_epic_010_seguranca_negative_paths[cross_project]",
+    "test_epic_010_seguranca_negative_paths[other_account]",
+    "test_epic_010_seguranca_negative_paths[artifact]",
+    "test_epic_010_seguranca_negative_paths[artifact_path]",
+    "test_epic_010_seguranca_negative_paths[physical_path]",
+    "test_epic_010_seguranca_negative_paths[traversal]",
+    "test_epic_010_seguranca_negative_paths[url]",
+    "test_epic_010_seguranca_negative_paths[missing_type]",
+    "test_epic_010_seguranca_negative_paths[unexpected_type]",
+    "test_epic_010_seguranca_negative_paths[unknown_action]",
+    "test_unexpected_project_authority_fails_closed[None]",
+    "test_unexpected_project_authority_fails_closed[true]",
+    "test_unexpected_project_authority_fails_closed[1]",
+    "test_unexpected_project_authority_fails_closed[response3]",
+    "test_unexpected_project_authority_fails_closed[response4]",
+    "test_abuse_eligibility_is_conjunctive[False]",
+    "test_abuse_eligibility_is_conjunctive[None]",
+    "test_abuse_eligibility_is_conjunctive[true]",
+    "test_abuse_eligibility_is_conjunctive[1]",
+    "test_previous_allow_never_survives_authority_change[membership]",
+    "test_previous_allow_never_survives_authority_change[account]",
+    "test_previous_allow_never_survives_authority_change[expired]",
+    "test_previous_allow_never_survives_authority_change[revoked]",
+    "test_previous_allow_never_survives_authority_change[policy]",
+    "test_query_permission_does_not_expand_pat_scope",
+    "test_persisted_secret_minimization_and_audit_allowlist",
+    "test_role_project_operation_access[owner]",
+    "test_role_project_operation_access[editor]",
+    "test_role_project_operation_access[reviewer]",
+    "test_role_project_operation_access[viewer]",
+    "test_each_use_rechecks_membership_credential_and_policy",
+    "test_project_authority_is_required[False]",
+    "test_project_authority_is_required[None]",
+    "test_project_authority_is_required[true]",
+    "test_audit_is_durable_bounded_and_mandatory",
+    "test_missing_or_drifted_contract_fails_closed",
+    "test_eligibility_and_database_failure_never_fall_back"
+  ],
+  "database": "NOT_APPLICABLE",
+  "migration_required": false,
+  "api": "NOT_APPLICABLE",
+  "frontend": "NOT_APPLICABLE",
+  "production_changed": false,
+  "contracts_changed": false,
+  "native_gate": {
+    "classification": "PREEXISTING_CHECKOUT_CRLF_RAW_DIGEST_MISMATCH",
+    "files": [
+      {
+        "path": "infra/images/native-stack.lock.yaml",
+        "matches_baseline_after_crlf_normalization": true,
+        "raw_differs_from_baseline": true,
+        "lf_sha256": "sha256:16970dba:ba6b1a54:94a20036:26a53bf0:d6d9cfc5:ed644718:04bc8885:51d49a9e"
+      },
+      {
+        "path": "infra/images/native-stack.conda-lock.txt",
+        "matches_baseline_after_crlf_normalization": true,
+        "raw_differs_from_baseline": true,
+        "lf_sha256": "sha256:dafb10f3:0d967d18:c7417104:d0bb417a:aea8ea23:a1a67937:dd28dc61:68db4848"
+      },
+      {
+        "path": "contracts/contexts/release_installation/native-stack-supply-chain/policy.yaml",
+        "matches_baseline_after_crlf_normalization": true,
+        "raw_differs_from_baseline": true,
+        "lf_sha256": "sha256:756dd9e6:82c844e9:42a24a12:c82db462:179ad7e3:ec6bf800:cb8e21f3:4a77d1eb"
+      },
+      {
+        "path": "contracts/contexts/release_installation/native-stack-supply-chain/policy.schema.json",
+        "matches_baseline_after_crlf_normalization": true,
+        "raw_differs_from_baseline": true,
+        "lf_sha256": "sha256:53ee536a:0cf745c5:f192b987:87a395a7:bb89ac4e:e3ece2c4:2da68006:96faada8"
+      },
+      {
+        "path": "tests/infra/native_stack/test_native_stack.py",
+        "matches_baseline_after_crlf_normalization": true,
+        "raw_differs_from_baseline": true,
+        "lf_sha256": "sha256:00198174:9ed71fab:ca35bcc9:d82aa3ef:33be862b:199bd345:ba76dc02:0bce2692"
+      },
+      {
+        "path": "tools/quality/native_stack/validate.py",
+        "matches_baseline_after_crlf_normalization": true,
+        "raw_differs_from_baseline": true,
+        "lf_sha256": "sha256:df385625:069f4e4f:5703009b:53f5a158:6a029a56:669ff519:590afec9:e4f93ee9"
+      }
+    ]
+  },
+  "digest_encoding": "UTF8_LF_SHA256_colon_separated_eight_hex_groups_reversible",
+  "files_sha256": {
+    ".codex/tasks/TASK-0049.json": "sha256:b1969e27:720016d5:85e41599:e106737b:e6169dd1:40e482b4:98ce15ce:a89025eb",
+    "evidence/security/epic-010/story-0049/.gitignore": "sha256:c740db8c:5771bc53:deca3faf:16465ffd:78a57c5b:c6df7014:3f0a8f42:2fb469ab",
+    "evidence/security/epic-010/story-0049/HANDOFF.md": "sha256:45184991:a12b9015:0746b9d1:9c726b7f:6c96e246:ecaecbfb:cf63023f:07c14986",
+    "evidence/security/epic-010/story-0049/gitleaks.json": "sha256:37517e5f:3dc66819:f61f5a7b:b8ace192:1282415f:10551d2d:efa5c3eb:0985b570",
+    "evidence/security/epic-010/story-0049/gitleaks.log": "sha256:90289782:2475e260:89181e44:23a8eea7:585726e9:28260949:978fd0be:cfd21946",
+    "evidence/security/epic-010/story-0049/make-verify.log": "sha256:2fc45186:032eac02:6af9ab52:de485b1f:cc2ec3f9:e2812b0d:a27526da:71c314b4",
+    "evidence/security/epic-010/story-0049/record_evidence.py": "sha256:edf66871:0e369460:968564e8:399d8c9e:acbb2a1b:03541fdb:3a37718f:13ab08b3",
+    "evidence/security/epic-010/story-0049/security-tests.log": "sha256:5819d3cc:889a2845:23ee5288:14c9408c:db5b627a:1bab68fe:28118167:3581f946",
+    "evidence/security/epic-010/story-0049/security-tests.xml": "sha256:29276bcb:0d39a9cb:441a9a7e:d7671da3:46b89f7f:e509603a:3c026756:1a852438",
+    "tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/conftest.py": "sha256:92ea9d5f:578282f6:37b94550:8b02d3d2:f5ec19ad:4cdf09d5:5dcffce7:8cf0fc55",
+    "tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_security.py": "sha256:1f775ba0:2567c79b:deacf2b9:f9b14f19:77771589:fe2e5055:d7f72820:99e4c8a1"
+  },
+  "independent_qa_review": "PENDING; no self approval"
+}

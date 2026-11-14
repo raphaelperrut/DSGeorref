@@ -1,0 +1,36 @@
+{
+  "previous_candidate_sha": "bc878f010fbe6311331139f9c6e23f5811ae3969",
+  "candidate_binding": "Commit containing this supplement and these LF content digests; resolve with git log.",
+  "classification": "TEST_COLLECTION_PORTABILITY",
+  "production_changed": false,
+  "test_behavior_changed": false,
+  "ast_equivalent_after_only_fixture_dependency_normalization": true,
+  "hosted_equivalent_collected": 113,
+  "results": {
+    "default": {
+      "passed": 27,
+      "mandatory_happy_path": "PASS",
+      "mandatory_negative_scenarios": 10
+    },
+    "importlib": {
+      "passed": 38,
+      "mandatory_happy_path": "PASS",
+      "mandatory_negative_scenarios": 10
+    }
+  },
+  "distinct_tests": 38,
+  "executions": 65,
+  "direct_security_regressions": 11,
+  "egress": "NOT_APPLICABLE: no external output port in this flow",
+  "independent_qa": "Not rerun; short revalidation required on new candidate",
+  "files_sha256": {
+    "evidence/security/epic-010/story-0049/collection-fix/default-tests.log": "sha256:36f3ca4e:62477492:a8af724b:425f09bf:fed7decb:495ade58:dd095304:c783ce8b",
+    "evidence/security/epic-010/story-0049/collection-fix/default-tests.xml": "sha256:98955006:b9aee3bc:6a33394e:1afecdb4:e94fc8cd:d9aec76a:b73c34db:b38fc97b",
+    "evidence/security/epic-010/story-0049/collection-fix/HANDOFF.md": "sha256:280bcee6:49de6c42:dd2bf63e:af31e6e3:bd56e998:c59a4b35:d56ac888:207f89c6",
+    "evidence/security/epic-010/story-0049/collection-fix/hosted-collection.log": "sha256:c1cff565:64d9835b:dca42956:e82e8269:730b1131:f21c9a29:356dab99:bee1b513",
+    "evidence/security/epic-010/story-0049/collection-fix/importlib-tests.log": "sha256:db7c1c56:dcd029ca:dafcd058:70968759:afacec7c:b07d0a22:6fba01b7:97153864",
+    "evidence/security/epic-010/story-0049/collection-fix/importlib-tests.xml": "sha256:0c3c345c:f2e6db30:903739d1:719c8006:9de4de50:4ea5c373:d0f41db7:be89ecad",
+    "tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/conftest.py": "sha256:a386d3ec:6dbdfe57:c72ec8a2:be3c847f:9f526b87:796fb60d:80057bdc:6368da9a",
+    "tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py": "sha256:52513565:6cdbb704:0cdf03e4:ab2afdfa:c131d020:3ef017ec:653f5ca1:01b81419"
+  }
+}
