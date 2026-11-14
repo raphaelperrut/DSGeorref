@@ -1,0 +1,436 @@
+{
+  "baseline_sha": "0c7b85dfe6dbb041e64852280c393d00dbab05b9",
+  "owner_authorization": "https://github.com/raphaelperrut/DSGeorref/issues/123#issuecomment-6882299351",
+  "task_envelope_only_authorized_allow_lists_changed": true,
+  "slices": {
+    "STORY-0716": {
+      "integrated_commit": "1e0625d3643831cbf559b2898acc1851f3c5346b",
+      "ancestor_of_baseline": true,
+      "outputs_present_unchanged": [
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/.gitignore",
+          "baseline_blob": "cc177394775ebd522a3b6695318e9dcefeb6c864",
+          "sha256_utf8_lf": "c740db8c5771bc53deca3faf16465ffd78a57c5bc6df70143f0a8f422fb469ab"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/HANDOFF.md",
+          "baseline_blob": "586604f659749f2ccbd0e8838678625f603cbdf0",
+          "sha256_utf8_lf": "54c5628f00601b4267c3ee5aef28a34ff7d02bc9deb69475946ff61d79d0e748"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/make-verify.log",
+          "baseline_blob": "7ed7094ca55709a28ac2647f800be93dd8cc323a",
+          "sha256_utf8_lf": "dee5a2d9430b1014e8f342383ccb566f2fda6ad2340a5417a35c621fe4e82271"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/mandatory-and-resource-tests.xml",
+          "baseline_blob": "5cf6a015250d39ea467e769b3367256b4295835e",
+          "sha256_utf8_lf": "8886eecdad564fceb01ce587fd34b60de0b46175314a538ae04dcc6e688aaad8"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/regression-tests.xml",
+          "baseline_blob": "3a59f8a1d21efce22c63705b52e346b1344783a0",
+          "sha256_utf8_lf": "a90b279ea31b2ef9f7c8eb9eaed4a664cd05df2171dbe2c2fcbdd62b632af76c"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/validation.json",
+          "baseline_blob": "56e018ae546358e7b6b5f24630cf30c530d85e11",
+          "sha256_utf8_lf": "627fc5f7bd6b7d2de18d3ae33ebf4659720dff63d99334451b8f9dbe99c2447a"
+        },
+        {
+          "path": "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/acc-auth-impl-parte-1/runtime.py",
+          "baseline_blob": "aeac53d6f88313d18dd61a9ee39b1ac23418c3d6",
+          "sha256_utf8_lf": "a1f4dc831a4eab102f646eb2b38fe1a767ccd2c6ba93b2b757adeb36d69c11e2"
+        },
+        {
+          "path": "src/backend/dsgeorref/contexts/identity_access/application/autorizacao-por-projeto-operacao-artefato-e-caminho/acc-auth-impl-parte-1/resources.py",
+          "baseline_blob": "129f33a6f87d7f7fcf0a8cb7ba09ef504f02e2f0",
+          "sha256_utf8_lf": "bd2fb545ca042a1f5f1fc2f6fb84b1f00fe010ad08878a62ef8f46a70d87414f"
+        },
+        {
+          "path": "tests/backend/identity_access/resource_authorization/conftest.py",
+          "baseline_blob": "ec5bb5d5acfe3628a173892070463c0a6012a21a",
+          "sha256_utf8_lf": "7830e9a54aaad820fa7dde65a2e1b873c3b34e81be5e9fa4e65ed8553b624c68"
+        },
+        {
+          "path": "tests/backend/identity_access/resource_authorization/test_requirements.py",
+          "baseline_blob": "d2687d634ff400a91c11de7da5fa2d6b58f81c27",
+          "sha256_utf8_lf": "6757c45c6a0ba014f821f2d6cc99070d4109ac60b1a6e06fcd5651090ab43bcc"
+        },
+        {
+          "path": "tests/backend/identity_access/resource_authorization/test_resources.py",
+          "baseline_blob": "2ea69c03d1a5e6207809dd70c21de389170b5e77",
+          "sha256_utf8_lf": "aa20852a886e08f46f28a76a4c043f2a2cdd570424f478df478d060c59b25ef7"
+        }
+      ]
+    },
+    "STORY-0717": {
+      "integrated_commit": "f5f5c46848ebbfe79a21211667460c778d96ab8a",
+      "ancestor_of_baseline": true,
+      "outputs_present_unchanged": [
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/HANDOFF.md",
+          "baseline_blob": "bc5f018a6d6e4b2b42830d6c4695bfbccd38af91",
+          "sha256_utf8_lf": "ae890465fafa0e23e26c0dc38afd7395e1ff7e3140bb1dd657a490f1362a5826"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/hardware-tests-local.xml",
+          "baseline_blob": "0a6166550243a30130053b2e43600a698a805ec7",
+          "sha256_utf8_lf": "9f98dcf0e1856369d16a2178db5596dc31824b451dfa686560beb92264fd6f7d"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/hardware-tests.xml",
+          "baseline_blob": "83a1de800aebac95b9fb5db8aebeacbffab22b07",
+          "sha256_utf8_lf": "f3736b5379d4652d84c5c24e01aa14fd0f6f09da4b5d1ed5625769994ca8ae0c"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/make-verify-local.log",
+          "baseline_blob": "74b3fa95dca1c056788683ffec4aeb1e3560016d",
+          "sha256_utf8_lf": "7793cb21914d4aef4da6aceeb7cddf539055f993b41dce1df733d2bd617c025d"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/make-verify-pinned.log",
+          "baseline_blob": "0ae57eab0886d157cadf1cb04a00256e53dc4515",
+          "sha256_utf8_lf": "d178ed322ce8cbb2f0b05d5cd45c887efc2e3eee4e29ff5943eb4ac27f7887ac"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/make-verify.log",
+          "baseline_blob": "2850850d0e843744b5ae6a389d7ff8b5adec44b9",
+          "sha256_utf8_lf": "cc3de2790c9f6f0e437cad336fe7d1075712d15ee4279473389cae6cc8507b4f"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/native-gate-diagnosis.json",
+          "baseline_blob": "f3098e3e9d219419c42c503633b610dd43f2cd4e",
+          "sha256_utf8_lf": "b7228b5c4be4a2e7b143af6272fe5f03afbcd7d847b43c2134de6d3c675afcb9"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/resource-regressions.xml",
+          "baseline_blob": "3062cd718bbccc97146fd2815132363b6066ba6f",
+          "sha256_utf8_lf": "c4f7a5fd51089466108944ec9ef2b3a67b1aeb4ff478377454990e7c2466ab41"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/validation.json",
+          "baseline_blob": "07217aeef4537284946a2321ad68b6f9f03f0a57",
+          "sha256_utf8_lf": "b1068255544318195317f04e8ff9dbe3aa00dcb3c2f12b057d2bfb7a2b364358"
+        },
+        {
+          "path": "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/hw-parte-2/runtime.py",
+          "baseline_blob": "28c565bf1e197d850617ff197a19783bff2f8a79",
+          "sha256_utf8_lf": "a89d74a6c4727c0713f9f952fcfc1b4e64101556065a815294061bb370f19bfb"
+        },
+        {
+          "path": "tests/backend/identity_access/resource_authorization/test_hardware.py",
+          "baseline_blob": "57835646214ca6d8be623ea5107022189d615c90",
+          "sha256_utf8_lf": "6c2d56a71c7df176a5fb9b5152c9588ebbb4904f5e639c155e582791c1342e4e"
+        }
+      ]
+    }
+  },
+  "contracts": [
+    {
+      "path": "contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/contract.json",
+      "sha256_utf8_lf": "40126aab34f6af6e44293d3246096c057c01cc1e77dfddd0dba814cf1a6057f5"
+    },
+    {
+      "path": "contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/../usuarios-e-papeis-da-instancia/policy.json",
+      "sha256_utf8_lf": "4aefe5a17f83485cd03d53285ff69851ea94f5b6af03faafc0c4591725e78f58"
+    },
+    {
+      "path": "contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/../contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.json",
+      "sha256_utf8_lf": "1a7c9563927a93aeb620d4ed970d631e68643ff97986ea9d89fcf58f40b5404a"
+    }
+  ],
+  "traceability_rows": [
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0157",
+      "issue_type": "STORY",
+      "story_id": "STORY-0047",
+      "criterion_id": "AC-ISSUE-0157-01",
+      "criterion_text": "Todos os slices vinculados estão concluídos no mesmo baseline candidato.",
+      "basis_type": "ARCHITECTURAL_CONTROL",
+      "requirement_ids": "",
+      "adr_ids": "ADR-003/ADR-005/ADR-006/ADR-007/ADR-008/ADR-016",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "Critério revisado e rastreado na Fase B."
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0157",
+      "issue_type": "STORY",
+      "story_id": "STORY-0047",
+      "criterion_id": "AC-ISSUE-0157-02",
+      "criterion_text": "Cobertura requisito→história permanece integral e sem duplicação normativa.",
+      "basis_type": "ARCHITECTURAL_CONTROL",
+      "requirement_ids": "",
+      "adr_ids": "ADR-003/ADR-005/ADR-006/ADR-007/ADR-008/ADR-016",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "Critério revisado e rastreado na Fase B."
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0157",
+      "issue_type": "STORY",
+      "story_id": "STORY-0047",
+      "criterion_id": "AC-ISSUE-0157-03",
+      "criterion_text": "Contratos e outputs dos slices integram sem colisão ou implementação redundante.",
+      "basis_type": "ARCHITECTURAL_CONTROL",
+      "requirement_ids": "",
+      "adr_ids": "ADR-003/ADR-005/ADR-006/ADR-007/ADR-008/ADR-016",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "Critério revisado e rastreado na Fase B."
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0157",
+      "issue_type": "STORY",
+      "story_id": "STORY-0047",
+      "criterion_id": "AC-ISSUE-0157-04",
+      "criterion_text": "Reviewer registra riscos residuais e libera dependentes.",
+      "basis_type": "ARCHITECTURAL_CONTROL",
+      "requirement_ids": "",
+      "adr_ids": "ADR-003/ADR-005/ADR-006/ADR-007/ADR-008/ADR-016",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "Critério revisado e rastreado na Fase B."
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0826",
+      "issue_type": "STORY",
+      "story_id": "STORY-0716",
+      "criterion_id": "AC-ISSUE-0826-01",
+      "criterion_text": "Cada requisito do slice possui evidência explícita: REQ-ACC-001, REQ-AUTH-IMPL-001, REQ-AUTH-IMPL-002, REQ-AUTH-IMPL-003, REQ-AUTH-IMPL-004, REQ-AUTH-IMPL-005, REQ-AUTH-IMPL-006, REQ-AUTH-IMPL-008, REQ-AUTH-IMPL-009, REQ-AUTH-IMPL-010.",
+      "basis_type": "DIRECT_REQUIREMENT",
+      "requirement_ids": "REQ-ACC-001/REQ-AUTH-IMPL-001/REQ-AUTH-IMPL-002/REQ-AUTH-IMPL-003/REQ-AUTH-IMPL-004/REQ-AUTH-IMPL-005/REQ-AUTH-IMPL-006/REQ-AUTH-IMPL-008/REQ-AUTH-IMPL-009/REQ-AUTH-IMPL-010",
+      "adr_ids": "ADR-003/ADR-005/ADR-006/ADR-007/ADR-008/ADR-016/ADR-028/ADR-029/ADR-031/ADR-043/ADR-055",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "Critério revisado e rastreado na Fase B."
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0826",
+      "issue_type": "STORY",
+      "story_id": "STORY-0716",
+      "criterion_id": "AC-ISSUE-0826-02",
+      "criterion_text": "O write scope é estável, disjunto e não usa identificador de ticket em código de produção.",
+      "basis_type": "ARCHITECTURAL_CONTROL",
+      "requirement_ids": "",
+      "adr_ids": "ADR-003/ADR-005/ADR-006/ADR-007/ADR-008/ADR-016/ADR-028/ADR-029/ADR-031/ADR-043/ADR-055",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "Critério revisado e rastreado na Fase B."
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0826",
+      "issue_type": "STORY",
+      "story_id": "STORY-0716",
+      "criterion_id": "AC-ISSUE-0826-03",
+      "criterion_text": "Estados de falha aplicáveis são testados sem fallback silencioso.",
+      "basis_type": "ARCHITECTURAL_CONTROL",
+      "requirement_ids": "",
+      "adr_ids": "ADR-003/ADR-005/ADR-006/ADR-007/ADR-008/ADR-016/ADR-028/ADR-029/ADR-031/ADR-043/ADR-055",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "Critério revisado e rastreado na Fase B."
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0826",
+      "issue_type": "STORY",
+      "story_id": "STORY-0716",
+      "criterion_id": "AC-ISSUE-0826-04",
+      "criterion_text": "O handoff registra impacto em contratos, riscos e rollback.",
+      "basis_type": "ARCHITECTURAL_CONTROL",
+      "requirement_ids": "",
+      "adr_ids": "ADR-003/ADR-005/ADR-006/ADR-007/ADR-008/ADR-016/ADR-028/ADR-029/ADR-031/ADR-043/ADR-055",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "Critério revisado e rastreado na Fase B."
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0827",
+      "issue_type": "STORY",
+      "story_id": "STORY-0717",
+      "criterion_id": "AC-ISSUE-0827-01",
+      "criterion_text": "Cada requisito do slice possui evidência explícita: REQ-HW-001.",
+      "basis_type": "DIRECT_REQUIREMENT",
+      "requirement_ids": "REQ-HW-001",
+      "adr_ids": "ADR-003/ADR-005/ADR-006/ADR-007/ADR-008/ADR-016/ADR-037",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "Critério revisado e rastreado na Fase B."
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0827",
+      "issue_type": "STORY",
+      "story_id": "STORY-0717",
+      "criterion_id": "AC-ISSUE-0827-02",
+      "criterion_text": "O write scope é estável, disjunto e não usa identificador de ticket em código de produção.",
+      "basis_type": "ARCHITECTURAL_CONTROL",
+      "requirement_ids": "",
+      "adr_ids": "ADR-003/ADR-005/ADR-006/ADR-007/ADR-008/ADR-016/ADR-037",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "Critério revisado e rastreado na Fase B."
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0827",
+      "issue_type": "STORY",
+      "story_id": "STORY-0717",
+      "criterion_id": "AC-ISSUE-0827-03",
+      "criterion_text": "Estados de falha aplicáveis são testados sem fallback silencioso.",
+      "basis_type": "ARCHITECTURAL_CONTROL",
+      "requirement_ids": "",
+      "adr_ids": "ADR-003/ADR-005/ADR-006/ADR-007/ADR-008/ADR-016/ADR-037",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "Critério revisado e rastreado na Fase B."
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0827",
+      "issue_type": "STORY",
+      "story_id": "STORY-0717",
+      "criterion_id": "AC-ISSUE-0827-04",
+      "criterion_text": "O handoff registra impacto em contratos, riscos e rollback.",
+      "basis_type": "ARCHITECTURAL_CONTROL",
+      "requirement_ids": "",
+      "adr_ids": "ADR-003/ADR-005/ADR-006/ADR-007/ADR-008/ADR-016/ADR-037",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "Critério revisado e rastreado na Fase B."
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0873",
+      "issue_type": "STORY",
+      "story_id": "STORY-0762",
+      "criterion_id": "AC-ISSUE-0873-01",
+      "criterion_text": "Executar somente a calibração de throttling de BP-003 no hardware reference_benchmark aprovado em STORY-0767 e vinculado por BP-003, sem claim minimum_supported, registrando comandos, runtime/dependências, carga, concorrência, entradas, configurações candidatas, resultados brutos e digests para reprodução.",
+      "basis_type": "DIRECT_REQUIREMENT",
+      "requirement_ids": "REQ-AUTH-IMPL-007",
+      "adr_ids": "ADR-006/ADR-007/ADR-008/ADR-028/ADR-031/ADR-034",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "PASS_STRUCTURAL_ONLY: revisão de definição/requisitos (Fase B); não é execução/satisfação do critério. Execução DEFERRED_TO_SPRINT_012; BP-003 NÃO EXECUTADO e AP-003 NÃO PROMOVIDO. PASS_STRUCTURAL_ONLY (B/F) = definição, DAG e cadeia futura de revisão; não atesta execução ou quitação de lock/venue."
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0873",
+      "issue_type": "STORY",
+      "story_id": "STORY-0762",
+      "criterion_id": "AC-ISSUE-0873-02",
+      "criterion_text": "Justificar cada valor selecionado por medições e threat tests de brute force, carga legítima e abuso; demonstrar preservação dos pisos de segurança, ausência de enumeração/bypass e ausência de DoS operacional evidente por CPU/memória, documentando limites da evidência sem inventar metas.",
+      "basis_type": "DIRECT_REQUIREMENT",
+      "requirement_ids": "REQ-AUTH-IMPL-007",
+      "adr_ids": "ADR-006/ADR-007/ADR-008/ADR-028/ADR-031/ADR-034",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "PASS_STRUCTURAL_ONLY: revisão de definição/requisitos (Fase B); não é execução/satisfação do critério. Execução DEFERRED_TO_SPRINT_012; BP-003 NÃO EXECUTADO e AP-003 NÃO PROMOVIDO. PASS_STRUCTURAL_ONLY (B/F) = definição, DAG e cadeia futura de revisão; não atesta execução ou quitação de lock/venue."
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0873",
+      "issue_type": "STORY",
+      "story_id": "STORY-0762",
+      "criterion_id": "AC-ISSUE-0873-03",
+      "criterion_text": "Promover em AP-003 somente valores sustentados pela calibração, com versão, unidades, aplicabilidade, semântica de contagem/janela/cooldown/lockout e validade explícitas conforme o contrato; verificar consumo determinístico e rejeição de perfil ausente/inválido sem implementar throttling funcional.",
+      "basis_type": "DIRECT_REQUIREMENT",
+      "requirement_ids": "REQ-AUTH-IMPL-007",
+      "adr_ids": "ADR-006/ADR-007/ADR-008/ADR-028/ADR-031/ADR-034",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "PASS_STRUCTURAL_ONLY: revisão de definição/requisitos (Fase B); não é execução/satisfação do critério. Execução DEFERRED_TO_SPRINT_012; BP-003 NÃO EXECUTADO e AP-003 NÃO PROMOVIDO. PASS_STRUCTURAL_ONLY (B/F) = definição, DAG e cadeia futura de revisão; não atesta execução ou quitação de lock/venue."
+    },
+    {
+      "sprint_id": "SPRINT-002",
+      "issue_id": "ISSUE-0873",
+      "issue_type": "STORY",
+      "story_id": "STORY-0762",
+      "criterion_id": "AC-ISSUE-0873-04",
+      "criterion_text": "Produzir evidência reproduzível e obter revisão técnica aplicável do Arquiteto e validações independentes de QA e Reviewer no mesmo commit candidato, antes da promoção/integração que libera STORY-0712; preservar demais parâmetros e registrar rollback do perfil.",
+      "basis_type": "DIRECT_REQUIREMENT",
+      "requirement_ids": "REQ-AUTH-IMPL-007",
+      "adr_ids": "ADR-006/ADR-007/ADR-008/ADR-028/ADR-031/ADR-034",
+      "conflict": "NONE",
+      "redundancy": "NONE",
+      "missing_requirement": "NO",
+      "impossible": "NO",
+      "cycle": "NO",
+      "status": "PASS",
+      "notes": "PASS_STRUCTURAL_ONLY: revisão de definição/requisitos (Fase B); não é execução/satisfação do critério. Execução DEFERRED_TO_SPRINT_012; BP-003 NÃO EXECUTADO e AP-003 NÃO PROMOVIDO. PASS_STRUCTURAL_ONLY (B/F) = definição, DAG e cadeia futura de revisão; não atesta execução ou quitação de lock/venue."
+    }
+  ],
+  "requirement_traceability": "10 requirements in STORY-0716; REQ-HW-001 in STORY-0717; no own product requirement in STORY-0047; REQ-AUTH-IMPL-007 retained in STORY-0762 calibration, no production calibration claim",
+  "new_production_implementation": false,
+  "migration_required": false
+}
