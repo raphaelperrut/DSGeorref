@@ -1,0 +1,10 @@
+.project-access { max-width: 68rem; margin: auto; padding: 1rem; font: 1rem/1.5 system-ui, sans-serif; color: #182b38; }
+.project-access section { border: 1px solid #8396a3; border-radius: .4rem; padding: 1rem; margin-block: 1rem; }
+.project-access fieldset { border: 0; padding: 0; display: grid; gap: .8rem; min-width: 0; }
+.project-access label { display: grid; gap: .25rem; }
+.project-access input, .project-access select, .project-access button { font: inherit; min-height: 2.75rem; padding: .4rem; box-sizing: border-box; max-width: 100%; }
+.project-access button { background: #123f63; color: white; border: 0; border-radius: .25rem; cursor: pointer; }
+.project-access fieldset:disabled { opacity: .65; }
+.project-access :focus-visible { outline: 3px solid #9a4b00; outline-offset: 3px; }
+.project-access [role="alert"] { border-left: .3rem solid #a12828; padding-left: 1rem; }
+.project-access dd, .project-access li, .project-access p { overflow-wrap: anywhere; }

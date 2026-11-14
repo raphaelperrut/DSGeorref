@@ -1,0 +1,12 @@
+
+ RUN  v4.1.12 C:/Users/DGEO2CGEO/Documents/GitHub/DSGeorref/src/frontend
+
+ ✓ src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx (28 tests) 1014ms
+ ✓ src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx (42 tests) 1996ms
+
+ Test Files  2 passed (2)
+      Tests  70 passed (70)
+   Start at  17:02:38
+   Duration  3.96s (transform 420ms, setup 0ms, import 1.36s, tests 3.01s, environment 2.12s)
+
+JUNIT report written to C:/Users/DGEO2CGEO/Documents/GitHub/DSGeorref/evidence/implementation/epic-010/story-0048/frontend-tests.xml

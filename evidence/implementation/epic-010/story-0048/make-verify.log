@@ -1,0 +1,259 @@
+.venv/Scripts/python.exe -m ruff check tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/decision_controls.py tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_srg_srp_part_4.py
+All checks passed!
+.venv/Scripts/python.exe -m mypy tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/decision_controls.py
+Success: no issues found in 1 source file
+.venv/Scripts/python.exe -X utf8 tools/check_python_architecture.py
+PYTHON ARCHITECTURE PASS
+python_files: 38
+modules: 38
+pnpm.cmd --dir src/frontend openapi:check
+
+> @dsgeorref/frontend-tooling@0.0.0 openapi:check C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> node tools/openapi/cli.mjs check
+
+OpenAPI check: PASS
+pnpm.cmd --dir src/frontend openapi:diff 061e83daf5f22cd39f2338f83c204a29428c2cc0
+
+> @dsgeorref/frontend-tooling@0.0.0 openapi:diff C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> node tools/openapi/cli.mjs diff "061e83daf5f22cd39f2338f83c204a29428c2cc0"
+
+OpenAPI diff: PASS
+pnpm.cmd run frontend:typecheck
+
+> dsgeorref-workspace@ frontend:typecheck C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling typecheck
+
+
+> @dsgeorref/frontend-tooling@0.0.0 typecheck C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> tsc --noEmit
+
+pnpm.cmd run frontend:test:unit
+
+> dsgeorref-workspace@ frontend:test:unit C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling test:unit
+
+
+> @dsgeorref/frontend-tooling@0.0.0 test:unit C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> vitest run tests/tooling/testing-library.unit.test.ts tests/foundation/openapi.test.mjs tests/foundation/shell.test.tsx --environment jsdom
+
+
+ RUN  v4.1.12 C:/Users/DGEO2CGEO/Documents/GitHub/DSGeorref/src/frontend
+
+
+ Test Files  3 passed (3)
+      Tests  17 passed (17)
+   Start at  17:01:42
+   Duration  8.54s (transform 121ms, setup 0ms, import 865ms, tests 8.12s, environment 1.23s)
+
+pnpm.cmd run frontend:test:browser
+
+> dsgeorref-workspace@ frontend:test:browser C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling test:browser
+
+
+> @dsgeorref/frontend-tooling@0.0.0 test:browser C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> playwright test tests/tooling/playwright.browser.spec.ts --browser=chromium
+
+
+Running 1 test using 1 worker
+
+(node:24948) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › tests\tooling\playwright.browser.spec.ts:3:1 › executes the browser gate (83ms)
+
+  1 passed (530ms)
+pnpm.cmd run frontend:build
+
+> dsgeorref-workspace@ frontend:build C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling build
+
+
+> @dsgeorref/frontend-tooling@0.0.0 build C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> tsc --noEmit && vite build
+
+vite v8.1.6 building client environment for production...
+[2K
+transforming...✓ 35 modules transformed.
+rendering chunks...
+computing gzip size...
+../../node_modules/.cache/frontend-stage-a-dist/.vite/manifest.json          0.18 kB │ gzip:  0.14 kB
+../../node_modules/.cache/frontend-stage-a-dist/index.html                   0.40 kB │ gzip:  0.27 kB
+../../node_modules/.cache/frontend-stage-a-dist/assets/index-COXhBPw4.css    1.38 kB │ gzip:  0.60 kB
+../../node_modules/.cache/frontend-stage-a-dist/assets/index-CWvj6mcT.js   200.32 kB │ gzip: 63.66 kB
+
+✓ built in 80ms
+pnpm.cmd --dir src/frontend test:smoke
+> @dsgeorref/frontend-tooling@0.0.0 test:smoke C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> playwright test --config tests/foundation/playwright.config.ts
+
+[WebServer] (node:25432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:21808) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:21524) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\foundation\shell.browser.spec.ts:3:1 › the built shell bootstraps with the generated client and no backend (113ms)
+
+  1 passed (1.7s)
+.venv/Scripts/python.exe -X utf8 tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/validator.py --technical
+{"acceptance_criteria": ["AC-ISSUE-0133-01", "AC-ISSUE-0133-02", "AC-ISSUE-0133-03", "AC-ISSUE-0133-04"], "automation": "EPIC-005_MIGRATIONS_CI_SCANS_TELEMETRY_CONTROLS", "destructive_actions": 0, "findings": [], "mode": "READ_ONLY", "requirements": ["REQ-AIE-001", "REQ-AIE-005", "REQ-BEX-003", "REQ-BEX-005", "REQ-EPIC-012", "REQ-FS1-001", "REQ-FS1-004", "REQ-INS-003", "REQ-ISS-007", "REQ-OBS-002", "REQ-SGVCAL-001", "REQ-SGVCAL-002", "REQ-SGVCAL-003", "REQ-SGVCAL-004", "REQ-SGVCAL-005", "REQ-SGVCAL-006", "REQ-SGVCAL-007", "REQ-SGVCAL-008", "REQ-SGVCAL-009", "REQ-SGVCAL-010"], "status": "PASS"}
+.venv/Scripts/python.exe -X utf8 tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/validator.py --technical
+{"acceptance_criteria": ["AC-ISSUE-0128-01", "AC-ISSUE-0128-02", "AC-ISSUE-0128-03", "AC-ISSUE-0128-04"], "automation": "EPIC-004_VERSIONED_CONTRACT_CONTROLS", "contracts": ["contracts/artifacts/artifact-set-manifest.schema.json", "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/contract-foundation.schema.json", "contracts/domain/failure-diagnostic.schema.json", "contracts/domain/processing-plan.schema.json", "contracts/domain/quality-report.schema.json", "contracts/events/job-event.schema.json", "contracts/http/openapi.yaml"], "destructive_actions": 0, "findings": [], "mode": "READ_ONLY", "requirements": ["REQ-CRS-002", "REQ-DBSCHEMA-007", "REQ-DBSCHEMA-008", "REQ-EPIC-031", "REQ-FS1-001", "REQ-FS1-004", "REQ-RUN-001", "REQ-RUN-006", "REQ-RUN-008", "REQ-RUN-010", "REQ-RUNTIME-008", "REQ-SCM-001", "REQ-TOOL-003", "REQ-TOP-001", "REQ-UX-002"], "status": "PASS"}
+.venv/Scripts/python.exe -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py --technical
+{
+  "checks": {
+    "citation": {
+      "artifact": "CITATION.cff",
+      "status": "PASS",
+      "version": "0.0.0"
+    },
+    "contribution": {
+      "cla": "NOT_REQUIRED",
+      "origin_certification": "DCO-1.1",
+      "status": "PASS"
+    },
+    "dco": {
+      "reason": "no external commit range",
+      "status": "NOT_REQUESTED"
+    },
+    "dependencies": {
+      "direct_dependencies": 22,
+      "runtime_dependencies": 2,
+      "status": "PASS"
+    },
+    "licensing": {
+      "assigned_paths": 3729,
+      "dep5_license_classes": 4,
+      "license_classes": [
+        "AGPL-3.0-or-later",
+        "Apache-2.0",
+        "CC-BY-4.0",
+        "MIT"
+      ],
+      "license_text_digests": {
+        "LICENSES/AGPL-3.0-or-later.txt": "d8a6cc31abc16b6748c7a21f21611f5a1ec33f67d22ca23d7da1c19b95496bee",
+        "LICENSES/Apache-2.0.txt": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+        "LICENSES/CC-BY-4.0.txt": "d557539df68e771cc1eedcc91d13f70fca930e508d11eedcafa4b15db49e3744",
+        "LICENSES/MIT.txt": "7354457f471fda3d2ef7ae7b7dc758c98a57054875ccc1e211b950646b03bf10"
+      },
+      "status": "PASS"
+    }
+  },
+  "decision": "PASS",
+  "schema_version": "1.0.0"
+}
+.venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider --import-mode=importlib tests/fnd/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/test_foundation.py -k 'not test_epic_007_fundacao'
+..................................................                       [100%]
+50 passed, 1 deselected in 6.49s
+.venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider tests/integration/walking_skeleton/test_runtime.py::test_process_cleanup_escalates_after_graceful_shutdown_timeout
+.                                                                        [100%]
+1 passed in 0.28s
+.venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider --import-mode=importlib tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation_contract.py::test_cli_api_semantic_contract \
+	tests/fnd/monorepo-greenfield-com-cli-api-web-minimos-e-checks-r/test_foundation_contract.py::test_foundation_contract_rejects_silent_fallback_and_duplicate_authority \
+	tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_contract.py::test_executable_foundation_gate_clean_room_end_to_end \
+	tests/fnd/walking-skeleton-frontendapipostgresqlrabbitmq-celeryw/test_contract.py::test_walking_skeleton_fail_closed_paths \
+	tests/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/test_runtime_schema_contract.py \
+	tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_conformance.py \
+	tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_foundation.py::test_corpus_license_hash_split_and_access_integrity \
+	tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_foundation.py::test_reference_capability_inventory_no_code_import \
+	tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_foundation.py::test_foundation_rejects_contract_drift_and_corpus_tampering \
+	tests/fnd/catalogo-de-conhecimento-tecnico-e-decomposicao-das-ca/test_foundation.py::test_foundation_rejects_missing_catalog_without_fallback \
+	-k 'not test_contract_package_is_registered_and_envelope_is_contained'
+..........................                                               [100%]
+26 passed, 2 deselected in 2.45s
+.venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider --import-mode=importlib tests/infra/native_stack/test_native_stack.py
+FFF...............F                                                      [100%]
+================================== FAILURES ===================================
+________ test_source_lock_preserves_versions_and_has_immutable_lineage ________
+
+    def test_source_lock_preserves_versions_and_has_immutable_lineage() -> None:
+        source = yaml.safe_load(SOURCE_LOCK.read_text(encoding="utf-8"))
+>       assert (
+            _sha256(SOURCE_LOCK) == "16970dbaba6b1a5494a2003626a53bf0d6d9cfc5ed64471804bc888551d49a9e"
+        )
+E       AssertionError: assert 'dcb782467327...72c462c2f63b7' == '16970dbaba6b...c888551d49a9e'
+E
+E         - 16970dbaba6b1a5494a2003626a53bf0d6d9cfc5ed64471804bc888551d49a9e
+E         + dcb7824673273a0db58fce862d22fed8733b981b26174104f3972c462c2f63b7
+
+tests\infra\native_stack\test_native_stack.py:54: AssertionError
+_________ test_conda_lock_is_explicit_hash_complete_and_version_exact _________
+
+    def test_conda_lock_is_explicit_hash_complete_and_version_exact() -> None:
+        source = yaml.safe_load(SOURCE_LOCK.read_text(encoding="utf-8"))
+        conda = source["immutable_inputs"]["conda_environment"]
+>       assert f"sha256:{_sha256(CONDA_LOCK)}" == conda["lock_sha256"]
+E       AssertionError: assert 'sha256:28965...97eae27c369d0' == 'sha256:dafb1...8dc6168db4848'
+E
+E         - sha256:dafb10f30d967d18c7417104d0bb417aaea8ea23a1a67937dd28dc6168db4848
+E         + sha256:28965ab1d295974088053c0f7e8aa6891b33796b34cf134d71897eae27c369d0
+
+tests\infra\native_stack\test_native_stack.py:82: AssertionError
+_________ test_contract_has_two_independent_approvals_for_exact_bytes _________
+
+    def test_contract_has_two_independent_approvals_for_exact_bytes() -> None:
+        policy = yaml.safe_load(POLICY.read_text(encoding="utf-8"))
+        assert policy["contract_version"] == "1.0.2"
+        assert policy["scope"]["dependency_720_resolution"] == "OWNER_APPROVED_B"
+        assert policy["scope"]["epic_080_satisfied"] is False
+        assert policy["scope"]["issue_974_authorized"] is False
+        assert policy["revocation_and_recovery"]["selectors"] == ["IMAGE_DIGEST"]
+        policy_digest = _sha256(POLICY)
+        schema_digest = _sha256(POLICY_SCHEMA)
+>       assert policy_digest == "756dd9e682c844e942a24a12c82db462179ad7e3ec6bf800cb8e21f34a77d1eb"
+E       AssertionError: assert '01feac969f43...9f006f4c7ab79' == '756dd9e682c8...e21f34a77d1eb'
+E
+E         - 756dd9e682c844e942a24a12c82db462179ad7e3ec6bf800cb8e21f34a77d1eb
+E         + 01feac969f43eed00d346bf6b9e36714796a6ca1746db1f5a2b9f006f4c7ab79
+
+tests\infra\native_stack\test_native_stack.py:120: AssertionError
+_____ test_validator_accepts_only_the_current_fail_closed_promotion_state _____
+
+    def test_validator_accepts_only_the_current_fail_closed_promotion_state() -> None:
+        resolved = yaml.safe_load(RESOLVED_LOCK.read_text(encoding="utf-8"))
+        command = [
+            sys.executable,
+            str(ROOT / "tools/quality/native_stack/validate.py"),
+            "--source-lock",
+            str(SOURCE_LOCK.relative_to(ROOT)),
+            "--resolved-lock",
+            str(RESOLVED_LOCK.relative_to(ROOT)),
+        ]
+        if resolved["status"] == "VERIFIED":
+            command.append("--require-resolved")
+        result = subprocess.run(
+            command,
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+>       assert result.returncode == 0, result.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\tools\quality\native_stack\validate.py", line 558, in <module>
+E             raise SystemExit(main())
+E                              ^^^^^^
+E           File "C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\tools\quality\native_stack\validate.py", line 539, in main
+E             _validate_source_lock(source_lock, args.source_lock, repository_root)
+E           File "C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\tools\quality\native_stack\validate.py", line 255, in _validate_source_lock
+E             _validate_conda_lock(source_lock, repository_root)
+E           File "C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\tools\quality\native_stack\validate.py", line 166, in _validate_conda_lock
+E             _require(_sha256(lock_path) == conda["lock_sha256"], "conda lock digest mismatch")
+E           File "C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\tools\quality\native_stack\validate.py", line 26, in _require
+E             raise ValueError(message)
+E         ValueError: conda lock digest mismatch
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['C:\\Users\\DGEO2CGEO\\Documents\\GitHub\\DSGeorref\\.venv\\Scripts\\python.exe', 'C:\\Users\\D...ve_stack\\validate.py", line 26, in _require\n    raise ValueError(message)\nValueError: conda lock digest mismatch\n').returncode
+
+tests\infra\native_stack\test_native_stack.py:361: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/infra/native_stack/test_native_stack.py::test_source_lock_preserves_versions_and_has_immutable_lineage
+FAILED tests/infra/native_stack/test_native_stack.py::test_conda_lock_is_explicit_hash_complete_and_version_exact
+FAILED tests/infra/native_stack/test_native_stack.py::test_contract_has_two_independent_approvals_for_exact_bytes
+FAILED tests/infra/native_stack/test_native_stack.py::test_validator_accepts_only_the_current_fail_closed_promotion_state
+4 failed, 15 passed in 0.23s
+make: *** [Makefile:25: technical-tests] Error 1

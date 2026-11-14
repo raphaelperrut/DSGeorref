@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="28" failures="0" errors="0" time="0.9889454">
+    <testsuite name="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" timestamp="2026-11-14T20:29:28.927Z" hostname="DGEO" tests="28" failures="0" errors="0" skipped="0" time="0.9889454">
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="test_epic_010_superficie" time="0.1899529">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="delegates artifact denial without inventing path fields" time="0.0345675">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="delegates logical_path denial without inventing path fields" time="0.0332086">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="delegates physical_path denial without inventing path fields" time="0.0354759">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 401 and Problem Details" time="0.044359">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 403 and Problem Details" time="0.0453401">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 404 and Problem Details" time="0.0390417">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 409 and Problem Details" time="0.0366584">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 412 and Problem Details" time="0.037049">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 422 and Problem Details" time="0.0324278">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 429 and Problem Details" time="0.0256258">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 500 and Problem Details" time="0.0246608">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="rejects malformed successful decision 0" time="0.0258686">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="rejects malformed successful decision 1" time="0.026458">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="rejects malformed successful decision 2" time="0.0250103">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="rejects malformed successful decision 3" time="0.0241724">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="rejects malformed successful decision 4" time="0.0254007">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="rejects malformed successful decision 5" time="0.0251846">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="malformed JSON retains HTTP 200" time="0.0199881">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="malformed JSON retains HTTP 403" time="0.0190533">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="malformed JSON retains HTTP 500" time="0.01799">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="wrong status, media type, network failure and mismatching membership never succeed" time="0.0454753">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="unchanged retries preserve idempotency; edits and confirmed success renew it" time="0.0381986">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="session expiry clears decision and prevents protected requests" time="0.0227745">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="partial member page is explicit; cross-project and malformed lists fail closed" time="0.0295805">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="invalid Problem Details never masks HTTP denial or confirms success" time="0.0226772">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="duplicate submission is locked while pending; expiry rejects a late allow" time="0.0196848">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="invalid authentication stays closed and does not disclose submitted password" time="0.0214023">
+        </testcase>
+    </testsuite>
+</testsuites>

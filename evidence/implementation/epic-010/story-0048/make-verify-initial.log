@@ -1,0 +1,112 @@
+.venv/Scripts/python.exe -m ruff check tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/decision_controls.py tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_srg_srp_part_4.py
+All checks passed!
+.venv/Scripts/python.exe -m mypy tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/decision_controls.py
+Success: no issues found in 1 source file
+.venv/Scripts/python.exe -X utf8 tools/check_python_architecture.py
+PYTHON ARCHITECTURE PASS
+python_files: 38
+modules: 38
+pnpm.cmd --dir src/frontend openapi:check
+
+> @dsgeorref/frontend-tooling@0.0.0 openapi:check C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> node tools/openapi/cli.mjs check
+
+OpenAPI check: PASS
+pnpm.cmd --dir src/frontend openapi:diff 061e83daf5f22cd39f2338f83c204a29428c2cc0
+
+> @dsgeorref/frontend-tooling@0.0.0 openapi:diff C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> node tools/openapi/cli.mjs diff "061e83daf5f22cd39f2338f83c204a29428c2cc0"
+
+OpenAPI diff: PASS
+pnpm.cmd run frontend:typecheck
+
+> dsgeorref-workspace@ frontend:typecheck C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling typecheck
+
+
+> @dsgeorref/frontend-tooling@0.0.0 typecheck C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> tsc --noEmit
+
+pnpm.cmd run frontend:test:unit
+
+> dsgeorref-workspace@ frontend:test:unit C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling test:unit
+
+
+> @dsgeorref/frontend-tooling@0.0.0 test:unit C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> vitest run tests/tooling/testing-library.unit.test.ts tests/foundation/openapi.test.mjs tests/foundation/shell.test.tsx --environment jsdom
+
+
+ RUN  v4.1.12 C:/Users/DGEO2CGEO/Documents/GitHub/DSGeorref/src/frontend
+
+
+ Test Files  3 passed (3)
+      Tests  17 passed (17)
+   Start at  17:00:34
+   Duration  8.45s (transform 124ms, setup 0ms, import 872ms, tests 8.03s, environment 1.18s)
+
+pnpm.cmd run frontend:test:browser
+
+> dsgeorref-workspace@ frontend:test:browser C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling test:browser
+
+
+> @dsgeorref/frontend-tooling@0.0.0 test:browser C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> playwright test tests/tooling/playwright.browser.spec.ts --browser=chromium
+
+
+Running 1 test using 1 worker
+
+(node:28668) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › tests\tooling\playwright.browser.spec.ts:3:1 › executes the browser gate (88ms)
+
+  1 passed (561ms)
+pnpm.cmd run frontend:build
+
+> dsgeorref-workspace@ frontend:build C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling build
+
+
+> @dsgeorref/frontend-tooling@0.0.0 build C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> tsc --noEmit && vite build
+
+vite v8.1.6 building client environment for production...
+[2K
+transforming...✓ 35 modules transformed.
+rendering chunks...
+computing gzip size...
+../../node_modules/.cache/frontend-stage-a-dist/.vite/manifest.json          0.18 kB │ gzip:  0.14 kB
+../../node_modules/.cache/frontend-stage-a-dist/index.html                   0.40 kB │ gzip:  0.27 kB
+../../node_modules/.cache/frontend-stage-a-dist/assets/index-COXhBPw4.css    1.38 kB │ gzip:  0.60 kB
+../../node_modules/.cache/frontend-stage-a-dist/assets/index-CWvj6mcT.js   200.32 kB │ gzip: 63.66 kB
+
+✓ built in 81ms
+pnpm.cmd --dir src/frontend test:smoke
+> @dsgeorref/frontend-tooling@0.0.0 test:smoke C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> playwright test --config tests/foundation/playwright.config.ts
+
+[WebServer] (node:28976) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:13120) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:28204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\foundation\shell.browser.spec.ts:3:1 › the built shell bootstraps with the generated client and no backend (116ms)
+
+  1 passed (1.7s)
+.venv/Scripts/python.exe -X utf8 tools/quality/contexts/engineering_governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/validator.py --technical
+{"acceptance_criteria": ["AC-ISSUE-0133-01", "AC-ISSUE-0133-02", "AC-ISSUE-0133-03", "AC-ISSUE-0133-04"], "automation": "EPIC-005_MIGRATIONS_CI_SCANS_TELEMETRY_CONTROLS", "destructive_actions": 0, "findings": [], "mode": "READ_ONLY", "requirements": ["REQ-AIE-001", "REQ-AIE-005", "REQ-BEX-003", "REQ-BEX-005", "REQ-EPIC-012", "REQ-FS1-001", "REQ-FS1-004", "REQ-INS-003", "REQ-ISS-007", "REQ-OBS-002", "REQ-SGVCAL-001", "REQ-SGVCAL-002", "REQ-SGVCAL-003", "REQ-SGVCAL-004", "REQ-SGVCAL-005", "REQ-SGVCAL-006", "REQ-SGVCAL-007", "REQ-SGVCAL-008", "REQ-SGVCAL-009", "REQ-SGVCAL-010"], "status": "PASS"}
+.venv/Scripts/python.exe -X utf8 tools/quality/contexts/engineering_governance/openapi-cliente-typescript-e-contratos-cli-jobs-evento/validator.py --technical
+{"acceptance_criteria": ["AC-ISSUE-0128-01", "AC-ISSUE-0128-02", "AC-ISSUE-0128-03", "AC-ISSUE-0128-04"], "automation": "EPIC-004_VERSIONED_CONTRACT_CONTROLS", "contracts": ["contracts/artifacts/artifact-set-manifest.schema.json", "contracts/contexts/engineering_governance/fnd/openapi-cliente-typescript-e-contratos-cli-jobs-evento/crs-dbschema-epic-parte-1/contract-foundation.schema.json", "contracts/domain/failure-diagnostic.schema.json", "contracts/domain/processing-plan.schema.json", "contracts/domain/quality-report.schema.json", "contracts/events/job-event.schema.json", "contracts/http/openapi.yaml"], "destructive_actions": 0, "findings": [], "mode": "READ_ONLY", "requirements": ["REQ-CRS-002", "REQ-DBSCHEMA-007", "REQ-DBSCHEMA-008", "REQ-EPIC-031", "REQ-FS1-001", "REQ-FS1-004", "REQ-RUN-001", "REQ-RUN-006", "REQ-RUN-008", "REQ-RUN-010", "REQ-RUNTIME-008", "REQ-SCM-001", "REQ-TOOL-003", "REQ-TOP-001", "REQ-UX-002"], "status": "PASS"}
+.venv/Scripts/python.exe -X utf8 tools/governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/foundation_validation.py --technical
+{
+  "decision": "ERROR",
+  "error": "asset has no explicit license record: evidence/implementation/epic-010/story-0048/mobile.png",
+  "issue_id": "ISSUE-0142",
+  "schema_version": "1.0.0"
+}
+make: *** [Makefile:21: technical-tests] Error 2

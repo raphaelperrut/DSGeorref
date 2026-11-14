@@ -1,0 +1,89 @@
+{
+  "issue": "#124",
+  "task": "TASK-0048",
+  "previous_candidate_sha": "16a8c928244a3deb72dcedcbac196090e3b47cf5",
+  "new_candidate_binding": "Commit adding this validation.json and adjacent HANDOFF.md; previous_candidate_sha must be its sole parent.",
+  "code_changed": false,
+  "evidence_only": true,
+  "tracked_files_identical_to_previous_candidate_before_evidence_commit": true,
+  "original_candidate_evidence_preserved": true,
+  "prior_source_and_evidence_digests_verified": true,
+  "historical_assessment_and_digests_preserved": true,
+  "duplication_assessment": "Actual overlapping orchestration",
+  "safe_reuse_available": false,
+  "out_of_scope_change_required_for_adequate_fix": true,
+  "remediation_applied": false,
+  "medium_finding_status": "RESIDUAL",
+  "residual_risk": "Future divergence and coordinated maintenance across two orchestrations.",
+  "fail_closed_preserved": true,
+  "problem_details_preserved": true,
+  "idempotency_preserved": true,
+  "mandatory_test": {
+    "name": "test_epic_010_superficie",
+    "status": "PASS"
+  },
+  "focused_tests": {
+    "passed": 28,
+    "failed": 0,
+    "skipped": 0,
+    "scope": "Only the new feature surface.test.tsx"
+  },
+  "regression_rerun": false,
+  "browser_rerun": false,
+  "make_verify": {
+    "rerun": false,
+    "reason": "Owner explicitly limited evidence-only continuation to focused frontend tests.",
+    "previous_status": "FAIL",
+    "previous_classification": "PREEXISTING_CHECKOUT_CRLF_RAW_DIGEST_MISMATCH",
+    "previous_failures": 4
+  },
+  "blocker_high": false,
+  "ready_for_qa": true,
+  "independent_review_on_new_candidate": "PENDING",
+  "pull_request_opened": false,
+  "changed_files": [
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/DUPLICATION-ASSESSMENT.md",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/HANDOFF.md",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/assessment.json",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/evidence-only-tests.log",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/evidence-only-tests.xml",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/focused-tests.log",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/focused-tests.xml",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/validation.json"
+  ],
+  "digest_encoding": "UTF8_LF",
+  "self_digest": "Excluded to avoid self-reference; Git commit binds this file.",
+  "source_sha256_unchanged": {
+    ".codex/tasks/TASK-0048.json": "sha256:8bd5652d:a7e86af2:59f557df:ba784293:8bb6e97c:a08514e8:e9e2e622:7cab3048",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/README.md": "sha256:a6214ff4:a8f095a1:e5d9193b:a1486a31:b3a78960:2706a0f4:8c53f823:115e0160",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/index.html": "sha256:47706e65:9f77fc4d:67b85b88:26be587b:8b6e3e67:0bf6161b:f3e19e7f:060e5037",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/index.tsx": "sha256:aadcaf4b:c7f44f49:7faae77e:5b5e739d:45c568a5:9ec4648d:b9f3f8f5:a0883c35",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/main.tsx": "sha256:761559ac:0eb2cbcb:5398203e:385581af:2b9f7fcc:30b08d77:ab6b650b:08b4903a",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/playwright.config.ts": "sha256:b3aa6086:2edb41aa:6bca0539:f6015a8a:76eab4b9:d5cf7ff3:2e557125:0b660662",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.browser.spec.ts": "sha256:26edf71e:dc5fdf01:aa61626b:6170e83b:16a7edd1:dd58bc69:ab54fa23:998e1b9b",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.css": "sha256:4d42b580:992eaecd:311bd403:b7a358bd:57cff6cb:70e10a8c:4e15bedd:db8b32a4",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx": "sha256:b60f1797:29842f1e:81e613ec:7b9362c3:4d409a0c:dd20d2d0:0c9cc16a:f5aba0d5",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.tsx": "sha256:8875745e:6278c2bf:0b0c304a:58af2801:4ce394f4:7ed6b07d:047a831c:46de4b67",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/use-project-access.ts": "sha256:666f0213:c6229d80:2815c480:0d54cecb:109cd6fd:2d708ff2:bff50e0c:a7cd6741"
+  },
+  "evidence_sha256": {
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/assessment.json": "sha256:3aa0e80c:fc449429:a946ecb7:91d1d0fe:2f763b71:ae0a3db5:8915ca71:67cd41b0",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/DUPLICATION-ASSESSMENT.md": "sha256:75f95f83:8fc72bcc:395ed620:844309d3:9a757c57:9885704c:51fcf4cd:9354ec53",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/evidence-only-tests.log": "sha256:f1592c33:9dc1ee8b:01f5345c:0ec71fb6:22c5b504:2b311c49:36043cae:5fe59fbd",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/evidence-only-tests.xml": "sha256:b3aca03c:693d3d03:f5e1c3e8:918ffbf0:ff7a43e3:b6e5b279:f585b411:0b7296b3",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/focused-tests.log": "sha256:cc0ae849:20cfa639:eae805af:8633e993:f78c32a1:18638ae4:d1bd3198:9eb0f2a0",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/focused-tests.xml": "sha256:3b9e3ee9:2b726c3e:726501f1:af2556c1:7733ab7f:a32c7b8a:472882e3:8bb90ca1",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/HANDOFF.md": "sha256:c560bd3a:1e0d51b3:146736db:38bb7293:5cfaa690:26ef88aa:170e0ddf:acc0531a"
+  },
+  "historical_evidence_sha256": {
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/assessment.json": "sha256:2cfb67f7:69e23dea:b63a8a5a:3258816d:f90e0772:326fe623:5c3c2e2d:9943b641",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/DUPLICATION-ASSESSMENT.md": "sha256:75f95f83:8fc72bcc:395ed620:844309d3:9a757c57:9885704c:51fcf4cd:9354ec53",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/evidence-only-tests.log": "sha256:f1592c33:9dc1ee8b:01f5345c:0ec71fb6:22c5b504:2b311c49:36043cae:5fe59fbd",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/evidence-only-tests.xml": "sha256:b3aca03c:693d3d03:f5e1c3e8:918ffbf0:ff7a43e3:b6e5b279:f585b411:0b7296b3",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/focused-tests.log": "sha256:cc0ae849:20cfa639:eae805af:8633e993:f78c32a1:18638ae4:d1bd3198:9eb0f2a0",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/focused-tests.xml": "sha256:3b9e3ee9:2b726c3e:726501f1:af2556c1:7733ab7f:a32c7b8a:472882e3:8bb90ca1",
+    "evidence/implementation/epic-010/story-0048/qa-medium-finding/HANDOFF.md": "sha256:c560bd3a:1e0d51b3:146736db:38bb7293:5cfaa690:26ef88aa:170e0ddf:acc0531a"
+  },
+  "digest_representation": "sha256: followed by eight lowercase 8-hex groups; remove prefix and colons to reconstruct.",
+  "representation_revision": "Security remediation: historical maps retain original digests; active maps verify reformatted evidence. Other historical assertions refer to their original candidate."
+}

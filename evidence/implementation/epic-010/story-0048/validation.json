@@ -1,0 +1,130 @@
+{
+  "issue": "#124",
+  "task": "TASK-0048",
+  "baseline_sha": "061e83daf5f22cd39f2338f83c204a29428c2cc0",
+  "candidate_binding": "Commit containing HANDOFF.md and these UTF8_LF source digests; SHA intentionally resolved by git log to avoid self-reference.",
+  "task_envelope_corrected": true,
+  "only_authorized_allow_lists_changed": true,
+  "allow_paths": [
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/**",
+    "evidence/implementation/epic-010/story-0048/**",
+    ".codex/tasks/TASK-0048.json"
+  ],
+  "scope_valid": true,
+  "changed_files": [
+    ".codex/tasks/TASK-0048.json",
+    "evidence/implementation/epic-010/story-0048/HANDOFF.md",
+    "evidence/implementation/epic-010/story-0048/browser-tests.log",
+    "evidence/implementation/epic-010/story-0048/build.log",
+    "evidence/implementation/epic-010/story-0048/frontend-tests.log",
+    "evidence/implementation/epic-010/story-0048/frontend-tests.xml",
+    "evidence/implementation/epic-010/story-0048/make-verify-initial.log",
+    "evidence/implementation/epic-010/story-0048/make-verify.log",
+    "evidence/implementation/epic-010/story-0048/native-gate-diagnosis.json",
+    "evidence/implementation/epic-010/story-0048/typecheck.log",
+    "evidence/implementation/epic-010/story-0048/validation.json",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/README.md",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/index.html",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/index.tsx",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/main.tsx",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/playwright.config.ts",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.browser.spec.ts",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.css",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.tsx",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/use-project-access.ts"
+  ],
+  "source_digest_encoding": "UTF8_LF",
+  "source_sha256": {
+    ".codex/tasks/TASK-0048.json": "sha256:8bd5652d:a7e86af2:59f557df:ba784293:8bb6e97c:a08514e8:e9e2e622:7cab3048",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/README.md": "sha256:a6214ff4:a8f095a1:e5d9193b:a1486a31:b3a78960:2706a0f4:8c53f823:115e0160",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/index.html": "sha256:47706e65:9f77fc4d:67b85b88:26be587b:8b6e3e67:0bf6161b:f3e19e7f:060e5037",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/index.tsx": "sha256:aadcaf4b:c7f44f49:7faae77e:5b5e739d:45c568a5:9ec4648d:b9f3f8f5:a0883c35",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/main.tsx": "sha256:761559ac:0eb2cbcb:5398203e:385581af:2b9f7fcc:30b08d77:ab6b650b:08b4903a",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/playwright.config.ts": "sha256:b3aa6086:2edb41aa:6bca0539:f6015a8a:76eab4b9:d5cf7ff3:2e557125:0b660662",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.browser.spec.ts": "sha256:26edf71e:dc5fdf01:aa61626b:6170e83b:16a7edd1:dd58bc69:ab54fa23:998e1b9b",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.css": "sha256:4d42b580:992eaecd:311bd403:b7a358bd:57cff6cb:70e10a8c:4e15bedd:db8b32a4",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx": "sha256:b60f1797:29842f1e:81e613ec:7b9362c3:4d409a0c:dd20d2d0:0c9cc16a:f5aba0d5",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.tsx": "sha256:8875745e:6278c2bf:0b0c304a:58af2801:4ce394f4:7ed6b07d:047a831c:46de4b67",
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/use-project-access.ts": "sha256:666f0213:c6229d80:2815c480:0d54cecb:109cd6fd:2d708ff2:bff50e0c:a7cd6741"
+  },
+  "contracts_unchanged": true,
+  "contracts_consumed": [
+    "post_auth_session",
+    "get_authorization_check",
+    "get_projects_projectid_members",
+    "post_projects_projectid_members"
+  ],
+  "contract_utf8_lf_sha256": {
+    "contracts/http/openapi.yaml": "sha256:0f236a49:37a5226b:1c57cf8c:67317501:53b5d4cd:9d6381c8:8a6bd2fc:eca30d52",
+    "contracts/http/OPERATION_CATALOG.json": "sha256:74e5bd90:5b529ff2:6809c210:f0f7ee34:a0fcc563:e5720f4c:a9c301be:100dbd8f",
+    "contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/contract.json": "sha256:40126aab:34f6af6e:44293d32:46096c05:7c01cc1e:77dfddd0:dba814cf:1a6057f5"
+  },
+  "backend_changed": false,
+  "openapi_changed": false,
+  "database": {
+    "applicability": "NOT_APPLICABLE",
+    "migration_required": false
+  },
+  "mandatory_test": {
+    "name": "test_epic_010_superficie",
+    "status": "PASS"
+  },
+  "frontend_tests": {
+    "passed": 28,
+    "failed": 0,
+    "skipped": 0
+  },
+  "direct_regression_tests": {
+    "passed": 42,
+    "failed": 0,
+    "skipped": 0
+  },
+  "browser_tests": {
+    "passed": 1,
+    "built_bundle": true,
+    "mocked_http": true,
+    "live_backend_exercised": false
+  },
+  "typecheck": "PASS",
+  "feature_build": "PASS",
+  "openapi_check": "PASS",
+  "openapi_diff": "PASS",
+  "make_verify": {
+    "status": "FAIL",
+    "exit_code": 2,
+    "classification": "PREEXISTING_CHECKOUT_CRLF_RAW_DIGEST_MISMATCH",
+    "failures": 4,
+    "native_cases_passed": 15,
+    "integration_tests": "NOT_REACHED"
+  },
+  "independent_review": "PENDING",
+  "ready_for_qa": true,
+  "blocker_high": false,
+  "evidence_sha256": {
+    "evidence/implementation/epic-010/story-0048/browser-tests.log": "sha256:9860b54f:742ed085:632df6e4:4571b83c:10217a8d:4db4e7b3:33735513:e373c81a",
+    "evidence/implementation/epic-010/story-0048/build.log": "sha256:ba9f875b:de0e3025:0e187f8e:90c16698:ea02421a:1f769afe:bfe67f8b:6fb52f33",
+    "evidence/implementation/epic-010/story-0048/frontend-tests.log": "sha256:d43f5288:c70f57e3:39653527:a22195a2:c5ed6dfa:a3e85fa6:8f691020:91f2b8ac",
+    "evidence/implementation/epic-010/story-0048/frontend-tests.xml": "sha256:c950cd30:a5e3098f:a03cd529:0b384496:f7a82199:effde96f:218f2807:709b7ece",
+    "evidence/implementation/epic-010/story-0048/HANDOFF.md": "sha256:ea6acd07:592de502:fb726cd7:4aeb406b:a9627689:f9e6b79d:eb8adee3:6fef4a19",
+    "evidence/implementation/epic-010/story-0048/make-verify-initial.log": "sha256:972af4fc:d366b0dd:8c3e601f:0b5af809:c75ab28b:27f30940:fe33004a:31812bde",
+    "evidence/implementation/epic-010/story-0048/make-verify.log": "sha256:92d0ff37:c620aa08:fd0c28e6:26629f46:88b50c11:c54064c0:8cc1ac0e:79800e74",
+    "evidence/implementation/epic-010/story-0048/native-gate-diagnosis.json": "sha256:7e8f6e9f:eb1f8cbc:ed68dd4a:89f84c9c:1ecafb3e:5cd838b5:5710c4f6:7eba71e1",
+    "evidence/implementation/epic-010/story-0048/typecheck.log": "sha256:2e0817ef:26e29f7a:f375a7af:0c20cf01:53f54de6:a70e3e53:c1e772ba:9c517506"
+  },
+  "evidence_digest_encoding": "UTF8_LF",
+  "evidence_log_normalization": "Trailing whitespace removed; outcomes and diagnostic content preserved.",
+  "historical_evidence_sha256": {
+    "evidence/implementation/epic-010/story-0048/browser-tests.log": "sha256:9860b54f:742ed085:632df6e4:4571b83c:10217a8d:4db4e7b3:33735513:e373c81a",
+    "evidence/implementation/epic-010/story-0048/build.log": "sha256:ba9f875b:de0e3025:0e187f8e:90c16698:ea02421a:1f769afe:bfe67f8b:6fb52f33",
+    "evidence/implementation/epic-010/story-0048/frontend-tests.log": "sha256:d43f5288:c70f57e3:39653527:a22195a2:c5ed6dfa:a3e85fa6:8f691020:91f2b8ac",
+    "evidence/implementation/epic-010/story-0048/frontend-tests.xml": "sha256:c950cd30:a5e3098f:a03cd529:0b384496:f7a82199:effde96f:218f2807:709b7ece",
+    "evidence/implementation/epic-010/story-0048/HANDOFF.md": "sha256:a723111b:4109ccef:9b22391f:bebbe725:f58d687e:a5919fe5:34a8f04e:1e844761",
+    "evidence/implementation/epic-010/story-0048/make-verify-initial.log": "sha256:972af4fc:d366b0dd:8c3e601f:0b5af809:c75ab28b:27f30940:fe33004a:31812bde",
+    "evidence/implementation/epic-010/story-0048/make-verify.log": "sha256:92d0ff37:c620aa08:fd0c28e6:26629f46:88b50c11:c54064c0:8cc1ac0e:79800e74",
+    "evidence/implementation/epic-010/story-0048/native-gate-diagnosis.json": "sha256:c8abffb9:0cf87824:b3b0fc57:1d9a5c9a:6a607214:edea51c1:069f4d06:8f68e87a",
+    "evidence/implementation/epic-010/story-0048/typecheck.log": "sha256:2e0817ef:26e29f7a:f375a7af:0c20cf01:53f54de6:a70e3e53:c1e772ba:9c517506"
+  },
+  "digest_representation": "sha256: followed by eight lowercase 8-hex groups; remove prefix and colons to reconstruct.",
+  "representation_revision": "Security remediation: historical maps retain original digests; active maps verify reformatted evidence. Other historical assertions refer to their original candidate."
+}
