@@ -49,7 +49,10 @@
   ],
   "allow_paths": [
     "src/backend/dsgeorref/contexts/identity_access/application/autorizacao-por-projeto-operacao-artefato-e-caminho/hw-parte-2/**",
-    "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/hw-parte-2/**"
+    "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/hw-parte-2/**",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/**",
+    "tests/backend/identity_access/resource_authorization/**",
+    ".codex/tasks/TASK-0717.json"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -122,7 +125,10 @@
       "status": "PASS",
       "allow_paths": [
         "src/backend/dsgeorref/contexts/identity_access/application/autorizacao-por-projeto-operacao-artefato-e-caminho/hw-parte-2/**",
-        "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/hw-parte-2/**"
+        "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/hw-parte-2/**",
+        "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/**",
+        "tests/backend/identity_access/resource_authorization/**",
+        ".codex/tasks/TASK-0717.json"
       ],
       "deny_paths": [
         "src/**/epic-*",
