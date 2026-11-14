@@ -1,0 +1,52 @@
+{
+  "baseline_sha": "86d8798ca81cd0fee64d260c8895b49481958618",
+  "owner_authorization": "https://github.com/raphaelperrut/DSGeorref/issues/159#issuecomment-6880844877",
+  "task_correction_only_allow_paths": true,
+  "scope_valid": true,
+  "mandatory_names": [
+    "test_req_auth_impl_001",
+    "test_req_auth_impl_0010",
+    "test_req_auth_impl_002",
+    "test_req_auth_impl_003",
+    "test_req_auth_impl_004",
+    "test_req_auth_impl_005",
+    "test_req_auth_impl_006",
+    "test_req_auth_impl_008",
+    "test_req_auth_impl_009",
+    "test_role_project_operation_access"
+  ],
+  "mandatory_and_resource_cases": 20,
+  "regression_cases": 134,
+  "make_verify": "BLOCKED_FRONTEND_ENGINE_VERSIONS",
+  "migration_required": false,
+  "unrelated_preserved": [
+    "src/frontend/debug.log"
+  ],
+  "files": [
+    ".codex/tasks/TASK-0716.json",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/.gitignore",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/HANDOFF.md",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/make-verify.log",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/mandatory-and-resource-tests.xml",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/regression-tests.xml",
+    "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/acc-auth-impl-parte-1/runtime.py",
+    "src/backend/dsgeorref/contexts/identity_access/application/autorizacao-por-projeto-operacao-artefato-e-caminho/acc-auth-impl-parte-1/resources.py",
+    "tests/backend/identity_access/resource_authorization/conftest.py",
+    "tests/backend/identity_access/resource_authorization/test_requirements.py",
+    "tests/backend/identity_access/resource_authorization/test_resources.py"
+  ],
+  "digest_encoding": "UTF8_LF",
+  "sha256": {
+    ".codex/tasks/TASK-0716.json": "679076735c663acaed61e9e3f05eed832faa98d933cf69d0b88c8de778e63c0b",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/.gitignore": "c740db8c5771bc53deca3faf16465ffd78a57c5bc6df70143f0a8f422fb469ab",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/HANDOFF.md": "54c5628f00601b4267c3ee5aef28a34ff7d02bc9deb69475946ff61d79d0e748",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/make-verify.log": "dee5a2d9430b1014e8f342383ccb566f2fda6ad2340a5417a35c621fe4e82271",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/mandatory-and-resource-tests.xml": "8886eecdad564fceb01ce587fd34b60de0b46175314a538ae04dcc6e688aaad8",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/regression-tests.xml": "a90b279ea31b2ef9f7c8eb9eaed4a664cd05df2171dbe2c2fcbdd62b632af76c",
+    "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/acc-auth-impl-parte-1/runtime.py": "a1f4dc831a4eab102f646eb2b38fe1a767ccd2c6ba93b2b757adeb36d69c11e2",
+    "src/backend/dsgeorref/contexts/identity_access/application/autorizacao-por-projeto-operacao-artefato-e-caminho/acc-auth-impl-parte-1/resources.py": "bd2fb545ca042a1f5f1fc2f6fb84b1f00fe010ad08878a62ef8f46a70d87414f",
+    "tests/backend/identity_access/resource_authorization/conftest.py": "7830e9a54aaad820fa7dde65a2e1b873c3b34e81be5e9fa4e65ed8553b624c68",
+    "tests/backend/identity_access/resource_authorization/test_requirements.py": "6757c45c6a0ba014f821f2d6cc99070d4109ac60b1a6e06fcd5651090ab43bcc",
+    "tests/backend/identity_access/resource_authorization/test_resources.py": "aa20852a886e08f46f28a76a4c043f2a2cdd570424f478df478d060c59b25ef7"
+  }
+}
