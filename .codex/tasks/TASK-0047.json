@@ -47,7 +47,10 @@
   ],
   "allow_paths": [
     "src/backend/dsgeorref/contexts/identity_access/application/autorizacao-por-projeto-operacao-artefato-e-caminho/consolidacao/**",
-    "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/consolidacao/**"
+    "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/consolidacao/**",
+    "evidence/implementation/epic-010/story-0047/**",
+    "tests/backend/identity_access/resource_authorization/**",
+    ".codex/tasks/TASK-0047.json"
   ],
   "deny_paths": [
     "src/**/epic-*",
@@ -121,7 +124,10 @@
       "status": "PASS",
       "allow_paths": [
         "src/backend/dsgeorref/contexts/identity_access/application/autorizacao-por-projeto-operacao-artefato-e-caminho/consolidacao/**",
-        "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/consolidacao/**"
+        "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/consolidacao/**",
+        "evidence/implementation/epic-010/story-0047/**",
+        "tests/backend/identity_access/resource_authorization/**",
+        ".codex/tasks/TASK-0047.json"
       ],
       "deny_paths": [
         "src/**/epic-*",

@@ -1,0 +1,78 @@
+{
+  "issue": "#123",
+  "baseline_sha": "0c7b85dfe6dbb041e64852280c393d00dbab05b9",
+  "dependency_159": "INTEGRATED",
+  "dependency_160": "INTEGRATED",
+  "task_envelope_corrected": true,
+  "scope_valid": true,
+  "implementation": "Integration test and evidence only; existing CPU adapter already composes Slice 1",
+  "slice_0716_present": true,
+  "slice_0717_present": true,
+  "acceptance_criteria": {
+    "AC_01": "DEMONSTRATED_PENDING_REVIEW",
+    "AC_02": "DEMONSTRATED_PENDING_REVIEW",
+    "AC_03": "DEMONSTRATED_PENDING_REVIEW",
+    "AC_04": "HANDOFF_PREPARED_RELEASE_PENDING_INDEPENDENT_REVIEW"
+  },
+  "requirement_traceability": "PRESERVED_NO_OWN_REQUIREMENTS_NO_DUPLICATION",
+  "contract_compatibility": "PASS_PINNED_DIGESTS_AND_SHARED_SERVICE",
+  "redundant_implementation": false,
+  "migration_required": false,
+  "migration_status": "NOT_NEEDED_NO_SCHEMA_OR_PERSISTED_STATE_CHANGE",
+  "mandatory_test": "test_story_0047_slice_consolidation: PASS",
+  "test_results": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "23",
+    "time": "25.965",
+    "timestamp": "2026-11-14T15:37:26.842405-03:00",
+    "hostname": "DGEO"
+  },
+  "regression_tests": "test_hardware.py: 10 passed; test_resources.py: 11 passed",
+  "make_verify": {
+    "exit_code": 2,
+    "classification": "PREEXISTING_CHECKOUT_CRLF_RAW_DIGEST_MISMATCH",
+    "failed": "tests/infra/native_stack/test_native_stack.py: 4 failed, 15 passed",
+    "not_reached": "integration-tests"
+  },
+  "blocker_high": "NONE_IN_IMPLEMENTATION; GLOBAL_GATE_AND_INDEPENDENT_REVIEW_PENDING_FOR_RELEASE",
+  "stop_condition": "NONE_MATERIAL_FOR_IMPLEMENTATION",
+  "ready_for_qa": true,
+  "candidate_binding": "Commit containing this document; SHA returned to Owner. Digests UTF8/LF; validation.json excludes its own digest.",
+  "files": [
+    {
+      "path": ".codex/tasks/TASK-0047.json",
+      "sha256_utf8_lf": "e60c6d652efcb860c28cf808ab983a4b46399eb26aaba1e7f3eac0bbab246555"
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0047/.gitignore",
+      "sha256_utf8_lf": "c740db8c5771bc53deca3faf16465ffd78a57c5bc6df70143f0a8f422fb469ab"
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0047/HANDOFF.md",
+      "sha256_utf8_lf": "404582a04dbf2b66d9956b323e8ab3acb9ae6f3355f6e17fcbf4fb7b90e0a60d"
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0047/consolidation.json",
+      "sha256_utf8_lf": "c43187d47dadc36b93c0e20b60ff50d9549d0c8e0ef6bcf36a7e3008534ba174"
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0047/make-verify.log",
+      "sha256_utf8_lf": "82b5b032e32dfe78f5966e135b61296079408b3cbc50665c2e51c9856fcf0155"
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0047/native-gate-diagnosis.json",
+      "sha256_utf8_lf": "944f9802091db6fb3ad314aa7b4c058a2944946feb181637593ca34c3983dba8"
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0047/tests.xml",
+      "sha256_utf8_lf": "aaddd76a38d86d6af0d5ef49c0752b55935a726e9153bb9bd5d4b533cca8e270"
+    },
+    {
+      "path": "tests/backend/identity_access/resource_authorization/test_consolidation.py",
+      "sha256_utf8_lf": "3924d75f9c5a3171cb5a8370a9a6a1180dc83be926c8f6e4a06bf042fbaa6edd"
+    }
+  ]
+}
