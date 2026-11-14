@@ -8,8 +8,6 @@ import pytest
 from dsgeorref.contexts.identity_access.domain.local_identity.credentials import digest, uuid7
 from dsgeorref.contexts.identity_access.domain.local_identity.models import Denied
 
-from .conftest import ADAPTER, CONTRACT
-
 
 def test_epic_010_seguranca_happy_path(runtime, authorization):
     r = runtime
@@ -80,12 +78,13 @@ def test_epic_010_seguranca_negative_paths(runtime, authorization, case):
 
 
 @pytest.mark.parametrize("response", [None, "true", 1, {}, []])
-def test_unexpected_project_authority_fails_closed(runtime, response):
+def test_unexpected_project_authority_fails_closed(runtime, response, authorization_composition):
     r = runtime
+    adapter, contract = authorization_composition
     project = uuid7()
     r.member(project)
-    service = import_module(ADAPTER).build_authorization(
-        r.tx, lambda store, target: response, CONTRACT
+    service = import_module(adapter).build_authorization(
+        r.tx, lambda store, target: response, contract
     )
     with pytest.raises(Denied) as rejected:
         service.check(r.issued.secret, "session", "project_member:list", "project", project)

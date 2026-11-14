@@ -4,6 +4,8 @@ import importlib.util
 import sys
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[5]
 source = ROOT / "tests/backend/identity_access/resource_authorization/conftest.py"
 spec = importlib.util.spec_from_file_location("security_resource_fixtures", source)
@@ -14,4 +16,8 @@ spec.loader.exec_module(upstream)
 database = upstream.database
 runtime = upstream.runtime
 authorization = upstream.authorization
-ADAPTER, CONTRACT = upstream.ADAPTER, upstream.CONTRACT
+
+
+@pytest.fixture
+def authorization_composition():
+    return upstream.ADAPTER, upstream.CONTRACT
