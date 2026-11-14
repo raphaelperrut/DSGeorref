@@ -1,0 +1,86 @@
+{
+  "contract_id": "identity-access-resource-authorization",
+  "contract_version": "1.0.0",
+  "owner": "BC-002",
+  "task_id": "TASK-0046",
+  "baseline_main_sha": "737dab68225367eeb5ebf116f54c4511141cd0cf",
+  "runtime_implemented": false,
+  "policy_ref": "../usuarios-e-papeis-da-instancia/policy.json",
+  "policy_version": "1.1.0",
+  "freeze_ref": "../contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.json",
+  "source_digest_encoding": "UTF8_LF",
+  "source_sha256": {
+    "../usuarios-e-papeis-da-instancia/policy.json": "4aefe5a17f83485cd03d53285ff69851ea94f5b6af03faafc0c4591725e78f58",
+    "../contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.json": "1a7c9563927a93aeb620d4ed970d631e68643ff97986ea9d89fcf58f40b5404a"
+  },
+  "default_decision": "deny",
+  "authority": "PostgreSQL",
+  "predicates": [
+    "authenticated_active_identity",
+    "current_credential",
+    "current_policy_and_membership_revision",
+    "registered_operation_and_resource_type",
+    "authoritative_resource_exists",
+    "explicit_current_grant",
+    "matching_project_and_subject",
+    "credential_scope_subset",
+    "all_frozen_operation_guards"
+  ],
+  "operation_resources": {
+    "delete_auth_session": "account",
+    "post_auth_tokens": "account",
+    "get_authorization_check": "account",
+    "get_projects_projectid_members": "project",
+    "post_projects_projectid_members": "project"
+  },
+  "authentication_exceptions": [
+    "post_auth_bootstrap",
+    "post_auth_session",
+    "get_auth_oidc_callback"
+  ],
+  "exceptions_rule": "Delegate installation/authentication guards to the existing freeze; no project role grant or new exception.",
+  "snapshot": {
+    "source": "Trusted server ports only; never request claims, filesystem, broker or logs.",
+    "identity": ["account_id", "account_state", "credential_state"],
+    "grant": ["role", "grant_current", "membership_account_id", "membership_project_id", "membership_revision", "current_membership_revision"],
+    "scope": ["token_scopes", "token_project_id"],
+    "version": ["policy_version"],
+    "resource": ["resource_type", "resource_id", "project_id", "resource_exists"],
+    "credential_scope": "Explicit null token_scopes denotes a validated session; a PAT requires a nonempty list of exact permission strings and the exact project binding. Absent is not null.",
+    "revision": "Positive authoritative revision equals current revision on every use; stale/missing fails. No reusable allow cache or authorization ticket."
+  },
+  "artifact_boundary": {
+    "owner": "BC-013",
+    "manifest_schema": "contracts/artifacts/artifact-set-manifest.schema.json",
+    "descriptor_schema": "contracts/artifacts/artifact-descriptor.schema.json",
+    "ownership": "Committed published manifest.project_id and exact artifact_id membership in manifest.artifacts; never infer project from a path, caller or ID.",
+    "operation": "get_artifact_sets_artifactsetid_manifest",
+    "permission": "artifact_manifest:read",
+    "grant": "Absent in central policy 1.1.0; deny for every role. Ownership validation is necessary but never sufficient for access.",
+    "path": "Only descriptor.relative_path within the selected manifest is a logical selector; exact match, no prefix grant. No physical path authorization surface or new route.",
+    "physical_resolution": "BC-013 resolves managed locators only after a fresh central allow; secure resolution remains independently mandatory under SPEC-005 and REQ-ARTLAYOUT-010. No I/O in this contract.",
+    "integrity": "Publication, hashes, root_digest and lineage remain governed by SPEC-005; ownership input must come from the authoritative published record, not a caller-supplied manifest."
+  },
+  "transitions": {
+    "delegate_machines": ["account", "session", "pat", "oidc_link", "throttle"],
+    "membership_grant": "Only post_projects_projectid_members with project_member:create, existing target, registered role, unique membership, provenance and successful commit; MembershipChanged after commit.",
+    "membership_change_or_revoke": "No published command/transition in the eight endpoints; unsupported, deny. No synthetic grant lifecycle or new route.",
+    "invalidation": "Reevaluate every use after account/credential state, policy, scope or membership revision changes. An earlier allow never survives as authority.",
+    "invalid_transition": "Reject via the existing freeze; no state change or success effects. Revoked/expired credentials cannot reactivate."
+  },
+  "decision": {
+    "dto": "contracts/http/openapi.yaml#/components/schemas/AuthorizationDecision",
+    "policyVersion": "1.1.0",
+    "allow_reason": "granted",
+    "deny_reason": "access_denied",
+    "diagnostics": "Bounded reasonCode only; never echo internal path, raw credential, membership, existence detail or input. Audit actor/action/target/result/policy/correlation with ADR-055 redaction.",
+    "check": "authorization:check permits querying own decision, not the requested action. Unknown action => existing validation_failed; known denied action => allowed=false. Every subsequent operation rechecks server-side.",
+    "http": "No new route, field, status or error. Existing frozen guard order and operation-specific errors remain authoritative. This offline DTO is not an HTTP error mapper."
+  },
+  "throttling": {
+    "requirement": "REQ-AUTH-IMPL-007",
+    "reuse": "../usuarios-e-papeis-da-instancia/policy.json#/throttling",
+    "evidence": "../contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/boundary-evidence.schema.json#/$defs/throttle",
+    "composition": "Existing throttle_open guard is conjunctive where published; open never grants permission; limited, locked, absent evidence/authority never enables fallback. No new throttle engine, threshold or guard added to an endpoint."
+  }
+}
