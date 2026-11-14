@@ -1,0 +1,11 @@
+
+ RUN  v4.1.12 C:/Users/DGEO2CGEO/Documents/GitHub/DSGeorref/src/frontend
+
+ ✓ src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx (28 tests) 989ms
+
+ Test Files  1 passed (1)
+      Tests  28 passed (28)
+   Start at  17:29:26
+   Duration  2.65s (transform 199ms, setup 0ms, import 578ms, tests 989ms, environment 901ms)
+
+JUNIT report written to C:/Users/DGEO2CGEO/Documents/GitHub/DSGeorref/evidence/implementation/epic-010/story-0048/qa-medium-finding/evidence-only-tests.xml

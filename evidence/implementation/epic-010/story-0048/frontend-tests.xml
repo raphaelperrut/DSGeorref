@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="70" failures="0" errors="0" time="3.0099561">
+    <testsuite name="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" timestamp="2026-11-14T20:02:42.202Z" hostname="DGEO" tests="42" failures="0" errors="0" skipped="0" time="1.9957997">
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="test_epic_008_superficie" time="0.1461704">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="bootstrap success is observable without implicitly authenticating" time="0.0448251">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="repeated bootstrap remains rejected and preserves Problem Details" time="0.0550435">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="bootstrap rejection 422 fails closed and redacts a reflected password" time="0.0370473">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="bootstrap rejection 401 fails closed and redacts a reflected password" time="0.0344734">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="bootstrap rejection 403 fails closed and redacts a reflected password" time="0.0353146">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="valid login derives session state and retains the authoritative ETag" time="0.0296998">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="invalid login cannot retain a previous session" time="0.0520944">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="logout result 204 never preserves privileged UI state" time="0.0465859">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="logout result 500 never preserves privileged UI state" time="0.0386726">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="token issuance exposes only ephemeral secret; no logging or storage" time="0.0342615">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="token creation rejection 401 shows error and no token" time="0.0293084">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="token creation rejection 403 shows error and no token" time="0.0290005">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="token creation rejection 422 shows error and no token" time="0.0232924">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="members listing and linking use published boundaries without account CRUD" time="0.0302987">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="member listing rejection 401 clears session and previous protected results" time="0.0254549">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="member listing rejection 403 clears session and previous protected results" time="0.0249113">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="UUID casing does not reject the same authoritative project/member identity" time="0.0301366">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="member linking rejection 401 fails closed" time="0.0245341">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="member linking rejection 403 fails closed" time="0.0263006">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="OIDC callback validates a session without a provider or local fallback" time="0.0137241">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="OIDC 400/oidc_state_invalid rejects authentication" time="0.0276048">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="OIDC 502/oidc_exchange_failed rejects authentication" time="0.025691">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="OIDC 409/identity_link_conflict rejects authentication" time="0.0242688">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="OIDC 500/internal_error rejects authentication" time="0.0247233">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="authorization denied remains a negative server decision" time="0.0195291">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="malformed/expired session fails closed" time="0.0170078">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="malformed/expired session fails closed" time="0.0159692">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="malformed/expired session fails closed" time="0.0168448">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="malformed/expired session fails closed" time="0.0172549">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="malformed/expired session fails closed" time="0.0275887">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="malformed/expired session fails closed" time="0.0346871">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="malformed/expired session fails closed" time="0.1038171">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="unexpected successful HTTP status cannot authenticate" time="0.1011255">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="malformed Problem Details is not rendered as trusted structured data" time="0.0844045">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="authorization must be a boolean; malformed result clears session" time="0.0826528">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="unchanged retry preserves idempotency; changed input starts a new intention" time="0.0992917">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="expiration removes session and prevents subsequent protected calls" time="0.0936462">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="token secret is discarded when page becomes hidden" time="0.1200415">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="malformed token and foreign-project member responses fail closed" time="0.156231">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="malformed OIDC callback cannot authenticate" time="0.0398367">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/surface.test.tsx" name="pending operation shows loading and prevents duplicate submissions" time="0.0508998">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" timestamp="2026-11-14T20:02:42.215Z" hostname="DGEO" tests="28" failures="0" errors="0" skipped="0" time="1.0141564">
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="test_epic_010_superficie" time="0.1880149">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="delegates artifact denial without inventing path fields" time="0.0351639">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="delegates logical_path denial without inventing path fields" time="0.0343639">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="delegates physical_path denial without inventing path fields" time="0.035135">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 401 and Problem Details" time="0.0465647">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 403 and Problem Details" time="0.0483119">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 404 and Problem Details" time="0.0408896">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 409 and Problem Details" time="0.0382578">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 412 and Problem Details" time="0.0372037">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 422 and Problem Details" time="0.032821">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 429 and Problem Details" time="0.0251883">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="preserves HTTP 500 and Problem Details" time="0.024713">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="rejects malformed successful decision 0" time="0.0279245">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="rejects malformed successful decision 1" time="0.0265496">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="rejects malformed successful decision 2" time="0.025866">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="rejects malformed successful decision 3" time="0.0248645">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="rejects malformed successful decision 4" time="0.0248809">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="rejects malformed successful decision 5" time="0.026229">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="malformed JSON retains HTTP 200" time="0.0191622">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="malformed JSON retains HTTP 403" time="0.0187577">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="malformed JSON retains HTTP 500" time="0.0197028">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="wrong status, media type, network failure and mismatching membership never succeed" time="0.0478802">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="unchanged retries preserve idempotency; edits and confirmed success renew it" time="0.040585">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="session expiry clears decision and prevents protected requests" time="0.0235985">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="partial member page is explicit; cross-project and malformed lists fail closed" time="0.0294271">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="invalid Problem Details never masks HTTP denial or confirms success" time="0.0236007">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="duplicate submission is locked while pending; expiry rejects a late allow" time="0.020676">
+        </testcase>
+        <testcase classname="src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx" name="invalid authentication stays closed and does not disclose submitted password" time="0.0265269">
+        </testcase>
+    </testsuite>
+</testsuites>

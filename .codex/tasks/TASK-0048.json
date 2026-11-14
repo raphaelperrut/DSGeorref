@@ -50,7 +50,9 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
-    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/**"
+    "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/**",
+    "evidence/implementation/epic-010/story-0048/**",
+    ".codex/tasks/TASK-0048.json"
   ],
   "deny_paths": [
     "src/backend/**",
@@ -125,7 +127,9 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
-        "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/**"
+        "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/**",
+        "evidence/implementation/epic-010/story-0048/**",
+        ".codex/tasks/TASK-0048.json"
       ],
       "deny_paths": [
         "src/backend/**",
