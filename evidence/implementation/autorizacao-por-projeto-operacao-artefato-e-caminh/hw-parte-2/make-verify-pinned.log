@@ -1,0 +1,85 @@
+.venv/Scripts/python.exe -m ruff check tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/decision_controls.py tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_srg_srp_part_4.py
+All checks passed!
+.venv/Scripts/python.exe -m mypy tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/decision_controls.py
+Success: no issues found in 1 source file
+.venv/Scripts/python.exe -X utf8 tools/check_python_architecture.py
+PYTHON ARCHITECTURE PASS
+python_files: 38
+modules: 38
+pnpm.cmd --dir src/frontend openapi:check
+
+> @dsgeorref/frontend-tooling@0.0.0 openapi:check C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> node tools/openapi/cli.mjs check
+
+OpenAPI check: PASS
+pnpm.cmd --dir src/frontend openapi:diff
+
+> @dsgeorref/frontend-tooling@0.0.0 openapi:diff C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> node tools/openapi/cli.mjs diff
+
+OpenAPI diff: PASS
+pnpm.cmd run frontend:typecheck
+
+> dsgeorref-workspace@ frontend:typecheck C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling typecheck
+
+
+> @dsgeorref/frontend-tooling@0.0.0 typecheck C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> tsc --noEmit
+
+pnpm.cmd run frontend:test:unit
+
+> dsgeorref-workspace@ frontend:test:unit C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling test:unit
+
+
+> @dsgeorref/frontend-tooling@0.0.0 test:unit C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> vitest run tests/tooling/testing-library.unit.test.ts tests/foundation/openapi.test.mjs tests/foundation/shell.test.tsx --environment jsdom
+
+
+ RUN  v4.1.12 C:/Users/DGEO2CGEO/Documents/GitHub/DSGeorref/src/frontend
+
+
+ Test Files  3 passed (3)
+      Tests  17 passed (17)
+   Start at  15:08:49
+   Duration  25.92s (transform 561ms, setup 0ms, import 8.01s, tests 9.23s, environment 41.69s)
+
+pnpm.cmd run frontend:test:browser
+
+> dsgeorref-workspace@ frontend:test:browser C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref
+> pnpm --filter @dsgeorref/frontend-tooling test:browser
+
+
+> @dsgeorref/frontend-tooling@0.0.0 test:browser C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend
+> playwright test tests/tooling/playwright.browser.spec.ts --browser=chromium
+
+
+Running 1 test using 1 worker
+
+(node:21636) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [chromium] › tests\tooling\playwright.browser.spec.ts:3:1 › executes the browser gate (1ms)
+
+
+  1) [chromium] › tests\tooling\playwright.browser.spec.ts:3:1 › executes the browser gate ─────────
+
+    Error: browserType.launch: Executable doesn't exist at C:\Users\DGEO2CGEO\AppData\Local\Packages\openai.codex_2p2nqsd0c76g0\AC\#!sandbox.{be5e1d0b-d8d9-4ed5-85d3-6e31b0a909fe}\ms-playwright\chromium_headless_shell-1234\chrome-headless-shell-win64\chrome-headless-shell.exe
+    ╔════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright was just installed or updated.       ║
+    ║ Please run the following command to download new browsers: ║
+    ║                                                            ║
+    ║     pnpm exec playwright install                           ║
+    ║                                                            ║
+    ║ <3 Playwright Team                                         ║
+    ╚════════════════════════════════════════════════════════════╝
+
+    Error Context: test-results\tests-tooling-playwright.browser-executes-the-browser-gate-chromium\error-context.md
+
+  1 failed
+    [chromium] › tests\tooling\playwright.browser.spec.ts:3:1 › executes the browser gate ──────────
+C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\src\frontend:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @dsgeorref/frontend-tooling@0.0.0 test:browser: `playwright test tests/tooling/playwright.browser.spec.ts --browser=chromium`
+Exit status 1
+ ELIFECYCLE  Command failed with exit code 1.
+make: *** [Makefile:45: frontend-quality] Error 1

@@ -1,0 +1,107 @@
+{
+  "issue": "#160",
+  "task": "TASK-0717",
+  "baseline_sha": "bd90ec86a418254f9b4b55e3b4c78c1e7382ed51",
+  "dependency_159": "INTEGRATED",
+  "owner_authorization": "https://github.com/raphaelperrut/DSGeorref/issues/160#issuecomment-6881890153",
+  "task_envelope_corrected": true,
+  "only_two_allow_lists_changed": true,
+  "scope_valid": true,
+  "implementation": "CPU-only composition reuses integrated Slice 1/2 builder; unsupported modes rejected before CPU composition",
+  "req_hw_001": "PASS_WITHIN_BC002_SLICE",
+  "cpu_baseline": "PASS",
+  "gpu_optional": "PASS_NO_ACCELERATION_DECLARED_OR_REQUIRED",
+  "no_silent_fallback": "PASS",
+  "database_applicability": "APPLICABLE_REUSE_EXISTING_SCHEMA",
+  "historical_envelope_migration_required": true,
+  "migration_required": false,
+  "migration_status": "NOT_NEEDED_NO_SCHEMA_OR_STATE_CHANGE",
+  "rollback_status": "CODE_ONLY_EXISTING_CPU_COMPOSITION_NO_AUDIT_OR_SCHEMA_DELETION",
+  "acceptance_criteria": {
+    "AC-ISSUE-0827-01": "DEMONSTRATED_PENDING_INDEPENDENT_REVIEW",
+    "AC-ISSUE-0827-02": "DEMONSTRATED_PENDING_INDEPENDENT_REVIEW",
+    "AC-ISSUE-0827-03": "DEMONSTRATED_PENDING_INDEPENDENT_REVIEW",
+    "AC-ISSUE-0827-04": "DEMONSTRATED_PENDING_INDEPENDENT_REVIEW"
+  },
+  "mandatory_test": "test_cpu_baseline_gpu_optional_no_silent_fallback: PASS",
+  "test_results": {
+    "hardware-tests-local.xml": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "hardware-tests.xml": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 2,
+      "skipped": 0
+    },
+    "resource-regressions.xml": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "targeted_regression": "test_resources.py: 11 PASS",
+  "ruff_new_files": "PASS",
+  "git_diff_check": "PASS",
+  "make_verify": {
+    "exit_code": 2,
+    "classification": "PREEXISTING_CHECKOUT_CRLF_RAW_DIGEST_MISMATCH",
+    "passed": [
+      "python-quality",
+      "frontend-quality",
+      "technical validators",
+      "preceding foundation tests"
+    ],
+    "failed": "tests/infra/native_stack/test_native_stack.py: 4 failed, 15 passed; raw SHA256 differs for CRLF bytes",
+    "not_reached": "integration-tests",
+    "diagnosis": "native-gate-diagnosis.json",
+    "final_log": "make-verify-local.log",
+    "prior_logs": [
+      "make-verify.log",
+      "make-verify-pinned.log"
+    ]
+  },
+  "blocker_high": "NONE_IN_SLICE; global make verify green remains pending",
+  "stop_condition": "No material slice blocker; native stack files outside authorized scope left unchanged",
+  "ready_for_qa": true,
+  "ready_for_merge_or_release": false,
+  "independent_approval": "NOT_CLAIMED",
+  "postgres_validation": "isolated PostgreSQL 16 on loopback:55494; stopped after tests",
+  "changed_files": [
+    ".codex/tasks/TASK-0717.json",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/HANDOFF.md",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/hardware-tests-local.xml",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/hardware-tests.xml",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/make-verify-local.log",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/make-verify-pinned.log",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/make-verify.log",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/native-gate-diagnosis.json",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/resource-regressions.xml",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/validation.json",
+    "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/hw-parte-2/runtime.py",
+    "tests/backend/identity_access/resource_authorization/test_hardware.py"
+  ],
+  "preserved_unrelated_files": [
+    "src/frontend/debug.log"
+  ],
+  "digest_encoding": "UTF8_LF",
+  "sha256": {
+    ".codex/tasks/TASK-0717.json": "8931b626cc62489f15ca0db9f46bc944d98ce43e2da5e07884c2e371a69b014c",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/HANDOFF.md": "ae890465fafa0e23e26c0dc38afd7395e1ff7e3140bb1dd657a490f1362a5826",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/hardware-tests-local.xml": "9f98dcf0e1856369d16a2178db5596dc31824b451dfa686560beb92264fd6f7d",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/hardware-tests.xml": "f3736b5379d4652d84c5c24e01aa14fd0f6f09da4b5d1ed5625769994ca8ae0c",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/make-verify-local.log": "7793cb21914d4aef4da6aceeb7cddf539055f993b41dce1df733d2bd617c025d",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/make-verify-pinned.log": "d178ed322ce8cbb2f0b05d5cd45c887efc2e3eee4e29ff5943eb4ac27f7887ac",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/make-verify.log": "cc3de2790c9f6f0e437cad336fe7d1075712d15ee4279473389cae6cc8507b4f",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/native-gate-diagnosis.json": "b7228b5c4be4a2e7b143af6272fe5f03afbcd7d847b43c2134de6d3c675afcb9",
+    "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/resource-regressions.xml": "c4f7a5fd51089466108944ec9ef2b3a67b1aeb4ff478377454990e7c2466ab41",
+    "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/hw-parte-2/runtime.py": "a89d74a6c4727c0713f9f952fcfc1b4e64101556065a815294061bb370f19bfb",
+    "tests/backend/identity_access/resource_authorization/test_hardware.py": "6c2d56a71c7df176a5fb9b5152c9588ebbb4904f5e639c155e582791c1342e4e"
+  },
+  "candidate_binding": "Candidate is the commit containing this manifest; digest of manifest itself excluded to avoid self-reference.",
+  "evidence_text_normalization": "UTF8_LF; trailing whitespace removed from generated XML/logs without changing results or diagnostics"
+}
