@@ -1,0 +1,3 @@
+python -m ruff check tools/governance/migrations-ci-secret-dependency-scan-e-telemetria-mini/sgvcal-srg-srp-parte-4/decision_controls.py tests/fnd/migrations-ci-secret-dependency-scan-e-telemetria-mini/test_sgvcal_srg_srp_part_4.py
+C:\Users\DGEO2CGEO\miniforge3\python.exe: No module named ruff
+make: *** [Makefile:14: python-quality] Error 1

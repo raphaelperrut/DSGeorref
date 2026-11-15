@@ -1,0 +1,52 @@
+{
+  "checks": [
+    {
+      "case": "wrong expected constraint count",
+      "result": "rejected"
+    },
+    {
+      "case": "unreachable extra distribution",
+      "result": "rejected"
+    },
+    {
+      "case": "missing active HTTP edge",
+      "result": "rejected"
+    },
+    {
+      "case": "declared version conflict",
+      "result": "rejected"
+    },
+    {
+      "case": "repeatable composer and on-disk round trip",
+      "result": "passed",
+      "composed_files": 56
+    },
+    {
+      "case": "correct frozen artifact identities",
+      "result": "passed",
+      "distributions": 54,
+      "constraints": 39
+    },
+    {
+      "case": "cross-distribution artifact swap",
+      "result": "rejected"
+    },
+    {
+      "case": "h11 artifact assigned to all distributions",
+      "result": "rejected"
+    },
+    {
+      "case": "same-distribution historical-version artifact swap",
+      "result": "rejected"
+    },
+    {
+      "case": "incorrect artifact hash",
+      "result": "rejected"
+    },
+    {
+      "case": "unknown artifact with otherwise valid hash",
+      "result": "rejected"
+    }
+  ],
+  "approval_claimed": false
+}
