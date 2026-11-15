@@ -108,7 +108,7 @@ def verify_closure(supplement, old, delta, packages, expected, root_names):
         for f in p['files']:
             assert f['url'].startswith('https://files.pythonhosted.org/') and f['filename'].endswith('.whl')
             assert re.fullmatch('[0-9a-f]{64}', f['digests']['sha256'])
-            artifacts[f['url']] = 'sha256:'+f['digests']['sha256']
+            artifacts[n, p['version'], f['url']] = 'sha256:'+f['digests']['sha256']
     assert all(p.get('license_expression') or p.get('license') for p in delta['packages'])
     config = tomllib.loads(composed_files(packages)['resolver-config.toml'].decode())
     assert {p['name']:p['version'] for p in config['dependency-metadata']} == expected
@@ -148,7 +148,9 @@ def verify_lock(lock, expected, artifacts):
     assert len(locked) == len(expected) and {p['name']:p['version'] for p in locked} == expected
     for p in locked:
         assert p['source'] == {'registry':INDEX} and not p.get('sdist') and p.get('wheels')
-        for wheel in p['wheels']: assert artifacts.get(wheel['url']) == wheel['hash']
+        for wheel in p['wheels']:
+            identity = (p['name'], p['version'], wheel['url'])
+            assert artifacts.get(identity) == wheel['hash'], identity
 
 def check(verify_digests=True, lock=None, audit=False):
     supplement = read(D/'supplement.json')

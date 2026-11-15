@@ -81,7 +81,7 @@
     {
       "path": "docs/02-architecture/design-reviews/python-workspace-dependency-graph/supplement-http-runtime-v1/task-0773-amendment-proposed.md",
       "bytes": 5189,
-      "sha256": "f3f40ca4dbde51b29f4cef9a2716c8ad15415e0397c0de02f2a2748765fc593c"
+      "sha256": "f84cace23f888bc351778940c18312390d1fde597dc220ae44859d4ec7cf629f"
     },
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/assemble-author-artifacts.py",
@@ -95,13 +95,13 @@
     },
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/check-supplement.py",
-      "bytes": 10652,
-      "sha256": "0be6f7b378f87c757e8c1c067ce2abbe3caa17db7d76861bc5da5899babd10b8"
+      "bytes": 10750,
+      "sha256": "7458d3ccc44334725f84ab92adfcfbe25f613e7fc2f025e8859eab27c8fcd65e"
     },
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/checker-verification.json",
-      "bytes": 518,
-      "sha256": "9d545761a85c0b3ffe9d68daedd0c7de643e540be1160df603f8720d8697f61f"
+      "bytes": 1139,
+      "sha256": "779957ea613a665801657b5134168c31d957050c0eed485a28c4893c3770d0fe"
     },
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/constraints-delta.txt",
@@ -125,8 +125,8 @@
     },
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/make-verify-result.json",
-      "bytes": 199,
-      "sha256": "1109f156db4da196e49f4b204969abeca0ff83e46bbdf0d29b427148487b4623"
+      "bytes": 249,
+      "sha256": "68a55b687f396dc2d2d3581fcbfc601d1f95443e0afde47358dd4fda19721a69"
     },
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/make-verify.log",
@@ -150,8 +150,8 @@
     },
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/scope-validation.json",
-      "bytes": 3409,
-      "sha256": "f941b7d144ffa707881d2567e9fd23aa35c6e54b62b696fce19cf28f7ee14725"
+      "bytes": 5069,
+      "sha256": "42a70b211b84e00d04718ad0ab4c8e1e14327b1206109af3dd3b59ad1aad4266"
     },
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/source-inputs.json",
@@ -165,8 +165,8 @@
     },
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/verify-checker.py",
-      "bytes": 2597,
-      "sha256": "45fc460943016dc1a9c60b24044fb24e08349961f48de2e2d20c03527faba660"
+      "bytes": 5788,
+      "sha256": "07e234c6d888d1511425591d79eb4faaa905dbb53f75ef3f09e0295c4bf70609"
     }
   ],
   "encoding": "UTF-8",

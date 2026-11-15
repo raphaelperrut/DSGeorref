@@ -3,5 +3,6 @@
   "approval_claimed": false,
   "runtime_used_for_repository_checks": "C:\\Users\\DGEO2CGEO\\miniforge3\\python.exe",
   "standalone_installed": false,
-  "command": "make verify"
+  "command": "make verify",
+  "classification": "ENVIRONMENTAL_NON_BLOCKING"
 }
