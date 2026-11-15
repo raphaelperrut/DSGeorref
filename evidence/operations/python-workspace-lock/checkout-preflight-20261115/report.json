@@ -1,0 +1,71 @@
+{
+  "result": "STOP_PREFLIGHT_INPUT_BYTES_MISMATCH",
+  "remote_main_sha": "18d769e903abeae5d9a2c9d772a64baa96cb47e8",
+  "execution_worktree": "C:\\Users\\DGEO2CGEO\\.codex\\worktrees\\issue-0875-task-0773-execution\\DSGeorref",
+  "execution_branch": "codex/issue-0875-task-0773-execution",
+  "head_matches_remote_main": true,
+  "worktree_clean_at_start": true,
+  "old_checkout_preserved": true,
+  "old_local_main_not_updated": true,
+  "amendment_approved_sha": "fd8d87c5f87c55ed11c9edc068ec651a500ec3a6",
+  "amendment_merge_commit": "18d769e903abeae5d9a2c9d772a64baa96cb47e8",
+  "amendment_envelope_identical_to_approved_commit": true,
+  "schema_validation": "PASS",
+  "historical_authority": "PASS",
+  "supplement_authority": "PASS",
+  "historical_approved_graph_sha": "cb198c9e8340e0675c36679de426abf922e1c569",
+  "historical_artifacts_verified": 55,
+  "historical_manifest_sha256": "f899810d8b8db0a32435fe538a37d2c5e358755f09add7151d23cda447f4d04f",
+  "supplement_approved_sha": "de58c489594fff294b687ef310b80452c29c8aa0",
+  "supplement_artifacts_verified": 21,
+  "supplement_manifest_sha256": "6a4bd9cff94b8e623502ad00087351f819df37d391b4d8bc8fe0a00560e1b2af",
+  "authority_ancestry": "PASS",
+  "supplement_checker": {
+    "structural_integrity": "PASS",
+    "distributions": 54,
+    "constraints": 39,
+    "historical_entries_preserved": 55,
+    "approval_claimed": false,
+    "lock_checked": false
+  },
+  "pyproject_expected_input_sha256": "dbda77fcae1fb41df059c905a318c2dbc807c067cf51909047fcc9f2b936255a",
+  "pyproject_actual_input_sha256": "b08fc88e91b02a979e1f734a6c05f3a1c19ce0b82daa4893ee1db15ea0efbd6e",
+  "pyproject_crlf_count": 32,
+  "git_autocrlf": {
+    "value": "true",
+    "origin": "C:/Program Files/Git/etc/gitconfig"
+  },
+  "cpython_provisioned": false,
+  "cpython_artifact_sha256_valid": "NOT_VERIFIED",
+  "uv_identity_valid": "NOT_VERIFIED",
+  "artifact_urls_head_status": {
+    "cpython": 200,
+    "uv": 200
+  },
+  "pyproject_materialized": false,
+  "uv_lock_created": false,
+  "frozen_sync": "NOT_RUN",
+  "second_reproduction": "NOT_RUN",
+  "offline_sync": "NOT_RUN",
+  "network_fallback_used": false,
+  "make_verify": "NOT_RUN",
+  "make_verify_classification": "PREFLIGHT_STOP_BEFORE_MATERIALIZATION",
+  "operational_runtime": "NOT_PROVISIONED",
+  "administrative_validation_interpreter": "Windows miniforge3 Python, used only for schema and immutable-input validation; no operational substitution",
+  "linux_availability": "Docker Linux x86_64 available; no running containers. Read-only disposable inspection of existing native image only; no image changes or provisioning. WSL lists docker-desktop only.",
+  "blocker_findings": [
+    "Initial pyproject bytes differ from source-inputs.json due to CRLF checkout conversion; handoff exact-byte gate fails."
+  ],
+  "high_findings": "NO_ADDITIONAL_FINDINGS_IDENTIFIED; independent review not performed",
+  "changed_files": [
+    "evidence/operations/python-workspace-lock/checkout-preflight-20261115/report.json",
+    "evidence/operations/python-workspace-lock/checkout-preflight-20261115/commands.txt"
+  ],
+  "scope_valid": true,
+  "task_0773_executed": false,
+  "api_tls_runtime_created": false,
+  "benchmark_executed": false,
+  "candidate_kind": "BLOCKED_PREFLIGHT_EVIDENCE_ONLY",
+  "ready_for_qa": false,
+  "ready_to_publish": false
+}
