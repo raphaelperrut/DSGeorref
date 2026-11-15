@@ -1,0 +1,174 @@
+{
+  "schema_version": "1.0.0",
+  "algorithm": "SHA-256",
+  "candidate_binding": "Git commit containing these blobs; digest manifest excluded from its own list to avoid circularity. Independent review binds commit SHA and SHA-256 of this manifest.",
+  "baseline_sha": "051ed667565bdce1eb22745aee35861a6d4be119",
+  "historical_graph_sha": "cb198c9e8340e0675c36679de426abf922e1c569",
+  "historical_manifest_sha256": "f899810d8b8db0a32435fe538a37d2c5e358755f09add7151d23cda447f4d04f",
+  "source_inputs": [
+    {
+      "path": "pyproject.toml",
+      "sha256": "dbda77fcae1fb41df059c905a318c2dbc807c067cf51909047fcc9f2b936255a",
+      "baseline_sha": "051ed667565bdce1eb22745aee35861a6d4be119"
+    },
+    {
+      "path": ".python-version",
+      "sha256": "aa0d6581054e6e4ff3f91839deca7a854ad37221b8784d060b42d0f847ff1a3b",
+      "baseline_sha": "051ed667565bdce1eb22745aee35861a6d4be119"
+    },
+    {
+      "path": "requirements-validation.txt",
+      "sha256": "641159c26500d478edf4c9690067f72ccf4ceff5f33f8bbe53ca7d389aadea3a",
+      "baseline_sha": "051ed667565bdce1eb22745aee35861a6d4be119"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/requirements.txt",
+      "sha256": "95dfafb8a3fd6aa316dc144e8faea95930607eaf9fc7b2cf0972977f2807ab5d",
+      "baseline_sha": "051ed667565bdce1eb22745aee35861a6d4be119"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/development_http.py",
+      "sha256": "d8f8031d9b325f4e13fec383d65255ed37cbc90de984cb716b50e7c4ae7a5909",
+      "baseline_sha": "051ed667565bdce1eb22745aee35861a6d4be119"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/asgi.py",
+      "sha256": "cf533540cdb21a1ec3c64603b9f9c9351b7dad2de23964df266ee59dc823f911",
+      "baseline_sha": "051ed667565bdce1eb22745aee35861a6d4be119"
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/local_identity/README.md",
+      "sha256": "46b05f227e2b9babcd8237c53835495cff617d6c8bb51d1f4f101aff8d4cba37",
+      "baseline_sha": "051ed667565bdce1eb22745aee35861a6d4be119"
+    },
+    {
+      "path": "docs/03-engineering/TECHNOLOGY_BASELINE.yaml",
+      "sha256": "ff24cad28b02493c18a3a8ab84b166a90c2ea61d5f38199594bcfa50a1626bcc",
+      "baseline_sha": "051ed667565bdce1eb22745aee35861a6d4be119"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "84e7a373387d644d2eea88e33a28fd3a397b2da2ecec9d8444a93551aaab6995",
+      "baseline_sha": "051ed667565bdce1eb22745aee35861a6d4be119"
+    },
+    {
+      "path": ".codex/tasks/operations/TASK-0773.json",
+      "sha256": "322d6e669f3a6de7160b5ae740e2b6ec2b1f2190e278e9a99c5a8df712b5e84d",
+      "baseline_sha": "051ed667565bdce1eb22745aee35861a6d4be119"
+    },
+    {
+      "path": "docs/03-engineering/contexts/engineering_governance/license-citation-cff-contribuicao-dco-cla-e-gate-de-pu/dependency-inventory.json",
+      "sha256": "35b87e133903b8876e55b2af80eee0d01ba6cd9e9611717f639de261ff39510d",
+      "baseline_sha": "051ed667565bdce1eb22745aee35861a6d4be119"
+    }
+  ],
+  "files": [
+    {
+      "path": "docs/02-architecture/design-reviews/python-workspace-dependency-graph/supplement-http-runtime-v1/rationale.md",
+      "bytes": 13495,
+      "sha256": "549688a4cf625f1a22c100b9db2055706806f57d0a74eff40c103d05777ff04d"
+    },
+    {
+      "path": "docs/02-architecture/design-reviews/python-workspace-dependency-graph/supplement-http-runtime-v1/supplement-devops-handoff.md",
+      "bytes": 11251,
+      "sha256": "725192516f969fbb8234964327a5dddce8661ea0be9745578cc72a69baecb933"
+    },
+    {
+      "path": "docs/02-architecture/design-reviews/python-workspace-dependency-graph/supplement-http-runtime-v1/supplement.json",
+      "bytes": 3558,
+      "sha256": "90060e4bb44e82bb35cf7e32a66d653a876ce365ef8bb7ea136405d5a7198ac5"
+    },
+    {
+      "path": "docs/02-architecture/design-reviews/python-workspace-dependency-graph/supplement-http-runtime-v1/task-0773-amendment-proposed.md",
+      "bytes": 5189,
+      "sha256": "f3f40ca4dbde51b29f4cef9a2716c8ad15415e0397c0de02f2a2748765fc593c"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/assemble-author-artifacts.py",
+      "bytes": 6574,
+      "sha256": "9cbc4a38afe67250375fe8b92ab6dc862d83f1f6b323ec810ead243cb77ca5b7"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/capture-delta.py",
+      "bytes": 5321,
+      "sha256": "5c043d8bfbe919e92b566477e13b9cc1e2ee072f2e1cb1138f49ff7c78cd3676"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/check-supplement.py",
+      "bytes": 10652,
+      "sha256": "0be6f7b378f87c757e8c1c067ce2abbe3caa17db7d76861bc5da5899babd10b8"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/checker-verification.json",
+      "bytes": 518,
+      "sha256": "9d545761a85c0b3ffe9d68daedd0c7de643e540be1160df603f8720d8697f61f"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/constraints-delta.txt",
+      "bytes": 213,
+      "sha256": "b54835043c478ea190bae304bf6e76d4f4e2784f9387ca71ad0722b55ea9ceb1"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/cpython-artifact.json",
+      "bytes": 3624,
+      "sha256": "939bf190e36a00246f2e6a90c16503e6acdec8033fd0499388626b356ffddb55"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/cpython-attestations.json",
+      "bytes": 418792,
+      "sha256": "fdb412cc44e85845475614945d60202ab98cf0f0b3856b570492135d712f19cc"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/cpython-provenance-verification.json",
+      "bytes": 375347,
+      "sha256": "5f87c63ca0938f208d017da6236ddf2c663cae3a768277ee025f36badbf10e18"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/make-verify-result.json",
+      "bytes": 199,
+      "sha256": "1109f156db4da196e49f4b204969abeca0ff83e46bbdf0d29b427148487b4623"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/make-verify.log",
+      "bytes": 343,
+      "sha256": "4f1bf5f887a9614e6a4a4628d723e76fb117a8cc42d7920cde909d8caf8c182d"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/owner-authorization.json",
+      "bytes": 3840,
+      "sha256": "e4995f863eb70d943ba4d7f02f3474b20b421194b8728a4ec147e6413527ca31"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/pin-reconciliation.json",
+      "bytes": 3054,
+      "sha256": "2ea1e556fc79ebaa37fe82398e53b20083f89cba5a2fd66e8743d1a4311f0972"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/resolution-delta.json",
+      "bytes": 44129,
+      "sha256": "7ad33e284ecd2e5730743f37aae338330a77f3e228d1b2e07e8764e2eda50ead"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/scope-validation.json",
+      "bytes": 3409,
+      "sha256": "f941b7d144ffa707881d2567e9fd23aa35c6e54b62b696fce19cf28f7ee14725"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/source-inputs.json",
+      "bytes": 2502,
+      "sha256": "5e449d18127e8497b36a6ca260f9a9dcfe11091a2a8e92c255af9ad3f3df64d9"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/supplement-pyproject-proposed.toml",
+      "bytes": 2173,
+      "sha256": "45afa84044f47c12ab6e011e77834d48df327655d9f4d59625f63e9ecaee8a01"
+    },
+    {
+      "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/verify-checker.py",
+      "bytes": 2597,
+      "sha256": "45fc460943016dc1a9c60b24044fb24e08349961f48de2e2d20c03527faba660"
+    }
+  ],
+  "encoding": "UTF-8",
+  "newlines": "LF canonical Git artifact bytes; CRLF checkout transport normalized by checker"
+}

@@ -1,0 +1,7 @@
+{
+  "exit_code": 2,
+  "approval_claimed": false,
+  "runtime_used_for_repository_checks": "C:\\Users\\DGEO2CGEO\\miniforge3\\python.exe",
+  "standalone_installed": false,
+  "command": "make verify"
+}

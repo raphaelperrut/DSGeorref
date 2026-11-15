@@ -1,0 +1,12 @@
+amqp==5.4.2
+annotated-doc==0.0.6
+annotated-types==0.8.0
+anyio==4.16.0
+billiard==4.3.2
+h11==0.16.0
+idna==3.20
+kombu==5.7.0
+opentelemetry-api==1.45.2
+pydantic-core==2.46.4
+starlette==1.10.0
+typing-inspection==0.4.5

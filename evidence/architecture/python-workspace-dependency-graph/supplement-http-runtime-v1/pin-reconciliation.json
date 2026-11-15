@@ -1,0 +1,74 @@
+[
+  {
+    "name": "pyyaml",
+    "historical_pin": "6.0.3",
+    "current_manifest_pin": "6.0.3",
+    "proposed_workspace_pin": "6.0.3",
+    "introduction_commit": "ab5f5afc2944b5b31b99b766c2de556d57cd8198",
+    "story_issue": "No dedicated Story/Issue asserted for dependency-maintenance commits; linked PR authority recorded in rationale.",
+    "applicability": "dev"
+  },
+  {
+    "name": "jsonschema",
+    "historical_pin": "4.26.0",
+    "current_manifest_pin": "4.26.0",
+    "proposed_workspace_pin": "4.26.0",
+    "introduction_commit": "ab5f5afc2944b5b31b99b766c2de556d57cd8198",
+    "story_issue": "No dedicated Story/Issue asserted for dependency-maintenance commits; linked PR authority recorded in rationale.",
+    "applicability": "dev"
+  },
+  {
+    "name": "cryptography",
+    "historical_pin": "50.0.1",
+    "current_manifest_pin": "50.0.2",
+    "proposed_workspace_pin": "50.0.2",
+    "introduction_commit": "e3cad85fc205797ca26ea7235e097233c886de0c",
+    "story_issue": "No dedicated Story/Issue asserted for dependency-maintenance commits; linked PR authority recorded in rationale.",
+    "applicability": "runtime + validation/test"
+  },
+  {
+    "name": "celery",
+    "historical_pin": "5.6.3",
+    "current_manifest_pin": "5.7.0",
+    "proposed_workspace_pin": "5.7.0",
+    "introduction_commit": "4b161591baa30e18d296916b998a34fb74f29b00",
+    "story_issue": "No dedicated Story/Issue asserted for dependency-maintenance commits; linked PR authority recorded in rationale.",
+    "applicability": "runtime + validation/test"
+  },
+  {
+    "name": "psycopg",
+    "historical_pin": "3.3.6",
+    "current_manifest_pin": "3.3.8",
+    "proposed_workspace_pin": "3.3.8",
+    "introduction_commit": "4b161591baa30e18d296916b998a34fb74f29b00",
+    "story_issue": "No dedicated Story/Issue asserted for dependency-maintenance commits; linked PR authority recorded in rationale.",
+    "applicability": "runtime + validation/test"
+  },
+  {
+    "name": "pytest",
+    "historical_pin": "9.1.1",
+    "current_manifest_pin": "9.2.0",
+    "proposed_workspace_pin": "9.2.0",
+    "introduction_commit": "4b161591baa30e18d296916b998a34fb74f29b00",
+    "story_issue": "No dedicated Story/Issue asserted for dependency-maintenance commits; linked PR authority recorded in rationale.",
+    "applicability": "test"
+  },
+  {
+    "name": "ruff",
+    "historical_pin": "0.16.9",
+    "current_manifest_pin": "0.17.4",
+    "proposed_workspace_pin": "0.17.4",
+    "introduction_commit": "4b161591baa30e18d296916b998a34fb74f29b00",
+    "story_issue": "No dedicated Story/Issue asserted for dependency-maintenance commits; linked PR authority recorded in rationale.",
+    "applicability": "dev"
+  },
+  {
+    "name": "mypy",
+    "historical_pin": "2.3.1",
+    "current_manifest_pin": "2.4.1",
+    "proposed_workspace_pin": "2.4.1",
+    "introduction_commit": "4b161591baa30e18d296916b998a34fb74f29b00",
+    "story_issue": "No dedicated Story/Issue asserted for dependency-maintenance commits; linked PR authority recorded in rationale.",
+    "applicability": "dev"
+  }
+]

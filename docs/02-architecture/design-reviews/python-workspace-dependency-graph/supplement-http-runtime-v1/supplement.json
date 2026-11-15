@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "supplement_version": "http-runtime-v1.0.0",
+  "story": "STORY-0768",
+  "issue": "ISSUE-0875",
+  "status": "AUTHOR_CANDIDATE_PENDING_INDEPENDENT_REVIEW",
+  "approval_claimed": false,
+  "owner_authorization": "https://github.com/raphaelperrut/DSGeorref/issues/104#issuecomment-6897551659",
+  "historical_graph_sha": "cb198c9e8340e0675c36679de426abf922e1c569",
+  "baseline_sha": "051ed667565bdce1eb22745aee35861a6d4be119",
+  "historical_manifest_sha256": "f899810d8b8db0a32435fe538a37d2c5e358755f09add7151d23cda447f4d04f",
+  "historical_artifact_count_excluding_digest_manifest": 55,
+  "composition": "historical selected minus removals, then explicit replacements and additions from resolution-delta.json; historical package metadata reused by reference for unchanged name/version",
+  "direct_roots_additional": [
+    "fastapi==0.162.4",
+    "uvicorn==0.54.0",
+    "pydantic==2.13.4"
+  ],
+  "pins_reconciled": {
+    "mypy": "2.4.1",
+    "pytest": "9.2.0",
+    "celery": "5.7.0",
+    "cryptography": "50.0.2",
+    "ruff": "0.17.4",
+    "psycopg": "3.3.8",
+    "billiard": "4.3.2",
+    "kombu": "5.7.0",
+    "amqp": "5.4.2",
+    "psycopg-binary": "3.3.8"
+  },
+  "removals": [
+    "tzdata"
+  ],
+  "transitive_additions": {
+    "idna": "3.20",
+    "starlette": "1.10.0",
+    "anyio": "4.16.0",
+    "typing-inspection": "0.4.5",
+    "annotated-doc": "0.0.6",
+    "opentelemetry-api": "1.45.2",
+    "annotated-types": "0.8.0",
+    "pydantic-core": "2.46.4",
+    "h11": "0.16.0"
+  },
+  "constraints_delta": [
+    "amqp==5.4.2",
+    "annotated-doc==0.0.6",
+    "annotated-types==0.8.0",
+    "anyio==4.16.0",
+    "billiard==4.3.2",
+    "h11==0.16.0",
+    "idna==3.20",
+    "kombu==5.7.0",
+    "opentelemetry-api==1.45.2",
+    "pydantic-core==2.46.4",
+    "starlette==1.10.0",
+    "typing-inspection==0.4.5"
+  ],
+  "constraints_removed": [
+    "tzdata==2026.5"
+  ],
+  "groups": {
+    "runtime": [
+      "alembic==1.18.4",
+      "celery==5.7.0",
+      "cryptography==50.0.2",
+      "fastapi==0.162.4",
+      "psycopg[binary]==3.3.8",
+      "pydantic==2.13.4",
+      "pyjwt==2.15.0",
+      "sqlalchemy==2.1.2",
+      "uvicorn==0.54.0"
+    ],
+    "dev": [
+      "jsonschema==4.26.0",
+      "mypy==2.4.1",
+      "pyyaml==6.0.3",
+      "ruff==0.17.4"
+    ],
+    "test": [
+      "pytest==9.2.0"
+    ]
+  },
+  "expected_distribution_count": 54,
+  "expected_constraint_count": 39,
+  "expected_direct_root_count": 14,
+  "pydantic_authority": "TECHNOLOGY_BASELINE.yaml validation family 2.13.x, reference_release 2.13.4; direct import introduced aab71a75b5c76453b1b160153ce770321ddf7f85; FastAPI 0.162.4 Requires-Dist pydantic>=2.9.0; no Conda derivation",
+  "python_authority": {
+    "record": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/cpython-artifact.json",
+    "version": "3.12.13",
+    "sha256": "9be5c21b78dbc371e739bc7faf3b007b8e607335f780bdd2e0dd44a6e3580d76",
+    "complete": true
+  },
+  "applicability": {
+    "runtime": "backend HTTP + migration/worker roots; no optional HTTP/server extras",
+    "dev": "current repository validators and typing/lint tools",
+    "test": "pytest group; no inference from developer installed packages",
+    "platform": "CPython 3.12.13 / Linux amd64 / glibc>=2.28 / standalone prefix /usr/local",
+    "excluded": "Conda/native stack, API image/TLS, benchmarks, product changes"
+  },
+  "resolver_inputs_complete": true,
+  "task_0773_executable": false,
+  "independent_review_required": [
+    "Arquiteto independente",
+    "DevOps",
+    "QA",
+    "Reviewer"
+  ]
+}

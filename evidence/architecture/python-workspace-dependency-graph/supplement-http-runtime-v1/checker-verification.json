@@ -1,0 +1,26 @@
+{
+  "checks": [
+    {
+      "case": "wrong expected constraint count",
+      "result": "rejected"
+    },
+    {
+      "case": "unreachable extra distribution",
+      "result": "rejected"
+    },
+    {
+      "case": "missing active HTTP edge",
+      "result": "rejected"
+    },
+    {
+      "case": "declared version conflict",
+      "result": "rejected"
+    },
+    {
+      "case": "repeatable composer and on-disk round trip",
+      "result": "passed",
+      "composed_files": 56
+    }
+  ],
+  "approval_claimed": false
+}
