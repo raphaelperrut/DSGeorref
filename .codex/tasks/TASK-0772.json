@@ -5,7 +5,7 @@
   "epic_id": "EPIC-008",
   "sprint_id": "SPRINT-002",
   "role": "DevOps",
-  "outcome": "Provisionar e evidenciar host Linux e gerador separado que correspondam integralmente ao hardware reference profile aprovado de BP-003, com runtime PostgreSQL/backend reproduzível, manifest e handoff de readiness para TASK-0769, sem executar benchmark.",
+  "outcome": "Provisionar e evidenciar target Linux nativo ou virtualizado e gerador em separate execution domain conforme BP-003-throttling-hardware-reference v2.0.0 e BP-003-throttling-threat-workload v2.0.0 integrados pelo PR #1065, com runtime PostgreSQL/backend reproduzível, manifest e handoff de readiness para TASK-0769, sem executar benchmark.",
   "references": [
     "AGENTS.md",
     "evidence/AGENTS.md",
@@ -65,16 +65,16 @@
     "evidence/architecture/python-workspace-dependency-graph/**"
   ],
   "acceptance_criteria": [
-    "Venue real identificado, acesso operacional e autorização de uso registrados sem secrets, host Linux conforme o profile 1.0.0 aprovado no SHA 4b634381328bd969679abe48ee6936aaf8fe4319; nenhum hardware equivalente ou claim minimum_supported.",
-    "Evidências objetivas completas do profile: AMD EPYC 7313P x86_64, quatro cores físicos dedicados, threads/SMT/boost/clocks/afinidade/NUMA conforme spec, 16 GiB e limites/reservas cgroup, sem swap/overcommit; configuração observada corresponde aos requisitos, sem valores presumidos.",
-    "NVMe local dedicado, ext4, espaço livre, WAL/data, fsync/commits duráveis e ausência de contenção/quota conforme profile; manifest registra identidade/settings/I/O e comprovantes atribuíveis ao venue.",
-    "PostgreSQL/backend executáveis por artifacts imutáveis existentes e bindings aprovados, Python 3.12.13, OCI assinado/Compose/cgroup v2, processo/CPU/RAM/isolamento e TLS/provenance conforme profile; gerador em host separado e condições reproduzíveis para três repetições, sem executar a carga BP-003.",
+    "Venue real identificado, acesso operacional e autorização de uso registrados sem secrets, target Linux nativo ou virtualizado, incluindo Windows 11 + WSL2, conforme BP-003-throttling-hardware-reference v2.0.0 e BP-003-throttling-threat-workload v2.0.0 integrados pelo PR #1065 na baseline b1c554c8a2c2bc75205b81f3124ee4c0a741b133; nenhum minimum-supported claim, throughput/capacity claim, equivalência/comparação entre CPUs ou production SLO.",
+    "Evidências objetivas completas do hardware profile v2.0.0: x86_64 Intel/AMD, >=4 execution CPUs disponíveis, reserva de 4 CPUs (API 2/PostgreSQL 2), affinity/cpusets disjuntos quando disponíveis ou fallback de isolamento reproduzível comprovado; modelo/topologia/SMT/clocks/boost registrados, NUMA útil quando exposto ou not_applicable justificado; >=16 GiB disponíveis/reserváveis e reserved target 16 GiB (API <=4 GiB, PostgreSQL <=8 GiB, OS/measurement 4 GiB), limites/reservas cgroup v2 sem overcommit que os prejudique. Swap configurado permitido; qualquer swap-in/out do target ou crescimento de target swap nas janelas invalida execução; uso inicial/deltas, memory.current, memory.events e paging observáveis obrigatórios; sem atribuição, zero swap-in/out e crescimento no ambiente; telemetria ausente é inconclusiva/fail. Configuração observada sem valores presumidos.",
+    "SSD ou NVMe local, >=100 GiB livres antes de cada repetição no filesystem Linux durável WAL/data e backing físico local comprovado; ext4 aceitável, Windows 11 + WSL2 + VHDX/ext4 permitido, capacidade virtual isolada insuficiente; fsync/commits duráveis obrigatórios, network filesystem/RAM disk proibidos, sem contenção material ou quota que prejudique a reserva; manifest registra identidade/settings/I/O, mounts/camadas/mapping e comprovantes atribuíveis ao venue.",
+    "PostgreSQL 18.x/backend executáveis por artifacts imutáveis existentes e bindings aprovados, Python 3.12.13, OCI assinado/Compose/cgroup v2, processo/CPU/RAM/isolamento e TLS/provenance conforme BP-003 v2.0.0 e baseline; fingerprints/digests/locks registrados. Gerador em separate execution domain fora da reserva de 4 CPUs/16 GiB do target, sem exigir segundo host físico, isolamento/atribuição comprovados e interferência material invalida execução; condições reproduzíveis para três repetições futuras com mesmo fingerprint/candidato, sem executar a carga BP-003.",
     "Provisioning/reproduction instructions, hardware/runtime manifest e checks de startup/readiness sem benchmark possuem comandos, resultados reais, versões/digests e candidate SHA; revisão técnica Arquiteto, QA e Reviewer independentes no mesmo candidato validam correspondência integral e handoff exato para Security/TASK-0769. Evidência parcial não conclui a prerequisite."
   ],
   "tests": [
-    "Conferir venue manifest campo a campo contra o hardware profile aprovado, distinguindo requisitos de observações e comprovando CPU/SMT/boost/NUMA/cgroups/RAM/NVMe/ext4/durabilidade.",
+    "Conferir venue manifest campo a campo contra BP-003-throttling-hardware-reference v2.0.0 e BP-003-throttling-threat-workload v2.0.0, vinculando versões e definition digests integrados no PR #1065: hardware 9e23cf8f5518bbd72125a9eeb8cd411583f02063202525fc09f316b8de40eeac; workload de604e67869c910c5c149c93d8664a01889e4923c515ecc37bced7481b1945ab. Comprovar CPU/SMT/boost/NUMA aplicável ou justificado/cgroups/RAM/swap observável/SSD-ou-NVMe/filesystem Linux durável/backing local e isolamento do gerador; observações não substituem requisitos.",
     "Reproduzir provisionamento/readiness com target autorizado, registrar comandos/saídas reais e digests, isolamento e rollback; nenhum traffic loop, fase ou medição de BP-003.",
-    "Validar startup/conectividade/durabilidade do PostgreSQL/backend e gerador separado usando bindings aprovados; falta de runtime/lock/perfil/assinatura é BLOCKED, sem fallback.",
+    "Validar startup/conectividade/durabilidade do PostgreSQL/backend e gerador em separate execution domain usando bindings aprovados; falta de runtime/lock/perfil/assinatura bloqueia o handoff completo e execução downstream, sem defaults. uv.lock continua ausente na main. TASK-0772 não possui autorização para criá-lo e uv.lock permanece em deny_paths. Sua ausência NÃO invalida a qualificação de hardware/venue em si; permanece blocker separado para o handoff completo downstream/TASK-0769. Não criar lock nesta emenda nem na execução de TASK-0772; materialização exige escopo próprio autorizado.",
     "Arquiteto/QA/Reviewer independentes validam o mesmo candidate SHA e handoff; conferir diff sem código de produto, alteração de profiles ou políticas runtime; make verify antes do handoff."
   ],
   "evidence": [
@@ -91,7 +91,8 @@
     "Necessidade de mudar produto, stack nativa, profiles BP-003/AP-003, executar benchmark ou promover throttling.",
     "Colisão de paths ou necessidade de escrever fora do escopo; ausência de target/autorização operacional para ação externa.",
     "Nova decisão estrutural de arquitetura efetivamente identificada: parar e encaminhar à autoridade; não criar ADR por inferência.",
-    "Aprovações independentes ausentes ou não vinculadas ao mesmo candidate SHA: não declarar Done nem liberar TASK-0769."
+    "Aprovações independentes ausentes ou não vinculadas ao mesmo candidate SHA: não declarar Done nem liberar TASK-0769.",
+    "Emenda documental explícita do Owner restrita à Story STORY-0769 e ao próprio .codex/tasks/TASK-0772.json para consumir BP-003 v2.0.0 integrado no PR #1065; não amplia allow_paths operacionais nem remove deny_paths. Não autoriza produto, AP-003, profiles, benchmark, configuração WSL/Docker ou criação de uv.lock."
   ],
   "acceptance_criterion_ids": [
     "AC-ISSUE-0876-01",
@@ -192,9 +193,9 @@
     "tests": {
       "status": "PASS",
       "items": [
-        "Conferir venue manifest campo a campo contra o hardware profile aprovado, distinguindo requisitos de observações e comprovando CPU/SMT/boost/NUMA/cgroups/RAM/NVMe/ext4/durabilidade.",
+        "Conferir venue manifest campo a campo contra BP-003-throttling-hardware-reference v2.0.0 e BP-003-throttling-threat-workload v2.0.0, vinculando versões e definition digests integrados no PR #1065: hardware 9e23cf8f5518bbd72125a9eeb8cd411583f02063202525fc09f316b8de40eeac; workload de604e67869c910c5c149c93d8664a01889e4923c515ecc37bced7481b1945ab. Comprovar CPU/SMT/boost/NUMA aplicável ou justificado/cgroups/RAM/swap observável/SSD-ou-NVMe/filesystem Linux durável/backing local e isolamento do gerador; observações não substituem requisitos.",
         "Reproduzir provisionamento/readiness com target autorizado, registrar comandos/saídas reais e digests, isolamento e rollback; nenhum traffic loop, fase ou medição de BP-003.",
-        "Validar startup/conectividade/durabilidade do PostgreSQL/backend e gerador separado usando bindings aprovados; falta de runtime/lock/perfil/assinatura é BLOCKED, sem fallback.",
+        "Validar startup/conectividade/durabilidade do PostgreSQL/backend e gerador em separate execution domain usando bindings aprovados; falta de runtime/lock/perfil/assinatura bloqueia o handoff completo e execução downstream, sem defaults. uv.lock continua ausente na main. TASK-0772 não possui autorização para criá-lo e uv.lock permanece em deny_paths. Sua ausência NÃO invalida a qualificação de hardware/venue em si; permanece blocker separado para o handoff completo downstream/TASK-0769. Não criar lock nesta emenda nem na execução de TASK-0772; materialização exige escopo próprio autorizado.",
         "Arquiteto/QA/Reviewer independentes validam o mesmo candidate SHA e handoff; conferir diff sem código de produto, alteração de profiles ou políticas runtime; make verify antes do handoff."
       ]
     },
