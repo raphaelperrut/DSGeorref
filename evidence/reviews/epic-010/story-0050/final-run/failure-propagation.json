@@ -1,0 +1,25 @@
+{
+  "method": "In-memory fault injection at subprocess/report boundary of final harness; no canonical logic or tracked tests changed.",
+  "results": [
+    {
+      "scenario": "subprocess_failure",
+      "rejected": true
+    },
+    {
+      "scenario": "empty_selection_exit",
+      "rejected": true
+    },
+    {
+      "scenario": "empty_success_report",
+      "rejected": true
+    },
+    {
+      "scenario": "reported_failure",
+      "rejected": true
+    },
+    {
+      "scenario": "skipped_required_case",
+      "rejected": true
+    }
+  ]
+}

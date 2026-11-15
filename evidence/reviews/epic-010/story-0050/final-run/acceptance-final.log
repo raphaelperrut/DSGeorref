@@ -1,0 +1,16 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\.venv\Scripts\python.exe
+rootdir: C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref
+configfile: pyproject.toml
+collecting ... collected 2 items
+
+evidence/reviews/epic-010/story-0050/test_acceptance.py::test_epic_010_aceite_happy_path .........                                                                [100%]
+9 passed in 1.72s
+JUNIT report written to C:/Users/DGEO2CGEO/Documents/GitHub/DSGeorref/evidence/reviews/epic-010/story-0050/workdir/pytest-formatted/test_epic_010_aceite_happy_pat0/canonical-surface.xml
+PASSED
+evidence/reviews/epic-010/story-0050/test_acceptance.py::test_epic_010_aceite_negative_paths ...................................                                      [100%]
+35 passed in 15.68s
+PASSED
+
+- generated xml file: C:\Users\DGEO2CGEO\Documents\GitHub\DSGeorref\evidence\reviews\epic-010\story-0050\final-run\acceptance-final.xml -
+============================= 2 passed in 21.13s ==============================

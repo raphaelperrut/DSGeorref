@@ -1,0 +1,57 @@
+{
+  "classification": "PREEXISTING_CHECKOUT_CRLF_RAW_DIGEST_MISMATCH",
+  "baseline_sha": "7062b1432479e256cc673b5b313932e9b41dcecf",
+  "files": [
+    {
+      "path": "infra/images/native-stack.lock.yaml",
+      "baseline_digest": "sha256:16970dba:ba6b1a54:94a20036:26a53bf0:d6d9cfc5:ed644718:04bc8885:51d49a9e",
+      "raw_digest": "sha256:dcb78246:73273a0d:b58fce86:2d22fed8:733b981b:26174104:f3972c46:2c2f63b7",
+      "utf8_lf_digest": "sha256:16970dba:ba6b1a54:94a20036:26a53bf0:d6d9cfc5:ed644718:04bc8885:51d49a9e",
+      "lf_equals_baseline": true,
+      "crlf_count": 79
+    },
+    {
+      "path": "infra/images/native-stack.conda-lock.txt",
+      "baseline_digest": "sha256:dafb10f3:0d967d18:c7417104:d0bb417a:aea8ea23:a1a67937:dd28dc61:68db4848",
+      "raw_digest": "sha256:28965ab1:d2959740:88053c0f:7e8aa689:1b33796b:34cf134d:71897eae:27c369d0",
+      "utf8_lf_digest": "sha256:dafb10f3:0d967d18:c7417104:d0bb417a:aea8ea23:a1a67937:dd28dc61:68db4848",
+      "lf_equals_baseline": true,
+      "crlf_count": 139
+    },
+    {
+      "path": "contracts/contexts/release_installation/native-stack-supply-chain/policy.yaml",
+      "baseline_digest": "sha256:756dd9e6:82c844e9:42a24a12:c82db462:179ad7e3:ec6bf800:cb8e21f3:4a77d1eb",
+      "raw_digest": "sha256:01feac96:9f43eed0:0d346bf6:b9e36714:796a6ca1:746db1f5:a2b9f006:f4c7ab79",
+      "utf8_lf_digest": "sha256:756dd9e6:82c844e9:42a24a12:c82db462:179ad7e3:ec6bf800:cb8e21f3:4a77d1eb",
+      "lf_equals_baseline": true,
+      "crlf_count": 179
+    },
+    {
+      "path": "contracts/contexts/release_installation/native-stack-supply-chain/policy.schema.json",
+      "baseline_digest": "sha256:53ee536a:0cf745c5:f192b987:87a395a7:bb89ac4e:e3ece2c4:2da68006:96faada8",
+      "raw_digest": "sha256:ad5d4bac:aeb826ea:ebdd370f:8600844f:6698cb64:bb9c51b8:2bc190d5:5aec7613",
+      "utf8_lf_digest": "sha256:53ee536a:0cf745c5:f192b987:87a395a7:bb89ac4e:e3ece2c4:2da68006:96faada8",
+      "lf_equals_baseline": true,
+      "crlf_count": 72
+    },
+    {
+      "path": "tests/infra/native_stack/test_native_stack.py",
+      "baseline_digest": "sha256:00198174:9ed71fab:ca35bcc9:d82aa3ef:33be862b:199bd345:ba76dc02:0bce2692",
+      "raw_digest": "sha256:56d378f0:f8523e88:e6b50e08:e56ae8d4:3064d8ef:7913dcc5:3d245262:cc02f867",
+      "utf8_lf_digest": "sha256:00198174:9ed71fab:ca35bcc9:d82aa3ef:33be862b:199bd345:ba76dc02:0bce2692",
+      "lf_equals_baseline": true,
+      "crlf_count": 375
+    },
+    {
+      "path": "tools/quality/native_stack/validate.py",
+      "baseline_digest": "sha256:df385625:069f4e4f:5703009b:53f5a158:6a029a56:669ff519:590afec9:e4f93ee9",
+      "raw_digest": "sha256:82e1c87d:402c8415:32d067ea:a72a7058:54a2b2e9:1d325c38:c363274c:fda71662",
+      "utf8_lf_digest": "sha256:df385625:069f4e4f:5703009b:53f5a158:6a029a56:669ff519:590afec9:e4f93ee9",
+      "lf_equals_baseline": true,
+      "crlf_count": 558
+    }
+  ],
+  "native_tests": "4 failed; 15 passed",
+  "integration_tests_target_reached": false,
+  "action": "No correction outside authorized scope"
+}

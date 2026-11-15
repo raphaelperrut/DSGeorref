@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="0.676" timestamp="2026-11-14T20:47:37.903000-03:00" hostname="DGEO"><testcase classname="evidence.reviews.epic-010.story-0050.test_acceptance" name="test_epic_010_aceite_happy_path" time="0.316"><failure message="AssertionError: &#10;  no tests ran in 0.05s&#10;  ERROR: file or directory not found: contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization.py::test_epic_010_politica&#10;  &#10;  &#10;assert 4 == 0&#10; +  where 4 = CompletedProcess(args=['C:\\Users\\DGEO2CGEO\\Documents\\GitHub\\DSGeorref\\.venv\\Scripts\\python.exe', '-X', 'utf8', '-m', 'pytest', '-q', '-p', 'no:cacheprovider', '--import-mode=importlib', '--junitxml=C:\\Users\\DGEO2CGEO\\Documents\\GitHub\\DSGeorref\\evidence\\reviews\\epic-010\\story-0050\\workdir\\pytest\\test_epic_010_aceite_happy_pat0\\canonical-python.xml', '--basetemp=C:\\Users\\DGEO2CGEO\\Documents\\GitHub\\DSGeorref\\evidence\\reviews\\epic-010\\story-0050\\workdir\\pytest\\test_epic_010_aceite_happy_pat0\\python-tmp', 'contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization.py::test_epic_010_politica', 'tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_epic_010_seguranca_happy_path', 'tests/backend/identity_access/resource_authorization/test_consolidation.py::test_story_0047_slice_consolidation', 'tests/backend/identity_access/resource_authorization/test_consolidation.py::test_consolidation_preserves_requirement_ownership', 'tests/backend/identity_access/resource_authorization/test_hardware.py::test_cpu_baseline_gpu_optional_no_silent_fallback'], returncode=4, stdout='\nno tests ran in 0.05s\n', stderr='ERROR: file or directory not found: contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization.py::test_epic_010_politica\n\n').returncode">tmp_path = WindowsPath('C:/Users/DGEO2CGEO/Documents/GitHub/DSGeorref/evidence/reviews/epic-010/story-0050/workdir/pytest/test_epic_010_aceite_happy_pat0')
+
+    def test_epic_010_aceite_happy_path(tmp_path: Path) -&gt; None:
+&gt;       run_cases(
+            tmp_path,
+            f"{CONTRACT}::test_epic_010_politica",
+            f"{SECURITY}::test_epic_010_seguranca_happy_path",
+            f"{BACKEND}/test_consolidation.py::test_story_0047_slice_consolidation",
+            f"{BACKEND}/test_consolidation.py::test_consolidation_preserves_requirement_ownership",
+            f"{BACKEND}/test_hardware.py::test_cpu_baseline_gpu_optional_no_silent_fallback",
+            expected=9,
+        )
+
+evidence\reviews\epic-010\story-0050\test_acceptance.py:71:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+evidence\reviews\epic-010\story-0050\test_acceptance.py:60: in run_cases
+    run_report(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+command = ['C:\\Users\\DGEO2CGEO\\Documents\\GitHub\\DSGeorref\\.venv\\Scripts\\python.exe', '-X', 'utf8', '-m', 'pytest', '-q', ...]
+cwd = WindowsPath('C:/Users/DGEO2CGEO/Documents/GitHub')
+report = WindowsPath('C:/Users/DGEO2CGEO/Documents/GitHub/DSGeorref/evidence/reviews/epic-010/story-0050/workdir/pytest/test_epic_010_aceite_happy_pat0/canonical-python.xml')
+expected = 9, selected_name = None
+
+    def run_report(
+        command: list[str], cwd: Path, report: Path, expected: int,
+        selected_name: str | None = None,
+    ) -&gt; None:
+        result = subprocess.run(
+            command, cwd=cwd, capture_output=True, encoding="utf-8", errors="replace", check=False
+        )
+        output = result.stdout + result.stderr
+        print(output, end="")
+&gt;       assert result.returncode == 0, output
+E       AssertionError:
+E         no tests ran in 0.05s
+E         ERROR: file or directory not found: contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization.py::test_epic_010_politica
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['C:\\Users\\DGEO2CGEO\\Documents\\GitHub\\DSGeorref\\.venv\\Scripts\\python.exe', '-X', 'utf8', '-m', 'pytest', '-q', '-p', 'no:cacheprovider', '--import-mode=importlib', '--junitxml=C:\\Users\\DGEO2CGEO\\Documents\\GitHub\\DSGeorref\\evidence\\reviews\\epic-010\\story-0050\\workdir\\pytest\\test_epic_010_aceite_happy_pat0\\canonical-python.xml', '--basetemp=C:\\Users\\DGEO2CGEO\\Documents\\GitHub\\DSGeorref\\evidence\\reviews\\epic-010\\story-0050\\workdir\\pytest\\test_epic_010_aceite_happy_pat0\\python-tmp', 'contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization.py::test_epic_010_politica', 'tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_epic_010_seguranca_happy_path', 'tests/backend/identity_access/resource_authorization/test_consolidation.py::test_story_0047_slice_consolidation', 'tests/backend/identity_access/resource_authorization/test_consolidation.py::test_consolidation_preserves_requirement_ownership', 'tests/backend/identity_access/resource_authorization/test_hardware.py::test_cpu_baseline_gpu_optional_no_silent_fallback'], returncode=4, stdout='\nno tests ran in 0.05s\n', stderr='ERROR: file or directory not found: contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization.py::test_epic_010_politica\n\n').returncode
+
+evidence\reviews\epic-010\story-0050\test_acceptance.py:36: AssertionError</failure></testcase><testcase classname="evidence.reviews.epic-010.story-0050.test_acceptance" name="test_epic_010_aceite_negative_paths" time="0.271"><failure message="AssertionError: &#10;  no tests ran in 0.03s&#10;  ERROR: file or directory not found: tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_epic_010_seguranca_negative_paths&#10;  &#10;  &#10;assert 4 == 0&#10; +  where 4 = CompletedProcess(args=['C:\\Users\\DGEO2CGEO\\Documents\\GitHub\\DSGeorref\\.venv\\Scripts\\python.exe', '-X', 'utf8', '-m', 'pytest', '-q', '-p', 'no:cacheprovider', '--import-mode=importlib', '--junitxml=C:\\Users\\DGEO2CGEO\\Documents\\GitHub\\DSGeorref\\evidence\\reviews\\epic-010\\story-0050\\workdir\\pytest\\test_epic_010_aceite_negative_0\\canonical-python.xml', '--basetemp=C:\\Users\\DGEO2CGEO\\Documents\\GitHub\\DSGeorref\\evidence\\reviews\\epic-010\\story-0050\\workdir\\pytest\\test_epic_010_aceite_negative_0\\python-tmp', 'tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_epic_010_seguranca_negative_paths', 'tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_abuse_eligibility_is_conjunctive', 'tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_previous_allow_never_survives_authority_change', 'tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_query_permission_does_not_expand_pat_scope', 'tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_persisted_secret_minimization_and_audit_allowlist', 'tests/backend/identity_access/resource_authorization/test_resources.py::test_project_authority_is_required', 'tests/backend/identity_access/resource_authorization/test_resources.py::test_audit_is_durable_bounded_and_mandatory', 'tests/backend/identity_access/resource_authorization/test_resources.py::test_missing_or_drifted_contract_fails_closed', 'tests/backend/identity_access/resource_authorization/test_resources.py::test_eligibility_and_database_failure_never_fall_back', 'tests/backend/identity_access/resource_authorization/test_hardware.py::test_unsupported_execution_mode_fails_before_cpu_composition'], returncode=4, stdout='\nno tests ran in 0.03s\n', stderr='ERROR: file or directory not found: tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_epic_010_seguranca_negative_paths\n\n').returncode">tmp_path = WindowsPath('C:/Users/DGEO2CGEO/Documents/GitHub/DSGeorref/evidence/reviews/epic-010/story-0050/workdir/pytest/test_epic_010_aceite_negative_0')
+
+    def test_epic_010_aceite_negative_paths(tmp_path: Path) -&gt; None:
+&gt;       run_cases(
+            tmp_path,
+            f"{SECURITY}::test_epic_010_seguranca_negative_paths",
+            f"{SECURITY}::test_abuse_eligibility_is_conjunctive",
+            f"{SECURITY}::test_previous_allow_never_survives_authority_change",
+            f"{SECURITY}::test_query_permission_does_not_expand_pat_scope",
+            f"{SECURITY}::test_persisted_secret_minimization_and_audit_allowlist",
+            f"{BACKEND}/test_resources.py::test_project_authority_is_required",
+            f"{BACKEND}/test_resources.py::test_audit_is_durable_bounded_and_mandatory",
+            f"{BACKEND}/test_resources.py::test_missing_or_drifted_contract_fails_closed",
+            f"{BACKEND}/test_resources.py::test_eligibility_and_database_failure_never_fall_back",
+            f"{BACKEND}/test_hardware.py::test_unsupported_execution_mode_fails_before_cpu_composition",
+            expected=35,
+        )
+
+evidence\reviews\epic-010\story-0050\test_acceptance.py:91:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+evidence\reviews\epic-010\story-0050\test_acceptance.py:60: in run_cases
+    run_report(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+command = ['C:\\Users\\DGEO2CGEO\\Documents\\GitHub\\DSGeorref\\.venv\\Scripts\\python.exe', '-X', 'utf8', '-m', 'pytest', '-q', ...]
+cwd = WindowsPath('C:/Users/DGEO2CGEO/Documents/GitHub')
+report = WindowsPath('C:/Users/DGEO2CGEO/Documents/GitHub/DSGeorref/evidence/reviews/epic-010/story-0050/workdir/pytest/test_epic_010_aceite_negative_0/canonical-python.xml')
+expected = 35, selected_name = None
+
+    def run_report(
+        command: list[str], cwd: Path, report: Path, expected: int,
+        selected_name: str | None = None,
+    ) -&gt; None:
+        result = subprocess.run(
+            command, cwd=cwd, capture_output=True, encoding="utf-8", errors="replace", check=False
+        )
+        output = result.stdout + result.stderr
+        print(output, end="")
+&gt;       assert result.returncode == 0, output
+E       AssertionError:
+E         no tests ran in 0.03s
+E         ERROR: file or directory not found: tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_epic_010_seguranca_negative_paths
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['C:\\Users\\DGEO2CGEO\\Documents\\GitHub\\DSGeorref\\.venv\\Scripts\\python.exe', '-X', 'utf8', '-m', 'pytest', '-q', '-p', 'no:cacheprovider', '--import-mode=importlib', '--junitxml=C:\\Users\\DGEO2CGEO\\Documents\\GitHub\\DSGeorref\\evidence\\reviews\\epic-010\\story-0050\\workdir\\pytest\\test_epic_010_aceite_negative_0\\canonical-python.xml', '--basetemp=C:\\Users\\DGEO2CGEO\\Documents\\GitHub\\DSGeorref\\evidence\\reviews\\epic-010\\story-0050\\workdir\\pytest\\test_epic_010_aceite_negative_0\\python-tmp', 'tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_epic_010_seguranca_negative_paths', 'tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_abuse_eligibility_is_conjunctive', 'tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_previous_allow_never_survives_authority_change', 'tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_query_permission_does_not_expand_pat_scope', 'tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_persisted_secret_minimization_and_audit_allowlist', 'tests/backend/identity_access/resource_authorization/test_resources.py::test_project_authority_is_required', 'tests/backend/identity_access/resource_authorization/test_resources.py::test_audit_is_durable_bounded_and_mandatory', 'tests/backend/identity_access/resource_authorization/test_resources.py::test_missing_or_drifted_contract_fails_closed', 'tests/backend/identity_access/resource_authorization/test_resources.py::test_eligibility_and_database_failure_never_fall_back', 'tests/backend/identity_access/resource_authorization/test_hardware.py::test_unsupported_execution_mode_fails_before_cpu_composition'], returncode=4, stdout='\nno tests ran in 0.03s\n', stderr='ERROR: file or directory not found: tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py::test_epic_010_seguranca_negative_paths\n\n').returncode
+
+evidence\reviews\epic-010\story-0050\test_acceptance.py:36: AssertionError</failure></testcase></testsuite></testsuites>

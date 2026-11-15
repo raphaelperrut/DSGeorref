@@ -1,0 +1,3 @@
+Command: git grep -n -E test_epic_010_aceite_(happy_path|negative_paths) 7062b1432479e256cc673b5b313932e9b41dcecf -- tests src contracts
+Exit: 1
+Matches:
