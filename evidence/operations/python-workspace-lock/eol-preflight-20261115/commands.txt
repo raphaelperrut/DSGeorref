@@ -1,0 +1,23 @@
+TASK-0773 EOL-only remediation attempt, 2026-11-15.
+Initial git rev-parse HEAD: 97f31afa7ed57f14357ebbcae3a8f423e40356b2.
+Initial git status --porcelain: empty.
+git config --show-origin --get core.autocrlf: file:C:/Program Files/Git/etc/gitconfig true.
+git config --get extensions.worktreeConfig: true; no enablement needed.
+Initial sandbox attempts to write worktree config and reset failed: Permission denied for shared gitdir metadata. No changes made by those failed commands.
+Approved escalated retry:
+  git config --worktree core.autocrlf false -> exit 0.
+  git config --worktree core.eol lf -> exit 0.
+  git config --worktree --get core.autocrlf -> false.
+  git config --worktree --get core.eol -> lf.
+  git reset --hard HEAD -> exit 0; HEAD is now at 97f31af.
+  git rev-parse HEAD -> 97f31afa7ed57f14357ebbcae3a8f423e40356b2.
+  Get-FileHash pyproject.toml -Algorithm SHA256 -> b08fc88e91b02a979e1f734a6c05f3a1c19ce0b82daa4893ee1db15ea0efbd6e.
+  git diff -- pyproject.toml -> empty.
+  git status --porcelain -> empty.
+Expected hash: dbda77fcae1fb41df059c905a318c2dbc807c067cf51909047fcc9f2b936255a.
+Observed bytes still contain 32 CRLF sequences. Prescribed reset did not rewrite this unchanged file.
+STOP per user step 4: if hash still differs, stop. No alternative rewrite attempted.
+Step 5 byte-sensitive checks and operational step 6 NOT RUN.
+No CPython/uv provisioning, pyproject materialization, lock, sync, reproduction, network or make verify performed.
+Only new append-only evidence written. Prior evidence preserved; old checkout and global/system Git settings unchanged. Worktree Git config is the explicit authorized exception to product write scope.
+Local evidence-only commit; no push, PR or merge.
