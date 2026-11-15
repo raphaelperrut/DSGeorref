@@ -1,17 +1,17 @@
 schema_version: '1.0.0'
 profile_id: BP-003-throttling-threat-workload
-version: '1.0.0'
+version: '2.0.0'
 approval_state: PENDING_INDEPENDENT_REVIEW
-definition_sha256: b360cb2e458a86e85029c871f3394a1b7d083577bfce235d0d0e2f7d322942a2
+definition_sha256: de604e67869c910c5c149c93d8664a01889e4923c515ecc37bced7481b1945ab
 companion:
   path: docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml
   profile_id: BP-003-throttling-hardware-reference
-  version: '1.0.0'
-  definition_sha256: 94b021a00de1ae785e9b19111bd6b03dfb31dd736b7662a79c33464071fb4a39
+  version: '2.0.0'
+  definition_sha256: 9e23cf8f5518bbd72125a9eeb8cd411583f02063202525fc09f316b8de40eeac
 spec:
   purpose: Deterministic threat experiment for TASK-0769; no final runtime throttling values.
   hardware_profile_id: BP-003-throttling-hardware-reference
-  hardware_profile_version: '1.0.0'
+  hardware_profile_version: '2.0.0'
   applicability:
     benchmark: BP-003
     requirement: REQ-AUTH-IMPL-007

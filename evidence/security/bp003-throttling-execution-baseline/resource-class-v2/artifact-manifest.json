@@ -1,0 +1,91 @@
+{
+  "task": "TASK-0770",
+  "deferred_id": "EPIC-008-REQ-AUTH-IMPL-007-PRODUCTION-READINESS",
+  "baseline_sha": "5d465868b23e283f3baed530c98931322cc839ed",
+  "candidate_resolution": "Commit containing this manifest and the three changed BP-003 files; exact candidate SHA returned in handoff response.",
+  "state": "PENDING_INDEPENDENT_REVIEW",
+  "file_encoding": "UTF-8/LF; hashes are raw bytes",
+  "normative_inputs": [
+    {
+      "path": "AGENTS.md",
+      "commit": "5d465868b23e283f3baed530c98931322cc839ed",
+      "git_blob_sha256": "a93890671536ac6071f788e07c984f37ac5675fbb1a0373a6ff1e36ea5128d1e"
+    },
+    {
+      "path": "evidence/AGENTS.md",
+      "commit": "5d465868b23e283f3baed530c98931322cc839ed",
+      "git_blob_sha256": "c0aa54521b5d1c0fae5bad688046bf7585a592c37f4983ec3b8852109e15b483"
+    },
+    {
+      "path": ".codex/roles/ROLE-002-arquiteto.md",
+      "commit": "5d465868b23e283f3baed530c98931322cc839ed",
+      "git_blob_sha256": "b0bc45953cdb64287c5eb7ff1cfa7d9c194cd353672ca0e5c2ef467838880f3a"
+    },
+    {
+      "path": ".codex/tasks/TASK-0770.json",
+      "commit": "5d465868b23e283f3baed530c98931322cc839ed",
+      "git_blob_sha256": "4f70301da53541c1cf100f3bdc4a7a77ce03b91d4c36081f0f10e2fe5dd7ee44"
+    },
+    {
+      "path": "docs/06-delivery/stories/STORY-0767-ISSUE-0874-definir-e-aprovar-baseline-de-execucao-bp-003-throttling.md",
+      "commit": "5d465868b23e283f3baed530c98931322cc839ed",
+      "git_blob_sha256": "29136b6cf7f6808af74b92d21ea94c79f0b8b3c88317f1860d2a807b99c8d974"
+    },
+    {
+      "path": "docs/01-product/requirements/REQ-AUTH-IMPL-007-throttling-possui-estado-e-evidencia-observavel.md",
+      "commit": "5d465868b23e283f3baed530c98931322cc839ed",
+      "git_blob_sha256": "9d776af56cae076af3b9ea836267f63df284bad4fcf54e01978ed8c9241f28dc"
+    },
+    {
+      "path": "docs/02-architecture/adrs/ADR-028-contas-locais-sessoes-server-side-e-argon2id.md",
+      "commit": "5d465868b23e283f3baed530c98931322cc839ed",
+      "git_blob_sha256": "847af871f62249e87c31af3ac57fa0dea1fcdd07039c7f9222008a2050fa8989"
+    },
+    {
+      "path": "docs/02-architecture/adrs/ADR-031-csrf-cors-security-headers-e-protecao-web.md",
+      "commit": "5d465868b23e283f3baed530c98931322cc839ed",
+      "git_blob_sha256": "43354a3958a1f70dcc4756eca4a03122f2b8a44f351d9189c2c62ea8b855a66b"
+    },
+    {
+      "path": "docs/02-architecture/adrs/ADR-034-oci-compose-instalacao-bootstrap-e-readiness.md",
+      "commit": "5d465868b23e283f3baed530c98931322cc839ed",
+      "git_blob_sha256": "b6ad41b7fbed196754941d8d684f7591dd9149bfafa12fc737747660070b763c"
+    },
+    {
+      "path": "evidence/security/throttling-calibration/readiness-reconciliation-v1.json",
+      "commit": "5d465868b23e283f3baed530c98931322cc839ed",
+      "git_blob_sha256": "9dfe644917033991b984da4fb237a655f66cca60307a232549a02a206996d68f"
+    },
+    {
+      "path": "docs/07-assurance/PHASE-G-CTO-REVIEW-REPORT.md",
+      "commit": "5d465868b23e283f3baed530c98931322cc839ed",
+      "git_blob_sha256": "f04e4d1a7c628e4b0580b2f23b83863aecd9982a3f81dc426094b7ca9eef27ae"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/04-quality/benchmark-profiles/BP-003-security-runtime-calibration.md",
+      "file_sha256": "f485f743e7e0c7e3511458c0a3d3609d7035f8b3c79c4c2eb1dff189210821b5"
+    },
+    {
+      "path": "docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml",
+      "file_sha256": "2a0f4c0280a2046567bc0f5ce39f29e1c9517f0b95c0e7cba22c1a4e3f98a901"
+    },
+    {
+      "path": "docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml",
+      "file_sha256": "cb7aea24427d2cc5b643c9d4973fcd3412df54c24a6f759ce164a4bde58526df"
+    }
+  ],
+  "independent_approvals": {
+    "architecture": "PENDING",
+    "qa": "PENDING",
+    "reviewer": "PENDING"
+  },
+  "benchmark_executed": false,
+  "runtime_throttling_promoted": false,
+  "production_code_changed": false,
+  "notebook_eligible_in_principle": true,
+  "notebook_venue_ready": false,
+  "ready_to_retry_task_0772": false,
+  "next_gate": "Independent architecture/QA/Reviewer on same candidate, integration, then authorized TASK-0772 dispatch bound to v2 (superseding historical v1-specific clauses)."
+}
