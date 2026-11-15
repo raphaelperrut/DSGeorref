@@ -1,0 +1,549 @@
+{
+  "issue": 126,
+  "baseline_sha": "7062b1432479e256cc673b5b313932e9b41dcecf",
+  "previous_partial_sha": "e68a894c0310a52ed97f660ce5f8da4af3f39f61",
+  "candidate_binding": "Commit introducing HANDOFF-FINAL.md; resolve git log -1 --format=%H -- evidence/reviews/epic-010/story-0050/HANDOFF-FINAL.md",
+  "owner_authorization": "https://github.com/raphaelperrut/DSGeorref/issues/126#issuecomment-6886060123",
+  "scope_valid": true,
+  "partial_tracked_files_unchanged": true,
+  "new_write_scope": "evidence/reviews/epic-010/story-0050/**",
+  "production_contract_tests_workflows_adrs_migrations_changed": false,
+  "migration_required": false,
+  "mandatory_entrypoints_collected": 2,
+  "mandatory_entrypoints_passed": 2,
+  "mandatory_skips_errors_failures": 0,
+  "happy_canonical_python": [
+    "test_epic_010_politica[delete_auth_session]",
+    "test_epic_010_politica[post_auth_tokens]",
+    "test_epic_010_politica[get_authorization_check]",
+    "test_epic_010_politica[get_projects_projectid_members]",
+    "test_epic_010_politica[post_projects_projectid_members]",
+    "test_epic_010_seguranca_happy_path",
+    "test_story_0047_slice_consolidation",
+    "test_consolidation_preserves_requirement_ownership",
+    "test_cpu_baseline_gpu_optional_no_silent_fallback"
+  ],
+  "happy_canonical_frontend": [
+    "test_epic_010_superficie"
+  ],
+  "frontend_unselected_cases_reported_as_skipped": 27,
+  "negative_canonical_python": [
+    "test_epic_010_seguranca_negative_paths[cross_project]",
+    "test_epic_010_seguranca_negative_paths[other_account]",
+    "test_epic_010_seguranca_negative_paths[artifact]",
+    "test_epic_010_seguranca_negative_paths[artifact_path]",
+    "test_epic_010_seguranca_negative_paths[physical_path]",
+    "test_epic_010_seguranca_negative_paths[traversal]",
+    "test_epic_010_seguranca_negative_paths[url]",
+    "test_epic_010_seguranca_negative_paths[missing_type]",
+    "test_epic_010_seguranca_negative_paths[unexpected_type]",
+    "test_epic_010_seguranca_negative_paths[unknown_action]",
+    "test_abuse_eligibility_is_conjunctive[False]",
+    "test_abuse_eligibility_is_conjunctive[None]",
+    "test_abuse_eligibility_is_conjunctive[true]",
+    "test_abuse_eligibility_is_conjunctive[1]",
+    "test_previous_allow_never_survives_authority_change[membership]",
+    "test_previous_allow_never_survives_authority_change[account]",
+    "test_previous_allow_never_survives_authority_change[expired]",
+    "test_previous_allow_never_survives_authority_change[revoked]",
+    "test_previous_allow_never_survives_authority_change[policy]",
+    "test_query_permission_does_not_expand_pat_scope",
+    "test_persisted_secret_minimization_and_audit_allowlist",
+    "test_project_authority_is_required[False]",
+    "test_project_authority_is_required[None]",
+    "test_project_authority_is_required[true]",
+    "test_audit_is_durable_bounded_and_mandatory",
+    "test_missing_or_drifted_contract_fails_closed",
+    "test_eligibility_and_database_failure_never_fall_back",
+    "test_unsupported_execution_mode_fails_before_cpu_composition[gpu]",
+    "test_unsupported_execution_mode_fails_before_cpu_composition[cuda]",
+    "test_unsupported_execution_mode_fails_before_cpu_composition[auto]",
+    "test_unsupported_execution_mode_fails_before_cpu_composition[CPU]",
+    "test_unsupported_execution_mode_fails_before_cpu_composition[]",
+    "test_unsupported_execution_mode_fails_before_cpu_composition[None]",
+    "test_unsupported_execution_mode_fails_before_cpu_composition[True]",
+    "test_unsupported_execution_mode_fails_before_cpu_composition[1]"
+  ],
+  "failure_propagation_checks": "5 rejected; see final-run/failure-propagation.json",
+  "make_verify": {
+    "exit": 2,
+    "classification": "PREEXISTING_CHECKOUT_CRLF_RAW_DIGEST_MISMATCH",
+    "native_failures": 4,
+    "native_passed": 15,
+    "integration_tests_target_reached": false
+  },
+  "acceptance": {
+    "AC_01": "PASS_INTEGRATED_BOUNDARY",
+    "AC_02": "PASS",
+    "AC_03": "PASS_APPLICABLE_FAIL_CLOSED",
+    "AC_04": "SAME_CANDIDATE_HANDOFF_READY; INDEPENDENT_QA_REVIEW_PENDING"
+  },
+  "residual_risks": [
+    "R-01 MEDIUM frontend orchestration duplication",
+    "R-02 MEDIUM integration/runtime limits",
+    "R-03 LOW production throttle calibration elsewhere",
+    "R-04 LOW preexisting local gate CRLF mismatch"
+  ],
+  "blocker": 0,
+  "high": 0,
+  "new_functional_findings": 0,
+  "ready_for_pr": true,
+  "ready_for_merge": false,
+  "qa_approval": "PENDING",
+  "independent_review_approval": "PENDING",
+  "canonical_and_historical_inputs": [
+    {
+      "path": "contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/conformance.py",
+      "baseline_git_object": "402e1537a6b874fce4f2a210c8aab213e46895ba",
+      "utf8_lf_digest": "sha256:1560bf9c:e7404d2c:3b142bab:6fc81791:661c26e2:6df77352:9b99ad3a:f634d82a",
+      "matches_baseline": true
+    },
+    {
+      "path": "contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/contract.json",
+      "baseline_git_object": "45e88666f0e4b34b13822d15b4b9209b86dba507",
+      "utf8_lf_digest": "sha256:40126aab:34f6af6e:44293d32:46096c05:7c01cc1e:77dfddd0:dba814cf:1a6057f5",
+      "matches_baseline": true
+    },
+    {
+      "path": "contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization.py",
+      "baseline_git_object": "8ad8af40e0876128e78590c997ab16dc25101b29",
+      "utf8_lf_digest": "sha256:07e4bc54:7a049ba7:7ae76c7f:8b04df18:fc4c1bc1:1aedfde2:7c9dcd0d:3a08b1d6",
+      "matches_baseline": true
+    },
+    {
+      "path": "contracts/contexts/identity_access/plt/contas-locais-bootstrap-unico-sessoes-tokens-e-adapter/contract.json",
+      "baseline_git_object": "70a9819090470389d7c1e187111e2173b402505b",
+      "utf8_lf_digest": "sha256:1a7c9563:927a93ae:b620d4ed:970d631e:68643ff9:7986ea9d:89fcf58f:40b5404a",
+      "matches_baseline": true
+    },
+    {
+      "path": "contracts/contexts/identity_access/plt/usuarios-e-papeis-da-instancia/policy.json",
+      "baseline_git_object": "29eecb1626e290896546e237a1d18b62aa9f9621",
+      "utf8_lf_digest": "sha256:4aefe5a1:7f83485c:d03d5328:5ff69851:ea94f5b6:af03faaf:c0c45917:25e78f58",
+      "matches_baseline": true
+    },
+    {
+      "path": "contracts/http/operations/get_authorization_check.md",
+      "baseline_git_object": "17c84d70ed47312a0bbd55ff37407bf6a78ecd24",
+      "utf8_lf_digest": "sha256:34f0ef5a:4c6c1417:fe33d393:d77b36db:ebabd26f:be021e4b:f10625e4:f255b30a",
+      "matches_baseline": true
+    },
+    {
+      "path": "docs/02-architecture/design-reviews/autorizacao-por-projeto-operacao-artefato-e-caminho/HANDOFF.md",
+      "baseline_git_object": "7927d8be31c3a848ec82ba37e35b03541bd67be2",
+      "utf8_lf_digest": "sha256:fe534136:9e0bd93b:26e11076:063dc407:5b4be143:944f9471:ab546588:fba0eea8",
+      "matches_baseline": true
+    },
+    {
+      "path": "docs/07-assurance/ACCEPTANCE_CRITERION_TRACEABILITY.csv",
+      "baseline_git_object": "854eaa9a903d7c28c26cb28ea846e397bc2134c0",
+      "utf8_lf_digest": "sha256:c5c24baa:6adcf8b6:dfa8283a:44a89378:15ecc831:dca53673:a7d42b50:f8533aab",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/HANDOFF.md",
+      "baseline_git_object": "586604f659749f2ccbd0e8838678625f603cbdf0",
+      "utf8_lf_digest": "sha256:54c5628f:00601b42:67c3ee5a:ef28a34f:f7d02bc9:deb69475:946ff61d:79d0e748",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/mandatory-and-resource-tests.xml",
+      "baseline_git_object": "5cf6a015250d39ea467e769b3367256b4295835e",
+      "utf8_lf_digest": "sha256:8886eecd:ad564fce:b01ce587:fd34b60d:e0b46175:314a538a:e04dcc6e:688aaad8",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/regression-tests.xml",
+      "baseline_git_object": "3a59f8a1d21efce22c63705b52e346b1344783a0",
+      "utf8_lf_digest": "sha256:a90b279e:a31b2ef9:f7c8eb9e:aed4a664:cd05df21:71dbe2c2:fcbdd62b:632af76c",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/validation.json",
+      "baseline_git_object": "56e018ae546358e7b6b5f24630cf30c530d85e11",
+      "utf8_lf_digest": "sha256:627fc5f7:bd6b7d2d:e18d3ae3:3ebf4659:720dff63:d9933445:1b8f9dbe:99c2447a",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/HANDOFF.md",
+      "baseline_git_object": "bc5f018a6d6e4b2b42830d6c4695bfbccd38af91",
+      "utf8_lf_digest": "sha256:ae890465:fafa0e23:e26c0dc3:8afd7395:e1ff7e31:40bb1dd6:57a490f1:362a5826",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/hardware-tests-local.xml",
+      "baseline_git_object": "0a6166550243a30130053b2e43600a698a805ec7",
+      "utf8_lf_digest": "sha256:9f98dcf0:e1856369:d16a2178:db5596dc:31824b45:1dfa6865:60beb922:64fd6f7d",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/hardware-tests.xml",
+      "baseline_git_object": "83a1de800aebac95b9fb5db8aebeacbffab22b07",
+      "utf8_lf_digest": "sha256:f3736b53:79d4652d:84c5c24e:01aa14fd:0f6f09da:4b5d1ed5:62576999:4ca8ae0c",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/validation.json",
+      "baseline_git_object": "07217aeef4537284946a2321ad68b6f9f03f0a57",
+      "utf8_lf_digest": "sha256:b1068255:54431819:5317f04e:8ff9dbe3:aa00dcb3:c2f12b05:7d2bfb7a:2b364358",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0047/HANDOFF.md",
+      "baseline_git_object": "8c8e15e27b7a6279e1b7eafe1c378dbfaa4cb3b7",
+      "utf8_lf_digest": "sha256:404582a0:4dbf2b66:d9956b32:3e8ab3ac:b9ae6f33:55f6e17f:cbf4fb7b:90e0a60d",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0047/consolidation.json",
+      "baseline_git_object": "513cdf135351c04834f6071d7fdb2ca20c77504f",
+      "utf8_lf_digest": "sha256:c43187d4:7dadc36b:93c0e20b:60ff50d9:549d0c8e:0ef6bcf3:6a7e3008:534ba174",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0047/tests.xml",
+      "baseline_git_object": "2e58c42a32ad29e9f89f93a21ab9b174e89de85c",
+      "utf8_lf_digest": "sha256:aaddd76a:38d86d6a:f0d5ef49:c0752b55:935a726e:9153bb9b:d5d4b533:cca8e270",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0047/validation.json",
+      "baseline_git_object": "96438582ccb4fb1516edc8331c42f00026ea9af1",
+      "utf8_lf_digest": "sha256:39da3d68:8d07982d:13e57fc3:9a06681c:2a03bfb7:78155109:83bf6232:7d2a7412",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0048/HANDOFF.md",
+      "baseline_git_object": "1c04b58cb0be9ad3e168103ce24c18ec387c2f12",
+      "utf8_lf_digest": "sha256:ea6acd07:592de502:fb726cd7:4aeb406b:a9627689:f9e6b79d:eb8adee3:6fef4a19",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0048/frontend-tests.xml",
+      "baseline_git_object": "957e6470579b73be41274e96c7a02bce23451bea",
+      "utf8_lf_digest": "sha256:c950cd30:a5e3098f:a03cd529:0b384496:f7a82199:effde96f:218f2807:709b7ece",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0048/qa-medium-finding/DUPLICATION-ASSESSMENT.md",
+      "baseline_git_object": "d4c02248c10226d04028e176e24101ca399a1d5a",
+      "utf8_lf_digest": "sha256:75f95f83:8fc72bcc:395ed620:844309d3:9a757c57:9885704c:51fcf4cd:9354ec53",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0048/qa-medium-finding/HANDOFF.md",
+      "baseline_git_object": "ce4566a54aad38484ce53142797421e604ed098a",
+      "utf8_lf_digest": "sha256:c560bd3a:1e0d51b3:146736db:38bb7293:5cfaa690:26ef88aa:170e0ddf:acc0531a",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0048/qa-medium-finding/assessment.json",
+      "baseline_git_object": "401aa3246a9ac4bbd4fbc2b2898141f8efd9faf1",
+      "utf8_lf_digest": "sha256:3aa0e80c:fc449429:a946ecb7:91d1d0fe:2f763b71:ae0a3db5:8915ca71:67cd41b0",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0048/qa-medium-finding/evidence-only-tests.xml",
+      "baseline_git_object": "ec07ce21eaac95a39670f53be4bd13f2d1aa7d07",
+      "utf8_lf_digest": "sha256:b3aca03c:693d3d03:f5e1c3e8:918ffbf0:ff7a43e3:b6e5b279:f585b411:0b7296b3",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0048/qa-medium-finding/focused-tests.xml",
+      "baseline_git_object": "a0d256e8f79b2a88f96692be4070d8a34c2cfcf6",
+      "utf8_lf_digest": "sha256:3b9e3ee9:2b726c3e:726501f1:af2556c1:7733ab7f:a32c7b8a:472882e3:8bb90ca1",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0048/qa-medium-finding/validation.json",
+      "baseline_git_object": "3d214bd55fa9447f333923cc6e89f67c0027af94",
+      "utf8_lf_digest": "sha256:6409d01b:a6876421:14fb8ec4:e6a5a4e5:b7359c84:dbce006d:57ce9ad0:3abbb8f0",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0048/security-remediation/HANDOFF.md",
+      "baseline_git_object": "ab8e4d00d4754db8621ee8bcbde0f6162ae29a7f",
+      "utf8_lf_digest": "sha256:53a75af5:20080d5b:0965bfcd:7fd9b5b7:72401a89:da36c393:d552a4c8:3217ac00",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0048/security-remediation/focused-tests.xml",
+      "baseline_git_object": "9da50a6bbb9d989eeb4d83b24c4dfff35f88d554",
+      "utf8_lf_digest": "sha256:63262073:76f75710:887cee7a:272fa801:0d25fa96:1852e876:189c3ded:e4d2fe2c",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0048/security-remediation/validation.json",
+      "baseline_git_object": "e259808463f0ae313c4db952e6427a68dcd22c2b",
+      "utf8_lf_digest": "sha256:44dd5c8d:d8d3b323:8b8aed7e:61fead3d:317c48f3:4875690f:f5fd0b1f:d65573e4",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/implementation/epic-010/story-0048/validation.json",
+      "baseline_git_object": "5a904f0e8c1077f8b8600f67ee36a5f4c42fa32c",
+      "utf8_lf_digest": "sha256:da9dd58c:bbfd83c2:deb13033:f2f2b340:0785ca14:b7be0ab1:e7b6880f:4a9b5763",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/security/epic-010/story-0049/HANDOFF.md",
+      "baseline_git_object": "d5a6276a2d6a8f3deeed83506477388c40f11b8c",
+      "utf8_lf_digest": "sha256:45184991:a12b9015:0746b9d1:9c726b7f:6c96e246:ecaecbfb:cf63023f:07c14986",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/security/epic-010/story-0049/collection-fix/HANDOFF.md",
+      "baseline_git_object": "e01aa48d7e1c447772c24e5d9a054ba6a16ec79b",
+      "utf8_lf_digest": "sha256:280bcee6:49de6c42:dd2bf63e:af31e6e3:bd56e998:c59a4b35:d56ac888:207f89c6",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/security/epic-010/story-0049/collection-fix/default-tests.xml",
+      "baseline_git_object": "1df1caa0e6348e189197c81e0d16d8ad83934c35",
+      "utf8_lf_digest": "sha256:98955006:b9aee3bc:6a33394e:1afecdb4:e94fc8cd:d9aec76a:b73c34db:b38fc97b",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/security/epic-010/story-0049/collection-fix/importlib-tests.xml",
+      "baseline_git_object": "271338542dbc4cb72c4829d8a42298e136a753f0",
+      "utf8_lf_digest": "sha256:0c3c345c:f2e6db30:903739d1:719c8006:9de4de50:4ea5c373:d0f41db7:be89ecad",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/security/epic-010/story-0049/collection-fix/validation.json",
+      "baseline_git_object": "7ba2e742e9878baeaf3b5ff1150ea2651d9e5d84",
+      "utf8_lf_digest": "sha256:74d7a3b4:5a0df545:a0e18ad0:496fce75:f7a0781a:6ce8b86f:25384e55:abdd2351",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/security/epic-010/story-0049/security-tests.xml",
+      "baseline_git_object": "9e3effdf95b3037b9f896eb6337ad4b1ed35af02",
+      "utf8_lf_digest": "sha256:29276bcb:0d39a9cb:441a9a7e:d7671da3:46b89f7f:e509603a:3c026756:1a852438",
+      "matches_baseline": true
+    },
+    {
+      "path": "evidence/security/epic-010/story-0049/validation.json",
+      "baseline_git_object": "35c56a407e72fdcca056ef9d541d01bb2d9f2a3e",
+      "utf8_lf_digest": "sha256:fc5ca08e:2af6c071:727700fa:515ca90f:143339f3:ec08486a:570acec1:2e89987e",
+      "matches_baseline": true
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/acc-auth-impl-parte-1/runtime.py",
+      "baseline_git_object": "aeac53d6f88313d18dd61a9ee39b1ac23418c3d6",
+      "utf8_lf_digest": "sha256:a1f4dc83:1a4eab10:2f646eb2:b38fe1a7:67ccd2c6:ba93b2b7:57adeb36:d69c11e2",
+      "matches_baseline": true
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/hw-parte-2/runtime.py",
+      "baseline_git_object": "28c565bf1e197d850617ff197a19783bff2f8a79",
+      "utf8_lf_digest": "sha256:a89d74a6:c4727c07:13f9f952:fcfc1b4e:64101556:065a8152:94061bb3:70f19bfb",
+      "matches_baseline": true
+    },
+    {
+      "path": "src/backend/dsgeorref/contexts/identity_access/application/autorizacao-por-projeto-operacao-artefato-e-caminho/acc-auth-impl-parte-1/resources.py",
+      "baseline_git_object": "129f33a6f87d7f7fcf0a8cb7ba09ef504f02e2f0",
+      "utf8_lf_digest": "sha256:bd2fb545:ca042a1f:5f1fc2f6:fb84b1f0:0fe010ad:08878a62:ef8f46a7:0d87414f",
+      "matches_baseline": true
+    },
+    {
+      "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/README.md",
+      "baseline_git_object": "942ad5aa61cb13a10df0f085f96e194fed90e2a3",
+      "utf8_lf_digest": "sha256:a6214ff4:a8f095a1:e5d9193b:a1486a31:b3a78960:2706a0f4:8c53f823:115e0160",
+      "matches_baseline": true
+    },
+    {
+      "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/index.html",
+      "baseline_git_object": "51fe2b114b78c47301fe9357cf79944e8ba0a03f",
+      "utf8_lf_digest": "sha256:47706e65:9f77fc4d:67b85b88:26be587b:8b6e3e67:0bf6161b:f3e19e7f:060e5037",
+      "matches_baseline": true
+    },
+    {
+      "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/index.tsx",
+      "baseline_git_object": "ef84074fc03d9183379f432a96b3693f0aaeeef1",
+      "utf8_lf_digest": "sha256:aadcaf4b:c7f44f49:7faae77e:5b5e739d:45c568a5:9ec4648d:b9f3f8f5:a0883c35",
+      "matches_baseline": true
+    },
+    {
+      "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/main.tsx",
+      "baseline_git_object": "887c299b00c77a0c198f35e0bb1bdbf0547ccf23",
+      "utf8_lf_digest": "sha256:761559ac:0eb2cbcb:5398203e:385581af:2b9f7fcc:30b08d77:ab6b650b:08b4903a",
+      "matches_baseline": true
+    },
+    {
+      "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/playwright.config.ts",
+      "baseline_git_object": "cb3050290c13e7ac5fd22041146cf20a830469c8",
+      "utf8_lf_digest": "sha256:b3aa6086:2edb41aa:6bca0539:f6015a8a:76eab4b9:d5cf7ff3:2e557125:0b660662",
+      "matches_baseline": true
+    },
+    {
+      "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.browser.spec.ts",
+      "baseline_git_object": "65557459fd16b4e477e79147d13aeb70dc34a083",
+      "utf8_lf_digest": "sha256:26edf71e:dc5fdf01:aa61626b:6170e83b:16a7edd1:dd58bc69:ab54fa23:998e1b9b",
+      "matches_baseline": true
+    },
+    {
+      "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.css",
+      "baseline_git_object": "db6080055cec1acc398718cafeeb42d095d8f6de",
+      "utf8_lf_digest": "sha256:4d42b580:992eaecd:311bd403:b7a358bd:57cff6cb:70e10a8c:4e15bedd:db8b32a4",
+      "matches_baseline": true
+    },
+    {
+      "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx",
+      "baseline_git_object": "b9514f83a4c2f4ede3031cd7bd6e623ec923e4fe",
+      "utf8_lf_digest": "sha256:b60f1797:29842f1e:81e613ec:7b9362c3:4d409a0c:dd20d2d0:0c9cc16a:f5aba0d5",
+      "matches_baseline": true
+    },
+    {
+      "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.tsx",
+      "baseline_git_object": "33564e350f390dcd881c82367b6b7a7431b22337",
+      "utf8_lf_digest": "sha256:8875745e:6278c2bf:0b0c304a:58af2801:4ce394f4:7ed6b07d:047a831c:46de4b67",
+      "matches_baseline": true
+    },
+    {
+      "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/use-project-access.ts",
+      "baseline_git_object": "dda1c48e5309053ad7398fa90646f2f1506100b2",
+      "utf8_lf_digest": "sha256:666f0213:c6229d80:2815c480:0d54cecb:109cd6fd:2d708ff2:bff50e0c:a7cd6741",
+      "matches_baseline": true
+    },
+    {
+      "path": "tests/backend/identity_access/local_identity/conftest.py",
+      "baseline_git_object": "4fb7849102f215c5ef7bebc81372c3c5cd05ebcc",
+      "utf8_lf_digest": "sha256:efcb4ec8:f1140b7e:4bef415b:b95c8f6c:9fcc1a25:7de70dd9:d3ebc3f6:2cd0bd88",
+      "matches_baseline": true
+    },
+    {
+      "path": "tests/backend/identity_access/local_identity/test_requirements.py",
+      "baseline_git_object": "8dc0d5b440784df43b433ec6c3ee791746237a86",
+      "utf8_lf_digest": "sha256:d583db66:a65abf88:fc7476cd:277bbebb:d2e5d742:a8969338:85709ece:4a25da31",
+      "matches_baseline": true
+    },
+    {
+      "path": "tests/backend/identity_access/resource_authorization/conftest.py",
+      "baseline_git_object": "ec5bb5d5acfe3628a173892070463c0a6012a21a",
+      "utf8_lf_digest": "sha256:7830e9a5:4aaad820:fa7dde65:a2e1b873:c3b34e81:be5e9fa4:e65ed855:3b624c68",
+      "matches_baseline": true
+    },
+    {
+      "path": "tests/backend/identity_access/resource_authorization/test_consolidation.py",
+      "baseline_git_object": "e352b78acb8f12ca3b5c0585662910c56e00eff3",
+      "utf8_lf_digest": "sha256:3924d75f:9c5a3171:cb5a8370:a9a6a118:0dc83be9:26c8f6e4:a06bf042:fbaa6edd",
+      "matches_baseline": true
+    },
+    {
+      "path": "tests/backend/identity_access/resource_authorization/test_hardware.py",
+      "baseline_git_object": "57835646214ca6d8be623ea5107022189d615c90",
+      "utf8_lf_digest": "sha256:6c2d56a7:1c7df176:a5fb9b51:52c9588e:bbb4904f:5e639c15:5e582791:c1342e4e",
+      "matches_baseline": true
+    },
+    {
+      "path": "tests/backend/identity_access/resource_authorization/test_requirements.py",
+      "baseline_git_object": "d2687d634ff400a91c11de7da5fa2d6b58f81c27",
+      "utf8_lf_digest": "sha256:6757c45c:6a0ba014:f821f2d6:cc99070d:4109ac60:b1a6e06f:cd565109:0ab43bcc",
+      "matches_baseline": true
+    },
+    {
+      "path": "tests/backend/identity_access/resource_authorization/test_resources.py",
+      "baseline_git_object": "2ea69c03d1a5e6207809dd70c21de389170b5e77",
+      "utf8_lf_digest": "sha256:aa20852a:886e08f4:6f28a76a:4c043f2a:2cdd5704:24f478df:478d060c:59b25ef7",
+      "matches_baseline": true
+    },
+    {
+      "path": "tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/conftest.py",
+      "baseline_git_object": "beed60b0ebb679e93dcdf7491534dfb391b7df24",
+      "utf8_lf_digest": "sha256:a386d3ec:6dbdfe57:c72ec8a2:be3c847f:9f526b87:796fb60d:80057bdc:6368da9a",
+      "matches_baseline": true
+    },
+    {
+      "path": "tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py",
+      "baseline_git_object": "c7d1fdf3712e45a00483172beccca6099925ec80",
+      "utf8_lf_digest": "sha256:52513565:6cdbb704:0cdf03e4:ab2afdfa:c131d020:3ef017ec:653f5ca1:01b81419",
+      "matches_baseline": true
+    }
+  ],
+  "new_artifact_digests": [
+    {
+      "path": "evidence/reviews/epic-010/story-0050/test_acceptance.py",
+      "utf8_lf_digest": "sha256:ee66d45c:74aa17e4:98aedb7c:355bfc5d:e4327b27:253c8bc4:3af02d74:ce9207f7"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/AUDIT-FINAL.md",
+      "utf8_lf_digest": "sha256:de1c9873:9265a2a1:65cae429:2995bb7f:49b8e021:0b6e60bd:3db11ed3:f14cc060"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/HANDOFF-FINAL.md",
+      "utf8_lf_digest": "sha256:b0289d9c:8061c705:3ecdf9a7:7e800c8c:63e89afa:f0688f9a:a2b6e8a4:7dbec370"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/TRACEABILITY-FINAL.csv",
+      "utf8_lf_digest": "sha256:2fe98211:3630fbf4:c005ba8a:4ac93300:59d9d33c:faf815ab:669f25f0:2ea0894d"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/acceptance-final.log",
+      "utf8_lf_digest": "sha256:8bc88b25:20fc1941:34d05500:aecd4e36:6ec456d2:80e41a3a:84b3bcf5:e3fbccf1"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/acceptance-final.xml",
+      "utf8_lf_digest": "sha256:88cbbd9f:3ad308e9:ccd64ba7:547d64d6:e41fe7ef:a4344ea7:27333703:d97e2867"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/acceptance.log",
+      "utf8_lf_digest": "sha256:02b61ecd:1c30d871:4527712c:c07460ad:29030f29:6caa26bf:b509c078:a6737a7d"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/acceptance.xml",
+      "utf8_lf_digest": "sha256:15c777ef:4539098d:ac81863a:a2028683:a5287ff9:23c96b7c:ccd5002b:f3a657f6"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/attempt-01-root-error.log",
+      "utf8_lf_digest": "sha256:928862e2:d4b849c3:d174b022:fe01940b:f2b9eafc:93b6afa9:7d66006c:22e810c2"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/attempt-01-root-error.xml",
+      "utf8_lf_digest": "sha256:18fb8c00:c1aca5b6:6e7fa16f:830aad3e:2f4a7e69:9e65b7d2:835582c9:51d4cf01"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/failure-propagation.json",
+      "utf8_lf_digest": "sha256:d21d9e7c:dc038b5b:e3e29b89:7d01d1e7:272e1c49:892b411e:631d8c0b:b295b859"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/happy-canonical-python.xml",
+      "utf8_lf_digest": "sha256:5d6b6a40:8396bc88:26645f08:ac0343d7:a0f8c6bb:a2a7b3a4:3f1ba844:cf04a00d"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/happy-canonical-surface.xml",
+      "utf8_lf_digest": "sha256:03a7ca32:18d85934:8174cd98:b97bc5ab:e8f8da4c:53f291eb:3fb3d80e:095d7908"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/make-verify.log",
+      "utf8_lf_digest": "sha256:5fe5d597:6c3d1dea:6dd1eef6:3aa265a6:8e764163:7d278fbc:2490a1d6:5530948f"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/native-gate-diagnosis.json",
+      "utf8_lf_digest": "sha256:e806b9a4:d58cbec6:d692f718:e4f7afd9:e16e5457:45693133:b7f2d7f3:1b973254"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/negative-canonical-python.xml",
+      "utf8_lf_digest": "sha256:98ae7622:9d72bc9d:7ddac3ff:e54c3d42:c0aadf59:f856ecc5:7de77277:6471b158"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/postgres-init-ready.log",
+      "utf8_lf_digest": "sha256:bcaceaa1:9434a354:f089760c:4e65bcec:a8be6a3a:9060b3bf:8c5c0623:9b686a36"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/postgres-init.log",
+      "utf8_lf_digest": "sha256:c40cf9f9:323c006a:fc898094:17ea8979:0e1a7d77:acaadd89:c9df7a97:405d2414"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/ruff.log",
+      "utf8_lf_digest": "sha256:ce04ce92:b1607300:0b77c97a:42c00b98:b9630569:2d9d5ed4:dcfa5a9c:a9ea62d6"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/surface-probe.log",
+      "utf8_lf_digest": "sha256:333c6ed1:0a3da5e5:1557fa26:cd87ff96:2b086d43:0ff6bee6:aaab909e:bfeb3b4e"
+    },
+    {
+      "path": "evidence/reviews/epic-010/story-0050/final-run/surface-probe.xml",
+      "utf8_lf_digest": "sha256:f4fcb4b6:3dd0f318:58905418:3aa2d4d9:d578ff47:59cd0545:1b4f724c:2fa7417e"
+    }
+  ],
+  "digest_encoding": "sha256 colon-separated eight hex groups; remove separators for hexadecimal digest"
+}

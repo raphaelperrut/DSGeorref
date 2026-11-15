@@ -1,0 +1,10 @@
+{
+  "baseline_sha": "7062b1432479e256cc673b5b313932e9b41dcecf",
+  "unchanged_except_two_allow_path_arrays": true,
+  "requirements_acceptance_dependencies_deny_paths_preserved": true,
+  "administrative_exception": ".codex/tasks/TASK-0050.json only for this correction; not authorization for subsequent changes",
+  "evidence_write_scope": "evidence/reviews/epic-010/story-0050/**",
+  "production_contract_tests_changed": false,
+  "preexisting_untracked_excluded": "src/frontend/debug.log",
+  "migration_required": false
+}

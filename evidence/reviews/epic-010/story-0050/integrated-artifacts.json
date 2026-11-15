@@ -1,0 +1,527 @@
+{
+  "baseline_sha": "7062b1432479e256cc673b5b313932e9b41dcecf",
+  "dependency_125": "closed/completed; merge #1063 in baseline",
+  "story_0049_security_sha": "bc878f010fbe6311331139f9c6e23f5811ae3969",
+  "purpose": "Integration inventory, not certification of every artifact or runtime integration. Git object IDs identify exact baseline bytes. The security portability fix renamed test_security.py to test_resource_authorization_security.py.",
+  "stories": [
+    {
+      "story": "STORY-0046",
+      "implementation_or_final_fix_sha": "1a8ce9ad2aa54ddd30a39d9f1b082e331c8b9ece",
+      "merge_sha": "86d8798ca81cd0fee64d260c8895b49481958618",
+      "commit_ancestor_of_baseline": true,
+      "merge_ancestor_of_baseline": true,
+      "integrated_artifacts": [
+        {
+          "path": "contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/conformance.py",
+          "baseline_git_object": "402e1537a6b874fce4f2a210c8aab213e46895ba",
+          "status": "present"
+        },
+        {
+          "path": "contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/contract.json",
+          "baseline_git_object": "45e88666f0e4b34b13822d15b4b9209b86dba507",
+          "status": "present"
+        },
+        {
+          "path": "contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization.py",
+          "baseline_git_object": "8ad8af40e0876128e78590c997ab16dc25101b29",
+          "status": "present"
+        },
+        {
+          "path": "docs/02-architecture/design-reviews/autorizacao-por-projeto-operacao-artefato-e-caminho/HANDOFF.md",
+          "baseline_git_object": "7927d8be31c3a848ec82ba37e35b03541bd67be2",
+          "status": "present"
+        }
+      ]
+    },
+    {
+      "story": "STORY-0716",
+      "implementation_or_final_fix_sha": "1e0625d3643831cbf559b2898acc1851f3c5346b",
+      "merge_sha": "bd90ec86a418254f9b4b55e3b4c78c1e7382ed51",
+      "commit_ancestor_of_baseline": true,
+      "merge_ancestor_of_baseline": true,
+      "integrated_artifacts": [
+        {
+          "path": ".codex/tasks/TASK-0716.json",
+          "baseline_git_object": "e3d8f4cccb4162fa5623aa448af1e7d3d304167a",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/.gitignore",
+          "baseline_git_object": "cc177394775ebd522a3b6695318e9dcefeb6c864",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/HANDOFF.md",
+          "baseline_git_object": "586604f659749f2ccbd0e8838678625f603cbdf0",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/make-verify.log",
+          "baseline_git_object": "7ed7094ca55709a28ac2647f800be93dd8cc323a",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/mandatory-and-resource-tests.xml",
+          "baseline_git_object": "5cf6a015250d39ea467e769b3367256b4295835e",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/regression-tests.xml",
+          "baseline_git_object": "3a59f8a1d21efce22c63705b52e346b1344783a0",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/acc-auth-impl-parte-1/validation.json",
+          "baseline_git_object": "56e018ae546358e7b6b5f24630cf30c530d85e11",
+          "status": "present"
+        },
+        {
+          "path": "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/acc-auth-impl-parte-1/runtime.py",
+          "baseline_git_object": "aeac53d6f88313d18dd61a9ee39b1ac23418c3d6",
+          "status": "present"
+        },
+        {
+          "path": "src/backend/dsgeorref/contexts/identity_access/application/autorizacao-por-projeto-operacao-artefato-e-caminho/acc-auth-impl-parte-1/resources.py",
+          "baseline_git_object": "129f33a6f87d7f7fcf0a8cb7ba09ef504f02e2f0",
+          "status": "present"
+        },
+        {
+          "path": "tests/backend/identity_access/resource_authorization/conftest.py",
+          "baseline_git_object": "ec5bb5d5acfe3628a173892070463c0a6012a21a",
+          "status": "present"
+        },
+        {
+          "path": "tests/backend/identity_access/resource_authorization/test_requirements.py",
+          "baseline_git_object": "d2687d634ff400a91c11de7da5fa2d6b58f81c27",
+          "status": "present"
+        },
+        {
+          "path": "tests/backend/identity_access/resource_authorization/test_resources.py",
+          "baseline_git_object": "2ea69c03d1a5e6207809dd70c21de389170b5e77",
+          "status": "present"
+        }
+      ]
+    },
+    {
+      "story": "STORY-0717",
+      "implementation_or_final_fix_sha": "f5f5c46848ebbfe79a21211667460c778d96ab8a",
+      "merge_sha": "0c7b85dfe6dbb041e64852280c393d00dbab05b9",
+      "commit_ancestor_of_baseline": true,
+      "merge_ancestor_of_baseline": true,
+      "integrated_artifacts": [
+        {
+          "path": ".codex/tasks/TASK-0717.json",
+          "baseline_git_object": "28a673598cee7d95b29e2473fd47a0c3d6870983",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/HANDOFF.md",
+          "baseline_git_object": "bc5f018a6d6e4b2b42830d6c4695bfbccd38af91",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/hardware-tests-local.xml",
+          "baseline_git_object": "0a6166550243a30130053b2e43600a698a805ec7",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/hardware-tests.xml",
+          "baseline_git_object": "83a1de800aebac95b9fb5db8aebeacbffab22b07",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/make-verify-local.log",
+          "baseline_git_object": "74b3fa95dca1c056788683ffec4aeb1e3560016d",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/make-verify-pinned.log",
+          "baseline_git_object": "0ae57eab0886d157cadf1cb04a00256e53dc4515",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/make-verify.log",
+          "baseline_git_object": "2850850d0e843744b5ae6a389d7ff8b5adec44b9",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/native-gate-diagnosis.json",
+          "baseline_git_object": "f3098e3e9d219419c42c503633b610dd43f2cd4e",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/resource-regressions.xml",
+          "baseline_git_object": "3062cd718bbccc97146fd2815132363b6066ba6f",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/autorizacao-por-projeto-operacao-artefato-e-caminh/hw-parte-2/validation.json",
+          "baseline_git_object": "07217aeef4537284946a2321ad68b6f9f03f0a57",
+          "status": "present"
+        },
+        {
+          "path": "src/backend/dsgeorref/contexts/identity_access/adapters/autorizacao-por-projeto-operacao-artefato-e-caminho/hw-parte-2/runtime.py",
+          "baseline_git_object": "28c565bf1e197d850617ff197a19783bff2f8a79",
+          "status": "present"
+        },
+        {
+          "path": "tests/backend/identity_access/resource_authorization/test_hardware.py",
+          "baseline_git_object": "57835646214ca6d8be623ea5107022189d615c90",
+          "status": "present"
+        }
+      ]
+    },
+    {
+      "story": "STORY-0047",
+      "implementation_or_final_fix_sha": "41544a2a52320ba27edfb5c9eb2b6877dd30cd01",
+      "merge_sha": "061e83daf5f22cd39f2338f83c204a29428c2cc0",
+      "commit_ancestor_of_baseline": true,
+      "merge_ancestor_of_baseline": true,
+      "integrated_artifacts": [
+        {
+          "path": ".codex/tasks/TASK-0047.json",
+          "baseline_git_object": "18451ec0204fdafdd6d5aa0285b4e85a8ba5b773",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0047/.gitignore",
+          "baseline_git_object": "cc177394775ebd522a3b6695318e9dcefeb6c864",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0047/HANDOFF.md",
+          "baseline_git_object": "8c8e15e27b7a6279e1b7eafe1c378dbfaa4cb3b7",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0047/consolidation.json",
+          "baseline_git_object": "513cdf135351c04834f6071d7fdb2ca20c77504f",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0047/make-verify.log",
+          "baseline_git_object": "b42dad84983378a4521e09e678dbff3b47535a0e",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0047/native-gate-diagnosis.json",
+          "baseline_git_object": "63bd79886879433a2a19b153d89e6a93f7aa3ab9",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0047/tests.xml",
+          "baseline_git_object": "2e58c42a32ad29e9f89f93a21ab9b174e89de85c",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0047/validation.json",
+          "baseline_git_object": "96438582ccb4fb1516edc8331c42f00026ea9af1",
+          "status": "present"
+        },
+        {
+          "path": "tests/backend/identity_access/resource_authorization/test_consolidation.py",
+          "baseline_git_object": "e352b78acb8f12ca3b5c0585662910c56e00eff3",
+          "status": "present"
+        }
+      ]
+    },
+    {
+      "story": "STORY-0048",
+      "implementation_or_final_fix_sha": "b4a53403d4751b14652175e2bf8ea76f1c06df3b",
+      "merge_sha": "bb2b2795ec414a7656c3f93aee32085f96b953bf",
+      "commit_ancestor_of_baseline": true,
+      "merge_ancestor_of_baseline": true,
+      "integrated_artifacts": [
+        {
+          "path": ".codex/tasks/TASK-0048.json",
+          "baseline_git_object": "03aaabca664892f773a918f81c5bf5bbc875df29",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/HANDOFF.md",
+          "baseline_git_object": "1c04b58cb0be9ad3e168103ce24c18ec387c2f12",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/browser-tests.log",
+          "baseline_git_object": "4317b7df9868d4185dd3158db173999a4035aa2f",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/build.log",
+          "baseline_git_object": "368d17d6c7a9ce49ab6aa5368e234252e128634e",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/frontend-tests.log",
+          "baseline_git_object": "49d9b6f121ffae9937f70a80f6c7521a5eb720c1",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/frontend-tests.xml",
+          "baseline_git_object": "957e6470579b73be41274e96c7a02bce23451bea",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/make-verify-initial.log",
+          "baseline_git_object": "46ac6089d1605e20828f5b231027af45cd346902",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/make-verify.log",
+          "baseline_git_object": "0682b83f0af97fc57a6bb279426f25d7ec452e0e",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/native-gate-diagnosis.json",
+          "baseline_git_object": "c507251ea68ffd039faf727425a734897e7fe6d2",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/qa-medium-finding/DUPLICATION-ASSESSMENT.md",
+          "baseline_git_object": "d4c02248c10226d04028e176e24101ca399a1d5a",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/qa-medium-finding/HANDOFF.md",
+          "baseline_git_object": "ce4566a54aad38484ce53142797421e604ed098a",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/qa-medium-finding/assessment.json",
+          "baseline_git_object": "401aa3246a9ac4bbd4fbc2b2898141f8efd9faf1",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/qa-medium-finding/evidence-only-tests.log",
+          "baseline_git_object": "7cd6c936e9779efa3fdc4e07d3c626f6db2b507a",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/qa-medium-finding/evidence-only-tests.xml",
+          "baseline_git_object": "ec07ce21eaac95a39670f53be4bd13f2d1aa7d07",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/qa-medium-finding/focused-tests.log",
+          "baseline_git_object": "62420553d6c53286c5bc7e3b85c3da0043328e57",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/qa-medium-finding/focused-tests.xml",
+          "baseline_git_object": "a0d256e8f79b2a88f96692be4070d8a34c2cfcf6",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/qa-medium-finding/validation.json",
+          "baseline_git_object": "3d214bd55fa9447f333923cc6e89f67c0027af94",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/security-remediation/HANDOFF.md",
+          "baseline_git_object": "ab8e4d00d4754db8621ee8bcbde0f6162ae29a7f",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/security-remediation/focused-tests.log",
+          "baseline_git_object": "a824a71a3f58f2247c7c9491c8dbd8c3f40f7841",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/security-remediation/focused-tests.xml",
+          "baseline_git_object": "9da50a6bbb9d989eeb4d83b24c4dfff35f88d554",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/security-remediation/gitleaks.json",
+          "baseline_git_object": "fe51488c7066f6687ef680d6bfaa4f7768ef205c",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/security-remediation/gitleaks.log",
+          "baseline_git_object": "4d2a8518f958633625c99f51a843988a0c5d1e71",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/security-remediation/rewrite_evidence.py",
+          "baseline_git_object": "7deedd67b847843a0862f9dcaa47d2c70cc67670",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/security-remediation/validation.json",
+          "baseline_git_object": "e259808463f0ae313c4db952e6427a68dcd22c2b",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/typecheck.log",
+          "baseline_git_object": "9c9bce0124bac1cb5bf9cc8250a9b025184148b7",
+          "status": "present"
+        },
+        {
+          "path": "evidence/implementation/epic-010/story-0048/validation.json",
+          "baseline_git_object": "5a904f0e8c1077f8b8600f67ee36a5f4c42fa32c",
+          "status": "present"
+        },
+        {
+          "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/README.md",
+          "baseline_git_object": "942ad5aa61cb13a10df0f085f96e194fed90e2a3",
+          "status": "present"
+        },
+        {
+          "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/index.html",
+          "baseline_git_object": "51fe2b114b78c47301fe9357cf79944e8ba0a03f",
+          "status": "present"
+        },
+        {
+          "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/index.tsx",
+          "baseline_git_object": "ef84074fc03d9183379f432a96b3693f0aaeeef1",
+          "status": "present"
+        },
+        {
+          "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/main.tsx",
+          "baseline_git_object": "887c299b00c77a0c198f35e0bb1bdbf0547ccf23",
+          "status": "present"
+        },
+        {
+          "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/playwright.config.ts",
+          "baseline_git_object": "cb3050290c13e7ac5fd22041146cf20a830469c8",
+          "status": "present"
+        },
+        {
+          "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.browser.spec.ts",
+          "baseline_git_object": "65557459fd16b4e477e79147d13aeb70dc34a083",
+          "status": "present"
+        },
+        {
+          "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.css",
+          "baseline_git_object": "db6080055cec1acc398718cafeeb42d095d8f6de",
+          "status": "present"
+        },
+        {
+          "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.test.tsx",
+          "baseline_git_object": "b9514f83a4c2f4ede3031cd7bd6e623ec923e4fe",
+          "status": "present"
+        },
+        {
+          "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/surface.tsx",
+          "baseline_git_object": "33564e350f390dcd881c82367b6b7a7431b22337",
+          "status": "present"
+        },
+        {
+          "path": "src/frontend/src/contexts/identity_access/features/autorizacao-por-projeto-operacao-artefato-e-caminho/use-project-access.ts",
+          "baseline_git_object": "dda1c48e5309053ad7398fa90646f2f1506100b2",
+          "status": "present"
+        }
+      ]
+    },
+    {
+      "story": "STORY-0049",
+      "implementation_or_final_fix_sha": "25f1fff5e5c7723a68f2800c68d57642567ae8cf",
+      "merge_sha": "7062b1432479e256cc673b5b313932e9b41dcecf",
+      "commit_ancestor_of_baseline": true,
+      "merge_ancestor_of_baseline": true,
+      "integrated_artifacts": [
+        {
+          "path": ".codex/tasks/TASK-0049.json",
+          "baseline_git_object": "c84205d21a8df9d0a55aa4c781a814efa30d8680",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/.gitignore",
+          "baseline_git_object": "cc177394775ebd522a3b6695318e9dcefeb6c864",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/HANDOFF.md",
+          "baseline_git_object": "d5a6276a2d6a8f3deeed83506477388c40f11b8c",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/collection-fix/HANDOFF.md",
+          "baseline_git_object": "e01aa48d7e1c447772c24e5d9a054ba6a16ec79b",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/collection-fix/default-tests.log",
+          "baseline_git_object": "0c4c3345bb0ef437a7acfb824922f639fe1aec95",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/collection-fix/default-tests.xml",
+          "baseline_git_object": "1df1caa0e6348e189197c81e0d16d8ad83934c35",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/collection-fix/hosted-collection.log",
+          "baseline_git_object": "86ebabeb09d4917002e5d3f8f2cb50ec09616e6d",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/collection-fix/importlib-tests.log",
+          "baseline_git_object": "7b929e0a335a6ecf984dcfa7959f8bcfe3e7bc5b",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/collection-fix/importlib-tests.xml",
+          "baseline_git_object": "271338542dbc4cb72c4829d8a42298e136a753f0",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/collection-fix/validation.json",
+          "baseline_git_object": "7ba2e742e9878baeaf3b5ff1150ea2651d9e5d84",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/gitleaks.json",
+          "baseline_git_object": "fe51488c7066f6687ef680d6bfaa4f7768ef205c",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/gitleaks.log",
+          "baseline_git_object": "d76844dbca59e2edb3d5e0271271595ede07dd64",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/make-verify.log",
+          "baseline_git_object": "1127551ae6fd48237deae805c0e16fab2d5ef737",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/record_evidence.py",
+          "baseline_git_object": "95993c64d10118ef524c22230b6979297d7ef81d",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/security-tests.log",
+          "baseline_git_object": "ede23704273641a5d7df7660cb71d8d03686559d",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/security-tests.xml",
+          "baseline_git_object": "9e3effdf95b3037b9f896eb6337ad4b1ed35af02",
+          "status": "present"
+        },
+        {
+          "path": "evidence/security/epic-010/story-0049/validation.json",
+          "baseline_git_object": "35c56a407e72fdcca056ef9d541d01bb2d9f2a3e",
+          "status": "present"
+        },
+        {
+          "path": "tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/conftest.py",
+          "baseline_git_object": "beed60b0ebb679e93dcdf7491534dfb391b7df24",
+          "status": "present"
+        },
+        {
+          "path": "tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_resource_authorization_security.py",
+          "baseline_git_object": "c7d1fdf3712e45a00483172beccca6099925ec80",
+          "status": "present"
+        },
+        {
+          "path": "tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho/test_security.py",
+          "baseline_git_object": null,
+          "status": "removed_or_renamed_by_later_integrated_commit"
+        }
+      ]
+    }
+  ]
+}

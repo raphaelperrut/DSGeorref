@@ -1,0 +1,17 @@
+{
+  "baseline_sha": "7062b1432479e256cc673b5b313932e9b41dcecf",
+  "candidate_resolution": "git log -1 --format=%H -- evidence/reviews/epic-010/story-0050/HANDOFF.md",
+  "production_tree_equals_baseline": true,
+  "mandatory_tests": {
+    "test_epic_010_aceite_happy_path": "ABSENT_NOT_EXECUTED",
+    "test_epic_010_aceite_negative_paths": "ABSENT_NOT_EXECUTED"
+  },
+  "pytest_command": ".venv/Scripts/python.exe -X utf8 -m pytest --collect-only -q -p no:cacheprovider --import-mode=importlib tests/backend/identity_access/resource_authorization tests/security/contexts/identity_access/autorizacao-por-projeto-operacao-artefato-e-caminho contracts/contexts/identity_access/plt/autorizacao-por-projeto-operacao-artefato-e-caminho -k \"test_epic_010_aceite_happy_path or test_epic_010_aceite_negative_paths\" --junitxml=evidence/reviews/epic-010/story-0050/mandatory-selection.xml",
+  "pytest_exit": 5,
+  "collected": 0,
+  "deselected": 184,
+  "make_verify_exit": 2,
+  "make_verify_classification": "ENVIRONMENT_CHROMIUM_MISSING_IN_SANDBOX",
+  "independent_qa_approval": false,
+  "independent_reviewer_approval": false
+}

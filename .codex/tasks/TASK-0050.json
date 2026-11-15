@@ -41,7 +41,8 @@
     "docs/05-operations/PRODUCTION_READINESS_GATES.md"
   ],
   "allow_paths": [
-    "evidence/reviews/autorizacao-por-projeto-operacao-artefato-e-caminho/**"
+    "evidence/reviews/epic-010/story-0050/**",
+    ".codex/tasks/TASK-0050.json"
   ],
   "deny_paths": [
     "src/**",
@@ -113,7 +114,8 @@
     "files": {
       "status": "PASS",
       "allow_paths": [
-        "evidence/reviews/autorizacao-por-projeto-operacao-artefato-e-caminho/**"
+        "evidence/reviews/epic-010/story-0050/**",
+    ".codex/tasks/TASK-0050.json"
       ],
       "deny_paths": [
         "src/**",
