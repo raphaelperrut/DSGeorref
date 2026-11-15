@@ -145,9 +145,21 @@ def verify_manifest():
 def verify_lock(lock, expected, artifacts):
     data = tomllib.loads(Path(lock).read_text())
     locked = data['package']
+    # uv 0.12.19 includes the local virtual project, outside the 54 externals.
+    assert 'dsgeorref' not in expected
+    roots = [p for p in locked if p['name'] == 'dsgeorref']
+    assert len(roots) == 1, 'expected exactly one virtual project root'
+    root = roots[0]
+    assert root['version'] == '0.0.0' and root['source'] == {'virtual':'.'}
+    assert 'sdist' not in root and 'wheels' not in root
+    locked = [p for p in locked if p['name'] != 'dsgeorref']
     assert len(locked) == len(expected) and {p['name']:p['version'] for p in locked} == expected
     for p in locked:
-        assert p['source'] == {'registry':INDEX} and not p.get('sdist') and p.get('wheels')
+        # Only these two exact spellings identify the approved local registry.
+        source = p['source']
+        if source == {'registry':'/opt/dsgeorref-python-inputs/simple'}:
+            source = {'registry':INDEX}
+        assert source == {'registry':INDEX} and not p.get('sdist') and p.get('wheels')
         for wheel in p['wheels']:
             identity = (p['name'], p['version'], wheel['url'])
             assert artifacts.get(identity) == wheel['hash'], identity
