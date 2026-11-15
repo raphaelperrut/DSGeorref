@@ -1,13 +1,13 @@
 schema_version: '1.0.0'
 profile_id: BP-003-throttling-hardware-reference
-version: '1.0.0'
+version: '2.0.0'
 approval_state: PENDING_INDEPENDENT_REVIEW
-definition_sha256: 94b021a00de1ae785e9b19111bd6b03dfb31dd736b7662a79c33464071fb4a39
+definition_sha256: 9e23cf8f5518bbd72125a9eeb8cd411583f02063202525fc09f316b8de40eeac
 companion:
   path: docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml
   profile_id: BP-003-throttling-threat-workload
-  version: '1.0.0'
-  definition_sha256: b360cb2e458a86e85029c871f3394a1b7d083577bfce235d0d0e2f7d322942a2
+  version: '2.0.0'
+  definition_sha256: de604e67869c910c5c149c93d8664a01889e4923c515ecc37bced7481b1945ab
 spec:
   purpose: Reversible execution baseline for TASK-0769 local-session throttling calibration.
   classification: reference_benchmark
@@ -17,46 +17,88 @@ spec:
     benchmark: BP-003
     requirement: REQ-AUTH-IMPL-007
     operation_ids: [post_auth_session]
-    deployment: Single installation; API and authoritative PostgreSQL on one dedicated host.
+    deployment: Single installation; API and authoritative PostgreSQL in one reserved Linux target environment.
     minimum_relation: >-
-      This is the smallest allocation admitted to this reference experiment, not a
-      minimum supported product class. It resolves TASK-0769 execution planning only.
+      This resource class admits a reference experiment, not a minimum supported
+      product class. It resolves TASK-0769 execution planning only.
       BP-003 production promotion on minimum supported hardware remains unsatisfied;
-      results cannot establish general product support, throughput or capacity.
+      results cannot establish minimum supported hardware, general throughput or
+      capacity, CPU equivalence, performance comparisons between CPU models or production SLOs.
   cpu:
     architecture: x86_64
-    processor_model: AMD EPYC 7313P
-    physical_cores_allocated: 4
-    threads_per_core_used: 1
-    nominal_frequency_mhz: 3000
-    boost: disabled
-    allocation: Dedicated physical cores; no SMT siblings or other workloads on these cores.
-    api_physical_cores: 2
-    postgresql_physical_cores: 2
-    affinity: Disjoint cpusets; choose lowest four online physical core IDs in the first NUMA node.
-    variability: Record actual clocks, microcode, topology and governor; do not normalize to other CPUs.
+    vendors: [Intel, AMD]
+    execution_cpus_available_min: 4
+    reference_execution_cpus_reserved: 4
+    allocation: >-
+      Reserve four execution CPUs (logical CPUs or vCPUs allowed) for API/PostgreSQL.
+      Do not intentionally compete for their CPU, memory or I/O during measurement.
+      Extra available CPUs do not expand this reference budget or the workload CPU
+      denominator. Record host/guest topology and allocation; no physical-core or SKU equivalence claim.
+    api_execution_cpu_budget: 2
+    postgresql_execution_cpu_budget: 2
+    affinity: >-
+      Use reproducible disjoint affinity/cpusets when available; record selected IDs
+      and effective cgroup quotas. Otherwise record why affinity is unavailable and
+      the reproducible reservation/isolation mechanism enforcing the same 2+2 CPU
+      budgets. Lack of evidence of isolation blocks the run; quota alone does not prove isolation.
+    boost: Record enabled/disabled/unavailable state; keep the same state across repetitions.
+    variability: >-
+      Record actual vendor/model, stepping, microcode, SMT/topology, clocks and governor
+      when exposed; explicitly mark unavailable telemetry. No exact nominal clock is
+      required, and observed clocks are measurements, not normalized CPU equivalence.
+    numa: >-
+      Record topology and CPU/memory placement when useful control is exposed.
+      Apply and freeze useful binding when available; otherwise record not_applicable
+      with the environment's reason. NUMA control is not mandatory in environments without useful exposure.
   ram:
-    host_allocation_bytes: 17179869184
+    target_available_or_reservable_bytes_min: 17179869184
+    reference_target_reserved_bytes: 17179869184
     api_cgroup_max_bytes: 4294967296
     postgresql_cgroup_max_bytes: 8589934592
     os_and_measurement_reserve_bytes: 4294967296
-    swap: disabled
-    numa: CPU and memory bound to the same node; no memory overcommit.
+    swap: >-
+      Configured swap is allowed; no material target paging/swap during measured
+      windows. Conservatively treat any target-attributable swap-in/out or growth
+      in memory.swap.current during a window as material. Record initial usage and
+      per-window usage/deltas, memory.current, memory.events and paging counters.
+      If attribution is unavailable, require zero environment swap-in/out and zero
+      swap-usage growth; missing telemetry is inconclusive/fail. OOM/allocation failure rejects the candidate.
+    reservation: >-
+      API limit <= 4 GiB, PostgreSQL limit <= 8 GiB, with 4 GiB reserved for OS/measurement.
+      Record effective cgroup v2 limits/reservations and available backing memory;
+      no overcommit undermining the reservation. More host RAM does not enlarge the
+      reference limits. Generator memory must be outside this reserved allocation.
   storage:
-    medium: Dedicated local NVMe SSD
-    filesystem: ext4
+    medium: Local SSD or NVMe; record physical backing and virtualization layers.
+    filesystem: >-
+      Linux filesystem with PostgreSQL durability support; record type and mount
+      options. ext4 is acceptable. Windows 11 + WSL2 with ext4 inside a local
+      SSD/NVMe-backed VHDX is allowed; the Windows host filesystem need not be ext4.
     free_bytes_before_each_repetition_min: 107374182400
+    free_space_evidence: >-
+      Record free space on the WAL/data Linux filesystem and its local physical
+      backing before each repetition. Sparse VHDX virtual capacity alone is not
+      proof of available backing space; the backing must support the required free allocation.
     durability: PostgreSQL WAL and data on this device; fsync and durable commits enabled.
     io_requirement: >-
-      No network filesystem, RAM disk, volatile-only WAL, shared I/O load or external
-      I/O quota. Record device identity/firmware, mount options, block scheduler,
+      No network filesystem, RAM disk or volatile-only WAL. No intentional competing
+      I/O workload or external quota undermining the reservation. Record device
+      identity/firmware, VHDX/backing-device mapping where applicable, mount options, block scheduler,
       read/write bytes, operations and latency; preserve the same device and settings
-      across repetitions. No unmeasured IOPS or throughput capability is asserted.
+      across repetitions. Material I/O contention invalidates the repetition. Record
+      target/generator/host I/O attribution and wait/latency evidence: competing I/O
+      that delays target work or prevents meeting dispatch/resource/service criteria
+      is material; inability to exclude such interference is inconclusive/fail.
+      No unmeasured IOPS or throughput capability is asserted.
   gpu:
     required: false
     use: none
   runtime:
     os: Linux with cgroup v2 and CPU affinity/memory accounting
+    host_environments: >-
+      Native Linux or virtualized Linux, including Windows 11 x64 + WSL2.
+      Record host OS/build, guest kernel, hypervisor/WSL version, VM/vCPU/RAM limits,
+      storage layers and available contention telemetry; virtualization is not CPU equivalence.
     deployment: Signed OCI images with Compose Specification
     python: '3.12.13'
     postgresql_family: '18.x'
@@ -66,12 +108,29 @@ spec:
       dependency lock hash, configuration hash and existing approved Argon2id profile
       ID/version/digest. Do not upgrade or select Argon2id/session parameters here.
     api_processes: 1
-    load_generator: Separate host; cannot consume the four CPU cores or 16 GiB allocation.
+    load_generator: >-
+      Separate execution domain, not necessarily a second physical host: separate
+      host/VM or demonstrably isolated cgroup/cpuset/reservation outside the target's
+      four execution CPUs and 16 GiB. Generator must not consume API/PostgreSQL
+      reserved allocation. Record generator CPU/RAM/I/O limits, effective placement,
+      host/guest environment, version/clock and transport fingerprint. Material
+      generator CPU/RAM/I/O interference invalidates the repetition; missing
+      isolation/attribution evidence is inconclusive/fail. Same-host use requires
+      sufficient additional resources outside the target reservation.
     transport: Existing TLS/same-origin/provenance contract; no authentication bypass.
     environment_pinning: >-
       First repetition captures the concrete environment fingerprint; all later
-      repetitions must match it exactly. Missing runtime locks, signatures or existing
+      repetitions must match it exactly, including reservations, boost state, affinity
+      or documented fallback, NUMA applicability and virtualization/storage layers.
+      Capture dynamic clocks, usage/deltas and interference evidence per repetition
+      separately from the fixed configuration fingerprint. Missing runtime locks, signatures or existing
       approved non-throttling security parameters block execution, not default values.
+    invalid_repetitions: >-
+      Preserve every attempted repetition, including failed/invalid attempts and
+      their raw evidence/reasons; never hide them by averaging or silent replacement.
+      Invalid runs cannot count as one of the three required individually passing
+      repetitions. Configuration/candidate changes require a fresh complete set
+      with a new bound fingerprint; absent evidence cannot establish a pass.
   fingerprint:
     algorithm: SHA-256
     definition_encoding: >-
@@ -79,19 +138,20 @@ spec:
       compact separators, ensure_ascii=false, no trailing newline.
     execution_encoding: Same canonical JSON encoding over the recorded environment manifest.
     execution_fields:
-      - CPU model/stepping/microcode/topology/affinity/governor/boost
+      - CPU vendor/model/stepping/microcode/topology/affinity-or-fallback/governor/boost and allocation
       - RAM/cgroup/cpuset/NUMA/swap configuration
-      - NVMe model/serial/firmware/filesystem/mount/block scheduler
-      - OS/kernel/OCI engine/Compose versions
+      - SSD-or-NVMe model/serial/firmware/filesystem/mount/block scheduler and VHDX/backing mapping
+      - host/guest OS/kernel/hypervisor/WSL/OCI engine/Compose versions and resource reservations
       - signed API/PostgreSQL image digests and dependency/configuration hashes
       - candidate commit and frozen contract digest
       - existing Argon2id/session profile versions and digests
-      - generator version/environment/clock and TLS path
+      - generator execution domain/isolation/version/environment/clock and TLS path
   unsupported_conditions:
-    - Other CPU model, architecture, allocation, GPU use or shared/oversubscribed cores.
-    - Other RAM allocation, swap, memory overcommit or different NUMA placement.
-    - Different storage/durability/settings, full filesystem or I/O contention.
-    - Multi-host application/database, production traffic or concurrent raster/AI/worker jobs.
+    - Non-x86_64 or non-Intel/AMD CPU, fewer than four available execution CPUs, GPU use or unproven target reservation.
+    - Intentional competing workloads, material CPU/RAM/I/O interference or missing evidence excluding interference.
+    - Less than 16 GiB available/reservable, violated reference limits/reserves, material paging/swap, OOM or incompatible overcommit.
+    - Network filesystem, RAM disk, unproven backing/durability, full filesystem or changed device/settings between repetitions.
+    - Multi-target application/database, production traffic or concurrent raster/AI/worker jobs competing with the target.
     - Missing immutable runtime bindings or fingerprint drift between repetitions.
-    - Extrapolation to minimum supported hardware or any general product capacity claim.
+    - Claims of minimum supported hardware, general throughput/capacity, CPU equivalence/comparisons or production SLOs.
   change_rule: Change any spec field => new version, digest, independent review and recalibration.

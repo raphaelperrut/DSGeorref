@@ -1,0 +1,59 @@
+{
+  "baseline_sha": "5d465868b23e283f3baed530c98931322cc839ed",
+  "checks": {
+    "yaml_valid_unique_keys": "PASS",
+    "approved_v1_inputs_preserved_in_baseline": "PASS",
+    "version_and_id_0": "PASS",
+    "canonical_digest_0": "PASS",
+    "companion_0": "PASS",
+    "approval_not_inherited_0": "PASS",
+    "version_and_id_1": "PASS",
+    "canonical_digest_1": "PASS",
+    "companion_1": "PASS",
+    "approval_not_inherited_1": "PASS",
+    "entire_workload_unchanged_except_hardware_version": "PASS",
+    "security_acceptance_identical": "PASS",
+    "resource_and_dos_acceptance_identical": "PASS",
+    "traffic_identical": "PASS",
+    "fixtures_identical": "PASS",
+    "reproduction_identical": "PASS",
+    "observables_minimum_identical": "PASS",
+    "no_exact_sku_or_clock_requirement": "PASS",
+    "four_cpu_reference_budget": "PASS",
+    "ram_reference_budget": "PASS",
+    "storage_capacity_and_durability_preserved": "PASS",
+    "runtime_preserved_python": "PASS",
+    "runtime_preserved_postgresql_family": "PASS",
+    "runtime_preserved_deployment": "PASS",
+    "runtime_preserved_exact_pins": "PASS",
+    "runtime_preserved_transport": "PASS",
+    "runtime_preserved_api_processes": "PASS",
+    "minimum_supported_false": "PASS",
+    "bp003_document_links": "PASS",
+    "manifest_artifact_digests": "PASS",
+    "task_schema": "PASS",
+    "unique_identity_index": "PASS",
+    "dag_endpoints_exist": "PASS",
+    "dag_acyclic_and_predecessors": "PASS",
+    "write_scope": "PASS",
+    "historical_evidence_unchanged": "PASS",
+    "whitespace": "PASS"
+  },
+  "benchmark_executed": false,
+  "independent_approval": false,
+  "profile_schema": "No normative profile schema supplied; unique-key YAML, semantic invariants and canonical bindings checked.",
+  "artifacts": [
+    {
+      "path": "docs/04-quality/benchmark-profiles/BP-003-throttling-hardware-reference.yaml",
+      "version": "2.0.0",
+      "definition_sha256": "9e23cf8f5518bbd72125a9eeb8cd411583f02063202525fc09f316b8de40eeac",
+      "file_sha256": "2a0f4c0280a2046567bc0f5ce39f29e1c9517f0b95c0e7cba22c1a4e3f98a901"
+    },
+    {
+      "path": "docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml",
+      "version": "2.0.0",
+      "definition_sha256": "de604e67869c910c5c149c93d8664a01889e4923c515ecc37bced7481b1945ab",
+      "file_sha256": "cb7aea24427d2cc5b643c9d4973fcd3412df54c24a6f759ce164a4bde58526df"
+    }
+  ]
+}
