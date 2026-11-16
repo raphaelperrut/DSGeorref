@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import re
 import subprocess
 import tempfile
 import unittest
@@ -12,6 +14,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 CONFIG = ROOT / ".github/gitleaks.toml"
 VALUE = "aB9cD2eF7gH4iJ6kL8mN1pQ3rS5tU0vW"
+DIGEST = hashlib.sha256(b"TASK-0773 synthetic cache artifact").hexdigest()
+CACHE_INVENTORY = (
+    "evidence/operations/python-workspace-lock/linux-native-20261115/"
+    "resume-after-checker/cache-files-before-offline.json"
+)
 
 
 class SecretScanTests(unittest.TestCase):
@@ -28,7 +35,7 @@ class SecretScanTests(unittest.TestCase):
                 [
                     os.environ["GITLEAKS_BINARY"],
                     "dir",
-                    str(source),
+                    ".",
                     "--config",
                     str(CONFIG),
                     "--redact",
@@ -40,6 +47,7 @@ class SecretScanTests(unittest.TestCase):
                 ],
                 capture_output=True,
                 text=True,
+                cwd=source,
             )
             self.assertIn(result.returncode, (0, 1), result.stderr)
             return result.returncode, json.loads(report.read_text())
@@ -84,6 +92,50 @@ class SecretScanTests(unittest.TestCase):
         )
         self.assertEqual(code, 1)
         self.assertEqual(len(findings), 1)
+
+    def test_cache_inventory_contains_only_sha256_values(self) -> None:
+        content = (ROOT / CACHE_INVENTORY).read_text(encoding="utf-8")
+        inventory = json.loads(content)
+        self.assertEqual(len(inventory), 4110)
+        self.assertTrue(all(re.fullmatch(r"[0-9a-f]{64}", v) for v in inventory.values()))
+        self.assertEqual(self.scan(content, CACHE_INVENTORY), (0, []))
+
+    def test_cache_exception_rejects_non_digest_credentials(self) -> None:
+        # Includes both affected rules and near-misses of the SHA-256 format.
+        values = (VALUE, VALUE * 2, VALUE * 2 + "+", DIGEST + "f", DIGEST.upper())
+        for value in values:
+            with self.subTest(value=value):
+                for field in ("api_key", "archive-v0/fixture/token.py", "confluent_secret"):
+                    content = json.dumps({field: value}, indent=2)
+                    baseline_code, baseline = self.scan(content)
+                    self.assertEqual(baseline_code, 1)
+                    code, findings = self.scan(content, CACHE_INVENTORY)
+                    self.assertEqual(code, 1)
+                    self.assertEqual(
+                        {item["RuleID"] for item in findings},
+                        {item["RuleID"] for item in baseline},
+                    )
+
+    def test_cache_exception_does_not_hide_another_secret_on_same_line(self) -> None:
+        code, findings = self.scan(
+            json.dumps({"api_key": DIGEST, "token": VALUE}), CACHE_INVENTORY,
+        )
+        self.assertEqual(code, 1)
+        self.assertIn("generic-api-key", {item["RuleID"] for item in findings})
+
+    def test_digest_exception_is_limited_to_exact_inventory_path(self) -> None:
+        for name in ("fixture.json", CACHE_INVENTORY + ".bak", "other/" + CACHE_INVENTORY):
+            with self.subTest(name=name):
+                code, findings = self.scan(
+                    json.dumps({"api_key": DIGEST, "confluent_secret": DIGEST}), name,
+                )
+                self.assertEqual(code, 1)
+                self.assertIn("confluent-secret-key", {item["RuleID"] for item in findings})
+                code, findings = self.scan(
+                    json.dumps({"archive-v0/fixture/token.py": DIGEST}, indent=2), name,
+                )
+                self.assertEqual(code, 1)
+                self.assertIn("generic-api-key", {item["RuleID"] for item in findings})
 
 
 if __name__ == "__main__":
