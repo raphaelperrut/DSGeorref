@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/tmp/stage1.py", line 67, in <module>
+    run('supplement-lock-checker',[PY,'-I','-B',str(S/'check-supplement.py'),'--check-lock','uv.lock'])
+  File "/tmp/stage1.py", line 29, in run
+    assert p.returncode==0,name+': '+(p.stderr or p.stdout)[-2500:]
+           ^^^^^^^^^^^^^^^
+AssertionError: supplement-lock-checker: Traceback (most recent call last):
+  File "/workspace/evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/check-supplement.py", line 175, in <module>
+    packages = check(lock=args.check_lock,audit=args.audit_metadata)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/check-supplement.py", line 166, in check
+    verify_lock(lock, expected, artifacts)
+  File "/workspace/evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/check-supplement.py", line 148, in verify_lock
+    assert len(locked) == len(expected) and {p['name']:p['version'] for p in locked} == expected
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+

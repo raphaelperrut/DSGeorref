@@ -1,0 +1,14 @@
+commit f38ae67dfbdacad8a371247c54054a1d715da5cf
+Merge: fe08938f e2123eb4
+Author:     Raphael Perrut <110496238+raphaelperrut@users.noreply.github.com>
+AuthorDate: Mon Nov 16 00:15:57 2026 +0000
+Commit:     Raphael Perrut <110496238+raphaelperrut@users.noreply.github.com>
+CommitDate: Mon Nov 16 00:15:57 2026 +0000
+
+    Merge current main checker fix into TASK-0773 execution
+
+ .../supplement-http-runtime-v1/check-supplement.py |  14 ++-
+ .../checker-verification.json                      | 118 +++++++++++++++++++++
+ .../supplement-http-runtime-v1/digests.json        |  12 +--
+ .../supplement-http-runtime-v1/verify-checker.py   |  66 +++++++++++-
+ 4 files changed, 198 insertions(+), 12 deletions(-)

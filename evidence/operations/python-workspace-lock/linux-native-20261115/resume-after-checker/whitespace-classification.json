@@ -1,0 +1,9 @@
+{
+  "default_diff_check_exit_code": 2,
+  "classification": "PRESERVED_IMMUTABLE_EVIDENCE_WHITESPACE_ONLY",
+  "files": [
+    "evidence/operations/python-workspace-lock/linux-native-20261115/failure.log",
+    "evidence/operations/python-workspace-lock/linux-native-20261115/stage1-driver.py"
+  ],
+  "preserved_bytes_changed": false
+}

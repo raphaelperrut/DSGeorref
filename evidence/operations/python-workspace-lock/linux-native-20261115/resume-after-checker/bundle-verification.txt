@@ -1,0 +1,5 @@
+/tmp/main-after-checker.bundle is okay
+The bundle contains this ref:
+e2123eb4ac178103b1169ced32c2b680d3d320fb refs/heads/main
+The bundle records a complete history.
+The bundle uses this hash algorithm: sha1
