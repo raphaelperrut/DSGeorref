@@ -71,6 +71,7 @@ def test_layered_spdx_reuse_license_notices_dependency_and_asset_compatibility(
             "contracts/example.schema.json",
             "docs/guide.md",
             "LICENSE",
+            "uv.lock",
             "patches/@hey-api__openapi-ts@0.97.3.patch",
         ],
     )
@@ -79,6 +80,7 @@ def test_layered_spdx_reuse_license_notices_dependency_and_asset_compatibility(
         "contracts/example.schema.json": "Apache-2.0",
         "docs/guide.md": "CC-BY-4.0",
         "LICENSE": "LICENSE-TEXT",
+        "uv.lock": "AGPL-3.0-or-later",
         "patches/@hey-api__openapi-ts@0.97.3.patch": "MIT",
     }
 
@@ -154,6 +156,7 @@ def test_license_and_dependency_inventory() -> None:
 @pytest.fixture
 def dependency_root(tmp_path: Path) -> Path:
     for relative in [
+        *(Path(path) for path in TOOL.APPROVED_PYTHON_DIGESTS),
         TOOL.DEPENDENCY_INVENTORY_PATH.relative_to(ROOT),
         Path("requirements-validation.txt"),
         Path("pyproject.toml"),
@@ -173,6 +176,41 @@ def test_dependency_review_baseline(dependency_root: Path) -> None:
         "runtime_dependencies": 2,
         "status": "PASS",
     }
+
+
+@pytest.mark.parametrize("mutation", ["extra", "version", "missing", "empty", "source"])
+def test_runtime_python_requires_exact_approved_dependencies(
+    dependency_root: Path, mutation: str,
+) -> None:
+    path = dependency_root / "pyproject.toml"
+    text = path.read_text(encoding="utf-8")
+    if mutation == "extra":
+        text = text.replace('dependencies = [', 'dependencies = ["unapproved==1.0.0", ', 1)
+    elif mutation == "version":
+        text = text.replace("fastapi==0.162.4", "fastapi==0.162.5")
+    elif mutation == "missing":
+        text = text.replace('"fastapi==0.162.4", ', "")
+    elif mutation == "empty":
+        text = text.replace(text.split("dependencies = ", 1)[1].splitlines()[0], "[]", 1)
+    else:
+        text = text.replace("fastapi==0.162.4", "fastapi @ https://example.test/fastapi.whl")
+    path.write_text(text, encoding="utf-8")
+    with pytest.raises(TOOL.FoundationValidationError, match="unapproved Python input"):
+        TOOL.validate_dependency_inventory(dependency_root)
+
+
+@pytest.mark.parametrize("relative", list(TOOL.APPROVED_PYTHON_DIGESTS))
+@pytest.mark.parametrize("mutation", ["changed", "missing"])
+def test_runtime_python_rejects_unapproved_authority_or_lock(
+    dependency_root: Path, relative: str, mutation: str,
+) -> None:
+    path = dependency_root / relative
+    if mutation == "changed":
+        path.write_bytes(path.read_bytes() + b"\n# unapproved change\n")
+    else:
+        path.unlink()
+    with pytest.raises((TOOL.FoundationValidationError, FileNotFoundError)):
+        TOOL.validate_dependency_inventory(dependency_root)
 
 
 @pytest.mark.parametrize("section", ["dependencies", "devDependencies"])

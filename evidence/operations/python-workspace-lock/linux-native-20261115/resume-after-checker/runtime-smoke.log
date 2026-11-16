@@ -1,0 +1,11 @@
+{
+  "runtime_imports": "PASS",
+  "credential_argon2id_roundtrip": "PASS",
+  "incorrect_password_rejected": true,
+  "invalid_phc_fail_closed": true,
+  "psycopg_implementation": "binary",
+  "libpq_version": 180006,
+  "database_connection_tested": false,
+  "production_profile_tested": false,
+  "benchmark_executed": false
+}

@@ -31,6 +31,7 @@
         "pnpm-lock.yaml",
         "pnpm-workspace.yaml",
         "pyproject.toml",
+        "uv.lock",
         "requirements-validation.txt",
         "SHA256SUMS.txt",
         "VALIDATION_RESULT.txt"

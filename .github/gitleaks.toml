@@ -10,3 +10,22 @@ id = "generic-api-key"
 description = "Exact public SPDX identifier https://spdx.org/licenses/AGPL-3.0-or-later.html"
 regexTarget = "secret"
 regexes = ['''^AGPL-3\.0-or-later$''']
+
+# Generated cache inventory: path -> SHA-256, never credential material.
+# AND binds the exact file and a complete cache entry line; other values still scan.
+[[rules.allowlists]]
+description = "TASK-0773 cache artifact SHA-256 values only"
+condition = "AND"
+paths = ['''^evidence/operations/python-workspace-lock/linux-native-20261115/resume-after-checker/cache-files-before-offline\.json$''']
+regexTarget = "line"
+regexes = ['''^\n?[ \t]*"(?:archive-v0|wheels-v6|sdists-v9|interpreter-v4)/[^"\r\n]+": "[0-9a-f]{64}",?[ \t]*\r?$''']
+
+[[rules]]
+id = "confluent-secret-key"
+
+[[rules.allowlists]]
+description = "TASK-0773 cache artifact SHA-256 values only"
+condition = "AND"
+paths = ['''^evidence/operations/python-workspace-lock/linux-native-20261115/resume-after-checker/cache-files-before-offline\.json$''']
+regexTarget = "line"
+regexes = ['''^\n?[ \t]*"(?:archive-v0|wheels-v6|sdists-v9|interpreter-v4)/[^"\r\n]+": "[0-9a-f]{64}",?[ \t]*\r?$''']

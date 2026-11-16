@@ -1,0 +1,18 @@
+Commands and measured results (secrets and transient redirect URLs omitted):
+1. Existing repository: git fetch origin -> exit 0; origin/main advanced to 18d769e.
+2. git rev-parse origin/main -> 18d769e903abeae5d9a2c9d772a64baa96cb47e8.
+3. Codex create_worktree(ref=origin/main,name=issue-0875-task-0773-execution) -> created new managed detached worktree.
+4. Initial sandbox git switch/status failed to access managed path. Retried with approved sandbox escalation; no old-checkout mutation.
+5. New worktree: git switch -c codex/issue-0875-task-0773-execution -> exit 0.
+6. git rev-parse HEAD -> exact remote SHA; git status --porcelain -> empty; git branch --show-current -> requested branch.
+7. python -I -B schema validation via jsonschema.validate(envelope,schema) -> PASS. Administrative validation only.
+8. python -I -B evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/check-supplement.py -> exit 0; structural_integrity PASS, distributions 54, constraints 39, historical_entries_preserved 55, approval_claimed false.
+9. Immutable authority validation via git show and hashlib.sha256: every historical manifest entry (55), historical digest manifest, every supplement manifest entry (21), supplement digest manifest matched approved commits and HEAD. Expected manifest digests in report.json. git merge-base --is-ancestor for historical, supplement and amendment commits -> exit 0 each. Approved amendment TaskEnvelope equals HEAD blob.
+10. curl --head --location --fail fixed approved CPython and uv URLs -> HTTP 200 each. Archive bytes NOT downloaded; digest/attestation not verified.
+11. wsl --list --verbose; docker context ls; docker info -> docker-desktop WSL2; Docker Linux x86_64. docker ps -> no running containers.
+12. docker run --rm --read-only --network none --entrypoint /bin/sh 79aa6c9c5cf9 (read-only host capability inspection) -> x86_64, glibc 2.41; tar present; git/make/gh/curl not found; /usr/local/bin/python3.12 absent. Container removed by --rm; image unchanged. No operational runtime used.
+13. Root input exact-byte check against source-inputs.json via hashlib -> False. Expected dbda77fcae1fb41df059c905a318c2dbc807c067cf51909047fcc9f2b936255a; actual b08fc88e91b02a979e1f734a6c05f3a1c19ce0b82daa4893ee1db15ea0efbd6e; 32 CRLF sequences.
+14. git config --show-origin --get core.autocrlf -> C:/Program Files/Git/etc/gitconfig true.
+STOP: prescribed source-input exact-byte gate failed. No normalization, authority changes, pyproject materialization, lock, installs or make verify attempted after finding.
+GitHub lookup: stable ISSUE-0875 is not GitHub numeric #875 (unrelated). Used canonical versioned STORY-0768/TASK-0773 and referenced owner issue #104; no remote writes.
+Local commit is evidence of blocked preflight only, not an execution candidate or operational PASS. No push, PR or merge.

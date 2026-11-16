@@ -1,0 +1,62 @@
+commit f38ae67dfbdacad8a371247c54054a1d715da5cf
+Merge: fe08938f e2123eb4
+Author:     Raphael Perrut <110496238+raphaelperrut@users.noreply.github.com>
+AuthorDate: Mon Nov 16 00:15:57 2026 +0000
+Commit:     Raphael Perrut <110496238+raphaelperrut@users.noreply.github.com>
+CommitDate: Mon Nov 16 00:15:57 2026 +0000
+
+    Merge current main checker fix into TASK-0773 execution
+
+commit e2123eb4ac178103b1169ced32c2b680d3d320fb
+Merge: 18d769e9 94ab889c
+Author:     Raphael Perrut <110496238+raphaelperrut@users.noreply.github.com>
+AuthorDate: Sun Nov 15 21:10:07 2026 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sun Nov 15 21:10:07 2026 -0300
+
+    Merge pull request #1069 from raphaelperrut/codex/issue-0875-checker-virtual-root
+
+    fix: aceitar raiz virtual no checker do suplemento HTTP runtime
+
+commit 94ab889c32f5d21f74c5353fa1489c9247b76743
+Author:     Raphael Perrut <110496238+raphaelperrut@users.noreply.github.com>
+AuthorDate: Sun Nov 15 19:34:55 2026 -0300
+Commit:     Raphael Perrut <110496238+raphaelperrut@users.noreply.github.com>
+CommitDate: Sun Nov 15 19:34:55 2026 -0300
+
+    fix(ISSUE-0875): validate virtual root and exact local registry spellings
+
+commit fe08938fff3fcd0dd2281f24d1c87e9b414c3aaf
+Author:     Raphael Perrut <110496238+raphaelperrut@users.noreply.github.com>
+AuthorDate: Sun Nov 15 17:26:24 2026 -0300
+Commit:     Raphael Perrut <110496238+raphaelperrut@users.noreply.github.com>
+CommitDate: Sun Nov 15 17:26:24 2026 -0300
+
+    [ISSUE-0875] Validate byte-exact EOL rematerialization
+
+commit 2f92613ccdbc1d81e4e6f362ed4fc4fcd6d2cfc3
+Author:     Raphael Perrut <110496238+raphaelperrut@users.noreply.github.com>
+AuthorDate: Sun Nov 15 17:19:54 2026 -0300
+Commit:     Raphael Perrut <110496238+raphaelperrut@users.noreply.github.com>
+CommitDate: Sun Nov 15 17:19:54 2026 -0300
+
+    [ISSUE-0875] Record EOL remediation preflight stop
+
+commit 97f31afa7ed57f14357ebbcae3a8f423e40356b2
+Author:     Raphael Perrut <110496238+raphaelperrut@users.noreply.github.com>
+AuthorDate: Sun Nov 15 17:10:04 2026 -0300
+Commit:     Raphael Perrut <110496238+raphaelperrut@users.noreply.github.com>
+CommitDate: Sun Nov 15 17:10:04 2026 -0300
+
+    [ISSUE-0875] Record isolated checkout preflight stop
+
+commit 18d769e903abeae5d9a2c9d772a64baa96cb47e8
+Merge: 9cfc1fb6 fd8d87c5
+Author:     Raphael Perrut <110496238+raphaelperrut@users.noreply.github.com>
+AuthorDate: Sun Nov 15 16:53:10 2026 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sun Nov 15 16:53:10 2026 -0300
+
+    Merge pull request #1068 from raphaelperrut/codex/issue-0875-task-0773-amendment
+
+    [ISSUE-0875] Amend TASK-0773 to consume approved Python graph supplement

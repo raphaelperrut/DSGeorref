@@ -1,0 +1,140 @@
+{
+  "lock_package_count": 55,
+  "expected_distribution_count": 54,
+  "extra_packages": [
+    {
+      "name": "dsgeorref",
+      "version": "0.0.0",
+      "source": {
+        "virtual": "."
+      },
+      "dependencies": [
+        {
+          "name": "alembic"
+        },
+        {
+          "name": "celery"
+        },
+        {
+          "name": "cryptography"
+        },
+        {
+          "name": "fastapi"
+        },
+        {
+          "name": "psycopg",
+          "extra": [
+            "binary"
+          ]
+        },
+        {
+          "name": "pydantic"
+        },
+        {
+          "name": "pyjwt"
+        },
+        {
+          "name": "sqlalchemy"
+        },
+        {
+          "name": "uvicorn"
+        }
+      ],
+      "dev-dependencies": {
+        "dev": [
+          {
+            "name": "jsonschema"
+          },
+          {
+            "name": "mypy"
+          },
+          {
+            "name": "pyyaml"
+          },
+          {
+            "name": "ruff"
+          }
+        ],
+        "test": [
+          {
+            "name": "pytest"
+          }
+        ]
+      },
+      "metadata": {
+        "requires-dist": [
+          {
+            "name": "alembic",
+            "specifier": "==1.18.4"
+          },
+          {
+            "name": "celery",
+            "specifier": "==5.7.0"
+          },
+          {
+            "name": "cryptography",
+            "specifier": "==50.0.2"
+          },
+          {
+            "name": "fastapi",
+            "specifier": "==0.162.4"
+          },
+          {
+            "name": "psycopg",
+            "extras": [
+              "binary"
+            ],
+            "specifier": "==3.3.8"
+          },
+          {
+            "name": "pydantic",
+            "specifier": "==2.13.4"
+          },
+          {
+            "name": "pyjwt",
+            "specifier": "==2.15.0"
+          },
+          {
+            "name": "sqlalchemy",
+            "specifier": "==2.1.2"
+          },
+          {
+            "name": "uvicorn",
+            "specifier": "==0.54.0"
+          }
+        ],
+        "requires-dev": {
+          "dev": [
+            {
+              "name": "jsonschema",
+              "specifier": "==4.26.0"
+            },
+            {
+              "name": "mypy",
+              "specifier": "==2.4.1"
+            },
+            {
+              "name": "pyyaml",
+              "specifier": "==6.0.3"
+            },
+            {
+              "name": "ruff",
+              "specifier": "==0.17.4"
+            }
+          ],
+          "test": [
+            {
+              "name": "pytest",
+              "specifier": "==9.2.0"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "missing_packages": [],
+  "different_versions": {},
+  "constraints": 39,
+  "uv_lock_sha256": "bd70e02748e7f09b5ca7fd544862f3b7d1deec30365a65c66552795839ce5cf2",
+  "pyproject_sha256": "45afa84044f47c12ab6e011e77834d48df327655d9f4d59625f63e9ecaee8a01"
+}

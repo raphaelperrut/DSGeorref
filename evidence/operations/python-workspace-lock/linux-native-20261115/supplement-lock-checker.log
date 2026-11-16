@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/check-supplement.py", line 175, in <module>
+    packages = check(lock=args.check_lock,audit=args.audit_metadata)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/check-supplement.py", line 166, in check
+    verify_lock(lock, expected, artifacts)
+  File "/workspace/evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/check-supplement.py", line 148, in verify_lock
+    assert len(locked) == len(expected) and {p['name']:p['version'] for p in locked} == expected
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

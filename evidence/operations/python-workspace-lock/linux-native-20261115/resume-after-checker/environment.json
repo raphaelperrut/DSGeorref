@@ -1,0 +1,36 @@
+{
+  "container": "task0773-linux-native-20261115",
+  "container_id": "306fc847e3bbf75081c6e7392c82afe7014d1b4b6916944fd978c9ac61aa1235",
+  "image": "task0773-toolchain:disposable-20261115",
+  "image_id": "sha256:dac23529b5f684e683232f0d298fb944094b3971e27437b7680b9edc8ed8d4ed",
+  "mounts": [
+    {
+      "type": "bind",
+      "destination": "/transfer/source.bundle",
+      "read_only": true,
+      "working_tree": false
+    }
+  ],
+  "python": {
+    "version": "3.12.13 (main, Jun  2 2026, 22:27:15) [Clang 22.1.3 ]",
+    "executable": "/usr/local/bin/python3.12",
+    "prefix": "/usr/local",
+    "base_prefix": "/usr/local",
+    "platform": "Linux-6.18.58.1-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+    "libc": [
+      "glibc",
+      "2.41"
+    ]
+  },
+  "python_binary_sha256": "71c0f086ee41f56b0b36fb2d4499e69e95495bd2a094e3a0159f0cad9411a2a7",
+  "uv_binary_sha256": "242e462a63f5a3c0421d68557006193ecbfb61321cba0fe8542213ac62d92563",
+  "uv_version": "uv 0.12.19 (x86_64-unknown-linux-gnu)",
+  "main_bundle_sha256": "650f0d3ee74536fa2243893e4d3395fbe305ddf51f47e350278b3c0077258b25",
+  "config_sha256": "6ec793339036379f54bffe33dce6943329df7c0e8f3151c3a757f4e9f05ad7ef",
+  "registry": "file:///opt/dsgeorref-python-inputs/simple",
+  "second_checkout": "/tmp/task0773-second",
+  "second_resolution_cache": "/tmp/task0773-second-cache",
+  "offline_environment": "/tmp/task0773-offline-env",
+  "dev_test_environment": "/workspace/.venv",
+  "recorded_at_utc": "2026-11-16T00:21:51.841883+00:00"
+}

@@ -1,0 +1,1 @@
+{"status": "PASS", "scope": "structural only", "direct_dependencies": 11, "transitive_dependencies": 32, "distributions": 43, "active_edges": 47, "constraints": 31, "admitted_wheels": 49, "digests_verified": true, "lock_checked": false, "runtime_or_abi_test": false, "make_verify": "NOT_RUN_USER_INSTRUCTION", "independent_approval": "NOT_CLAIMED"}
