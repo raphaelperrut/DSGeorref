@@ -59,17 +59,22 @@ fixture = {'package':[
     {'name':name, 'version':package['version'], 'source':{'registry':check.INDEX},
      'wheels':[wheel_record(package)]}
     for name, package in sorted(packages.items())
-]}
+] + [{'name':'dsgeorref', 'version':'0.0.0', 'source':{'virtual':'.'}}]}
 
 def validate_fixture(data, path):
     lines = []
     for package in data['package']:
         lines += ['[[package]]', 'name = '+json.dumps(package['name']),
                   'version = '+json.dumps(package['version']),
-                  'source = {registry = '+json.dumps(check.INDEX)+'}',
-                  'wheels = ['+', '.join(
+                  'source = {'+', '.join(k+' = '+json.dumps(v)
+                      for k,v in package['source'].items())+'}']
+        if 'wheels' in package:
+            lines += ['wheels = ['+', '.join(
                       '{url = '+json.dumps(w['url'])+', hash = '+json.dumps(w['hash'])+'}'
-                      for w in package['wheels'])+']', '']
+                      for w in package['wheels'])+']']
+        if 'sdist' in package:
+            lines += ['sdist = {url = "unexpected", hash = "sha256:invalid"}']
+        lines += ['']
     path.write_text('\n'.join(lines), encoding='utf-8')
     check.verify_lock(path, expected, artifacts)
 
@@ -85,13 +90,64 @@ def reject_artifact(label, transform, path):
 with tempfile.TemporaryDirectory(prefix='dsgeorref-artifact-check-') as tmp:
     path = Path(tmp)/'artifact-fixture.toml'  # Never generate a workspace uv.lock.
     validate_fixture(fixture, path)
+    local_path_fixture = copy.deepcopy(fixture)
+    for row in local_path_fixture['package']:
+        if row['name'] in expected:
+            row['source'] = {'registry':'/opt/dsgeorref-python-inputs/simple'}
+    validate_fixture(local_path_fixture, path)
+    results.append({'case':'exact approved registry path equivalent to canonical file URI',
+                    'result':'passed'})
     results.append({'case':'correct frozen artifact identities', 'result':'passed',
                     'distributions':len(expected),
+                    'virtual_roots':1, 'total_lock_package_entries':55,
                     'constraints':supplement['expected_constraint_count']})
+    results.append(reject_artifact('missing virtual root', lambda rows: rows.pop(), path))
+    results.append(reject_artifact('duplicate virtual root',
+        lambda rows: rows.append(copy.deepcopy(rows[-1])), path))
+    results.append(reject_artifact('wrong virtual root name',
+        lambda rows: rows[-1].update(name='other-project'), path))
+    results.append(reject_artifact('wrong virtual root version',
+        lambda rows: rows[-1].update(version='0.0.1'), path))
+    for source in [{'virtual':'..'}, {'editable':'.'}, {'registry':check.INDEX},
+                   {'virtual':'.', 'registry':check.INDEX}]:
+        results.append(reject_artifact('unexpected virtual root source '+str(source),
+            lambda rows, source=source: rows[-1].update(source=source), path))
+    results.append(reject_artifact('virtual root carries wheels',
+        lambda rows: rows[-1].update(wheels=[wheel_record(packages['h11'])]), path))
+    results.append(reject_artifact('virtual root carries sdist',
+        lambda rows: rows[-1].update(sdist={}), path))
+    results.append(reject_artifact('extra external package',
+        lambda rows: rows.append(dict(copy.deepcopy(rows[0]), name='injected-package')), path))
+    results.append(reject_artifact('missing external package', lambda rows: rows.pop(0), path))
+    results.append(reject_artifact('wrong external package version',
+        lambda rows: rows[0].update(version='999.0'), path))
+    results.append(reject_artifact('duplicate external package',
+        lambda rows: rows.append(copy.deepcopy(rows[0])), path))
+    results.append(reject_artifact('external package source mismatch',
+        lambda rows: rows[0].update(source={'virtual':'.'}), path))
+    for registry in ['/opt/dsgeorref-python-inputs/simple2',
+                     '/tmp/dsgeorref-python-inputs/simple',
+                     'file:///tmp/dsgeorref-python-inputs/simple',
+                     'opt/dsgeorref-python-inputs/simple',
+                     'http://example.org/simple', 'https://pypi.org/simple',
+                     'file:///opt/other-index/simple',
+                     '/opt/dsgeorref-python-inputs/simple/',
+                     '/opt/dsgeorref-python-inputs/./simple',
+                     'file://localhost/opt/dsgeorref-python-inputs/simple']:
+        results.append(reject_artifact('unexpected registry '+registry,
+            lambda rows, registry=registry: rows[0].update(source={'registry':registry}), path))
+    results.append(reject_artifact('approved registry with additional source key',
+        lambda rows: rows[0].update(source={
+            'registry':'/opt/dsgeorref-python-inputs/simple', 'virtual':'.'}), path))
+    results.append(reject_artifact('external package sdist',
+        lambda rows: rows[0].update(sdist={'url':'unexpected'}), path))
+    results.append(reject_artifact('external package without wheels',
+        lambda rows: rows[0].update(wheels=[]), path))
     results.append(reject_artifact('cross-distribution artifact swap',
         lambda rows: rows[0]['wheels'].__setitem__(0, copy.deepcopy(rows[1]['wheels'][0])), path))
     results.append(reject_artifact('h11 artifact assigned to all distributions',
-        lambda rows: [row.update(wheels=[wheel_record(packages['h11'])]) for row in rows], path))
+        lambda rows: [row.update(wheels=[wheel_record(packages['h11'])])
+                      for row in rows if row['name'] in expected], path))
     historical = {p['name']:p for p in old['packages']}
     replaced = next(row['name'] for row in fixture['package']
                     if row['name'] in historical
