@@ -4,5 +4,5 @@ cryptography==50.0.2
 celery==5.7.0
 psycopg[binary]==3.3.9
 pytest==9.2.0
-ruff==0.17.4
+ruff==0.17.5
 mypy==2.4.1

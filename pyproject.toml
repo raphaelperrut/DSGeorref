@@ -3,7 +3,7 @@ name = "dsgeorref"
 version = "0.0.0"
 description = "DSGeorref greenfield modular monolith"
 requires-python = ">=3.12,<3.13"
-dependencies = ["alembic==1.18.4", "celery==5.7.0", "cryptography==50.0.2", "fastapi==0.162.4", "psycopg[binary]==3.3.9", "pydantic==2.14.3", "pyjwt==2.15.0", "sqlalchemy==2.1.2", "uvicorn==0.54.0"]
+dependencies = ["alembic==1.20.1", "celery==5.7.0", "cryptography==50.0.2", "fastapi==0.163.2", "psycopg[binary]==3.3.9", "pydantic==2.14.3", "pyjwt==2.15.1", "sqlalchemy==2.1.9", "uvicorn==0.54.0"]
 
 [tool.ruff]
 target-version = "py312"
@@ -32,7 +32,7 @@ branch = true
 source = ["src"]
 
 [dependency-groups]
-dev = ["jsonschema==4.26.0", "mypy==2.4.1", "pyyaml==6.0.3", "ruff==0.17.4"]
+dev = ["jsonschema==4.26.0", "mypy==2.4.1", "pyyaml==6.0.3", "ruff==0.17.5"]
 test = ["pytest==9.2.0"]
 
 [tool.uv]
