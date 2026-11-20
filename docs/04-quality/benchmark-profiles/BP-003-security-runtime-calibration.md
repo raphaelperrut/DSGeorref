@@ -7,11 +7,11 @@ Calibrar Argon2id, limites de concorrência, atraso progressivo, janelas, cooldo
 
 ## Baseline de execução v2 — throttling
 
-STORY-0767 / ISSUE-0874 / TASK-0770 apresenta os dois perfis abaixo em versão
-`2.0.0`, por autorização material explícita do Owner em 2026-11-14. A v2 substitui
-a aplicabilidade da v1 para a próxima calibração **após revisão independente e
-integração**. O candidato v2 está `PENDING_INDEPENDENT_REVIEW`; a aprovação da v1
-não é transferida automaticamente para novos bytes.
+STORY-0767 / ISSUE-0874 / TASK-0770 introduziu os dois perfis em `2.0.0`.
+A decisão do Owner reduz a reserva de RAM da classe de referência no hardware
+`2.1.0`. O workload `2.0.1` atualiza o vínculo com essa classe. O novo par está
+`PENDING_INDEPENDENT_REVIEW` e se aplica à próxima calibração após revisão
+independente e integração.
 
 - [BP-003-throttling-hardware-reference.yaml](BP-003-throttling-hardware-reference.yaml): hardware `reference_benchmark`, não `minimum_supported`; a aprovação do experimento não declara hardware mínimo suportado ou capacidade geral do produto.
 - [BP-003-throttling-threat-workload.yaml](BP-003-throttling-threat-workload.yaml): números de carga e critérios do benchmark, não thresholds, janelas, cooldowns ou lockouts runtime.
@@ -29,7 +29,10 @@ quando disponível; ausência exige mecanismo de reserva/isolamento comprovado.
 Registrar clocks/topologia e boost, mantendo a configuração entre repetições;
 NUMA somente quando houver controle útil. Não comparar desempenho entre modelos.
 
-Reservar 16 GiB com API <= 4 GiB, PostgreSQL <= 8 GiB e 4 GiB para SO/medição.
+Reservar 8 GiB com API <= 2 GiB, PostgreSQL <= 4 GiB e 2 GiB para SO/medição.
+Os 8 GiB definem a classe de referência do BP-003, sem requisito de produção.
+Os limites efetivos dos cgroups se aplicam junto aos critérios do workload,
+incluindo a reprovação por OOM ou falha de alocação.
 Swap configurado é permitido, mas paginação/swap material nas janelas invalida a
 execução; o profile define observação conservadora por deltas e atribuição,
 memory.current e memory.events. OOM continua reprovação. SSD/NVMe local com
@@ -44,9 +47,9 @@ O gerador requer domínio de execução separado, com recursos fora da reserva d
 target; segundo host físico é opcional. Interferência material CPU/RAM/I/O invalida
 a repetição; falta de evidência de isolamento é inconclusive/fail.
 
-O workload v2 muda somente a versão e os vínculos do hardware/companion. Rates,
-durações, concorrência, fixtures, probes, critérios de segurança e serviço legítimo,
-três repetições e regra de não esconder falhas por média permanecem idênticos à v1.
+O workload 2.0.1 altera apenas a versão, o digest e os vínculos com o hardware 2.1.0.
+Taxas, durações, concorrência, fixtures, probes, critérios de aceitação e as três
+repetições permanecem iguais aos do workload 2.0.0.
 PostgreSQL permanece autoridade; fail-closed, transições persistidas observáveis,
 supressão do verifier, proteção contra enumeração e ausência de secrets/PII não são
 flexibilizados. Nenhuma política AP-003 é promovida.
@@ -64,5 +67,6 @@ Seus artefatos e aprovações permanecem históricos e válidos para aquela vers
 Rollback documental recupera os três arquivos BP-003 desse SHA em uma mudança
 revisada e restaura seus vínculos/digests v1 como conjunto. Isso restaura também
 suas restrições de venue; não autoriza executar v1 em hardware v2 incompatível.
-Não misturar versões, evidências ou resultados entre os dois conjuntos; qualquer
-calibração v2 exige três novas repetições no mesmo ambiente concreto.
+Os candidatos e evidências da TASK-0772 vinculados ao hardware 2.0.0 permanecem
+históricos. O hardware 2.1.0 exige nova qualificação do venue e novo fingerprint.
+A calibração exige três novas repetições no mesmo ambiente concreto.
