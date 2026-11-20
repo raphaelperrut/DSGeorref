@@ -12,7 +12,7 @@
 | language-backend-compat-314 | CPython | `3.14.x` | alvo de integração posterior; não integra o CI inicial | matriz experimental após estabilização da lane 3.13 |
 | dependency-management | uv | `stable pinned` | single Python workspace and lock | tool bootstrap digest |
 | http-api | FastAPI | `0.140.x` | REST/OpenAPI adapter | uv.lock |
-| validation | Pydantic | `2.13.x` | transport/settings/schema validation | uv.lock |
+| validation | Pydantic | `2.14.x` | transport/settings/schema validation | uv.lock |
 | persistence | SQLAlchemy | `2.0.x` | explicit repositories and UoW | uv.lock |
 | migrations | Alembic | `1.x` | expand-migrate-contract migrations | uv.lock |
 | database | PostgreSQL | `18.x` | system of record | OCI image digest |

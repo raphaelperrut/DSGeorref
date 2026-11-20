@@ -66,7 +66,7 @@
     {
       "path": "docs/02-architecture/design-reviews/python-workspace-dependency-graph/supplement-http-runtime-v1/rationale.md",
       "bytes": 13495,
-      "sha256": "549688a4cf625f1a22c100b9db2055706806f57d0a74eff40c103d05777ff04d"
+      "sha256": "77b584a738aef8b77fd8bd99630216d2b67fc38289cccb322e41e7b80410267a"
     },
     {
       "path": "docs/02-architecture/design-reviews/python-workspace-dependency-graph/supplement-http-runtime-v1/supplement-devops-handoff.md",
@@ -76,7 +76,7 @@
     {
       "path": "docs/02-architecture/design-reviews/python-workspace-dependency-graph/supplement-http-runtime-v1/supplement.json",
       "bytes": 3558,
-      "sha256": "90060e4bb44e82bb35cf7e32a66d653a876ce365ef8bb7ea136405d5a7198ac5"
+      "sha256": "c4afd13d711b808778997ad3433d95d48270e8aec058c4cd64ee13c2fa1e6017"
     },
     {
       "path": "docs/02-architecture/design-reviews/python-workspace-dependency-graph/supplement-http-runtime-v1/task-0773-amendment-proposed.md",
@@ -96,7 +96,7 @@
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/check-supplement.py",
       "bytes": 11429,
-      "sha256": "4dba7c8013dc0531b65d47fec24daa52c57f356835b66115a1eb67ec38096530"
+      "sha256": "3033542459b0b1e1c9b5425a41fed116d3535dbf6efe5bff705074887c513955"
     },
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/checker-verification.json",
@@ -106,7 +106,7 @@
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/constraints-delta.txt",
       "bytes": 213,
-      "sha256": "b54835043c478ea190bae304bf6e76d4f4e2784f9387ca71ad0722b55ea9ceb1"
+      "sha256": "2511e711e912e080c44f2b6767e1a2c777aa182e777089a60d3a90e002e67b40"
     },
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/cpython-artifact.json",
@@ -141,12 +141,12 @@
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/pin-reconciliation.json",
       "bytes": 3054,
-      "sha256": "2ea1e556fc79ebaa37fe82398e53b20083f89cba5a2fd66e8743d1a4311f0972"
+      "sha256": "a1abee310ae74e03040e7b1a15ccd7350f59ab9370fa2459eda0da8efdce9d70"
     },
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/resolution-delta.json",
       "bytes": 44129,
-      "sha256": "7ad33e284ecd2e5730743f37aae338330a77f3e228d1b2e07e8764e2eda50ead"
+      "sha256": "85067f353e99fd3014e1d21b5fc6af338c0fd788ecde280fb37c7c97a534a52e"
     },
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/scope-validation.json",
@@ -161,7 +161,7 @@
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/supplement-pyproject-proposed.toml",
       "bytes": 2173,
-      "sha256": "45afa84044f47c12ab6e011e77834d48df327655d9f4d59625f63e9ecaee8a01"
+      "sha256": "2eb4f9312f44e4c26e944ef2362831bc1179eacaa91f389d4d1e527e8a9b369d"
     },
     {
       "path": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/verify-checker.py",

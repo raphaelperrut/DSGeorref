@@ -16,22 +16,22 @@
     "sys_platform": "linux",
     "extra": ""
   },
-  "selection_policy": "Historical exact pins remain frozen except explicit manifest reconciliations. For new unpinned transitives choose greatest stable compatible wheel release at baseline timestamp; freeze result for independent review, never reselect operationally.",
+  "selection_policy": "Historical exact pins remain frozen except explicit manifest reconciliations. For new unpinned transitives choose greatest stable compatible wheel release at baseline timestamp; freeze result for independent review, never reselect operationally. PR #1071 remediation uses only the four explicitly authorized releases and their verified wheel metadata.",
   "replacements": {
     "mypy": "2.4.1",
     "pytest": "9.2.0",
     "celery": "5.7.0",
     "cryptography": "50.0.2",
     "ruff": "0.17.4",
-    "psycopg": "3.3.8",
+    "psycopg": "3.3.9",
     "billiard": "4.3.2",
     "kombu": "5.7.0",
     "amqp": "5.4.2",
-    "psycopg-binary": "3.3.8"
+    "psycopg-binary": "3.3.9"
   },
   "additions": {
     "uvicorn": "0.54.0",
-    "pydantic": "2.13.4",
+    "pydantic": "2.14.3",
     "fastapi": "0.162.4",
     "idna": "3.20",
     "starlette": "1.10.0",
@@ -40,7 +40,7 @@
     "annotated-doc": "0.0.6",
     "opentelemetry-api": "1.45.2",
     "annotated-types": "0.8.0",
-    "pydantic-core": "2.46.4",
+    "pydantic-core": "2.50.4",
     "h11": "0.16.0"
   },
   "packages": [
@@ -622,13 +622,13 @@
     },
     {
       "name": "psycopg",
-      "version": "3.3.8",
+      "version": "3.3.9",
       "requires_python": ">=3.10",
       "requires_dist": [
         "typing-extensions>=4.6; python_version < \"3.13\"",
         "tzdata; sys_platform == \"win32\"",
-        "psycopg-c==3.3.8; implementation_name != \"pypy\" and extra == \"c\"",
-        "psycopg-binary==3.3.8; implementation_name != \"pypy\" and extra == \"binary\"",
+        "psycopg-c==3.3.9; implementation_name != \"pypy\" and extra == \"c\"",
+        "psycopg-binary==3.3.9; implementation_name != \"pypy\" and extra == \"binary\"",
         "psycopg-pool; extra == \"pool\"",
         "anyio>=4.0; extra == \"test\"",
         "mypy>=2.1.0; implementation_name != \"pypy\" and extra == \"test\"",
@@ -666,22 +666,22 @@
       "license": null,
       "files": [
         {
-          "filename": "psycopg-3.3.8-py3-none-any.whl",
-          "url": "https://files.pythonhosted.org/packages/7b/5c/50a0b0796ccb69b11934f7c5758051c08019bda2fafb417501109fffd569/psycopg-3.3.8-py3-none-any.whl",
+          "filename": "psycopg-3.3.9-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/52/5d/a7957d1b5484f8e5094a15b1a400929324f978b670bd4a95179e1a012ec2/psycopg-3.3.9-py3-none-any.whl",
           "digests": {
-            "blake2b_256": "7b5c50a0b0796ccb69b11934f7c5758051c08019bda2fafb417501109fffd569",
-            "md5": "a8b0b74d40d4bb0ca94fb3dcd9a3cdf9",
-            "sha256": "ca50af6072ba9ea6866f33021975230c2555d7bfdb9d8f94ca3af5c3d1bf2167"
+            "blake2b_256": "525da7957d1b5484f8e5094a15b1a400929324f978b670bd4a95179e1a012ec2",
+            "md5": "6d87a342dc3b0b0131cb4402b69fa7d7",
+            "sha256": "d2d7d04a1ce6dab4f5b27316bea3b52585cafa2f2d631e5b09dd69823f5c26f6"
           },
           "requires_python": ">=3.10",
-          "upload_time_iso_8601": "2026-11-04T09:37:35.491551Z"
+          "upload_time_iso_8601": "2026-11-12T08:58:18.454897Z"
         }
       ],
-      "metadata_origin": "https://pypi.org/pypi/psycopg/3.3.8/json"
+      "metadata_origin": "https://pypi.org/pypi/psycopg/3.3.9/json"
     },
     {
       "name": "psycopg-binary",
-      "version": "3.3.8",
+      "version": "3.3.9",
       "requires_python": ">=3.10",
       "requires_dist": [],
       "provides_extra": [],
@@ -689,30 +689,30 @@
       "license": null,
       "files": [
         {
-          "filename": "psycopg_binary-3.3.8-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
-          "url": "https://files.pythonhosted.org/packages/c7/04/aef0b229adc200259d3aec4c8ba17a2ff233505dec8712f37f7168e45c06/psycopg_binary-3.3.8-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "filename": "psycopg_binary-3.3.9-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/4d/aa/f1b6e1cd71aeafa78ab33875adf0339818fe014cde197a1c0c7c419dd0b0/psycopg_binary-3.3.9-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
           "digests": {
-            "blake2b_256": "c704aef0b229adc200259d3aec4c8ba17a2ff233505dec8712f37f7168e45c06",
-            "md5": "782bdbfcf1c4fa44d3c1bc3b9e934b4a",
-            "sha256": "a7cdba018e4decf3837793c1e18dbe3dd71709adef54892ab83d81c00e866dc3"
+            "blake2b_256": "4daaf1b6e1cd71aeafa78ab33875adf0339818fe014cde197a1c0c7c419dd0b0",
+            "md5": "ddca6791543a7b536bd3ae4bfc240bad",
+            "sha256": "a99f0b9a19ed7a56bf5d6776456b8f15f5364db8853b0f5d184db394a45c391d"
           },
           "requires_python": ">=3.10",
-          "upload_time_iso_8601": "2026-11-04T09:40:14.778890Z"
+          "upload_time_iso_8601": "2026-11-12T09:00:30.144379Z"
         }
       ],
-      "metadata_origin": "https://pypi.org/pypi/psycopg-binary/3.3.8/json"
+      "metadata_origin": "https://pypi.org/pypi/psycopg-binary/3.3.9/json"
     },
     {
       "name": "pydantic",
-      "version": "2.13.4",
-      "requires_python": ">=3.9",
+      "version": "2.14.3",
+      "requires_python": ">=3.10",
       "requires_dist": [
         "annotated-types>=0.6.0",
-        "pydantic-core==2.46.4",
-        "typing-extensions>=4.14.1",
-        "typing-inspection>=0.4.2",
+        "pydantic-core==2.50.4",
+        "typing-extensions>=4.16.0",
+        "typing-inspection>=0.4.4",
         "email-validator>=2.0.0; extra == \"email\"",
-        "tzdata; (python_version >= \"3.9\" and platform_system == \"Windows\") and extra == \"timezone\""
+        "tzdata; platform_system == \"Windows\" and extra == \"timezone\""
       ],
       "provides_extra": [
         "email",
@@ -722,43 +722,43 @@
       "license": null,
       "files": [
         {
-          "filename": "pydantic-2.13.4-py3-none-any.whl",
-          "url": "https://files.pythonhosted.org/packages/fd/7b/122376b1fd3c62c1ed9dc80c931ace4844b3c55407b6fb2d199377c9736f/pydantic-2.13.4-py3-none-any.whl",
+          "filename": "pydantic-2.14.3-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/72/b8/b864503789ef5c58597d2a7b4adbee62c26440ab1e682581fc6838df8947/pydantic-2.14.3-py3-none-any.whl",
           "digests": {
-            "blake2b_256": "fd7b122376b1fd3c62c1ed9dc80c931ace4844b3c55407b6fb2d199377c9736f",
-            "md5": "36ddb76c95e4d2d1a828793cda3bb527",
-            "sha256": "45a282cde31d808236fd7ea9d919b128653c8b38b393d1c4ab335c62924d9aba"
+            "blake2b_256": "72b8b864503789ef5c58597d2a7b4adbee62c26440ab1e682581fc6838df8947",
+            "md5": "3be985aa7ee869906de91ee6aa55a89e",
+            "sha256": "3f7b347782ab7e4cf4c798496ae3a82787d9f21ec12676a9c564355eeef8daa8"
           },
-          "requires_python": ">=3.9",
-          "upload_time_iso_8601": "2026-05-06T13:43:02.641507Z"
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-11-05T09:17:02.426672Z"
         }
       ],
-      "metadata_origin": "https://pypi.org/pypi/pydantic/2.13.4/json"
+      "metadata_origin": "https://pypi.org/pypi/pydantic/2.14.3/json"
     },
     {
       "name": "pydantic-core",
-      "version": "2.46.4",
-      "requires_python": ">=3.9",
+      "version": "2.50.4",
+      "requires_python": ">=3.10",
       "requires_dist": [
-        "typing-extensions>=4.14.1"
+        "typing-extensions>=4.16.0"
       ],
       "provides_extra": [],
       "license_expression": "MIT",
       "license": null,
       "files": [
         {
-          "filename": "pydantic_core-2.46.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-          "url": "https://files.pythonhosted.org/packages/5f/97/2aab507d3d00ca626e8e57c1eac6a79e4e5fbcc63eb99733ff55d1717f65/pydantic_core-2.46.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "filename": "pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/91/23/e0c6e3cd09a0ac809953fea698c816b9f03bf0b35b6820c9553e4f5d85a8/pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
           "digests": {
-            "blake2b_256": "5f972aab507d3d00ca626e8e57c1eac6a79e4e5fbcc63eb99733ff55d1717f65",
-            "md5": "f7476e46ca33e57c1f42ca612af74592",
-            "sha256": "926c9541b14b12b1681dca8a0b75feb510b06c6341b70a8e500c2fdcff837cce"
+            "blake2b_256": "9123e0c6e3cd09a0ac809953fea698c816b9f03bf0b35b6820c9553e4f5d85a8",
+            "md5": "46d2ad05a3a41f9bc17ce0ce528e5f85",
+            "sha256": "c81d98e27d9d9261909dcccab1ba5d6ea1c98b0bb9470e368604614fd1d36ddd"
           },
-          "requires_python": ">=3.9",
-          "upload_time_iso_8601": "2026-05-06T13:39:10.577024Z"
+          "requires_python": ">=3.10",
+          "upload_time_iso_8601": "2026-11-05T09:12:19.097539Z"
         }
       ],
-      "metadata_origin": "https://pypi.org/pypi/pydantic-core/2.46.4/json"
+      "metadata_origin": "https://pypi.org/pypi/pydantic-core/2.50.4/json"
     },
     {
       "name": "pytest",
@@ -1074,7 +1074,7 @@
     {
       "parent": "psycopg",
       "child": "psycopg-binary",
-      "requirement": "psycopg-binary==3.3.8; implementation_name != \"pypy\" and extra == \"binary\""
+      "requirement": "psycopg-binary==3.3.9; implementation_name != \"pypy\" and extra == \"binary\""
     },
     {
       "parent": "pydantic",
@@ -1084,22 +1084,22 @@
     {
       "parent": "pydantic",
       "child": "pydantic-core",
-      "requirement": "pydantic-core==2.46.4"
+      "requirement": "pydantic-core==2.50.4"
     },
     {
       "parent": "pydantic",
       "child": "typing-extensions",
-      "requirement": "typing-extensions>=4.14.1"
+      "requirement": "typing-extensions>=4.16.0"
     },
     {
       "parent": "pydantic",
       "child": "typing-inspection",
-      "requirement": "typing-inspection>=0.4.2"
+      "requirement": "typing-inspection>=0.4.4"
     },
     {
       "parent": "pydantic-core",
       "child": "typing-extensions",
-      "requirement": "typing-extensions>=4.14.1"
+      "requirement": "typing-extensions>=4.16.0"
     },
     {
       "parent": "pytest",

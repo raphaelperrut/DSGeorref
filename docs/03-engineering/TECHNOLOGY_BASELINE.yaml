@@ -43,10 +43,10 @@ decisions:
   reference_release: 0.140.2 observed 2026-07-27
 - area: validation
   technology: Pydantic
-  version_family: 2.13.x
+  version_family: 2.14.x
   decision: transport/settings/schema validation
   exact_pin: uv.lock
-  reference_release: 2.13.4 observed 2026-07-27
+  reference_release: 2.14.3 (PR #1071 security remediation)
 - area: persistence
   technology: SQLAlchemy
   version_family: 2.0.x

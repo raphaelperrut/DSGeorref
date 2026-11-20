@@ -13,7 +13,7 @@ upstream copyright/license texts required for redistribution.
 | Python | jsonschema | 4.26.0 | MIT | validation |
 | Python | cryptography | 50.0.2 | Apache-2.0 OR BSD-3-Clause | validation |
 | Python | celery | 5.7.0 | BSD-3-Clause | validation |
-| Python | psycopg[binary] | 3.3.8 | LGPL-3.0-only | validation |
+| Python | psycopg[binary] | 3.3.9 | LGPL-3.0-only | validation |
 | Python | pytest | 9.2.0 | MIT | validation |
 | Python | ruff | 0.17.4 | MIT | validation |
 | Python | mypy | 2.4.1 | MIT | validation |

@@ -14,7 +14,7 @@
   "direct_roots_additional": [
     "fastapi==0.162.4",
     "uvicorn==0.54.0",
-    "pydantic==2.13.4"
+    "pydantic==2.14.3"
   ],
   "pins_reconciled": {
     "mypy": "2.4.1",
@@ -22,11 +22,11 @@
     "celery": "5.7.0",
     "cryptography": "50.0.2",
     "ruff": "0.17.4",
-    "psycopg": "3.3.8",
+    "psycopg": "3.3.9",
     "billiard": "4.3.2",
     "kombu": "5.7.0",
     "amqp": "5.4.2",
-    "psycopg-binary": "3.3.8"
+    "psycopg-binary": "3.3.9"
   },
   "removals": [
     "tzdata"
@@ -39,7 +39,7 @@
     "annotated-doc": "0.0.6",
     "opentelemetry-api": "1.45.2",
     "annotated-types": "0.8.0",
-    "pydantic-core": "2.46.4",
+    "pydantic-core": "2.50.4",
     "h11": "0.16.0"
   },
   "constraints_delta": [
@@ -52,7 +52,7 @@
     "idna==3.20",
     "kombu==5.7.0",
     "opentelemetry-api==1.45.2",
-    "pydantic-core==2.46.4",
+    "pydantic-core==2.50.4",
     "starlette==1.10.0",
     "typing-inspection==0.4.5"
   ],
@@ -65,8 +65,8 @@
       "celery==5.7.0",
       "cryptography==50.0.2",
       "fastapi==0.162.4",
-      "psycopg[binary]==3.3.8",
-      "pydantic==2.13.4",
+      "psycopg[binary]==3.3.9",
+      "pydantic==2.14.3",
       "pyjwt==2.15.0",
       "sqlalchemy==2.1.2",
       "uvicorn==0.54.0"
@@ -84,7 +84,7 @@
   "expected_distribution_count": 54,
   "expected_constraint_count": 39,
   "expected_direct_root_count": 14,
-  "pydantic_authority": "TECHNOLOGY_BASELINE.yaml validation family 2.13.x, reference_release 2.13.4; direct import introduced aab71a75b5c76453b1b160153ce770321ddf7f85; FastAPI 0.162.4 Requires-Dist pydantic>=2.9.0; no Conda derivation",
+  "pydantic_authority": "TECHNOLOGY_BASELINE.yaml validation family 2.14.x, reference_release 2.14.3 (PR #1071 security remediation); direct import introduced aab71a75b5c76453b1b160153ce770321ddf7f85; FastAPI 0.162.4 Requires-Dist pydantic>=2.9.0; no Conda derivation",
   "python_authority": {
     "record": "evidence/architecture/python-workspace-dependency-graph/supplement-http-runtime-v1/cpython-artifact.json",
     "version": "3.12.13",

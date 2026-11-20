@@ -83,7 +83,7 @@ def verify_project(supplement, old, delta, packages):
     assert proposed['tool']['uv']['constraint-dependencies'] == constraints
     delta_constraints = [r for r in constraints if r.split('==')[0] in delta['additions'] or r.split('==')[0] in delta['replacements']]
     assert (S/'constraints-delta.txt').read_text().splitlines() == delta_constraints == supplement['constraints_delta']
-    assert expected['psycopg-binary'] == expected['psycopg'] == '3.3.8'
+    assert expected['psycopg-binary'] == expected['psycopg'] == '3.3.9'
     assert proposed['project']['requires-python'] == '>=3.12,<3.13'
     assert proposed['tool']['uv']['environments'] == proposed['tool']['uv']['required-environments']
     assert "python_full_version == '3.12.13'" in proposed['tool']['uv']['environments'][0]
