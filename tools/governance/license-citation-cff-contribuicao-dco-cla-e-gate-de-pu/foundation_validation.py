@@ -21,22 +21,23 @@ LICENSE_INVENTORY_PATH = FOUNDATION_ROOT / "license-inventory.json"
 DEPENDENCY_INVENTORY_PATH = FOUNDATION_ROOT / "dependency-inventory.json"
 
 # TASK-0773 authority: historical cb198c9 + approved HTTP supplement de58c48.
-# Exact reviewed inputs and candidate 50784fd; no resolution or network access.
+# Exact inputs include the controlled dependency remediation sourced from PR #1071.
+# Validation performs no resolution or network access.
 PYTHON_GRAPH = "docs/02-architecture/design-reviews/python-workspace-dependency-graph"
 PYTHON_INPUTS = "evidence/architecture/python-workspace-dependency-graph"
 PYTHON_SUPPLEMENT = f"{PYTHON_GRAPH}/supplement-http-runtime-v1/supplement.json"
 APPROVED_PYTHON_DIGESTS = {
     f"{PYTHON_GRAPH}/approved-dependency-graph.yaml":
         "3a935da374f08cd79c4707577d699120c1fcf5fa31614ff978226e20661d756f",
-    PYTHON_SUPPLEMENT: "90060e4bb44e82bb35cf7e32a66d653a876ce365ef8bb7ea136405d5a7198ac5",
+    PYTHON_SUPPLEMENT: "c4afd13d711b808778997ad3433d95d48270e8aec058c4cd64ee13c2fa1e6017",
     f"{PYTHON_INPUTS}/resolution-inputs.json":
         "9d2718f7d3d3838a2d0297003ca84289e4d1ac8a957c9cb2c3a12b30b4fc3326",
     f"{PYTHON_INPUTS}/supplement-http-runtime-v1/resolution-delta.json":
-        "7ad33e284ecd2e5730743f37aae338330a77f3e228d1b2e07e8764e2eda50ead",
+        "85067f353e99fd3014e1d21b5fc6af338c0fd788ecde280fb37c7c97a534a52e",
     f"{PYTHON_INPUTS}/supplement-http-runtime-v1/supplement-pyproject-proposed.toml":
-        "45afa84044f47c12ab6e011e77834d48df327655d9f4d59625f63e9ecaee8a01",
-    "pyproject.toml": "45afa84044f47c12ab6e011e77834d48df327655d9f4d59625f63e9ecaee8a01",
-    "uv.lock": "bd70e02748e7f09b5ca7fd544862f3b7d1deec30365a65c66552795839ce5cf2",
+        "2eb4f9312f44e4c26e944ef2362831bc1179eacaa91f389d4d1e527e8a9b369d",
+    "pyproject.toml": "2eb4f9312f44e4c26e944ef2362831bc1179eacaa91f389d4d1e527e8a9b369d",
+    "uv.lock": "358e964f0babbd33e0769fb56378bc90c710d9f5611c763919e479d22a70efac",
 }
 
 EXPECTED_REQUIREMENTS = [

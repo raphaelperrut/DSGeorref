@@ -38,8 +38,8 @@
   {
     "name": "psycopg",
     "historical_pin": "3.3.6",
-    "current_manifest_pin": "3.3.8",
-    "proposed_workspace_pin": "3.3.8",
+    "current_manifest_pin": "3.3.9",
+    "proposed_workspace_pin": "3.3.9",
     "introduction_commit": "4b161591baa30e18d296916b998a34fb74f29b00",
     "story_issue": "No dedicated Story/Issue asserted for dependency-maintenance commits; linked PR authority recorded in rationale.",
     "applicability": "runtime + validation/test"
