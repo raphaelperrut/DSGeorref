@@ -1,13 +1,13 @@
 schema_version: '1.0.0'
 profile_id: BP-003-throttling-hardware-reference
-version: '2.0.0'
+version: '2.1.0'
 approval_state: PENDING_INDEPENDENT_REVIEW
-definition_sha256: 9e23cf8f5518bbd72125a9eeb8cd411583f02063202525fc09f316b8de40eeac
+definition_sha256: c3600f36866839bf7b1117c32ac1630a17d32e84095c7e88fb8c49a1bb5593a5
 companion:
   path: docs/04-quality/benchmark-profiles/BP-003-throttling-threat-workload.yaml
   profile_id: BP-003-throttling-threat-workload
-  version: '2.0.0'
-  definition_sha256: de604e67869c910c5c149c93d8664a01889e4923c515ecc37bced7481b1945ab
+  version: '2.0.1'
+  definition_sha256: 20f8075330b539fe63b8de7365d792daddb0e6dc9d3cdbabc5d2677eace94aa3
 spec:
   purpose: Reversible execution baseline for TASK-0769 local-session throttling calibration.
   classification: reference_benchmark
@@ -20,7 +20,8 @@ spec:
     deployment: Single installation; API and authoritative PostgreSQL in one reserved Linux target environment.
     minimum_relation: >-
       This resource class admits a reference experiment, not a minimum supported
-      product class. It resolves TASK-0769 execution planning only.
+      product class. The 8 GiB budget applies only to the BP-003 reference execution
+      class and sets no production requirement. It resolves TASK-0769 execution planning only.
       BP-003 production promotion on minimum supported hardware remains unsatisfied;
       results cannot establish minimum supported hardware, general throughput or
       capacity, CPU equivalence, performance comparisons between CPU models or production SLOs.
@@ -51,11 +52,11 @@ spec:
       Apply and freeze useful binding when available; otherwise record not_applicable
       with the environment's reason. NUMA control is not mandatory in environments without useful exposure.
   ram:
-    target_available_or_reservable_bytes_min: 17179869184
-    reference_target_reserved_bytes: 17179869184
-    api_cgroup_max_bytes: 4294967296
-    postgresql_cgroup_max_bytes: 8589934592
-    os_and_measurement_reserve_bytes: 4294967296
+    target_available_or_reservable_bytes_min: 8589934592
+    reference_target_reserved_bytes: 8589934592
+    api_cgroup_max_bytes: 2147483648
+    postgresql_cgroup_max_bytes: 4294967296
+    os_and_measurement_reserve_bytes: 2147483648
     swap: >-
       Configured swap is allowed; no material target paging/swap during measured
       windows. Conservatively treat any target-attributable swap-in/out or growth
@@ -64,7 +65,7 @@ spec:
       If attribution is unavailable, require zero environment swap-in/out and zero
       swap-usage growth; missing telemetry is inconclusive/fail. OOM/allocation failure rejects the candidate.
     reservation: >-
-      API limit <= 4 GiB, PostgreSQL limit <= 8 GiB, with 4 GiB reserved for OS/measurement.
+      API limit <= 2 GiB, PostgreSQL limit <= 4 GiB, with 2 GiB reserved for OS/measurement.
       Record effective cgroup v2 limits/reservations and available backing memory;
       no overcommit undermining the reservation. More host RAM does not enlarge the
       reference limits. Generator memory must be outside this reserved allocation.
@@ -111,7 +112,7 @@ spec:
     load_generator: >-
       Separate execution domain, not necessarily a second physical host: separate
       host/VM or demonstrably isolated cgroup/cpuset/reservation outside the target's
-      four execution CPUs and 16 GiB. Generator must not consume API/PostgreSQL
+      four execution CPUs and 8 GiB. Generator must not consume API/PostgreSQL
       reserved allocation. Record generator CPU/RAM/I/O limits, effective placement,
       host/guest environment, version/clock and transport fingerprint. Material
       generator CPU/RAM/I/O interference invalidates the repetition; missing
@@ -149,7 +150,7 @@ spec:
   unsupported_conditions:
     - Non-x86_64 or non-Intel/AMD CPU, fewer than four available execution CPUs, GPU use or unproven target reservation.
     - Intentional competing workloads, material CPU/RAM/I/O interference or missing evidence excluding interference.
-    - Less than 16 GiB available/reservable, violated reference limits/reserves, material paging/swap, OOM or incompatible overcommit.
+    - Less than 8 GiB available/reservable, violated reference limits/reserves, material paging/swap, OOM or incompatible overcommit.
     - Network filesystem, RAM disk, unproven backing/durability, full filesystem or changed device/settings between repetitions.
     - Multi-target application/database, production traffic or concurrent raster/AI/worker jobs competing with the target.
     - Missing immutable runtime bindings or fingerprint drift between repetitions.
